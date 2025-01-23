@@ -64,7 +64,7 @@ class ArithmeticDataset:
         else:
             expression, result = self._generate_simple_task(item_rng, num_terms, num_digits)
 
-        question = self._format_question(expression, item_rng)
+        question = self._format_question(item_rng, expression)
 
         return {
             "question": question,
@@ -156,7 +156,7 @@ class ArithmeticDataset:
         self._current_idx += 1
         return item
 
-    def _format_question(self, expression: str, rng: Random) -> str:
+    def _format_question(self, rng: Random, expression: str) -> str:
         """Format the expression according to config style"""
         if self.config.format_style == "simple":
             return f"{expression} ="
