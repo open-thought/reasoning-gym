@@ -83,8 +83,11 @@ class BaseConversionDataset:
         source_name = self._format_base_name(source_base)
         target_name = self._format_base_name(target_base)
         
+        # Add hint for bases > 10 about using lowercase letters
+        hint = " (use lowercase letters a-z for digits above 9)" if target_base > 10 else ""
+        
         return {
-            "question": f"Convert the {source_name} number {source_repr} to {target_name}",
+            "question": f"Convert the {source_name} number {source_repr} to {target_name}{hint}",
             "answer": target_repr,
             "metadata": {
                 "decimal_value": value,
