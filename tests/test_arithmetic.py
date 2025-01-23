@@ -70,3 +70,29 @@ def test_arithmetic_dataset_format_styles():
     config.format_style = "natural"
     dataset = ArithmeticDataset(config)
     assert all("=" not in item["question"] for item in dataset)
+
+
+def test_arithmetic_dataset_iteration():
+    """Test that iteration respects dataset size"""
+    config = ArithmeticDatasetConfig(
+        min_terms=2,
+        max_terms=2,
+        size=5,  # Small size for testing
+        seed=42
+    )
+    dataset = ArithmeticDataset(config)
+    
+    # Test manual iteration
+    items = []
+    for item in dataset:
+        items.append(item)
+    assert len(items) == config.size, "Iterator should yield exactly size items"
+    
+    # Test list conversion
+    items = list(dataset)
+    assert len(items) == config.size, "Iterator should yield exactly size items"
+    
+    # Test multiple iterations
+    first_items = list(dataset)
+    second_items = list(dataset)
+    assert first_items == second_items, "Multiple iterations should yield same items"
