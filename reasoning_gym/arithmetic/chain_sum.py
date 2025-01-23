@@ -72,6 +72,19 @@ class ChainSum:
             }
         }
 
+    def __iter__(self):
+        """Make the dataset iterable"""
+        self._current_idx = 0
+        return self
+        
+    def __next__(self):
+        """Get next item in iteration"""
+        if self._current_idx >= self.config.size:
+            raise StopIteration
+        item = self[self._current_idx]
+        self._current_idx += 1
+        return item
+
     def _generate_task(self, rng: random.Random, num_terms: int, min_value: int, max_value: int) -> tuple[str, int]:
         """Generate a chain sum task
         

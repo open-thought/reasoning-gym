@@ -125,3 +125,29 @@ def test_chain_sum_negation():
                 
     # With enough samples and allow_negation=True, we should see both positive and negative numbers
     assert has_positive and has_negative, "Expected both positive and negative numbers with allow_negation=True"
+
+
+def test_chain_sum_iteration():
+    """Test that iteration respects dataset size"""
+    config = ChainSumConfig(
+        min_terms=2,
+        max_terms=2,
+        size=5,  # Small size for testing
+        seed=42
+    )
+    dataset = ChainSum(config)
+    
+    # Test manual iteration
+    items = []
+    for item in dataset:
+        items.append(item)
+    assert len(items) == config.size, "Iterator should yield exactly size items"
+    
+    # Test list conversion
+    items = list(dataset)
+    assert len(items) == config.size, "Iterator should yield exactly size items"
+    
+    # Test multiple iterations
+    first_items = list(dataset)
+    second_items = list(dataset)
+    assert first_items == second_items, "Multiple iterations should yield same items"
