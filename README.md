@@ -29,7 +29,7 @@ for item in dataset:
 ```
 
 Example output:
-```json
+```
 {'question': '4 + 3 =', 'answer': '7', 'metadata': {'num_terms': 2, 'num_digits': 1, 'expression': '4 + 3'}}
 {'question': '812 + 880 =', 'answer': '1692', 'metadata': {'num_terms': 2, 'num_digits': 3, 'expression': '812 + 880'}}
 {'question': '2 + 6 + 3 + 4 + 0 =', 'answer': '15', 'metadata': {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}}
