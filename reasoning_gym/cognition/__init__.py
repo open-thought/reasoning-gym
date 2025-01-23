@@ -1,9 +1,11 @@
 """
- Cognition tasks for training reasoning capabilities:
- - Pattern recognition
- - Sequence completion
- - Logical reasoning
- - Working memory
- """
+Cognition tasks for training reasoning capabilities:
+- Pattern recognition
+- Sequence completion
+- Logical reasoning
+- Working memory
+"""
 
-__all__ = []
+from .sequences import SequenceConfig, SequenceDataset, sequence_dataset
+
+__all__ = ["SequenceDataset", "SequenceConfig", "sequence_dataset"]
