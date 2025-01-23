@@ -7,7 +7,7 @@ Algorithmic tasks for training reasoning capabilities:
 """
 
 from reasoning_gym.arithmetic.basic_arithmetic import arithmetic_dataset
-from reasoning_gym.arithmetic.chain_sum import chain_sum
+from reasoning_gym.arithmetic.chain_sum import chain_sum_dataset
 from .base_conversion import BaseConversionConfig, BaseConversionDataset, base_conversion_dataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset, letter_counting_dataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset, number_filtering_dataset
@@ -18,7 +18,7 @@ __all__ = [
     "BaseConversionConfig",
     "BaseConversionDataset",
     "base_conversion_dataset",
-    "chain_sum",
+    "chain_sum_dataset",
     "LetterCountingConfig", 
     "LetterCountingDataset", 
     "letter_counting_dataset",

@@ -7,7 +7,7 @@ Arithmetic tasks for training reasoning capabilities:
 """
 
 from .basic_arithmetic import ArithmeticDataset, ArithmeticDatasetConfig, arithmetic_dataset
-from .chain_sum import ChainSum, ChainSumConfig, chain_sum
+from .chain_sum import ChainSum, ChainSumConfig, chain_sum_dataset
 from .leg_counting import LegCountingConfig, LegCountingDataset, leg_counting_dataset
 
 __all__ = [
@@ -16,7 +16,7 @@ __all__ = [
     "arithmetic_dataset",
     "ChainSum",
     "ChainSumConfig",
-    "chain_sum",
+    "chain_sum_dataset",
     "LegCountingConfig",
     "LegCountingDataset",
     "leg_counting_dataset"

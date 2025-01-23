@@ -125,7 +125,7 @@ class ChainSum:
         return expression, result
 
 
-def chain_sum(
+def chain_sum_dataset(
     min_terms: int = 2,
     max_terms: int = 6,
     min_digits: int = 1,
