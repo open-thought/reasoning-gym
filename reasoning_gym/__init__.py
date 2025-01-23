@@ -6,7 +6,8 @@ from . import arithmetic
 from . import algorithmic
 from . import cognition
 from . import data
+from . import games
 from . import logic
 
 __version__ = "0.1.0"
-__all__ = ["arithmetic", "algorithmic", "cognition", "data", "logic"]
+__all__ = ["arithmetic", "algorithmic", "cognition", "data", "games", "logic"]
