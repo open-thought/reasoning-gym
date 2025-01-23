@@ -32,7 +32,8 @@ class ChainSum:
     def __init__(self, config: ChainSumConfig):
         self.config = config
         self.config.validate()
-        self.rng = Random(config.seed)
+        # Generate base seed if none provided
+        self.seed = config.seed if config.seed is not None else Random().randint(0, 2**32)
         
     def __len__(self) -> int:
         return self.config.size
@@ -49,8 +50,8 @@ class ChainSum:
                 - answer: str, the ground truth result
                 - metadata: dict with generation parameters
         """
-        # Use seed derived from idx for deterministic generation
-        item_rng = Random(self.rng.randint(0, 2**32) + idx)
+        # Create deterministic RNG directly from base seed and idx
+        item_rng = Random(self.seed + idx)
         
         num_terms = item_rng.randint(self.config.min_terms, self.config.max_terms)
         num_digits = item_rng.randint(self.config.min_digits, self.config.max_digits)
