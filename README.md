@@ -4,6 +4,24 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
+### Task Overview
+
+#### Arithmetic Tasks
+- `ArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, *)
+- `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
+- `LegCountingDataset`: Generate animal leg counting word problems with various animals
+
+#### Algorithmic Tasks
+- `BaseConversionDataset`: Convert numbers between different bases (binary, hex, etc.)
+- `LetterCountingDataset`: Count letter occurrences in text spans
+- `NumberFilteringDataset`: Filter numbers based on comparison with threshold
+- `WordReversalDataset`: Reverse word order in text spans
+
+#### Cognition Tasks
+- `SequenceDataset`: Generate number sequences with discoverable patterns
+
+#### Logic Tasks
+- `PropositionalLogicDataset`: Generate propositional logic reasoning problems
 
 ### Available Generators
 
