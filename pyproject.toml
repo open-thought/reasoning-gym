@@ -21,6 +21,14 @@ classifiers = [
 "Homepage" = "https://github.com/open-thought/reasoning-gym"
 "Bug Tracker" = "https://github.com/open-thought/reasoning-gym/issues"
 
+[tool.hatch.build.targets.wheel]
+packages = ["reasoning_gym"]
+
+[tool.hatch.build]
+include = [
+  "reasoning_gym/**/*.txt",
+]
+
 [tool.black]
 line-length = 120
 target-version = ['py312']
