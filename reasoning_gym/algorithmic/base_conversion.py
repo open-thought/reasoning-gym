@@ -73,12 +73,12 @@ class BaseConversionDataset:
         # Convert decimal to source base representation
         source_repr = format(value, f'x' if source_base == 16 else f'b' if source_base == 2 else '').strip()
         if source_base not in (2, 16):
-            source_repr = format(value, f'{source_base}x').rstrip('L').lower().strip()
+            source_repr = format(value, f'{source_base}x').lower().strip()
             
         # Convert decimal to target base for answer
         target_repr = format(value, f'x' if target_base == 16 else f'b' if target_base == 2 else '').strip()
         if target_base not in (2, 16):
-            target_repr = format(value, f'{target_base}x').rstrip('L').lower().strip()
+            target_repr = format(value, f'{target_base}x').lower().strip()
         
         source_name = self._format_base_name(source_base)
         target_name = self._format_base_name(target_base)
