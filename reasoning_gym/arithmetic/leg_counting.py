@@ -4,29 +4,34 @@ from random import Random
 from typing import Dict, List, Optional, Tuple
 
 ANIMALS = {
-    "spider": 8,
-    "insect": 6,
-    "dog": 4,
-    "chicken": 2,
+    # Animals with 0 legs
     "snake": 0,
-    "cat": 4,
-    "bird": 2,
-    "cow": 4,
-    "ant": 6,
-    "scorpion": 8,
-    "human": 2,
-    "horse": 4,
-    "duck": 2,
-    "butterfly": 6,
-    "centipede": 100,
-    # Additional animals with 0 legs
     "sea slug": 0,
     "jellyfish": 0,
     "flatworm": 0,
     "leech": 0,
+    # Animals with 2 legs
+    "chicken": 2,
+    "bird": 2,
+    "human": 2,
+    "duck": 2,
+    # Animals with 4 legs
+    "dog": 4,
+    "cat": 4,
+    "cow": 4,
+    "horse": 4,
+    "lion": 4,
+    "elephant": 4,
+    "giraffe": 4,
+    "tiger": 4,
+    "deer": 4,
+    "sheep": 4,
     # Animals with 5 legs
     "starfish": 5,
     # Animals with 6 legs
+    "insect": 6,
+    "ant": 6,
+    "butterfly": 6,
     "beetle": 6,
     "bee": 6,
     "wasp": 6,
@@ -35,19 +40,17 @@ ANIMALS = {
     "cockroach": 6,
     "praying mantis": 6,
     "firefly": 6,
-    # Animals with 4 legs
-    "lion": 4,
-    "elephant": 4,
-    "giraffe": 4,
-    "tiger": 4,
-    "deer": 4,
-    "sheep": 4,
+    # Animals with 8 legs
+    "spider": 8,
+    "scorpion": 8,
     # Animals with 10 legs
     "crab": 10,
     "lobster": 10,
     "shrimp": 10,
     # Animals with 14 legs
     "woodlouse": 14,
+    # Animals with 100 legs
+    "centipede": 100,
 }
 
 @dataclass
