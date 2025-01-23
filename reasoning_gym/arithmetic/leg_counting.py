@@ -49,8 +49,6 @@ ANIMALS = {
     "shrimp": 10,
     # Animals with 14 legs
     "woodlouse": 14,
-    # Animals with 100 legs
-    "centipede": 100,
 }
 
 @dataclass
