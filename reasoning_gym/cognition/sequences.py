@@ -64,10 +64,10 @@ class PatternRule:
                 if position > 0:
                     result += sequence[position - 1]
             elif op == Operation.COMPOSE:
-                # Apply each subrule in sequence
-                temp_sequence = sequence[:position + 1]
-                temp_sequence[-1] = result  # Use current result as input
+                # Apply each subrule in sequence, passing the result through
                 for subrule in self.subrules:
+                    temp_sequence = sequence[:position + 1]
+                    temp_sequence[-1] = result  # Use current result as input
                     result = subrule.apply(temp_sequence, position)
 
         return result
