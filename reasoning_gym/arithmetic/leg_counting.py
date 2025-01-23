@@ -26,6 +26,22 @@ ANIMALS = {
     "leech": 0,
     # Animals with 5 legs
     "starfish": 5,
+    # Animals with 6 legs
+    "beetle": 6,
+    "bee": 6,
+    "wasp": 6,
+    "grasshopper": 6,
+    "cricket": 6,
+    "cockroach": 6,
+    "praying mantis": 6,
+    "firefly": 6,
+    # Animals with 4 legs
+    "lion": 4,
+    "elephant": 4,
+    "giraffe": 4,
+    "tiger": 4,
+    "deer": 4,
+    "sheep": 4,
     # Animals with 10 legs
     "crab": 10,
     "lobster": 10,
