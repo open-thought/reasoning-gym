@@ -30,7 +30,8 @@ class LetterCountingDataset:
         
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
-        self.words = [word for word in re.findall(r'\b\w+\b', text)]
+        # Extract words and clean them to contain only alphanumeric characters
+        self.words = [word for word in re.findall(r'\b\w+\b', text) if word.isalnum()]
 
     def __len__(self) -> int:
         return self.config.size
