@@ -19,6 +19,19 @@ ANIMALS = {
     "duck": 2,
     "butterfly": 6,
     "centipede": 100,
+    # Additional animals with 0 legs
+    "sea slug": 0,
+    "jellyfish": 0,
+    "flatworm": 0,
+    "leech": 0,
+    # Animals with 5 legs
+    "starfish": 5,
+    # Animals with 10 legs
+    "crab": 10,
+    "lobster": 10,
+    "shrimp": 10,
+    # Animals with 14 legs
+    "woodlouse": 14,
 }
 
 @dataclass
