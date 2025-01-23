@@ -57,7 +57,7 @@ class ChainSum:
         num_digits = item_rng.randint(self.config.min_digits, self.config.max_digits)
         
         # Calculate value ranges based on number of digits
-        min_value = 10 ** (num_digits - 1)  # e.g., 100 for 3 digits
+        min_value = 0 if num_digits == 1 else 10 ** (num_digits - 1)  # Special case for 1 digit
         max_value = (10 ** num_digits) - 1   # e.g., 999 for 3 digits
         
         expression, result = self._generate_task(item_rng, num_terms, min_value, max_value)
