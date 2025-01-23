@@ -6,14 +6,14 @@ build-backend = "hatchling.build"
 name = "reasoning_gym"
 version = "0.1.0"
 authors = [
-  { name="GPU Mode Community", email="info@gpumode.com" },
+  { name="Open-Thought community", email="andreas.koepf@xamla.com" },
 ]
 description = "A library of procedural dataset generators for training reasoning models"
 readme = "README.md"
 requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
 
