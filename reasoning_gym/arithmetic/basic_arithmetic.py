@@ -64,7 +64,7 @@ class ArithmeticDataset:
         else:
             expression, result = self._generate_simple_task(item_rng, num_terms, num_digits)
 
-        question = self._format_question(expression)
+        question = self._format_question(expression, item_rng)
 
         return {
             "question": question,
@@ -156,15 +156,13 @@ class ArithmeticDataset:
         self._current_idx += 1
         return item
 
-    def _format_question(self, expression: str) -> str:
+    def _format_question(self, expression: str, rng: Random) -> str:
         """Format the expression according to config style"""
         if self.config.format_style == "simple":
             return f"{expression} ="
         else:
             templates = ["What is {0}?", "Calculate {0}", "Solve {0}", "Evaluate the expression: {0}"]
-            # Use deterministic RNG for template selection
-            template_rng = Random(self.seed)
-            return template_rng.choice(templates).format(expression)
+            return rng.choice(templates).format(expression)
 
 
 def arithmetic_dataset(
