@@ -14,7 +14,7 @@ class ArithmeticDatasetConfig:
     allow_parentheses: bool = True
     allow_negation: bool = True
     seed: Optional[int] = None
-    size: int = 10000  # Virtual dataset size
+    size: int = 500  # Virtual dataset size
     format_style: Literal["simple", "natural"] = "simple"
 
     def validate(self):
@@ -102,14 +102,14 @@ class ArithmeticDataset:
 
         add_terms(num_terms)
 
-        # Add random spaces
+        # Add at most one random space between parts
         space_parts = []
         for p in parts:
-            while rng.random() < 0.15:
+            if rng.random() < 0.15:
                 space_parts.append(" ")
             space_parts.append(p)
 
-        expression = " ".join(space_parts)
+        expression = " ".join(space_parts).strip()
         result = eval(expression)  # Note: eval is safe here as we control the input
 
         return expression, result

@@ -58,7 +58,11 @@ def test_arithmetic_dataset_format_styles():
     config = ArithmeticDatasetConfig(
         size=10,
         seed=42,
-        format_style="simple"
+        format_style="simple",
+        min_terms=2,
+        max_terms=3,  # Keep expressions simple for testing
+        min_digits=1,
+        max_digits=2
     )
     dataset = ArithmeticDataset(config)
     assert all(item["question"].endswith("=") for item in dataset)
