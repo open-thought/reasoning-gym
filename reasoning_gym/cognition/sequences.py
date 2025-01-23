@@ -46,7 +46,7 @@ class PatternRule:
 
     def apply(self, sequence: List[int], position: int) -> int:
         """Apply the rule to generate the next number"""
-        result = sequence[position - 1]  # Start with previous number
+        result = sequence[position]  # Start with current number
 
         for op, param in zip(self.operations, self.parameters):
             if op == Operation.ADD:
@@ -60,8 +60,8 @@ class PatternRule:
             elif op == Operation.HALF:
                 result //= 2  # Integer division
             elif op == Operation.PREV_PLUS:
-                if position > 1:
-                    result += sequence[position - 2]
+                if position > 0:
+                    result += sequence[position - 1]
 
         return result
 
@@ -180,7 +180,7 @@ class SequenceDataset:
 
             # Generate remaining terms
             try:
-                for i in range(1, num_terms + 1):  # +1 for answer
+                for i in range(num_terms):  # Generate terms
                     next_term = rule.apply(sequence, i)
                     sequence.append(next_term)
 
