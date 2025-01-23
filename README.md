@@ -9,43 +9,32 @@ The goal is to generate virtually infinite data with adjustable complexity.
 ```python
 from reasoning_gym.arithmetic import ChainSum, ChainSumConfig
 
-# Configure a simple arithmetic task generator
+# configure a simple arithmetic task generator
 config = ChainSumConfig(
-    min_terms=2,          # At least 2 numbers per expression
-    max_terms=4,          # At most 4 numbers per expression
-    min_digits=1,         # Single digit numbers
-    max_digits=2,         # Up to 2-digit numbers
+    min_terms=2,
+    max_terms=6,
+    min_digits=1,
+    max_digits=4,
     allow_negation=False, # Only positive numbers
-    size=5,              # Generate 5 examples
-    seed=42              # For reproducibility
+    size=5,               # virtual size of dataset
+    seed=42               # deterministic results
 )
 
-# Create the dataset
+# create the dataset
 dataset = ChainSum(config)
 
-# Generate some examples
-for i in range(len(dataset)):
-    item = dataset[i]
-    print(f"Question: {item['question']}")
-    print(f"Answer: {item['answer']}\n")
+# print some examples
+for item in dataset:
+    print(item)
 ```
 
 Example output:
-```
-Question: 7 + 42 - 15 =
-Answer: 34
-
-Question: 91 - 8 =
-Answer: 83
-
-Question: 4 + 67 - 12 =
-Answer: 59
-
-Question: 28 + 35 =
-Answer: 63
-
-Question: 51 - 24 + 7 =
-Answer: 34
+```json
+{'question': '4 + 3 =', 'answer': '7', 'metadata': {'num_terms': 2, 'num_digits': 1, 'expression': '4 + 3'}}
+{'question': '812 + 880 =', 'answer': '1692', 'metadata': {'num_terms': 2, 'num_digits': 3, 'expression': '812 + 880'}}
+{'question': '2 + 6 + 3 + 4 + 0 =', 'answer': '15', 'metadata': {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}}
+{'question': '8995 - 5221 + 2341 + 5967 =', 'answer': '12082', 'metadata': {'num_terms': 4, 'num_digits': 4, 'expression': '8995 - 5221 + 2341 + 5967'}}
+{'question': '1654 + 4744 =', 'answer': '6398', 'metadata': {'num_terms': 2, 'num_digits': 4, 'expression': '1654 + 4744'}}
 ```
 
 
