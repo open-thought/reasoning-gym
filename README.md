@@ -56,13 +56,18 @@ for item in dataset:
     print(item)
 ```
 
-Example output:
+Example data:
 ```
-{'question': '-1 + -2 =', 'answer': '-3', 'metadata': {'num_terms': 2, 'num_digits': 1, 'expression': '-1 + -2'}}
-{'question': '426 + 562 =', 'answer': '988', 'metadata': {'num_terms': 2, 'num_digits': 3, 'expression': '426 + 562'}}
-{'question': '-4 + 3 + -2 + 0 + -9 =', 'answer': '-12', 'metadata': {'num_terms': 5, 'num_digits': 1, 'expression': '-4 + 3 + -2 + 0 + -9'}}
-{'question': '5992 - -1556 + -7316 + -65 =', 'answer': '167', 'metadata': {'num_terms': 4, 'num_digits': 4, 'expression': '5992 - -1556 + -7316 + -65'}}
-{'question': '-8690 + 9288 =', 'answer': '598', 'metadata': {'num_terms': 2, 'num_digits': 4, 'expression': '-8690 + 9288'}}
+{
+    "question": "426 + 562 =",
+    "answer": "988",
+    "metadata": { "num_terms": 2, "num_digits": 3, "expression": "426 + 562" },
+}
+{
+    "question": "426 + 562 =",
+    "answer": "988",
+    "metadata": { "num_terms": 2, "num_digits": 3, "expression": "426 + 562" }
+}
 ```
 
 #### Sequence Completion
@@ -85,13 +90,56 @@ for item in dataset:
     print(item)
 ```
 
-Example output:
+Example data:
 ```
-{'question': '3, 6, 12, 24, 48, 96, 192, 384, ?', 'answer': '768', 'metadata': {'rule': 'double', 'complexity': 3, 'sequence': [3, 6, 12, 24, 48, 96, 192, 384, 768]}}
-{'question': '8, 14, 20, 26, 32, 38, 44, ?', 'answer': '50', 'metadata': {'rule': 'add 6', 'complexity': 1, 'sequence': [8, 14, 20, 26, 32, 38, 44, 50]}}
-{'question': '8, 4, 2, 1, 0, 0, 0, ?', 'answer': '0', 'metadata': {'rule': 'halve', 'complexity': 2, 'sequence': [8, 4, 2, 1, 0, 0, 0, 0]}}
-{'question': '-6, 15, -6, 15, ?', 'answer': '-6', 'metadata': {'rule': 'multiply by -1 then add 9', 'complexity': 2, 'sequence': [-6, 15, -6, 15, -6]}}
-{'question': '10, 2, -6, -14, -22, -30, ?', 'answer': '-38', 'metadata': {'rule': 'add -8', 'complexity': 1, 'sequence': [10, 2, -6, -14, -22, -30, -38]}}
+{
+    "question": "3, 6, 12, 24, 48, 96, 192, 384, ?",
+    "answer": "768",
+    "metadata": {"rule": "double", "complexity": 3, "sequence": [3, 6, 12, 24, 48, 96, 192, 384, 768]},
+}
+{
+    "question": "8, 14, 20, 26, 32, 38, 44, ?",
+    "answer": "50",
+    "metadata": {"rule": "add 6", "complexity": 1, "sequence": [8, 14, 20, 26, 32, 38, 44, 50]},
+}
+```
+
+#### Propositional Logic
+Generates logical reasoning tasks with configurable complexity:
+```python
+from reasoning_gym.logic import PropositionalLogicDataset, PropositionalLogicConfig
+
+config = PropositionalLogicConfig(
+    min_vars=2,         # Minimum number of variables
+    max_vars=4,         # Maximum number of variables
+    min_statements=2,   # Minimum number of given statements
+    max_statements=4,   # Maximum number of statements
+    max_complexity=3,   # Maximum operator depth
+    size=5,            # Number of problems to generate
+    seed=42            # For reproducibility
+)
+
+dataset = PropositionalLogicDataset(config)
+for item in dataset:
+    print(item)
+```
+
+Example data:
+```
+{
+    "question": "Given:\n1. R\n2. Q\nWhat can we conclude?",
+    "answer": "(P ∨ Q)",
+    "metadata": {"premises": ["R", "Q"], "variables": ["P", "Q", "R", "S"], "complexity": 3},
+}
+{
+    "question": "Given:\n1. ((Q → P) ∨ (Q → P))\n2. ((Q ↔ Q) → (P → P))\n3. P\nWhat can we conclude?",
+    "answer": "(P → P)",
+    "metadata": {
+        "premises": ["((Q → P) ∨ (Q → P))", "((Q ↔ Q) → (P → P))", "P"],
+        "variables": ["P", "Q"],
+        "complexity": 3,
+    },
+}
 ```
 
 ### Future Generator Ideas
