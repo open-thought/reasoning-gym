@@ -46,7 +46,7 @@ class PatternRule:
 
     def apply(self, sequence: List[int], position: int) -> int:
         """Apply the rule to generate the next number"""
-        result = sequence[position]  # Start with current number
+        result = sequence[position - 1]  # Start with previous number
 
         for op, param in zip(self.operations, self.parameters):
             if op == Operation.ADD:
