@@ -16,6 +16,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 - `BaseConversionDataset`: Convert numbers between different bases (binary, hex, etc.)
 - `LetterCountingDataset`: Count letter occurrences in text spans
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
+- `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
 - `WordReversalDataset`: Reverse word order in text spans
 
 #### Cognition Tasks
