@@ -83,7 +83,12 @@ class ChainSum:
         min_value = 10 ** (num_digits - 1)  # e.g., 100 for 3 digits
         max_value = (10 ** num_digits) - 1   # e.g., 999 for 3 digits
         
-        constants = [rng.randint(min_value, max_value) for _ in range(num_terms)]
+        if self.config.allow_negation:
+            # Allow both positive and negative numbers in the range
+            constants = [rng.randint(-max_value, max_value) for _ in range(num_terms)]
+        else:
+            # Only positive numbers
+            constants = [rng.randint(min_value, max_value) for _ in range(num_terms)]
         operators = [rng.choice(["+", "-"]) for _ in range(num_terms - 1)]
 
         # Build expression and compute result

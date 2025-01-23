@@ -72,4 +72,38 @@ def test_chain_sum_number_ranges():
         
         # Verify each number is in the correct range
         for num in numbers:
-            assert 100 <= num <= 999, f"Number {num} outside valid range for 3 digits"
+            if config.allow_negation:
+                assert -999 <= num <= 999, f"Number {num} outside valid range for 3 digits"
+            else:
+                assert 100 <= num <= 999, f"Number {num} outside valid range for 3 digits"
+
+def test_chain_sum_negation():
+    """Test that allow_negation controls number ranges"""
+    config = ChainSumConfig(
+        min_terms=2,
+        max_terms=2,
+        min_digits=2,
+        max_digits=2,
+        size=100,
+        seed=42,
+        allow_negation=True
+    )
+    dataset = ChainSum(config)
+    
+    # Track if we see both positive and negative numbers
+    has_positive = False
+    has_negative = False
+    
+    for i in range(len(dataset)):
+        item = dataset[i]
+        expression = item["metadata"]["expression"]
+        numbers = [int(n) for n in expression.split() if n.isdigit() or (n.startswith('-') and n[1:].isdigit())]
+        
+        for num in numbers:
+            if num > 0:
+                has_positive = True
+            if num < 0:
+                has_negative = True
+                
+    # With enough samples and allow_negation=True, we should see both positive and negative numbers
+    assert has_positive and has_negative, "Expected both positive and negative numbers with allow_negation=True"
