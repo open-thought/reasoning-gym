@@ -20,3 +20,13 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/open-thought/reasoning-gym"
 "Bug Tracker" = "https://github.com/open-thought/reasoning-gym/issues"
+
+[tool.black]
+line-length = 120
+target-version = ['py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 120
