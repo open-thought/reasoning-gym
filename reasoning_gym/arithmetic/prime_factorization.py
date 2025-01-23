@@ -68,8 +68,8 @@ class PrimeFactorizationDataset:
         answer = " × ".join(map(str, factors))
         
         return {
-            "question": (f"Find the prime factorization of {number}. "
-                       f"(Example: 12 = 2 × 2 × 3)"),
+            "question": (f"Find the prime factorization of {number}. Write the factors separated by × "
+                       f"(Example: for 12 the answer would be: 2 × 2 × 3)"),
             "answer": answer,
             "metadata": {
                 "number": number,
