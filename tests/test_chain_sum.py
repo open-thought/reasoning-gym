@@ -74,30 +74,6 @@ def test_chain_sum_number_ranges():
             else:
                 assert 100 <= num <= 999, f"Number {num} outside valid range for 3 digits"
 
-    # Test 1-digit numbers
-    config = ChainSumConfig(
-        min_terms=2,
-        max_terms=2,
-        min_digits=1,
-        max_digits=1,
-        size=50,
-        seed=42
-    )
-    dataset = ChainSum(config)
-    
-    for i in range(len(dataset)):
-        item = dataset[i]
-        expression = item["metadata"]["expression"]
-        
-        # Extract numbers from expression
-        numbers = [int(n) for n in expression.split() if n.isdigit()]
-        
-        # Verify each number is in the correct range
-        for num in numbers:
-            if config.allow_negation:
-                assert -999 <= num <= 999, f"Number {num} outside valid range for 3 digits"
-            else:
-                assert 100 <= num <= 999, f"Number {num} outside valid range for 3 digits"
 
     # Test 1-digit numbers
     config = ChainSumConfig(
