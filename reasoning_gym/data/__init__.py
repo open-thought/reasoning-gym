@@ -18,8 +18,7 @@ def get_data_file_path(filename: str) -> Path:
         >>> with open(path) as f:
         ...     content = f.read()
     """
-    with resources.path('reasoning_gym.data', filename) as data_path:
-        return data_path
+    return resources.files('reasoning_gym.data').joinpath(filename)
 
 def read_data_file(filename: str) -> str:
     """Read the contents of a data file in the package.
@@ -33,7 +32,6 @@ def read_data_file(filename: str) -> str:
     Example:
         >>> content = read_data_file("pg19362.txt")
     """
-    with resources.open_text('reasoning_gym.data', filename) as f:
-        return f.read()
+    return resources.files('reasoning_gym.data').joinpath(filename).read_text()
 
 __all__ = ['get_data_file_path', 'read_data_file']
