@@ -85,19 +85,29 @@ class MiniSudokuDataset:
         """Generate a complete solved mini sudoku board"""
         board = [[0] * 4 for _ in range(4)]
         
-        # Fill diagonal boxes first (they are independent)
-        for i in range(0, 4, 2):
-            nums = list(range(1, 5))
-            rng.shuffle(nums)
-            pos = 0
-            for r in range(i, i + 2):
-                for c in range(i, i + 2):
-                    board[r][c] = nums[pos]
-                    pos += 1
-        
-        # Solve the rest
-        self._solve(board)
-        return board
+        # Try multiple times to generate a valid board
+        max_attempts = 100
+        for _ in range(max_attempts):
+            # Start fresh
+            for i in range(4):
+                for j in range(4):
+                    board[i][j] = 0
+                    
+            # Fill diagonal boxes first (they are independent)
+            for i in range(0, 4, 2):
+                nums = list(range(1, 5))
+                rng.shuffle(nums)
+                pos = 0
+                for r in range(i, i + 2):
+                    for c in range(i, i + 2):
+                        board[r][c] = nums[pos]
+                        pos += 1
+            
+            # Try to solve the rest
+            if self._solve(board):
+                return board
+                
+        raise RuntimeError("Failed to generate valid mini sudoku board")
 
     def _create_puzzle(self, solved_board: List[List[int]], num_empty: int, rng: Random) -> List[List[int]]:
         """Create puzzle by removing numbers from solved board"""
