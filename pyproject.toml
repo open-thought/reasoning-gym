@@ -18,5 +18,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/gpumode/reasoning_gym"
-"Bug Tracker" = "https://github.com/gpumode/reasoning_gym/issues"
+"Homepage" = "https://github.com/open-thought/reasoning-gym"
+"Bug Tracker" = "https://github.com/open-thought/reasoning-gym/issues"
