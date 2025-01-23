@@ -23,10 +23,16 @@ def test_pattern_rule():
     # Test simple addition
     rule = PatternRule([Operation.ADD], [2])
     assert rule.apply([1, 3], 1) == 5
-
+    
     # Test composition
     rule = PatternRule([Operation.DOUBLE, Operation.ADD], [0, 3])
     assert rule.apply([1, 4], 1) == 11  # (4 * 2) + 3
+
+    # Test rule composition
+    rule1 = PatternRule([Operation.DOUBLE], [0])  # Double the number
+    rule2 = PatternRule([Operation.ADD], [3])     # Add 3
+    composed = PatternRule.compose([rule1, rule2])
+    assert composed.apply([1, 4], 1) == 11  # (4 * 2) + 3
 
 
 def test_sequence_dataset_deterministic():

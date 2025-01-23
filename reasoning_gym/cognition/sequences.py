@@ -40,9 +40,10 @@ class SequenceConfig:
 class PatternRule:
     """Represents a composable sequence pattern rule"""
 
-    def __init__(self, operations: List[Operation], parameters: List[int]):
+    def __init__(self, operations: List[Operation], parameters: List[int], subrules: List['PatternRule'] = None):
         self.operations = operations
         self.parameters = parameters
+        self.subrules = subrules or []
 
     def apply(self, sequence: List[int], position: int) -> int:
         """Apply the rule to generate the next number"""
@@ -62,8 +63,19 @@ class PatternRule:
             elif op == Operation.PREV_PLUS:
                 if position > 0:
                     result += sequence[position - 1]
+            elif op == Operation.COMPOSE:
+                # Apply each subrule in sequence
+                temp_sequence = sequence[:position + 1]
+                temp_sequence[-1] = result  # Use current result as input
+                for subrule in self.subrules:
+                    result = subrule.apply(temp_sequence, position)
 
         return result
+
+    @classmethod
+    def compose(cls, rules: List['PatternRule']) -> 'PatternRule':
+        """Create a new rule that composes multiple rules together"""
+        return cls([Operation.COMPOSE], [0], subrules=rules)
 
     def to_string(self) -> str:
         """Convert rule to human-readable string"""
