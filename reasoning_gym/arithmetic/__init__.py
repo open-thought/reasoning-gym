@@ -8,6 +8,7 @@ Arithmetic tasks for training reasoning capabilities:
 
 from .basic_arithmetic import ArithmeticDataset, ArithmeticDatasetConfig, arithmetic_dataset
 from .chain_sum import ChainSum, ChainSumConfig, chain_sum_dataset
+from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset, fraction_simplification_dataset
 from .gcd import GCDConfig, GCDDataset, gcd_dataset
 from .lcm import LCMConfig, LCMDataset, lcm_dataset
 from .leg_counting import LegCountingConfig, LegCountingDataset, leg_counting_dataset
@@ -20,6 +21,9 @@ __all__ = [
     "ChainSum",
     "ChainSumConfig",
     "chain_sum_dataset",
+    "FractionSimplificationConfig",
+    "FractionSimplificationDataset",
+    "fraction_simplification_dataset",
     "GCDConfig",
     "GCDDataset", 
     "gcd_dataset",

@@ -1,0 +1,103 @@
+"""Fraction simplification task generator"""
+from dataclasses import dataclass
+from random import Random
+from typing import List, Optional, Tuple
+from math import gcd
+
+
+@dataclass
+class FractionSimplificationConfig:
+    """Configuration for fraction simplification task generation"""
+    min_value: int = 1        # Minimum value for numerator/denominator
+    max_value: int = 100      # Maximum value for numerator/denominator
+    min_factor: int = 2       # Minimum multiplication factor
+    max_factor: int = 10      # Maximum multiplication factor
+    seed: Optional[int] = None
+    size: int = 500          # Virtual dataset size
+
+    def validate(self):
+        """Validate configuration parameters"""
+        assert self.min_value >= 1, "min_value must be positive"
+        assert self.max_value > self.min_value, "max_value must be > min_value"
+        assert self.min_factor >= 2, "min_factor must be at least 2"
+        assert self.max_factor >= self.min_factor, "max_factor must be >= min_factor"
+
+
+class FractionSimplificationDataset:
+    """Generates fraction simplification tasks"""
+
+    def __init__(self, config: FractionSimplificationConfig):
+        self.config = config
+        self.config.validate()
+        self.seed = config.seed if config.seed is not None else Random().randint(0, 2**32)
+
+    def __len__(self) -> int:
+        return self.config.size
+
+    def __iter__(self):
+        self._current_idx = 0
+        return self
+
+    def __next__(self):
+        if self._current_idx >= self.config.size:
+            raise StopIteration
+        item = self[self._current_idx]
+        self._current_idx += 1
+        return item
+
+    def _generate_fraction(self, rng: Random) -> Tuple[int, int, int, int]:
+        """Generate a random fraction and its simplified form.
+        Returns (numerator, denominator, simplified_num, simplified_den)"""
+        # Generate the simplified fraction first
+        simplified_num = rng.randint(self.config.min_value, self.config.max_value)
+        simplified_den = rng.randint(self.config.min_value, self.config.max_value)
+        
+        # Make sure they're coprime by dividing by their GCD
+        common = gcd(simplified_num, simplified_den)
+        simplified_num //= common
+        simplified_den //= common
+        
+        # Multiply both by a random factor to create the unsimplified version
+        factor = rng.randint(self.config.min_factor, self.config.max_factor)
+        numerator = simplified_num * factor
+        denominator = simplified_den * factor
+        
+        return numerator, denominator, simplified_num, simplified_den
+
+    def __getitem__(self, idx: int) -> dict:
+        """Generate a single fraction simplification task"""
+        rng = Random(self.seed + idx)
+        
+        num, den, simple_num, simple_den = self._generate_fraction(rng)
+        
+        return {
+            "question": f"Simplify the fraction {num}/{den} to its lowest terms",
+            "answer": f"{simple_num}/{simple_den}",
+            "metadata": {
+                "numerator": num,
+                "denominator": den,
+                "simplified_numerator": simple_num,
+                "simplified_denominator": simple_den,
+                "reduction_factor": num // simple_num  # Will be same as den // simple_den
+            }
+        }
+
+
+def fraction_simplification_dataset(
+    min_value: int = 1,
+    max_value: int = 100,
+    min_factor: int = 2,
+    max_factor: int = 10,
+    seed: Optional[int] = None,
+    size: int = 500,
+) -> FractionSimplificationDataset:
+    """Create a FractionSimplificationDataset with the given configuration."""
+    config = FractionSimplificationConfig(
+        min_value=min_value,
+        max_value=max_value,
+        min_factor=min_factor,
+        max_factor=max_factor,
+        seed=seed,
+        size=size,
+    )
+    return FractionSimplificationDataset(config)
