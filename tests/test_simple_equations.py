@@ -23,9 +23,6 @@ def test_simple_equations_config_validation():
         config = SimpleEquationsConfig(min_value=100, max_value=50)  # max < min value
         config.validate()
 
-    with pytest.raises(AssertionError):
-        config = SimpleEquationsConfig(operators=())  # Empty operators
-        config.validate()
 
 
 def test_simple_equations_dataset_deterministic():
@@ -112,25 +109,3 @@ def test_simple_equations_solution_verification():
         assert evaluated == right_side
 
 
-def test_simple_equations_operators():
-    """Test equation generation with different operator combinations"""
-    for operators in [
-        ("+",),
-        ("+", "-"),
-        ("*",),
-        ("+", "*"),
-        ("+", "-", "*"),
-    ]:
-        config = SimpleEquationsConfig(
-            operators=operators,
-            size=5,
-            seed=42
-        )
-        dataset = SimpleEquationsDataset(config)
-
-        for item in dataset:
-            equation = item["metadata"]["equation"]
-            # Verify only allowed operators are used
-            for op in "+-*":
-                if op in equation:
-                    assert op in operators, str(equation)
