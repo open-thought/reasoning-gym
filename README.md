@@ -10,7 +10,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 - `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3*x + 2 = 14")
 
 #### Arithmetic Tasks
-- `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, *)
+- `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, *, /)
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
 - `FractionSimplificationDataset`: Generate fraction simplification tasks with configurable complexity
 - `GCDDataset`: Generate Greatest Common Divisor problems with configurable number of integers
