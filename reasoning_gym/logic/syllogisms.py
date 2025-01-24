@@ -178,20 +178,89 @@ class SyllogismDataset(ProceduralDataset):
                            premise2: Tuple[Quantifier, Term, Term],
                            conclusion: Tuple[Quantifier, Term, Term]) -> bool:
         """
-        Check if a syllogism is logically valid.
-        This is a simplified implementation - in practice you'd want more complete logic rules.
+        Check if a syllogism is logically valid using classical logic rules.
+        
+        Rules implemented:
+        1. Universal Affirmative (ALL):
+           - If both premises are ALL, conclusion must be ALL
+           - ALL A are B + ALL B are C → ALL A are C (Barbara)
+           
+        2. Universal Negative (NO):
+           - If one premise is NO and other is ALL, conclusion must be NO
+           - NO A are B + ALL C are B → NO A are C (Celarent)
+           - ALL A are B + NO C are B → NO A are C (Cesare)
+           
+        3. Particular Affirmative (SOME):
+           - If one premise is SOME and other is ALL, conclusion must be SOME
+           - SOME A are B + ALL B are C → SOME A are C (Darii)
+           - ALL A are B + SOME C are B → SOME A are C (Disamis)
+           
+        4. Particular Negative (SOME_NOT):
+           - If one premise is SOME_NOT and other is ALL, conclusion can be SOME_NOT
+           - SOME A are not B + ALL B are C → SOME A are not C (Ferio)
+           - ALL A are B + SOME C are not B → SOME A are not C (Festino)
+        
+        5. Invalid combinations:
+           - Two negative premises never yield a valid conclusion
+           - Two particular premises never yield a valid conclusion
+           - If both premises are particular, no valid conclusion
+           - If conclusion is universal but either premise is particular, invalid
         """
-        # Example rule: If both premises are universal affirmative (ALL),
-        # conclusion must also be universal affirmative
-        if (premise1[0] == Quantifier.ALL and premise2[0] == Quantifier.ALL):
-            return conclusion[0] == Quantifier.ALL
+        q1, t1_1, t1_2 = premise1
+        q2, t2_1, t2_2 = premise2
+        qc, tc_1, tc_2 = conclusion
         
-        # Example rule: If one premise is negative (NO),
-        # conclusion must be negative
-        if (premise1[0] == Quantifier.NO or premise2[0] == Quantifier.NO):
-            return conclusion[0] == Quantifier.NO
+        # Rule 5: Two negative premises -> invalid
+        if (q1 in (Quantifier.NO, Quantifier.SOME_NOT) and 
+            q2 in (Quantifier.NO, Quantifier.SOME_NOT)):
+            return False
+            
+        # Rule 5: Two particular premises -> invalid
+        if (q1 in (Quantifier.SOME, Quantifier.SOME_NOT) and 
+            q2 in (Quantifier.SOME, Quantifier.SOME_NOT)):
+            return False
+            
+        # Rule 5: Universal conclusion with particular premise -> invalid
+        if (qc in (Quantifier.ALL, Quantifier.NO) and 
+            (q1 in (Quantifier.SOME, Quantifier.SOME_NOT) or 
+             q2 in (Quantifier.SOME, Quantifier.SOME_NOT))):
+            return False
+            
+        # Rule 1: Barbara syllogism
+        if (q1 == Quantifier.ALL and q2 == Quantifier.ALL):
+            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+                return qc == Quantifier.ALL
+                
+        # Rule 2: Celarent syllogism
+        if (q1 == Quantifier.NO and q2 == Quantifier.ALL):
+            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+                return qc == Quantifier.NO
+                
+        # Rule 2: Cesare syllogism
+        if (q1 == Quantifier.ALL and q2 == Quantifier.NO):
+            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+                return qc == Quantifier.NO
+                
+        # Rule 3: Darii syllogism
+        if (q1 == Quantifier.SOME and q2 == Quantifier.ALL):
+            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+                return qc == Quantifier.SOME
+                
+        # Rule 3: Disamis syllogism
+        if (q1 == Quantifier.ALL and q2 == Quantifier.SOME):
+            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+                return qc == Quantifier.SOME
+                
+        # Rule 4: Ferio syllogism
+        if (q1 == Quantifier.SOME_NOT and q2 == Quantifier.ALL):
+            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+                return qc == Quantifier.SOME_NOT
+                
+        # Rule 4: Festino syllogism
+        if (q1 == Quantifier.ALL and q2 == Quantifier.SOME_NOT):
+            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+                return qc == Quantifier.SOME_NOT
         
-        # Add more validity rules here...
         return False
 
     def _generate_syllogism(self, rng: Random) -> dict:
