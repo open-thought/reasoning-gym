@@ -35,6 +35,11 @@ class SimpleEquationsDataset(ProceduralDataset):
     def __init__(self, config: SimpleEquationsConfig):
         self.config = config
         self.config.validate()
+        self._prompt_templates = [
+            "Find the value of {variable} in the equation: {equation}",
+            "Solve for {variable}: {equation}",
+            "Determine the value of {variable} that satisfies: {equation}",
+        ]
         super().__init__(seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
@@ -53,7 +58,7 @@ class SimpleEquationsDataset(ProceduralDataset):
         equation, solution = self._generate_equation(rng, variable)
         
         return {
-            "question": equation,
+            "question": rng.choice(self._prompt_templates).format(variable=variable, equation=equation),
             "answer": str(solution),
             "metadata": {
                 "equation": equation,
@@ -77,34 +82,45 @@ class SimpleEquationsDataset(ProceduralDataset):
         """
         x = Symbol(variable)
         
-        # Generate left side
+        # Generate terms for left side
         num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
         terms = []
         
-        # First term includes the variable
-        coef = rng.randint(self.config.min_value, self.config.max_value)
-        terms.append(coef * x)
-        
-        # Add remaining terms
-        for _ in range(num_terms - 1):
+        # Generate all constant terms first
+        for _ in range(num_terms):
             value = rng.randint(self.config.min_value, self.config.max_value)
-            op = rng.choice(self.config.operators)
-            
-            if op == '+':
-                terms.append(value)
-            elif op == '-':
-                terms.append(-value)
-            else:  # '*'
-                terms[-1] = terms[-1] * value
+            terms.append(value)
         
-        left_side = sum(terms)
+        # Replace one random term with the variable term
+        var_pos = rng.randint(0, num_terms - 1)
+        coef = rng.randint(self.config.min_value, self.config.max_value)
+        terms[var_pos] = coef * x
+        
+        # Apply operators between terms
+        expr = terms[0]
+        for i in range(1, num_terms):
+            op = rng.choice(self.config.operators)
+            if op == '+':
+                expr = expr + terms[i]
+            elif op == '-':
+                expr = expr - terms[i]
+            else:  # '*'
+                expr = expr * terms[i]
+        
+        left_side = expr
         
         # Generate right side
         right_side = rng.randint(self.config.min_value, self.config.max_value)
         
         # Create equation
         equation = Eq(left_side, right_side)
-        solution = solve(equation, x)[0]
+        solutions = solve(equation, x)
+        
+        # Check if we found any solutions
+        if not solutions:
+            return self._generate_equation(rng, variable)
+            
+        solution = solutions[0]
         
         # Only return if solution is a positive integer
         if not (isinstance(solution, sympy.Integer) and solution > 0):
@@ -115,7 +131,7 @@ class SimpleEquationsDataset(ProceduralDataset):
 
 def simple_equations_dataset(
     min_terms: int = 2,
-    max_terms: int = 4,
+    max_terms: int = 5,
     min_value: int = 1,
     max_value: int = 20,
     operators: tuple = ('+', '-', '*'),

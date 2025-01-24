@@ -16,8 +16,22 @@ def test_simple_equations_generation():
         
         # Validate equation format
         equation = item["metadata"]["equation"]
+        variable = item["metadata"]["variable"]
         assert "=" in equation
-        assert item["metadata"]["variable"] in equation
+        assert variable in equation
+        
+        # Validate question format
+        question = item["question"]
+        assert variable in question
+        assert equation in question
+        assert any(
+            prompt in question 
+            for prompt in [
+                "Find the value of",
+                "Solve for",
+                "Determine the value of"
+            ]
+        )
 
 
 def test_simple_equations_config():
