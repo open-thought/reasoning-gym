@@ -1,28 +1,28 @@
 import random
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from itertools import count
 from typing import Dict, List, Optional, Set, Tuple
 
 from ..dataset import ProceduralDataset
 
 
-class Gender(Enum):
+class Gender(StrEnum):
     MALE = "male"
     FEMALE = "female"
 
 
-class Relationship(Enum):
-    MOTHER = "Mother"
-    FATHER = "Father"
-    SISTER = "Sister"
-    BROTHER = "Brother"
-    DAUGHTER = "Daughter"
-    SON = "Son"
-    WIFE = "Wife"
-    HUSBAND = "Husband"
-    GRANDMOTHER = "Grandmother"
-    GRANDFATHER = "Grandfather"
+class Relationship(StrEnum):
+    MOTHER = "mother"
+    FATHER = "father"
+    SISTER = "sister"
+    BROTHER = "brother"
+    DAUGHTER = "daughter"
+    SON = "son"
+    WIFE = "wife"
+    HUSBAND = "husband"
+    GRANDMOTHER = "grandmother"
+    GRANDFATHER = "grandfather"
 
 
 @dataclass
