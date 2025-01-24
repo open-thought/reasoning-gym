@@ -57,20 +57,101 @@ class SyllogismDataset(ProceduralDataset):
 
     # Default terms if none provided
     DEFAULT_TERMS = [
+        # People
         Term("mortal", "mortals"),
         Term("human", "humans"),
+        Term("child", "children"),
+        Term("adult", "adults"),
+        Term("parent", "parents"),
+        Term("grandparent", "grandparents"),
+        
+        # Professions
+        Term("philosopher", "philosophers"),
+        Term("student", "students"),
+        Term("teacher", "teachers"),
+        Term("doctor", "doctors"),
+        Term("scientist", "scientists"),
+        Term("artist", "artists"),
+        Term("musician", "musicians"),
+        Term("writer", "writers"),
+        Term("programmer", "programmers"),
+        Term("engineer", "engineers"),
+        Term("lawyer", "lawyers"),
+        Term("chef", "chefs"),
+        
+        # Animals
         Term("animal", "animals"),
         Term("mammal", "mammals"),
         Term("dog", "dogs"),
         Term("cat", "cats"),
         Term("bird", "birds"),
         Term("fish", "fish"),
+        Term("reptile", "reptiles"),
+        Term("insect", "insects"),
+        Term("butterfly", "butterflies"),
+        Term("bee", "bees"),
+        Term("ant", "ants"),
+        Term("spider", "spiders"),
+        Term("horse", "horses"),
+        Term("elephant", "elephants"),
+        Term("lion", "lions"),
+        Term("tiger", "tigers"),
+        Term("whale", "whales"),
+        Term("dolphin", "dolphins"),
+        
+        # Plants
         Term("plant", "plants"),
         Term("tree", "trees"),
         Term("flower", "flowers"),
-        Term("philosopher", "philosophers"),
-        Term("student", "students"),
-        Term("teacher", "teachers"),
+        Term("grass", "grasses"),
+        Term("bush", "bushes"),
+        Term("vegetable", "vegetables"),
+        Term("fruit", "fruits"),
+        Term("herb", "herbs"),
+        
+        # Objects
+        Term("machine", "machines"),
+        Term("computer", "computers"),
+        Term("book", "books"),
+        Term("vehicle", "vehicles"),
+        Term("car", "cars"),
+        Term("bicycle", "bicycles"),
+        Term("tool", "tools"),
+        Term("instrument", "instruments"),
+        
+        # Abstract concepts
+        Term("idea", "ideas"),
+        Term("thought", "thoughts"),
+        Term("concept", "concepts"),
+        Term("theory", "theories"),
+        Term("fact", "facts"),
+        Term("truth", "truths"),
+        Term("belief", "beliefs"),
+        
+        # Qualities
+        Term("living thing", "living things"),
+        Term("intelligent being", "intelligent beings"),
+        Term("conscious being", "conscious beings"),
+        Term("organic thing", "organic things"),
+        Term("artificial thing", "artificial things"),
+        Term("natural thing", "natural things"),
+        
+        # Academic subjects
+        Term("science", "sciences"),
+        Term("art", "arts"),
+        Term("language", "languages"),
+        Term("mathematics", "mathematics"),
+        Term("literature", "literature"),
+        Term("history", "histories"),
+        
+        # Places
+        Term("place", "places"),
+        Term("building", "buildings"),
+        Term("home", "homes"),
+        Term("school", "schools"),
+        Term("city", "cities"),
+        Term("country", "countries"),
+        Term("continent", "continents"),
     ]
 
     def __init__(self, config: SyllogismConfig):
