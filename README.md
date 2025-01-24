@@ -8,6 +8,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 
 #### Algebra Tasks
 - `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3*x + 2 = 14")
+- `PolynomialEquationsDataset`: Generate polynomial equations with one variable to solve (e.g. "-6*h**4 + 4*h**2 - 5*h = 0")
 
 #### Arithmetic Tasks
 - `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, *, /)
@@ -24,6 +25,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
 - `WordReversalDataset`: Reverse word order in text spans
+- `Sorting`
 
 #### Cognition Tasks
 - `NumberSequenceDataset`: Generate number sequences with discoverable patterns
@@ -40,6 +42,35 @@ The goal is to generate virtually infinite data with adjustable complexity.
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
 
 ### Available Generators
+
+### PolynomialEquations
+
+Generate polynomial equation with configurable complexity:
+```python
+from reasoning_gym.algebra import PolynomialEquationsConfig, PolynomialEquationsConfig
+
+config = PolynomialEquationsConfig(
+    min_terms=3,
+    max_terms=4,
+    min_degree=4,
+    max_degree=4,
+    min_value=1,
+    max_value=5,
+    size=3,
+    seed=123,
+)
+
+dataset = PolynomialEquationsDataset(config)
+for item in dataset:
+    print(item)
+```
+
+Example output:
+```
+{'question': 'Find the real value(s) of b in the equation: b**4 - b**3 - 5*b**2 = 0', 'answer': '[-1.79128784747792, 0.0, 2.79128784747792]', 'metadata': {'polynomial_expr': 'b**4 - b**3 - 5*b**2', 'variable': 'b', 'degree': 4, 'real_solutions': [-1.79128784747792, 0.0, 2.79128784747792]}}
+{'question': 'Solve the polynomial equation for real i:\n3*i**4 + 4*i**3 - 1 = 0', 'answer': '[]', 'metadata': {'polynomial_expr': '3*i**4 + 4*i**3 - 1', 'variable': 'i', 'degree': 4, 'real_solutions': []}}
+{'question': 'Solve the polynomial equation for real h:\n7*h**4 - 2*h**2 + h = 0', 'answer': '[-0.6998793469266564, 0.0]', 'metadata': {'polynomial_expr': '7*h**4 - 2*h**2 + h', 'variable': 'h', 'degree': 4, 'real_solutions': [-0.6998793469266564, 0.0]}}
+```
 
 #### Basic Arithmetic
 Generates arithmetic problems with configurable complexity:
