@@ -16,7 +16,7 @@ def test_color_cube_rotation_generation():
         question = item["question"]
         assert "A cube has:" in question
         assert "side" in question
-        assert "rotated" in question
+        assert any(word in question for word in ["rotated", "turned"])
         assert "What is now the color" in question
 
         # Validate answer is a valid color
