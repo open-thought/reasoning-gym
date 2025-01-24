@@ -22,7 +22,7 @@ class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
         self._current_idx = 0
         return self
     
-    def __next__(self):
+    def __next__(self) -> Dict[str, Any]:
         """Get next item in iteration"""
         if self._current_idx >= self.size:
             raise StopIteration
