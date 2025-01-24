@@ -21,7 +21,7 @@ class SimpleEquationsConfig:
     seed: Optional[int] = None
     size: int = 500
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_terms > 0, "min_terms must be positive"
         assert self.max_terms >= self.min_terms, "max_terms must be >= min_terms"
@@ -35,14 +35,12 @@ class SimpleEquationsDataset(ProceduralDataset):
     """Generates simple equations with one variable to solve"""
 
     def __init__(self, config: SimpleEquationsConfig):
-        self.config = config
-        self.config.validate()
         self._prompt_templates = [
             "Find the value of {variable} in the equation: {equation}",
             "Solve for {variable}: {equation}",
             "Determine the value of {variable} that satisfies: {equation}",
         ]
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single equation task

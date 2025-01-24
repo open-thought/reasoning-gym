@@ -1,9 +1,8 @@
 import random
 import string
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
-import sympy
 from sympy import Eq, Symbol, expand, solve
 
 from ..dataset import ProceduralDataset
@@ -28,7 +27,7 @@ class PolynomialEquationsConfig:
     seed: Optional[int] = None
     size: int = 500
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters."""
         assert self.min_terms > 0, "min_terms must be positive."
         assert self.max_terms >= self.min_terms, "max_terms must be >= min_terms."
@@ -53,15 +52,13 @@ class PolynomialEquationsDataset(ProceduralDataset):
     """
 
     def __init__(self, config: PolynomialEquationsConfig):
-        config.validate()
-        self.config = config
         self._prompt_templates = [
             "Find the real value(s) of {variable} in the equation: {polynomial_expanded} = 0",
             "Solve for real {variable}: {polynomial_expanded} = 0",
             "Determine the real value(s) of {variable} tha satisfies: {polynomial_expanded} = 0",
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
         """

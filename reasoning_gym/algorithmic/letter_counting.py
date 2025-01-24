@@ -19,7 +19,7 @@ class LetterCountingConfig:
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_words > 0, "min_words must be positive"
         assert self.max_words >= self.min_words, "max_words must be >= min_words"
@@ -29,9 +29,7 @@ class LetterCountingDataset(ProceduralDataset):
     """Generates letter counting tasks from text spans"""
 
     def __init__(self, config: LetterCountingConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")

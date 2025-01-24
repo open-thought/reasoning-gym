@@ -16,7 +16,7 @@ class PrimeFactorizationConfig:
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_value >= 2, "min_value must be >= 2"
         assert self.max_value >= self.min_value, "max_value must be >= min_value"
@@ -26,9 +26,7 @@ class PrimeFactorizationDataset(ProceduralDataset):
     """Generates prime factorization tasks"""
 
     def __init__(self, config: PrimeFactorizationConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _prime_factors(self, n: int) -> List[int]:
         """Compute prime factors of a number"""

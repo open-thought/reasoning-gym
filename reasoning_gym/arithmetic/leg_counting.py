@@ -65,7 +65,7 @@ class LegCountingConfig:
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_animals > 0, "min_animals must be positive"
         assert self.max_animals >= self.min_animals, "max_animals must be >= min_animals"
@@ -76,9 +76,7 @@ class LegCountingDataset(ProceduralDataset):
     """Generates leg counting arithmetic tasks"""
 
     def __init__(self, config: LegCountingConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _generate_animals(self, rng: Random) -> Dict[str, int]:
         """Generate a random set of animals and their counts"""

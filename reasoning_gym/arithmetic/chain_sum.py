@@ -18,7 +18,7 @@ class ChainSumConfig:
     seed: Optional[int] = None
     size: int = 500
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_terms > 0, "min_terms must be positive"
         assert self.max_terms >= self.min_terms, "max_terms must be >= min_terms"
@@ -34,9 +34,7 @@ class ChainSum(ProceduralDataset):
     """Generates simple arithmetic tasks using only + and - operators"""
 
     def __init__(self, config: ChainSumConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single chain sum task
@@ -144,6 +142,7 @@ def chain_sum_dataset(
         size=size,
     )
     return ChainSum(config)
+
 
 # Register the dataset
 register_dataset("chain_sum", ChainSum, ChainSumConfig)

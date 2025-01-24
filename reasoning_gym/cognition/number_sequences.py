@@ -31,7 +31,7 @@ class NumberSequenceConfig:
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_terms >= 4, "need at least 4 terms to establish pattern"
         assert self.max_terms >= self.min_terms
@@ -155,9 +155,7 @@ class NumberSequenceDataset(ProceduralDataset):
     """Generates number sequence completion tasks with dynamic pattern generation"""
 
     def __init__(self, config: NumberSequenceConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a sequence task with a newly generated pattern"""

@@ -21,7 +21,7 @@ class BasicArithmeticDatasetConfig:
     format_style: Literal["simple", "natural"] = "simple"
     whitespace: Literal["no_space", "single", "random"] = "single"  # Whitespace style between terms
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_terms > 0, "min_terms must be positive"
         assert self.max_terms >= self.min_terms, "max_terms must be >= min_terms"
@@ -63,9 +63,7 @@ class BasicArithmeticDataset(ProceduralDataset):
     """Dataset that generates basic arithmetic tasks with configurable complexity"""
 
     def __init__(self, config: BasicArithmeticDatasetConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict[str, Any]:
         """Generate a single arithmetic task

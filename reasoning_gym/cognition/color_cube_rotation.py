@@ -95,7 +95,7 @@ class ColorCubeRotationConfig:
     seed: Optional[int] = None
     size: int = 500
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_rotations > 0, "min_rotations must be positive"
         assert self.max_rotations >= self.min_rotations, "max_rotations must be >= min_rotations"
@@ -105,9 +105,7 @@ class ColorCubeRotationDataset(ProceduralDataset):
     """Generates color cube rotation reasoning tasks"""
 
     def __init__(self, config: ColorCubeRotationConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
         rng = random.Random(self.seed + idx)

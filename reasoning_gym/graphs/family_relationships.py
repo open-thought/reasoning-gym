@@ -166,7 +166,7 @@ class FamilyRelationshipsConfig:
         if self.female_names is None:
             self.female_names = default_female_names
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_family_size >= 3, "min_family_size must be at least 3"
         assert self.max_family_size >= self.min_family_size, "max_family_size must be >= min_family_size"
@@ -178,14 +178,12 @@ class FamilyRelationshipsDataset(ProceduralDataset):
     """Generates family relationship reasoning tasks"""
 
     def __init__(self, config: FamilyRelationshipsConfig):
-        self.config = config
-        self.config.validate()
         self._templates = [
             "What is {person1} to {person2}?",
             "How is {person1} related to {person2}?",
             "What relation is {person1} to {person2}?",
         ]
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
         rng = random.Random(self.seed + idx)

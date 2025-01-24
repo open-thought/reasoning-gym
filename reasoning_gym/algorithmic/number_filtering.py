@@ -20,7 +20,7 @@ class NumberFilteringConfig:
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_numbers > 0, "min_numbers must be positive"
         assert self.max_numbers >= self.min_numbers, "max_numbers must be >= min_numbers"
@@ -33,9 +33,7 @@ class NumberFilteringDataset(ProceduralDataset):
     """Generates number filtering tasks"""
 
     def __init__(self, config: NumberFilteringConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _format_number(self, num: float, decimals: int) -> str:
         """Format a number with specified decimal places"""

@@ -20,7 +20,7 @@ class LCMConfig:
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_numbers >= 2, "min_numbers must be at least 2"
         assert self.max_numbers >= self.min_numbers, "max_numbers must be >= min_numbers"
@@ -32,9 +32,7 @@ class LCMDataset(ProceduralDataset):
     """Generates Least Common Multiple (LCM) tasks"""
 
     def __init__(self, config: LCMConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _generate_numbers(self, rng: Random) -> Tuple[List[int], int]:
         """Generate a list of random positive integers and their LCM.

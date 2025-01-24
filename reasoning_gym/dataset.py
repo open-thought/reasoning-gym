@@ -11,6 +11,9 @@ class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
 
     def __init__(self, config: Any, seed: Optional[int] = None, size: int = 500):
         """Initialize the dataset with config, optional seed and size"""
+        if hasattr(config, "validate") and callable(config.validate):
+            config.validate()
+
         self.config = config
         self.size = size
         self.seed = seed if seed is not None else Random().randint(0, 2**32)

@@ -26,7 +26,7 @@ class MazeConfig:
     seed: Optional[int] = None
     size: int = 50
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters."""
         assert self.min_dist >= 1, "min_dist must be >= 1"
         assert self.max_dist >= self.min_dist, "max_dist must be >= min_dist"
@@ -46,8 +46,7 @@ class MazeDataset(ProceduralDataset):
         prob_path=0.7,
         num_retries=1000,
     ):
-        config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
         self.config = config
         # Probability that a cell is a path instead of a wall
         self.prob_path = prob_path

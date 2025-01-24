@@ -18,7 +18,7 @@ class BaseConversionConfig:
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
-    def validate(self):
+    def validate(self) -> None:
         """Validate configuration parameters"""
         assert 2 <= self.min_base <= 36, "min_base must be between 2 and 36"
         assert self.min_base <= self.max_base <= 36, "max_base must be between min_base and 36"
@@ -30,9 +30,7 @@ class BaseConversionDataset(ProceduralDataset):
     """Generates base conversion tasks"""
 
     def __init__(self, config: BaseConversionConfig):
-        self.config = config
-        self.config.validate()
-        super().__init__(seed=config.seed, size=config.size)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _format_base_name(self, base: int) -> str:
         """Get human-readable name for common bases"""
