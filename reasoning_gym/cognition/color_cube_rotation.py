@@ -119,7 +119,7 @@ class ColorCubeRotationDataset(ProceduralDataset):
         # Generate sequence of rotations
         num_rotations = rng.randint(self.config.min_rotations, self.config.max_rotations)
         rotations = []
-        
+
         # Keep trying until we have at least one valid rotation
         while len(rotations) < num_rotations:
             # Get all sides except TOP
