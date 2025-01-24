@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional, Tuple
 
+from ..dataset import ProceduralDataset
+
 
 @dataclass
 class BaseConversionConfig:
@@ -24,27 +26,13 @@ class BaseConversionConfig:
         assert self.max_value > self.min_value, "max_value must be > min_value"
 
 
-class BaseConversionDataset:
+class BaseConversionDataset(ProceduralDataset):
     """Generates base conversion tasks"""
 
     def __init__(self, config: BaseConversionConfig):
         self.config = config
         self.config.validate()
-        self.seed = config.seed if config.seed is not None else Random().randint(0, 2**32)
-
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
+        super().__init__(seed=config.seed, size=config.size)
 
     def _format_base_name(self, base: int) -> str:
         """Get human-readable name for common bases"""
