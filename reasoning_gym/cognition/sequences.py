@@ -3,6 +3,8 @@ from enum import Enum
 from random import Random
 from typing import List, Optional
 
+from ..dataset import ProceduralDataset
+
 
 class Operation(Enum):
     """Basic mathematical operations that can be composed"""
@@ -149,29 +151,13 @@ class PatternGenerator:
         return True
 
 
-class SequenceDataset:
+class SequenceDataset(ProceduralDataset):
     """Generates number sequence completion tasks with dynamic pattern generation"""
 
     def __init__(self, config: SequenceConfig):
         self.config = config
         self.config.validate()
-        self.seed = config.seed if config.seed is not None else Random().randint(0, 2**32)
-
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        """Make the dataset iterable"""
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        """Get next item in iteration"""
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
+        super().__init__(seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a sequence task with a newly generated pattern"""
