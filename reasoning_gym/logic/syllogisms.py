@@ -98,60 +98,6 @@ class SyllogismDataset(ProceduralDataset):
         Term("tiger", "tigers"),
         Term("whale", "whales"),
         Term("dolphin", "dolphins"),
-        
-        # Plants
-        Term("plant", "plants"),
-        Term("tree", "trees"),
-        Term("flower", "flowers"),
-        Term("grass", "grasses"),
-        Term("bush", "bushes"),
-        Term("vegetable", "vegetables"),
-        Term("fruit", "fruits"),
-        Term("herb", "herbs"),
-        
-        # Objects
-        Term("machine", "machines"),
-        Term("computer", "computers"),
-        Term("book", "books"),
-        Term("vehicle", "vehicles"),
-        Term("car", "cars"),
-        Term("bicycle", "bicycles"),
-        Term("tool", "tools"),
-        Term("instrument", "instruments"),
-        
-        # Abstract concepts
-        Term("idea", "ideas"),
-        Term("thought", "thoughts"),
-        Term("concept", "concepts"),
-        Term("theory", "theories"),
-        Term("fact", "facts"),
-        Term("truth", "truths"),
-        Term("belief", "beliefs"),
-        
-        # Qualities
-        Term("living thing", "living things"),
-        Term("intelligent being", "intelligent beings"),
-        Term("conscious being", "conscious beings"),
-        Term("organic thing", "organic things"),
-        Term("artificial thing", "artificial things"),
-        Term("natural thing", "natural things"),
-        
-        # Academic subjects
-        Term("science", "sciences"),
-        Term("art", "arts"),
-        Term("language", "languages"),
-        Term("mathematics", "mathematics"),
-        Term("literature", "literature"),
-        Term("history", "histories"),
-        
-        # Places
-        Term("place", "places"),
-        Term("building", "buildings"),
-        Term("home", "homes"),
-        Term("school", "schools"),
-        Term("city", "cities"),
-        Term("country", "countries"),
-        Term("continent", "continents"),
     ]
 
     def __init__(self, config: SyllogismConfig):
