@@ -133,4 +133,4 @@ def test_simple_equations_operators():
             # Verify only allowed operators are used
             for op in "+-*":
                 if op in equation:
-                    assert op in operators
+                    assert op in operators, str(equation)

@@ -81,7 +81,7 @@ class SimpleEquationsDataset(ProceduralDataset):
         Returns:
             Tuple of (equation string, solution integer)
         """
-        max_attempts = 100  # Prevent infinite loops
+        max_attempts = 1000  # Prevent infinite loops
         
         for _ in range(max_attempts):
             x = Symbol(variable)
