@@ -27,6 +27,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 
 #### Cognition Tasks
 - `NumberSequenceDataset`: Generate number sequences with discoverable patterns
+- `ColorCubeRotationDataset`: Generate 3D spatial reasoning tasks with colored cube rotations and orientation tracking
 
 #### Logic Tasks
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
@@ -134,6 +135,37 @@ Example data:
     "question": "8, 14, 20, 26, 32, 38, 44, ?",
     "answer": "50",
     "metadata": {"rule": "add 6", "complexity": 1, "sequence": [8, 14, 20, 26, 32, 38, 44, 50]},
+}
+```
+
+#### Color Cube Rotation
+Generates 3D spatial reasoning tasks with cube rotations and color tracking:
+```python
+from reasoning_gym.cognition import ColorCubeRotationDataset, ColorCubeRotationConfig
+
+config = ColorCubeRotationConfig(
+    min_rotations=1,     # Minimum number of rotations
+    max_rotations=3,     # Maximum number of rotations
+    size=5,             # Number of problems to generate
+    seed=42             # For reproducibility
+)
+
+dataset = ColorCubeRotationDataset(config)
+for item in dataset:
+    print(item)
+```
+
+Example data:
+```
+{
+    "question": "A cube has:\n- a red top side\n- a blue right side\n- a green front side\n- a yellow left side\n- a white back side\n- an orange bottom side\n\nThe cube is rotated so that the side which was before at the front is now at the top.\nThe cube is rotated so that the side which was before at the right is now at the top.\n\nWhat is now the color of the bottom side of the cube?",
+    "answer": "yellow",
+    "metadata": {
+        "initial_state": {"top": "red", "right": "blue", "front": "green", "left": "yellow", "back": "white", "bottom": "orange"},
+        "rotations": ["front", "right"],
+        "target_side": "bottom",
+        "num_rotations": 2
+    }
 }
 ```
 
