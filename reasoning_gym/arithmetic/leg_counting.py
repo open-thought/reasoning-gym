@@ -1,7 +1,7 @@
 """Leg counting task generator"""
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
 ANIMALS = {
     # Animals with 0 legs
