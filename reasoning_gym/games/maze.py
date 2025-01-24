@@ -93,7 +93,9 @@ class MazeDataset(ProceduralDataset):
                 # Maze is good, build the question
                 question_str = (
                     f"Navigate from '{self.start_char}' (start) to '{self.goal_char}' (goal):\n\n"
+                    + "```"
                     + self._maze_to_str(maze_grid)
+                    + "```"
                     + "\nLegend: "
                     + f"'{self.wall_char}' = Wall, '{self.path_char}' = Passage\n\n"
                     + "What is the minimum number of steps to reach the goal?"
