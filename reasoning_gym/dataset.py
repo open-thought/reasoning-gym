@@ -9,8 +9,9 @@ from typing import Any, Dict, Iterator, Optional
 class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
     """Abstract base class for procedural dataset generators"""
 
-    def __init__(self, seed: Optional[int] = None, size: int = 500):
-        """Initialize the dataset with optional seed and size"""
+    def __init__(self, config: Any, seed: Optional[int] = None, size: int = 500):
+        """Initialize the dataset with config, optional seed and size"""
+        self.config = config
         self.size = size
         self.seed = seed if seed is not None else Random().randint(0, 2**32)
 
