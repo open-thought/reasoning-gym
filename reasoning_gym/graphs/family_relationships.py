@@ -1,5 +1,6 @@
 import random
-from dataclasses import dataclass
+import uuid
+from dataclasses import dataclass, field
 from typing import Optional, Dict, List, Set, Tuple
 from enum import Enum
 
@@ -31,10 +32,19 @@ class Person:
     spouse: Optional['Person'] = None
     parents: List['Person'] = None
     children: List['Person'] = None
+    _id: uuid.UUID = field(default_factory=uuid.uuid4, compare=False)
 
     def __post_init__(self):
         self.parents = self.parents or []
         self.children = self.children or []
+
+    def __hash__(self):
+        return hash(self._id)
+
+    def __eq__(self, other):
+        if not isinstance(other, Person):
+            return False
+        return self._id == other._id
 
     def add_child(self, child: 'Person'):
         if child not in self.children:
