@@ -121,3 +121,28 @@ def test_fraction_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items
+
+
+def test_fraction_numerator_smaller():
+    """Test that numerators are always smaller than denominators"""
+    config = FractionSimplificationConfig(
+        min_value=1,
+        max_value=100,
+        min_factor=2,
+        max_factor=5,
+        size=50,
+        seed=42
+    )
+    dataset = FractionSimplificationDataset(config)
+    
+    for i in range(len(dataset)):
+        item = dataset[i]
+        metadata = item["metadata"]
+        
+        # Check original fraction
+        assert metadata["numerator"] <= metadata["denominator"], \
+            f"Original numerator {metadata['numerator']} should be <= denominator {metadata['denominator']}"
+        
+        # Check simplified fraction
+        assert metadata["simplified_numerator"] <= metadata["simplified_denominator"], \
+            f"Simplified numerator {metadata['simplified_numerator']} should be <= denominator {metadata['simplified_denominator']}"
