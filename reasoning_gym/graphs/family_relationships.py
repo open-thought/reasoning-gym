@@ -74,7 +74,8 @@ class FamilyRelationshipsConfig:
             "Joseph", "Thomas", "Charles", "Peter", "Daniel", "Matthew",
             "Christopher", "Andrew", "George", "Edward", "Benjamin", "Henry",
             "Samuel", "Alexander", "Oliver", "Jack", "Harry", "Jacob",
-            "Noah", "Ethan", "Lucas", "Mason", "Logan", "Sebastian", "Theodore", "Owen"
+            "Noah", "Ethan", "Lucas", "Mason", "Logan", "Sebastian", "Theodore", "Owen",
+            "Liam", "Aiden", "Kai", "Jayden", "Zion", "Phoenix", "Atlas", "Axel", "Ryder", "Finn"
         ]
         default_female_names = [
             "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan",
