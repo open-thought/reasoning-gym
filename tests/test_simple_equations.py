@@ -59,8 +59,9 @@ def test_simple_equations_dataset_items():
         assert "equation" in item["metadata"]
         assert "variable" in item["metadata"]
 
-        # Verify answer is numeric
-        assert item["answer"].isdigit()
+        # Verify answer is numeric (allowing negative numbers)
+        answer = item["answer"]
+        assert answer.replace("-", "").isdigit()
 
         # Verify equation format
         equation = item["metadata"]["equation"]
@@ -87,7 +88,6 @@ def test_simple_equations_solution_verification():
         max_terms=3,
         min_value=1,
         max_value=10,  # Small values for predictable results
-        operators=("+", "-"),  # Simple operators for easy verification
         size=10,
         seed=42
     )
