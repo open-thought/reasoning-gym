@@ -1,10 +1,10 @@
 import random
 import string
 from dataclasses import dataclass
-from typing import Optional, Tuple, List
+from typing import List, Optional, Tuple
 
 import sympy
-from sympy import Symbol, Eq, solve, expand
+from sympy import Eq, Symbol, expand, solve
 
 from ..dataset import ProceduralDataset
 

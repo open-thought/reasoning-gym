@@ -3,7 +3,6 @@ import string
 from dataclasses import dataclass
 from typing import Optional
 
-
 from ..dataset import ProceduralDataset
 
 

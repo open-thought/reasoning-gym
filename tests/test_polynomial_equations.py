@@ -1,5 +1,5 @@
 import pytest
-from sympy import sympify, Symbol
+from sympy import Symbol, sympify
 
 from reasoning_gym.algebra.polynomial_equations import (
     PolynomialEquationsConfig,
