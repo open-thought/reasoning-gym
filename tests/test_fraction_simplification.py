@@ -14,7 +14,7 @@ def test_fraction_config_validation():
         config.validate()
     
     with pytest.raises(AssertionError):
-        config = FractionSimplificationConfig(min_factor=1)  # Should be >= 2
+        config = FractionSimplificationConfig(min_factor=0)  # Should be >= 1
         config.validate()
     
     with pytest.raises(AssertionError):

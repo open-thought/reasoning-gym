@@ -6,7 +6,7 @@ Arithmetic tasks for training reasoning capabilities:
 - Leg counting
 """
 
-from .basic_arithmetic import BasicArithmeticDataset, ArithmeticDatasetConfig, basic_arithmetic_dataset
+from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig, basic_arithmetic_dataset
 from .chain_sum import ChainSum, ChainSumConfig, chain_sum_dataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset, fraction_simplification_dataset
 from .gcd import GCDConfig, GCDDataset, gcd_dataset
@@ -16,7 +16,7 @@ from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDat
 
 __all__ = [
     "BasicArithmeticDataset",
-    "ArithmeticDatasetConfig",
+    "BasicArithmeticDatasetConfig",
     "basic_arithmetic_dataset",
     "ChainSum",
     "ChainSumConfig",

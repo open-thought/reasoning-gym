@@ -19,7 +19,7 @@ class FractionSimplificationConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert self.min_value >= 0, "min_value must be positive"
+        assert self.min_value > 0, "min_value must be positive"
         assert self.max_value > self.min_value, "max_value must be > min_value"
         assert self.min_factor >= 1, "min_factor must be at least 1"
         assert self.max_factor >= self.min_factor, "max_factor must be >= min_factor"

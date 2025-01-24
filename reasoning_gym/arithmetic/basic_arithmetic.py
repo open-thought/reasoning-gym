@@ -5,7 +5,7 @@ from ..dataset import ProceduralDataset
 
 
 @dataclass
-class ArithmeticDatasetConfig:
+class BasicArithmeticDatasetConfig:
     """Configuration for arithmetic dataset generation"""
 
     min_terms: int = 2
@@ -34,7 +34,7 @@ class ArithmeticDatasetConfig:
 class BasicArithmeticDataset(ProceduralDataset):
     """Dataset that generates basic arithmetic tasks with configurable complexity"""
 
-    def __init__(self, config: ArithmeticDatasetConfig):
+    def __init__(self, config: BasicArithmeticDatasetConfig):
         self.config = config
         self.config.validate()
         super().__init__(seed=config.seed, size=config.size)
@@ -183,9 +183,9 @@ def basic_arithmetic_dataset(
         format_style: Style of question formatting ("simple" or "natural")
 
     Returns:
-        ArithmeticDataset: Configured dataset instance
+        BasicArithmeticDataset: Configured dataset instance
     """
-    config = ArithmeticDatasetConfig(
+    config = BasicArithmeticDatasetConfig(
         min_terms=min_terms,
         max_terms=max_terms,
         min_digits=min_digits,

@@ -37,9 +37,9 @@ The goal is to generate virtually infinite data with adjustable complexity.
 #### Basic Arithmetic
 Generates arithmetic problems with configurable complexity:
 ```python
-from reasoning_gym.arithmetic import ArithmeticDataset, ArithmeticDatasetConfig
+from reasoning_gym.arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
 
-config = ArithmeticDatasetConfig(
+config = BasicArithmeticDatasetConfig(
     min_terms=2,        # Minimum number of terms in expression
     max_terms=4,        # Maximum number of terms
     min_digits=1,       # Minimum digits per number
@@ -49,7 +49,7 @@ config = ArithmeticDatasetConfig(
     seed=42            # For reproducibility
 )
 
-dataset = ArithmeticDataset(config)
+dataset = BasicArithmeticDataset(config)
 for item in dataset:
     print(item)
 ```
