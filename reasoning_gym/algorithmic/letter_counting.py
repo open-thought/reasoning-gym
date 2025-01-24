@@ -7,7 +7,7 @@ from typing import List, Optional
 
 from reasoning_gym.data import read_data_file
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -63,17 +63,4 @@ class LetterCountingDataset(ProceduralDataset):
         }
 
 
-def letter_counting_dataset(
-    min_words: int = 5,
-    max_words: int = 15,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> LetterCountingDataset:
-    """Create a LetterCountingDataset with the given configuration."""
-    config = LetterCountingConfig(
-        min_words=min_words,
-        max_words=max_words,
-        seed=seed,
-        size=size,
-    )
-    return LetterCountingDataset(config)
+register_dataset("letter_counting", LetterCountingDataset, LetterCountingConfig)

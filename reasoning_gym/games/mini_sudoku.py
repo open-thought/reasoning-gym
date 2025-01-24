@@ -1,9 +1,10 @@
 """Mini Sudoku (4x4) puzzle generator"""
 
-import random
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional, Set, Tuple
+from typing import List, Optional, Tuple
+
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -21,13 +22,11 @@ class MiniSudokuConfig:
         assert self.min_empty <= self.max_empty <= 16, "max_empty must be between min_empty and 16"
 
 
-class MiniSudokuDataset:
+class MiniSudokuDataset(ProceduralDataset):
     """Generates 4x4 sudoku puzzles with configurable difficulty"""
 
     def __init__(self, config: MiniSudokuConfig):
-        self.config = config
-        self.config.validate()
-        self.seed = config.seed if config.seed is not None else Random().randint(0, 2**32)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __len__(self) -> int:
         return self.config.size
@@ -149,17 +148,4 @@ class MiniSudokuDataset:
         }
 
 
-def mini_sudoku_dataset(
-    min_empty: int = 8,
-    max_empty: int = 12,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> MiniSudokuDataset:
-    """Create a MiniSudokuDataset with the given configuration."""
-    config = MiniSudokuConfig(
-        min_empty=min_empty,
-        max_empty=max_empty,
-        seed=seed,
-        size=size,
-    )
-    return MiniSudokuDataset(config)
+register_dataset("mini_sudoku", MiniSudokuDataset, MiniSudokuConfig)

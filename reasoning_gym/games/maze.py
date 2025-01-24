@@ -3,7 +3,7 @@ import string
 from dataclasses import dataclass
 from typing import Optional
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -47,7 +47,6 @@ class MazeDataset(ProceduralDataset):
         num_retries=1000,
     ):
         super().__init__(config=config, seed=config.seed, size=config.size)
-        self.config = config
         # Probability that a cell is a path instead of a wall
         self.prob_path = prob_path
         # Number of times to resample a grid to find a suitable maze before giving up
@@ -184,21 +183,4 @@ class MazeDataset(ProceduralDataset):
         return "\n".join("".join(row) for row in grid)
 
 
-def maze_dataset(
-    min_dist: int = 5,
-    max_dist: int = 10,
-    min_grid_size: int = 5,
-    max_grid_size: int = 10,
-    seed: Optional[int] = None,
-    size: int = 50,
-) -> MazeDataset:
-    """Convenient function to create a MazeDataset."""
-    config = MazeConfig(
-        min_dist=min_dist,
-        max_dist=max_dist,
-        min_grid_size=min_grid_size,
-        max_grid_size=max_grid_size,
-        seed=seed,
-        size=size,
-    )
-    return MazeDataset(config)
+register_dataset("maze", MazeDataset, MazeConfig)

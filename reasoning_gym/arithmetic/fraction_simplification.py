@@ -5,7 +5,7 @@ from math import gcd
 from random import Random
 from typing import Optional, Sequence, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -121,23 +121,4 @@ class FractionSimplificationDataset(ProceduralDataset):
         }
 
 
-def fraction_simplification_dataset(
-    min_value: int = 1,
-    max_value: int = 100,
-    min_factor: int = 2,
-    max_factor: int = 10,
-    styles: Sequence[str] = ("plain", "latex_inline", "latex_frac", "latex_dfrac"),
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> FractionSimplificationDataset:
-    """Create a FractionSimplificationDataset with the given configuration."""
-    config = FractionSimplificationConfig(
-        min_value=min_value,
-        max_value=max_value,
-        min_factor=min_factor,
-        max_factor=max_factor,
-        styles=styles,
-        seed=seed,
-        size=size,
-    )
-    return FractionSimplificationDataset(config)
+register_dataset("fraction_simplification", FractionSimplificationDataset, FractionSimplificationConfig)

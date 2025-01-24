@@ -5,7 +5,7 @@ from enum import Enum
 from random import Random
 from typing import List, Optional, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 class Quantifier(Enum):
@@ -256,27 +256,4 @@ class SyllogismDataset(ProceduralDataset):
         return self._generate_syllogism(rng)
 
 
-def syllogism_dataset(
-    terms: List[Term] = None,
-    allow_all: bool = True,
-    allow_no: bool = True,
-    allow_some: bool = True,
-    allow_some_not: bool = True,
-    include_invalid: bool = True,
-    invalid_ratio: float = 0.3,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> SyllogismDataset:
-    """Create a SyllogismDataset with the given configuration."""
-    config = SyllogismConfig(
-        terms=terms,
-        allow_all=allow_all,
-        allow_no=allow_no,
-        allow_some=allow_some,
-        allow_some_not=allow_some_not,
-        include_invalid=include_invalid,
-        invalid_ratio=invalid_ratio,
-        seed=seed,
-        size=size,
-    )
-    return SyllogismDataset(config)
+register_dataset("syllogism", SyllogismDataset, SyllogismConfig)

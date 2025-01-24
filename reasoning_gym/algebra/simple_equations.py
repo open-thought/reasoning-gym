@@ -6,7 +6,7 @@ from typing import Optional, Tuple
 import sympy
 from sympy import Eq, Symbol, solve
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -116,23 +116,4 @@ class SimpleEquationsDataset(ProceduralDataset):
         return f"{left_side} = {right_side}", solution_value
 
 
-def simple_equations_dataset(
-    min_terms: int = 2,
-    max_terms: int = 5,
-    min_value: int = 1,
-    max_value: int = 100,
-    operators: tuple = ("+", "-", "*"),
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> SimpleEquationsDataset:
-    """Create a SimpleEquationsDataset with the given configuration"""
-    config = SimpleEquationsConfig(
-        min_terms=min_terms,
-        max_terms=max_terms,
-        min_value=min_value,
-        max_value=max_value,
-        operators=operators,
-        seed=seed,
-        size=size,
-    )
-    return SimpleEquationsDataset(config)
+register_dataset("simple_equations", SimpleEquationsDataset, SimpleEquationsConfig)

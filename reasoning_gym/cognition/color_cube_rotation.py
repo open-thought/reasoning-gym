@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Dict, List, Optional, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 class Color(StrEnum):
@@ -189,17 +189,4 @@ class ColorCubeRotationDataset(ProceduralDataset):
         return "\n".join(story_parts)
 
 
-def color_cube_rotation_dataset(
-    min_rotations: int = 1,
-    max_rotations: int = 3,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> ColorCubeRotationDataset:
-    """Create a ColorCubeRotationDataset with the given configuration"""
-    config = ColorCubeRotationConfig(
-        min_rotations=min_rotations,
-        max_rotations=max_rotations,
-        seed=seed,
-        size=size,
-    )
-    return ColorCubeRotationDataset(config)
+register_dataset("color_cube_rotation", ColorCubeRotationDataset, ColorCubeRotationConfig)

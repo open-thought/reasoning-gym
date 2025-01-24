@@ -6,7 +6,7 @@ from random import Random
 from typing import List, Optional
 
 from ..data import read_data_file
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -55,17 +55,4 @@ class WordReversalDataset(ProceduralDataset):
         }
 
 
-def word_reversal_dataset(
-    min_words: int = 3,
-    max_words: int = 8,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> WordReversalDataset:
-    """Create a WordReversalDataset with the given configuration."""
-    config = WordReversalConfig(
-        min_words=min_words,
-        max_words=max_words,
-        seed=seed,
-        size=size,
-    )
-    return WordReversalDataset(config)
+register_dataset("word_reversal", WordReversalDataset, WordReversalConfig)

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import List, Optional, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -86,25 +86,4 @@ class NumberSortingDataset(ProceduralDataset):
         }
 
 
-def number_sorting_dataset(
-    min_numbers: int = 3,
-    max_numbers: int = 10,
-    min_decimals: int = 0,
-    max_decimals: int = 2,
-    min_value: float = -100.0,
-    max_value: float = 100.0,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> NumberSortingDataset:
-    """Create a NumberSortingDataset with the given configuration."""
-    config = NumberSortingConfig(
-        min_numbers=min_numbers,
-        max_numbers=max_numbers,
-        min_decimals=min_decimals,
-        max_decimals=max_decimals,
-        min_value=min_value,
-        max_value=max_value,
-        seed=seed,
-        size=size,
-    )
-    return NumberSortingDataset(config)
+register_dataset("number_sorting", NumberSortingDataset, NumberSortingConfig)

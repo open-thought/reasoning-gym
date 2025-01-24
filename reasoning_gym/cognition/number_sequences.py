@@ -3,7 +3,7 @@ from enum import StrEnum
 from random import Random
 from typing import List, Optional
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 class Operation(StrEnum):
@@ -198,23 +198,4 @@ class NumberSequenceDataset(ProceduralDataset):
         }
 
 
-def number_sequence_dataset(
-    min_terms: int = 4,
-    max_terms: int = 8,
-    min_value: int = -100,
-    max_value: int = 100,
-    max_complexity: int = 3,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> NumberSequenceDataset:
-    """Create a NumberSequenceDataset with the given configuration."""
-    config = NumberSequenceConfig(
-        min_terms=min_terms,
-        max_terms=max_terms,
-        min_value=min_value,
-        max_value=max_value,
-        max_complexity=max_complexity,
-        seed=seed,
-        size=size,
-    )
-    return NumberSequenceDataset(config)
+register_dataset("number_sequence", NumberSequenceDataset, NumberSequenceConfig)

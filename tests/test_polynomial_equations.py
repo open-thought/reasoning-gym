@@ -1,11 +1,8 @@
 import pytest
 from sympy import Symbol, sympify
 
-from reasoning_gym.algebra.polynomial_equations import (
-    PolynomialEquationsConfig,
-    PolynomialEquationsDataset,
-    polynomial_equations_dataset,
-)
+from reasoning_gym import create_dataset
+from reasoning_gym.algebra.polynomial_equations import PolynomialEquationsConfig, PolynomialEquationsDataset
 
 
 def test_polynomial_config_validation():
@@ -47,7 +44,8 @@ def test_polynomial_equations_dataset_basic():
 
 def test_polynomial_equations_dataset_items():
     """Test that generated items have correct structure"""
-    ds = polynomial_equations_dataset(
+    ds = create_dataset(
+        "polynomial_equations",
         min_terms=2,
         max_terms=3,
         min_value=1,
@@ -87,7 +85,8 @@ def test_polynomial_equations_dataset_deterministic():
 
 def test_polynomial_solutions_evaluation():
     """Test that real_solutions satisfy the polynomial equation."""
-    ds = polynomial_equations_dataset(
+    ds = create_dataset(
+        "polynomial_equations",
         min_terms=2,
         max_terms=4,
         min_value=1,

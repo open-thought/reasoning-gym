@@ -1,10 +1,12 @@
 import pytest
 
-from reasoning_gym.graphs.family_relationships import Gender, Relationship, family_relationships_dataset
+from reasoning_gym import create_dataset
+from reasoning_gym.graphs.family_relationships import FamilyRelationshipsDataset, Relationship
 
 
 def test_family_relationships_generation():
-    dataset = family_relationships_dataset(seed=42, size=10)
+    dataset = create_dataset("family_relationships", seed=42, size=10)
+    assert isinstance(dataset, FamilyRelationshipsDataset)
 
     for item in dataset:
         # Check required keys exist
@@ -32,21 +34,21 @@ def test_family_relationships_generation():
 def test_family_relationships_config():
     # Test invalid config raises assertion
     with pytest.raises(AssertionError):
-        dataset = family_relationships_dataset(min_family_size=2)
+        dataset = create_dataset("family_relationships", min_family_size=2)
 
     with pytest.raises(AssertionError):
-        dataset = family_relationships_dataset(max_family_size=3, min_family_size=4)
+        dataset = create_dataset("family_relationships", max_family_size=3, min_family_size=4)
 
     with pytest.raises(AssertionError):
-        dataset = family_relationships_dataset(male_names=[])
+        dataset = create_dataset("family_relationships", male_names=[])
 
     with pytest.raises(AssertionError):
-        dataset = family_relationships_dataset(female_names=[])
+        dataset = create_dataset("family_relationships", female_names=[])
 
 
 def test_deterministic_generation():
-    dataset1 = family_relationships_dataset(seed=42, size=5)
-    dataset2 = family_relationships_dataset(seed=42, size=5)
+    dataset1 = create_dataset("family_relationships", seed=42, size=5)
+    dataset2 = create_dataset("family_relationships", seed=42, size=5)
 
     for i in range(5):
         assert dataset1[i]["question"] == dataset2[i]["question"]
@@ -54,7 +56,7 @@ def test_deterministic_generation():
 
 
 def test_relationship_consistency():
-    dataset = family_relationships_dataset(seed=42, size=10)
+    dataset = create_dataset("family_relationships", seed=42, size=10)
 
     for item in dataset:
         # Check that relationship matches the gender

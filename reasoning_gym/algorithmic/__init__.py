@@ -6,31 +6,21 @@ Algorithmic tasks for training reasoning capabilities:
 - Pattern matching
 """
 
-from reasoning_gym.arithmetic.basic_arithmetic import basic_arithmetic_dataset
-from reasoning_gym.arithmetic.chain_sum import chain_sum_dataset
-
-from .base_conversion import BaseConversionConfig, BaseConversionDataset, base_conversion_dataset
-from .letter_counting import LetterCountingConfig, LetterCountingDataset, letter_counting_dataset
-from .number_filtering import NumberFilteringConfig, NumberFilteringDataset, number_filtering_dataset
-from .number_sorting import NumberSortingConfig, NumberSortingDataset, number_sorting_dataset
-from .word_reversal import WordReversalConfig, WordReversalDataset, word_reversal_dataset
+from .base_conversion import BaseConversionConfig, BaseConversionDataset
+from .letter_counting import LetterCountingConfig, LetterCountingDataset
+from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
+from .number_sorting import NumberSortingConfig, NumberSortingDataset
+from .word_reversal import WordReversalConfig, WordReversalDataset
 
 __all__ = [
-    "basic_arithmetic_dataset",
     "BaseConversionConfig",
     "BaseConversionDataset",
-    "base_conversion_dataset",
-    "chain_sum_dataset",
     "LetterCountingConfig",
     "LetterCountingDataset",
-    "letter_counting_dataset",
     "NumberFilteringConfig",
     "NumberFilteringDataset",
-    "number_filtering_dataset",
     "NumberSortingConfig",
     "NumberSortingDataset",
-    "number_sorting_dataset",
     "WordReversalConfig",
     "WordReversalDataset",
-    "word_reversal_dataset",
 ]

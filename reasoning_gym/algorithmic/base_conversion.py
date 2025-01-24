@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -88,21 +88,4 @@ class BaseConversionDataset(ProceduralDataset):
         }
 
 
-def base_conversion_dataset(
-    min_base: int = 2,
-    max_base: int = 16,
-    min_value: int = 0,
-    max_value: int = 1000,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> BaseConversionDataset:
-    """Create a BaseConversionDataset with the given configuration."""
-    config = BaseConversionConfig(
-        min_base=min_base,
-        max_base=max_base,
-        min_value=min_value,
-        max_value=max_value,
-        seed=seed,
-        size=size,
-    )
-    return BaseConversionDataset(config)
+register_dataset("base_conversion", BaseConversionDataset, BaseConversionConfig)

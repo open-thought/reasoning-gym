@@ -6,7 +6,7 @@ from math import lcm
 from random import Random
 from typing import List, Optional, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -66,21 +66,4 @@ class LCMDataset(ProceduralDataset):
         }
 
 
-def lcm_dataset(
-    min_numbers: int = 2,
-    max_numbers: int = 2,
-    min_value: int = 1,
-    max_value: int = 100,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> LCMDataset:
-    """Create a LCMDataset with the given configuration."""
-    config = LCMConfig(
-        min_numbers=min_numbers,
-        max_numbers=max_numbers,
-        min_value=min_value,
-        max_value=max_value,
-        seed=seed,
-        size=size,
-    )
-    return LCMDataset(config)
+register_dataset("lcm", LCMDataset, LCMConfig)

@@ -6,13 +6,12 @@ Logic tasks for training reasoning capabilities:
 - Syllogisms
 """
 
-from .propositional_logic import PropositionalLogicConfig, PropositionalLogicDataset, propositional_logic_dataset
-from .syllogisms import SyllogismConfig, SyllogismDataset, Term, syllogism_dataset
+from .propositional_logic import PropositionalLogicConfig, PropositionalLogicDataset
+from .syllogisms import SyllogismConfig, SyllogismDataset, Term
 
 __all__ = [
     "PropositionalLogicConfig",
     "PropositionalLogicDataset",
-    "propositional_logic_dataset",
     "SyllogismConfig",
     "SyllogismDataset",
     "syllogism_dataset",

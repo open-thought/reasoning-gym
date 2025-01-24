@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import List, Optional, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -66,17 +66,4 @@ class PrimeFactorizationDataset(ProceduralDataset):
         }
 
 
-def prime_factorization_dataset(
-    min_value: int = 2,
-    max_value: int = 1000,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> PrimeFactorizationDataset:
-    """Create a PrimeFactorizationDataset with the given configuration."""
-    config = PrimeFactorizationConfig(
-        min_value=min_value,
-        max_value=max_value,
-        seed=seed,
-        size=size,
-    )
-    return PrimeFactorizationDataset(config)
+register_dataset("prime_factorization", PrimeFactorizationDataset, PrimeFactorizationConfig)

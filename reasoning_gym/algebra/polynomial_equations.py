@@ -5,7 +5,7 @@ from typing import Optional, Tuple
 
 from sympy import Eq, Symbol, expand, solve
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -147,31 +147,4 @@ class PolynomialEquationsDataset(ProceduralDataset):
         return polynomial_expr
 
 
-def polynomial_equations_dataset(
-    min_terms: int = 2,
-    max_terms: int = 4,
-    min_value: int = 1,
-    max_value: int = 100,
-    min_degree: int = 1,
-    max_degree: int = 3,
-    operators: Tuple[str, ...] = ("+", "-"),
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> PolynomialEquationsDataset:
-    """
-    Factory function for creating a PolynomialEquationsDataset.
-    Example usage:
-        dataset = polynomial_equations_dataset(min_degree=2, max_degree=3, ...)
-    """
-    config = PolynomialEquationsConfig(
-        min_terms=min_terms,
-        max_terms=max_terms,
-        min_value=min_value,
-        max_value=max_value,
-        min_degree=min_degree,
-        max_degree=max_degree,
-        operators=operators,
-        seed=seed,
-        size=size,
-    )
-    return PolynomialEquationsDataset(config)
+register_dataset("polynomial_equations", PolynomialEquationsDataset, PolynomialEquationsConfig)

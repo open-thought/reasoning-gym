@@ -6,7 +6,7 @@ from math import gcd
 from random import Random
 from typing import List, Optional, Tuple
 
-from ..dataset import ProceduralDataset
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -63,21 +63,4 @@ class GCDDataset(ProceduralDataset):
         }
 
 
-def gcd_dataset(
-    min_numbers: int = 2,
-    max_numbers: int = 2,
-    min_value: int = 1,
-    max_value: int = 10_000,
-    seed: Optional[int] = None,
-    size: int = 500,
-) -> GCDDataset:
-    """Create a GCDDataset with the given configuration."""
-    config = GCDConfig(
-        min_numbers=min_numbers,
-        max_numbers=max_numbers,
-        min_value=min_value,
-        max_value=max_value,
-        seed=seed,
-        size=size,
-    )
-    return GCDDataset(config)
+register_dataset("gcd", GCDDataset, GCDConfig)

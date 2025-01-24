@@ -1,10 +1,12 @@
 import pytest
 
-from reasoning_gym.cognition.color_cube_rotation import Color, Cube, Side, color_cube_rotation_dataset
+from reasoning_gym import create_dataset
+from reasoning_gym.cognition.color_cube_rotation import Color, ColorCubeRotationDataset, Cube, Side
 
 
 def test_color_cube_rotation_generation():
-    dataset = color_cube_rotation_dataset(seed=42, size=10)
+    dataset = create_dataset("color_cube_rotation", seed=42, size=10)
+    assert isinstance(dataset, ColorCubeRotationDataset)
 
     for item in dataset:
         # Check required keys exist
@@ -33,15 +35,15 @@ def test_color_cube_rotation_generation():
 def test_color_cube_rotation_config():
     # Test invalid config raises assertion
     with pytest.raises(AssertionError):
-        dataset = color_cube_rotation_dataset(min_rotations=0)
+        dataset = create_dataset("color_cube_rotation", min_rotations=0)
 
     with pytest.raises(AssertionError):
-        dataset = color_cube_rotation_dataset(max_rotations=1, min_rotations=2)
+        dataset = create_dataset("color_cube_rotation", max_rotations=1, min_rotations=2)
 
 
 def test_deterministic_generation():
-    dataset1 = color_cube_rotation_dataset(seed=42, size=5)
-    dataset2 = color_cube_rotation_dataset(seed=42, size=5)
+    dataset1 = create_dataset("color_cube_rotation", seed=42, size=5)
+    dataset2 = create_dataset("color_cube_rotation", seed=42, size=5)
 
     for i in range(5):
         assert dataset1[i]["question"] == dataset2[i]["question"]

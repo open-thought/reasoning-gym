@@ -1,6 +1,7 @@
 import pytest
 
-from reasoning_gym.games.maze import MazeConfig, MazeDataset, maze_dataset
+from reasoning_gym import create_dataset
+from reasoning_gym.games.maze import MazeConfig, MazeDataset
 
 
 def test_maze_config_validation():
@@ -38,7 +39,8 @@ def test_maze_dataset_creation():
 
 
 def test_maze_dataset_items():
-    ds = maze_dataset(
+    ds = create_dataset(
+        "maze",
         min_dist=3,
         max_dist=5,
         min_grid_size=5,
@@ -62,7 +64,8 @@ def test_maze_shortest_path_correctness():
     """
     min_dist = 4
     max_dist = 8
-    ds = maze_dataset(
+    ds = create_dataset(
+        "maze",
         min_dist=min_dist,
         max_dist=max_dist,
         min_grid_size=5,
