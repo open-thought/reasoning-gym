@@ -200,7 +200,7 @@ class NumberSequenceDataset(ProceduralDataset):
         }
 
 
-def sequence_dataset(
+def number_sequence_dataset(
     min_terms: int = 4,
     max_terms: int = 8,
     min_value: int = -100,

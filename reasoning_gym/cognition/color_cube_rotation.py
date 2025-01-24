@@ -27,6 +27,7 @@ class Side(StrEnum):
 @dataclass
 class Cube:
     """Represents a cube with colored sides"""
+
     colors: Dict[Side, Color]
 
     def rotate_front_to_top(self) -> None:
@@ -78,6 +79,7 @@ class Cube:
 @dataclass
 class ColorCubeRotationConfig:
     """Configuration for color cube rotation task generation"""
+
     min_rotations: int = 1
     max_rotations: int = 3
     seed: Optional[int] = None
@@ -99,11 +101,11 @@ class ColorCubeRotationDataset(ProceduralDataset):
 
     def __getitem__(self, idx: int) -> dict:
         rng = random.Random(self.seed + idx)
-        
+
         # Generate initial cube state
         cube = self._generate_cube(rng)
         initial_state = cube.colors.copy()
-        
+
         # Generate sequence of rotations
         num_rotations = rng.randint(self.config.min_rotations, self.config.max_rotations)
         rotations = []
@@ -112,22 +114,22 @@ class ColorCubeRotationDataset(ProceduralDataset):
             if from_side != Side.TOP:  # Skip meaningless top-to-top rotation
                 rotations.append(from_side)
                 self._rotate_to_top(cube, from_side)
-        
+
         # Select target side for question
         target_side = rng.choice(list(Side))
-        
+
         # Generate story
         story = self._generate_story(initial_state, rotations, target_side)
-        
+
         return {
             "question": story,
             "answer": cube.colors[target_side],
             "metadata": {
-                "initial_state": {k.value: v.value for k,v in initial_state.items()},
+                "initial_state": {k.value: v.value for k, v in initial_state.items()},
                 "rotations": [r.value for r in rotations],
                 "target_side": target_side.value,
                 "num_rotations": num_rotations,
-            }
+            },
         }
 
     def _generate_cube(self, rng: random.Random) -> Cube:
@@ -148,24 +150,23 @@ class ColorCubeRotationDataset(ProceduralDataset):
         if from_side in rotation_map:
             rotation_map[from_side]()
 
-    def _generate_story(self, initial_state: Dict[Side, Color], 
-                       rotations: List[Side], target_side: Side) -> str:
+    def _generate_story(self, initial_state: Dict[Side, Color], rotations: List[Side], target_side: Side) -> str:
         """Generate story describing cube state and rotations"""
         # Describe initial state
         story_parts = ["A cube has:"]
         for side in Side:
             story_parts.append(f"- a {initial_state[side].value} {side.value} side")
-        
+
         # Describe rotations
         for from_side in rotations:
             story_parts.append(
                 f"\nThe cube is rotated so that the side which was before at the {from_side.value} "
                 "is now at the top."
             )
-        
+
         # Ask question
         story_parts.append(f"\nWhat is now the color of the {target_side.value} side of the cube?")
-        
+
         return "\n".join(story_parts)
 
 
