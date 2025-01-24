@@ -6,15 +6,16 @@ build-backend = "hatchling.build"
 name = "reasoning_gym"
 version = "0.1.1"
 authors = [
-  { name="Open-Thought community", email="andreas.koepf@xamla.com" },
+  { name = "Open-Thought community", email = "andreas.koepf@xamla.com" },
 ]
 description = "A library of procedural dataset generators for training reasoning models"
 readme = "README.md"
 requires-python = ">=3.12"
+dependencies = ["sympy>=1.13.1"]
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: Apache Software License",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
 ]
 
 [project.urls]
@@ -25,9 +26,7 @@ classifiers = [
 packages = ["reasoning_gym"]
 
 [tool.hatch.build]
-include = [
-  "reasoning_gym/**/*.txt",
-]
+include = ["reasoning_gym/**/*.txt"]
 
 [tool.black]
 line-length = 120
