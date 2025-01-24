@@ -9,6 +9,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 #### Arithmetic Tasks
 - `ArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, *)
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
+- `GCDDataset`: Generate Greatest Common Divisor problems with configurable number of integers
 - `LegCountingDataset`: Generate animal leg counting word problems with various animals
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
 
