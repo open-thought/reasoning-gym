@@ -17,6 +17,7 @@ class SimpleEquationsConfig:
     max_terms: int = 4  # Maximum number of terms
     min_value: int = 1  # Minimum value for constants
     max_value: int = 100  # Maximum value for constants
+    operators: tuple = ("+", "-", "*")  # Allowed operators
     seed: Optional[int] = None
     size: int = 500
 
@@ -26,6 +27,8 @@ class SimpleEquationsConfig:
         assert self.max_terms >= self.min_terms, "max_terms must be >= min_terms"
         assert self.min_value > 0, "min_value must be positive"
         assert self.max_value >= self.min_value, "max_value must be >= min_value"
+        assert len(self.operators) > 0, "must specify at least one operator"
+        assert all(op in ("+", "-", "*") for op in self.operators), "invalid operator specified"
 
 
 class SimpleEquationsDataset(ProceduralDataset):
@@ -100,7 +103,7 @@ class SimpleEquationsDataset(ProceduralDataset):
         # Apply operators between terms
         expr = terms[0]
         for i in range(1, num_terms):
-            op = rng.choice(("+", "-", "*"))
+            op = rng.choice(self.config.operators)
             if op == "+":
                 expr = expr + terms[i]
             elif op == "-":
@@ -119,6 +122,7 @@ def simple_equations_dataset(
     max_terms: int = 5,
     min_value: int = 1,
     max_value: int = 100,
+    operators: tuple = ("+", "-", "*"),
     seed: Optional[int] = None,
     size: int = 500,
 ) -> SimpleEquationsDataset:
@@ -128,6 +132,7 @@ def simple_equations_dataset(
         max_terms=max_terms,
         min_value=min_value,
         max_value=max_value,
+        operators=operators,
         seed=seed,
         size=size,
     )

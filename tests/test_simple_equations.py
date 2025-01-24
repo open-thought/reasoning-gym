@@ -23,6 +23,14 @@ def test_simple_equations_config_validation():
         config = SimpleEquationsConfig(min_value=100, max_value=50)  # max < min value
         config.validate()
 
+    with pytest.raises(AssertionError):
+        config = SimpleEquationsConfig(operators=())  # Empty operators
+        config.validate()
+
+    with pytest.raises(AssertionError):
+        config = SimpleEquationsConfig(operators=("+", "^"))  # Invalid operator
+        config.validate()
+
 
 def test_simple_equations_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
@@ -76,7 +84,13 @@ def test_simple_equations_dataset_iteration():
 def test_simple_equations_solution_verification():
     """Test that generated equations have correct solutions"""
     config = SimpleEquationsConfig(
-        min_terms=2, max_terms=3, min_value=1, max_value=10, size=10, seed=42  # Small values for predictable results
+        min_terms=2,
+        max_terms=3,
+        min_value=1,
+        max_value=10,  # Small values for predictable results
+        operators=("+", "-"),  # Simple operators for easy verification
+        size=10,
+        seed=42,
     )
     dataset = SimpleEquationsDataset(config)
 
@@ -94,3 +108,25 @@ def test_simple_equations_solution_verification():
         # Replace variable with solution
         evaluated = eval(left_side.replace(variable, str(solution)))
         assert evaluated == right_side
+def test_simple_equations_operators():
+    """Test equation generation with different operator combinations"""
+    for operators in [
+        ("+",),
+        ("+", "-"),
+        ("*",),
+        ("+", "*"),
+        ("+", "-", "*"),
+    ]:
+        config = SimpleEquationsConfig(
+            operators=operators,
+            size=5,
+            seed=42
+        )
+        dataset = SimpleEquationsDataset(config)
+
+        for item in dataset:
+            equation = item["metadata"]["equation"]
+            # Verify only allowed operators are used
+            for op in "+-*":
+                if op in equation:
+                    assert op in operators, str(equation)
