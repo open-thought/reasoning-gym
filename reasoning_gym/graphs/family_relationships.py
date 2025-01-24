@@ -69,14 +69,19 @@ class FamilyRelationshipsConfig:
 
     def __post_init__(self):
         # Default name lists if none provided
-        self.male_names = self.male_names or [
+        default_male_names = [
             "James", "John", "Robert", "Michael", "William", "David", "Richard", 
             "Joseph", "Thomas", "Charles", "Peter", "Daniel", "Matthew"
         ]
-        self.female_names = self.female_names or [
+        default_female_names = [
             "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan",
             "Jessica", "Sarah", "Karen", "Emma", "Lisa", "Anna"
         ]
+        
+        if self.male_names is None:
+            self.male_names = default_male_names
+        if self.female_names is None:
+            self.female_names = default_female_names
 
     def validate(self):
         """Validate configuration parameters"""
