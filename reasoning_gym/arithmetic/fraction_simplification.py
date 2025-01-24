@@ -112,21 +112,7 @@ class FractionSimplificationDataset:
                 "simplified_numerator": simple_num,
                 "simplified_denominator": simple_den,
                 "reduction_factor": num // simple_num,  # Will be same as den // simple_den
-                "style": style,
-                "formats": {
-                    "question": {
-                        "plain": self._format_fraction(num, den, "plain"),
-                        "latex_inline": self._format_fraction(num, den, "latex_inline"),
-                        "latex_frac": self._format_fraction(num, den, "latex_frac"),
-                        "latex_dfrac": self._format_fraction(num, den, "latex_dfrac")
-                    },
-                    "answer": {
-                        "plain": self._format_fraction(simple_num, simple_den, "plain"),
-                        "latex_inline": self._format_fraction(simple_num, simple_den, "latex_inline"),
-                        "latex_frac": self._format_fraction(simple_num, simple_den, "latex_frac"),
-                        "latex_dfrac": self._format_fraction(simple_num, simple_den, "latex_dfrac")
-                    }
-                }
+                "style": style
             }
         }
 
