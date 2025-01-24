@@ -9,18 +9,18 @@ from math import gcd
 class FractionSimplificationConfig:
     """Configuration for fraction simplification task generation"""
     min_value: int = 1        # Minimum value for numerator/denominator
-    max_value: int = 100      # Maximum value for numerator/denominator
-    min_factor: int = 2       # Minimum multiplication factor
-    max_factor: int = 10      # Maximum multiplication factor
+    max_value: int = 1000     # Maximum value for numerator/denominator
+    min_factor: int = 1       # Minimum multiplication factor
+    max_factor: int = 100     # Maximum multiplication factor
     styles: Sequence[str] = ("plain", "latex_inline", "latex_frac", "latex_dfrac")  # Allowed fraction formatting styles
     seed: Optional[int] = None
     size: int = 500          # Virtual dataset size
 
     def validate(self):
         """Validate configuration parameters"""
-        assert self.min_value >= 1, "min_value must be positive"
+        assert self.min_value >= 0, "min_value must be positive"
         assert self.max_value > self.min_value, "max_value must be > min_value"
-        assert self.min_factor >= 2, "min_factor must be at least 2"
+        assert self.min_factor >= 1, "min_factor must be at least 1"
         assert self.max_factor >= self.min_factor, "max_factor must be >= min_factor"
         
         # Validate styles
