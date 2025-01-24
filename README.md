@@ -272,6 +272,4 @@ Example data:
 
 ## Call for Contributions
 
-If you have ideas for additional procedural dataset generators or please create an issue here.
-
-Or contact us in the `#arc-agi-2` channel of the [GPU-Mode discord server](https://discord.gg/gpumode).
+If you have ideas for additional procedural dataset generators please create an issue here or contact us in the `#arc-agi-2` channel of the [GPU-Mode discord server](https://discord.gg/gpumode).
