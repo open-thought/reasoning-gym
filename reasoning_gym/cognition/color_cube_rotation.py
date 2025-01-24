@@ -158,11 +158,17 @@ class ColorCubeRotationDataset(ProceduralDataset):
             story_parts.append(f"- a {initial_state[side].value} {side.value} side")
 
         # Describe rotations
-        for from_side in rotations:
-            story_parts.append(
-                f"\nThe cube is rotated so that the side which was before at the {from_side.value} "
-                "is now at the top."
-            )
+        rotation_templates = [
+            "The cube is rotated so that the side which was before at the {side} is now at the top.",
+            "Then the cube is rotated to bring the {side} side to the top.",
+            "After that the cube is turned to make the {side} face the top.",
+            "Now the cube is rotated to place its {side} side at the top.",
+            "Next, the {side} side is rotated to become the top face.",
+        ]
+        
+        for i, from_side in enumerate(rotations):
+            template = rotation_templates[0] if i == 0 else rng.choice(rotation_templates[1:])
+            story_parts.append(f"\n{template.format(side=from_side.value)}")
 
         # Ask question
         story_parts.append(f"\nWhat is now the color of the {target_side.value} side of the cube?")
