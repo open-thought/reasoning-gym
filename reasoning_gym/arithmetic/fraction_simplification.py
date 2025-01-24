@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from random import Random
 from typing import Optional, Tuple, Sequence
+from ..dataset import ProceduralDataset
 from math import gcd
 
 
@@ -29,27 +30,13 @@ class FractionSimplificationConfig:
             assert style in valid_styles, f"Invalid style: {style}. Must be one of {valid_styles}"
 
 
-class FractionSimplificationDataset:
+class FractionSimplificationDataset(ProceduralDataset):
     """Generates fraction simplification tasks"""
 
     def __init__(self, config: FractionSimplificationConfig):
         self.config = config
         self.config.validate()
-        self.seed = config.seed if config.seed is not None else Random().randint(0, 2**32)
-
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
+        super().__init__(seed=config.seed, size=config.size)
 
     def _generate_fraction(self, rng: Random) -> Tuple[int, int, int, int]:
         """Generate a random fraction and its simplified form.
