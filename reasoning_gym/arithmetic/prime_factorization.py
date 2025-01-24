@@ -1,16 +1,20 @@
 """Prime factorization task generator"""
+
 from dataclasses import dataclass
 from random import Random
 from typing import List, Optional, Tuple
+
 from ..dataset import ProceduralDataset
+
 
 @dataclass
 class PrimeFactorizationConfig:
     """Configuration for prime factorization task generation"""
-    min_value: int = 2         # Minimum number to factorize
-    max_value: int = 1000      # Maximum number to factorize
+
+    min_value: int = 2  # Minimum number to factorize
+    max_value: int = 1000  # Maximum number to factorize
     seed: Optional[int] = None
-    size: int = 500           # Virtual dataset size
+    size: int = 500  # Virtual dataset size
 
     def validate(self):
         """Validate configuration parameters"""
@@ -44,24 +48,23 @@ class PrimeFactorizationDataset(ProceduralDataset):
     def __getitem__(self, idx: int) -> dict:
         """Generate a single prime factorization task"""
         rng = Random(self.seed + idx)
-        
+
         # Generate random number to factorize
         number = rng.randint(self.config.min_value, self.config.max_value)
-        
+
         # Calculate prime factors
         factors = self._prime_factors(number)
-        
+
         # Format answer as multiplication of prime factors
         answer = " × ".join(map(str, factors))
-        
+
         return {
-            "question": (f"Find the prime factorization of {number}. Write the factors separated by × "
-                       f"(Example: for 12 the answer would be: 2 × 2 × 3)"),
+            "question": (
+                f"Find the prime factorization of {number}. Write the factors separated by × "
+                f"(Example: for 12 the answer would be: 2 × 2 × 3)"
+            ),
             "answer": answer,
-            "metadata": {
-                "number": number,
-                "factors": factors
-            }
+            "metadata": {"number": number, "factors": factors},
         }
 
 

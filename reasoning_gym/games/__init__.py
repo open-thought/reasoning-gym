@@ -14,5 +14,5 @@ __all__ = [
     "mini_sudoku_dataset",
     "SudokuConfig",
     "SudokuDataset",
-    "sudoku_dataset"
+    "sudoku_dataset",
 ]

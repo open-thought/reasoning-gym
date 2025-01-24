@@ -1,7 +1,9 @@
 """Leg counting task generator"""
+
 from dataclasses import dataclass
 from random import Random
 from typing import Dict, Optional
+
 from ..dataset import ProceduralDataset
 
 ANIMALS = {
@@ -52,14 +54,16 @@ ANIMALS = {
     "woodlouse": 14,
 }
 
+
 @dataclass
 class LegCountingConfig:
     """Configuration for leg counting task generation"""
-    min_animals: int = 2        # Minimum number of animals in problem
-    max_animals: int = 5        # Maximum number of animals
-    max_instances: int = 3      # Maximum instances of each animal
+
+    min_animals: int = 2  # Minimum number of animals in problem
+    max_animals: int = 5  # Maximum number of animals
+    max_instances: int = 3  # Maximum instances of each animal
     seed: Optional[int] = None
-    size: int = 500            # Virtual dataset size
+    size: int = 500  # Virtual dataset size
 
     def validate(self):
         """Validate configuration parameters"""
@@ -80,39 +84,36 @@ class LegCountingDataset(ProceduralDataset):
         """Generate a random set of animals and their counts"""
         num_types = rng.randint(self.config.min_animals, self.config.max_animals)
         animals = {}
-        
+
         # Select random animals
         selected_animals = rng.sample(list(ANIMALS.keys()), num_types)
         for animal in selected_animals:
             count = rng.randint(1, self.config.max_instances)
             animals[animal] = count
-            
+
         return animals
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single leg counting task"""
         rng = Random(self.seed + idx)
-        
+
         # Generate random animals and their counts
         animals = self._generate_animals(rng)
-        
+
         # Calculate total legs
         total_legs = sum(count * ANIMALS[animal] for animal, count in animals.items())
-        
+
         # Format animal counts for question
         animal_list = []
         for animal, count in animals.items():
             animal_list.append(f"{count} {animal}{'s' if count > 1 else ''}")
-            
+
         question = "How many legs are there in total if you have " + ", ".join(animal_list) + "?"
-        
+
         return {
             "question": question,
             "answer": str(total_legs),
-            "metadata": {
-                "animals": animals,
-                "total_legs": total_legs
-            }
+            "metadata": {"animals": animals, "total_legs": total_legs},
         }
 
 

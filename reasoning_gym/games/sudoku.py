@@ -1,16 +1,19 @@
 """Sudoku puzzle generator"""
-from dataclasses import dataclass
+
 import random
+from dataclasses import dataclass
 from random import Random
 from typing import List, Optional, Set, Tuple
+
 
 @dataclass
 class SudokuConfig:
     """Configuration for sudoku puzzle generation"""
-    min_empty: int = 30        # Minimum number of empty cells
-    max_empty: int = 50        # Maximum number of empty cells
+
+    min_empty: int = 30  # Minimum number of empty cells
+    max_empty: int = 50  # Maximum number of empty cells
     seed: Optional[int] = None
-    size: int = 500           # Virtual dataset size
+    size: int = 500  # Virtual dataset size
 
     def validate(self):
         """Validate configuration parameters"""
@@ -45,11 +48,11 @@ class SudokuDataset:
         # Check row
         if num in board[row]:
             return False
-            
+
         # Check column
         if num in [board[i][col] for i in range(9)]:
             return False
-            
+
         # Check 3x3 box
         box_row, box_col = 3 * (row // 3), 3 * (col // 3)
         for i in range(box_row, box_row + 3):
@@ -63,7 +66,7 @@ class SudokuDataset:
         empty = self._find_empty(board)
         if not empty:
             return True
-            
+
         row, col = empty
         for num in range(1, 10):
             if self._is_valid(board, row, col, num):
@@ -84,7 +87,7 @@ class SudokuDataset:
     def _generate_solved_board(self, rng: Random) -> List[List[int]]:
         """Generate a complete solved sudoku board"""
         board = [[0] * 9 for _ in range(9)]
-        
+
         # Fill diagonal boxes first (they are independent)
         for i in range(0, 9, 3):
             nums = list(range(1, 10))
@@ -94,7 +97,7 @@ class SudokuDataset:
                 for c in range(i, i + 3):
                     board[r][c] = nums[pos]
                     pos += 1
-        
+
         # Solve the rest
         self._solve(board)
         return board
@@ -104,10 +107,10 @@ class SudokuDataset:
         puzzle = [row[:] for row in solved_board]
         cells = [(i, j) for i in range(9) for j in range(9)]
         rng.shuffle(cells)
-        
+
         for i, j in cells[:num_empty]:
             puzzle[i][j] = 0
-            
+
         return puzzle
 
     def _board_to_string(self, board: List[List[int]]) -> str:
@@ -117,26 +120,22 @@ class SudokuDataset:
     def __getitem__(self, idx: int) -> dict:
         """Generate a single sudoku puzzle"""
         rng = Random(self.seed + idx)
-        
+
         # Generate solved board
         solved_board = self._generate_solved_board(rng)
-        
+
         # Create puzzle by removing numbers
         num_empty = rng.randint(self.config.min_empty, self.config.max_empty)
         puzzle = self._create_puzzle(solved_board, num_empty, rng)
-        
+
         # Format as strings
         puzzle_str = self._board_to_string(puzzle)
         solution_str = self._board_to_string(solved_board)
-        
+
         return {
             "question": f"Solve this Sudoku puzzle:\n{puzzle_str}",
             "answer": solution_str,
-            "metadata": {
-                "puzzle": puzzle,
-                "solution": solved_board,
-                "num_empty": num_empty
-            }
+            "metadata": {"puzzle": puzzle, "solution": solved_board, "num_empty": num_empty},
         }
 
 

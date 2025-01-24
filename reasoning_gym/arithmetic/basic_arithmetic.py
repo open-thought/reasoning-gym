@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Literal, Optional
+
 from ..dataset import ProceduralDataset
 
 
@@ -144,7 +145,6 @@ class BasicArithmeticDataset(ProceduralDataset):
 
         expression = " ".join(expression_parts)
         return expression, result
-
 
     def _format_question(self, rng: Random, expression: str) -> str:
         """Format the expression according to config style"""

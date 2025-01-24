@@ -1,6 +1,7 @@
 import random
 from dataclasses import dataclass
 from typing import Optional
+
 from ..dataset import ProceduralDataset
 
 
@@ -69,7 +70,6 @@ class ChainSum(ProceduralDataset):
                 "expression": expression,
             },
         }
-
 
     def _generate_task(self, rng: random.Random, num_terms: int, min_value: int, max_value: int) -> tuple[str, int]:
         """Generate a chain sum task

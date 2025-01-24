@@ -1,18 +1,21 @@
 """Letter counting task generator"""
-from dataclasses import dataclass
+
 import re
+from dataclasses import dataclass
 from random import Random
 from typing import List, Optional
 
 from reasoning_gym.data import read_data_file
 
+
 @dataclass
 class LetterCountingConfig:
     """Configuration for letter counting task generation"""
-    min_words: int = 5          # Minimum words in span
-    max_words: int = 15         # Maximum words in span
+
+    min_words: int = 5  # Minimum words in span
+    max_words: int = 15  # Maximum words in span
     seed: Optional[int] = None
-    size: int = 500            # Virtual dataset size
+    size: int = 500  # Virtual dataset size
 
     def validate(self):
         """Validate configuration parameters"""
@@ -27,11 +30,11 @@ class LetterCountingDataset:
         self.config = config
         self.config.validate()
         self.seed = config.seed if config.seed is not None else Random().randint(0, 2**32)
-        
+
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
         # Extract words and clean them to contain only alphanumeric characters
-        self.words = [word for word in re.findall(r'\b\w+\b', text) if word.isalnum()]
+        self.words = [word for word in re.findall(r"\b\w+\b", text) if word.isalnum()]
 
     def __len__(self) -> int:
         return self.config.size
@@ -50,31 +53,27 @@ class LetterCountingDataset:
     def __getitem__(self, idx: int) -> dict:
         """Generate a single letter counting task"""
         rng = Random(self.seed + idx)
-        
+
         # Select random span of words
         span_length = rng.randint(self.config.min_words, self.config.max_words)
         start_idx = rng.randint(0, len(self.words) - span_length)
-        span = self.words[start_idx:start_idx + span_length]
-        
+        span = self.words[start_idx : start_idx + span_length]
+
         # Get all unique letters from span
-        letters = set(''.join(span).lower())
+        letters = set("".join(span).lower())
         if not letters:
-            letters = {'a'}  # Fallback if span has no letters
-            
+            letters = {"a"}  # Fallback if span has no letters
+
         # Select random letter that appears in the span
         target_letter = rng.choice(list(letters))
-        
+
         # Count occurrences
         count = sum(word.lower().count(target_letter) for word in span)
-        
+
         return {
             "question": f'How many times does the letter "{target_letter}" appear in the text: "{" ".join(span)}"?',
             "answer": str(count),
-            "metadata": {
-                "span_length": span_length,
-                "target_letter": target_letter,
-                "span": span
-            }
+            "metadata": {"span_length": span_length, "target_letter": target_letter, "span": span},
         }
 
 

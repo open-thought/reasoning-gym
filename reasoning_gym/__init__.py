@@ -2,12 +2,7 @@
 Reasoning Gym - A library of procedural dataset generators for training reasoning models
 """
 
-from . import arithmetic
-from . import algorithmic
-from . import cognition
-from . import data
-from . import games
-from . import logic
+from . import algorithmic, arithmetic, cognition, data, games, logic
 
 __version__ = "0.1.0"
 __all__ = ["arithmetic", "algorithmic", "cognition", "data", "games", "logic"]

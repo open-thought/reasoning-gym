@@ -1,21 +1,24 @@
 """Greatest Common Divisor (GCD) task generator"""
+
 from dataclasses import dataclass
+from functools import reduce
+from math import gcd
 from random import Random
 from typing import List, Optional, Tuple
+
 from ..dataset import ProceduralDataset
-from math import gcd
-from functools import reduce
 
 
 @dataclass
 class GCDConfig:
     """Configuration for GCD task generation"""
-    min_numbers: int = 2       # Minimum numbers to find GCD of
-    max_numbers: int = 2       # Maximum numbers to find GCD of
-    min_value: int = 1        # Minimum value for each number
-    max_value: int = 1000     # Maximum value for each number
+
+    min_numbers: int = 2  # Minimum numbers to find GCD of
+    max_numbers: int = 2  # Maximum numbers to find GCD of
+    min_value: int = 1  # Minimum value for each number
+    max_value: int = 1000  # Maximum value for each number
     seed: Optional[int] = None
-    size: int = 500          # Virtual dataset size
+    size: int = 500  # Virtual dataset size
 
     def validate(self):
         """Validate configuration parameters"""
@@ -38,33 +41,28 @@ class GCDDataset(ProceduralDataset):
         Will try up to 3 times to find numbers with GCD > 1."""
         for _ in range(3):  # Try up to 3 times to get GCD > 1
             num_count = rng.randint(self.config.min_numbers, self.config.max_numbers)
-            numbers = [rng.randint(self.config.min_value, self.config.max_value) 
-                      for _ in range(num_count)]
+            numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_count)]
             result = reduce(gcd, numbers)
             if result > 1:
                 return numbers, result
-        
+
         # If we failed to find GCD > 1 after 3 tries, generate one final set
         num_count = rng.randint(self.config.min_numbers, self.config.max_numbers)
-        numbers = [rng.randint(self.config.min_value, self.config.max_value) 
-                  for _ in range(num_count)]
+        numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_count)]
         result = reduce(gcd, numbers)
         return numbers, result
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single GCD task"""
         rng = Random(self.seed + idx)
-        
+
         numbers, result = self._generate_numbers(rng)
         numbers_str = ", ".join(str(n) for n in numbers)
-        
+
         return {
             "question": f"Find the Greatest Common Divisor (GCD) of these numbers: {numbers_str}",
             "answer": str(result),
-            "metadata": {
-                "numbers": numbers,
-                "result": result
-            }
+            "metadata": {"numbers": numbers, "result": result},
         }
 
 

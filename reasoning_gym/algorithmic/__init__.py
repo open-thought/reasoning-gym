@@ -8,6 +8,7 @@ Algorithmic tasks for training reasoning capabilities:
 
 from reasoning_gym.arithmetic.basic_arithmetic import basic_arithmetic_dataset
 from reasoning_gym.arithmetic.chain_sum import chain_sum_dataset
+
 from .base_conversion import BaseConversionConfig, BaseConversionDataset, base_conversion_dataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset, letter_counting_dataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset, number_filtering_dataset
@@ -20,8 +21,8 @@ __all__ = [
     "BaseConversionDataset",
     "base_conversion_dataset",
     "chain_sum_dataset",
-    "LetterCountingConfig", 
-    "LetterCountingDataset", 
+    "LetterCountingConfig",
+    "LetterCountingDataset",
     "letter_counting_dataset",
     "NumberFilteringConfig",
     "NumberFilteringDataset",
@@ -31,5 +32,5 @@ __all__ = [
     "number_sorting_dataset",
     "WordReversalConfig",
     "WordReversalDataset",
-    "word_reversal_dataset"
+    "word_reversal_dataset",
 ]
