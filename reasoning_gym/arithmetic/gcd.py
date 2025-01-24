@@ -39,7 +39,7 @@ class GCDDataset(ProceduralDataset):
     def _generate_numbers(self, rng: Random) -> Tuple[List[int], int]:
         """Generate a list of random positive integers and their GCD.
         Will try up to 3 times to find numbers with GCD > 1."""
-        
+
         # Try up to 3 times to get GCD > 1
         for _ in range(3):
             num_count = rng.randint(self.config.min_numbers, self.config.max_numbers)
@@ -47,7 +47,7 @@ class GCDDataset(ProceduralDataset):
             result = reduce(gcd, numbers)
             if result > 1:
                 break
-        
+
         # Return the last generated numbers, whether they met the criteria or not
         return numbers, result
 

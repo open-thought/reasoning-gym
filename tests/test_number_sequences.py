@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.cognition.number_sequences import Operation, PatternRule, NumberSequenceConfig, NumberSequenceDataset
+from reasoning_gym.cognition.number_sequences import NumberSequenceConfig, NumberSequenceDataset, Operation, PatternRule
 
 
 def test_sequence_config_validation():

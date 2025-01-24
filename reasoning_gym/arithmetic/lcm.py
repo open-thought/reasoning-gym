@@ -50,7 +50,7 @@ class LCMDataset(ProceduralDataset):
             result = reduce(lcm, numbers)
             if result < calculate_product(numbers):
                 break
-        
+
         # Return the last generated numbers, whether they met the criteria or not
         return numbers, result
 
