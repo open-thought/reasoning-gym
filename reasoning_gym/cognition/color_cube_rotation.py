@@ -160,7 +160,9 @@ class ColorCubeRotationDataset(ProceduralDataset):
         if from_side in rotation_map:
             rotation_map[from_side]()
 
-    def _generate_story(self, initial_state: Dict[Side, Color], rotations: List[Side], target_side: Side, rng: random.Random) -> str:
+    def _generate_story(
+        self, initial_state: Dict[Side, Color], rotations: List[Side], target_side: Side, rng: random.Random
+    ) -> str:
         """Generate story describing cube state and rotations"""
         # Describe initial state
         story_parts = ["A cube has:"]
@@ -175,7 +177,7 @@ class ColorCubeRotationDataset(ProceduralDataset):
             "Now the cube is rotated to place its {side} side at the top.",
             "Next, the {side} side is rotated to become the top face.",
         ]
-        
+
         for i, from_side in enumerate(rotations):
             template = rotation_templates[0] if i == 0 else rng.choice(rotation_templates[1:])
             story_parts.append(f"\n{template.format(side=from_side.value)}")
