@@ -17,6 +17,7 @@ class Quantifier(Enum):
 
 class Term:
     """Represents a categorical term used in syllogisms"""
+
     def __init__(self, name: str, plural: str):
         self.name = name
         self.plural = plural
@@ -25,31 +26,31 @@ class Term:
 @dataclass
 class SyllogismConfig:
     """Configuration for syllogism task generation"""
-    
+
     # Lists of terms to use in syllogisms
     terms: List[Term] = None  # Will be populated with defaults if None
-    
+
     # Control which quantifiers to use
     allow_all: bool = True
     allow_no: bool = True
     allow_some: bool = True
     allow_some_not: bool = True
-    
+
     # Whether to include invalid syllogisms as negative examples
     include_invalid: bool = True
-    
+
     # Percentage of invalid examples if included (0.0 to 1.0)
     invalid_ratio: float = 0.3
-    
+
     seed: Optional[int] = None
     size: int = 500
 
     def validate(self):
         """Validate configuration parameters"""
-        assert any([self.allow_all, self.allow_no, self.allow_some, self.allow_some_not]), \
-            "At least one quantifier type must be allowed"
-        assert 0.0 <= self.invalid_ratio <= 1.0, \
-            "invalid_ratio must be between 0.0 and 1.0"
+        assert any(
+            [self.allow_all, self.allow_no, self.allow_some, self.allow_some_not]
+        ), "At least one quantifier type must be allowed"
+        assert 0.0 <= self.invalid_ratio <= 1.0, "invalid_ratio must be between 0.0 and 1.0"
 
 
 class SyllogismDataset(ProceduralDataset):
@@ -64,7 +65,6 @@ class SyllogismDataset(ProceduralDataset):
         Term("adult", "adults"),
         Term("parent", "parents"),
         Term("grandparent", "grandparents"),
-        
         # Professions
         Term("philosopher", "philosophers"),
         Term("student", "students"),
@@ -78,7 +78,6 @@ class SyllogismDataset(ProceduralDataset):
         Term("engineer", "engineers"),
         Term("lawyer", "lawyers"),
         Term("chef", "chefs"),
-        
         # Animals
         Term("animal", "animals"),
         Term("mammal", "mammals"),
@@ -120,32 +119,35 @@ class SyllogismDataset(ProceduralDataset):
             quantifiers.append(Quantifier.SOME_NOT)
         return quantifiers
 
-    def _is_valid_syllogism(self, premise1: Tuple[Quantifier, Term, Term],
-                           premise2: Tuple[Quantifier, Term, Term],
-                           conclusion: Tuple[Quantifier, Term, Term]) -> bool:
+    def _is_valid_syllogism(
+        self,
+        premise1: Tuple[Quantifier, Term, Term],
+        premise2: Tuple[Quantifier, Term, Term],
+        conclusion: Tuple[Quantifier, Term, Term],
+    ) -> bool:
         """
         Check if a syllogism is logically valid using classical logic rules.
-        
+
         Rules implemented:
         1. Universal Affirmative (ALL):
            - If both premises are ALL, conclusion must be ALL
            - ALL A are B + ALL B are C → ALL A are C (Barbara)
-           
+
         2. Universal Negative (NO):
            - If one premise is NO and other is ALL, conclusion must be NO
            - NO A are B + ALL C are B → NO A are C (Celarent)
            - ALL A are B + NO C are B → NO A are C (Cesare)
-           
+
         3. Particular Affirmative (SOME):
            - If one premise is SOME and other is ALL, conclusion must be SOME
            - SOME A are B + ALL B are C → SOME A are C (Darii)
            - ALL A are B + SOME C are B → SOME A are C (Disamis)
-           
+
         4. Particular Negative (SOME_NOT):
            - If one premise is SOME_NOT and other is ALL, conclusion can be SOME_NOT
            - SOME A are not B + ALL B are C → SOME A are not C (Ferio)
            - ALL A are B + SOME C are not B → SOME A are not C (Festino)
-        
+
         5. Invalid combinations:
            - Two negative premises never yield a valid conclusion
            - Two particular premises never yield a valid conclusion
@@ -155,58 +157,56 @@ class SyllogismDataset(ProceduralDataset):
         q1, t1_1, t1_2 = premise1
         q2, t2_1, t2_2 = premise2
         qc, tc_1, tc_2 = conclusion
-        
+
         # Rule 5: Two negative premises -> invalid
-        if (q1 in (Quantifier.NO, Quantifier.SOME_NOT) and 
-            q2 in (Quantifier.NO, Quantifier.SOME_NOT)):
+        if q1 in (Quantifier.NO, Quantifier.SOME_NOT) and q2 in (Quantifier.NO, Quantifier.SOME_NOT):
             return False
-            
+
         # Rule 5: Two particular premises -> invalid
-        if (q1 in (Quantifier.SOME, Quantifier.SOME_NOT) and 
-            q2 in (Quantifier.SOME, Quantifier.SOME_NOT)):
+        if q1 in (Quantifier.SOME, Quantifier.SOME_NOT) and q2 in (Quantifier.SOME, Quantifier.SOME_NOT):
             return False
-            
+
         # Rule 5: Universal conclusion with particular premise -> invalid
-        if (qc in (Quantifier.ALL, Quantifier.NO) and 
-            (q1 in (Quantifier.SOME, Quantifier.SOME_NOT) or 
-             q2 in (Quantifier.SOME, Quantifier.SOME_NOT))):
+        if qc in (Quantifier.ALL, Quantifier.NO) and (
+            q1 in (Quantifier.SOME, Quantifier.SOME_NOT) or q2 in (Quantifier.SOME, Quantifier.SOME_NOT)
+        ):
             return False
-            
+
         # Rule 1: Barbara syllogism
-        if (q1 == Quantifier.ALL and q2 == Quantifier.ALL):
-            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+        if q1 == Quantifier.ALL and q2 == Quantifier.ALL:
+            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
                 return qc == Quantifier.ALL
-                
+
         # Rule 2: Celarent syllogism
-        if (q1 == Quantifier.NO and q2 == Quantifier.ALL):
-            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+        if q1 == Quantifier.NO and q2 == Quantifier.ALL:
+            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
                 return qc == Quantifier.NO
-                
+
         # Rule 2: Cesare syllogism
-        if (q1 == Quantifier.ALL and q2 == Quantifier.NO):
-            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+        if q1 == Quantifier.ALL and q2 == Quantifier.NO:
+            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
                 return qc == Quantifier.NO
-                
+
         # Rule 3: Darii syllogism
-        if (q1 == Quantifier.SOME and q2 == Quantifier.ALL):
-            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+        if q1 == Quantifier.SOME and q2 == Quantifier.ALL:
+            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
                 return qc == Quantifier.SOME
-                
+
         # Rule 3: Disamis syllogism
-        if (q1 == Quantifier.ALL and q2 == Quantifier.SOME):
-            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+        if q1 == Quantifier.ALL and q2 == Quantifier.SOME:
+            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
                 return qc == Quantifier.SOME
-                
+
         # Rule 4: Ferio syllogism
-        if (q1 == Quantifier.SOME_NOT and q2 == Quantifier.ALL):
-            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+        if q1 == Quantifier.SOME_NOT and q2 == Quantifier.ALL:
+            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
                 return qc == Quantifier.SOME_NOT
-                
+
         # Rule 4: Festino syllogism
-        if (q1 == Quantifier.ALL and q2 == Quantifier.SOME_NOT):
-            if (t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2):
+        if q1 == Quantifier.ALL and q2 == Quantifier.SOME_NOT:
+            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
                 return qc == Quantifier.SOME_NOT
-        
+
         return False
 
     def _generate_syllogism(self, rng: Random) -> dict:
@@ -214,7 +214,7 @@ class SyllogismDataset(ProceduralDataset):
         # Select three different terms
         terms = rng.sample(self.config.terms, 3)
         quantifiers = self._get_allowed_quantifiers()
-        
+
         # Generate premises and conclusion
         premise1 = (rng.choice(quantifiers), terms[0], terms[1])
         premise2 = (rng.choice(quantifiers), terms[1], terms[2])
@@ -250,7 +250,7 @@ class SyllogismDataset(ProceduralDataset):
                 "premise2": premise2_text,
                 "conclusion": conclusion_text,
                 "is_valid": is_valid,
-            }
+            },
         }
 
     def __getitem__(self, idx: int) -> dict:

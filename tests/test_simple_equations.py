@@ -24,7 +24,6 @@ def test_simple_equations_config_validation():
         config.validate()
 
 
-
 def test_simple_equations_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
     config = SimpleEquationsConfig(seed=42, size=10)
@@ -37,14 +36,7 @@ def test_simple_equations_dataset_deterministic():
 
 def test_simple_equations_dataset_items():
     """Test basic properties of generated items"""
-    config = SimpleEquationsConfig(
-        min_terms=2,
-        max_terms=4,
-        min_value=1,
-        max_value=100,
-        size=10,
-        seed=42
-    )
+    config = SimpleEquationsConfig(min_terms=2, max_terms=4, min_value=1, max_value=100, size=10, seed=42)
     dataset = SimpleEquationsDataset(config)
 
     for i in range(len(dataset)):
@@ -84,12 +76,7 @@ def test_simple_equations_dataset_iteration():
 def test_simple_equations_solution_verification():
     """Test that generated equations have correct solutions"""
     config = SimpleEquationsConfig(
-        min_terms=2,
-        max_terms=3,
-        min_value=1,
-        max_value=10,  # Small values for predictable results
-        size=10,
-        seed=42
+        min_terms=2, max_terms=3, min_value=1, max_value=10, size=10, seed=42  # Small values for predictable results
     )
     dataset = SimpleEquationsDataset(config)
 
@@ -107,5 +94,3 @@ def test_simple_equations_solution_verification():
         # Replace variable with solution
         evaluated = eval(left_side.replace(variable, str(solution)))
         assert evaluated == right_side
-
-

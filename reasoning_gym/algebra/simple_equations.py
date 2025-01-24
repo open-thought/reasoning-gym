@@ -80,49 +80,38 @@ class SimpleEquationsDataset(ProceduralDataset):
             Tuple of (equation string, solution integer)
         """
         max_attempts = 1000  # Prevent infinite loops
-        
-        for j in range(max_attempts):
-            x = Symbol(variable)
 
-            # Generate terms for left side
-            num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
-            terms = []
+        x = Symbol(variable)
 
-            # Generate all constant terms first
-            for _ in range(num_terms):
-                value = rng.randint(self.config.min_value, self.config.max_value)
-                terms.append(value)
+        # Generate terms for left side
+        num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
+        terms = []
 
-            # Replace one random term with the variable term
-            var_pos = rng.randint(0, num_terms - 1)
-            coef = rng.randint(self.config.min_value, self.config.max_value)
-            terms[var_pos] = coef * x
+        # Generate all constant terms first
+        for _ in range(num_terms):
+            value = rng.randint(self.config.min_value, self.config.max_value)
+            terms.append(value)
 
-            # Apply operators between terms
-            expr = terms[0]
-            for i in range(1, num_terms):
-                op = rng.choice(("+", "-", "*"))
-                if op == "+":
-                    expr = expr + terms[i]
-                elif op == "-":
-                    expr = expr - terms[i]
-                else:  # '*'
-                    expr = expr * terms[i]
+        # Replace one random term with the variable term
+        var_pos = rng.randint(0, num_terms - 1)
+        coef = rng.randint(self.config.min_value, self.config.max_value)
+        terms[var_pos] = coef * x
 
-            left_side = expr
+        # Apply operators between terms
+        expr = terms[0]
+        for i in range(1, num_terms):
+            op = rng.choice(("+", "-", "*"))
+            if op == "+":
+                expr = expr + terms[i]
+            elif op == "-":
+                expr = expr - terms[i]
+            else:  # '*'
+                expr = expr * terms[i]
 
-            # Generate right side
-            right_side = rng.randint(self.config.min_value, self.config.max_value)
-
-            # Create equation
-            equation = Eq(left_side, right_side)
-            solutions = solve(equation, x)
-
-            # Check if we found any solutions and it's an integer
-            if solutions and isinstance(solutions[0], sympy.Integer):
-                return f"{left_side} = {right_side}", int(solutions[0])
-
-        raise ValueError(f"Could not generate valid equation after {max_attempts} attempts")
+        left_side = expr
+        solution_value = rng.randint(self.config.min_value, self.config.max_value)
+        right_side = left_side.subs(x, solution_value)
+        return f"{left_side} = {right_side}", solution_value
 
 
 def simple_equations_dataset(
