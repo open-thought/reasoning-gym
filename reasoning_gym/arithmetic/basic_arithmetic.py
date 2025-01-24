@@ -31,8 +31,8 @@ class ArithmeticDatasetConfig:
             assert op in ["+", "-", "*"], f"unsupported operator: {op}"
 
 
-class ArithmeticDataset(ProceduralDataset):
-    """Dataset that generates arithmetic tasks with configurable complexity"""
+class BasicArithmeticDataset(ProceduralDataset):
+    """Dataset that generates basic arithmetic tasks with configurable complexity"""
 
     def __init__(self, config: ArithmeticDatasetConfig):
         self.config = config
@@ -155,7 +155,7 @@ class ArithmeticDataset(ProceduralDataset):
             return rng.choice(templates).format(expression)
 
 
-def arithmetic_dataset(
+def basic_arithmetic_dataset(
     min_terms: int = 2,
     max_terms: int = 6,
     min_digits: int = 1,
@@ -167,8 +167,8 @@ def arithmetic_dataset(
     size: int = 500,
     format_style: Literal["simple", "natural"] = "simple",
     whitespace: Literal["no_space", "single", "random"] = "single",
-) -> ArithmeticDataset:
-    """Create an ArithmeticDataset with the given configuration.
+) -> BasicArithmeticDataset:
+    """Create a BasicArithmeticDataset with the given configuration.
 
     Args:
         min_terms: Minimum number of terms in expressions
@@ -198,4 +198,4 @@ def arithmetic_dataset(
         format_style=format_style,
         whitespace=whitespace,
     )
-    return ArithmeticDataset(config)
+    return BasicArithmeticDataset(config)
