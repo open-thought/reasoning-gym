@@ -31,7 +31,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 #### Logic Tasks
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
 
-#### Relationship Tasks
+#### Graph Tasks
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
 
 #### Game Tasks
