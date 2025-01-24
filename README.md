@@ -47,6 +47,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
+- `MazeDataset`: Generates a maze with a start and a goal.
 
 ### Available Generators
 
@@ -260,6 +261,56 @@ Example data:
         "complexity": 3,
     },
 }
+```
+
+#### Maze
+
+Generates a maze with configurable difficulty:
+
+```python
+from reasoning_gym.games import MazeConfig, MazeDataset
+
+config = MazeConfig(
+    min_dist=3,
+    max_dist=5,
+    min_grid_size=5,
+    max_grid_size=5,
+    size=2,
+    seed=4,
+)
+
+dataset = MazeDataset(config)
+
+for item in dataset:
+    print()
+    print(item["question"])
+    print(item)
+```
+
+Example data:
+
+```
+Navigate from 'd' (start) to '}' (goal):
+
+uuuuu
+uCCdu
+uCCCu
+uu}Cu
+uuuuu
+Legend: 'u' = Wall, 'C' = Path
+
+{'question': "Navigate from 'd' (start) to '}' (goal):\n\nuuuuu\nuCCdu\nuCCCu\nuu}Cu\nuuuuu\nLegend: 'u' = Wall, 'C' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['uuuuu', 'uCCdu', 'uCCCu', 'uu}Cu', 'uuuuu'], 'shortest_path_length': 3, 'start': 'd', 'goal': '}', 'wall': 'u', 'path': 'C'}}
+
+Navigate from 'J' (start) to '_' (goal):
+
+<<<<<
+<<J<<
+<www<
+<<w_<
+<<<<<
+Legend: '<' = Wall, 'w' = Path
+
+{'question': "Navigate from 'J' (start) to '_' (goal):\n\n<<<<<\n<<J<<\n<www<\n<<w_<\n<<<<<\nLegend: '<' = Wall, 'w' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['<<<<<', '<<J<<', '<www<', '<<w_<', '<<<<<'], 'shortest_path_length': 3, 'start': 'J', 'goal': '_', 'wall': '<', 'path': 'w'}}
 ```
 
 ### Future Generator Ideas
