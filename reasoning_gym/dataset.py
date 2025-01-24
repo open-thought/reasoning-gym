@@ -1,10 +1,11 @@
 """Base class for procedural dataset generators"""
 from abc import ABC, abstractmethod
+from collections.abc import Sized, Iterable
 from random import Random
-from typing import Optional
+from typing import Optional, Iterator, Dict, Any
 
 
-class ProceduralDataset(ABC):
+class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
     """Abstract base class for procedural dataset generators"""
     
     def __init__(self, seed: Optional[int] = None, size: int = 500):
