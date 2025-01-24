@@ -71,11 +71,17 @@ class FamilyRelationshipsConfig:
         # Default name lists if none provided
         default_male_names = [
             "James", "John", "Robert", "Michael", "William", "David", "Richard", 
-            "Joseph", "Thomas", "Charles", "Peter", "Daniel", "Matthew"
+            "Joseph", "Thomas", "Charles", "Peter", "Daniel", "Matthew",
+            "Christopher", "Andrew", "George", "Edward", "Benjamin", "Henry",
+            "Samuel", "Alexander", "Oliver", "Jack", "Harry", "Jacob",
+            "Noah", "Ethan", "Lucas", "Mason", "Logan", "Sebastian", "Theodore", "Owen"
         ]
         default_female_names = [
             "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan",
-            "Jessica", "Sarah", "Karen", "Emma", "Lisa", "Anna"
+            "Jessica", "Sarah", "Karen", "Emma", "Lisa", "Anna",
+            "Margaret", "Victoria", "Charlotte", "Sophia", "Isabella", "Olivia",
+            "Ava", "Mia", "Emily", "Abigail", "Amelia", "Eleanor", "Grace",
+            "Alice", "Lucy", "Chloe", "Sophie", "Lily", "Hannah", "Zoe"
         ]
         
         if self.male_names is None:
