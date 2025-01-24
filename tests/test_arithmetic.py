@@ -2,7 +2,11 @@ from random import Random
 
 import pytest
 
-from reasoning_gym.arithmetic.basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
+from reasoning_gym.arithmetic.basic_arithmetic import (
+    BasicArithmeticDataset,
+    BasicArithmeticDatasetConfig,
+    eval_floordiv,
+)
 
 
 def test_arithmetic_dataset_config_validation():
@@ -44,7 +48,7 @@ def test_arithmetic_dataset_items():
 
         # Verify the answer matches the expression
         expression = item["metadata"]["expression"]
-        answer = eval(expression)  # Safe here as we control the expression
+        answer = eval_floordiv(expression)  # Safe here as we control the expression
         assert str(answer) == item["answer"]
 
 
