@@ -85,7 +85,7 @@ def gcd_dataset(
     min_numbers: int = 2,
     max_numbers: int = 2,
     min_value: int = 1,
-    max_value: int = 1000,
+    max_value: int = 10_000,
     seed: Optional[int] = None,
     size: int = 500,
 ) -> GCDDataset:
