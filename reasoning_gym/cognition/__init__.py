@@ -6,6 +6,6 @@ Cognition tasks for training reasoning capabilities:
 - Working memory
 """
 
-from .sequences import SequenceConfig, SequenceDataset, sequence_dataset
+from .number_sequences import NumberSequenceConfig, NumberSequenceDataset, sequence_dataset
 
-__all__ = ["SequenceDataset", "SequenceConfig", "sequence_dataset"]
+__all__ = ["NumberSequenceDataset", "NumberSequenceConfig", "sequence_dataset"]

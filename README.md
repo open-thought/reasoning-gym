@@ -26,7 +26,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 - `WordReversalDataset`: Reverse word order in text spans
 
 #### Cognition Tasks
-- `SequenceDataset`: Generate number sequences with discoverable patterns
+- `NumberSequenceDataset`: Generate number sequences with discoverable patterns
 
 #### Logic Tasks
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
@@ -103,9 +103,9 @@ Example data:
 #### Sequence Completion
 Generates number sequence completion tasks with dynamic pattern generation:
 ```python
-from reasoning_gym.cognition import SequenceDataset, SequenceConfig
+from reasoning_gym.cognition import NumberSequenceDataset, NumberSequenceConfig
 
-config = SequenceConfig(
+config = NumberSequenceConfig(
     min_terms=4,        # Minimum visible terms
     max_terms=8,        # Maximum visible terms
     min_value=-100,     # Minimum allowed number
@@ -115,7 +115,7 @@ config = SequenceConfig(
     seed=42            # For reproducibility
 )
 
-dataset = SequenceDataset(config)
+dataset = NumberSequenceDataset(config)
 for item in dataset:
     print(item)
 ```

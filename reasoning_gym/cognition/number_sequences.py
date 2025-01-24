@@ -20,7 +20,7 @@ class Operation(Enum):
 
 
 @dataclass
-class SequenceConfig:
+class NumberSequenceConfig:
     """Configuration for sequence generation"""
 
     min_terms: int = 4  # Minimum visible terms
@@ -151,10 +151,10 @@ class PatternGenerator:
         return True
 
 
-class SequenceDataset(ProceduralDataset):
+class NumberSequenceDataset(ProceduralDataset):
     """Generates number sequence completion tasks with dynamic pattern generation"""
 
-    def __init__(self, config: SequenceConfig):
+    def __init__(self, config: NumberSequenceConfig):
         self.config = config
         self.config.validate()
         super().__init__(seed=config.seed, size=config.size)
@@ -208,9 +208,9 @@ def sequence_dataset(
     max_complexity: int = 3,
     seed: Optional[int] = None,
     size: int = 500,
-) -> SequenceDataset:
-    """Create a SequenceDataset with the given configuration."""
-    config = SequenceConfig(
+) -> NumberSequenceDataset:
+    """Create a NumberSequenceDataset with the given configuration."""
+    config = NumberSequenceConfig(
         min_terms=min_terms,
         max_terms=max_terms,
         min_value=min_value,
@@ -219,4 +219,4 @@ def sequence_dataset(
         seed=seed,
         size=size,
     )
-    return SequenceDataset(config)
+    return NumberSequenceDataset(config)
