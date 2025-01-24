@@ -13,6 +13,16 @@ class Color(StrEnum):
     YELLOW = "yellow"
     WHITE = "white"
     ORANGE = "orange"
+    PURPLE = "purple"
+    PINK = "pink"
+    BROWN = "brown"
+    GRAY = "gray"
+    CYAN = "cyan"
+    MAGENTA = "magenta"
+    GOLD = "gold"
+    SILVER = "silver"
+    INDIGO = "indigo"
+    VIOLET = "violet"
 
 
 class Side(StrEnum):
