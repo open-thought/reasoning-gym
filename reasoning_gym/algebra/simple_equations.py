@@ -15,7 +15,7 @@ class SimpleEquationsConfig:
     min_terms: int = 2  # Minimum number of terms in expression
     max_terms: int = 4  # Maximum number of terms
     min_value: int = 1  # Minimum value for constants
-    max_value: int = 20  # Maximum value for constants
+    max_value: int = 100  # Maximum value for constants
     operators: tuple = ('+', '-', '*')  # Allowed operators
     seed: Optional[int] = None
     size: int = 500
@@ -133,7 +133,7 @@ def simple_equations_dataset(
     min_terms: int = 2,
     max_terms: int = 5,
     min_value: int = 1,
-    max_value: int = 20,
+    max_value: int = 100,
     operators: tuple = ('+', '-', '*'),
     seed: Optional[int] = None,
     size: int = 500,
