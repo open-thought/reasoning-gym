@@ -43,17 +43,15 @@ class LCMDataset(ProceduralDataset):
         def calculate_product(nums: List[int]) -> int:
             return reduce(lambda x, y: x * y, nums)
 
-        for _ in range(3):  # Try up to 3 times to get LCM < product
+        # Try up to 3 times to get LCM < product
+        for _ in range(3):
             num_count = rng.randint(self.config.min_numbers, self.config.max_numbers)
             numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_count)]
             result = reduce(lcm, numbers)
             if result < calculate_product(numbers):
-                return numbers, result
-
-        # If we failed to find LCM < product after 3 tries, generate one final set
-        num_count = rng.randint(self.config.min_numbers, self.config.max_numbers)
-        numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_count)]
-        result = reduce(lcm, numbers)
+                break
+        
+        # Return the last generated numbers, whether they met the criteria or not
         return numbers, result
 
     def __getitem__(self, idx: int) -> dict:
