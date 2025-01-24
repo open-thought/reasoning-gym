@@ -218,14 +218,17 @@ class FamilyRelationshipsDataset(ProceduralDataset):
             if person.spouse and (person.spouse, person) not in couples:
                 couples.add((person, person.spouse))
                 
-        # Describe marriages
+        # Describe marriages and children for each couple
+        described_children = set()  # Track which children have been described
         for person1, person2 in couples:
             story_parts.append(f"{person1.name} is married to {person2.name}.")
             
-        # Describe parent-child relationships
-        for person in family:
-            if person.children:
-                children_names = [c.name for c in person.children]
+            # Only describe children once per couple
+            children = [c for c in person1.children if c not in described_children]
+            if children:
+                children_names = [c.name for c in children]
+                described_children.update(children)  # Mark these children as described
+                
                 if len(children_names) == 1:
                     story_parts.append(
                         f"They have a child called {children_names[0]}."
