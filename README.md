@@ -7,11 +7,13 @@ The goal is to generate virtually infinite data with adjustable complexity.
 ### Task Overview
 
 #### Algebra Tasks
-- `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3*x + 2 = 14")
-- `PolynomialEquationsDataset`: Generate polynomial equations with one variable to solve (e.g. "-6*h**4 + 4*h**2 - 5*h = 0")
+
+- `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3\*x + 2 = 14")
+- `PolynomialEquationsDataset`: Generate polynomial equations with one variable to solve (e.g. "-6*h\*\*4 + 4*h\**2 - 5*h = 0")
 
 #### Arithmetic Tasks
-- `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, *, /)
+
+- `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, \*, /)
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
 - `FractionSimplificationDataset`: Generate fraction simplification tasks with configurable complexity
 - `GCDDataset`: Generate Greatest Common Divisor problems with configurable number of integers
@@ -20,6 +22,7 @@ The goal is to generate virtually infinite data with adjustable complexity.
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
 
 #### Algorithmic Tasks
+
 - `BaseConversionDataset`: Convert numbers between different bases (binary, hex, etc.)
 - `LetterCountingDataset`: Count letter occurrences in text spans
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
@@ -28,24 +31,30 @@ The goal is to generate virtually infinite data with adjustable complexity.
 - `Sorting`
 
 #### Cognition Tasks
+
 - `NumberSequenceDataset`: Generate number sequences with discoverable patterns
 - `ColorCubeRotationDataset`: Generate 3D spatial reasoning tasks with colored cube rotations and orientation tracking
 
 #### Logic Tasks
+
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
 
 #### Graph Tasks
+
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
 
 #### Game Tasks
+
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
+- `MazeDataset`: Generates a maze with a start and a goal.
 
 ### Available Generators
 
 ### PolynomialEquations
 
 Generate polynomial equation with configurable complexity:
+
 ```python
 from reasoning_gym.algebra import PolynomialEquationsConfig, PolynomialEquationsConfig
 
@@ -66,6 +75,7 @@ for item in dataset:
 ```
 
 Example output:
+
 ```
 {'question': 'Find the real value(s) of b in the equation: b**4 - b**3 - 5*b**2 = 0', 'answer': '[-1.79128784747792, 0.0, 2.79128784747792]', 'metadata': {'polynomial_expr': 'b**4 - b**3 - 5*b**2', 'variable': 'b', 'degree': 4, 'real_solutions': [-1.79128784747792, 0.0, 2.79128784747792]}}
 {'question': 'Solve the polynomial equation for real i:\n3*i**4 + 4*i**3 - 1 = 0', 'answer': '[]', 'metadata': {'polynomial_expr': '3*i**4 + 4*i**3 - 1', 'variable': 'i', 'degree': 4, 'real_solutions': []}}
@@ -73,7 +83,9 @@ Example output:
 ```
 
 #### Basic Arithmetic
+
 Generates arithmetic problems with configurable complexity:
+
 ```python
 from reasoning_gym.arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
 
@@ -93,6 +105,7 @@ for item in dataset:
 ```
 
 Example output:
+
 ```
 {'question': '-1 + -5   * 8 + -8 =', 'answer': '-49', 'metadata': {'num_terms': 4, 'num_digits': 1, 'expression': '-1 + -5   * 8 + -8'}}
 {'question': '19 - 17 =', 'answer': '2', 'metadata': {'num_terms': 2, 'num_digits': 2, 'expression': '19 - 17'}}
@@ -102,7 +115,9 @@ Example output:
 ```
 
 #### Chain Sum
+
 Generates addition/subtraction problems with configurable complexity:
+
 ```python
 from reasoning_gym.arithmetic import ChainSum, ChainSumConfig
 
@@ -122,6 +137,7 @@ for item in dataset:
 ```
 
 Example data:
+
 ```
 {
     "question": "426 + 562 =",
@@ -136,7 +152,9 @@ Example data:
 ```
 
 #### Sequence Completion
+
 Generates number sequence completion tasks with dynamic pattern generation:
+
 ```python
 from reasoning_gym.cognition import NumberSequenceDataset, NumberSequenceConfig
 
@@ -156,6 +174,7 @@ for item in dataset:
 ```
 
 Example data:
+
 ```
 {
     "question": "3, 6, 12, 24, 48, 96, 192, 384, ?",
@@ -170,7 +189,9 @@ Example data:
 ```
 
 #### Color Cube Rotation
+
 Generates 3D spatial reasoning tasks with cube rotations and color tracking:
+
 ```python
 from reasoning_gym.cognition import ColorCubeRotationDataset, ColorCubeRotationConfig
 
@@ -187,6 +208,7 @@ for item in dataset:
 ```
 
 Example data:
+
 ```
 {
     "question": "A cube has:\n- a red top side\n- a blue right side\n- a green front side\n- a yellow left side\n- a white back side\n- an orange bottom side\n\nThe cube is rotated so that the side which was before at the front is now at the top.\nThe cube is rotated so that the side which was before at the right is now at the top.\n\nWhat is now the color of the bottom side of the cube?",
@@ -201,7 +223,9 @@ Example data:
 ```
 
 #### Propositional Logic
+
 Generates logical reasoning tasks with configurable complexity:
+
 ```python
 from reasoning_gym.logic import PropositionalLogicDataset, PropositionalLogicConfig
 
@@ -221,6 +245,7 @@ for item in dataset:
 ```
 
 Example data:
+
 ```
 {
     "question": "Given:\n1. R\n2. Q\nWhat can we conclude?",
@@ -238,6 +263,56 @@ Example data:
 }
 ```
 
+#### Maze
+
+Generates a maze with configurable difficulty:
+
+```python
+from reasoning_gym.games import MazeConfig, MazeDataset
+
+config = MazeConfig(
+    min_dist=3,
+    max_dist=5,
+    min_grid_size=5,
+    max_grid_size=5,
+    size=2,
+    seed=4,
+)
+
+dataset = MazeDataset(config)
+
+for item in dataset:
+    print()
+    print(item["question"])
+    print(item)
+```
+
+Example data:
+
+```
+Navigate from 'd' (start) to '}' (goal):
+
+uuuuu
+uCCdu
+uCCCu
+uu}Cu
+uuuuu
+Legend: 'u' = Wall, 'C' = Path
+
+{'question': "Navigate from 'd' (start) to '}' (goal):\n\nuuuuu\nuCCdu\nuCCCu\nuu}Cu\nuuuuu\nLegend: 'u' = Wall, 'C' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['uuuuu', 'uCCdu', 'uCCCu', 'uu}Cu', 'uuuuu'], 'shortest_path_length': 3, 'start': 'd', 'goal': '}', 'wall': 'u', 'path': 'C'}}
+
+Navigate from 'J' (start) to '_' (goal):
+
+<<<<<
+<<J<<
+<www<
+<<w_<
+<<<<<
+Legend: '<' = Wall, 'w' = Path
+
+{'question': "Navigate from 'J' (start) to '_' (goal):\n\n<<<<<\n<<J<<\n<www<\n<<w_<\n<<<<<\nLegend: '<' = Wall, 'w' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['<<<<<', '<<J<<', '<www<', '<<w_<', '<<<<<'], 'shortest_path_length': 3, 'start': 'J', 'goal': '_', 'wall': '<', 'path': 'w'}}
+```
+
 ### Future Generator Ideas
 
 - More complex math tasks (algebra, geometry)
@@ -246,9 +321,6 @@ Example data:
 - Logic inductive programming tasks
 - ARC-AGI synthetic riddles
 
-
 ## Call for Contributions
 
-If you have ideas for additional procedural dataset generators or please create an issue here.
-
-Or contact us in the `#arc-agi-2` channel of the [GPU-Mode discord server](https://discord.gg/gpumode).
+If you have ideas for additional procedural dataset generators please create an issue here or contact us in the `#arc-agi-2` channel of the [GPU-Mode discord server](https://discord.gg/gpumode).

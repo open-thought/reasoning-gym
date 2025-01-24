@@ -7,6 +7,7 @@ Game tasks for training reasoning capabilities:
 
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset, mini_sudoku_dataset
 from .sudoku import SudokuConfig, SudokuDataset, sudoku_dataset
+from .maze import MazeConfig, MazeDataset, maze_dataset
 
 __all__ = [
     "MiniSudokuConfig",
@@ -15,4 +16,7 @@ __all__ = [
     "SudokuConfig",
     "SudokuDataset",
     "sudoku_dataset",
+    "MazeConfig",
+    "MazeDataset",
+    "maze_dataset",
 ]
