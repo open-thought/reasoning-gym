@@ -93,16 +93,17 @@ class FractionSimplificationDataset:
 
     def _format_fraction(self, num: int, den: int, style: str = "plain") -> str:
         """Format a fraction in various styles"""
-        if style == "plain":
-            return f"{num}/{den}"
-        elif style == "latex_inline":
-            return f"${num}/{den}$"
-        elif style == "latex_frac":
-            return f"$\\frac{{{num}}}{{{den}}}$"
-        elif style == "latex_dfrac":
-            return f"$\\dfrac{{{num}}}{{{den}}}$"
-        else:
-            raise ValueError(f"Unknown fraction style: {style}")
+        match style:
+            case "plain":
+                return f"{num}/{den}"
+            case "latex_inline":
+                return f"${num}/{den}$"
+            case "latex_frac":
+                return f"$\\frac{{{num}}}{{{den}}}$"
+            case "latex_dfrac":
+                return f"$\\dfrac{{{num}}}{{{den}}}$"
+            case _:
+                raise ValueError(f"Unknown fraction style: {style}")
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single fraction simplification task"""
