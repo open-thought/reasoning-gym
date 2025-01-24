@@ -82,7 +82,8 @@ class FamilyRelationshipsConfig:
             "Jessica", "Sarah", "Karen", "Emma", "Lisa", "Anna",
             "Margaret", "Victoria", "Charlotte", "Sophia", "Isabella", "Olivia",
             "Ava", "Mia", "Emily", "Abigail", "Amelia", "Eleanor", "Grace",
-            "Alice", "Lucy", "Chloe", "Sophie", "Lily", "Hannah", "Zoe"
+            "Alice", "Lucy", "Chloe", "Sophie", "Lily", "Hannah", "Zoe",
+            "Luna", "Nova", "Aria", "Willow", "Aurora", "Sage", "River", "Winter", "Sky", "Rain"
         ]
         
         if self.male_names is None:
