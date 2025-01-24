@@ -292,7 +292,8 @@ class SyllogismDataset(ProceduralDataset):
             f"1. {premise1_text}\n"
             f"2. {premise2_text}\n\n"
             f"Does it logically follow that:\n"
-            f"{conclusion_text}?"
+            f"{conclusion_text}?\n"
+            f"(Answer Yes or No)"
         )
 
         return {
