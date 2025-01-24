@@ -81,7 +81,7 @@ class SimpleEquationsDataset(ProceduralDataset):
         """
         max_attempts = 1000  # Prevent infinite loops
         
-        for _ in range(max_attempts):
+        for j in range(max_attempts):
             x = Symbol(variable)
 
             # Generate terms for left side
