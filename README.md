@@ -31,6 +31,9 @@ The goal is to generate virtually infinite data with adjustable complexity.
 #### Logic Tasks
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
 
+#### Relationship Tasks
+- `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
+
 #### Game Tasks
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
