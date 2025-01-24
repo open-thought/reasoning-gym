@@ -108,6 +108,8 @@ def test_simple_equations_solution_verification():
         # Replace variable with solution
         evaluated = eval(left_side.replace(variable, str(solution)))
         assert evaluated == right_side
+
+
 def test_simple_equations_operators():
     """Test equation generation with different operator combinations"""
     for operators in [
@@ -117,11 +119,7 @@ def test_simple_equations_operators():
         ("+", "*"),
         ("+", "-", "*"),
     ]:
-        config = SimpleEquationsConfig(
-            operators=operators,
-            size=5,
-            seed=42
-        )
+        config = SimpleEquationsConfig(operators=operators, size=5, seed=42)
         dataset = SimpleEquationsDataset(config)
 
         for item in dataset:

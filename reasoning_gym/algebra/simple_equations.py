@@ -82,8 +82,6 @@ class SimpleEquationsDataset(ProceduralDataset):
         Returns:
             Tuple of (equation string, solution integer)
         """
-        max_attempts = 1000  # Prevent infinite loops
-
         x = Symbol(variable)
 
         # Generate terms for left side
@@ -98,7 +96,10 @@ class SimpleEquationsDataset(ProceduralDataset):
         # Replace one random term with the variable term
         var_pos = rng.randint(0, num_terms - 1)
         coef = rng.randint(self.config.min_value, self.config.max_value)
-        terms[var_pos] = coef * x
+        if "*" in self.config.operators:
+            terms[var_pos] = coef * x
+        else:
+            terms[var_pos] = x
 
         # Apply operators between terms
         expr = terms[0]
