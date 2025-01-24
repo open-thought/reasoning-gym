@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from ..dataset import ProceduralDataset
+from ..factory import register_dataset
 
 
 @dataclass
@@ -143,3 +144,6 @@ def chain_sum_dataset(
         size=size,
     )
     return ChainSum(config)
+
+# Register the dataset
+register_dataset("chain_sum", ChainSum, ChainSumConfig)
