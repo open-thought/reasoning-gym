@@ -127,7 +127,7 @@ class SimpleEquationsDataset(ProceduralDataset):
         solution = solutions[0]
 
         # Only return if solution is a positive integer
-        if not (isinstance(solution, sympy.Integer) and solution > 0):
+        if not (isinstance(solution, sympy.Integer)):
             return self._generate_equation(rng, variable)
 
         return f"{left_side} = {right_side}", int(solution)
