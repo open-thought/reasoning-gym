@@ -61,6 +61,14 @@ def test_countdown_game_items():
 
         # Verify all numbers are within config range
         assert all(config.min_value <= n <= config.max_value for n in item["metadata"]["numbers"])
+        
+        # Verify expression evaluates correctly
+        expr = item["metadata"]["expression"]
+        try:
+            result = eval(expr)  # Safe here since we control expression generation
+            assert result == item["metadata"]["target"]
+        except (SyntaxError, ZeroDivisionError):
+            pytest.fail(f"Invalid expression generated: {expr}")
 
 
 def test_countdown_game_randomization():

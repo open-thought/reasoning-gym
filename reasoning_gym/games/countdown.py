@@ -121,14 +121,24 @@ class CountdownDataset(ProceduralDataset):
 
         # Substitute actual numbers to get target
         subs = {sym: num for sym, num in zip(syms, numbers)}
-        target = int(expr.subs(subs))
-
-        # Convert to string expression
-        expr_str = str(expr)
-        for i, sym in enumerate(syms):
-            expr_str = expr_str.replace(str(sym), str(numbers[i]))
-
-        return expr_str, numbers, target
+        try:
+            target = int(expr.subs(subs))
+            
+            # Convert to string expression
+            expr_str = str(expr)
+            for i, sym in enumerate(syms):
+                expr_str = expr_str.replace(str(sym), str(numbers[i]))
+                
+            # Ensure target is within bounds
+            if self.config.min_target <= target <= self.config.max_target:
+                return expr_str, numbers, target
+                
+            # If target out of bounds, try again with new expression
+            return self._generate_expression(rng)
+            
+        except (ValueError, ZeroDivisionError):
+            # If evaluation fails, try again with new expression
+            return self._generate_expression(rng)
 
 
 # Register the dataset
