@@ -47,7 +47,8 @@ The goal is to generate virtually infinite data with adjustable complexity.
 
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
-- `MazeDataset`: Generates a maze with a start and a goal.
+- `MazeDataset`: Generates a maze with a start and a goal
+- `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
 
 ### Available Generators
 
