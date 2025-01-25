@@ -81,7 +81,6 @@ Available dataset names (which can be used with `create_dataset()`):
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
 - `WordReversalDataset`: Reverse word order in text spans
-- `Sorting`
 
 #### Cognition Tasks
 
