@@ -11,6 +11,7 @@ from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
+from .unscramble_words import UnscrambleWordsConfig, UnscrambleWordsDataset
 from .word_reversal import WordReversalConfig, WordReversalDataset
 
 __all__ = [
@@ -24,6 +25,8 @@ __all__ = [
     "NumberFilteringDataset",
     "NumberSortingConfig",
     "NumberSortingDataset",
+    "UnscrambleWordsConfig",
+    "UnscrambleWordsDataset",
     "WordReversalConfig",
     "WordReversalDataset",
 ]
