@@ -80,7 +80,7 @@ Available dataset names (which can be used with `create_dataset()`):
 - `LetterCountingDataset`: Count letter occurrences in text spans
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
-- `UnscrambleWordsDataset`: Unscramble words that have had their characters randomly swapped
+- `LetterJumbleDataset`: Unscramble words that have had their letters randomly jumbled
 - `WordReversalDataset`: Reverse word order in text spans
 
 #### Cognition Tasks
