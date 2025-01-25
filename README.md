@@ -4,7 +4,7 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
-### How instantiate a task datast?
+### How to instantiate a task dataset?
 
 Example:
 
@@ -27,7 +27,7 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 ...
 ```
 
-Availale dataset names (wich can be used with `create_dataset()`):
+Available dataset names (which can be used with `create_dataset()`):
 
 ```
 'polynomial_equations',
