@@ -21,7 +21,7 @@ pip install -r requirements.txt
 4. Install and run poetry to bring in other dependencies(`sympy` etc.)
 ```
 conda install -c conda-forge poetry
-poetry
+poetry install
 ```
 
 ### How to instantiate a task dataset?
