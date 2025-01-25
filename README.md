@@ -33,6 +33,7 @@ Available dataset names (which can be used with `create_dataset()`):
 'polynomial_equations',
 'simple_equations',
 'base_conversion',
+'caesar_cipher',
 'letter_counting',
 'number_filtering',
 'number_sorting',
