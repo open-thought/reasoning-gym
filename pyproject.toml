@@ -17,6 +17,8 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent",
 ]
+license = "Apache-2.0"
+license-files = ["LICENSE*"]
 
 [project.urls]
 "Homepage" = "https://github.com/open-thought/reasoning-gym"
