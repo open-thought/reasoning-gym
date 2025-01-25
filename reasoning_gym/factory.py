@@ -8,7 +8,7 @@ ConfigT = TypeVar("ConfigT")
 DatasetT = TypeVar("DatasetT", bound=ProceduralDataset)
 
 # Global registry of datasets
-_DATASETS: Dict[str, tuple[Type[ProceduralDataset], Type]] = {}
+DATASETS: Dict[str, tuple[Type[ProceduralDataset], Type]] = {}
 
 
 def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[ConfigT]) -> None:
@@ -23,7 +23,7 @@ def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[Co
     Raises:
         ValueError: If name is already registered or invalid types provided
     """
-    if name in _DATASETS:
+    if name in DATASETS:
         raise ValueError(f"Dataset '{name}' is already registered")
 
     if not issubclass(dataset_cls, ProceduralDataset):
@@ -32,7 +32,7 @@ def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[Co
     if not is_dataclass(config_cls):
         raise ValueError(f"Config class must be a dataclass, got {config_cls}")
 
-    _DATASETS[name] = (dataset_cls, config_cls)
+    DATASETS[name] = (dataset_cls, config_cls)
 
 
 def create_dataset(name: str, **kwargs) -> ProceduralDataset:
@@ -48,10 +48,10 @@ def create_dataset(name: str, **kwargs) -> ProceduralDataset:
     Raises:
         ValueError: If dataset not found or config type mismatch
     """
-    if name not in _DATASETS:
+    if name not in DATASETS:
         raise ValueError(f"Dataset '{name}' not registered")
 
-    dataset_cls, config_cls = _DATASETS[name]
+    dataset_cls, config_cls = DATASETS[name]
 
     conifg = config_cls(**kwargs)
 

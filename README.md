@@ -4,6 +4,57 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
+### How instantiate a task datast?
+
+Example:
+
+```python
+import reasoning_gym
+data = reasoning_gym.create_dataset('leg_counting', size=10, seed=42)
+for i, x in enumerate(data):
+    print(f'{i}: q="{x['question']}", a="{x['answer']}"')
+    print('metadata:', x['metadata'])
+```
+
+Output:
+
+```
+0: q="How many legs are there in total if you have 1 sea slug, 1 deer?", a="4"
+metadata: {'animals': {'sea slug': 1, 'deer': 1}, 'total_legs': 4}
+1: q="How many legs are there in total if you have 2 sheeps, 2 dogs?", a="16"
+metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
+2: q="How many legs are there in total if you have 1 crab, 2 lobsters, 1 human, 1 cow, 1 bee?", a="42"
+...
+```
+
+Availale dataset names (wich can be used with `create_dataset()`):
+
+```
+'polynomial_equations',
+'simple_equations',
+'base_conversion',
+'letter_counting',
+'number_filtering',
+'number_sorting',
+'word_reversal',
+'basic_arithmetic',
+'chain_sum',
+'fraction_simplification',
+'gcd',
+'lcm',
+'leg_counting',
+'prime_factorization',
+'color_cube_rotation',
+'number_sequence',
+'countdown',
+'maze',
+'mini_sudoku',
+'sudoku',
+'family_relationships',
+'propositional_logic',
+'syllogism'
+```
+
 ### Task Overview
 
 #### Algebra Tasks
