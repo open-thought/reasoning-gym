@@ -1,6 +1,7 @@
 """Tests for word unscrambling task generation"""
 
 import pytest
+from random import Random
 
 from reasoning_gym.algorithmic.unscramble_words import UnscrambleWordsConfig, UnscrambleWordsDataset
 
