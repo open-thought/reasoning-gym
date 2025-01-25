@@ -4,6 +4,26 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
+### Set up
+1. Clone the project
+```
+git clone https://github.com/open-thought/reasoning-gym.git
+```
+2. Create a virtual environment(Here we use conda)
+```
+conda create --name reasoning_gym python=3.12 -y
+conda activate reasoning_gym
+```
+3. Run the `requirements-dev.txt` file
+```
+pip install -r requirements.txt
+```
+4. Install and run poetry to bring in other dependencies(`sympy` etc.)
+```
+conda install -c conda-forge poetry
+poetry
+```
+
 ### How to instantiate a task dataset?
 
 Example:
