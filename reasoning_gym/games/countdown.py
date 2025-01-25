@@ -76,14 +76,16 @@ class CountdownDataset(ProceduralDataset):
             },
         }
 
-    def _generate_expression(self, rng: Random) -> Tuple[str, List[int], int]:
-        """Generate a valid expression and its result
-
+    def _generate_candidate_expression(self, rng: Random, num_terms: int) -> Tuple[sympy.Expr, List[int], List[Symbol]]:
+        """Generate a candidate expression with random numbers and operators
+        
+        Args:
+            rng: Random number generator
+            num_terms: Number of terms to include
+            
         Returns:
-            Tuple of (expression string, list of numbers used, target value)
+            Tuple of (sympy expression, list of numbers, list of symbols)
         """
-        num_terms = rng.randint(self.config.min_numbers, self.config.max_numbers)
-
         # Generate random numbers
         numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_terms)]
 
@@ -92,7 +94,6 @@ class CountdownDataset(ProceduralDataset):
 
         # Build random expression
         expr = syms[0]
-        used_nums = [numbers[0]]
 
         for i in range(1, num_terms):
             op = rng.choice(self.config.operators)
@@ -123,13 +124,24 @@ class CountdownDataset(ProceduralDataset):
                 else:
                     # Fallback to addition for zero
                     expr = expr + syms[i]
-            used_nums.append(numbers[i])
+
+        return expr, numbers, syms
+
+    def _generate_expression(self, rng: Random) -> Tuple[str, List[int], int]:
+        """Generate a valid expression and its result
+
+        Returns:
+            Tuple of (expression string, list of numbers used, target value)
+        """
+        num_terms = rng.randint(self.config.min_numbers, self.config.max_numbers)
 
         max_attempts = 100
         for attempt in range(max_attempts):
-            # Substitute actual numbers to get target
-            subs = {sym: num for sym, num in zip(syms, numbers)}
             try:
+                expr, numbers, syms = self._generate_candidate_expression(rng, num_terms)
+                
+                # Substitute actual numbers to get target
+                subs = {sym: num for sym, num in zip(syms, numbers)}
                 target = int(expr.subs(subs))
                 
                 # Convert to string expression
@@ -141,39 +153,6 @@ class CountdownDataset(ProceduralDataset):
                 if self.config.min_target <= target <= self.config.max_target:
                     return expr_str, numbers, target
                     
-                # If target out of bounds, try again with new expression
-                numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_terms)]
-                expr = syms[0]
-                for i in range(1, num_terms):
-                    op = rng.choice(self.config.operators)
-                    if op == "+":
-                        expr = expr + syms[i]
-                    elif op == "-":
-                        expr = expr - syms[i]
-                    elif op == "*":
-                        expr = expr * syms[i]
-                    else:  # division
-                        # Handle division carefully to ensure integer results
-                        if numbers[i] != 0:  # Avoid division by zero
-                            # Get current value after substituting previous numbers
-                            current = int(expr.subs({sym: num for sym, num in zip(syms[:i], numbers[:i])}))
-                            # Try each remaining number to find one that divides evenly
-                            remaining = [n for n in numbers[i:] if n != 0]
-                            rng.shuffle(remaining)  # Randomize order for variety
-                            found_divisor = False
-                            for div in remaining:
-                                if current % div == 0:  # Check if divides evenly
-                                    numbers[i] = div
-                                    expr = expr / syms[i]
-                                    found_divisor = True
-                                    break
-                            if not found_divisor:
-                                # If no number divides evenly, fallback to subtraction
-                                expr = expr - syms[i]
-                        else:
-                            # Fallback to addition for zero
-                            expr = expr + syms[i]
-                
             except (ValueError, ZeroDivisionError):
                 continue
                 
