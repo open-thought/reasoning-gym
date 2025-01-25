@@ -103,19 +103,25 @@ class CountdownDataset(ProceduralDataset):
             elif op == "*":
                 expr = expr * syms[i]
             else:  # division
-                # Ensure division results in integer
+                # Handle division carefully to ensure integer results
                 if numbers[i] != 0:  # Avoid division by zero
-                    # Try to find a number that divides evenly
+                    # Get current value after substituting previous numbers
+                    current = int(expr.subs({sym: num for sym, num in zip(syms[:i], numbers[:i])}))
+                    # Try each remaining number to find one that divides evenly
                     remaining = [n for n in numbers[i:] if n != 0]
-                    if remaining:
-                        div = rng.choice(remaining)
-                        numbers[i] = div
-                        expr = expr / syms[i]
-                    else:
-                        # Fallback to subtraction
+                    rng.shuffle(remaining)  # Randomize order for variety
+                    found_divisor = False
+                    for div in remaining:
+                        if current % div == 0:  # Check if divides evenly
+                            numbers[i] = div
+                            expr = expr / syms[i]
+                            found_divisor = True
+                            break
+                    if not found_divisor:
+                        # If no number divides evenly, fallback to subtraction
                         expr = expr - syms[i]
                 else:
-                    # Fallback to addition
+                    # Fallback to addition for zero
                     expr = expr + syms[i]
             used_nums.append(numbers[i])
 
