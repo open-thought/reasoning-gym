@@ -125,26 +125,59 @@ class CountdownDataset(ProceduralDataset):
                     expr = expr + syms[i]
             used_nums.append(numbers[i])
 
-        # Substitute actual numbers to get target
-        subs = {sym: num for sym, num in zip(syms, numbers)}
-        try:
-            target = int(expr.subs(subs))
-            
-            # Convert to string expression
-            expr_str = str(expr)
-            for i, sym in enumerate(syms):
-                expr_str = expr_str.replace(str(sym), str(numbers[i]))
+        max_attempts = 100
+        for attempt in range(max_attempts):
+            # Substitute actual numbers to get target
+            subs = {sym: num for sym, num in zip(syms, numbers)}
+            try:
+                target = int(expr.subs(subs))
                 
-            # Ensure target is within bounds
-            if self.config.min_target <= target <= self.config.max_target:
-                return expr_str, numbers, target
+                # Convert to string expression
+                expr_str = str(expr)
+                for i, sym in enumerate(syms):
+                    expr_str = expr_str.replace(str(sym), str(numbers[i]))
+                    
+                # Ensure target is within bounds
+                if self.config.min_target <= target <= self.config.max_target:
+                    return expr_str, numbers, target
+                    
+                # If target out of bounds, try again with new expression
+                numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_terms)]
+                expr = syms[0]
+                for i in range(1, num_terms):
+                    op = rng.choice(self.config.operators)
+                    if op == "+":
+                        expr = expr + syms[i]
+                    elif op == "-":
+                        expr = expr - syms[i]
+                    elif op == "*":
+                        expr = expr * syms[i]
+                    else:  # division
+                        # Handle division carefully to ensure integer results
+                        if numbers[i] != 0:  # Avoid division by zero
+                            # Get current value after substituting previous numbers
+                            current = int(expr.subs({sym: num for sym, num in zip(syms[:i], numbers[:i])}))
+                            # Try each remaining number to find one that divides evenly
+                            remaining = [n for n in numbers[i:] if n != 0]
+                            rng.shuffle(remaining)  # Randomize order for variety
+                            found_divisor = False
+                            for div in remaining:
+                                if current % div == 0:  # Check if divides evenly
+                                    numbers[i] = div
+                                    expr = expr / syms[i]
+                                    found_divisor = True
+                                    break
+                            if not found_divisor:
+                                # If no number divides evenly, fallback to subtraction
+                                expr = expr - syms[i]
+                        else:
+                            # Fallback to addition for zero
+                            expr = expr + syms[i]
                 
-            # If target out of bounds, try again with new expression
-            return self._generate_expression(rng)
-            
-        except (ValueError, ZeroDivisionError):
-            # If evaluation fails, try again with new expression
-            return self._generate_expression(rng)
+            except (ValueError, ZeroDivisionError):
+                continue
+                
+        raise ValueError(f"Failed to generate valid expression after {max_attempts} attempts")
 
 
 # Register the dataset
