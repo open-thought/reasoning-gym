@@ -78,11 +78,11 @@ class CountdownDataset(ProceduralDataset):
 
     def _generate_candidate_expression(self, rng: Random, num_terms: int) -> Tuple[sympy.Expr, List[int], List[Symbol]]:
         """Generate a candidate expression with random numbers and operators
-        
+
         Args:
             rng: Random number generator
             num_terms: Number of terms to include
-            
+
         Returns:
             Tuple of (sympy expression, list of numbers, list of symbols)
         """
@@ -139,23 +139,23 @@ class CountdownDataset(ProceduralDataset):
         for attempt in range(max_attempts):
             try:
                 expr, numbers, syms = self._generate_candidate_expression(rng, num_terms)
-                
+
                 # Substitute actual numbers to get target
                 subs = {sym: num for sym, num in zip(syms, numbers)}
                 target = int(expr.subs(subs))
-                
+
                 # Convert to string expression
                 expr_str = str(expr)
                 for i, sym in enumerate(syms):
                     expr_str = expr_str.replace(str(sym), str(numbers[i]))
-                    
+
                 # Ensure target is within bounds
                 if self.config.min_target <= target <= self.config.max_target:
                     return expr_str, numbers, target
-                    
+
             except (ValueError, ZeroDivisionError):
                 continue
-                
+
         raise ValueError(f"Failed to generate valid expression after {max_attempts} attempts")
 
 

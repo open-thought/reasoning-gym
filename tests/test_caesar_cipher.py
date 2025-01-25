@@ -38,7 +38,7 @@ def test_caesar_cipher_encryption():
     """Test the Caesar cipher encryption logic"""
     config = CaesarCipherConfig(size=1, seed=42)
     dataset = CaesarCipherDataset(config)
-    
+
     # Test with known rotation
     text = "HELLO"
     encrypted = dataset._caesar_encrypt(text, 1)
@@ -55,34 +55,27 @@ def test_caesar_cipher_encryption():
 
 def test_caesar_cipher_dataset_items():
     """Test basic properties of generated items"""
-    config = CaesarCipherConfig(
-        min_words=3,
-        max_words=5,
-        min_rotation=1,
-        max_rotation=3,
-        size=10,
-        seed=42
-    )
+    config = CaesarCipherConfig(min_words=3, max_words=5, min_rotation=1, max_rotation=3, size=10, seed=42)
     dataset = CaesarCipherDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
-        
+
         # Check item structure
         assert isinstance(item, dict)
         assert "question" in item
         assert "answer" in item
         assert "metadata" in item
-        
+
         # Check metadata
         assert "rotation" in item["metadata"]
         assert "cipher_text" in item["metadata"]
         assert "clear_text" in item["metadata"]
-        
+
         # Verify rotation constraints
         rotation = item["metadata"]["rotation"]
         assert config.min_rotation <= rotation <= config.max_rotation
-        
+
         # Verify text properties
         clear_text = item["metadata"]["clear_text"]
         words = clear_text.split()

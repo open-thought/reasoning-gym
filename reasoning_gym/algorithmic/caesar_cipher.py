@@ -7,6 +7,7 @@ from string import ascii_uppercase
 from typing import List, Optional
 
 from reasoning_gym.data import read_data_file
+
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -37,10 +38,10 @@ class CaesarCipherDataset(ProceduralDataset):
 
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
-        
+
         # Split into sentences and filter
         sentences = [s.strip() for s in text.split(config.delimiter) if s.strip()]
-        
+
         # Process each sentence
         self.valid_sentences = []
         for sentence in sentences:
@@ -55,7 +56,7 @@ class CaesarCipherDataset(ProceduralDataset):
         for char in text:
             if char.isalpha():
                 # Convert to 0-25 range, rotate, convert back to ASCII
-                base = ord('A')
+                base = ord("A")
                 rotated = (ord(char) - base + rotation) % 26
                 result.append(chr(base + rotated))
             else:
@@ -65,22 +66,18 @@ class CaesarCipherDataset(ProceduralDataset):
     def __getitem__(self, idx: int) -> dict:
         """Generate a single Caesar cipher task"""
         rng = Random(self.seed + idx)
-        
+
         # Select random sentence and rotation
         sentence = rng.choice(self.valid_sentences)
         rotation = rng.randint(self.config.min_rotation, self.config.max_rotation)
-        
+
         # Generate cipher text
         cipher_text = self._caesar_encrypt(sentence, rotation)
-        
+
         return {
             "question": f"Decrypt this Caesar cipher text: {cipher_text}",
             "answer": sentence,
-            "metadata": {
-                "rotation": rotation,
-                "cipher_text": cipher_text,
-                "clear_text": sentence
-            }
+            "metadata": {"rotation": rotation, "cipher_text": cipher_text, "clear_text": sentence},
         }
 
 
