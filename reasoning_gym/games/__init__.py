@@ -5,14 +5,17 @@ Game tasks for training reasoning capabilities:
 - Strategy games
 """
 
+from .countdown_game import CountdownGameConfig, CountdownGameDataset
 from .maze import MazeConfig, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset
 from .sudoku import SudokuConfig, SudokuDataset
 
 __all__ = [
+    "CountdownGameConfig",
+    "CountdownGameDataset",
     "MiniSudokuConfig",
     "MiniSudokuDataset",
-    "SudokuConfig",
+    "SudokuConfig", 
     "SudokuDataset",
     "MazeConfig",
     "MazeDataset",
