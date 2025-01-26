@@ -37,6 +37,3 @@ ENV/
 .coverage
 htmlcov/
 .pytest_cache/
-
-# Poetry lock file
-poetry.lock
