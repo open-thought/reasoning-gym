@@ -1,12 +1,12 @@
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 from random import Random
 from typing import List, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 
-class Operation(StrEnum):
+class Operation(Enum):
     """Basic mathematical operations that can be composed"""
 
     ADD = "+"

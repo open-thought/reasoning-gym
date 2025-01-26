@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.word_sorting import WordSortingConfig, WordSortingDataset, TextTransformation
+from reasoning_gym.algorithmic.word_sorting import TextTransformation, WordSortingConfig, WordSortingDataset
 
 
 def test_word_sorting_config_validation():
@@ -38,7 +38,7 @@ def test_word_sorting_transformations():
     """Test different text transformations"""
     seed = 42
     size = 5
-    
+
     # Test LOWERCASE
     config = WordSortingConfig(transformation=TextTransformation.LOWERCASE, seed=seed, size=size)
     dataset = WordSortingDataset(config)
@@ -64,14 +64,7 @@ def test_word_sorting_transformations():
 
 def test_word_sorting_dataset_items():
     """Test basic properties of generated items"""
-    config = WordSortingConfig(
-        min_words=3,
-        max_words=6,
-        min_word_length=3,
-        max_word_length=8,
-        size=10,
-        seed=42
-    )
+    config = WordSortingConfig(min_words=3, max_words=6, min_word_length=3, max_word_length=8, size=10, seed=42)
     dataset = WordSortingDataset(config)
 
     for i in range(len(dataset)):

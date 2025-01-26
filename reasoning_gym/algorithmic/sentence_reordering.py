@@ -8,9 +8,11 @@ from typing import List, Optional
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
+
 @dataclass
 class SentenceReorderingConfig:
     """Configuration for sentence reordering task generation"""
+
     min_words_in_sentence: int = 3
     max_words_in_sentence: int = 20
     seed: Optional[int] = None
@@ -19,7 +21,12 @@ class SentenceReorderingConfig:
     def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.min_words_in_sentence > 0, "min_words_in_sentence must be positive"
-        assert self.max_words_in_sentence >= self.min_words_in_sentence, "max_words_in_sentence must be >= min_words_in_sentence"
+        assert (
+            self.max_words_in_sentence >= self.min_words_in_sentence
+        ), "max_words_in_sentence must be >= min_words_in_sentence"
+        assert (
+            self.max_words_in_sentence >= self.min_words_in_sentence
+        ), "max_words_in_sentence must be >= min_words_in_sentence"
 
 
 class SentenceReorderingDataset(ProceduralDataset):
@@ -35,7 +42,9 @@ class SentenceReorderingDataset(ProceduralDataset):
         self.sentences = [
             sentence.strip()
             for sentence in re.findall(r"[^.!?]+[.!?]", text)  # Changed pattern to include the ending punctuation
-            if self.config.min_words_in_sentence <= len(re.findall(r"\b\w+\b", sentence)) <= self.config.max_words_in_sentence
+            if self.config.min_words_in_sentence
+            <= len(re.findall(r"\b\w+\b", sentence))
+            <= self.config.max_words_in_sentence
         ]
 
     def _generate_sentence_dataset(self, sentence: str, seed: int, idx: int, shuffle=True):
@@ -66,22 +75,22 @@ class SentenceReorderingDataset(ProceduralDataset):
         sentence_dataset = self._generate_sentence_dataset(rng.choice(self.sentences), self.seed, idx)
 
         # Ensure only 'input' and 'goal' keys are present
-        if set(sentence_dataset.keys()) != {'input', 'goal'}:
+        if set(sentence_dataset.keys()) != {"input", "goal"}:
             raise KeyError("The dictionary must contain only 'input' and 'goal' keys")
-        
+
         # Solve the task by sorting words to match the goal sentence
-        input_words = sentence_dataset['input'].split()
+        input_words = sentence_dataset["input"].split()
         question = " ".join(input_words)
-        goal_words = sentence_dataset['goal'].split()
+        goal_words = sentence_dataset["goal"].split()
         solved_sentence = " ".join(sorted(input_words, key=lambda word: goal_words.index(word)))
         # Check for length of alphanumeric characters in the solved sentence
         word_count = len(re.findall(r"\b\w+\b", solved_sentence))
-
 
         return {
             "question": f"Restore the correct order of words in the following sentence: {question}",
             "answer": solved_sentence,
             "metadata": {"word_count": word_count},
         }
-        
+
+
 register_dataset("sentence_reordering", SentenceReorderingDataset, SentenceReorderingConfig)

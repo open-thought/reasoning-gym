@@ -12,8 +12,9 @@ from ..factory import ProceduralDataset, register_dataset
 
 class TextTransformation(str, Enum):
     """Text transformation options"""
+
     LOWERCASE = "lowercase"
-    UPPERCASE = "uppercase" 
+    UPPERCASE = "uppercase"
     ORIGINAL = "original"
     RANDOMCASE = "randomcase"
 
@@ -21,6 +22,7 @@ class TextTransformation(str, Enum):
 @dataclass
 class WordSortingConfig:
     """Configuration for word sorting task generation"""
+
     min_words: int = 3  # Minimum words to sort
     max_words: int = 10  # Maximum words to sort
     min_word_length: int = 3  # Minimum word length
@@ -43,14 +45,17 @@ class WordSortingDataset(ProceduralDataset):
 
     def __init__(self, config: WordSortingConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
-        
+
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
         # Extract unique words within length constraints
-        self.words = list(set(
-            word for word in re.findall(r'\b\w+\b', text)
-            if self.config.min_word_length <= len(word) <= self.config.max_word_length
-        ))
+        self.words = list(
+            set(
+                word
+                for word in re.findall(r"\b\w+\b", text)
+                if self.config.min_word_length <= len(word) <= self.config.max_word_length
+            )
+        )
 
     def _transform_word(self, word: str, rng: Random) -> str:
         """Apply configured transformation to word"""
@@ -59,19 +64,18 @@ class WordSortingDataset(ProceduralDataset):
         elif self.config.transformation == TextTransformation.UPPERCASE:
             return word.upper()
         elif self.config.transformation == TextTransformation.RANDOMCASE:
-            return ''.join(c.upper() if rng.choice([True, False]) else c.lower() 
-                         for c in word)
+            return "".join(c.upper() if rng.choice([True, False]) else c.lower() for c in word)
         return word  # ORIGINAL case
 
     def _generate_words(self, rng: Random) -> Tuple[List[str], List[str]]:
         """Generate list of words and their transformed versions"""
         count = rng.randint(self.config.min_words, self.config.max_words)
-        
+
         # Select random words
         selected_words = rng.sample(self.words, count)
         # Apply transformation
         transformed_words = [self._transform_word(word, rng) for word in selected_words]
-        
+
         return selected_words, transformed_words
 
     def __getitem__(self, idx: int) -> dict:
@@ -97,7 +101,7 @@ class WordSortingDataset(ProceduralDataset):
                 "transformed_words": transformed_words,
                 "direction": direction,
                 "transformation": self.config.transformation,
-                "sorted_words": answer
+                "sorted_words": answer,
             },
         }
 

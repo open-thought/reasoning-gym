@@ -1,16 +1,17 @@
 import pytest
-from reasoning_gym.algorithmic.sentence_reordering import (
-    SentenceReorderingConfig,
-    SentenceReorderingDataset,
-)
+
+from reasoning_gym.algorithmic.sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
+
 
 @pytest.fixture
 def config():
     return SentenceReorderingConfig(min_words_in_sentence=5, max_words_in_sentence=5, seed=42, size=10)
 
+
 @pytest.fixture
 def dataset(config):
     return SentenceReorderingDataset(config=config)
+
 
 def test_config_validation(config):
     # Test that the config validation does not raise any exceptions
@@ -18,6 +19,7 @@ def test_config_validation(config):
         config.validate()
     except Exception as e:
         pytest.fail(f"Config validation raised an exception: {e}")
+
 
 def test_generate_sentence_dataset(dataset):
     sentence = "This is a test sentence for reordering"
@@ -27,12 +29,15 @@ def test_generate_sentence_dataset(dataset):
     assert result["input"] != result["goal"]
     assert sorted(result["input"].split()) == sorted(result["goal"].split())
 
+
 def test_getitem(dataset, config):
     item = dataset[0]
     assert "question" in item
     assert "answer" in item
     assert "metadata" in item
     assert item["metadata"]["word_count"] >= config.min_words_in_sentence
+    assert item["metadata"]["word_count"] <= config.max_words_in_sentence
+
 
 def test_key_error_in_getitem(dataset):
     # Modify the dataset to include an incorrect key

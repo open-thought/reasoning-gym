@@ -1,18 +1,18 @@
 import random
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 from itertools import count
 from typing import Dict, List, Optional, Set, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
 
-class Gender(StrEnum):
+class Gender(Enum):
     MALE = "male"
     FEMALE = "female"
 
 
-class Relationship(StrEnum):
+class Relationship(Enum):
     MOTHER = "mother"
     FATHER = "father"
     SISTER = "sister"
