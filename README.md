@@ -54,6 +54,7 @@ Available dataset names (which can be used with `create_dataset()`):
 'family_relationships',
 'propositional_logic',
 'syllogism'
+'clrs'
 ```
 
 ### Task Overview
@@ -82,6 +83,7 @@ Available dataset names (which can be used with `create_dataset()`):
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
 - `LetterJumbleDataset`: Unscramble words that have had their letters randomly jumbled
 - `WordReversalDataset`: Reverse word order in text spans
+- `ClrsDataset`: Any algorithmic task from [CLRS](https://github.com/google-deepmind/clrs)
 
 #### Cognition Tasks
 
@@ -365,6 +367,120 @@ Navigate from 'J' (start) to '_' (goal):
 Legend: '<' = Wall, 'w' = Path
 
 {'question': "Navigate from 'J' (start) to '_' (goal):\n\n<<<<<\n<<J<<\n<www<\n<<w_<\n<<<<<\nLegend: '<' = Wall, 'w' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['<<<<<', '<<J<<', '<www<', '<<w_<', '<<<<<'], 'shortest_path_length': 3, 'start': 'J', 'goal': '_', 'wall': '<', 'path': 'w'}}
+```
+
+#### CLRS
+
+Generates a task from [CLRS](https://github.com/google-deepmind/clrs). The length config parameter is the number of nodes (e.g. dijkstra) or length of the array (e.g. quicksort).
+Available tasks:
+
+- activity_selector
+- articulation_points
+- bellman_ford
+- bfs
+- binary_search
+- bridges
+- bubble_sort
+- dag_shortest_paths
+- dfs
+- dijkstra
+- find_maximum_subarray_kadane
+- floyd_warshall
+- graham_scan
+- heapsort
+- insertion_sort
+- jarvis_march
+- kmp_matcher
+- lcs_length
+- matrix_chain_order
+- minimum
+- mst_kruskal
+- mst_prim
+- naive_string_matcher
+- optimal_bst
+- quickselect
+- quicksort
+- segments_intersect
+- strongly_connected_components
+- task_scheduling
+- topological_sort
+
+```python
+import pprint
+from reasoning_gym.algorithmic import ClrsDataset, ClrsConfig
+
+for subtask in ["bfs", "dijkstra", "kmp_matcher", "quicksort", "topological_sort"]:
+    config = ClrsConfig(
+        subtask=subtask,
+        min_length=4,
+        max_length=4,
+        seed=123,
+        size=1,
+    )
+    ds = ClrsDataset(config=config)
+
+    print()
+    for i, example in enumerate(ds):
+        pprint.pprint(example)
+```
+
+Example data:
+
+```
+{'answer': '[0 1 2 3]',
+ 'metadata': {'arrays': {'A': [[1, 0, 0, 0],
+                               [0, 0, 0, 0],
+                               [0, 0, 0, 0],
+                               [0, 0, 0, 1]],
+                         's': 3},
+              'length': 4},
+ 'question': 'bfs:\n'
+             's: 3, A: [[1 0 0 0], [0 0 0 0], [0 0 0 0], [0 0 0 1]]\n'
+             'pi:\n'}
+
+{'answer': '[0 1 2 3]',
+ 'metadata': {'arrays': {'A': [[0.1852113162955031, 0.0, 0.0, 0.0],
+                               [0.0, 0.0, 0.0, 0.0],
+                               [0.0, 0.0, 0.0, 0.0],
+                               [0.0, 0.0, 0.0, 0.4348525119895227]],
+                         'pi': '',
+                         's': 2},
+              'length': 4},
+ 'question': 'dijkstra:\n'
+             's: 2, A: [[0.1852113162955031 0.0 0.0 0.0], [0.0 0.0 0.0 0.0], '
+             '[0.0 0.0 0.0 0.0], [0.0 0.0 0.0 0.4348525119895227]]\n'
+             'pi:\n'}
+
+{'answer': '0',
+ 'metadata': {'arrays': {'key': [2, 2, 2, 2],
+                         'match': '',
+                         'string': [0, 0, 0, 1]},
+              'length': 4},
+ 'question': 'kmp_matcher:\nstring: [0 0 0 1], key: [2 2 2 2]\nmatch:\n'}
+
+{'answer': '[0.2268514535642031 0.28613933495037946 0.5513147690828912 '
+           '0.6964691855978616]',
+ 'metadata': {'arrays': {'key': [0.6964691855978616,
+                                 0.28613933495037946,
+                                 0.2268514535642031,
+                                 0.5513147690828912],
+                         'pred': ''},
+              'length': 4},
+ 'question': 'quicksort:\n'
+             'key: [0.6964691855978616 0.28613933495037946 0.2268514535642031 '
+             '0.5513147690828912]\n'
+             'pred:\n'}
+
+{'answer': '[2 0 3 3], 1',
+ 'metadata': {'arrays': {'A': [[0, 0, 1, 1],
+                               [0, 0, 0, 1],
+                               [0, 0, 0, 1],
+                               [0, 0, 0, 0]],
+                         'topo_head': ''},
+              'length': 4},
+ 'question': 'topological_sort:\n'
+             'A: [[0 0 1 1], [0 0 0 1], [0 0 0 1], [0 0 0 0]]\n'
+             'topo, topo_head:\n'}
 ```
 
 ### Future Generator Ideas
