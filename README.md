@@ -4,6 +4,30 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
+### Set up for development
+1. Clone the project
+```
+git clone https://github.com/open-thought/reasoning-gym.git
+```
+2. Create a virtual environment(Here we use conda)
+```
+conda create --name reasoning_gym python=3.12 -y
+conda activate reasoning_gym
+```
+3. Link project and install dependencies
+```
+pip install -e .
+```
+4. Install development dependencies
+```
+pip install -r requirements-dev.txt
+```
+
+>NOTE: To consume the APIs in reasoning_gym, just install from pip using the following
+```
+pip install reasoning-gym
+```
+
 ### How to instantiate a task dataset?
 
 Example:
@@ -35,9 +59,11 @@ Available dataset names (which can be used with `create_dataset()`):
 'base_conversion',
 'caesar_cipher',
 'letter_counting',
+'letter_jumble',
 'number_filtering',
 'number_sorting',
-'word_reversal',
+'spell_backward',
+'word_sequence_reversal',
 'basic_arithmetic',
 'chain_sum',
 'fraction_simplification',
@@ -53,7 +79,7 @@ Available dataset names (which can be used with `create_dataset()`):
 'sudoku',
 'family_relationships',
 'propositional_logic',
-'syllogism'
+'syllogism',
 ```
 
 ### Task Overview
@@ -82,7 +108,8 @@ Available dataset names (which can be used with `create_dataset()`):
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
 - `LetterJumbleDataset`: Unscramble words that have had their letters randomly jumbled
 - `SentenceReorderingDataset`: Reorder sentence after words in it have been randomly shuffled
-- `WordReversalDataset`: Reverse word order in text spans
+- `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
+- `WordSequenceReversalDataset`: Reverse word order in text spans
 
 #### Cognition Tasks
 
