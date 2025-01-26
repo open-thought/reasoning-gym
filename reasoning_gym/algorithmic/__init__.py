@@ -12,9 +12,12 @@ from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
+from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .word_reversal import WordReversalConfig, WordReversalDataset
 
 __all__ = [
+    "SpellBackwardConfig",
+    "SpellBackwardDataset",
     "BaseConversionConfig",
     "BaseConversionDataset",
     "CaesarCipherConfig",
