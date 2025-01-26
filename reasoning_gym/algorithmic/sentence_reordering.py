@@ -42,6 +42,8 @@ class SentenceReorderingDataset(ProceduralDataset):
 
         Args:
             sentence (str): The correct sentence to use for dataset generation.
+            seed (int): The seed to use for random number generation.
+            idx (int): The index to add to the seed for random number generation.
             shuffle (bool): Whether to shuffle the words to create the input sentence.
 
         Returns:
