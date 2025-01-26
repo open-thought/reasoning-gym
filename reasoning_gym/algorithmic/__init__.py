@@ -13,7 +13,7 @@ from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
-from .word_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
+from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
 
 __all__ = [
     "SpellBackwardConfig",
