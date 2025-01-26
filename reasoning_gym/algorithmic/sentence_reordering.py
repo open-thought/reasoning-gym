@@ -29,7 +29,7 @@ class SentenceReorderingDataset(ProceduralDataset):
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
         # Extract sentences make sure they are greater than or equal to the number of words in a sentence
-        # Ensure that only the length of alpganumeric characters in the sentence is considered
+        # Ensure that only the length of alphanumeric characters in the sentence is considered
         self.sentences = [
             sentence
             for sentence in re.findall(r"[^.!?]+", text)
@@ -72,11 +72,14 @@ class SentenceReorderingDataset(ProceduralDataset):
         question = " ".join(input_words)
         goal_words = sentence_dataset['goal'].split()
         solved_sentence = " ".join(sorted(input_words, key=lambda word: goal_words.index(word)))
+        # Check for length alphanumeric characters in the solved sentence
+        num_of_words_in_sentence = len(re.findall(r"\b\w+\b", solved_sentence))
+
 
         return {
             "question": f"Correct the following sentence: {question}",
             "answer": solved_sentence,
-            "metadata": {"num_of_words_in_sentence": len(goal_words)},
+            "metadata": {"num_of_words_in_sentence": num_of_words_in_sentence},
         }
         
 register_dataset("sentence_reordering", SentenceReorderingDataset, SentenceReorderingConfig)
