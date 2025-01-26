@@ -105,7 +105,8 @@ Available dataset names (which can be used with `create_dataset()`):
 - `CaesarCipherDataset`: Encrypt/decrypt text using Caesar cipher with configurable rotation
 - `LetterCountingDataset`: Count letter occurrences in text spans
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
-- `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
+- `NumberSortingDataset`: Sort lists of numbers in ascending or descending order 
+- `WordSortingDataset`: Sort words in ascending or descending order using ASCII/Unicode ordering
 - `LetterJumbleDataset`: Unscramble words that have had their letters randomly jumbled
 - `SentenceReorderingDataset`: Reorder sentence after words in it have been randomly shuffled
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
