@@ -1,14 +1,14 @@
 """Propositional logic task generator"""
 
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from random import Random
 from typing import Any, List, Optional, Set
 
 from ..factory import ProceduralDataset, register_dataset
 
 
-class Operator(Enum):
+class Operator(StrEnum):
     """Basic logical operators"""
 
     AND = "∧"

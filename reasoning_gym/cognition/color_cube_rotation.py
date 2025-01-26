@@ -1,12 +1,12 @@
 import random
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from typing import Dict, List, Optional, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
 
-class Color(str, Enum):
+class Color(StrEnum):
     RED = "red"
     GREEN = "green"
     BLUE = "blue"
@@ -25,7 +25,7 @@ class Color(str, Enum):
     VIOLET = "violet"
 
 
-class Side(Enum):
+class Side(StrEnum):
     TOP = "top"
     RIGHT = "right"
     FRONT = "front"
