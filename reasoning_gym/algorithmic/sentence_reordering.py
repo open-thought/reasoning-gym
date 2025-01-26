@@ -11,13 +11,15 @@ from ..factory import ProceduralDataset, register_dataset
 @dataclass
 class SentenceReorderingConfig:
     """Configuration for sentence reordering task generation"""
-    num_of_words_in_sentence: int = 10
+    min_words_in_sentence: int = 10
+    max_words_in_sentence: int = 64
     seed: Optional[int] = None
     size: int = 500
 
     def validate(self) -> None:
         """Validate configuration parameters"""
-        assert self.num_of_words_in_sentence > 0, "num_of_words_in_sentence must be positive"
+        assert self.min_words_in_sentence > 0, "min_words_in_sentence must be positive"
+        assert self.max_words_in_sentence >= self.min_words_in_sentence, "max_words_in_sentence must be >= min_words_in_sentence"
 
 
 class SentenceReorderingDataset(ProceduralDataset):
@@ -33,7 +35,7 @@ class SentenceReorderingDataset(ProceduralDataset):
         self.sentences = [
             sentence
             for sentence in re.findall(r"[^.!?]+", text)
-            if len(re.findall(r"\b\w+\b", sentence)) >= self.config.num_of_words_in_sentence
+            if self.config.min_words_in_sentence <= len(re.findall(r"\b\w+\b", sentence)) <= self.config.max_words_in_sentence
         ]
 
     def _generate_sentence_dataset(self, sentence: str, seed: int, idx: int, shuffle=True):
@@ -73,13 +75,13 @@ class SentenceReorderingDataset(ProceduralDataset):
         goal_words = sentence_dataset['goal'].split()
         solved_sentence = " ".join(sorted(input_words, key=lambda word: goal_words.index(word)))
         # Check for length of alphanumeric characters in the solved sentence
-        num_of_words_in_sentence = len(re.findall(r"\b\w+\b", solved_sentence))
+        word_count = len(re.findall(r"\b\w+\b", solved_sentence))
 
 
         return {
             "question": f"Restore the correct order of words in the following sentence: {question}",
             "answer": solved_sentence,
-            "metadata": {"num_of_words_in_sentence": num_of_words_in_sentence},
+            "metadata": {"word_count": word_count},
         }
         
 register_dataset("sentence_reordering", SentenceReorderingDataset, SentenceReorderingConfig)
