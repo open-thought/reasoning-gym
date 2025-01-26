@@ -17,7 +17,7 @@ class SentenceReorderingConfig:
 
     def validate(self) -> None:
         """Validate configuration parameters"""
-        pass
+        assert self.num_of_words_in_sentence > 0, "num_of_words_in_sentence must be positive"
 
 
 class SentenceReorderingDataset(ProceduralDataset):
