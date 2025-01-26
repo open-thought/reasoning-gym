@@ -9,12 +9,12 @@ from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
 
-@dataclass 
+@dataclass
 class SpellBackwardConfig:
     """Configuration for spelling words backward task generation"""
-    
+
     min_word_len: int = 3  # Minimum word length
-    seed: Optional[int] = None 
+    seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
     def validate(self) -> None:
@@ -31,8 +31,9 @@ class SpellBackwardDataset(ProceduralDataset):
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
         # Extract words and clean them to contain only alphanumeric characters
-        self.words = [word for word in re.findall(r"\b\w+\b", text) 
-                     if word.isalnum() and len(word) >= config.min_word_len]
+        self.words = [
+            word for word in re.findall(r"\b\w+\b", text) if word.isalnum() and len(word) >= config.min_word_len
+        ]
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single spell backward task"""
