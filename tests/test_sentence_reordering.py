@@ -6,7 +6,7 @@ from reasoning_gym.algorithmic.sentence_reordering import (
 
 @pytest.fixture
 def config():
-    return SentenceReorderingConfig(num_of_words_in_sentence=5, seed=42, size=10)
+    return SentenceReorderingConfig(min_words_in_sentence=5, max_words_in_sentence=5, seed=42, size=10)
 
 @pytest.fixture
 def dataset(config):
@@ -32,7 +32,7 @@ def test_getitem(dataset, config):
     assert "question" in item
     assert "answer" in item
     assert "metadata" in item
-    assert item["metadata"]["num_of_words_in_sentence"] >= config.num_of_words_in_sentence
+    assert item["metadata"]["word_count"] >= config.min_words_in_sentence
 
 def test_key_error_in_getitem(dataset):
     # Modify the dataset to include an incorrect key
