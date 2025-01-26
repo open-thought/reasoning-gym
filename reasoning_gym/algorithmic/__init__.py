@@ -13,6 +13,7 @@ from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .word_reversal import WordReversalConfig, WordReversalDataset
+from .clrs_task import ClrsConfig, ClrsDataset
 
 __all__ = [
     "BaseConversionConfig",
@@ -29,4 +30,6 @@ __all__ = [
     "NumberSortingDataset",
     "WordReversalConfig",
     "WordReversalDataset",
+    "ClrsConfig",
+    "ClrsDataset",
 ]
