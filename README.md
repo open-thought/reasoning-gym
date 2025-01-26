@@ -107,6 +107,7 @@ Available dataset names (which can be used with `create_dataset()`):
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
 - `LetterJumbleDataset`: Unscramble words that have had their letters randomly jumbled
+- `SentenceReorderingDataset`: Reorder sentence after words in it have been randomly shuffled
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
 
