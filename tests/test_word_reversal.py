@@ -3,13 +3,13 @@
 import pytest
 
 from reasoning_gym.algorithmic.spell_backward import SpellBackwardConfig, SpellBackwardDataset
-from reasoning_gym.algorithmic.word_reversal import WordReversalConfig, WordReversalDataset
+from reasoning_gym.algorithmic.word_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
 
 
-def test_word_reversal_config_validation():
+def test_word_sequence_reversal_config_validation():
     """Test that invalid configs raise appropriate errors"""
     with pytest.raises(AssertionError):
-        config = WordReversalConfig(min_words=0)
+        config = WordSequenceReversalConfig(min_words=0)
         config.validate()
 
     with pytest.raises(AssertionError):
@@ -17,20 +17,20 @@ def test_word_reversal_config_validation():
         config.validate()
 
 
-def test_word_reversal_dataset_deterministic():
+def test_word_sequence_reversal_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
-    config = WordReversalConfig(seed=42, size=10)
-    dataset1 = WordReversalDataset(config)
-    dataset2 = WordReversalDataset(config)
+    config = WordSequenceReversalConfig(seed=42, size=10)
+    dataset1 = WordSequenceReversalDataset(config)
+    dataset2 = WordSequenceReversalDataset(config)
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
 
 
-def test_word_reversal_dataset_items():
+def test_word_sequence_reversal_dataset_items():
     """Test basic properties of generated items"""
-    config = WordReversalConfig(min_words=3, max_words=6, size=10, seed=42)
-    dataset = WordReversalDataset(config)
+    config = WordSequenceReversalConfig(min_words=3, max_words=6, size=10, seed=42)
+    dataset = WordSequenceReversalDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
@@ -109,10 +109,10 @@ def test_spell_backward_dataset_iteration():
     assert items == list(dataset)
 
 
-def test_word_reversal_dataset_iteration():
+def test_word_sequence_reversal_dataset_iteration():
     """Test that iteration respects dataset size"""
-    config = WordReversalConfig(size=5, seed=42)
-    dataset = WordReversalDataset(config)
+    config = WordSequenceReversalConfig(size=5, seed=42)
+    dataset = WordSequenceReversalDataset(config)
 
     items = list(dataset)
     assert len(items) == config.size
@@ -121,10 +121,10 @@ def test_word_reversal_dataset_iteration():
     assert items == list(dataset)
 
 
-def test_word_reversal_text_preprocessing():
+def test_word_sequence_reversal_text_preprocessing():
     """Test that text preprocessing handles edge cases"""
-    config = WordReversalConfig(size=1, seed=42)
-    dataset = WordReversalDataset(config)
+    config = WordSequenceReversalConfig(size=1, seed=42)
+    dataset = WordSequenceReversalDataset(config)
 
     # Verify words were extracted from text
     assert len(dataset.words) > 0

@@ -106,7 +106,7 @@ Available dataset names (which can be used with `create_dataset()`):
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
 - `LetterJumbleDataset`: Unscramble words that have had their letters randomly jumbled 
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
-- `WordReversalDataset`: Reverse word order in text spans
+- `WordSequenceReversalDataset`: Reverse word order in text spans
 
 #### Cognition Tasks
 
