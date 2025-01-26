@@ -10,8 +10,8 @@ from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
-class WordReversalConfig:
-    """Configuration for word reversal task generation"""
+class WordSequenceReversalConfig:
+    """Configuration for word sequence reversal task generation"""
 
     min_words: int = 3  # Minimum words in list
     max_words: int = 8  # Maximum words in list
@@ -24,10 +24,10 @@ class WordReversalConfig:
         assert self.max_words >= self.min_words, "max_words must be >= min_words"
 
 
-class WordReversalDataset(ProceduralDataset):
-    """Generates word reversal tasks from text spans"""
+class WordSequenceReversalDataset(ProceduralDataset):
+    """Generates word sequence reversal tasks from text spans"""
 
-    def __init__(self, config: WordReversalConfig):
+    def __init__(self, config: WordSequenceReversalConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
         # Load and preprocess text
@@ -55,4 +55,4 @@ class WordReversalDataset(ProceduralDataset):
         }
 
 
-register_dataset("word_reversal", WordReversalDataset, WordReversalConfig)
+register_dataset("word_sequence_reversal", WordSequenceReversalDataset, WordSequenceReversalConfig)
