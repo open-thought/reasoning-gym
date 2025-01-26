@@ -95,7 +95,7 @@ class WordSortingDataset(ProceduralDataset):
 
         return {
             "question": f"Sort these words in {direction} order: {', '.join(transformed_words)}",
-            "answer": str(answer),
+            "answer": ", ".join(answer),
             "metadata": {
                 "original_words": original_words,
                 "transformed_words": transformed_words,

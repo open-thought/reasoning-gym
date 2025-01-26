@@ -94,7 +94,7 @@ def test_word_sorting_dataset_items():
 
         # Verify sorting
         direction = item["metadata"]["direction"]
-        sorted_words = eval(item["answer"])
+        sorted_words = item["answer"].split(", ")
         if direction == "ascending":
             assert sorted_words == sorted(sorted_words)
         else:
