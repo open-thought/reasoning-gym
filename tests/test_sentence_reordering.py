@@ -43,4 +43,3 @@ def test_key_error_in_getitem(dataset):
 
     with pytest.raises(KeyError):
         dataset[0]
-        
