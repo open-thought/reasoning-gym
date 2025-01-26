@@ -72,7 +72,7 @@ class SentenceReorderingDataset(ProceduralDataset):
         question = " ".join(input_words)
         goal_words = sentence_dataset['goal'].split()
         solved_sentence = " ".join(sorted(input_words, key=lambda word: goal_words.index(word)))
-        # Check for length alphanumeric characters in the solved sentence
+        # Check for length of alphanumeric characters in the solved sentence
         num_of_words_in_sentence = len(re.findall(r"\b\w+\b", solved_sentence))
 
 
