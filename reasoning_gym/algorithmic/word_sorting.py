@@ -1,5 +1,6 @@
 """Word sorting task generator"""
 
+import re
 from dataclasses import dataclass
 from enum import Enum
 from random import Random
