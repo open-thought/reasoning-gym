@@ -2,12 +2,8 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.word_reversal import (
-    WordReversalConfig,
-    WordReversalDataset,
-    SpellBackwardConfig,
-    SpellBackwardDataset,
-)
+from reasoning_gym.algorithmic.spell_backward import SpellBackwardConfig, SpellBackwardDataset
+from reasoning_gym.algorithmic.word_reversal import WordReversalConfig, WordReversalDataset
 
 
 def test_word_reversal_config_validation():
