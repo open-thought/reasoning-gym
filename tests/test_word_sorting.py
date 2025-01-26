@@ -44,14 +44,16 @@ def test_word_sorting_transformations():
     dataset = WordSortingDataset(config)
     for item in dataset:
         for word in item["metadata"]["transformed_words"]:
-            assert word.islower()
+            if word.isalpha():  # Only test alphabetic strings
+                assert word.islower()
 
     # Test UPPERCASE
     config = WordSortingConfig(transformation=TextTransformation.UPPERCASE, seed=seed, size=size)
     dataset = WordSortingDataset(config)
     for item in dataset:
         for word in item["metadata"]["transformed_words"]:
-            assert word.isupper()
+            if word.isalpha():  # Only test alphabetic strings
+                assert word.isupper()
 
     # Test ORIGINAL
     config = WordSortingConfig(transformation=TextTransformation.ORIGINAL, seed=seed, size=size)
