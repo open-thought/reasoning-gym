@@ -11,8 +11,8 @@ from ..factory import ProceduralDataset, register_dataset
 @dataclass
 class SentenceReorderingConfig:
     """Configuration for sentence reordering task generation"""
-    min_words_in_sentence: int = 10
-    max_words_in_sentence: int = 64
+    min_words_in_sentence: int = 3
+    max_words_in_sentence: int = 20
     seed: Optional[int] = None
     size: int = 500
 
