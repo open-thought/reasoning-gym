@@ -29,10 +29,11 @@ class SentenceReorderingDataset(ProceduralDataset):
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
         # Extract sentences make sure they are greater than or equal to the number of words in a sentence
+        # Ensure that only the length of alpganumeric characters in the sentence is considered
         self.sentences = [
             sentence
             for sentence in re.findall(r"[^.!?]+", text)
-            if len(sentence.split()) >= self.config.num_of_words_in_sentence
+            if len(re.findall(r"\b\w+\b", sentence)) >= self.config.num_of_words_in_sentence
         ]
 
     def _generate_sentence_dataset(self, sentence: str, seed: int, idx: int, shuffle=True):
