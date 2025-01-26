@@ -5,3 +5,4 @@ flake8>=7.1.1
 mypy>=1.14.1
 pre-commit>=4.1.0
 sympy>=1.13.3
+dm-clrs>=2.0.3
