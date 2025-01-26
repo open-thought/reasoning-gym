@@ -27,7 +27,7 @@ class WordSequenceReversalConfig:
 class WordSequenceReversalDataset(ProceduralDataset):
     """Generates word sequence reversal tasks from text spans"""
 
-    def __init__(self, config: WordReversalConfig):
+    def __init__(self, config: WordSequenceReversalConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
         # Load and preprocess text

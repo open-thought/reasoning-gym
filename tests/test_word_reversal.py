@@ -13,7 +13,7 @@ def test_word_sequence_reversal_config_validation():
         config.validate()
 
     with pytest.raises(AssertionError):
-        config = WordReversalConfig(min_words=10, max_words=5)
+        config = WordSequenceReversalConfig(min_words=10, max_words=5)
         config.validate()
 
 
