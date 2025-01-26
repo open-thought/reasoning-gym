@@ -77,7 +77,7 @@ class SentenceReorderingDataset(ProceduralDataset):
 
 
         return {
-            "question": f"Correct the following sentence: {question}",
+            "question": f"Restore the correct order of words in the following sentence: {question}",
             "answer": solved_sentence,
             "metadata": {"num_of_words_in_sentence": num_of_words_in_sentence},
         }
