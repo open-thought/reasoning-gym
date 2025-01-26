@@ -94,7 +94,7 @@ class WordSortingDataset(ProceduralDataset):
         answer = asc_words if is_ascending else desc_words
 
         return {
-            "question": f"Sort these words in {direction} order: {', '.join(transformed_words)}",
+            "question": f"Sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {', '.join(transformed_words)}",
             "answer": ", ".join(answer),
             "metadata": {
                 "original_words": original_words,
