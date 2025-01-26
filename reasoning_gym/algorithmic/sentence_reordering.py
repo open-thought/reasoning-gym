@@ -33,8 +33,8 @@ class SentenceReorderingDataset(ProceduralDataset):
         # Extract sentences make sure they are greater than or equal to the number of words in a sentence
         # Ensure that only the length of alphanumeric characters in the sentence is considered
         self.sentences = [
-            sentence
-            for sentence in re.findall(r"[^.!?]+", text)
+            sentence.strip()
+            for sentence in re.findall(r"[^.!?]+[.!?]", text)  # Changed pattern to include the ending punctuation
             if self.config.min_words_in_sentence <= len(re.findall(r"\b\w+\b", sentence)) <= self.config.max_words_in_sentence
         ]
 
