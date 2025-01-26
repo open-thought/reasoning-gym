@@ -59,9 +59,11 @@ Available dataset names (which can be used with `create_dataset()`):
 'base_conversion',
 'caesar_cipher',
 'letter_counting',
+'letter_jumble',
 'number_filtering',
 'number_sorting',
-'word_reversal',
+'spell_backward',
+'word_sequence_reversal',
 'basic_arithmetic',
 'chain_sum',
 'fraction_simplification',
@@ -77,7 +79,7 @@ Available dataset names (which can be used with `create_dataset()`):
 'sudoku',
 'family_relationships',
 'propositional_logic',
-'syllogism'
+'syllogism',
 ```
 
 ### Task Overview
