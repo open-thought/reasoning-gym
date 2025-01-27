@@ -256,21 +256,21 @@ class FamilyRelationshipsDataset(ProceduralDataset):
         uncle.add_spouse(aunt_by_marriage)
         
         # Create father's sister (aunt) and her husband
-        paternal_aunt = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+        aunt = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
         uncle_by_marriage = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
-        paternal_aunt.add_spouse(uncle_by_marriage)
+        aunt.add_spouse(uncle_by_marriage)
         
         # Link parents to their respective parents
         grandfather_of_father.add_child(father)
         grandmother_of_father.add_child(father)
         grandfather_of_father.add_child(uncle)  # Add uncle as child of paternal grandparents
         grandmother_of_father.add_child(uncle)
-        grandfather_of_father.add_child(paternal_aunt)  # Add aunt as child of paternal grandparents
-        grandmother_of_father.add_child(paternal_aunt)
+        grandfather_of_father.add_child(aunt)  # Add aunt as child of paternal grandparents
+        grandmother_of_father.add_child(aunt)
         grandfather_of_mother.add_child(mother)
         grandmother_of_mother.add_child(mother)
         
-        family.update([father, mother, uncle, aunt_by_marriage, paternal_aunt, uncle_by_marriage])
+        family.update([father, mother, uncle, aunt_by_marriage, aunt, uncle_by_marriage])
 
         # Add children
         while len(family) < family_size:
