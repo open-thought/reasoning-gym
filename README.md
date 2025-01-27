@@ -4,7 +4,7 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
-### Set up for development
+## Set up for development
 1. Clone the project
 ```
 git clone https://github.com/open-thought/reasoning-gym.git
@@ -28,7 +28,7 @@ pip install -r requirements-dev.txt
 pip install reasoning-gym
 ```
 
-### How to instantiate a task dataset?
+## How to instantiate a task dataset?
 
 Example:
 
@@ -82,14 +82,14 @@ Available dataset names (which can be used with `create_dataset()`):
 'syllogism',
 ```
 
-### Task Overview
+## Task Overview
 
-#### Algebra Tasks
+### <small>Algebra Tasks</small>
 
 - `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3\*x + 2 = 14")
 - `PolynomialEquationsDataset`: Generate polynomial equations with one variable to solve (e.g. "-6*h\*\*4 + 4*h\**2 - 5*h = 0")
 
-#### Arithmetic Tasks
+### <small>Arithmetic Tasks</small>
 
 - `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, \*, /)
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
@@ -99,7 +99,7 @@ Available dataset names (which can be used with `create_dataset()`):
 - `LegCountingDataset`: Generate animal leg counting word problems with various animals
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
 
-#### Algorithmic Tasks
+### <small>Algorithmic Tasks</small>
 
 - `BaseConversionDataset`: Convert numbers between different bases (binary, hex, etc.)
 - `CaesarCipherDataset`: Encrypt/decrypt text using Caesar cipher with configurable rotation
@@ -111,29 +111,32 @@ Available dataset names (which can be used with `create_dataset()`):
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
 
-#### Cognition Tasks
+### <small>Cognition Tasks</small>
 
 - `NumberSequenceDataset`: Generate number sequences with discoverable patterns
 - `ColorCubeRotationDataset`: Generate 3D spatial reasoning tasks with colored cube rotations and orientation tracking
 
-#### Logic Tasks
+### <small>Logic Tasks</small>
 
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
 
-#### Graph Tasks
+### <small>Graph Tasks</small>
 
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
 
-#### Game Tasks
+### <small>Game Tasks</small>
 
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
 - `MazeDataset`: Generates a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
 
-### Available Generators
+## Available Generators
 
-### PolynomialEquations
+<details>
+<summary>
+<h5 style="display: inline-block;">PolynomialEquations</h5>
+</summary>
 
 Generate polynomial equation with configurable complexity:
 
@@ -163,8 +166,12 @@ Example output:
 {'question': 'Solve the polynomial equation for real i:\n3*i**4 + 4*i**3 - 1 = 0', 'answer': '[]', 'metadata': {'polynomial_expr': '3*i**4 + 4*i**3 - 1', 'variable': 'i', 'degree': 4, 'real_solutions': []}}
 {'question': 'Solve the polynomial equation for real h:\n7*h**4 - 2*h**2 + h = 0', 'answer': '[-0.6998793469266564, 0.0]', 'metadata': {'polynomial_expr': '7*h**4 - 2*h**2 + h', 'variable': 'h', 'degree': 4, 'real_solutions': [-0.6998793469266564, 0.0]}}
 ```
+</details>
 
-#### Basic Arithmetic
+<details>
+<summary>
+<h5 style="display: inline-block;">Basic Arithmetic</h5>
+</summary>
 
 Generates arithmetic problems with configurable complexity:
 
@@ -195,8 +202,12 @@ Example output:
 {'question': '-22 - -94 + -97 =', 'answer': '-25', 'metadata': {'num_terms': 3, 'num_digits': 2, 'expression': '-22 - -94 + -97'}}
 {'question': '51 * 63 =', 'answer': '3213', 'metadata': {'num_terms': 2, 'num_digits': 2, 'expression': '51 * 63'}}
 ```
+</details>
 
-#### Chain Sum
+<details>
+<summary>
+<h5 style="display: inline-block;">Chain Sum</h5>
+</summary>
 
 Generates addition/subtraction problems with configurable complexity:
 
@@ -232,8 +243,12 @@ Example data:
     "metadata": { "num_terms": 2, "num_digits": 3, "expression": "426 + 562" }
 }
 ```
+</details>
 
-#### Sequence Completion
+<details>
+<summary>
+<h5 style="display: inline-block;">Sequence Completion</h5>
+</summary>
 
 Generates number sequence completion tasks with dynamic pattern generation:
 
@@ -269,8 +284,12 @@ Example data:
     "metadata": {"rule": "add 6", "complexity": 1, "sequence": [8, 14, 20, 26, 32, 38, 44, 50]},
 }
 ```
+</details>
 
-#### Color Cube Rotation
+<details>
+<summary>
+<h5 style="display: inline-block;">Color Cube Rotation</h5>
+</summary>
 
 Generates 3D spatial reasoning tasks with cube rotations and color tracking:
 
@@ -303,8 +322,12 @@ Example data:
     }
 }
 ```
+</details>
 
-#### Propositional Logic
+<details>
+<summary>
+<h5 style="display: inline-block;">Propositional Logic</h5>
+</summary>
 
 Generates logical reasoning tasks with configurable complexity:
 
@@ -344,8 +367,12 @@ Example data:
     },
 }
 ```
+</details>
 
-#### Maze
+<details>
+<summary>
+<h5 style="display: inline-block;">Maze</h5>
+</summary>
 
 Generates a maze with configurable difficulty:
 
@@ -394,8 +421,9 @@ Legend: '<' = Wall, 'w' = Path
 
 {'question': "Navigate from 'J' (start) to '_' (goal):\n\n<<<<<\n<<J<<\n<www<\n<<w_<\n<<<<<\nLegend: '<' = Wall, 'w' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['<<<<<', '<<J<<', '<www<', '<<w_<', '<<<<<'], 'shortest_path_length': 3, 'start': 'J', 'goal': '_', 'wall': '<', 'path': 'w'}}
 ```
+</details>
 
-### Future Generator Ideas
+## Future Generator Ideas
 
 - More complex math tasks (algebra, geometry)
 - Algorithmic tasks (counting, sorting, re-ordering)
