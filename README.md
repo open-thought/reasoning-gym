@@ -128,16 +128,15 @@ Available dataset names (which can be used with `create_dataset()`):
 
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
-- `MazeDataset`: Generates a maze with a start and a goal
+- `MazeDataset`: Generate a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
 
 ## Available Generators
 
 <details>
 <summary>
-<h4 style="display: inline-block;">PolynomialEquations</h4>
-
-Generate polynomial equation with configurable complexity:
+<h4><dl><dd>PolynomialEquations</dd></dl></h4>
+<smaller>Generate polynomial equations with configurable complexity:</smaller>
 </summary>
 
 ```python
@@ -170,9 +169,8 @@ Example output:
 
 <details>
 <summary>
-<h4 style="display: inline-block;">Basic Arithmetic</h4>
-
-Generates arithmetic problems with configurable complexity:
+<h4><dl><dd>Basic Arithmetic</dd></dl></h4>
+<smaller>Generate arithmetic problems with configurable complexity:</smaller>
 </summary>
 
 ```python
@@ -206,9 +204,8 @@ Example output:
 
 <details>
 <summary>
-<h4 style="display: inline-block;">Chain Sum</h4>
-
-Generates addition/subtraction problems with configurable complexity:
+<h4><dl><dd>Chain Sum</dd></dl></h4>
+<smaller>Generate addition/subtraction problems with configurable complexity:</smaller>
 </summary>
 
 ```python
@@ -247,9 +244,8 @@ Example data:
 
 <details>
 <summary>
-<h4 style="display: inline-block;">Sequence Completion</h4>
-
-Generates number sequence completion tasks with dynamic pattern generation:
+<h4><dl><dd>Sequence Completion</dd></dl></h4>
+<smaller>Generate number sequence completion tasks with dynamic pattern generation:</smaller>
 </summary>
 
 ```python
@@ -288,9 +284,8 @@ Example data:
 
 <details>
 <summary>
-<h4 style="display: inline-block;">Color Cube Rotation</h4>
-
-Generates 3D spatial reasoning tasks with cube rotations and color tracking:
+<h4><dl><dd>Color Cube Rotation</dd></dl></h4>
+<smaller>Generate 3D spatial reasoning tasks with cube rotations and color tracking:</smaller>
 </summary>
 
 ```python
@@ -326,9 +321,8 @@ Example data:
 
 <details>
 <summary>
-<h4 style="display: inline-block;">Propositional Logic</h4>
-
-Generates logical reasoning tasks with configurable complexity:
+<h4><dl><dd>Propositional Logic</dd></dl></h4>
+<smaller>Generate logical reasoning tasks with configurable complexity:</smaller>
 </summary>
 
 ```python
@@ -371,9 +365,8 @@ Example data:
 
 <details>
 <summary>
-<h4 style="display: inline-block;">Maze</h4>
-
-Generates a maze with configurable difficulty:
+<h4><dl><dd>Maze</dd></dl></h4>
+<smaller>Generate a maze with configurable difficulty:</smaller>
 </summary>
 
 ```python
