@@ -135,10 +135,10 @@ Available dataset names (which can be used with `create_dataset()`):
 
 <details>
 <summary>
-<h5 style="display: inline-block;">PolynomialEquations</h5>
-</summary>
+<h4 style="display: inline-block;">PolynomialEquations</h4>
 
 Generate polynomial equation with configurable complexity:
+</summary>
 
 ```python
 from reasoning_gym.algebra import PolynomialEquationsConfig, PolynomialEquationsConfig
@@ -170,10 +170,10 @@ Example output:
 
 <details>
 <summary>
-<h5 style="display: inline-block;">Basic Arithmetic</h5>
-</summary>
+<h4 style="display: inline-block;">Basic Arithmetic</h4>
 
 Generates arithmetic problems with configurable complexity:
+</summary>
 
 ```python
 from reasoning_gym.arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
@@ -206,10 +206,10 @@ Example output:
 
 <details>
 <summary>
-<h5 style="display: inline-block;">Chain Sum</h5>
-</summary>
+<h4 style="display: inline-block;">Chain Sum</h4>
 
 Generates addition/subtraction problems with configurable complexity:
+</summary>
 
 ```python
 from reasoning_gym.arithmetic import ChainSum, ChainSumConfig
@@ -247,10 +247,10 @@ Example data:
 
 <details>
 <summary>
-<h5 style="display: inline-block;">Sequence Completion</h5>
-</summary>
+<h4 style="display: inline-block;">Sequence Completion</h4>
 
 Generates number sequence completion tasks with dynamic pattern generation:
+</summary>
 
 ```python
 from reasoning_gym.cognition import NumberSequenceDataset, NumberSequenceConfig
@@ -288,10 +288,10 @@ Example data:
 
 <details>
 <summary>
-<h5 style="display: inline-block;">Color Cube Rotation</h5>
-</summary>
+<h4 style="display: inline-block;">Color Cube Rotation</h4>
 
 Generates 3D spatial reasoning tasks with cube rotations and color tracking:
+</summary>
 
 ```python
 from reasoning_gym.cognition import ColorCubeRotationDataset, ColorCubeRotationConfig
@@ -326,10 +326,10 @@ Example data:
 
 <details>
 <summary>
-<h5 style="display: inline-block;">Propositional Logic</h5>
-</summary>
+<h4 style="display: inline-block;">Propositional Logic</h4>
 
 Generates logical reasoning tasks with configurable complexity:
+</summary>
 
 ```python
 from reasoning_gym.logic import PropositionalLogicDataset, PropositionalLogicConfig
@@ -371,10 +371,10 @@ Example data:
 
 <details>
 <summary>
-<h5 style="display: inline-block;">Maze</h5>
-</summary>
+<h4 style="display: inline-block;">Maze</h4>
 
 Generates a maze with configurable difficulty:
+</summary>
 
 ```python
 from reasoning_gym.games import MazeConfig, MazeDataset
