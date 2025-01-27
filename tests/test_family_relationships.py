@@ -67,6 +67,8 @@ def test_relationship_consistency():
             Relationship.WIFE.value,
             Relationship.SISTER.value,
             Relationship.DAUGHTER.value,
+            Relationship.AUNT.value,
+            Relationship.NIECE.value,
         ]:
             assert "married to" in item["question"] or "child" in item["question"]
         elif relationship in [
@@ -75,5 +77,7 @@ def test_relationship_consistency():
             Relationship.HUSBAND.value,
             Relationship.BROTHER.value,
             Relationship.SON.value,
+            Relationship.UNCLE.value,
+            Relationship.NEPHEW.value,
         ]:
             assert "married to" in item["question"] or "child" in item["question"]

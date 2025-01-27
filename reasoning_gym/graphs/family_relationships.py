@@ -23,6 +23,10 @@ class Relationship(StrEnum):
     HUSBAND = "husband"
     GRANDMOTHER = "grandmother"
     GRANDFATHER = "grandfather"
+    AUNT = "aunt"
+    UNCLE = "uncle"
+    NIECE = "niece"
+    NEPHEW = "nephew"
 
 
 @dataclass
@@ -273,8 +277,16 @@ class FamilyRelationshipsDataset(ProceduralDataset):
             relationship = Relationship.SISTER if person1.gender == Gender.FEMALE else Relationship.BROTHER
         elif person1 in [p for parent in person2.parents for p in parent.parents]:
             relationship = Relationship.GRANDMOTHER if person1.gender == Gender.FEMALE else Relationship.GRANDFATHER
+        # Check for aunt/uncle relationship
+        elif any(p1 in [p for parent in person2.parents for p in parent.parents] for p1 in person1.parents):
+            # person1's parents are person2's grandparents, making person1 an aunt/uncle
+            relationship = Relationship.AUNT if person1.gender == Gender.FEMALE else Relationship.UNCLE
+        # Check for niece/nephew relationship
+        elif any(p2 in [p for parent in person1.parents for p in parent.parents] for p2 in person2.parents):
+            # person2's parents are person1's grandparents, making person2 a niece/nephew
+            relationship = Relationship.NIECE if person2.gender == Gender.FEMALE else Relationship.NEPHEW
         else:
-            # Try again with different people
+            # Try again with different people if no relationship found
             return self._get_relationship_question(rng, family)
 
         return person1, person2, relationship
