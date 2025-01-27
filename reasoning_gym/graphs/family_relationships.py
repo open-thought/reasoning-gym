@@ -239,41 +239,52 @@ class FamilyRelationshipsDataset(ProceduralDataset):
         grandfather_of_father.add_spouse(grandmother_of_father)
         family.update([grandfather_of_father, grandmother_of_father])
 
-        # Create maternal grandparents generation
-        grandfather_of_mother = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
-        grandmother_of_mother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
-        grandfather_of_mother.add_spouse(grandmother_of_mother)
-        family.update([grandfather_of_mother, grandmother_of_mother])
+        if family_size > 6:
+            # Create maternal grandparents generation
+            grandfather_of_mother = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
+            grandmother_of_mother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            grandfather_of_mother.add_spouse(grandmother_of_mother)
+            family.update([grandfather_of_mother, grandmother_of_mother])
+
+        couples = []
 
         # Create parents
         father = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
-        mother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
-        father.add_spouse(mother)
-        
-        # Create father's brother (uncle) and his wife
-        uncle = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
-        aunt_by_marriage = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
-        uncle.add_spouse(aunt_by_marriage)
-        
-        # Create father's sister (aunt) and her husband
-        aunt = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
-        uncle_by_marriage = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
-        aunt.add_spouse(uncle_by_marriage)
-        
         # Link parents to their respective parents
         grandfather_of_father.add_child(father)
         grandmother_of_father.add_child(father)
-        grandfather_of_father.add_child(uncle)  # Add uncle as child of paternal grandparents
-        grandmother_of_father.add_child(uncle)
-        grandfather_of_father.add_child(aunt)  # Add aunt as child of paternal grandparents
-        grandmother_of_father.add_child(aunt)
-        grandfather_of_mother.add_child(mother)
-        grandmother_of_mother.add_child(mother)
-        
-        family.update([father, mother, uncle, aunt_by_marriage, aunt, uncle_by_marriage])
+        family.add(father)
+
+        if family_size > 3:
+            mother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            father.add_spouse(mother)
+            family.add(mother)
+            couples.append((father, mother))
+            if family_size > 6:
+                grandfather_of_mother.add_child(mother)
+                grandmother_of_mother.add_child(mother)
+
+        if family_size > 8:
+            # Create father's brother (uncle) and his wife
+            uncle = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
+            aunt_by_marriage = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            uncle.add_spouse(aunt_by_marriage)
+            grandfather_of_father.add_child(uncle)  # Add uncle as child of paternal grandparents
+            grandmother_of_father.add_child(uncle)
+            family.update([uncle, aunt_by_marriage])
+            couples.append((uncle, aunt_by_marriage))
+
+        if family_size > 10:
+            # Create father's sister (aunt) and her husband
+            aunt = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            uncle_by_marriage = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
+            aunt.add_spouse(uncle_by_marriage)
+            grandfather_of_father.add_child(aunt)  # Add aunt as child of paternal grandparents
+            grandmother_of_father.add_child(aunt)
+            family.update([aunt, uncle_by_marriage])
+            couples.append((aunt, uncle_by_marriage))
 
         # Add children, randomly assigned to couples
-        couples = [(father, mother), (uncle, aunt_by_marriage), (aunt, uncle_by_marriage)]
         while len(family) < family_size:
             gender = rng.choice([Gender.MALE, Gender.FEMALE])
             name = get_name(gender)
