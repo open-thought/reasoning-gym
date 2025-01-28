@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 from enum import StrEnum
 from itertools import count
-from typing import Dict, List, Optional, Set, Tuple
+from typing import List, Optional, Set, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -23,6 +23,12 @@ class Relationship(StrEnum):
     HUSBAND = "husband"
     GRANDMOTHER = "grandmother"
     GRANDFATHER = "grandfather"
+    AUNT = "aunt"
+    UNCLE = "uncle"
+    NIECE = "niece"
+    NEPHEW = "nephew"
+    MOTHER_IN_LAW = "mother-in-law"
+    FATHER_IN_LAW = "father-in-law"
 
 
 @dataclass
@@ -229,29 +235,68 @@ class FamilyRelationshipsDataset(ProceduralDataset):
         # Create ID counter
         id_counter = count()
 
-        # Create grandparents generation
-        grandfather = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
-        grandmother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
-        grandfather.add_spouse(grandmother)
-        family.update([grandfather, grandmother])
+        # Create paternal grandparents generation
+        grandfather_of_father = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
+        grandmother_of_father = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+        grandfather_of_father.add_spouse(grandmother_of_father)
+        family.update([grandfather_of_father, grandmother_of_father])
+
+        if family_size > 6:
+            # Create maternal grandparents generation
+            grandfather_of_mother = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
+            grandmother_of_mother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            grandfather_of_mother.add_spouse(grandmother_of_mother)
+            family.update([grandfather_of_mother, grandmother_of_mother])
+
+        couples = []
 
         # Create parents
         father = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
-        mother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
-        father.add_spouse(mother)
-        grandfather.add_child(father)
-        grandmother.add_child(father)
-        family.update([father, mother])
+        # Link parents to their respective parents
+        grandfather_of_father.add_child(father)
+        grandmother_of_father.add_child(father)
+        family.add(father)
 
-        # Add children
+        if family_size > 3:
+            mother = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            father.add_spouse(mother)
+            family.add(mother)
+            couples.append((father, mother))
+            if family_size > 6:
+                grandfather_of_mother.add_child(mother)
+                grandmother_of_mother.add_child(mother)
+
+        if family_size > 8:
+            # Create father's brother (uncle) and his wife
+            uncle = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
+            aunt_by_marriage = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            uncle.add_spouse(aunt_by_marriage)
+            grandfather_of_father.add_child(uncle)  # Add uncle as child of paternal grandparents
+            grandmother_of_father.add_child(uncle)
+            family.update([uncle, aunt_by_marriage])
+            couples.append((uncle, aunt_by_marriage))
+
+        if family_size > 10:
+            # Create father's sister (aunt) and her husband
+            aunt = Person(get_name(Gender.FEMALE), Gender.FEMALE, next(id_counter))
+            uncle_by_marriage = Person(get_name(Gender.MALE), Gender.MALE, next(id_counter))
+            aunt.add_spouse(uncle_by_marriage)
+            grandfather_of_father.add_child(aunt)  # Add aunt as child of paternal grandparents
+            grandmother_of_father.add_child(aunt)
+            family.update([aunt, uncle_by_marriage])
+            couples.append((aunt, uncle_by_marriage))
+
+        # Add children, randomly assigned to couples
         while len(family) < family_size:
             gender = rng.choice([Gender.MALE, Gender.FEMALE])
             name = get_name(gender)
             if not name:
                 break
             child = Person(name, gender, next(id_counter))
-            father.add_child(child)
-            mother.add_child(child)
+            # Randomly choose parents for this child
+            parents = rng.choice(couples)
+            parents[0].add_child(child)  # Add to father/uncle/aunt
+            parents[1].add_child(child)  # Add to mother/aunt_by_marriage/uncle_by_marriage
             family.add(child)
 
         return family
@@ -273,8 +318,20 @@ class FamilyRelationshipsDataset(ProceduralDataset):
             relationship = Relationship.SISTER if person1.gender == Gender.FEMALE else Relationship.BROTHER
         elif person1 in [p for parent in person2.parents for p in parent.parents]:
             relationship = Relationship.GRANDMOTHER if person1.gender == Gender.FEMALE else Relationship.GRANDFATHER
+        # Check for aunt/uncle relationship
+        elif any(p1 in [p for parent in person2.parents for p in parent.parents] for p1 in person1.parents):
+            # person1's parents are person2's grandparents, making person1 an aunt/uncle
+            relationship = Relationship.AUNT if person1.gender == Gender.FEMALE else Relationship.UNCLE
+        # Check for niece/nephew relationship
+        elif any(p2 in [p for parent in person1.parents for p in parent.parents] for p2 in person2.parents):
+            # person2's parents are person1's grandparents, making person2 a niece/nephew
+            relationship = Relationship.NIECE if person2.gender == Gender.FEMALE else Relationship.NEPHEW
+        # Check for in-law relationships through spouse
+        elif person1.spouse and person2 in person1.spouse.parents:
+            # person2 is person1's spouse's parent
+            relationship = Relationship.MOTHER_IN_LAW if person2.gender == Gender.FEMALE else Relationship.FATHER_IN_LAW
         else:
-            # Try again with different people
+            # Try again with different people if no relationship found
             return self._get_relationship_question(rng, family)
 
         return person1, person2, relationship

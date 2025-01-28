@@ -4,7 +4,7 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
-### Set up for development
+## Set up for development
 
 1. Clone the project
 
@@ -37,7 +37,7 @@ pip install -r requirements-dev.txt
 pip install reasoning-gym
 ```
 
-### How to instantiate a task dataset?
+## How to instantiate a task dataset?
 
 Example:
 
@@ -92,14 +92,14 @@ Available dataset names (which can be used with `create_dataset()`):
 'clrs',
 ```
 
-### Task Overview
+## Task Overview
 
-#### Algebra Tasks
+### <small>Algebra Tasks</small>
 
 - `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3\*x + 2 = 14")
 - `PolynomialEquationsDataset`: Generate polynomial equations with one variable to solve (e.g. "-6*h\*\*4 + 4*h\**2 - 5*h = 0")
 
-#### Arithmetic Tasks
+### <small>Arithmetic Tasks</small>
 
 - `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, \*, /)
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
@@ -109,45 +109,48 @@ Available dataset names (which can be used with `create_dataset()`):
 - `LegCountingDataset`: Generate animal leg counting word problems with various animals
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
 
-#### Algorithmic Tasks
+### <small>Algorithmic Tasks</small>
 
 - `BaseConversionDataset`: Convert numbers between different bases (binary, hex, etc.)
 - `CaesarCipherDataset`: Encrypt/decrypt text using Caesar cipher with configurable rotation
 - `LetterCountingDataset`: Count letter occurrences in text spans
 - `NumberFilteringDataset`: Filter numbers based on comparison with threshold
 - `NumberSortingDataset`: Sort lists of numbers in ascending or descending order
+- `WordSortingDataset`: Sort words in ascending or descending order using ASCII/Unicode ordering
 - `LetterJumbleDataset`: Unscramble words that have had their letters randomly jumbled
-  <<<<<<< HEAD
 - `WordReversalDataset`: Reverse word order in text spans
-- # `ClrsDataset`: Any algorithmic task from [CLRS](https://github.com/google-deepmind/clrs)
+- `ClrsDataset`: Any algorithmic task from [CLRS](https://github.com/google-deepmind/clrs)
+- `SentenceReorderingDataset`: Reorder sentence after words in it have been randomly shuffled
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
 
-#### Cognition Tasks
+### <small>Cognition Tasks</small>
 
 - `NumberSequenceDataset`: Generate number sequences with discoverable patterns
 - `ColorCubeRotationDataset`: Generate 3D spatial reasoning tasks with colored cube rotations and orientation tracking
 
-#### Logic Tasks
+### <small>Logic Tasks</small>
 
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
 
-#### Graph Tasks
+### <small>Graph Tasks</small>
 
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
 
-#### Game Tasks
+### <small>Game Tasks</small>
 
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
-- `MazeDataset`: Generates a maze with a start and a goal
+- `MazeDataset`: Generate a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
 
-### Available Generators
+## Available Generators
 
-### PolynomialEquations
-
-Generate polynomial equation with configurable complexity:
+<details>
+<summary>
+<h4><dl><dd>PolynomialEquations</dd></dl></h4>
+<smaller>Generate polynomial equations with configurable complexity:</smaller>
+</summary>
 
 ```python
 from reasoning_gym.algebra import PolynomialEquationsConfig, PolynomialEquationsConfig
@@ -176,9 +179,13 @@ Example output:
 {'question': 'Solve the polynomial equation for real h:\n7*h**4 - 2*h**2 + h = 0', 'answer': '[-0.6998793469266564, 0.0]', 'metadata': {'polynomial_expr': '7*h**4 - 2*h**2 + h', 'variable': 'h', 'degree': 4, 'real_solutions': [-0.6998793469266564, 0.0]}}
 ```
 
-#### Basic Arithmetic
+</details>
 
-Generates arithmetic problems with configurable complexity:
+<details>
+<summary>
+<h4><dl><dd>Basic Arithmetic</dd></dl></h4>
+<smaller>Generate arithmetic problems with configurable complexity:</smaller>
+</summary>
 
 ```python
 from reasoning_gym.arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
@@ -208,9 +215,13 @@ Example output:
 {'question': '51 * 63 =', 'answer': '3213', 'metadata': {'num_terms': 2, 'num_digits': 2, 'expression': '51 * 63'}}
 ```
 
-#### Chain Sum
+</details>
 
-Generates addition/subtraction problems with configurable complexity:
+<details>
+<summary>
+<h4><dl><dd>Chain Sum</dd></dl></h4>
+<smaller>Generate addition/subtraction problems with configurable complexity:</smaller>
+</summary>
 
 ```python
 from reasoning_gym.arithmetic import ChainSum, ChainSumConfig
@@ -245,9 +256,13 @@ Example data:
 }
 ```
 
-#### Sequence Completion
+</details>
 
-Generates number sequence completion tasks with dynamic pattern generation:
+<details>
+<summary>
+<h4><dl><dd>Sequence Completion</dd></dl></h4>
+<smaller>Generate number sequence completion tasks with dynamic pattern generation:</smaller>
+</summary>
 
 ```python
 from reasoning_gym.cognition import NumberSequenceDataset, NumberSequenceConfig
@@ -282,9 +297,13 @@ Example data:
 }
 ```
 
-#### Color Cube Rotation
+</details>
 
-Generates 3D spatial reasoning tasks with cube rotations and color tracking:
+<details>
+<summary>
+<h4><dl><dd>Color Cube Rotation</dd></dl></h4>
+<smaller>Generate 3D spatial reasoning tasks with cube rotations and color tracking:</smaller>
+</summary>
 
 ```python
 from reasoning_gym.cognition import ColorCubeRotationDataset, ColorCubeRotationConfig
@@ -316,9 +335,13 @@ Example data:
 }
 ```
 
-#### Propositional Logic
+</details>
 
-Generates logical reasoning tasks with configurable complexity:
+<details>
+<summary>
+<h4><dl><dd>Propositional Logic</dd></dl></h4>
+<smaller>Generate logical reasoning tasks with configurable complexity:</smaller>
+</summary>
 
 ```python
 from reasoning_gym.logic import PropositionalLogicDataset, PropositionalLogicConfig
@@ -357,9 +380,13 @@ Example data:
 }
 ```
 
-#### Maze
+</details>
 
-Generates a maze with configurable difficulty:
+<details>
+<summary>
+<h4><dl><dd>Maze</dd></dl></h4>
+<smaller>Generate a maze with configurable difficulty:</smaller>
+</summary>
 
 ```python
 from reasoning_gym.games import MazeConfig, MazeDataset
@@ -407,9 +434,14 @@ Legend: '<' = Wall, 'w' = Path
 {'question': "Navigate from 'J' (start) to '_' (goal):\n\n<<<<<\n<<J<<\n<www<\n<<w_<\n<<<<<\nLegend: '<' = Wall, 'w' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['<<<<<', '<<J<<', '<www<', '<<w_<', '<<<<<'], 'shortest_path_length': 3, 'start': 'J', 'goal': '_', 'wall': '<', 'path': 'w'}}
 ```
 
-#### CLRS
+</details>
 
-Generates a task from [CLRS](https://github.com/google-deepmind/clrs). The length config parameter is the number of nodes (e.g. dijkstra) or length of the array (e.g. quicksort).
+<details>
+<summary>
+<h4><dl><dd>CLRS</dd></dl></h4>
+<smaller>Generates a task from [CLRS](https://github.com/google-deepmind/clrs). The length config parameter is the number of nodes (e.g. dijkstra) or length of the array (e.g. quicksort):</smaller>
+</summary>
+
 Available tasks:
 
 - activity_selector
@@ -521,7 +553,9 @@ Example data:
              'topo, topo_head:\n'}
 ```
 
-### Future Generator Ideas
+</details>
+
+## Future Generator Ideas
 
 - More complex math tasks (algebra, geometry)
 - Algorithmic tasks (counting, sorting, re-ordering)
