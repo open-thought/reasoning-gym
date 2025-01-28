@@ -6,4 +6,15 @@ from . import algebra, algorithmic, arithmetic, cognition, data, games, graphs, 
 from .factory import create_dataset, register_dataset
 
 __version__ = "0.1.1"
-__all__ = ["arithmetic", "algorithmic", "algebra", "cognition", "data", "games", "graphs", "logic"]
+__all__ = [
+    "arithmetic",
+    "algorithmic",
+    "algebra",
+    "cognition",
+    "data",
+    "games",
+    "graphs",
+    "logic",
+    "create_dataset",
+    "register_dataset",
+]

@@ -1,0 +1,31 @@
+#!/bin/bash
+args=(
+   custom_reward.py
+   --pretrain meta-llama/Llama-3.2-1B-Instruct     # OpenRLHF/Llama-3-8b-sft-mixture
+   --save_path ./checkpoint/Llama-3.2-1b-lr        # ./checkpoint/llama-3-8b-rlhf
+   --save_steps -1
+   --logging_steps 1
+   --eval_steps -1
+   --micro_train_batch_size 2
+   --train_batch_size 16
+   --micro_rollout_batch_size 4
+   --rollout_batch_size 64    # 1024
+   --max_epochs 1
+   --prompt_max_len 1024
+   --generate_max_len 1024
+   --zero_stage 2
+   --bf16
+   --actor_learning_rate 5e-7
+   --init_kl_coef 0.01
+   --prompt_data leg_counting
+   --input_key question
+   --apply_chat_template
+   --normalize_reward
+   --adam_offload
+   --flash_attn
+   --gradient_checkpointing
+   --max_samples 1024         # 100000
+   --critic_learning_rate 9e-6
+   # --use_wandb {wandb_token}
+)
+deepspeed ${args[@]}
