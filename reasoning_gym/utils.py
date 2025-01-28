@@ -12,11 +12,13 @@ The assistant first thinks about the reasoning process in the mind and then prov
 
 def extract_answer(completion: str, tag_name: str = "answer") -> Optional[str]:
     regex = f"<{tag_name}>(.*?)</{tag_name}>"
-    answer_match = re.search(
-        regex,
-        completion,
-        flags=re.DOTALL,
+    matches = list(
+        re.finditer(
+            regex,
+            completion,
+            flags=re.DOTALL,
+        )
     )
-    if not answer_match:
+    if not matches:
         return None
-    return answer_match.group(1)
+    return matches[-1].group(1)

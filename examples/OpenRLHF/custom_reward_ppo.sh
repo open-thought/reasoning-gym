@@ -17,15 +17,18 @@ args=(
    --bf16
    --actor_learning_rate 5e-7
    --init_kl_coef 0.01
-   --prompt_data leg_counting
+   --prompt_data chain_sum # leg_counting
    --input_key question
    --apply_chat_template
    --normalize_reward
    --adam_offload
    --flash_attn
    --gradient_checkpointing
-   --max_samples 1024         # 100000
+   --max_samples 100000
    --critic_learning_rate 9e-6
-   # --use_wandb {wandb_token}
 )
+# Add wandb argument only if wandb_token is set
+if [[ -n "${wandb_token}" ]]; then
+    args+=(--use_wandb "${wandb_token}")
+fi
 deepspeed ${args[@]}
