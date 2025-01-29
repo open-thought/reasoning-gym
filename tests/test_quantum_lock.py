@@ -5,7 +5,7 @@ from reasoning_gym.graphs.quantum_lock import QuantumLockConfig, QuantumLockData
 def test_quantumlock_items():
     """Test basic properties and solution of generated items"""
     config = QuantumLockConfig(
-        difficulty=3,
+        difficulty=10,
     )
     dataset = QuantumLockDataset(config)
 
@@ -18,9 +18,6 @@ def test_quantumlock_items():
         # Check metadata contains required fields
         assert "solution_path" in item["metadata"]
         assert "difficulty" in item["metadata"]
-
-        print(item['question'])
-        print(item['answer'])
 
         assert dataset.score_answer(answer=item['metadata']['solution_path'], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0

@@ -10,7 +10,7 @@ from ..factory import ProceduralDataset, register_dataset
 class QuantumLockConfig:
     """Configuration for QuantumLock task generation"""
 
-    difficulty: int = 8
+    difficulty: int = 10
 
 class QuantumLockDataset(ProceduralDataset):
     """Generates QuantumLock tasks"""
@@ -56,27 +56,63 @@ Buttons:
         Generates a Quantum Lock puzzle with configurable difficulty.
         Returns a dictionary containing puzzle parameters and solution.
         """
-        # Define possible operations and states
+        # Define operation parameters based on difficulty
+        base_values = {
+            'add': [2, 3] if difficulty >= 5 else [1, 2],
+            'subtract': [2, 3] if difficulty >= 5 else [1, 2],
+            'multiply': [2, 3] if difficulty >= 7 else [2]
+        }
+
         operations = [
-            {'type': 'add', 'values': [1, 2]},
-            {'type': 'subtract', 'values': [1, 2]},
-            {'type': 'multiply', 'values': [2]}
+            {'type': 'add', 'values': base_values['add']},
+            {'type': 'subtract', 'values': base_values['subtract']},
+            {'type': 'multiply', 'values': base_values['multiply']}
         ]
 
-        # Generate random buttons
+        # Generate unique buttons with collision protection
         buttons = []
-        for i in range(3):
+        used_combinations = set()
+        
+        while len(buttons) < 3:
             op = random.choice(operations)
-            btn = {
-                'name': chr(65 + i),
-                'type': op['type'],
-                'value': random.choice(op['values']),
-                'active_state': random.choice(['any', 'green'])
+            btn_value = random.choice(op['values'])
+            
+            # State selection with weighted probabilities
+            state_weights = {
+                'any': 4,
+                'green': 2,
+                'red': 1
             }
-            buttons.append(btn)
+            active_state = random.choices(
+                list(state_weights.keys()),
+                weights=state_weights.values(),
+                k=1
+            )[0]
 
-        # Generate target based on difficulty
-        target = random.randint(5 + 5*difficulty, 15 + 10*difficulty)
+            # Create unique combination check
+            combo = (op['type'], btn_value, active_state)
+            if combo in used_combinations:
+                continue
+                
+            # Prevent duplicate button effects
+            if any(b['type'] == op['type'] and 
+                b['value'] == btn_value and
+                b['active_state'] == active_state 
+                for b in buttons):
+                continue
+
+            buttons.append({
+                'name': chr(65 + len(buttons)),
+                'type': op['type'],
+                'value': btn_value,
+                'active_state': active_state
+            })
+            used_combinations.add(combo)
+
+        # Dynamic target scaling with non-linear progression
+        base_target = 5 + (difficulty ** 1.5)
+        variance = random.randint(-int(base_target*0.2), int(base_target*0.3))
+        target = max(8, int(base_target + variance))
 
         # Create puzzle structure
         puzzle = {
@@ -84,7 +120,7 @@ Buttons:
             'initial_state': 'red',
             'target_value': target,
             'buttons': buttons,
-            'max_steps': 8 + 2*difficulty,
+            'max_steps': min(15, 6 + int(difficulty * 1.5)),
             'solution': None
         }
 
