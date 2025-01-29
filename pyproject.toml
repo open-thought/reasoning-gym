@@ -11,7 +11,7 @@ authors = [
 description = "A library of procedural dataset generators for training reasoning models"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["sympy>=1.13.1"]
+dependencies = ["sympy>=1.13.1", "pyfigle==1.0.2"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: Apache Software License",
