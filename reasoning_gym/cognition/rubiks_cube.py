@@ -14,6 +14,8 @@ class RubiksCubeConfig:
 
     scramble_steps: int = 3  # Number of random steps from initial state
     cube_size: int = 3  # Default to a standard 3x3x3 cube
+    seed: Optional[int] = None
+    size: int = 500
 
     def validate(self) -> None:
         """Validate configuration parameters"""
@@ -30,7 +32,7 @@ class RubiksCubeDataset(ProceduralDataset):
             "You are given a {cube_size}x{cube_size}x{cube_size} Rubik's cube. It looks like this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation.",
             "You see a size {cube_size} Rubik's cube. It is arranged this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube.",
         ]
-        super().__init__(config=config)
+        super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _generate_random_moves(self, rng: Random, cube: Cube, num_steps: int = 50, wide=None) -> List[CubeMove]:
         """Generate a list of random moves (but don't apply them).
