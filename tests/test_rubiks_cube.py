@@ -39,3 +39,4 @@ def test_rubikscube_items():
         assert dataset.score_answer(answer=item['metadata']['example_correct_answer'], entry=item) == 1.0
         assert dataset.score_answer(answer='R', entry=item) == 0.01
         assert dataset.score_answer(answer=None, entry=item) == 0.0
+
