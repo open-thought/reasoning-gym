@@ -13,6 +13,7 @@ class FigletFontConfig:
 
     static_word: Optional[str] = None
     static_font: Optional[str] = None
+    space_letters: bool = True
 
 class FigletFontDataset(ProceduralDataset):
     """Generates FigletFont tasks"""
@@ -35,6 +36,11 @@ class FigletFontDataset(ProceduralDataset):
         """
 
         word = self.config.static_word if self.config.static_word is not None else random.choice(wordle_words).upper()
+        if(self.config.space_letters):
+            render_word = ' '.join(word)
+        else:
+            render_word = word
+
         # These ones are funky and probably aren't good for train/testing
         bad_fonts = [
             'pyramid', 'runyc', 'assalt_m', 'term', 'tengwar', 'heart_right', 'faces_of', 'heroboti', 'hieroglyphs', 'rainbow_',
@@ -47,13 +53,14 @@ class FigletFontDataset(ProceduralDataset):
         all_fonts = pyfiglet.FigletFont.getFonts()
         ok_fonts = list(filter(lambda x: x not in bad_fonts, all_fonts))
         chosen_font = self.config.static_font if self.config.static_font is not None else random.choice(ok_fonts)
-        figlet_render = pyfiglet.figlet_format(word, font=chosen_font)
+        figlet_render = pyfiglet.figlet_format(render_word, font=chosen_font)
 
         return {
             "question": random.choice(self._prompt_templates).format(figlet_render=figlet_render),
             "answer": word,
             "metadata": {
-                "font": chosen_font
+                "font": chosen_font,
+                "space_letters": self.config.space_letters
             },
         }
 
@@ -76,7 +83,7 @@ class FigletFontDataset(ProceduralDataset):
             return 0.0  # No answer given
 
         # Normalize case
-        answer = answer.strip().lower()
+        answer = answer.replace(' ', '').strip().lower()
         correct_word = correct_word.strip().lower()
 
         if answer == correct_word:

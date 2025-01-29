@@ -25,7 +25,8 @@ def test_static_figlet():
     """Test basic properties and solution of generated items"""
     config = FigletFontConfig(
         static_word="TESTY",
-        static_font="caligraphy"
+        static_font="caligraphy",
+        space_letters=False
     )
     dataset = FigletFontDataset(config)
 
