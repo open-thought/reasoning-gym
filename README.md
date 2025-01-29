@@ -9,9 +9,9 @@ The goal is to generate virtually infinite data with adjustable complexity.
 ```
 git clone https://github.com/open-thought/reasoning-gym.git
 ```
-2. Create a virtual environment(Here we use conda)
+2. Create a virtual environment (here we use conda)
 ```
-conda create --name reasoning_gym python=3.12 -y
+conda create --name reasoning_gym python=3.11 -y
 conda activate reasoning_gym
 ```
 3. Link project and install dependencies

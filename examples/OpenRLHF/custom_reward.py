@@ -17,7 +17,6 @@ from openrlhf.trainer import PPOTrainer
 from openrlhf.trainer.ppo_utils.experience_maker import Experience, NaiveExperienceMaker, Samples
 from openrlhf.utils import blending_datasets, get_strategy, get_tokenizer
 from openrlhf.utils.logging_utils import init_logger
-
 from torch.utils.data import Dataset
 from transformers.trainer import get_scheduler
 
@@ -180,7 +179,7 @@ class AlgorithmicRewardExperienceMaker(NaiveExperienceMaker):
             value = None
 
         # determine outcome reward
-        completions = sequences[:, -action_mask.size(1):].cpu()
+        completions = sequences[:, -action_mask.size(1) :].cpu()
         completions = self.tokenizer.batch_decode(completions, skip_special_tokens=True)
         returns = [
             self.dataset.score_answer(extract_answer(c, tag_name="answer"), entry=m)
@@ -717,7 +716,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.advantage_estimator not in ["gae"]:
-         args.critic_pretrain = None
+        args.critic_pretrain = None
     elif args.critic_pretrain is None:
         args.critic_pretrain = args.pretrain  ## temp
 

@@ -1,9 +1,10 @@
+import re
 from dataclasses import dataclass
 from random import Random
-import re
+from typing import Dict, List, Optional
+
 from magiccube.cube import Cube, CubeMove, CubeMoveType
 from magiccube.solver.basic.basic_solver import BasicSolver
-from typing import List, Optional, Dict
 
 from ..factory import ProceduralDataset, register_dataset
 

@@ -5,8 +5,7 @@ from reasoning_gym.cognition.figlet_fonts import FigletFontConfig, FigletFontDat
 
 def test_figlet():
     """Test basic properties and solution of generated items"""
-    config = FigletFontConfig(
-    )
+    config = FigletFontConfig(size=40)
     dataset = FigletFontDataset(config)
 
     for item in dataset:
@@ -19,15 +18,12 @@ def test_figlet():
         assert "font" in item["metadata"]
 
         # Test the scoring
-        assert dataset.score_answer(answer=item['answer'], entry=item) == 1.0
+        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
+
 
 def test_static_figlet():
     """Test basic properties and solution of generated items"""
-    config = FigletFontConfig(
-        static_word="TESTY",
-        static_font="caligraphy",
-        space_letters=False
-    )
+    config = FigletFontConfig(static_word="TESTY", static_font="caligraphy", space_letters=False, size=15)
     dataset = FigletFontDataset(config)
 
     # Test partial scoring
@@ -35,4 +31,3 @@ def test_static_figlet():
         assert dataset.score_answer(answer="TESTY", entry=item) == 1.0
         assert dataset.score_answer(answer="WESTY", entry=item) == 0.4
         assert dataset.score_answer(answer=None, entry=item) == 0
-        break
