@@ -15,6 +15,16 @@ def test_rubikscube_config_validation():
         config.validate()
 
 
+def test_rubikscube_deterministic():
+    """Test that dataset generates same items with same seed"""
+    config = RubiksCubeConfig(seed=42, size=15)
+    dataset1 = RubiksCubeDataset(config)
+    dataset2 = RubiksCubeDataset(config)
+
+    for i in range(15):  # Only check first 15 entries for speed
+        assert dataset1[i] == dataset2[i]
+
+
 def test_rubikscube_items():
     """Test basic properties and solution of generated items"""
     config = RubiksCubeConfig(
