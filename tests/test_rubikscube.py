@@ -31,7 +31,6 @@ def test_rubikscube_items():
 
         # Check metadata contains required fields
         assert "cube_size" in item["metadata"]
-        assert "cube_string" in item["metadata"]
         assert "cube_size" in item["metadata"]
         assert "scramble_steps" in item["metadata"]
         assert "scramble_moves" in item["metadata"]

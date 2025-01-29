@@ -62,8 +62,7 @@ class RubiksCubeDataset(ProceduralDataset):
             "metadata": {
                 "cube_size": self.config.cube_size,
                 "scramble_steps": self.config.scramble_steps,
-                "scramble_moves": scramble_moves,
-                "cube_string": str(cube),
+                "scramble_moves": ' '.join([str(move) for move in scramble_moves]),
                 "example_correct_answer": actions_string,
             },
         }
