@@ -1,15 +1,11 @@
 from dataclasses import dataclass
 import random
 import re
-
 from magiccube.cube import Cube
 from magiccube.solver.basic.basic_solver import BasicSolver
-
 from typing import List, Optional, Tuple, Dict
 
-
 from ..factory import ProceduralDataset, register_dataset
-
 
 @dataclass
 class RubiksCubeConfig:
