@@ -3,6 +3,16 @@ import pytest
 from reasoning_gym.cognition.figlet_fonts import FigletFontConfig, FigletFontDataset
 
 
+def test_figlet_deterministic():
+    """Test that dataset generates same items with same seed"""
+    config = FigletFontConfig(seed=42, size=15)
+    dataset1 = FigletFontDataset(config)
+    dataset2 = FigletFontDataset(config)
+
+    for i in range(15):  # Only check first 15 entries for speed
+        assert dataset1[i] == dataset2[i]
+
+
 def test_figlet():
     """Test basic properties and solution of generated items"""
     config = FigletFontConfig(size=40)
