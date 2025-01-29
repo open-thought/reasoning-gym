@@ -46,7 +46,6 @@ class RubiksCubeDataset(ProceduralDataset):
 
         cube = Cube(self.config.cube_size)
         scramble_moves = cube.scramble(num_steps=self.config.scramble_steps)
-        cube_string = cube.cube
         cube_render = self.remove_ansi(str(cube))
 
         if self.config.cube_size == 3:
@@ -57,7 +56,7 @@ class RubiksCubeDataset(ProceduralDataset):
             actions = None
 
         return {
-            "question": random.choice(self._prompt_templates).format(cube_size=self.config.cube_size, cube_string=cube_string, cube_render=cube_render),
+            "question": random.choice(self._prompt_templates).format(cube_size=self.config.cube_size, cube_render=cube_render),
             "answer": None,
             "metadata": {
                 "cube_size": self.config.cube_size,
