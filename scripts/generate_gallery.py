@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 """Generate a markdown gallery of all available datasets with examples"""
 
-import os
 import textwrap
 from pathlib import Path
 
-import reasoning_gym.cognition.figlet_fonts
-import reasoning_gym.cognition.rubiks_cube
+import reasoning_gym.code.bf
 from reasoning_gym.factory import DATASETS, create_dataset
 
 
@@ -21,17 +19,16 @@ def generate_gallery() -> str:
     content.append("## Available Datasets\n")
     for name in sorted(DATASETS.keys()):
         # Create anchor link
-        anchor = name.replace("_", "-").lower()
+        anchor = name.replace(" ", "-").lower()
         content.append(f"- [{name}](#{anchor})\n")
     content.append("\n")
 
     # Add examples for each dataset
     content.append("## Dataset Examples\n")
     for name in sorted(DATASETS.keys()):
-        dataset = create_dataset(name)
+        dataset = create_dataset(name, seed=42)
 
         # Add dataset header with anchor
-        anchor = name.replace("_", "-").lower()
         content.append(f"### {name}\n")
 
         # Get dataset class docstring if available
@@ -76,6 +73,7 @@ def main():
 
     with open(gallery_path, "w") as f:
         f.write(gallery_content)
+        f.write("\n")
 
     print(f"Generated gallery at {gallery_path}")
 

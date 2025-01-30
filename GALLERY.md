@@ -2,38 +2,39 @@
 This gallery shows examples from all available datasets using their default configurations.
 
 ## Available Datasets
-- [base_conversion](#base-conversion)
-- [basic_arithmetic](#basic-arithmetic)
-- [caesar_cipher](#caesar-cipher)
-- [chain_sum](#chain-sum)
-- [color_cube_rotation](#color-cube-rotation)
+- [base_conversion](#base_conversion)
+- [basic_arithmetic](#basic_arithmetic)
+- [bf](#bf)
+- [caesar_cipher](#caesar_cipher)
+- [chain_sum](#chain_sum)
+- [color_cube_rotation](#color_cube_rotation)
 - [countdown](#countdown)
-- [family_relationships](#family-relationships)
-- [figlet_font](#figlet-font)
-- [fraction_simplification](#fraction-simplification)
-- [game_of_life](#game-of-life)
+- [family_relationships](#family_relationships)
+- [figlet_font](#figlet_font)
+- [fraction_simplification](#fraction_simplification)
+- [game_of_life](#game_of_life)
 - [gcd](#gcd)
 - [lcm](#lcm)
-- [leg_counting](#leg-counting)
-- [letter_counting](#letter-counting)
-- [letter_jumble](#letter-jumble)
+- [leg_counting](#leg_counting)
+- [letter_counting](#letter_counting)
+- [letter_jumble](#letter_jumble)
 - [maze](#maze)
-- [mini_sudoku](#mini-sudoku)
-- [number_filtering](#number-filtering)
-- [number_sequence](#number-sequence)
-- [number_sorting](#number-sorting)
-- [polynomial_equations](#polynomial-equations)
-- [prime_factorization](#prime-factorization)
-- [propositional_logic](#propositional-logic)
-- [quantum_lock](#quantum-lock)
-- [rubiks_cube](#rubiks-cube)
-- [sentence_reordering](#sentence-reordering)
-- [simple_equations](#simple-equations)
-- [spell_backward](#spell-backward)
+- [mini_sudoku](#mini_sudoku)
+- [number_filtering](#number_filtering)
+- [number_sequence](#number_sequence)
+- [number_sorting](#number_sorting)
+- [polynomial_equations](#polynomial_equations)
+- [prime_factorization](#prime_factorization)
+- [propositional_logic](#propositional_logic)
+- [quantum_lock](#quantum_lock)
+- [rubiks_cube](#rubiks_cube)
+- [sentence_reordering](#sentence_reordering)
+- [simple_equations](#simple_equations)
+- [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
-- [word_sequence_reversal](#word-sequence-reversal)
-- [word_sorting](#word-sorting)
+- [word_sequence_reversal](#word_sequence_reversal)
+- [word_sorting](#word_sorting)
 
 ## Dataset Examples
 ### base_conversion
@@ -45,26 +46,26 @@ min_base = 2
 max_base = 16
 min_value = 0
 max_value = 1000
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Convert the base-15 number 15 to binary
-Answer: 10101
-Metadata: {'decimal_value': 21, 'source_base': 15, 'target_base': 2, 'source_repr': '15', 'target_repr': '10101'}
+Question: Convert the base-3 number 28e to binary
+Answer: 1010001110
+Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '28e', 'target_repr': '1010001110'}
 
 Example 2:
-Question: Convert the base-15 number de to base-6
-Answer: de
-Metadata: {'decimal_value': 222, 'source_base': 15, 'target_base': 6, 'source_repr': 'de', 'target_repr': 'de'}
+Question: Convert the base-6 number 27 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 27
+Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '27', 'target_repr': '27'}
 
 Example 3:
-Question: Convert the base-10 number 4e to binary
-Answer: 1001110
-Metadata: {'decimal_value': 78, 'source_base': 10, 'target_base': 2, 'source_repr': '4e', 'target_repr': '1001110'}
+Question: Convert the base-10 number 1a2 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 1a2
+Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '1a2', 'target_repr': '1a2'}
 
 ```
 
@@ -80,7 +81,7 @@ max_digits = 4
 operators = ('+', '-', '*', '/')
 allow_parentheses = True
 allow_negation = True
-seed = None
+seed = 42
 size = 500
 format_style = simple
 whitespace = single
@@ -89,19 +90,54 @@ whitespace = single
 Example tasks:
 ```
 Example 1:
-Question: 19 + 61 * -43 / 1 + 89 - 98 =
-Answer: -2613
-Metadata: {'num_terms': 6, 'num_digits': 2, 'expression': '19 + 61 * -43 / 1 + 89 - 98'}
+Question: -5 * -6 =
+Answer: 30
+Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '-5 * -6'}
 
 Example 2:
-Question: ( 9240 + -702 ) =
-Answer: 8538
-Metadata: {'num_terms': 2, 'num_digits': 4, 'expression': '( 9240 + -702 )'}
+Question: 965 / 5 =
+Answer: 193
+Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '965 / 5'}
 
 Example 3:
-Question: -68 * 12 - 6 / 2 + -60 =
-Answer: -879
-Metadata: {'num_terms': 5, 'num_digits': 2, 'expression': '-68 * 12 - 6 / 2 + -60'}
+Question: 0 + -2 + -4 * 0 * 3 =
+Answer: -2
+Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
+
+```
+
+### bf
+Generates BF tasks
+
+Default configuration:
+```python
+seed = 42
+size = 500
+difficulty = 1
+```
+
+Example tasks:
+```
+Example 1:
+Question: This is a BF (Brainf*ck) computer program. What is the output? 
+
+>[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<
+Answer: onset
+Metadata: {'bfit_code': '\nint main() {\n    print("onset");\n}\n', 'bf_program': '>[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<'}
+
+Example 2:
+Question: This is a BF (Brainf*ck) computer program. What is the output? 
+
+>[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<
+Answer: perch
+Metadata: {'bfit_code': '\nint main() {\n    print("perch");\n}\n', 'bf_program': '>[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<'}
+
+Example 3:
+Question: This is a BF (Brainf*ck) computer program. What is the output? 
+
+>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<
+Answer: under
+Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program': '>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<'}
 
 ```
 
@@ -115,26 +151,26 @@ min_words = 3
 max_words = 20
 min_rotation = 1
 max_rotation = 25
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Decrypt this Caesar cipher text: UVYAO MVY AOL VM IBA AOL ZVBAO MVY AOL SHAPUZ
-Answer: NORTH FOR THE OF BUT THE SOUTH FOR THE LATINS
-Metadata: {'rotation': 7, 'cipher_text': 'UVYAO MVY AOL VM IBA AOL ZVBAO MVY AOL SHAPUZ', 'clear_text': 'NORTH FOR THE OF BUT THE SOUTH FOR THE LATINS'}
+Question: Decrypt this Caesar cipher text: JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP
+Answer: IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO
+Metadata: {'rotation': 1, 'cipher_text': 'JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP', 'clear_text': 'IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO'}
 
 Example 2:
-Question: Decrypt this Caesar cipher text: ER MRHITIRHIRX KSZIVRQIRX
-Answer: AN INDEPENDENT GOVERNMENT
-Metadata: {'rotation': 4, 'cipher_text': 'ER MRHITIRHIRX KSZIVRQIRX', 'clear_text': 'AN INDEPENDENT GOVERNMENT'}
+Question: Decrypt this Caesar cipher text: PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW
+Answer: FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM
+Metadata: {'rotation': 10, 'cipher_text': 'PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW', 'clear_text': 'FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM'}
 
 Example 3:
-Question: Decrypt this Caesar cipher text: IYE WKI ECO DRSC OLYYU PYB XOKBVI KXI ZEBZYCO CEMR KC MBOKDSYX YP NOBSFKDSFO ZOBPYBWKXMOC KXN BOCOKBMR
-Answer: YOU MAY USE THIS EBOOK FOR NEARLY ANY PURPOSE SUCH AS CREATION OF DERIVATIVE PERFORMANCES AND RESEARCH
-Metadata: {'rotation': 10, 'cipher_text': 'IYE WKI ECO DRSC OLYYU PYB XOKBVI KXI ZEBZYCO CEMR KC MBOKDSYX YP NOBSFKDSFO ZOBPYBWKXMOC KXN BOCOKBMR', 'clear_text': 'YOU MAY USE THIS EBOOK FOR NEARLY ANY PURPOSE SUCH AS CREATION OF DERIVATIVE PERFORMANCES AND RESEARCH'}
+Question: Decrypt this Caesar cipher text: ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU
+Answer: IF YOUR STOMACH IS OUT OF IT MUST BE MENDED
+Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU', 'clear_text': 'IF YOUR STOMACH IS OUT OF IT MUST BE MENDED'}
 
 ```
 
@@ -148,26 +184,26 @@ max_terms = 6
 min_digits = 1
 max_digits = 4
 allow_negation = False
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: 3 - 6 + 4 =
-Answer: 1
-Metadata: {'num_terms': 3, 'num_digits': 1, 'expression': '3 - 6 + 4'}
+Question: 4 + 3 =
+Answer: 7
+Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '4 + 3'}
 
 Example 2:
-Question: 6516 - 9002 - 5380 - 2663 =
-Answer: -10529
-Metadata: {'num_terms': 4, 'num_digits': 4, 'expression': '6516 - 9002 - 5380 - 2663'}
+Question: 812 + 880 =
+Answer: 1692
+Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '812 + 880'}
 
 Example 3:
-Question: 3352 + 3153 - 3475 + 1726 - 8711 - 7863 =
-Answer: -11818
-Metadata: {'num_terms': 6, 'num_digits': 4, 'expression': '3352 + 3153 - 3475 + 1726 - 8711 - 7863'}
+Question: 2 + 6 + 3 + 4 + 0 =
+Answer: 15
+Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}
 
 ```
 
@@ -178,7 +214,7 @@ Default configuration:
 ```python
 min_rotations = 1
 max_rotations = 3
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -186,54 +222,56 @@ Example tasks:
 ```
 Example 1:
 Question: A cube has:
-- a red top side
-- a brown right side
-- a cyan front side
-- a gray left side
-- a silver back side
-- a purple bottom side
+- a pink top side
+- a gray right side
+- a orange front side
+- a purple left side
+- a indigo back side
+- a cyan bottom side
 
-The cube is rotated so that the side which was before at the front is now at the top.
+The cube is rotated so that the side which was before at the bottom is now at the top.
 
-Now the cube is rotated to place its right side at the top.
-
-What is now the color of the top side of the cube?
-Answer: brown
-Metadata: {'initial_state': {'top': 'red', 'right': 'brown', 'front': 'cyan', 'left': 'gray', 'back': 'silver', 'bottom': 'purple'}, 'rotations': ['front', 'right'], 'target_side': 'top', 'num_rotations': 2}
+What is now the color of the back side of the cube?
+Answer: orange
+Metadata: {'initial_state': {'top': 'pink', 'right': 'gray', 'front': 'orange', 'left': 'purple', 'back': 'indigo', 'bottom': 'cyan'}, 'rotations': ['bottom'], 'target_side': 'back', 'num_rotations': 1}
 
 Example 2:
 Question: A cube has:
-- a yellow top side
-- a cyan right side
-- a white front side
-- a blue left side
-- a red back side
-- a pink bottom side
+- a gray top side
+- a brown right side
+- a silver front side
+- a red left side
+- a purple back side
+- a yellow bottom side
 
 The cube is rotated so that the side which was before at the left is now at the top.
 
-Then the cube is rotated to bring the front side to the top.
+Next, the bottom side is rotated to become the top face.
 
-Next, the front side is rotated to become the top face.
+After that the cube is turned to make the bottom face the top.
 
-What is now the color of the front side of the cube?
-Answer: red
-Metadata: {'initial_state': {'top': 'yellow', 'right': 'cyan', 'front': 'white', 'left': 'blue', 'back': 'red', 'bottom': 'pink'}, 'rotations': ['left', 'front', 'front'], 'target_side': 'front', 'num_rotations': 3}
+What is now the color of the left side of the cube?
+Answer: yellow
+Metadata: {'initial_state': {'top': 'gray', 'right': 'brown', 'front': 'silver', 'left': 'red', 'back': 'purple', 'bottom': 'yellow'}, 'rotations': ['left', 'bottom', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
 
 Example 3:
 Question: A cube has:
-- a indigo top side
-- a violet right side
-- a silver front side
+- a orange top side
+- a cyan right side
+- a violet front side
 - a pink left side
-- a magenta back side
-- a cyan bottom side
+- a gray back side
+- a gold bottom side
 
-The cube is rotated so that the side which was before at the front is now at the top.
+The cube is rotated so that the side which was before at the left is now at the top.
 
-What is now the color of the top side of the cube?
-Answer: silver
-Metadata: {'initial_state': {'top': 'indigo', 'right': 'violet', 'front': 'silver', 'left': 'pink', 'back': 'magenta', 'bottom': 'cyan'}, 'rotations': ['front'], 'target_side': 'top', 'num_rotations': 1}
+Now the cube is rotated to place its back side at the top.
+
+Now the cube is rotated to place its bottom side at the top.
+
+What is now the color of the left side of the cube?
+Answer: gold
+Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
 
 ```
 
@@ -250,29 +288,29 @@ min_target = 100
 max_target = 999
 operators = ('+', '-', '*', '/')
 shuffle = True
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Calculate 421 using the numbers 10, 30, 26, 59.
+Question: Calculate 139 using the numbers 36, 29, 95, 32, 4, 15.
 Each number may be used at most once.
-Answer: 30*(26 - 10) - 59
-Metadata: {'numbers': [10, 30, 26, 59], 'target': 421, 'expression': '30*(26 - 10) - 59'}
+Answer: 15 - 4 + 95 + 36 - 32 + 29
+Metadata: {'numbers': [36, 29, 95, 32, 4, 15], 'target': 139, 'expression': '15 - 4 + 95 + 36 - 32 + 29'}
 
 Example 2:
-Question: Calculate 229 using the numbers 55, 80, 34, 60.
-Each number may be used at most once.
-Answer: 80 + 34 + 60 + 55
-Metadata: {'numbers': [55, 80, 34, 60], 'target': 229, 'expression': '80 + 34 + 60 + 55'}
+Question: Using the numbers 74, 48, 56, 66, create an expression that equals 132.
+You can only use each number once.
+Answer: 66 - 56 + 74 + 48
+Metadata: {'numbers': [74, 48, 56, 66], 'target': 132, 'expression': '66 - 56 + 74 + 48'}
 
 Example 3:
-Question: Calculate 840 using the numbers 41, 18, 32, 45, 84.
-Each number may be used at most once.
-Answer: 84*(41 - 45 + 32 - 18)
-Metadata: {'numbers': [41, 18, 32, 45, 84], 'target': 840, 'expression': '84*(41 - 45 + 32 - 18)'}
+Question: Using the numbers 5, 41, 38, 81, 14, create an expression that equals 450.
+You can only use each number once.
+Answer: 41*14 - 81 - 38 - 5
+Metadata: {'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 - 81 - 38 - 5'}
 
 ```
 
@@ -285,32 +323,32 @@ min_family_size = 4
 max_family_size = 8
 male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Peter', 'Daniel', 'Matthew', 'Christopher', 'Andrew', 'George', 'Edward', 'Benjamin', 'Henry', 'Samuel', 'Alexander', 'Oliver', 'Jack', 'Harry', 'Jacob', 'Noah', 'Ethan', 'Lucas', 'Mason', 'Logan', 'Sebastian', 'Theodore', 'Owen', 'Liam', 'Aiden', 'Kai', 'Jayden', 'Zion', 'Phoenix', 'Atlas', 'Axel', 'Ryder', 'Finn']
 female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen', 'Emma', 'Lisa', 'Anna', 'Margaret', 'Victoria', 'Charlotte', 'Sophia', 'Isabella', 'Olivia', 'Ava', 'Mia', 'Emily', 'Abigail', 'Amelia', 'Eleanor', 'Grace', 'Alice', 'Lucy', 'Chloe', 'Sophie', 'Lily', 'Hannah', 'Zoe', 'Luna', 'Nova', 'Aria', 'Willow', 'Aurora', 'Sage', 'River', 'Winter', 'Sky', 'Rain']
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Jack is married to Elizabeth. They have a child called Oliver. Oliver is married to Abigail. They have a child called Logan. Alexander is married to Mia. They have a child called Abigail.
+Question: John is married to Isabella. They have a child called Edward. Edward is married to Victoria.
 
-What relation is Mia to Abigail?
+What is Isabella to Edward?
 Answer: mother
-Metadata: {'person1': 'Mia', 'person2': 'Abigail', 'relationship': 'mother', 'family_size': 7}
+Metadata: {'person1': 'Isabella', 'person2': 'Edward', 'relationship': 'mother', 'family_size': 4}
 
 Example 2:
-Question: James is married to Sarah. They have a child called Atlas. Atlas is married to Sophie. They have children called Jennifer and Aria.
+Question: Henry is married to Karen. They have a child called Sebastian. Sebastian is married to Eleanor.
 
-What is Aria to Jennifer?
-Answer: sister
-Metadata: {'person1': 'Aria', 'person2': 'Jennifer', 'relationship': 'sister', 'family_size': 6}
+What relation is Henry to Karen?
+Answer: husband
+Metadata: {'person1': 'Henry', 'person2': 'Karen', 'relationship': 'husband', 'family_size': 4}
 
 Example 3:
-Question: Lucas is married to Willow. They have a child called Samuel. Samuel is married to Zoe. They have a child called William. Henry is married to Emma. They have a child called Zoe.
+Question: Liam is married to Nova. They have a child called Noah. Noah is married to Charlotte. They have a child called Patricia. Joseph is married to Lisa. They have a child called Charlotte.
 
-What is Lucas to Willow?
-Answer: husband
-Metadata: {'person1': 'Lucas', 'person2': 'Willow', 'relationship': 'husband', 'family_size': 7}
+What is Liam to Noah?
+Answer: father
+Metadata: {'person1': 'Liam', 'person2': 'Noah', 'relationship': 'father', 'family_size': 7}
 
 ```
 
@@ -322,7 +360,7 @@ Default configuration:
 static_word = None
 static_font = None
 space_letters = True
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -331,39 +369,50 @@ Example tasks:
 Example 1:
 Question: Please read the following figlet font:
 
-  ()     _     _       _    _ __     ()  ,
-  /\    ' )   /       | )  ' )  )    /`-'|
- /  )    / / /    ,---|/    /  /    /   /
-/__/__  (_(_/      \_/ \_  /  (_   /__-<_
+  sSSSs        d s  b        sss.      d sss        sss sssss 
+ S     S       S  S S      d           S                S     
+S       S      S   SS      Y           S                S     
+S       S      S    S        ss.       S sSSs           S     
+S       S      S    S           b      S                S     
+ S     S       S    S           P      S                S     
+  "sss"        P    P      ` ss'       P sSSss          P     
+                                                              
 
-
-
-Answer: SWING
-Metadata: {'font': 'slscript', 'space_letters': True}
+Answer: ONSET
+Metadata: {'font': 'amc_tubes', 'space_letters': True}
 
 Example 2:
 Question: What word does this say?
 
-     dBBBP     dBBBBBb        dBBBP     dBP dBP    dBBBP
-                    BB
-   dBP          dBP BB      dBP       dBBBBBP    dBBP
-  dBP          dBP  BB     dBP       dBP dBP    dBP
- dBBBBP       dBBBBBBB    dBBBBP    dBP dBP    dBBBBP
+######   ######   ######     ####   ##    ## 
+ ##  ##   ##  ##   ##  ##   ##  ##   ##  ##  
+ ##  ##   ##       ##  ##  ##   ##   ##  ##  
+ #####    ####     #####   ##        ######  
+ ##       ##       ## ##   ##   ##   ##  ##  
+ ##       ##  ##   ## ##    ##  ##   ##  ##  
+####     ######   ### ###    ####   ##    ## 
+                                             
 
-
-Answer: CACHE
-Metadata: {'font': 'trek', 'space_letters': True}
+Answer: PERCH
+Metadata: {'font': 'demo_2__', 'space_letters': True}
 
 Example 3:
-Question: Please read the following figlet font:
+Question: What word does this say?
 
-.---. .---. .-. .-..-. .-..-.
- \ \  | |-' | | | .` |  >  /
-`---' `-'   `-' `-'`-'  `-'
+                                              
+                                              
+                                              
+### ###   ### ###   #####    ######   #####   
+ ## ##     ##  #     ## ##    ##  #    ## ##  
+ ## ##     ### #     ## ##    ####     ## ##  
+ ## ##     #####     ## ##    ##       ####   
+ ## ##     ## ##     ## ##    ## ##    ## ##  
+  ###     ### ##    #####    ######   #### ## 
+                                              
+                                              
 
-
-Answer: SPINY
-Metadata: {'font': 'linux', 'space_letters': True}
+Answer: UNDER
+Metadata: {'font': 'xcourb', 'space_letters': True}
 
 ```
 
@@ -377,26 +426,26 @@ max_value = 1000
 min_factor = 1
 max_factor = 100
 styles = ('plain', 'latex_inline', 'latex_frac', 'latex_dfrac')
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Simplify the fraction $1380/6180$ to its lowest terms
-Answer: $23/103$
-Metadata: {'numerator': 1380, 'denominator': 6180, 'simplified_numerator': 23, 'simplified_denominator': 103, 'reduction_factor': 60, 'style': 'latex_inline'}
+Question: Simplify the fraction $\frac{92}{524}$ to its lowest terms
+Answer: $\frac{23}{131}$
+Metadata: {'numerator': 92, 'denominator': 524, 'simplified_numerator': 23, 'simplified_denominator': 131, 'reduction_factor': 4, 'style': 'latex_frac'}
 
 Example 2:
-Question: Simplify the fraction 15552/49984 to its lowest terms
-Answer: 243/781
-Metadata: {'numerator': 15552, 'denominator': 49984, 'simplified_numerator': 243, 'simplified_denominator': 781, 'reduction_factor': 64, 'style': 'plain'}
+Question: Simplify the fraction $3600/26370$ to its lowest terms
+Answer: $40/293$
+Metadata: {'numerator': 3600, 'denominator': 26370, 'simplified_numerator': 40, 'simplified_denominator': 293, 'reduction_factor': 90, 'style': 'latex_inline'}
 
 Example 3:
-Question: Simplify the fraction $56100/80500$ to its lowest terms
-Answer: $561/805$
-Metadata: {'numerator': 56100, 'denominator': 80500, 'simplified_numerator': 561, 'simplified_denominator': 805, 'reduction_factor': 100, 'style': 'latex_inline'}
+Question: Simplify the fraction 29330/37310 to its lowest terms
+Answer: 419/533
+Metadata: {'numerator': 29330, 'denominator': 37310, 'simplified_numerator': 419, 'simplified_denominator': 533, 'reduction_factor': 70, 'style': 'plain'}
 
 ```
 
@@ -409,7 +458,7 @@ grid_size_x = 20
 grid_size_y = 20
 filled_cells = 100
 simulation_steps = 1
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -418,136 +467,136 @@ Example tasks:
 Example 1:
 Question: What will this Game of Life board look like after 1 steps of simulation?
 
-[[0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0]
- [0 1 1 1 0 1 1 0 0 0 1 0 0 0 0 0 0 0 1 0]
- [0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1]
- [0 1 0 0 0 1 0 0 0 0 0 0 0 0 1 0 1 1 0 1]
- [0 1 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 1 0 0 0 0 1 0 1 0 1 1 1 0 1 0 0 1]
- [0 0 1 0 0 0 1 0 0 1 1 0 0 0 0 0 0 1 1 0]
- [0 0 1 0 1 0 0 0 0 0 1 1 0 0 0 1 0 0 0 0]
- [0 0 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 1 1 0 0 0 0 0 0 0 1 1 1 1 1 0 0 0 0]
- [1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1]
- [0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0]
- [0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 1 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 1 0 0 0 1 0 0 0 1 0 0 0 0 1 0 1 1 1 0]
- [0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 1 1 0 0 1]
- [0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 1 1 0 1 0]
- [0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 1 1 0 0 0]
- [1 1 0 0 1 0 1 0 0 0 1 0 0 1 0 0 0 0 0 0]]
-Answer: [[1 0 0 1 1 0 1 0 0 1 1 1 0 0 0 0 0 0 0 0]
- [0 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1]
- [0 0 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1 0]
- [0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 1 0]
- [0 0 1 0 0 0 0 1 1 0 1 1 0 1 0 0 0 1 1 0]
- [0 0 1 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0]
- [0 1 1 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0]
- [0 1 0 0 1 0 0 0 0 0 1 0 0 1 0 1 0 0 0 0]
- [0 1 1 0 1 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 0 1 1 1 1 0 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 1 1 0]
- [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0]
- [0 0 0 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 0 1]
- [0 0 0 0 0 0 1 1 0 0 1 1 0 0 1 0 0 0 0 0]
- [0 0 0 0 0 1 1 1 0 0 1 1 0 0 1 1 1 1 0 0]
- [0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0]]
+[[0 0 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0]
+ [0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 1 0]
+ [1 0 0 0 0 0 0 1 0 0 0 1 1 0 0 0 0 1 0 0]
+ [0 0 0 0 1 1 1 0 0 0 0 1 0 0 0 0 1 0 0 0]
+ [0 0 0 0 0 0 0 0 1 0 0 1 0 1 1 0 0 1 0 0]
+ [0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 1 0]
+ [1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0]
+ [1 1 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
+ [0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 1 0 0 1]
+ [1 1 0 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 1 1]
+ [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1]
+ [0 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1]
+ [0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 1 1 0]
+ [1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0]
+ [1 0 0 1 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 1]
+ [0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 0 0]
+ [0 0 0 0 0 1 1 0 0 0 1 0 0 0 0 0 0 0 0 0]]
+Answer: [[0 0 1 1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0]
+ [0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 1 1 0]
+ [0 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 1 1 0]
+ [0 0 0 0 0 1 1 1 0 0 1 1 0 1 0 0 1 1 0 0]
+ [0 0 0 0 0 1 1 1 0 0 0 0 1 0 0 0 1 1 1 0]
+ [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1]
+ [1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0]
+ [0 0 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 1]
+ [1 1 1 0 0 0 1 0 1 0 0 0 1 0 0 0 0 0 1 0]
+ [0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 1 1]
+ [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 1]
+ [1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1]
+ [1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0]
+ [1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1]
+ [0 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 0 0 0 0]
+ [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]
 Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 2:
 Question: What will this Game of Life board look like after 1 steps of simulation?
 
-[[0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 1 1 0]
- [0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0]
- [1 0 0 0 1 0 0 0 0 0 1 1 0 1 0 0 0 0 0 0]
- [0 0 0 0 0 1 0 0 1 0 0 1 0 0 1 1 0 0 0 0]
- [0 0 0 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 1 1]
- [0 1 1 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 0 1]
- [1 0 0 0 1 0 0 0 0 0 0 1 0 0 1 1 1 0 0 0]
- [0 0 1 0 0 0 1 0 0 1 1 0 0 0 0 0 1 0 0 0]
- [1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 1]
- [0 0 1 0 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 1]
- [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 1 1 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 1 0]
- [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 1]
- [1 0 1 0 0 0 0 1 0 0 0 0 0 1 1 1 0 1 0 0]
- [0 1 0 0 1 0 1 1 0 0 1 1 0 0 0 1 0 0 0 0]
- [0 0 0 0 0 0 0 0 1 1 0 1 0 0 0 0 0 1 0 0]
- [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
- [0 0 0 0 0 0 0 0 1 0 1 0 0 0 1 0 0 0 0 0]
- [0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1 1 0 0]]
-Answer: [[0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0]
- [0 0 0 1 1 1 0 0 0 0 0 1 1 0 0 0 0 1 1 1]
- [0 0 0 0 1 0 0 0 0 0 1 1 0 1 1 0 0 0 0 0]
- [0 0 0 0 1 1 1 0 1 1 0 1 1 0 1 0 0 0 0 1]
- [1 0 0 0 0 0 1 1 0 1 1 0 0 0 1 1 0 0 1 1]
- [0 1 0 0 0 0 0 0 1 1 1 0 0 0 1 1 1 0 1 1]
- [1 0 1 1 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0]
- [0 1 0 0 0 0 0 0 0 0 1 0 0 0 1 0 1 1 0 0]
- [0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 1]
- [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 1]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1]
- [0 1 1 0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [1 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 1 1]
- [1 1 0 0 0 0 1 1 1 0 1 0 0 0 1 1 0 0 0 0]
- [0 1 0 0 0 0 1 1 0 1 1 1 1 0 0 1 0 0 0 0]
- [0 0 0 0 0 0 0 1 1 1 0 1 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0]
- [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 1 1 0]]
+[[1 0 0 1 0 1 1 0 0 0 1 0 0 0 0 0 1 0 0 0]
+ [0 0 1 1 1 1 0 0 0 1 0 0 0 0 0 1 0 0 1 0]
+ [0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 1 1 0 0 0]
+ [0 0 0 0 1 0 0 1 0 0 0 0 1 0 0 0 0 1 1 1]
+ [0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0]
+ [1 1 0 0 0 0 1 0 0 1 0 1 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
+ [0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0]
+ [0 1 0 0 1 0 0 1 0 0 1 0 0 0 0 0 1 0 0 0]
+ [0 0 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1]
+ [0 0 1 1 1 1 0 0 1 0 0 1 1 0 0 0 0 0 0 1]
+ [0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 1]
+ [0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1 0 1 1]
+ [0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1]
+ [0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1]
+ [0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 0 0 0 0]
+ [0 0 1 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0]]
+Answer: [[0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 1]
+ [0 0 1 1 0 1 1 0 0 1 1 0 0 0 0 1 0 1 0 0]
+ [0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 1 1 0 0 1]
+ [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1]
+ [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1]
+ [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+ [1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [1 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0]
+ [1 0 1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 0 1]
+ [1 0 1 1 0 1 0 0 0 1 1 0 0 0 0 0 0 1 0 0]
+ [1 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0]
+ [0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 1 1]
+ [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0]
+ [0 1 1 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]]
 Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 3:
 Question: What will this Game of Life board look like after 1 steps of simulation?
 
-[[1 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 1]
- [0 0 0 1 0 1 0 1 1 0 0 0 0 0 1 0 0 0 0 0]
- [0 0 0 1 0 0 0 1 0 0 1 1 1 0 0 0 0 0 0 0]
- [0 0 1 0 0 0 0 1 0 0 0 0 1 0 1 1 1 0 0 1]
- [1 1 0 0 0 1 1 0 0 0 0 1 1 1 0 1 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0 0 0 0]
- [0 0 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 0]
- [0 0 1 1 0 0 0 1 0 0 1 1 1 0 0 0 0 0 0 0]
- [0 0 1 0 0 0 0 0 0 1 0 0 1 0 0 0 0 1 0 0]
- [0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1]
- [0 1 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0]
- [0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0]
- [0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 1 1 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 1 1 1 0 0 1 1 0 0 0 1 1 0 0]
- [0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 0 0 0 1]
- [0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0]
- [1 0 0 1 0 0 0 0 0 0 1 1 1 0 0 1 0 0 0 0]]
-Answer: [[1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 1]
- [0 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 1 0 0 1 1 0 0 1 0 0 0 0 0 0 0 0]
- [0 0 1 1 1 0 0 1 0 0 0 1 1 0 1 0 0 0 0 0]
- [1 1 1 0 0 0 0 1 0 0 1 0 0 0 1 1 1 0 0 0]
- [1 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0]
- [0 1 1 0 0 1 1 0 0 0 0 1 0 1 0 1 1 0 0 0]
- [0 0 1 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0]
- [0 1 0 0 0 0 0 0 1 1 0 0 1 1 0 0 0 0 0 0]
- [0 1 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 1 0]
- [0 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0 0]
- [0 0 0 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0]
+[[0 0 1 1 0 0 0 1 0 0 1 0 0 1 0 0 0 0 1 1]
+ [0 0 0 0 0 0 0 0 1 1 1 1 0 1 0 0 0 0 0 1]
+ [0 0 0 1 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 0]
+ [0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0]
+ [0 0 1 0 1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 1 1 0 1 0 0 0 0 0 1 0 0 0 1 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0 1 0 1 0 0 0 0 0 1 0 1 0 1]
+ [0 0 1 0 0 1 0 0 0 0 1 0 0 0 0 0 0 1 0 0]
+ [1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1]
+ [0 0 0 1 0 0 0 0 1 0 1 1 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 0]
+ [0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0]
+ [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 1 0 0 0 0 0 1 0 0 1 1 0 0 0 0 0 1 0]
+ [0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 1 0 0 0 0]
+ [0 0 1 1 0 0 1 0 1 0 0 1 0 0 1 0 0 0 0 0]
+ [1 0 0 1 1 0 1 0 0 1 0 0 0 0 0 1 1 0 0 0]
+ [0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0]
+ [0 1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0]]
+Answer: [[1 0 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 1]
+ [0 0 1 1 0 0 0 1 0 0 0 1 1 0 0 0 0 0 1 1]
  [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 1 0 0 0 1 1 0 0 0 0 0 0 0]
- [0 0 0 1 1 1 1 1 0 0 1 0 0 1 0 0 0 0 0 0]
- [0 0 0 0 0 0 1 0 1 1 1 0 1 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 1 1 1 1 0 0 0 0 0 0 0]]
+ [0 0 0 1 1 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0]
+ [0 0 0 0 1 1 1 1 1 0 0 1 1 0 0 0 0 0 0 0]
+ [0 0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 1 0]
+ [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1]
+ [0 1 1 1 0 0 0 0 0 1 1 0 0 0 0 0 0 0 1 0]
+ [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 1]
+ [0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0]
+ [0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0]
+ [0 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 1 0 0]
+ [0 0 1 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0]
+ [0 1 0 0 1 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0 0 1 0 1 0 0 0 1 0 1 0 0 0]
+ [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0]
+ [0 0 1 0 0 0 0 0 0 0 1 1 0 0 0 0 1 0 0 0]
+ [0 0 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0]]
 Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulation_steps': 1}
 
 ```
@@ -561,26 +610,26 @@ min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 1000
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Find the Greatest Common Divisor (GCD) of these numbers: 226, 512
+Question: Find the Greatest Common Divisor (GCD) of these numbers: 26, 760
 Answer: 2
-Metadata: {'numbers': [226, 512], 'result': 2}
+Metadata: {'numbers': [26, 760], 'result': 2}
 
 Example 2:
-Question: Find the Greatest Common Divisor (GCD) of these numbers: 999, 495
-Answer: 9
-Metadata: {'numbers': [999, 495], 'result': 9}
+Question: Find the Greatest Common Divisor (GCD) of these numbers: 688, 716
+Answer: 4
+Metadata: {'numbers': [688, 716], 'result': 4}
 
 Example 3:
-Question: Find the Greatest Common Divisor (GCD) of these numbers: 999, 719
-Answer: 1
-Metadata: {'numbers': [999, 719], 'result': 1}
+Question: Find the Greatest Common Divisor (GCD) of these numbers: 297, 30
+Answer: 3
+Metadata: {'numbers': [297, 30], 'result': 3}
 
 ```
 
@@ -593,26 +642,26 @@ min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 100
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Find the Least Common Multiple (LCM) of these numbers: 30, 69
-Answer: 690
-Metadata: {'numbers': [30, 69], 'result': 690}
+Question: Find the Least Common Multiple (LCM) of these numbers: 95, 14
+Answer: 1330
+Metadata: {'numbers': [95, 14], 'result': 1330}
 
 Example 2:
-Question: Find the Least Common Multiple (LCM) of these numbers: 57, 99
-Answer: 1881
-Metadata: {'numbers': [57, 99], 'result': 1881}
+Question: Find the Least Common Multiple (LCM) of these numbers: 60, 48
+Answer: 240
+Metadata: {'numbers': [60, 48], 'result': 240}
 
 Example 3:
-Question: Find the Least Common Multiple (LCM) of these numbers: 3, 24
-Answer: 24
-Metadata: {'numbers': [3, 24], 'result': 24}
+Question: Find the Least Common Multiple (LCM) of these numbers: 38, 4
+Answer: 76
+Metadata: {'numbers': [38, 4], 'result': 76}
 
 ```
 
@@ -624,26 +673,26 @@ Default configuration:
 min_animals = 2
 max_animals = 5
 max_instances = 3
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: How many legs are there in total if you have 1 starfish, 3 crabs, 3 chickens, 3 cows, 1 woodlouse?
-Answer: 67
-Metadata: {'animals': {'starfish': 1, 'crab': 3, 'chicken': 3, 'cow': 3, 'woodlouse': 1}, 'total_legs': 67}
+Question: How many legs are there in total if you have 1 sea slug, 1 deer?
+Answer: 4
+Metadata: {'animals': {'sea slug': 1, 'deer': 1}, 'total_legs': 4}
 
 Example 2:
-Question: How many legs are there in total if you have 2 sheeps, 1 butterfly, 1 ant, 3 humans, 2 wasps?
-Answer: 38
-Metadata: {'animals': {'sheep': 2, 'butterfly': 1, 'ant': 1, 'human': 3, 'wasp': 2}, 'total_legs': 38}
+Question: How many legs are there in total if you have 2 sheeps, 2 dogs?
+Answer: 16
+Metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 
 Example 3:
-Question: How many legs are there in total if you have 3 chickens, 3 cockroachs, 3 woodlouses, 2 elephants, 2 sea slugs?
-Answer: 74
-Metadata: {'animals': {'chicken': 3, 'cockroach': 3, 'woodlouse': 3, 'elephant': 2, 'sea slug': 2}, 'total_legs': 74}
+Question: How many legs are there in total if you have 1 crab, 2 lobsters, 1 human, 1 cow, 1 bee?
+Answer: 42
+Metadata: {'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1}, 'total_legs': 42}
 
 ```
 
@@ -654,26 +703,26 @@ Default configuration:
 ```python
 min_words = 5
 max_words = 15
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: How many times does the letter "r" appear in the text: "You decline All is over then murmured the British agent sadly The"?
-Answer: 4
-Metadata: {'span_length': 12, 'target_letter': 'r', 'span': ['You', 'decline', 'All', 'is', 'over', 'then', 'murmured', 'the', 'British', 'agent', 'sadly', 'The']}
+Question: How many times does the letter "w" appear in the text: "bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed"?
+Answer: 1
+Metadata: {'span_length': 15, 'target_letter': 'w', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed']}
 
 Example 2:
-Question: How many times does the letter "l" appear in the text: "coffined and laid in a tomb Time went on September 25th 2889"?
+Question: How many times does the letter "p" appear in the text: "it into a watering place"?
 Answer: 1
-Metadata: {'span_length': 12, 'target_letter': 'l', 'span': ['coffined', 'and', 'laid', 'in', 'a', 'tomb', 'Time', 'went', 'on', 'September', '25th', '2889']}
+Metadata: {'span_length': 5, 'target_letter': 'p', 'span': ['it', 'into', 'a', 'watering', 'place']}
 
 Example 3:
-Question: How many times does the letter "i" appear in the text: "to the works took more time than he had anticipated It was"?
-Answer: 4
-Metadata: {'span_length': 12, 'target_letter': 'i', 'span': ['to', 'the', 'works', 'took', 'more', 'time', 'than', 'he', 'had', 'anticipated', 'It', 'was']}
+Question: How many times does the letter "t" appear in the text: "readable form accessible by the widest array of equipment including outdated"?
+Answer: 5
+Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}
 
 ```
 
@@ -689,26 +738,26 @@ max_words = 20
 min_corruption_level = 0.1
 max_corruption_level = 0.9
 consecutive_words = True
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Unscramble these words: moon abotu faec hA trehe s somethnig ni htat driec eht owt nem ta ocne dnA dndeei
-Answer: moon about face Ah there s something in that cried the two men at once And indeed
-Metadata: {'num_words': 17, 'corruption_level': 0.16056171448414203, 'scrambled_words': ['moon', 'abotu', 'faec', 'hA', 'trehe', 's', 'somethnig', 'ni', 'htat', 'driec', 'eht', 'owt', 'nem', 'ta', 'ocne', 'dnA', 'dndeei'], 'original_words': ['moon', 'about', 'face', 'Ah', 'there', 's', 'something', 'in', 'that', 'cried', 'the', 'two', 'men', 'at', 'once', 'And', 'indeed']}
+Question: Unscramble these words: ew hsall eb ebla ot puodrce
+Answer: we shall be able to produce
+Metadata: {'num_words': 6, 'corruption_level': 0.12000860417813355, 'scrambled_words': ['ew', 'hsall', 'eb', 'ebla', 'ot', 'puodrce'], 'original_words': ['we', 'shall', 'be', 'able', 'to', 'produce']}
 
 Example 2:
-Question: Unscramble these words: lla het aosssen eth msea I psrooep ot od toshmeign etrtbe itlsl amrnsTrfo toni aeht a tiooprn fo het
-Answer: all the seasons the same I propose to do something better still Transform into heat a portion of the
-Metadata: {'num_words': 19, 'corruption_level': 0.8984516776838924, 'scrambled_words': ['lla', 'het', 'aosssen', 'eth', 'msea', 'I', 'psrooep', 'ot', 'od', 'toshmeign', 'etrtbe', 'itlsl', 'amrnsTrfo', 'toni', 'aeht', 'a', 'tiooprn', 'fo', 'het'], 'original_words': ['all', 'the', 'seasons', 'the', 'same', 'I', 'propose', 'to', 'do', 'something', 'better', 'still', 'Transform', 'into', 'heat', 'a', 'portion', 'of', 'the']}
+Question: Unscramble these words: ni oiurnalmsj Well Cahs
+Answer: in journalism Well Cash
+Metadata: {'num_words': 4, 'corruption_level': 0.3288673442377109, 'scrambled_words': ['ni', 'oiurnalmsj', 'Well', 'Cahs'], 'original_words': ['in', 'journalism', 'Well', 'Cash']}
 
 Example 3:
-Question: Unscramble these words: od ubt si ti fo yna sue Waht ew need si csoudl ont iarn oG dais eh addressing
-Answer: do but is it of any use What we need is clouds not rain Go said he addressing
-Metadata: {'num_words': 18, 'corruption_level': 0.21786426698317396, 'scrambled_words': ['od', 'ubt', 'si', 'ti', 'fo', 'yna', 'sue', 'Waht', 'ew', 'need', 'si', 'csoudl', 'ont', 'iarn', 'oG', 'dais', 'eh', 'addressing'], 'original_words': ['do', 'but', 'is', 'it', 'of', 'any', 'use', 'What', 'we', 'need', 'is', 'clouds', 'not', 'rain', 'Go', 'said', 'he', 'addressing']}
+Question: Unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks ot oyu rheet si a gain fo sucrbbisesr rM
+Answer: dear Archibald keep on Since yesterday thanks to you there is a gain of subscribers Mr
+Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_words': ['dear', 'rchAdbali', 'keep', 'no', 'nSice', 'yrstyedae', 'atnhks', 'ot', 'oyu', 'rheet', 'si', 'a', 'gain', 'fo', 'sucrbbisesr', 'rM'], 'original_words': ['dear', 'Archibald', 'keep', 'on', 'Since', 'yesterday', 'thanks', 'to', 'you', 'there', 'is', 'a', 'gain', 'of', 'subscribers', 'Mr']}
 
 ```
 
@@ -722,60 +771,61 @@ min_dist = 5
 max_dist = 10
 min_grid_size = 5
 max_grid_size = 10
-seed = None
+seed = 42
 size = 50
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Navigate from 'F' (start) to 'S' (goal):
+Question: Navigate from '3' (start) to 'z' (goal):
 
-```DDDDDDD
-D]D]]DD
-DD]DD]D
-DDS]]]D
-D]]D]]D
-D]]]]FD
-DDDDDDD```
-Legend: 'D' = Wall, ']' = Passage
+```>>>>>>>>>
+>eeee>e>>
+>ee>>>>>>
+>eeeeee>>
+>e>ee>>e>
+>>ez>3e>>
+>eee>e>e>
+>eeeee>e>
+>>>>>>>>>```
+Legend: '>' = Wall, 'e' = Passage
 
 What is the minimum number of steps to reach the goal?
-Answer: 5
-Metadata: {'grid_size': 7, 'grid': ['DDDDDDD', 'D]D]]DD', 'DD]DD]D', 'DDS]]]D', 'D]]D]]D', 'D]]]]FD', 'DDDDDDD'], 'shortest_path_length': 5, 'start': 'F', 'goal': 'S', 'wall': 'D', 'path': ']'}
+Answer: 6
+Metadata: {'grid_size': 9, 'grid': ['>>>>>>>>>', '>eeee>e>>', '>ee>>>>>>', '>eeeeee>>', '>e>ee>>e>', '>>ez>3e>>', '>eee>e>e>', '>eeeee>e>', '>>>>>>>>>'], 'shortest_path_length': 6, 'start': '3', 'goal': 'z', 'wall': '>', 'path': 'e'}
 
 Example 2:
-Question: Navigate from 'V' (start) to 'S' (goal):
+Question: Navigate from '`' (start) to 'i' (goal):
 
-```77777777
-77SUU777
-7U7UUUU7
-77UUU777
-7UU7UUU7
-77U7UUU7
-7UUU7UV7
-77777777```
-Legend: '7' = Wall, 'U' = Passage
+```4444444
+4AAAAi4
+4A4A4A4
+4A4AA44
+44AAAA4
+44A`444
+4444444```
+Legend: '4' = Wall, 'A' = Passage
 
 What is the minimum number of steps to reach the goal?
-Answer: 9
-Metadata: {'grid_size': 8, 'grid': ['77777777', '77SUU777', '7U7UUUU7', '77UUU777', '7UU7UUU7', '77U7UUU7', '7UUU7UV7', '77777777'], 'shortest_path_length': 9, 'start': 'V', 'goal': 'S', 'wall': '7', 'path': 'U'}
+Answer: 6
+Metadata: {'grid_size': 7, 'grid': ['4444444', '4AAAAi4', '4A4A4A4', '4A4AA44', '44AAAA4', '44A`444', '4444444'], 'shortest_path_length': 6, 'start': '`', 'goal': 'i', 'wall': '4', 'path': 'A'}
 
 Example 3:
-Question: Navigate from 'z' (start) to '4' (goal):
+Question: Navigate from '(' (start) to '`' (goal):
 
-```$$$$$$$
-$~~~~~$
-$$~$~~$
-$~$~$4$
-$$~~~~$
-$~z~~~$
-$$$$$$$```
-Legend: '$' = Wall, '~' = Passage
+```QQQQQQQ
+QQ%%%%Q
+QQ`%Q%Q
+Q%%Q%%Q
+Q%%%Q%Q
+Q%QQ%(Q
+QQQQQQQ```
+Legend: 'Q' = Wall, '%' = Passage
 
 What is the minimum number of steps to reach the goal?
-Answer: 5
-Metadata: {'grid_size': 7, 'grid': ['$$$$$$$', '$~~~~~$', '$$~$~~$', '$~$~$4$', '$$~~~~$', '$~z~~~$', '$$$$$$$'], 'shortest_path_length': 5, 'start': 'z', 'goal': '4', 'wall': '$', 'path': '~'}
+Answer: 8
+Metadata: {'grid_size': 7, 'grid': ['QQQQQQQ', 'QQ%%%%Q', 'QQ`%Q%Q', 'Q%%Q%%Q', 'Q%%%Q%Q', 'Q%QQ%(Q', 'QQQQQQQ'], 'shortest_path_length': 8, 'start': '(', 'goal': '`', 'wall': 'Q', 'path': '%'}
 
 ```
 
@@ -786,7 +836,7 @@ Default configuration:
 ```python
 min_empty = 8
 max_empty = 12
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -794,39 +844,39 @@ Example tasks:
 ```
 Example 1:
 Question: Solve this 4x4 Mini Sudoku puzzle:
-1 _ _ _
-_ 4 _ _
-_ _ _ 3
-_ _ 1 4
-Answer: 1 3 4 2
-2 4 3 1
-4 1 2 3
-3 2 1 4
-Metadata: {'puzzle': [[1, 0, 0, 0], [0, 4, 0, 0], [0, 0, 0, 3], [0, 0, 1, 4]], 'solution': [[1, 3, 4, 2], [2, 4, 3, 1], [4, 1, 2, 3], [3, 2, 1, 4]], 'num_empty': 11}
+_ _ _ _
+_ _ _ _
+_ 1 3 _
+_ 4 _ 1
+Answer: 4 2 1 3
+1 3 4 2
+2 1 3 4
+3 4 2 1
+Metadata: {'puzzle': [[0, 0, 0, 0], [0, 0, 0, 0], [0, 1, 3, 0], [0, 4, 0, 1]], 'solution': [[4, 2, 1, 3], [1, 3, 4, 2], [2, 1, 3, 4], [3, 4, 2, 1]], 'num_empty': 12}
 
 Example 2:
 Question: Solve this 4x4 Mini Sudoku puzzle:
-_ _ _ 2
-2 _ _ 4
-_ 4 _ _
-_ 2 4 _
-Answer: 4 3 1 2
-2 1 3 4
-1 4 2 3
-3 2 4 1
-Metadata: {'puzzle': [[0, 0, 0, 2], [2, 0, 0, 4], [0, 4, 0, 0], [0, 2, 4, 0]], 'solution': [[4, 3, 1, 2], [2, 1, 3, 4], [1, 4, 2, 3], [3, 2, 4, 1]], 'num_empty': 10}
+3 _ _ _
+_ _ 4 _
+4 2 _ _
+_ _ _ 4
+Answer: 3 4 1 2
+2 1 4 3
+4 2 3 1
+1 3 2 4
+Metadata: {'puzzle': [[3, 0, 0, 0], [0, 0, 4, 0], [4, 2, 0, 0], [0, 0, 0, 4]], 'solution': [[3, 4, 1, 2], [2, 1, 4, 3], [4, 2, 3, 1], [1, 3, 2, 4]], 'num_empty': 11}
 
 Example 3:
 Question: Solve this 4x4 Mini Sudoku puzzle:
-4 2 _ _
-3 _ 2 4
 _ _ _ _
-_ 4 3 2
-Answer: 4 2 1 3
+1 3 4 _
 3 1 2 4
-2 3 4 1
-1 4 3 2
-Metadata: {'puzzle': [[4, 2, 0, 0], [3, 0, 2, 4], [0, 0, 0, 0], [0, 4, 3, 2]], 'solution': [[4, 2, 1, 3], [3, 1, 2, 4], [2, 3, 4, 1], [1, 4, 3, 2]], 'num_empty': 8}
+4 _ _ _
+Answer: 2 4 1 3
+1 3 4 2
+3 1 2 4
+4 2 3 1
+Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 1, 2, 4], [4, 0, 0, 0]], 'solution': [[2, 4, 1, 3], [1, 3, 4, 2], [3, 1, 2, 4], [4, 2, 3, 1]], 'num_empty': 8}
 
 ```
 
@@ -841,26 +891,26 @@ min_decimals = 0
 max_decimals = 4
 min_value = -100.0
 max_value = 100.0
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Remove all numbers smaller than -78.527 in this list: ['-14.14', '10.92', '-56.57', '-56', '-84.8', '20']
-Answer: ['-14.14', '10.92', '-56.57', '-56', '20']
-Metadata: {'original_numbers': ['-14.14', '10.92', '-56.57', '-56', '-84.8', '20'], 'filter_value': '-78.527', 'operation': 'remove_smaller', 'result': ['-14.14', '10.92', '-56.57', '-56', '20']}
+Question: Keep all numbers larger than -90 in this list: ['-95.00', '-51.0', '47.2942', '-82.612']
+Answer: ['-51.0', '47.2942', '-82.612']
+Metadata: {'original_numbers': ['-95.00', '-51.0', '47.2942', '-82.612'], 'filter_value': '-90', 'operation': 'keep_larger', 'result': ['-51.0', '47.2942', '-82.612']}
 
 Example 2:
-Question: Remove all numbers larger than 19 in this list: ['20', '66', '-22.729', '-21.62', '-6.2198', '4', '34.0', '-43.9360', '98.011', '-1.2024']
-Answer: ['-22.729', '-21.62', '-6.2198', '4', '-43.9360', '-1.2024']
-Metadata: {'original_numbers': ['20', '66', '-22.729', '-21.62', '-6.2198', '4', '34.0', '-43.9360', '98.011', '-1.2024'], 'filter_value': '19', 'operation': 'remove_larger', 'result': ['-22.729', '-21.62', '-6.2198', '4', '-43.9360', '-1.2024']}
+Question: Remove all numbers larger than 18.236 in this list: ['-42.8', '91.88', '34']
+Answer: ['-42.8']
+Metadata: {'original_numbers': ['-42.8', '91.88', '34'], 'filter_value': '18.236', 'operation': 'remove_larger', 'result': ['-42.8']}
 
 Example 3:
-Question: Keep all numbers smaller than 2.319 in this list: ['99', '-21', '-77.530', '7', '-11', '87.2816', '94.319', '-36', '-25.7766', '30.013']
-Answer: ['-21', '-77.530', '-11', '-36', '-25.7766']
-Metadata: {'original_numbers': ['99', '-21', '-77.530', '7', '-11', '87.2816', '94.319', '-36', '-25.7766', '30.013'], 'filter_value': '2.319', 'operation': 'keep_smaller', 'result': ['-21', '-77.530', '-11', '-36', '-25.7766']}
+Question: Keep all numbers larger than 19.8962 in this list: ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34']
+Answer: ['37.76', '38.702']
+Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34'], 'filter_value': '19.8962', 'operation': 'keep_larger', 'result': ['37.76', '38.702']}
 
 ```
 
@@ -874,26 +924,26 @@ max_terms = 8
 min_value = -100
 max_value = 100
 max_complexity = 3
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: 9, 4, 2, 1, 0, 0, 0, ?
-Answer: 0
-Metadata: {'rule': 'halve', 'complexity': 2, 'sequence': [9, 4, 2, 1, 0, 0, 0, 0]}
+Question: 3, 6, 12, 24, 48, 96, 192, 384, ?
+Answer: 768
+Metadata: {'rule': 'double', 'complexity': 3, 'sequence': [3, 6, 12, 24, 48, 96, 192, 384, 768]}
 
 Example 2:
-Question: -2, 1, 7, 19, 43, 91, 187, 379, ?
-Answer: 763
-Metadata: {'rule': 'double then add 5', 'complexity': 1, 'sequence': [-2, 1, 7, 19, 43, 91, 187, 379, 763]}
+Question: 8, 14, 20, 26, 32, 38, 44, ?
+Answer: 50
+Metadata: {'rule': 'add 6', 'complexity': 1, 'sequence': [8, 14, 20, 26, 32, 38, 44, 50]}
 
 Example 3:
-Question: 1, 0, 0, 0, 0, 0, 0, ?
+Question: 8, 4, 2, 1, 0, 0, 0, ?
 Answer: 0
-Metadata: {'rule': 'halve then multiply by 8', 'complexity': 1, 'sequence': [1, 0, 0, 0, 0, 0, 0, 0]}
+Metadata: {'rule': 'halve', 'complexity': 2, 'sequence': [8, 4, 2, 1, 0, 0, 0, 0]}
 
 ```
 
@@ -908,26 +958,26 @@ min_decimals = 0
 max_decimals = 2
 min_value = -100.0
 max_value = 100.0
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Sort these numbers in ascending order: -6.78, -92.30, 91.23, -77.49, 95.03, 74.19, 70.26, -67.10
-Answer: ['-92.30', '-77.49', '-67.10', '-6.78', '70.26', '74.19', '91.23', '95.03']
-Metadata: {'original_numbers': ['-6.78', '-92.30', '91.23', '-77.49', '95.03', '74.19', '70.26', '-67.10'], 'direction': 'ascending', 'sorted_numbers': ['-92.30', '-77.49', '-67.10', '-6.78', '70.26', '74.19', '91.23', '95.03']}
+Question: Sort these numbers in ascending order: 48, -51, -72, -80
+Answer: ['-80', '-72', '-51', '48']
+Metadata: {'original_numbers': ['48', '-51', '-72', '-80'], 'direction': 'ascending', 'sorted_numbers': ['-80', '-72', '-51', '48']}
 
 Example 2:
-Question: Sort these numbers in descending order: -10.32, 68.71, -89.59, 57.02, 12.29, -75.18, 49.79, -62.58, -58.82
-Answer: ['68.71', '57.02', '49.79', '12.29', '-10.32', '-58.82', '-62.58', '-75.18', '-89.59']
-Metadata: {'original_numbers': ['-10.32', '68.71', '-89.59', '57.02', '12.29', '-75.18', '49.79', '-62.58', '-58.82'], 'direction': 'descending', 'sorted_numbers': ['68.71', '57.02', '49.79', '12.29', '-10.32', '-58.82', '-62.58', '-75.18', '-89.59']}
+Question: Sort these numbers in ascending order: 39.2, -71.2, -7.5
+Answer: ['-71.2', '-7.5', '39.2']
+Metadata: {'original_numbers': ['39.2', '-71.2', '-7.5'], 'direction': 'ascending', 'sorted_numbers': ['-71.2', '-7.5', '39.2']}
 
 Example 3:
-Question: Sort these numbers in descending order: 10.13, 72.60, 72.13, 14.65, 1.16, -26.82, 55.17, 37.38, 76.73, -82.92
-Answer: ['76.73', '72.60', '72.13', '55.17', '37.38', '14.65', '10.13', '1.16', '-26.82', '-82.92']
-Metadata: {'original_numbers': ['10.13', '72.60', '72.13', '14.65', '1.16', '-26.82', '55.17', '37.38', '76.73', '-82.92'], 'direction': 'descending', 'sorted_numbers': ['76.73', '72.60', '72.13', '55.17', '37.38', '14.65', '10.13', '1.16', '-26.82', '-82.92']}
+Question: Sort these numbers in descending order: 8.39, 72.41, -64.67, -54.97, -94.18, -76.67, -98.24, -68.66, 2.74
+Answer: ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']
+Metadata: {'original_numbers': ['8.39', '72.41', '-64.67', '-54.97', '-94.18', '-76.67', '-98.24', '-68.66', '2.74'], 'direction': 'descending', 'sorted_numbers': ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']}
 
 ```
 
@@ -946,26 +996,26 @@ max_value = 100
 min_degree = 1
 max_degree = 3
 operators = ('+', '-')
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Determine the real value(s) of a tha satisfies: -35*a**2 = 0
+Question: Find the real value(s) of u in the equation: -127*u = 0
 Answer: [0.0]
-Metadata: {'polynomial_expr': '-35*a**2', 'variable': 'a', 'degree': 2, 'real_solutions': [0.0]}
+Metadata: {'polynomial_expr': '-127*u', 'variable': 'u', 'degree': 1, 'real_solutions': [0.0]}
 
 Example 2:
-Question: Solve for real l: 27*l**2 + 175*l - 1 = 0
-Answer: [-6.487190738158517, 0.005709256677035911]
-Metadata: {'polynomial_expr': '27*l**2 + 175*l - 1', 'variable': 'l', 'degree': 2, 'real_solutions': [-6.487190738158517, 0.005709256677035911]}
+Question: Determine the real value(s) of b tha satisfies: 86*b**2 - 2*b - 13 = 0
+Answer: [-0.3773425275273891, 0.4005983414808775]
+Metadata: {'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773425275273891, 0.4005983414808775]}
 
 Example 3:
-Question: Find the real value(s) of t in the equation: 94 - 9*t**2 = 0
-Answer: [-3.2317865716108862, 3.2317865716108862]
-Metadata: {'polynomial_expr': '94 - 9*t**2', 'variable': 't', 'degree': 2, 'real_solutions': [-3.2317865716108862, 3.2317865716108862]}
+Question: Determine the real value(s) of n tha satisfies: 71*n**3 - 2*n - 29 = 0
+Answer: [0.7546129960163634]
+Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3, 'real_solutions': [0.7546129960163634]}
 
 ```
 
@@ -976,26 +1026,26 @@ Default configuration:
 ```python
 min_value = 2
 max_value = 1000
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Find the prime factorization of 973. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
-Answer: 7 × 139
-Metadata: {'number': 973, 'factors': [7, 139]}
+Question: Find the prime factorization of 656. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
+Answer: 2 × 2 × 2 × 2 × 41
+Metadata: {'number': 656, 'factors': [2, 2, 2, 2, 41]}
 
 Example 2:
-Question: Find the prime factorization of 153. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
-Answer: 3 × 3 × 17
-Metadata: {'number': 153, 'factors': [3, 3, 17]}
+Question: Find the prime factorization of 41. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
+Answer: 41
+Metadata: {'number': 41, 'factors': [41]}
 
 Example 3:
-Question: Find the prime factorization of 390. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
-Answer: 2 × 3 × 5 × 13
-Metadata: {'number': 390, 'factors': [2, 3, 5, 13]}
+Question: Find the prime factorization of 420. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
+Answer: 2 × 2 × 3 × 5 × 7
+Metadata: {'number': 420, 'factors': [2, 2, 3, 5, 7]}
 
 ```
 
@@ -1009,7 +1059,7 @@ max_vars = 4
 min_statements = 2
 max_statements = 4
 max_complexity = 3
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -1017,30 +1067,30 @@ Example tasks:
 ```
 Example 1:
 Question: Given:
-1. (Q → P)
-2. (P → P)
-3. ((P ∨ Q) ↔ (P ↔ Q))
-4. (Q ∨ P)
+1. R
+2. Q
 What can we conclude?
-Answer: (P ∧ P)
-Metadata: {'premises': ['(Q → P)', '(P → P)', '((P ∨ Q) ↔ (P ↔ Q))', '(Q ∨ P)'], 'variables': ['P', 'Q'], 'complexity': 3}
+Answer: (P ∨ Q)
+Metadata: {'premises': ['R', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}
 
 Example 2:
 Question: Given:
-1. P
-2. ¬(P ∧ P)
-3. Q
+1. ((Q → P) ∨ (Q → P))
+2. ((Q ↔ Q) → (P → P))
+3. P
 What can we conclude?
-Answer: (P ∧ P)
-Metadata: {'premises': ['P', '¬(P ∧ P)', 'Q'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}
+Answer: (P → P)
+Metadata: {'premises': ['((Q → P) ∨ (Q → P))', '((Q ↔ Q) → (P → P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}
 
 Example 3:
 Question: Given:
-1. ¬(R → P)
-2. ¬P
+1. ((Q ∨ P) ∧ ¬P)
+2. P
+3. ((P ∧ R) ∧ ¬R)
+4. ((Q ↔ R) → ¬Q)
 What can we conclude?
-Answer: (Q ↔ Q)
-Metadata: {'premises': ['¬(R → P)', '¬P'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}
+Answer: (Q ∧ Q)
+Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q ↔ R) → ¬Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}
 
 ```
 
@@ -1050,7 +1100,7 @@ Generates QuantumLock tasks
 Default configuration:
 ```python
 difficulty = 10
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -1061,39 +1111,39 @@ Question: In front of you are some buttons, a light, and a number. The light wil
 You must press the shortest correct sequence of buttons to reach the target value.
 
 Start: 0 (red)
-Target: 38
+Target: 46
 Buttons:
-A: Multiply 2 (when any)
-B: Add 2 (when red)
-C: Multiply 3 (when any)
-Answer: B → A → C → C → B
-Metadata: {'difficulty': 10, 'solution_path': ['B', 'A', 'C', 'C', 'B'], 'target_value': 38, 'buttons': [{'name': 'A', 'type': 'multiply', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 2, 'active_state': 'red'}, {'name': 'C', 'type': 'multiply', 'value': 3, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
+A: Add 3 (when any)
+B: Add 2 (when any)
+C: Multiply 2 (when any)
+Answer: A → B → C → C → A → C
+Metadata: {'difficulty': 10, 'solution_path': ['A', 'B', 'C', 'C', 'A', 'C'], 'target_value': 46, 'buttons': [{'name': 'A', 'type': 'add', 'value': 3, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 2, 'active_state': 'any'}, {'name': 'C', 'type': 'multiply', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
 
 Example 2:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
 You must press the shortest correct sequence of buttons to reach the target value.
 
 Start: 0 (red)
-Target: 42
+Target: 30
 Buttons:
-A: Multiply 3 (when any)
-B: Add 2 (when any)
-C: Add 3 (when any)
-Answer: B → B → A → B → A
-Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'A', 'B', 'A'], 'target_value': 42, 'buttons': [{'name': 'A', 'type': 'multiply', 'value': 3, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 2, 'active_state': 'any'}, {'name': 'C', 'type': 'add', 'value': 3, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
+A: Add 2 (when green)
+B: Subtract 3 (when red)
+C: Multiply 2 (when red)
+Answer: C → A → C → A → C → A → C → A
+Metadata: {'difficulty': 10, 'solution_path': ['C', 'A', 'C', 'A', 'C', 'A', 'C', 'A'], 'target_value': 30, 'buttons': [{'name': 'A', 'type': 'add', 'value': 2, 'active_state': 'green'}, {'name': 'B', 'type': 'subtract', 'value': 3, 'active_state': 'red'}, {'name': 'C', 'type': 'multiply', 'value': 2, 'active_state': 'red'}], 'initial_state': 'red', 'initial_value': 0}
 
 Example 3:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
 You must press the shortest correct sequence of buttons to reach the target value.
 
 Start: 0 (red)
-Target: 35
+Target: 45
 Buttons:
-A: Multiply 3 (when red)
-B: Add 2 (when green)
-C: Subtract 3 (when any)
-Answer: A → B → A → C → A → B → A → B
-Metadata: {'difficulty': 10, 'solution_path': ['A', 'B', 'A', 'C', 'A', 'B', 'A', 'B'], 'target_value': 35, 'buttons': [{'name': 'A', 'type': 'multiply', 'value': 3, 'active_state': 'red'}, {'name': 'B', 'type': 'add', 'value': 2, 'active_state': 'green'}, {'name': 'C', 'type': 'subtract', 'value': 3, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
+A: Subtract 2 (when any)
+B: Add 3 (when any)
+C: Add 2 (when any)
+Answer: B → B → B → B → B → B → B → B → B → B → B → B → B → B → B
+Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], 'target_value': 45, 'buttons': [{'name': 'A', 'type': 'subtract', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 3, 'active_state': 'any'}, {'name': 'C', 'type': 'add', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
 
 ```
 
@@ -1105,7 +1155,7 @@ Default configuration:
 scramble_steps = 3
 cube_size = 3
 remove_ansi = True
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -1114,56 +1164,56 @@ Example tasks:
 Example 1:
 Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 
-          Y  Y  Y
-          Y  Y  Y
-          Y  Y  Y
- G  G  G  O  O  O  B  B  B  R  R  R
- R  R  R  G  G  G  O  O  O  B  B  B
- R  R  R  G  G  G  O  O  O  B  B  B
-          W  W  W
-          W  W  W
-          W  W  W
-
+          G  Y  G                   
+          G  Y  G                   
+          G  R  G                   
+ W  W  W  O  G  O  Y  Y  Y  R  B  R 
+ R  R  R  W  G  W  O  O  O  Y  B  Y 
+ R  R  R  W  G  W  O  O  O  Y  B  Y 
+          B  O  B                   
+          B  W  B                   
+          B  W  B                   
+ 
 
 Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
-Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U L L'", 'example_correct_answer': "U'"}
+Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "F L' R", 'example_correct_answer': "L F' U' R D B' D' U R U' R' U B U' B' U' R' U R U B U' B' U R' U R U B U' B' U' B' U B U L U' L' U' B' U B U L U' L' U B' U B U L U' L' F R U R' U' F' U' R U R' U R U U R' F U' B' U F' U' B R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U"}
 
 Example 2:
-Question: You see a size 3 Rubik's cube. It is arranged this:
+Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 
-          Y  Y  O
-          Y  Y  O
-          Y  Y  B
- R  R  R  G  G  Y  O  G  G  W  B  B
- R  R  Y  O  G  G  W  O  O  B  B  B
- R  R  Y  O  G  G  W  O  O  B  B  B
-          G  R  R
-          W  W  W
-          W  W  W
+          Y  Y  R                   
+          Y  Y  R                   
+          G  G  R                   
+ B  B  Y  R  R  B  W  W  W  G  O  O 
+ R  R  W  G  G  G  Y  O  O  B  B  Y 
+ R  R  W  G  G  G  Y  O  O  B  B  Y 
+          O  O  O                   
+          B  W  W                   
+          B  W  W                   
+ 
 
-
-Please provide a solution to solve this cube.
+Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
-Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U F' U'", 'example_correct_answer': "U F U'"}
+Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "L' F U'", 'example_correct_answer': "U' D' B D L' U' F D R' D' U' R U' R' F' U U F U F U' F' U' L' U L U F U' F' U L' U L U F U' F' R U' R' U' F' U F R' U R U B U' B' U' U' B' U B U L U' L' F R U R' U' R U R' U' F' U R U R' U R U U R' U' R U R' U R U U R' U' R U' L' U R' U' L U F U' B' U F' U' B R' D' R D R' D' R D U U R' D' R D R' D' R D U R' D' R D R' D' R D U"}
 
 Example 3:
-Question: You see a size 3 Rubik's cube. It is arranged this:
+Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 
-          R  R  R
-          B  Y  Y
-          O  O  O
- G  R  Y  G  G  G  W  O  B  W  W  W
- W  R  Y  G  G  G  W  O  Y  B  B  B
- W  R  B  Y  Y  Y  G  O  Y  B  B  B
-          R  R  R
-          G  W  W
-          O  O  O
+          Y  Y  W                   
+          Y  Y  W                   
+          Y  Y  W                   
+ G  G  G  O  O  B  O  O  O  G  R  R 
+ R  R  R  G  G  B  O  O  O  G  B  B 
+ R  R  R  G  G  R  B  B  B  O  B  B 
+          W  W  Y                   
+          W  W  Y                   
+          W  W  Y                   
+ 
 
-
-Please provide a solution to solve this cube.
+Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
-Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "L B' F'", 'example_correct_answer': "B L' F U F U' F' U F R U R' U' F' R U R' U R U U R' U' R U R' U R U U R' U' L U' R' U L' U' R U L U' R' U L' U' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U'"}
+Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'example_correct_answer': "R R U'"}
 
 ```
 
@@ -1174,26 +1224,26 @@ Default configuration:
 ```python
 min_words_in_sentence = 3
 max_words_in_sentence = 20
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Restore the correct order of words in the following sentence: thing first that Mr. The
-Answer: The first thing that Mr.
-Metadata: {'word_count': 5}
+Question: Restore the correct order of words in the following sentence: wish could get I sleep. "I some
+Answer: "I wish I could get some sleep.
+Metadata: {'word_count': 7}
 
 Example 2:
-Question: Restore the correct order of words in the following sentence: shall The to called be the attention of government the matter. Chinese
-Answer: The attention of the the Chinese government shall be called to matter.
-Metadata: {'word_count': 12}
+Question: Restore the correct order of words in the following sentence: the high level name. itself its unable it maintain at was of to Unfortunately,
+Answer: Unfortunately, it was unable to maintain itself at the high level of its name.
+Metadata: {'word_count': 14}
 
 Example 3:
-Question: Restore the correct order of words in the following sentence: wonderful we are the accumulators. indebted instruments those new for Jackson To
-Answer: To Jackson we are indebted for those wonderful instruments the new accumulators.
-Metadata: {'word_count': 12}
+Question: Restore the correct order of words in the following sentence: developed by For the unutilized. energy falls ages went the
+Answer: For ages the the energy developed by falls went unutilized.
+Metadata: {'word_count': 10}
 
 ```
 
@@ -1207,26 +1257,26 @@ max_terms = 4
 min_value = 1
 max_value = 100
 operators = ('+', '-', '*')
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Solve for j: 69 - 47*j = -4020
-Answer: 87
-Metadata: {'equation': '69 - 47*j = -4020', 'variable': 'j'}
+Question: Determine the value of u that satisfies: 32*u + 4 = 580
+Answer: 18
+Metadata: {'equation': '32*u + 4 = 580', 'variable': 'u'}
 
 Example 2:
-Question: Solve for o: 210000*o + 98 = 840098
-Answer: 4
-Metadata: {'equation': '210000*o + 98 = 840098', 'variable': 'o'}
+Question: Solve for b: 82080*b = 1067040
+Answer: 13
+Metadata: {'equation': '82080*b = 1067040', 'variable': 'b'}
 
 Example 3:
-Question: Find the value of a in the equation: 6930*a = 297990
-Answer: 43
-Metadata: {'equation': '6930*a = 297990', 'variable': 'a'}
+Question: Determine the value of n that satisfies: 29*n - 5 = 430
+Answer: 15
+Metadata: {'equation': '29*n - 5 = 430', 'variable': 'n'}
 
 ```
 
@@ -1236,26 +1286,26 @@ Generates tasks to spell words backward
 Default configuration:
 ```python
 min_word_len = 3
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Spell this word backward (example: sun -> nus): only
-Answer: ylno
-Metadata: {'word': 'only', 'word_len': 4}
+Question: Spell this word backward (example: sun -> nus): Project
+Answer: tcejorP
+Metadata: {'word': 'Project', 'word_len': 7}
 
 Example 2:
-Question: Spell this word backward (example: sun -> nus): from
-Answer: morf
-Metadata: {'word': 'from', 'word_len': 4}
+Question: Spell this word backward (example: sun -> nus): Would
+Answer: dluoW
+Metadata: {'word': 'Would', 'word_len': 5}
 
 Example 3:
-Question: Spell this word backward (example: sun -> nus): anxiously
-Answer: ylsuoixna
-Metadata: {'word': 'anxiously', 'word_len': 9}
+Question: Spell this word backward (example: sun -> nus): One
+Answer: enO
+Metadata: {'word': 'One', 'word_len': 3}
 
 ```
 
@@ -1266,7 +1316,7 @@ Default configuration:
 ```python
 min_empty = 30
 max_empty = 50
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -1274,69 +1324,69 @@ Example tasks:
 ```
 Example 1:
 Question: Solve this Sudoku puzzle:
-_ 8 _ 2 _ _ _ _ 3
-_ _ 4 _ 7 _ _ 8 9
-2 5 6 3 _ _ _ 4 7
-_ _ 8 _ 6 _ 9 5 _
-9 _ 2 7 _ 5 _ _ _
-3 6 _ _ 2 9 8 _ _
-_ 4 3 _ 5 2 7 _ _
-_ _ 1 _ _ _ 4 2 8
-6 2 _ 8 4 1 3 9 5
-Answer: 7 8 9 2 1 4 5 6 3
-1 3 4 5 7 6 2 8 9
-2 5 6 3 9 8 1 4 7
-4 7 8 1 6 3 9 5 2
-9 1 2 7 8 5 6 3 4
-3 6 5 4 2 9 8 7 1
-8 4 3 9 5 2 7 1 6
-5 9 1 6 3 7 4 2 8
-6 2 7 8 4 1 3 9 5
-Metadata: {'puzzle': [[0, 8, 0, 2, 0, 0, 0, 0, 3], [0, 0, 4, 0, 7, 0, 0, 8, 9], [2, 5, 6, 3, 0, 0, 0, 4, 7], [0, 0, 8, 0, 6, 0, 9, 5, 0], [9, 0, 2, 7, 0, 5, 0, 0, 0], [3, 6, 0, 0, 2, 9, 8, 0, 0], [0, 4, 3, 0, 5, 2, 7, 0, 0], [0, 0, 1, 0, 0, 0, 4, 2, 8], [6, 2, 0, 8, 4, 1, 3, 9, 5]], 'solution': [[7, 8, 9, 2, 1, 4, 5, 6, 3], [1, 3, 4, 5, 7, 6, 2, 8, 9], [2, 5, 6, 3, 9, 8, 1, 4, 7], [4, 7, 8, 1, 6, 3, 9, 5, 2], [9, 1, 2, 7, 8, 5, 6, 3, 4], [3, 6, 5, 4, 2, 9, 8, 7, 1], [8, 4, 3, 9, 5, 2, 7, 1, 6], [5, 9, 1, 6, 3, 7, 4, 2, 8], [6, 2, 7, 8, 4, 1, 3, 9, 5]], 'num_empty': 38}
+4 _ _ _ 5 2 _ 3 _
+_ _ 3 4 6 _ _ _ _
+6 1 2 _ _ 8 4 _ _
+1 _ _ _ _ _ 7 9 5
+3 _ _ 7 1 _ _ 2 6
+7 _ _ 5 _ _ _ _ 3
+2 _ _ _ 7 5 _ _ _
+_ 3 _ _ 4 1 _ _ _
+_ _ _ 2 8 _ _ _ 4
+Answer: 4 7 8 1 5 2 6 3 9
+5 9 3 4 6 7 2 8 1
+6 1 2 3 9 8 4 5 7
+1 2 4 8 3 6 7 9 5
+3 5 9 7 1 4 8 2 6
+7 8 6 5 2 9 1 4 3
+2 4 1 9 7 5 3 6 8
+8 3 5 6 4 1 9 7 2
+9 6 7 2 8 3 5 1 4
+Metadata: {'puzzle': [[4, 0, 0, 0, 5, 2, 0, 3, 0], [0, 0, 3, 4, 6, 0, 0, 0, 0], [6, 1, 2, 0, 0, 8, 4, 0, 0], [1, 0, 0, 0, 0, 0, 7, 9, 5], [3, 0, 0, 7, 1, 0, 0, 2, 6], [7, 0, 0, 5, 0, 0, 0, 0, 3], [2, 0, 0, 0, 7, 5, 0, 0, 0], [0, 3, 0, 0, 4, 1, 0, 0, 0], [0, 0, 0, 2, 8, 0, 0, 0, 4]], 'solution': [[4, 7, 8, 1, 5, 2, 6, 3, 9], [5, 9, 3, 4, 6, 7, 2, 8, 1], [6, 1, 2, 3, 9, 8, 4, 5, 7], [1, 2, 4, 8, 3, 6, 7, 9, 5], [3, 5, 9, 7, 1, 4, 8, 2, 6], [7, 8, 6, 5, 2, 9, 1, 4, 3], [2, 4, 1, 9, 7, 5, 3, 6, 8], [8, 3, 5, 6, 4, 1, 9, 7, 2], [9, 6, 7, 2, 8, 3, 5, 1, 4]], 'num_empty': 48}
 
 Example 2:
 Question: Solve this Sudoku puzzle:
-5 _ _ _ 3 4 _ 6 _
-_ _ 3 _ _ _ _ _ _
-_ _ 8 5 9 _ _ _ 2
-_ 5 7 6 4 _ _ 8 _
-_ 4 6 _ _ _ _ 5 3
-_ 3 _ _ _ 5 _ _ _
-6 8 1 _ _ 9 _ _ _
-_ 9 5 _ 2 _ _ 4 _
-_ 2 _ _ 8 6 1 9 5
-Answer: 5 7 2 1 3 4 8 6 9
-9 1 3 2 6 8 5 7 4
-4 6 8 5 9 7 3 1 2
-2 5 7 6 4 3 9 8 1
-8 4 6 9 1 2 7 5 3
-1 3 9 8 7 5 4 2 6
-6 8 1 4 5 9 2 3 7
-3 9 5 7 2 1 6 4 8
-7 2 4 3 8 6 1 9 5
-Metadata: {'puzzle': [[5, 0, 0, 0, 3, 4, 0, 6, 0], [0, 0, 3, 0, 0, 0, 0, 0, 0], [0, 0, 8, 5, 9, 0, 0, 0, 2], [0, 5, 7, 6, 4, 0, 0, 8, 0], [0, 4, 6, 0, 0, 0, 0, 5, 3], [0, 3, 0, 0, 0, 5, 0, 0, 0], [6, 8, 1, 0, 0, 9, 0, 0, 0], [0, 9, 5, 0, 2, 0, 0, 4, 0], [0, 2, 0, 0, 8, 6, 1, 9, 5]], 'solution': [[5, 7, 2, 1, 3, 4, 8, 6, 9], [9, 1, 3, 2, 6, 8, 5, 7, 4], [4, 6, 8, 5, 9, 7, 3, 1, 2], [2, 5, 7, 6, 4, 3, 9, 8, 1], [8, 4, 6, 9, 1, 2, 7, 5, 3], [1, 3, 9, 8, 7, 5, 4, 2, 6], [6, 8, 1, 4, 5, 9, 2, 3, 7], [3, 9, 5, 7, 2, 1, 6, 4, 8], [7, 2, 4, 3, 8, 6, 1, 9, 5]], 'num_empty': 47}
+_ _ _ 1 3 2 6 4 5
+_ 4 _ 7 _ _ _ 9 1
+_ _ 1 8 _ 9 _ _ _
+_ 8 9 _ _ _ 7 5 4
+_ 3 _ 4 _ 1 9 8 _
+4 6 _ 5 9 _ 1 2 3
+5 _ 4 9 1 7 3 _ _
+9 7 6 _ 8 4 5 1 _
+8 _ 3 _ _ _ 4 7 _
+Answer: 7 9 8 1 3 2 6 4 5
+3 4 2 7 5 6 8 9 1
+6 5 1 8 4 9 2 3 7
+1 8 9 6 2 3 7 5 4
+2 3 5 4 7 1 9 8 6
+4 6 7 5 9 8 1 2 3
+5 2 4 9 1 7 3 6 8
+9 7 6 3 8 4 5 1 2
+8 1 3 2 6 5 4 7 9
+Metadata: {'puzzle': [[0, 0, 0, 1, 3, 2, 6, 4, 5], [0, 4, 0, 7, 0, 0, 0, 9, 1], [0, 0, 1, 8, 0, 9, 0, 0, 0], [0, 8, 9, 0, 0, 0, 7, 5, 4], [0, 3, 0, 4, 0, 1, 9, 8, 0], [4, 6, 0, 5, 9, 0, 1, 2, 3], [5, 0, 4, 9, 1, 7, 3, 0, 0], [9, 7, 6, 0, 8, 4, 5, 1, 0], [8, 0, 3, 0, 0, 0, 4, 7, 0]], 'solution': [[7, 9, 8, 1, 3, 2, 6, 4, 5], [3, 4, 2, 7, 5, 6, 8, 9, 1], [6, 5, 1, 8, 4, 9, 2, 3, 7], [1, 8, 9, 6, 2, 3, 7, 5, 4], [2, 3, 5, 4, 7, 1, 9, 8, 6], [4, 6, 7, 5, 9, 8, 1, 2, 3], [5, 2, 4, 9, 1, 7, 3, 6, 8], [9, 7, 6, 3, 8, 4, 5, 1, 2], [8, 1, 3, 2, 6, 5, 4, 7, 9]], 'num_empty': 34}
 
 Example 3:
 Question: Solve this Sudoku puzzle:
-9 8 6 _ _ _ _ _ 3
-4 _ _ _ _ _ _ 6 _
-_ _ 3 6 7 _ _ _ 8
-_ _ 9 _ _ 3 6 _ _
-_ _ _ _ _ _ 7 4 2
-_ _ _ 4 _ _ _ _ _
-_ _ 2 5 _ _ _ 1 _
-_ 3 1 _ 4 6 8 9 7
-7 9 _ 8 _ _ _ _ 6
-Answer: 9 8 6 1 2 4 5 7 3
-4 2 7 3 8 5 1 6 9
-1 5 3 6 7 9 4 2 8
-2 4 9 7 1 3 6 8 5
-3 1 5 9 6 8 7 4 2
-6 7 8 4 5 2 9 3 1
-8 6 2 5 9 7 3 1 4
-5 3 1 2 4 6 8 9 7
-7 9 4 8 3 1 2 5 6
-Metadata: {'puzzle': [[9, 8, 6, 0, 0, 0, 0, 0, 3], [4, 0, 0, 0, 0, 0, 0, 6, 0], [0, 0, 3, 6, 7, 0, 0, 0, 8], [0, 0, 9, 0, 0, 3, 6, 0, 0], [0, 0, 0, 0, 0, 0, 7, 4, 2], [0, 0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 2, 5, 0, 0, 0, 1, 0], [0, 3, 1, 0, 4, 6, 8, 9, 7], [7, 9, 0, 8, 0, 0, 0, 0, 6]], 'solution': [[9, 8, 6, 1, 2, 4, 5, 7, 3], [4, 2, 7, 3, 8, 5, 1, 6, 9], [1, 5, 3, 6, 7, 9, 4, 2, 8], [2, 4, 9, 7, 1, 3, 6, 8, 5], [3, 1, 5, 9, 6, 8, 7, 4, 2], [6, 7, 8, 4, 5, 2, 9, 3, 1], [8, 6, 2, 5, 9, 7, 3, 1, 4], [5, 3, 1, 2, 4, 6, 8, 9, 7], [7, 9, 4, 8, 3, 1, 2, 5, 6]], 'num_empty': 50}
+_ _ 1 2 3 _ _ _ 9
+3 _ _ 1 8 5 6 7 2
+_ _ _ 4 9 6 1 _ _
+1 _ 5 7 _ _ 9 2 _
+_ 4 _ _ 5 9 7 1 6
+9 _ 6 _ 1 _ 4 5 3
+_ _ 3 9 7 _ 2 8 4
+_ _ 2 6 4 _ _ 9 1
+_ 1 _ 5 2 8 3 _ _
+Answer: 5 6 1 2 3 7 8 4 9
+3 9 4 1 8 5 6 7 2
+8 2 7 4 9 6 1 3 5
+1 3 5 7 6 4 9 2 8
+2 4 8 3 5 9 7 1 6
+9 7 6 8 1 2 4 5 3
+6 5 3 9 7 1 2 8 4
+7 8 2 6 4 3 5 9 1
+4 1 9 5 2 8 3 6 7
+Metadata: {'puzzle': [[0, 0, 1, 2, 3, 0, 0, 0, 9], [3, 0, 0, 1, 8, 5, 6, 7, 2], [0, 0, 0, 4, 9, 6, 1, 0, 0], [1, 0, 5, 7, 0, 0, 9, 2, 0], [0, 4, 0, 0, 5, 9, 7, 1, 6], [9, 0, 6, 0, 1, 0, 4, 5, 3], [0, 0, 3, 9, 7, 0, 2, 8, 4], [0, 0, 2, 6, 4, 0, 0, 9, 1], [0, 1, 0, 5, 2, 8, 3, 0, 0]], 'solution': [[5, 6, 1, 2, 3, 7, 8, 4, 9], [3, 9, 4, 1, 8, 5, 6, 7, 2], [8, 2, 7, 4, 9, 6, 1, 3, 5], [1, 3, 5, 7, 6, 4, 9, 2, 8], [2, 4, 8, 3, 5, 9, 7, 1, 6], [9, 7, 6, 8, 1, 2, 4, 5, 3], [6, 5, 3, 9, 7, 1, 2, 8, 4], [7, 8, 2, 6, 4, 3, 5, 9, 1], [4, 1, 9, 5, 2, 8, 3, 6, 7]], 'num_empty': 33}
 
 ```
 
@@ -1352,7 +1402,7 @@ allow_some = True
 allow_some_not = True
 include_invalid = True
 invalid_ratio = 0.3
-seed = None
+seed = 42
 size = 500
 ```
 
@@ -1360,36 +1410,36 @@ Example tasks:
 ```
 Example 1:
 Question: Consider these statements:
-1. Some humans are reptiles
-2. Some reptiles are insects
+1. No students are humans
+2. No humans are chefs
 
 Does it logically follow that:
-Some ... are not humans are insects?
+No students are chefs?
 (Answer Yes or No)
-Answer: No
-Metadata: {'premise1': 'Some humans are reptiles', 'premise2': 'Some reptiles are insects', 'conclusion': 'Some ... are not humans are insects', 'is_valid': False}
+Answer: Yes
+Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chefs', 'conclusion': 'No students are chefs', 'is_valid': True}
 
 Example 2:
 Question: Consider these statements:
-1. All mortals are teachers
-2. Some teachers are ants
+1. Some ... are not children are animals
+2. Some animals are doctors
 
 Does it logically follow that:
-Some ... are not mortals are ants?
+All children are doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'All mortals are teachers', 'premise2': 'Some teachers are ants', 'conclusion': 'Some ... are not mortals are ants', 'is_valid': True}
+Metadata: {'premise1': 'Some ... are not children are animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
 
 Example 3:
 Question: Consider these statements:
-1. No mortals are whales
-2. No whales are bees
+1. All butterflies are tigers
+2. No tigers are whales
 
 Does it logically follow that:
-No mortals are bees?
+Some ... are not butterflies are whales?
 (Answer Yes or No)
 Answer: No
-Metadata: {'premise1': 'No mortals are whales', 'premise2': 'No whales are bees', 'conclusion': 'No mortals are bees', 'is_valid': False}
+Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some ... are not butterflies are whales', 'is_valid': False}
 
 ```
 
@@ -1400,26 +1450,26 @@ Default configuration:
 ```python
 min_words = 3
 max_words = 8
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Reverse this list of words: Africa, harmless, moral
-Answer: moral, harmless, Africa
-Metadata: {'num_words': 3, 'words': ['Africa', 'harmless', 'moral']}
+Question: Reverse this list of words: bed, if, problem, but, Well, an, transmission, nutritive
+Answer: nutritive, transmission, an, Well, but, problem, if, bed
+Metadata: {'num_words': 8, 'words': ['bed', 'if', 'problem', 'but', 'Well', 'an', 'transmission', 'nutritive']}
 
 Example 2:
-Question: Reverse this list of words: efforts, well, set, these, back, Her, for
-Answer: for, Her, back, these, set, well, efforts
-Metadata: {'num_words': 7, 'words': ['efforts', 'well', 'set', 'these', 'back', 'Her', 'for']}
+Question: Reverse this list of words: it, pleasure, Gutenberg
+Answer: Gutenberg, pleasure, it
+Metadata: {'num_words': 3, 'words': ['it', 'pleasure', 'Gutenberg']}
 
 Example 3:
-Question: Reverse this list of words: fellow, compliance, few, which, in, famous, Not
-Answer: Not, famous, in, which, few, compliance, fellow
-Metadata: {'num_words': 7, 'words': ['fellow', 'compliance', 'few', 'which', 'in', 'famous', 'Not']}
+Question: Reverse this list of words: readable, to, he, that, to, possession
+Answer: possession, to, that, he, to, readable
+Metadata: {'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'possession']}
 
 ```
 
@@ -1433,28 +1483,30 @@ max_words = 10
 min_word_length = 3
 max_word_length = 12
 transformation = original
-seed = None
+seed = 42
 size = 500
 ```
 
 Example tasks:
 ```
 Example 1:
-Question: Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-prepare, provide, speak, surplus, after, unlink, change, 000
-Answer: unlink, surplus, speak, provide, prepare, change, after, 000
-Metadata: {'original_words': ['prepare', 'provide', 'speak', 'surplus', 'after', 'unlink', 'change', '000'], 'transformed_words': ['prepare', 'provide', 'speak', 'surplus', 'after', 'unlink', 'change', '000'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['unlink', 'surplus', 'speak', 'provide', 'prepare', 'change', 'after', '000']}
+Question: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
+due, ever, many, generations
+Answer: due, ever, generations, many
+Metadata: {'original_words': ['due', 'ever', 'many', 'generations'], 'transformed_words': ['due', 'ever', 'many', 'generations'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['due', 'ever', 'generations', 'many']}
 
 Example 2:
 Question: Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-501, differences, Thus, cupola, longer, remaining, mummy, Paris, DISTRIBUTE
-Answer: remaining, mummy, longer, differences, cupola, Thus, Paris, DISTRIBUTE, 501
-Metadata: {'original_words': ['501', 'differences', 'Thus', 'cupola', 'longer', 'remaining', 'mummy', 'Paris', 'DISTRIBUTE'], 'transformed_words': ['501', 'differences', 'Thus', 'cupola', 'longer', 'remaining', 'mummy', 'Paris', 'DISTRIBUTE'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['remaining', 'mummy', 'longer', 'differences', 'cupola', 'Thus', 'Paris', 'DISTRIBUTE', '501']}
+change, 250, young
+Answer: young, change, 250
+Metadata: {'original_words': ['change', '250', 'young'], 'transformed_words': ['change', '250', 'young'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['young', 'change', '250']}
 
 Example 3:
 Question: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-discontinue, access, office, luminous, distributing
-Answer: access, discontinue, distributing, luminous, office
-Metadata: {'original_words': ['discontinue', 'access', 'office', 'luminous', 'distributing'], 'transformed_words': ['discontinue', 'access', 'office', 'luminous', 'distributing'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['access', 'discontinue', 'distributing', 'luminous', 'office']}
+industry, elementary, traverse, stepped, meals, rub, resultant, etheric, irritation
+Answer: elementary, etheric, industry, irritation, meals, resultant, rub, stepped, traverse
+Metadata: {'original_words': ['industry', 'elementary', 'traverse', 'stepped', 'meals', 'rub', 'resultant', 'etheric', 'irritation'], 'transformed_words': ['industry', 'elementary', 'traverse', 'stepped', 'meals', 'rub', 'resultant', 'etheric', 'irritation'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['elementary', 'etheric', 'industry', 'irritation', 'meals', 'resultant', 'rub', 'stepped', 'traverse']}
 
 ```
+
+
