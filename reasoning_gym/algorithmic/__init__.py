@@ -16,6 +16,7 @@ from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDat
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
 from .word_sorting import TextTransformation, WordSortingConfig, WordSortingDataset
+from .word_ladder import WordLadderConfig, WordLadderDataset
 
 __all__ = [
     "SpellBackwardConfig",
@@ -39,4 +40,6 @@ __all__ = [
     "WordSortingConfig",
     "WordSortingDataset",
     "TextTransformation",
+    "WordLadderConfig",
+    "WordLadderDataset",
 ]

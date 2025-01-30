@@ -95,6 +95,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `SentenceReorderingDataset`: Reorder sentence after words in it have been randomly shuffled
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
+- `WordLadderDataset`: Generate word ladder puzzles where one word is transformed into another by changing one letter at a time
 
 ### <small>Code Tasks</small>
 
