@@ -118,3 +118,7 @@ class ReseedingDataset(Iterable[Dict[str, Any]]):
         item = self._current_dataset[self._current_idx]
         self._current_idx += 1
         return item
+        
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        """Forward scoring to the wrapped dataset's implementation"""
+        return self.dataset.score_answer(answer, entry)
