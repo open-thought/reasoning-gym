@@ -48,7 +48,9 @@ def get_readint_code():
     code += ">"  # point to tmp
     code += "[<++++++++++>-]"  # res = tmp * 10, tmp = 0
     code += ">"  # point to input
-    code += "-" * (0x30 - 10)  # convert character to a digit by subtracting 0x30 from it (we already subtracted 10 before)
+    code += "-" * (
+        0x30 - 10
+    )  # convert character to a digit by subtracting 0x30 from it (we already subtracted 10 before)
     code += "[<<+>>-]"  # res += input
     code += "]"  # end if
 

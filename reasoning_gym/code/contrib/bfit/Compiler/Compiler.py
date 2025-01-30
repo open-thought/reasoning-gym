@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-from .Exceptions import BFSyntaxError, BFSemanticError
+from .Exceptions import BFSemanticError, BFSyntaxError
 from .FunctionCompiler import FunctionCompiler
 from .Functions import check_function_exists, get_function_object, insert_function_object
-from .General import is_token_literal, get_literal_token_code, unpack_literal_tokens_to_array_dimensions
-from .Globals import get_global_variables_size, get_variable_size, get_variable_dimensions, insert_global_variable, create_variable_from_definition
+from .General import get_literal_token_code, is_token_literal, unpack_literal_tokens_to_array_dimensions
+from .Globals import (
+    create_variable_from_definition,
+    get_global_variables_size,
+    get_variable_dimensions,
+    get_variable_size,
+    insert_global_variable,
+)
 from .Lexical_analyzer import analyze
-from .Optimizer import optimize
 from .LibraryFunctionCompiler import insert_library_functions
+from .Optimizer import optimize
 from .Parser import Parser
 from .Token import Token
 
@@ -29,20 +35,24 @@ class Compiler:
         # returns function named tuple
 
         if self.parser.current_token().type not in [Token.VOID, Token.INT]:
-            raise BFSemanticError("Function return type can be either void or int, not '%s'" % str(self.parser.current_token()))
+            raise BFSemanticError(
+                "Function return type can be either void or int, not '%s'" % str(self.parser.current_token())
+            )
 
         self.parser.check_next_tokens_are([Token.ID, Token.LPAREN])
 
         # save all tokens of this function
         function_name = self.parser.next_token(next_amount=1).data
-        RPAREN_index = self.parser.find_matching(starting_index=self.parser.current_token_index+2)  # first find RPAREN
+        RPAREN_index = self.parser.find_matching(
+            starting_index=self.parser.current_token_index + 2
+        )  # first find RPAREN
         self.parser.check_next_token_is(Token.LBRACE, starting_index=RPAREN_index)
-        RBRACE_index = self.parser.find_matching(starting_index=RPAREN_index+1)  # then find RBRACE
+        RBRACE_index = self.parser.find_matching(starting_index=RPAREN_index + 1)  # then find RBRACE
 
         # take all tokens between INT and RBRACE and pass them to function object
-        function_tokens = self.parser.tokens[self.parser.current_token_index:RBRACE_index+1]
+        function_tokens = self.parser.tokens[self.parser.current_token_index : RBRACE_index + 1]
         # skip function definition
-        self.parser.advance_to_token_at_index(RBRACE_index+1)
+        self.parser.advance_to_token_at_index(RBRACE_index + 1)
 
         function = FunctionCompiler(function_name, function_tokens)
         return function
@@ -60,12 +70,12 @@ class Compiler:
         # if this is set to True, then the compiler zeros each cell before using it (may generate a lot of unnecessary BF code)
         ZERO_CELLS_BEFORE_USE = False
 
-        code = '[-]' if ZERO_CELLS_BEFORE_USE else ''
+        code = "[-]" if ZERO_CELLS_BEFORE_USE else ""
         if get_variable_size(variable) > 1:  # its an array
             if self.parser.current_token().type == Token.SEMICOLON:
                 # array definition - INT ID (LBRACK NUM RBRACK)+ SEMICOLON
                 self.parser.advance_token()  # skip SEMICOLON
-                code = (code + '>') * get_variable_size(variable)  # advance to after this variable
+                code = (code + ">") * get_variable_size(variable)  # advance to after this variable
                 return code
             elif self.parser.current_token().type == Token.ASSIGN and self.parser.current_token().data == "=":
                 # array definition and initialization - INT ID (LBRACK NUM RBRACK)+ ASSIGN ((LBRACE ... RBRACE)+|STRING) SEMICOLON
@@ -79,25 +89,34 @@ class Compiler:
                 self.parser.advance_token()  # skip SEMICOLON
 
                 array_dimensions = get_variable_dimensions(variable)
-                unpacked_literals_list = unpack_literal_tokens_to_array_dimensions(ID_token, array_dimensions, literal_tokens_list)
+                unpacked_literals_list = unpack_literal_tokens_to_array_dimensions(
+                    ID_token, array_dimensions, literal_tokens_list
+                )
 
                 for literal in unpacked_literals_list:
                     code += get_literal_token_code(literal)  # evaluate this literal and point to next array element
                 return code
             else:
-                raise BFSyntaxError("Unexpected %s in array definition. Expected SEMICOLON (;) or ASSIGN (=)" % self.parser.current_token())
+                raise BFSyntaxError(
+                    "Unexpected %s in array definition. Expected SEMICOLON (;) or ASSIGN (=)"
+                    % self.parser.current_token()
+                )
 
         elif self.parser.current_token().type == Token.SEMICOLON:  # no need to initialize
             self.parser.advance_token()  # skip SEMICOLON
-            code += '>'  # advance to after this variable
+            code += ">"  # advance to after this variable
         else:
             self.parser.check_current_token_is(Token.ASSIGN)
             if self.parser.current_token().data != "=":
-                raise BFSyntaxError("Unexpected %s when initializing global variable. Expected ASSIGN (=)" % self.parser.current_token())
+                raise BFSyntaxError(
+                    "Unexpected %s when initializing global variable. Expected ASSIGN (=)" % self.parser.current_token()
+                )
             self.parser.advance_token()  # skip ASSIGN
 
             if not is_token_literal(self.parser.current_token()):
-                raise BFSemanticError("Unexpected '%s'. expected literal (NUM | CHAR | TRUE | FALSE )" % str(self.parser.current_token()))
+                raise BFSemanticError(
+                    "Unexpected '%s'. expected literal (NUM | CHAR | TRUE | FALSE )" % str(self.parser.current_token())
+                )
 
             code += get_literal_token_code(self.parser.current_token())
 
@@ -113,7 +132,7 @@ class Compiler:
         When encountering global variable definition - create Variable object
         Returns code that initializes global variables and advances the pointer to after them
         """
-        code = ''
+        code = ""
         token = self.parser.current_token()
         while token is not None and token.type in [Token.VOID, Token.INT, Token.SEMICOLON]:
             if token.type == Token.SEMICOLON:  # can have random semicolons ;)
@@ -125,22 +144,31 @@ class Compiler:
             if self.parser.next_token(next_amount=2).type == Token.LPAREN:
                 function = self.create_function_object()
                 insert_function_object(function)
-            elif token.type is Token.INT and self.parser.next_token(next_amount=2).type in [Token.SEMICOLON, Token.ASSIGN, Token.LBRACK]:
+            elif token.type is Token.INT and self.parser.next_token(next_amount=2).type in [
+                Token.SEMICOLON,
+                Token.ASSIGN,
+                Token.LBRACK,
+            ]:
                 code += self.compile_global_variable_definition()
             else:
-                raise BFSyntaxError("Unexpected '%s' after '%s'. Expected '(' (function definition) or one of: '=', ';', '[' (global variable definition)" % (str(self.parser.next_token(next_amount=2)), str(self.parser.next_token())))
+                raise BFSyntaxError(
+                    "Unexpected '%s' after '%s'. Expected '(' (function definition) or one of: '=', ';', '[' (global variable definition)"
+                    % (str(self.parser.next_token(next_amount=2)), str(self.parser.next_token()))
+                )
 
             token = self.parser.current_token()
 
         if self.parser.current_token() is not None:  # we have not reached the last token
-            untouched_tokens = [str(t) for t in self.parser.tokens[self.parser.current_token_index:]]
+            untouched_tokens = [str(t) for t in self.parser.tokens[self.parser.current_token_index :]]
             raise BFSyntaxError("Did not reach the end of the code. Untouched tokens:\n%s" % untouched_tokens)
 
         return code
 
     def compile(self):
         insert_library_functions()
-        code = self.process_global_definitions()  # code that initializes global variables and advances pointer to after them
+        code = (
+            self.process_global_definitions()
+        )  # code that initializes global variables and advances pointer to after them
 
         check_function_exists(Token(Token.ID, 0, 0, "main"), 0)
         code += get_function_object("main").get_code(get_global_variables_size())
@@ -159,7 +187,7 @@ def compile(code, optimize_code=False):
     return brainfuck_code
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("This file cannot be directly run")
     print("Please import it and use the 'compile' function")
     print("Which receives a C-like code (string) and returns Brainfuck code (string)")

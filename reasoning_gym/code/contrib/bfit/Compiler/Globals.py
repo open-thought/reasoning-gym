@@ -1,6 +1,7 @@
 from collections import namedtuple
-from .Token import Token
+
 from .General import dimensions_to_size, get_NUM_token_value
+from .Token import Token
 
 """
 This file holds the program's functions and global variables
@@ -55,7 +56,7 @@ def create_variable_from_definition(parser, index=None, advance_tokens=False):
     if index is None, then assumes we start at the current_token_index
     if advance_tokens is True, then modifies current_token_index accordingly using parser.advance_token()
     """
-    
+
     if index is None:
         index = parser.current_token_index
 

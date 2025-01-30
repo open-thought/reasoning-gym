@@ -2,6 +2,7 @@ import pytest
 
 from reasoning_gym.code.bf import BFConfig, BFDataset
 
+
 def test_bf():
     """Test basic properties and solution of generated items"""
 

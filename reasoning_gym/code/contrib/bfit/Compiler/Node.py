@@ -1,10 +1,20 @@
 from .Exceptions import BFSemanticError
-from .General import get_copy_from_variable_code, get_copy_to_variable_code
-from .General import get_move_left_index_cell_code, get_move_right_index_cells_code
-from .General import get_offset_to_variable, get_variable_dimensions_from_token
-from .General import get_op_between_literals_code, get_literal_token_code, get_token_ID_code
-from .General import get_unary_prefix_op_code, get_unary_postfix_op_code, is_token_literal
-from .General import unpack_literal_tokens_to_array_dimensions, get_op_boolean_operator_code
+from .General import (
+    get_copy_from_variable_code,
+    get_copy_to_variable_code,
+    get_literal_token_code,
+    get_move_left_index_cell_code,
+    get_move_right_index_cells_code,
+    get_offset_to_variable,
+    get_op_between_literals_code,
+    get_op_boolean_operator_code,
+    get_token_ID_code,
+    get_unary_postfix_op_code,
+    get_unary_prefix_op_code,
+    get_variable_dimensions_from_token,
+    is_token_literal,
+    unpack_literal_tokens_to_array_dimensions,
+)
 from .Token import Token
 
 """
@@ -60,7 +70,14 @@ class NodeToken(Node):
             else:
                 return get_literal_token_code(self.token)
 
-        elif self.token.type in [Token.BINOP, Token.RELOP, Token.BITWISE_SHIFT, Token.BITWISE_AND, Token.BITWISE_OR, Token.BITWISE_XOR]:
+        elif self.token.type in [
+            Token.BINOP,
+            Token.RELOP,
+            Token.BITWISE_SHIFT,
+            Token.BITWISE_AND,
+            Token.BITWISE_OR,
+            Token.BITWISE_XOR,
+        ]:
             code = self.left.get_code(current_pointer)
             code += self.right.get_code(current_pointer + 1)
             code += "<<"  # point to the first operand
@@ -78,7 +95,7 @@ class NodeToken(Node):
         elif self.token.type == Token.ASSIGN:
             assert self.left.token.type == Token.ID
 
-            if self.token.data == '=':
+            if self.token.data == "=":
                 # id = expression
                 code = self.right.get_code(current_pointer)
 
@@ -119,7 +136,7 @@ class NodeTernary(Node):
         code = ">"  # point to bool_evaluate_node_false
         code += "[-]+"  # bool_evaluate_node_false=1
         code += ">"  # point to condition
-        code += self.condition.get_code(current_pointer+2)  # evaluate condition
+        code += self.condition.get_code(current_pointer + 2)  # evaluate condition
         code += "<"  # point to condition
 
         code += "["  # if condition is non-zero
@@ -150,7 +167,14 @@ class NodeUnaryPrefix(Node):
 
     def get_code(self, current_pointer, *args, **kwargs):
         # unary prefix (!x or ++x or ~x or -x)
-        assert self.token_operation.type in [Token.NOT, Token.INCREMENT, Token.DECREMENT, Token.UNARY_MULTIPLICATIVE, Token.BITWISE_NOT, Token.BINOP]
+        assert self.token_operation.type in [
+            Token.NOT,
+            Token.INCREMENT,
+            Token.DECREMENT,
+            Token.UNARY_MULTIPLICATIVE,
+            Token.BITWISE_NOT,
+            Token.BINOP,
+        ]
 
         if self.token_operation.type in [Token.NOT, Token.BITWISE_NOT, Token.BINOP]:
             code = self.node_literal.get_code(current_pointer)
@@ -178,10 +202,15 @@ class NodeUnaryPrefix(Node):
 
             # the token to apply on must be an ID
             if isinstance(self.node_literal, NodeToken) is False:
-                raise BFSemanticError("Prefix operator %s can only be applied to a variable" % str(self.token_operation))
+                raise BFSemanticError(
+                    "Prefix operator %s can only be applied to a variable" % str(self.token_operation)
+                )
 
             if self.node_literal.token.type != Token.ID:
-                raise BFSemanticError("Prefix operator %s cannot be applied to %s, but only to a variable" % (str(self.token_operation), str(self.node_literal.token)))
+                raise BFSemanticError(
+                    "Prefix operator %s cannot be applied to %s, but only to a variable"
+                    % (str(self.token_operation), str(self.node_literal.token))
+                )
 
             offset_to_ID = get_offset_to_variable(self.ids_map_list, self.node_literal.token, current_pointer)
             return get_unary_prefix_op_code(self.token_operation, offset_to_ID)
@@ -218,7 +247,10 @@ class NodeUnaryPostfix(Node):
             raise BFSemanticError("Postfix operator %s can only be applied to a variable" % str(self.token_operation))
 
         if self.node_literal.token.type != Token.ID:
-            raise BFSemanticError("Postfix operator %s cannot be applied to %s, but only to a variable" % (str(self.token_operation), str(self.node_literal.token)))
+            raise BFSemanticError(
+                "Postfix operator %s cannot be applied to %s, but only to a variable"
+                % (str(self.token_operation), str(self.node_literal.token))
+            )
 
         offset_to_ID = get_offset_to_variable(self.ids_map_list, self.node_literal.token, current_pointer)
         return get_unary_postfix_op_code(self.token_operation, offset_to_ID)
@@ -227,27 +259,31 @@ class NodeUnaryPostfix(Node):
 class NodeFunctionCall(Node):
     def __init__(self, ids_map_list, function_to_call, parameters):
         """
-            receives a FunctionCompiler object
-                that implements get_code() which gets a stack pointer and returns code
-            receives a list of parameters - Node objects
-                each one gets a stack pointer and returns code that evaluates the parameter
+        receives a FunctionCompiler object
+            that implements get_code() which gets a stack pointer and returns code
+        receives a list of parameters - Node objects
+            each one gets a stack pointer and returns code that evaluates the parameter
         """
         Node.__init__(self, ids_map_list)
         self.function_to_call = function_to_call
         self.parameters = parameters
 
     def get_code(self, current_pointer, *args, **kwargs):
-        code = '[-]>'  # return_value_cell=0
+        code = "[-]>"  # return_value_cell=0
 
         # evaluate parameters from left to right, and put them on the "stack" in that order
         # after each parameter code, the pointer points to the next available cell (one after the parameter)
         for i, parameter in enumerate(self.parameters):
-            code += parameter.get_code(current_pointer+1+i)  # evaluate each parameter at its cell offset (starting at one after return_value_cell)
+            code += parameter.get_code(
+                current_pointer + 1 + i
+            )  # evaluate each parameter at its cell offset (starting at one after return_value_cell)
 
         # at this point we point to one after the last parameter
         code += "<" * len(self.parameters)  # point back to first parameter
         code += "<"  # point to return_value_cell
-        code += self.function_to_call.get_code(current_stack_pointer=current_pointer)  # after this we point to return value cell
+        code += self.function_to_call.get_code(
+            current_stack_pointer=current_pointer
+        )  # after this we point to return value cell
         code += ">"  # point to next available cell (one after return value)
         return code
 
@@ -377,9 +413,10 @@ class NodeArraySetElement(NodeArrayElement):
 
 class NodeArrayAssignment(Node):
     """
-        Used for array assignment
-        E.g arr = = { 1, 2, 3... }
+    Used for array assignment
+    E.g arr = = { 1, 2, 3... }
     """
+
     def __init__(self, ids_map_list, token_id, literal_tokens_list):
         Node.__init__(self, ids_map_list)
         self.token_id = token_id
@@ -387,7 +424,9 @@ class NodeArrayAssignment(Node):
 
     def get_code(self, current_pointer, *args, **kwargs):
         array_dimensions = get_variable_dimensions_from_token(self.ids_map_list, self.token_id)
-        unpacked_literals_list = unpack_literal_tokens_to_array_dimensions(self.token_id, array_dimensions, self.literal_tokens_list)
+        unpacked_literals_list = unpack_literal_tokens_to_array_dimensions(
+            self.token_id, array_dimensions, self.literal_tokens_list
+        )
 
         offset = get_offset_to_variable(self.ids_map_list, self.token_id, current_pointer)
         code = "<" * offset  # point to first array element

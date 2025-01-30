@@ -7,10 +7,10 @@ Game tasks for training reasoning capabilities:
 """
 
 from .countdown import CountdownConfig, CountdownDataset
+from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .maze import MazeConfig, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset
 from .sudoku import SudokuConfig, SudokuDataset
-from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 
 __all__ = [
     "CountdownConfig",

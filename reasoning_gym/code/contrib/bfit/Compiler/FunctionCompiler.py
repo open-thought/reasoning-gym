@@ -1,11 +1,28 @@
 from collections import namedtuple
 from functools import reduce
-from .Exceptions import BFSyntaxError, BFSemanticError
+
+from .Exceptions import BFSemanticError, BFSyntaxError
 from .Functions import check_function_exists, get_function_object
-from .General import get_variable_dimensions_from_token, get_move_to_return_value_cell_code, get_print_string_code, get_variable_from_ID_token
-from .General import get_literal_token_value, process_switch_cases, is_token_literal
+from .General import (
+    get_literal_token_value,
+    get_move_to_return_value_cell_code,
+    get_print_string_code,
+    get_variable_dimensions_from_token,
+    get_variable_from_ID_token,
+    is_token_literal,
+    process_switch_cases,
+)
 from .Globals import create_variable_from_definition, get_global_variables, get_variable_size, is_variable_array
-from .Node import NodeToken, NodeTernary, NodeArraySetElement, NodeUnaryPrefix, NodeUnaryPostfix, NodeArrayGetElement, NodeFunctionCall, NodeArrayAssignment
+from .Node import (
+    NodeArrayAssignment,
+    NodeArrayGetElement,
+    NodeArraySetElement,
+    NodeFunctionCall,
+    NodeTernary,
+    NodeToken,
+    NodeUnaryPostfix,
+    NodeUnaryPrefix,
+)
 from .Parser import Parser
 from .Token import Token
 
@@ -83,7 +100,9 @@ class FunctionCompiler:
         # new stack pointer should be at least that size
         assert self.current_stack_pointer() <= current_stack_pointer
         self.return_value_cell = current_stack_pointer
-        self.set_stack_pointer(current_stack_pointer+1)  # make room for return_value cell. next available cell is the next one after it.
+        self.set_stack_pointer(
+            current_stack_pointer + 1
+        )  # make room for return_value cell. next available cell is the next one after it.
         function_code = self.compile_function_scope(self.parameters)
         self.remove_ids_map()  # Global variables
         return function_code
@@ -123,8 +142,12 @@ class FunctionCompiler:
 
             # multiply by next dimensions sizes
             multiply_amount = reduce(lambda x, y: x * y, dimensions[1:])  # size of the following dimensions
-            node_token_multiply_amount = NodeToken(self.ids_map_list, token=Token(Token.NUM, ID_token.line, ID_token.column, data=str(multiply_amount)))
-            index_expression = NodeToken(self.ids_map_list, token=multiply_token, left=first_index_expression, right=node_token_multiply_amount)
+            node_token_multiply_amount = NodeToken(
+                self.ids_map_list, token=Token(Token.NUM, ID_token.line, ID_token.column, data=str(multiply_amount))
+            )
+            index_expression = NodeToken(
+                self.ids_map_list, token=multiply_token, left=first_index_expression, right=node_token_multiply_amount
+            )
 
             # handle next dimensions
             dimension = 1
@@ -132,8 +155,10 @@ class FunctionCompiler:
                 if self.parser.current_token().type != Token.LBRACK:  # too few indexes given...
                     if dimension == 1:
                         return first_index_expression  # allow use of only one dimension for multi-dimensional array
-                    raise BFSemanticError("%s is a %s-dimensional array, but only %s dimension(s) given as index" %
-                                          (str(ID_token), len(dimensions), dimension))
+                    raise BFSemanticError(
+                        "%s is a %s-dimensional array, but only %s dimension(s) given as index"
+                        % (str(ID_token), len(dimensions), dimension)
+                    )
                 self.parser.check_current_token_is(Token.LBRACK)
                 self.parser.advance_token()  # skip LBRACK
                 exp = self.expression()
@@ -143,19 +168,30 @@ class FunctionCompiler:
 
                 # current_dimension_index *= size_of_following_dimensions
                 if dimension + 1 < len(dimensions):  # not last dimension - need to multiply and add
-                    multiply_amount = reduce(lambda x, y: x * y, dimensions[dimension + 1:])  # size of the following dimensions
-                    node_token_multiply_amount = NodeToken(self.ids_map_list, token=Token(Token.NUM, ID_token.line, ID_token.column, data=str(multiply_amount)))
-                    multiply_node = NodeToken(self.ids_map_list, token=multiply_token, left=exp, right=node_token_multiply_amount)
+                    multiply_amount = reduce(
+                        lambda x, y: x * y, dimensions[dimension + 1 :]
+                    )  # size of the following dimensions
+                    node_token_multiply_amount = NodeToken(
+                        self.ids_map_list,
+                        token=Token(Token.NUM, ID_token.line, ID_token.column, data=str(multiply_amount)),
+                    )
+                    multiply_node = NodeToken(
+                        self.ids_map_list, token=multiply_token, left=exp, right=node_token_multiply_amount
+                    )
 
                     # prev_dimensions_index += current_dimension_index
-                    index_expression = NodeToken(self.ids_map_list, token=add_token, left=index_expression, right=multiply_node)
+                    index_expression = NodeToken(
+                        self.ids_map_list, token=add_token, left=index_expression, right=multiply_node
+                    )
                 else:  # last dimension - no need to multiply, just add
                     index_expression = NodeToken(self.ids_map_list, token=add_token, left=index_expression, right=exp)
                 dimension += 1
 
         if self.parser.current_token().type == Token.LBRACK:  # too many indexes given...
-            raise BFSemanticError("%s is a %s-dimensional array. Unexpected %s" %
-                                  (str(ID_token), len(dimensions), self.parser.current_token()))
+            raise BFSemanticError(
+                "%s is a %s-dimensional array. Unexpected %s"
+                % (str(ID_token), len(dimensions), self.parser.current_token())
+            )
         return index_expression
 
     def get_token_after_array_access(self, offset=0):
@@ -193,12 +229,18 @@ class FunctionCompiler:
 
         if self.parser.next_token().type == Token.SEMICOLON:  # INT ID SEMICOLON
             self.parser.advance_token(2)  # skip ID SEMICOLON
-            return ''  # no code is generated here. code was generated for defining this variable when we entered the scope
+            return (
+                ""  # no code is generated here. code was generated for defining this variable when we entered the scope
+            )
 
-        elif self.parser.next_token().type == Token.ASSIGN and self.parser.next_token().data == "=":  # INT ID = EXPRESSION SEMICOLON
+        elif (
+            self.parser.next_token().type == Token.ASSIGN and self.parser.next_token().data == "="
+        ):  # INT ID = EXPRESSION SEMICOLON
             return self.compile_expression_as_statement()  # compile_expression_as_statement skips the SEMICOLON
 
-        elif self.parser.next_token().type == Token.LBRACK:  # INT ID (LBRACK NUM RBRACK)+ (= ARRAY_INITIALIZATION)? SEMICOLON
+        elif (
+            self.parser.next_token().type == Token.LBRACK
+        ):  # INT ID (LBRACK NUM RBRACK)+ (= ARRAY_INITIALIZATION)? SEMICOLON
             # array definition (int arr[2][3]...[];) or array definition and initialization (arr[2][3]...[] = {...};)
             token_id = self.parser.current_token()
             self.parser.advance_token()  # skip ID
@@ -210,7 +252,7 @@ class FunctionCompiler:
                 initialization_node = self.compile_array_assignment(token_id)
                 code = initialization_node.get_code(self.current_stack_pointer()) + "<"  # discard expression value
             else:
-                code = ''  # just array definition
+                code = ""  # just array definition
                 # no code is generated here. code was generated for defining this variable when we entered the scope
             self.parser.check_current_token_is(Token.SEMICOLON)
             self.parser.advance_token()  # skip SEMICOLON
@@ -297,7 +339,9 @@ class FunctionCompiler:
             token = self.tokens[i]
 
             if token.type == Token.INT:
-                if self.tokens[i-2].type != Token.FOR:  # if it is not a definition inside a FOR statement (for (int i = 0...))
+                if (
+                    self.tokens[i - 2].type != Token.FOR
+                ):  # if it is not a definition inside a FOR statement (for (int i = 0...))
                     variable = create_variable_from_definition(self.parser, index=i)
                     self.insert_to_ids_map(variable)
 
@@ -333,7 +377,7 @@ class FunctionCompiler:
         for parameter in parameters:
             self.insert_to_ids_map(parameter)
 
-        code = '>'  # skip return_value_cell
+        code = ">"  # skip return_value_cell
         code += self.insert_scope_variables_into_ids_map()
         # this inserts scope variables AND moves pointer right, with the amount of BOTH parameters and scope variables
 
@@ -377,7 +421,9 @@ class FunctionCompiler:
         if token.type == Token.ID and self.parser.next_token().type == Token.LPAREN:
             return self.function_call()
 
-        if token.type == Token.ID and self.parser.next_token().type == Token.LBRACK:  # array - ID(LBRACK expression RBRACK)+
+        if (
+            token.type == Token.ID and self.parser.next_token().type == Token.LBRACK
+        ):  # array - ID(LBRACK expression RBRACK)+
             index_expression = self.get_array_index_expression()
             return NodeArrayGetElement(self.ids_map_list, token, index_expression)
 
@@ -386,7 +432,10 @@ class FunctionCompiler:
             return NodeToken(self.ids_map_list, token=token)
 
         if token.type != Token.LPAREN:
-            raise BFSyntaxError("Unexpected '%s'. expected literal (NUM | ID | ID(LBRACK expression RBRACK)+ | TRUE | FALSE | function_call | ( expression ))" % str(token))
+            raise BFSyntaxError(
+                "Unexpected '%s'. expected literal (NUM | ID | ID(LBRACK expression RBRACK)+ | TRUE | FALSE | function_call | ( expression ))"
+                % str(token)
+            )
 
         # ( expression )
         self.parser.check_current_token_is(Token.LPAREN)
@@ -417,7 +466,9 @@ class FunctionCompiler:
 
         if token.type in [Token.NOT, Token.BITWISE_NOT, Token.BINOP]:
             if token.type == Token.BINOP and token.data not in ["+", "-"]:
-                    raise BFSyntaxError("Expected either + or - as unary prefix instead of token %s" % self.parser.current_token())
+                raise BFSyntaxError(
+                    "Expected either + or - as unary prefix instead of token %s" % self.parser.current_token()
+                )
             self.parser.advance_token()
             unary_prefix = self.unary_prefix()
 
@@ -618,11 +669,19 @@ class FunctionCompiler:
 
             expression_node = self.expression()
 
-            new_node = NodeToken(self.ids_map_list, left=NodeToken(self.ids_map_list, token=id_token), token=assign_token, right=expression_node)
+            new_node = NodeToken(
+                self.ids_map_list,
+                left=NodeToken(self.ids_map_list, token=id_token),
+                token=assign_token,
+                right=expression_node,
+            )
             return new_node
 
-        elif self.parser.current_token().type == Token.ID and self.parser.next_token().type == Token.LBRACK and \
-                self.get_token_after_array_access().type == Token.ASSIGN:
+        elif (
+            self.parser.current_token().type == Token.ID
+            and self.parser.next_token().type == Token.LBRACK
+            and self.get_token_after_array_access().type == Token.ASSIGN
+        ):
             # ID (LBRACK expression RBRACK)+ ASSIGN value_expression
             id_token = self.parser.current_token()
             index_expression = self.get_array_index_expression()
@@ -744,7 +803,7 @@ class FunctionCompiler:
         if self.parser.current_token().type == Token.SEMICOLON:
             # return;
             self.parser.advance_token()  # skip ;
-            return ''  # nothing to do
+            return ""  # nothing to do
 
         # return exp;
         expression_code = self.compile_expression()
@@ -763,7 +822,12 @@ class FunctionCompiler:
         # this expression can be used as a statement.
         # e.g: x+=5;  or  x++ or ++x;
 
-        assert self.parser.current_token().type in [Token.ID, Token.INCREMENT, Token.DECREMENT, Token.UNARY_MULTIPLICATIVE]
+        assert self.parser.current_token().type in [
+            Token.ID,
+            Token.INCREMENT,
+            Token.DECREMENT,
+            Token.UNARY_MULTIPLICATIVE,
+        ]
 
         code = self.compile_expression()
         self.parser.check_current_token_is(Token.SEMICOLON)
@@ -901,7 +965,10 @@ class FunctionCompiler:
         self.increase_stack_pointer()  # use 1 additional temp cell for indicating we need to execute a case
         cases = list()  # list of tuples: (value/"default" (int or string), case_code (string), has_break(bool))
 
-        while self.parser.current_token().type in [Token.CASE, Token.DEFAULT]:  # (default | CASE literal) COLON statement* break;? statements*
+        while self.parser.current_token().type in [
+            Token.CASE,
+            Token.DEFAULT,
+        ]:  # (default | CASE literal) COLON statement* break;? statements*
             if self.parser.current_token().type == Token.CASE:
                 self.parser.advance_token()  # skip CASE
                 constant_value_token = self.parser.current_token()
@@ -922,7 +989,9 @@ class FunctionCompiler:
 
             inner_case_code = ""
             while self.parser.current_token().type not in [Token.CASE, Token.DEFAULT, Token.RBRACE, Token.BREAK]:
-                inner_case_code += self.compile_statement(allow_declaration=False)  # not allowed to declare variables directly inside case
+                inner_case_code += self.compile_statement(
+                    allow_declaration=False
+                )  # not allowed to declare variables directly inside case
 
             has_break = False
             if self.parser.current_token().type == Token.BREAK:  # ignore all statements after break
@@ -934,7 +1003,9 @@ class FunctionCompiler:
             cases.append((value, inner_case_code, has_break))
 
         if self.parser.current_token().type not in [Token.CASE, Token.DEFAULT, Token.RBRACE]:
-            raise BFSyntaxError("Expected case / default / RBRACE (}) instead of token %s" % self.parser.current_token())
+            raise BFSyntaxError(
+                "Expected case / default / RBRACE (}) instead of token %s" % self.parser.current_token()
+            )
         self.parser.check_current_token_is(Token.RBRACE)
         self.parser.advance_token()
         self.decrease_stack_pointer(amount=2)
@@ -943,7 +1014,10 @@ class FunctionCompiler:
 
     def compile_break(self):
         # TODO: Make the break statement in scopes inside switch-case (including if/else), and for/do/while
-        raise NotImplementedError("Break statement found outside of switch case first scope.\nBreak is not currently implemented for while/for/do statements.\nToken is %s" % self.parser.current_token())
+        raise NotImplementedError(
+            "Break statement found outside of switch case first scope.\nBreak is not currently implemented for while/for/do statements.\nToken is %s"
+            % self.parser.current_token()
+        )
 
     def compile_for(self):
         # for (statement expression; expression) inner_scope_code   note: statement contains ;, and inner_scope_code can be scope { }
@@ -951,17 +1025,17 @@ class FunctionCompiler:
         # (the statement cannot contain scope - { and } )
 
         """
-            <for> is a special case of scope
-            the initial code (int i = 0;) is executed INSIDE the scope, but BEFORE the LBRACE
-            so we manually compile the scope instead of using self.compile_scope():
+        <for> is a special case of scope
+        the initial code (int i = 0;) is executed INSIDE the scope, but BEFORE the LBRACE
+        so we manually compile the scope instead of using self.compile_scope():
 
-            we first create an ids map, and in the case that there is a variable definition inside the <for> definition:
-            we manually insert the ID into the ids map, and move the pointer to the right once, to make room for it
-            (this needs to be done before the <for> definition's statement)
-            next, inside the for's scope {}:
-            after calling insert_scope_variables_into_ids_map, we move the pointer to the left once, since it counts the ID we entered manually as well
-            after calling exit_scope, we move the pointer to the right, since it counts the ID we entered manually, and we don't want it to be discarded after every iteration
-            finally, at the end of the <for> loop, we move the pointer once to the left, to discard the variable we defined manually
+        we first create an ids map, and in the case that there is a variable definition inside the <for> definition:
+        we manually insert the ID into the ids map, and move the pointer to the right once, to make room for it
+        (this needs to be done before the <for> definition's statement)
+        next, inside the for's scope {}:
+        after calling insert_scope_variables_into_ids_map, we move the pointer to the left once, since it counts the ID we entered manually as well
+        after calling exit_scope, we move the pointer to the right, since it counts the ID we entered manually, and we don't want it to be discarded after every iteration
+        finally, at the end of the <for> loop, we move the pointer once to the left, to discard the variable we defined manually
         """
 
         self.parser.check_current_tokens_are([Token.FOR, Token.LPAREN])
@@ -969,7 +1043,7 @@ class FunctionCompiler:
 
         manually_inserted_variable_in_for_definition = False
         variable = None
-        code = ''
+        code = ""
 
         # =============== enter FOR scope ===============
         self.add_ids_map()
@@ -987,7 +1061,10 @@ class FunctionCompiler:
                 show_side_effect_warning = self.get_token_after_array_access(offset=1).type != Token.ASSIGN
 
             if show_side_effect_warning:
-                print("[Warning] For loop variable '%s' isn't assigned to anything and may cause side effects" % self.parser.next_token())
+                print(
+                    "[Warning] For loop variable '%s' isn't assigned to anything and may cause side effects"
+                    % self.parser.next_token()
+                )
 
         if self.parser.current_token().type == Token.LBRACE:  # statement is a scope
             raise BFSyntaxError("Unexpected scope inside for loop statement - %s" % self.parser.current_token())
@@ -1042,20 +1119,31 @@ class FunctionCompiler:
         token = self.parser.current_token()
         if token.type == Token.INT:  # INT ID ((= EXPRESSION) | ([NUM])+ (= ARRAY_INITIALIZATION)?)? SEMICOLON
             if not allow_declaration:
-                raise BFSemanticError("Cannot define variable (%s) directly inside case. "
-                                      "Can define inside new scope {} or outside the switch statement" % token)
+                raise BFSemanticError(
+                    "Cannot define variable (%s) directly inside case. "
+                    "Can define inside new scope {} or outside the switch statement" % token
+                )
             return self.compile_variable_declaration()
 
         elif token.type in [Token.INCREMENT, Token.DECREMENT, Token.UNARY_MULTIPLICATIVE]:  # ++ID;
             return self.compile_expression_as_statement()
 
         elif token.type == Token.ID:
-            if self.parser.next_token().type in [Token.ASSIGN, Token.LBRACK, Token.INCREMENT, Token.DECREMENT, Token.UNARY_MULTIPLICATIVE]:
+            if self.parser.next_token().type in [
+                Token.ASSIGN,
+                Token.LBRACK,
+                Token.INCREMENT,
+                Token.DECREMENT,
+                Token.UNARY_MULTIPLICATIVE,
+            ]:
                 # ID ASSIGN expression; or ID([expression])+ ASSIGN expression; or ID++;
                 return self.compile_expression_as_statement()
             elif self.parser.next_token().type == Token.LPAREN:  # ID(...);  (function call)
                 return self.compile_function_call_statement()
-            raise BFSyntaxError("Unexpected '%s' after '%s'. Expected '=|+=|-=|*=|/=|%%=|<<=|>>=|&=|(|=)|^=' (assignment), '++|--' (modification) or '(' (function call)" % (str(self.parser.next_token()), str(token)))
+            raise BFSyntaxError(
+                "Unexpected '%s' after '%s'. Expected '=|+=|-=|*=|/=|%%=|<<=|>>=|&=|(|=)|^=' (assignment), '++|--' (modification) or '(' (function call)"
+                % (str(self.parser.next_token()), str(token))
+            )
 
         elif token.type == Token.PRINT:
             return self.compile_print_string()
@@ -1097,7 +1185,7 @@ class FunctionCompiler:
     def compile_scope_statements(self):
         tokens = self.tokens
 
-        code = ''
+        code = ""
         while self.parser.current_token() is not None:
             if self.parser.current_token().type == Token.RBRACE:
                 # we reached the end of our scope
@@ -1124,29 +1212,29 @@ class FunctionCompiler:
         # will be inserted into the new scope prior to the scope's compilation
 
         """
-            example layout:
-                int global_var1;
-                int global_var2;
-                int foo(int a, int b) {
-                    int x;
-                    int y;
-                    return 5;
-                }
+        example layout:
+            int global_var1;
+            int global_var2;
+            int foo(int a, int b) {
+                int x;
+                int y;
+                return 5;
+            }
 
-                int main() {
-                    int n;
-                    foo(1, 2);
-                }
+            int main() {
+                int n;
+                foo(1, 2);
+            }
 
-                global_var1 global_var2 main_return_value n foo_return_value a=1 b=2 x y
+            global_var1 global_var2 main_return_value n foo_return_value a=1 b=2 x y
 
-                calling convention:
-                caller responsibility: make room for return_value (and zero its cell), place parameters, point to return_value cell
-                callee responsibility: put return value in return_value cell and point to it (thus "cleaning" parameters)
-                    can assume that there is a zeroed cell at current_stack_pointer (return_value_cell) (therefore ids_map starts at index current_stack_pointer+1)
-                    can assume that the next cells match your parameters
-                    assumes that initially, the pointer points to the first cell (return_value_cell).
-                    therefore begin with '>' * (1 + parameters + scope variables)
+            calling convention:
+            caller responsibility: make room for return_value (and zero its cell), place parameters, point to return_value cell
+            callee responsibility: put return value in return_value cell and point to it (thus "cleaning" parameters)
+                can assume that there is a zeroed cell at current_stack_pointer (return_value_cell) (therefore ids_map starts at index current_stack_pointer+1)
+                can assume that the next cells match your parameters
+                assumes that initially, the pointer points to the first cell (return_value_cell).
+                therefore begin with '>' * (1 + parameters + scope variables)
         """
 
         assert self.parser.current_token().type == Token.LBRACE

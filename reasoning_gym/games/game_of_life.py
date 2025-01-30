@@ -1,18 +1,19 @@
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional, Tuple, Dict
+from typing import Dict, List, Optional, Tuple
 
 import cellpylib as cpl
 
 from ..factory import ProceduralDataset, register_dataset
 
+
 @dataclass
 class GameOfLifeConfig:
     """Configuration for sudoku puzzle generation"""
 
-    grid_size_x: int = 20 
+    grid_size_x: int = 20
     grid_size_y: int = 20
-    filled_cells: int = 100 # actually a max
+    filled_cells: int = 100  # actually a max
     simulation_steps: int = 1
     seed: Optional[int] = None
     size: int = 500
@@ -25,11 +26,12 @@ class GameOfLifeConfig:
         assert self.filled_cells <= self.grid_size_x * self.grid_size_y, "filled_cells must fit in x times y"
 
 
-class GameOfLifeConfigDataset(ProceduralDataset):
+class GameOfLifeDataset(ProceduralDataset):
     """Generates Game of Life games with configurable parameters"""
 
     def __init__(self, config: GameOfLifeConfig):
-        self._prompt_templates = ["What will this Game of Life board look like after {simulation_steps} steps of simulation?\n\n{board}"
+        self._prompt_templates = [
+            "What will this Game of Life board look like after {simulation_steps} steps of simulation?\n\n{board}"
         ]
 
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -46,7 +48,7 @@ class GameOfLifeConfigDataset(ProceduralDataset):
         rng = Random(self.seed + idx)
 
         # Make the board
-        board  = cpl.init_simple2d(self.config.grid_size_x, self.config.grid_size_y)
+        board = cpl.init_simple2d(self.config.grid_size_x, self.config.grid_size_y)
         board[:, :, :] = 0
 
         # Add the cells
@@ -56,13 +58,17 @@ class GameOfLifeConfigDataset(ProceduralDataset):
             board[:, rx, ry] = 1
 
         # Simulate the result to get the answer
-        evolved = cpl.evolve2d(board, timesteps=self.config.simulation_steps + 1, apply_rule=cpl.game_of_life_rule, memoize='recursive')
+        evolved = cpl.evolve2d(
+            board, timesteps=self.config.simulation_steps + 1, apply_rule=cpl.game_of_life_rule, memoize="recursive"
+        )
 
         board_str = str(board[0])
         result_str = str(evolved[-1])
 
         return {
-            "question": rng.choice(self._prompt_templates).format(simulation_steps=self.config.simulation_steps, board=board_str),
+            "question": rng.choice(self._prompt_templates).format(
+                simulation_steps=self.config.simulation_steps, board=board_str
+            ),
             "answer": result_str,
             "metadata": {
                 "grid_size_x": self.config.grid_size_x,
@@ -87,10 +93,10 @@ class GameOfLifeConfigDataset(ProceduralDataset):
 
         if answer == None:
             return 0.0
-        if answer.replace('\n', '') != entry['answer'].replace('\n', ''):
+        if answer.replace("\n", "") != entry["answer"].replace("\n", ""):
             return 0.01
         else:
-            return 1.0 # Yay
+            return 1.0  # Yay
 
 
-register_dataset("game_of_life", GameOfLifeConfigDataset, GameOfLifeConfig)
+register_dataset("game_of_life", GameOfLifeDataset, GameOfLifeConfig)

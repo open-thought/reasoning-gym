@@ -1,12 +1,13 @@
-from .Exceptions import BFSyntaxError, BFSemanticError
-from .Token import Token
+from .Exceptions import BFSemanticError, BFSyntaxError
 from .General import is_token_literal
+from .Token import Token
 
 
 class Parser:
     """
     Used to easily iterate tokens
     """
+
     def __init__(self, tokens):
         self.tokens = tokens
         self.current_token_index = 0
@@ -80,7 +81,10 @@ class Parser:
             raise BFSyntaxError("Expected %s after %s" % (str(tokens_list), str(self.tokens[starting_index])))
         for i in range(0, len(tokens_list)):
             if self.tokens[starting_index + 1 + i].type != tokens_list[i]:
-                raise BFSyntaxError("Expected %s after %s" % (str(tokens_list[i]), [str(t) for t in self.tokens[starting_index: starting_index+1+i]]))
+                raise BFSyntaxError(
+                    "Expected %s after %s"
+                    % (str(tokens_list[i]), [str(t) for t in self.tokens[starting_index : starting_index + 1 + i]])
+                )
 
     def check_next_token_is(self, token, starting_index=None):
         self.check_next_tokens_are([token], starting_index=starting_index)

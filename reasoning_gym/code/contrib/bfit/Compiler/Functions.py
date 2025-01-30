@@ -1,4 +1,5 @@
 from copy import deepcopy
+
 from .Exceptions import BFSemanticError
 
 functions = dict()  # Global dictionary of function_name --> FunctionCompiler objects
@@ -30,4 +31,7 @@ def check_function_exists(function_token, parameters_amount):
 
     function = functions[function_name]
     if len(function.parameters) != parameters_amount:
-        raise BFSemanticError("Function '%s' has %s parameters (called it with %s parameters)" % (str(function_token), len(function.parameters), parameters_amount))
+        raise BFSemanticError(
+            "Function '%s' has %s parameters (called it with %s parameters)"
+            % (str(function_token), len(function.parameters), parameters_amount)
+        )

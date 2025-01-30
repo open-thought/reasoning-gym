@@ -3,10 +3,10 @@ from random import Random
 from typing import Dict, Optional
 
 import bfi
-from .contrib.bfit.Compiler import Compiler, Minify
 
 from ..data.wordle_words import wordle_words
 from ..factory import ProceduralDataset, register_dataset
+from .contrib.bfit.Compiler import Compiler, Minify
 
 
 @dataclass
@@ -122,10 +122,11 @@ int main() {{
 
         if answer == None:
             return 0.0
-        if answer != entry['answer']:
+        if answer != entry["answer"]:
             return 0.01
         else:
-            return 1.0 # Yay
+            return 1.0  # Yay
+
 
 # Register the dataset
 register_dataset("bf", BFDataset, BFConfig)

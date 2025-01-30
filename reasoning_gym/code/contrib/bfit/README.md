@@ -57,7 +57,7 @@ int main()
 $ ./BF-it.py helloworld.code
 Compiling file 'helloworld.code'...
 Compiled successfully to 'helloworld.bf'
-$ cat helloworld.bf 
+$ cat helloworld.bf
 >[-]>[-]<>++++++++[-<+++++++++>]<.>++++[-<+++++++>]
 <+.+++++++..+++.>++++++[-<------------->]<-.>+++++[
 -<+++++++++++>]<.>++++[-<++++++>]<.+++.------.-----
@@ -98,4 +98,3 @@ If you found a bug, or have an idea for a feature, open an issue
 * https://introcs.cs.princeton.edu/java/11precedence/ for operator precedence
 * https://logomakr.com/ for creating a logo
 * https://www.youtube.com/ for setting the mood
-

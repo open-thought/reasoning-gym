@@ -32,7 +32,7 @@ def generate_gallery() -> str:
 
         # Add dataset header with anchor
         anchor = name.replace("_", "-").lower()
-        content.append(f"### {name} {{{anchor}}}\n")
+        content.append(f"### {name}\n")
 
         # Get dataset class docstring if available
         if dataset.__class__.__doc__:

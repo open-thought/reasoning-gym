@@ -2,9 +2,9 @@
 
 import argparse
 import os
+
 import Interpreter
-from Compiler import Compiler
-from Compiler import Minify
+from Compiler import Compiler, Minify
 
 
 def process_args():
@@ -54,5 +54,5 @@ def compile_file():
         Interpreter.brainfuck(brainfuck_code)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     compile_file()

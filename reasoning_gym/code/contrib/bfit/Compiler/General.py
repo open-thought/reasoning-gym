@@ -1,6 +1,7 @@
-from .Exceptions import BFSyntaxError, BFSemanticError
-from .Token import Token
 from functools import reduce
+
+from .Exceptions import BFSemanticError, BFSyntaxError
+from .Token import Token
 
 """
 This file holds functions that generate general Brainfuck code
@@ -126,23 +127,29 @@ def unpack_multidimensional_literal_tokens_to_array_dimensions(ID_token, array_d
     if len(array_dimensions) == 0:
         raise BFSemanticError("Tried to initialize array %s with too many nested sub-arrays" % ID_token)
     if len(literal_tokens_list) > array_dimensions[0]:
-        raise BFSemanticError("Tried to initialize array %s dimension %s with too many elements (%s)"
-                              % (ID_token, str(array_dimensions), str(len(literal_tokens_list))))
+        raise BFSemanticError(
+            "Tried to initialize array %s dimension %s with too many elements (%s)"
+            % (ID_token, str(array_dimensions), str(len(literal_tokens_list)))
+        )
 
     result = []
     for element in literal_tokens_list:
         if isinstance(element, list):
             # recursively unpack the list with the sub-dimension of the sub-array
             # E.g if we have arr[3][3][3] and then this call will fill [3][3]=9 elements
-            result.extend(unpack_multidimensional_literal_tokens_to_array_dimensions(ID_token, array_dimensions[1:], element))
+            result.extend(
+                unpack_multidimensional_literal_tokens_to_array_dimensions(ID_token, array_dimensions[1:], element)
+            )
         else:
             result.append(element)
             if len(array_dimensions) > 1:
                 dimension_size = dimensions_to_size(array_dimensions[1:])  # current size we need to fill
-                result.extend([Token(Token.NUM, 0, 0, "0")] * (dimension_size - 1))  # fill missing elements in this dimension with zeros
+                result.extend(
+                    [Token(Token.NUM, 0, 0, "0")] * (dimension_size - 1)
+                )  # fill missing elements in this dimension with zeros
 
     dimension_size = dimensions_to_size(array_dimensions)  # current size we need to fill
-    result.extend([Token(Token.NUM, 0, 0, "0")] * (dimension_size-len(result)))  # fill the result with zeros
+    result.extend([Token(Token.NUM, 0, 0, "0")] * (dimension_size - len(result)))  # fill the result with zeros
     return result
 
 
@@ -157,13 +164,20 @@ def unpack_literal_tokens_to_array_dimensions(ID_token, array_dimensions, litera
     if all(not isinstance(element, list) for element in literal_tokens_list):
         # special case - if all elements are literals, then we allow assigning them as-is and not care about dimensions
         # E.g if we have arr[3][3][3] = {1,2,3,4} then return [1,2,3,4,0,0,0,0,0]
-        unpacked_literals_list = literal_tokens_list + [Token(Token.NUM, 0, 0, "0")] * (array_size - len(literal_tokens_list))  # fill missing with zeros
+        unpacked_literals_list = literal_tokens_list + [Token(Token.NUM, 0, 0, "0")] * (
+            array_size - len(literal_tokens_list)
+        )  # fill missing with zeros
     else:
-        unpacked_literals_list = unpack_multidimensional_literal_tokens_to_array_dimensions(ID_token, array_dimensions, literal_tokens_list)
+        unpacked_literals_list = unpack_multidimensional_literal_tokens_to_array_dimensions(
+            ID_token, array_dimensions, literal_tokens_list
+        )
 
     if len(unpacked_literals_list) > array_size:
-        raise BFSemanticError("Tried to initialize array %s with incompatible amount of literals."
-                              " (array size is %s and literals size is %s)" % (ID_token, str(array_size), str(len(unpacked_literals_list))))
+        raise BFSemanticError(
+            "Tried to initialize array %s with incompatible amount of literals."
+            " (array size is %s and literals size is %s)"
+            % (ID_token, str(array_size), str(len(unpacked_literals_list)))
+        )
     assert len(unpacked_literals_list) == array_size
     return unpacked_literals_list
 
@@ -208,17 +222,19 @@ def process_switch_cases(expression_code, cases):
     code += "<"  # point to expression
 
     if all_cases_have_break:  # small optimization for evaluating the expression
-        cases = [case for case in cases if case[0] != "default"]  # remove default to be able to sort. it is handled differently
+        cases = [
+            case for case in cases if case[0] != "default"
+        ]  # remove default to be able to sort. it is handled differently
         cases.sort(key=lambda x: x[0], reverse=True)  # Can sort since correct flow is not needed
 
     """
         This loop compares the expression value to each case in the switch-case statement, in reverse order
         It does so by increasing and decreasing expression, and comparing result to 0
-        E.G. if we have 
+        E.G. if we have
             switch(x) {
                 case 2:
                 case 0:
-                case 5: 
+                case 5:
                 case 1:
             }
         x will be put in <expression> cell, then:
@@ -244,7 +260,7 @@ def process_switch_cases(expression_code, cases):
     <need_to_execute=1>
     <compare_with_1>    [
     <compare_with_5>        [
-    <compare_with_0>            [ 
+    <compare_with_0>            [
     <compare_with_2>                [
                                         <default_code> <expression_value=0> <need_to_execute=0>
                                     ]   <if need_to_execute> <code_for_2> <need_to_execute=0>
@@ -487,22 +503,22 @@ def get_bitwise_code(code_logic):
     code += "<<"  # point to a
 
     code += "["  # while a != 0:
-    code +=     "-"  # a -= 1
-    code +=     ">>-"  # c -= 1
-    code +=     "[>+>>+<<<-]>[<+>-]"  # copy c to y (using w)
-    code +=     ">>"  # point to y
-    code +=     ">>+<<"  # bit1 += 1
+    code += "-"  # a -= 1
+    code += ">>-"  # c -= 1
+    code += "[>+>>+<<<-]>[<+>-]"  # copy c to y (using w)
+    code += ">>"  # point to y
+    code += ">>+<<"  # bit1 += 1
 
-    code +=     "-["  # if y != 1:
-    code +=         "<+"  # x += 1
-    code +=         "<<++"  # c += 2 (c was 0)
-    code +=         ">" * 5  # point to bit1
-    code +=         "--"  # bit1 -= 2 (bit1 was 2)
-    code +=         "<<"  # point to y
-    code +=         "+"  # set y to 0
-    code +=     "]"  # end if
+    code += "-["  # if y != 1:
+    code += "<+"  # x += 1
+    code += "<<++"  # c += 2 (c was 0)
+    code += ">" * 5  # point to bit1
+    code += "--"  # bit1 -= 2 (bit1 was 2)
+    code += "<<"  # point to y
+    code += "+"  # set y to 0
+    code += "]"  # end if
 
-    code +=     "<<<<<"  # point to a
+    code += "<<<<<"  # point to a
     code += "]"  # end while
 
     code += ">>>>[<<<<+>>>>-]"  # move x to a (x is a/2)
@@ -510,21 +526,21 @@ def get_bitwise_code(code_logic):
     code += "<"  # point to b
 
     code += "["  # while b != 0:
-    code +=     "-"  # b -= 1
-    code +=     ">-"  # c -= 1
-    code +=     "[>+>>+<<<-]>[<+>-]"  # copy c to y (using w)
-    code +=     ">>"  # point to y
-    code +=     ">+<"  # z += 1
+    code += "-"  # b -= 1
+    code += ">-"  # c -= 1
+    code += "[>+>>+<<<-]>[<+>-]"  # copy c to y (using w)
+    code += ">>"  # point to y
+    code += ">+<"  # z += 1
 
-    code +=     "-["  # if y != 1:
-    code +=         ">--<"  # z -= 2 (z was 2)
-    code +=         "<+"  # x += 1
-    code +=         "<<++"  # c += 2 (c was 0)
-    code +=         ">>>"  # point to y
-    code +=         "+"  # set y to 0
-    code +=     "]"
+    code += "-["  # if y != 1:
+    code += ">--<"  # z -= 2 (z was 2)
+    code += "<+"  # x += 1
+    code += "<<++"  # c += 2 (c was 0)
+    code += ">>>"  # point to y
+    code += "+"  # set y to 0
+    code += "]"
 
-    code +=     "<<<<"  # point to b
+    code += "<<<<"  # point to b
     code += "]"  # end while
 
     # w is a % 2
@@ -658,14 +674,14 @@ def get_unary_prefix_op_code(token, offset_to_variable=None):
         assert token.data in ["+", "-"]
         if token.data == "+":
             # keep value as-is
-            return '>'
+            return ">"
         elif token.data == "-":
             # a temp
-            code = ">[-]" # zero temp
-            code += "<" # point to a
-            code += "[->-<]" # sub a from temp
-            code += ">" # point to temp
-            code += "[<+>-]" # copy temp to a
+            code = ">[-]"  # zero temp
+            code += "<"  # point to a
+            code += "[->-<]"  # sub a from temp
+            code += ">"  # point to temp
+            code += "[<+>-]"  # copy temp to a
             return code
     raise NotImplementedError
 
@@ -1127,7 +1143,6 @@ def get_op_boolean_operator_code(node, current_pointer):
     raise NotImplementedError
 
 
-
 def get_print_string_code(string):
     code = "[-]"  # zero the current cell
     code += ">[-]"  # zero the next cell (will be used for loop counts)
@@ -1199,6 +1214,7 @@ def get_move_left_index_cell_code():
 # =================
 #     General
 # =================
+
 
 def get_literal_token_value(token):
     # known at compilation time
