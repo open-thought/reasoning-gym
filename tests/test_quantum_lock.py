@@ -6,6 +6,7 @@ def test_quantumlock_items():
     """Test basic properties and solution of generated items"""
     config = QuantumLockConfig(
         difficulty=10,
+         size=25,
     )
     dataset = QuantumLockDataset(config)
 
@@ -19,5 +20,5 @@ def test_quantumlock_items():
         assert "solution_path" in item["metadata"]
         assert "difficulty" in item["metadata"]
 
-        assert dataset.score_answer(answer=item['metadata']['solution_path'], entry=item) == 1.0
+        assert dataset.score_answer(answer=item["metadata"]["solution_path"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
