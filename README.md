@@ -68,6 +68,7 @@ Available dataset names (which can be used with `create_dataset()`):
 'number_sorting',
 'spell_backward',
 'word_sequence_reversal',
+'word_ladder',
 'basic_arithmetic',
 'chain_sum',
 'fraction_simplification',
@@ -115,6 +116,7 @@ Available dataset names (which can be used with `create_dataset()`):
 - `SentenceReorderingDataset`: Reorder sentence after words in it have been randomly shuffled
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
+- `WordLadderDataset`: Generate word ladder puzzles where one word is transformed into another by changing one letter at a time
 
 ### <small>Cognition Tasks</small>
 
