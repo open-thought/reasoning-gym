@@ -18,6 +18,18 @@ dependencies = [
   "magiccube==0.3.0",
   "pyfiglet==1.0.2"
 ]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov=reasoning_gym"
+testpaths = [
+    "tests",
+]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: Apache Software License",
