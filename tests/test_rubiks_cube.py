@@ -49,5 +49,11 @@ def test_rubikscube_items():
         assert "example_correct_answer" in item["metadata"]
 
         assert dataset.score_answer(answer=item["metadata"]["example_correct_answer"], entry=item) == 1.0
-        assert dataset.score_answer(answer="R", entry=item) == 0.01
+        assert dataset.score_answer(answer="a wrong solution", entry=item) == 0.01
         assert dataset.score_answer(answer=None, entry=item) == 0.0
+
+        if item["metadata"]["example_correct_answer"] != "R":
+            assert dataset.score_answer(answer="R", entry=item) == 0.05
+
+        if len(item["metadata"]["example_correct_answer"]) > 0:
+            assert dataset.score_answer(answer="", entry=item) == 0.01
