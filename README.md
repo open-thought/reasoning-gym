@@ -4,28 +4,37 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
-Algorithmic verification allows to train on tasks like Rubik‘s cube or [Countdown](https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round) which have many correct solutions.
+Algorithmic verification allows to train on tasks like Rubik‘s cube or [Countdown](<https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round>) which have many correct solutions.
 
 ## Set up for development
+
 1. Clone the project
+
 ```
 git clone https://github.com/open-thought/reasoning-gym.git
 ```
+
 2. Create a virtual environment (here we use conda)
+
 ```
 conda create --name reasoning_gym python=3.11 -y
 conda activate reasoning_gym
 ```
+
 3. Link project and install dependencies
+
 ```
 pip install -e .
 ```
+
 4. Install development dependencies
+
 ```
 pip install -r requirements-dev.txt
 ```
 
->NOTE: To consume the APIs in reasoning_gym, just install from pip using the following
+> NOTE: To consume the APIs in reasoning_gym, just install from pip using the following
+
 ```
 pip install reasoning-gym
 ```
@@ -116,10 +125,16 @@ Available dataset names (which can be used with `create_dataset()`):
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
 
+### <small>Code Tasks</small>
+
+- `BFDataset`: Generates BF programs of various difficult, from simple string printing to loops and conditional logic
+
 ### <small>Cognition Tasks</small>
 
 - `NumberSequenceDataset`: Generate number sequences with discoverable patterns
 - `ColorCubeRotationDataset`: Generate 3D spatial reasoning tasks with colored cube rotations and orientation tracking
+- `RubiksCubeDataset`: Generate Rubik's Cube configurations and check correct solutions
+- `FigletFontDataset`: Generate random words in different "Figlet" fonts for reasoning about the structure of letters
 
 ### <small>Logic Tasks</small>
 
@@ -128,6 +143,7 @@ Available dataset names (which can be used with `create_dataset()`):
 ### <small>Graph Tasks</small>
 
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
+- `QuantumLockDataset`: Generates puzzles which involve stateful arithmetic and a correct sequence of operations
 
 ### <small>Game Tasks</small>
 
@@ -170,6 +186,7 @@ Example output:
 {'question': 'Solve the polynomial equation for real i:\n3*i**4 + 4*i**3 - 1 = 0', 'answer': '[]', 'metadata': {'polynomial_expr': '3*i**4 + 4*i**3 - 1', 'variable': 'i', 'degree': 4, 'real_solutions': []}}
 {'question': 'Solve the polynomial equation for real h:\n7*h**4 - 2*h**2 + h = 0', 'answer': '[-0.6998793469266564, 0.0]', 'metadata': {'polynomial_expr': '7*h**4 - 2*h**2 + h', 'variable': 'h', 'degree': 4, 'real_solutions': [-0.6998793469266564, 0.0]}}
 ```
+
 </details>
 
 <details>
@@ -205,6 +222,7 @@ Example output:
 {'question': '-22 - -94 + -97 =', 'answer': '-25', 'metadata': {'num_terms': 3, 'num_digits': 2, 'expression': '-22 - -94 + -97'}}
 {'question': '51 * 63 =', 'answer': '3213', 'metadata': {'num_terms': 2, 'num_digits': 2, 'expression': '51 * 63'}}
 ```
+
 </details>
 
 <details>
@@ -245,6 +263,7 @@ Example data:
     "metadata": { "num_terms": 2, "num_digits": 3, "expression": "426 + 562" }
 }
 ```
+
 </details>
 
 <details>
@@ -285,6 +304,7 @@ Example data:
     "metadata": {"rule": "add 6", "complexity": 1, "sequence": [8, 14, 20, 26, 32, 38, 44, 50]},
 }
 ```
+
 </details>
 
 <details>
@@ -322,6 +342,7 @@ Example data:
     }
 }
 ```
+
 </details>
 
 <details>
@@ -366,6 +387,7 @@ Example data:
     },
 }
 ```
+
 </details>
 
 <details>
@@ -419,6 +441,7 @@ Legend: '<' = Wall, 'w' = Path
 
 {'question': "Navigate from 'J' (start) to '_' (goal):\n\n<<<<<\n<<J<<\n<www<\n<<w_<\n<<<<<\nLegend: '<' = Wall, 'w' = Path\n", 'answer': '3', 'metadata': {'grid_size': 5, 'grid': ['<<<<<', '<<J<<', '<www<', '<<w_<', '<<<<<'], 'shortest_path_length': 3, 'start': 'J', 'goal': '_', 'wall': '<', 'path': 'w'}}
 ```
+
 </details>
 
 ## Future Generator Ideas
