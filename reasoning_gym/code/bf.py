@@ -37,8 +37,8 @@ class BFDataset(ProceduralDataset):
 
         Returns:
             dict with keys:
-                - question: str, the task description with figlet string
-                - answer: str, the figlet encoded word
+                - question: str, the task description with BF program
+                - answer: str, the result of this BF program BFI execution
                 - metadata: dict with generation parameters
         """
         rng = Random(self.seed + idx)
@@ -108,10 +108,9 @@ int main() {{
         return bf
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
-        """Determine if the solution provided solves the figlet task.
+        """Determine if the solution provided solves the BF task.
 
-        The function awards 1.0 for a correct answer and 0.1 points for each correct letter in the correct position,
-        with a maximum possible score of 1.0.
+        The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
