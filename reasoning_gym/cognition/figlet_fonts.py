@@ -4,7 +4,7 @@ from typing import Dict, Optional
 
 import pyfiglet
 
-from ..data.static import wordle_words
+from ..data.wordle_words import wordle_words
 from ..factory import ProceduralDataset, register_dataset
 
 
