@@ -44,12 +44,7 @@ def test_word_ladder_dataset_deterministic():
 def test_word_ladder_dataset_items():
     """Test basic properties of generated items"""
     config = WordLadderConfig(
-        min_word_length=3,
-        max_word_length=5,
-        min_chain_length=3,
-        max_chain_length=5,
-        size=10,
-        seed=42
+        min_word_length=3, max_word_length=5, min_chain_length=3, max_chain_length=5, size=10, seed=42
     )
     dataset = WordLadderDataset(config)
 
@@ -76,7 +71,7 @@ def test_word_ladder_dataset_items():
 
         # Verify solution chain from answer
         solution_chain = item["answer"].split(",")
-        
+
         # Handle chain length validation based on whether it's shortest path (-1) or specified length
         if metadata["chain_length"] == -1:
             # For shortest path, just ensure it's a valid path (we can't predict exact length)
@@ -85,7 +80,7 @@ def test_word_ladder_dataset_items():
             # For specified length, ensure it matches config constraints
             assert config.min_chain_length <= len(solution_chain) <= config.max_chain_length
             assert len(solution_chain) == metadata["chain_length"]
-        
+
         assert solution_chain[0] == metadata["start_word"]
         assert solution_chain[-1] == metadata["end_word"]
         assert all(len(word) == word_length for word in solution_chain)
@@ -144,4 +139,4 @@ def test_word_ladder_find_path():
 
 
 if __name__ == "__main__":
-    pytest.main([__file__]) 
+    pytest.main([__file__])

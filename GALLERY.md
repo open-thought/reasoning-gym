@@ -33,6 +33,7 @@ This gallery shows examples from all available datasets using their default conf
 - [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
+- [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 
@@ -710,19 +711,19 @@ size = 500
 Example tasks:
 ```
 Example 1:
-Question: How many times does the letter "w" appear in the text: "bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed"?
-Answer: 1
-Metadata: {'span_length': 15, 'target_letter': 'w', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed']}
+Question: How many times does the letter "o" appear in the text: "bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed"?
+Answer: 2
+Metadata: {'span_length': 15, 'target_letter': 'o', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed']}
 
 Example 2:
-Question: How many times does the letter "p" appear in the text: "it into a watering place"?
+Question: How many times does the letter "c" appear in the text: "it into a watering place"?
 Answer: 1
-Metadata: {'span_length': 5, 'target_letter': 'p', 'span': ['it', 'into', 'a', 'watering', 'place']}
+Metadata: {'span_length': 5, 'target_letter': 'c', 'span': ['it', 'into', 'a', 'watering', 'place']}
 
 Example 3:
-Question: How many times does the letter "t" appear in the text: "readable form accessible by the widest array of equipment including outdated"?
-Answer: 5
-Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}
+Question: How many times does the letter "o" appear in the text: "readable form accessible by the widest array of equipment including outdated"?
+Answer: 3
+Metadata: {'span_length': 11, 'target_letter': 'o', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}
 
 ```
 
@@ -1443,6 +1444,38 @@ Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are 
 
 ```
 
+### word_ladder
+Generates word ladder transformation tasks
+
+Default configuration:
+```python
+min_word_length = 3
+max_word_length = 5
+min_chain_length = -1
+max_chain_length = -1
+seed = 42
+size = 500
+```
+
+Example tasks:
+```
+Example 1:
+Question: Transform the word 'CEILS' into 'ANIGH' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.
+Answer: CEILS,TEILS,TEINS,THINS,THIGS,THIGH,AHIGH,ANIGH
+Metadata: {'start_word': 'CEILS', 'end_word': 'ANIGH', 'word_length': 5, 'chain_length': 8}
+
+Example 2:
+Question: Transform the word 'KAW' into 'EFS' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.
+Answer: KAW,KAS,EAS,EFS
+Metadata: {'start_word': 'KAW', 'end_word': 'EFS', 'word_length': 3, 'chain_length': 4}
+
+Example 3:
+Question: Transform the word 'SAUT' into 'SKER' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.
+Answer: SAUT,SHUT,SHET,SKET,SKER
+Metadata: {'start_word': 'SAUT', 'end_word': 'SKER', 'word_length': 4, 'chain_length': 5}
+
+```
+
 ### word_sequence_reversal
 Generates word sequence reversal tasks from text spans
 
@@ -1491,21 +1524,21 @@ Example tasks:
 ```
 Example 1:
 Question: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-due, ever, many, generations
-Answer: due, ever, generations, many
-Metadata: {'original_words': ['due', 'ever', 'many', 'generations'], 'transformed_words': ['due', 'ever', 'many', 'generations'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['due', 'ever', 'generations', 'many']}
+Wolcott, keep, reaching, times
+Answer: Wolcott, keep, reaching, times
+Metadata: {'original_words': ['Wolcott', 'keep', 'reaching', 'times'], 'transformed_words': ['Wolcott', 'keep', 'reaching', 'times'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Wolcott', 'keep', 'reaching', 'times']}
 
 Example 2:
 Question: Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-change, 250, young
-Answer: young, change, 250
-Metadata: {'original_words': ['change', '250', 'young'], 'transformed_words': ['change', '250', 'young'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['young', 'change', '250']}
+took, critical, condense
+Answer: took, critical, condense
+Metadata: {'original_words': ['took', 'critical', 'condense'], 'transformed_words': ['took', 'critical', 'condense'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['took', 'critical', 'condense']}
 
 Example 3:
 Question: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-industry, elementary, traverse, stepped, meals, rub, resultant, etheric, irritation
-Answer: elementary, etheric, industry, irritation, meals, resultant, rub, stepped, traverse
-Metadata: {'original_words': ['industry', 'elementary', 'traverse', 'stepped', 'meals', 'rub', 'resultant', 'etheric', 'irritation'], 'transformed_words': ['industry', 'elementary', 'traverse', 'stepped', 'meals', 'rub', 'resultant', 'etheric', 'irritation'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['elementary', 'etheric', 'industry', 'irritation', 'meals', 'resultant', 'rub', 'stepped', 'traverse']}
+apartment, yellow, Just, pleasure, collapse, different, purchasers, taking, opening
+Answer: Just, apartment, collapse, different, opening, pleasure, purchasers, taking, yellow
+Metadata: {'original_words': ['apartment', 'yellow', 'Just', 'pleasure', 'collapse', 'different', 'purchasers', 'taking', 'opening'], 'transformed_words': ['apartment', 'yellow', 'Just', 'pleasure', 'collapse', 'different', 'purchasers', 'taking', 'opening'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Just', 'apartment', 'collapse', 'different', 'opening', 'pleasure', 'purchasers', 'taking', 'yellow']}
 
 ```
 

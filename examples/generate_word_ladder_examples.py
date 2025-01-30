@@ -1,48 +1,50 @@
 # generates dataset of word ladder examples, and then generates simulated chain of thought reasoning for each example
 
-import reasoning_gym
-from openai import OpenAI
 import os
+
+from openai import OpenAI
+
+import reasoning_gym
 
 # Configuration for the dataset
 config = {
-    'dataset_name': 'word_ladder',
-    'dataset_config': {
-        'min_word_length': 5,
-        'max_word_length': 5,
-        'min_chain_length':3, # set to -1 for shortest possible path, increase to generate more examples
-        'max_chain_length':5,
-        'size': 1,  # Generate a small dataset for demonstration
-    }
+    "dataset_name": "word_ladder",
+    "dataset_config": {
+        "min_word_length": 5,
+        "max_word_length": 5,
+        "min_chain_length": 3,  # set to -1 for shortest possible path, increase to generate more examples
+        "max_chain_length": 5,
+        "size": 1,  # Generate a small dataset for demonstration
+    },
 }
 
-system_prompt = """Word Ladder puzzles involve transforming a start word into an end word. 
-You are allowed to change only one letter a time and you must keep the number of letters constant. 
-Each time you change one letter the word in the chain must be forming one that's valid in English. 
-Plurals are allowed, but not proper nouns. 
+system_prompt = """Word Ladder puzzles involve transforming a start word into an end word.
+You are allowed to change only one letter a time and you must keep the number of letters constant.
+Each time you change one letter the word in the chain must be forming one that's valid in English.
+Plurals are allowed, but not proper nouns.
 Given a start and an end word, generate a detailed step-by-step chain of thought reasoning of the transformation process.
 You will be given the word ladder question, as well as the correct solution path. So you don't need to solve the problem, you have the solution.
-Your task is to provide a perfectly simulated chain of thought reasoning exactly in the style of the example below, 
-including considering multiple possibilities, validating words, and showing the final path. 
+Your task is to provide a perfectly simulated chain of thought reasoning exactly in the style of the example below,
+including considering multiple possibilities, validating words, and showing the final path.
 Use casual, verbose thinking with markdown formatting.
-Example chain of thought reasoning: 
+Example chain of thought reasoning:
 {sample_CoT}
 """
 
 # sample CoT for demonstration, extracted from real inference data from deepseek r1
-sample_CoT = """ 
-Word Ladder puzzles involve transforming a start word into an end word. 
-You are allowed to change only one letter a time and you must keep the number of letters constant. 
-Each time you change one letter the word in the chain must be forming one that's valid in English. 
-Plurals are allowed, but not proper nouns. 
+sample_CoT = """
+Word Ladder puzzles involve transforming a start word into an end word.
+You are allowed to change only one letter a time and you must keep the number of letters constant.
+Each time you change one letter the word in the chain must be forming one that's valid in English.
+Plurals are allowed, but not proper nouns.
 Given a start and an end word, generate a detailed step-by-step chain of thought reasoning of the transformation process.
 You will be given the word ladder question, as well as the correct solution path. So you don't need to solve the problem, you have the solution already, which should be your 'cheat sheet' to refer to as you go along.
-Your task is to provide a perfectly simulated chain of thought reasoning exactly in the style of the example below, 
-including considering multiple possibilities, validating words, and showing the final path. 
+Your task is to provide a perfectly simulated chain of thought reasoning exactly in the style of the example below,
+including considering multiple possibilities, validating words, and showing the final path.
 Use casual, verbose thinking with markdown formatting.
 VERY IMPORTANT ***NEVER MENTION YOU HAVE BEEN PROVIDED WITH THE ANSWER, YOU NEED TO WRITE ONLY AS IF YOU'RE SOLVING THE QUESTION STEP BY STEP ***
 
-Example chain of thought reasoning: 
+Example chain of thought reasoning:
 <think>
 Okay, so I need to figure out how to transform the word "CARK" into "ZIPS" by changing one letter at a time, making sure each intermediate step is a valid English word. Let me start by breaking down the problem.
 
@@ -177,44 +179,37 @@ Yes, that's four steps, each changing one letter, all words are valid. So that s
 """
 
 client = OpenAI(
-  base_url="https://openrouter.ai/api/v1", # openrouter used in this example
-  api_key=os.environ["OPENROUTER_API_KEY"], # set your key in environment variable
+    base_url="https://openrouter.ai/api/v1",  # openrouter used in this example
+    api_key=os.environ["OPENROUTER_API_KEY"],  # set your key in environment variable
 )
 
 
 def generate_cot(question: str, answer: str) -> str:
     """Generate chain of thought reasoning for word ladder"""
-    prompt = f"""The question is {question}. The correct solution is {answer}. 
+    prompt = f"""The question is {question}. The correct solution is {answer}.
     Provide the verbose chain of thought reasoning to transform the start word into the end word exactly in the style and length required."""
-    
+
     completion = client.chat.completions.create(
-        model="microsoft/phi-4", # choose model
-        messages=[
-            {
-                "role": "system",
-                "content": system_prompt
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
+        model="microsoft/phi-4",  # choose model
+        messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": prompt}],
         temperature=0.6,
-        max_tokens=10000
+        max_tokens=10000,
     )
     return completion.choices[0].message.content
+
+
 # Create the word ladder dataset
-dataset = reasoning_gym.create_dataset(config['dataset_name'], **config['dataset_config'])
+dataset = reasoning_gym.create_dataset(config["dataset_name"], **config["dataset_config"])
 print(f"Generated {len(dataset)} examples, moving on to generate CoT reasoning...")
 # Generate and print examples with CoT
 for item in dataset:
     # Generate CoT reasoning demo
 
-    item['reasoning'] = generate_cot(item['question'],item['answer'])
-    
+    item["reasoning"] = generate_cot(item["question"], item["answer"])
+
     print("\n--- Example ---")
-    print("Question:", item['question'])
-    print("Answer:", item['answer'])
+    print("Question:", item["question"])
+    print("Answer:", item["answer"])
     print("\nChain of Thought:")
-    print(item['reasoning'])
-    print("\nMetadata:", item['metadata']) 
+    print(item["reasoning"])
+    print("\nMetadata:", item["metadata"])
