@@ -4,6 +4,8 @@ We are building a python library of procedural dataset generators and algorithmi
 
 The goal is to generate virtually infinite data with adjustable complexity.
 
+Algorithmic verification allows to train on tasks like Rubik‘s cube or [Countdown](https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round) which have many correct solutions.
+
 ## Set up for development
 1. Clone the project
 ```
@@ -38,6 +40,8 @@ data = reasoning_gym.create_dataset('leg_counting', size=10, seed=42)
 for i, x in enumerate(data):
     print(f'{i}: q="{x['question']}", a="{x['answer']}"')
     print('metadata:', x['metadata'])
+    # use the dataset's `score_answer` method for algorithmic verification
+    assert data.score_answer(answer=x['answer'], entry=x) == 1.0
 ```
 
 Output:

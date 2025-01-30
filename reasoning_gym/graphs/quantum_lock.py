@@ -1,7 +1,7 @@
-from dataclasses import dataclass
 import re
-from random import Random
 from collections import deque
+from dataclasses import dataclass
+from random import Random
 from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset

@@ -1,4 +1,5 @@
 import pytest
+
 from reasoning_gym.graphs.quantum_lock import QuantumLockConfig, QuantumLockDataset
 
 
@@ -53,20 +54,20 @@ def test_quantumlock_button_states():
 
     for item in dataset:
         buttons = item["metadata"]["buttons"]
-        
+
         # Check button properties
         for btn in buttons:
             assert "name" in btn
             assert "type" in btn
             assert "value" in btn
             assert "active_state" in btn
-            
+
             # Verify button name format
             assert btn["name"] in ["A", "B", "C"]
-            
+
             # Verify operation type
             assert btn["type"] in ["add", "subtract", "multiply"]
-            
+
             # Verify state constraints
             assert btn["active_state"] in ["red", "green", "any"]
 
@@ -79,19 +80,16 @@ def test_quantumlock_solution_validation():
     for item in dataset:
         solution = item["metadata"]["solution_path"]
         target = item["metadata"]["target_value"]
-        
+
         # Test solution simulation
-        final_value = dataset.simulate_sequence(
-            item["metadata"],
-            solution
-        )
+        final_value = dataset.simulate_sequence(item["metadata"], solution)
         assert final_value == target
 
         # Test invalid button sequences
-        assert dataset.simulate_sequence(
-            item["metadata"],
-            ["X", "Y", "Z"]  # Invalid buttons
-        ) == item["metadata"]["initial_value"]
+        assert (
+            dataset.simulate_sequence(item["metadata"], ["X", "Y", "Z"])  # Invalid buttons
+            == item["metadata"]["initial_value"]
+        )
 
 
 def test_quantumlock_scoring():
@@ -101,17 +99,17 @@ def test_quantumlock_scoring():
 
     for item in dataset:
         solution = item["metadata"]["solution_path"]
-        
+
         # Test correct solution
         assert dataset.score_answer(solution, item) == 1.0
-        
+
         # Test empty/None answers
         assert dataset.score_answer(None, item) == 0.0
         assert dataset.score_answer("", item) == 0.1
-        
+
         # Test invalid buttons
         assert dataset.score_answer("XYZ", item) == 0.1
-        
+
         # Test case insensitivity
         if solution:
             lower_solution = "".join(solution).lower()
