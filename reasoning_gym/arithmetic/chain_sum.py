@@ -19,6 +19,9 @@ class ChainSumConfig:
 
     def validate(self) -> None:
         """Validate configuration parameters"""
+        assert self.difficulty > 0, "difficulty must be positive"
+        assert self.size > 0, "size must be positive"
+        """Validate configuration parameters"""
         assert self.min_terms > 0, "min_terms must be positive"
         assert self.max_terms >= self.min_terms, "max_terms must be >= min_terms"
         assert self.min_digits > 0, "min_digits must be positive"
