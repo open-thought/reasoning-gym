@@ -55,37 +55,7 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 ...
 ```
 
-Available dataset names (which can be used with `create_dataset()`):
-
-```
-'polynomial_equations',
-'simple_equations',
-'base_conversion',
-'caesar_cipher',
-'letter_counting',
-'letter_jumble',
-'number_filtering',
-'number_sorting',
-'spell_backward',
-'word_sequence_reversal',
-'word_ladder',
-'basic_arithmetic',
-'chain_sum',
-'fraction_simplification',
-'gcd',
-'lcm',
-'leg_counting',
-'prime_factorization',
-'color_cube_rotation',
-'number_sequence',
-'countdown',
-'maze',
-'mini_sudoku',
-'sudoku',
-'family_relationships',
-'propositional_logic',
-'syllogism',
-```
+See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets with examples.
 
 ## Task Overview
 
