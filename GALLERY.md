@@ -42,17 +42,17 @@ This gallery shows examples from all available datasets using their default conf
 Generates base conversion tasks
 
 Default configuration:
-```python
+````python
 min_base = 2
 max_base = 16
 min_value = 0
 max_value = 1000
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Convert the base-3 number 28e to binary
 Answer: 1010001110
@@ -68,13 +68,13 @@ Question: Convert the base-10 number 1a2 to base-13 (use lowercase letters a-z f
 Answer: 1a2
 Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '1a2', 'target_repr': '1a2'}
 
-```
+````
 
 ### basic_arithmetic
 Dataset that generates basic arithmetic tasks with configurable complexity
 
 Default configuration:
-```python
+````python
 min_terms = 2
 max_terms = 6
 min_digits = 1
@@ -86,10 +86,10 @@ seed = 42
 size = 500
 format_style = simple
 whitespace = single
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: -5 * -6 =
 Answer: 30
@@ -105,20 +105,20 @@ Question: 0 + -2 + -4 * 0 * 3 =
 Answer: -2
 Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
 
-```
+````
 
 ### bf
 Generates BF tasks
 
 Default configuration:
-```python
+````python
 seed = 42
 size = 500
 difficulty = 1
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: This is a BF (Brainf*ck) computer program. What is the output? 
 
@@ -140,13 +140,13 @@ Question: This is a BF (Brainf*ck) computer program. What is the output?
 Answer: under
 Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program': '>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<'}
 
-```
+````
 
 ### caesar_cipher
 Generates Caesar cipher encryption/decryption tasks
 
 Default configuration:
-```python
+````python
 delimiter = .
 min_words = 3
 max_words = 20
@@ -154,10 +154,10 @@ min_rotation = 1
 max_rotation = 25
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Decrypt this Caesar cipher text: JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP
 Answer: IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO
@@ -173,13 +173,13 @@ Question: Decrypt this Caesar cipher text: ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV 
 Answer: IF YOUR STOMACH IS OUT OF IT MUST BE MENDED
 Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU', 'clear_text': 'IF YOUR STOMACH IS OUT OF IT MUST BE MENDED'}
 
-```
+````
 
 ### chain_sum
 Generates simple arithmetic tasks using only + and - operators
 
 Default configuration:
-```python
+````python
 min_terms = 2
 max_terms = 6
 min_digits = 1
@@ -187,10 +187,10 @@ max_digits = 4
 allow_negation = False
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: 4 + 3 =
 Answer: 7
@@ -206,21 +206,21 @@ Question: 2 + 6 + 3 + 4 + 0 =
 Answer: 15
 Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}
 
-```
+````
 
 ### color_cube_rotation
 Generates color cube rotation reasoning tasks
 
 Default configuration:
-```python
+````python
 min_rotations = 1
 max_rotations = 3
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: A cube has:
 - a pink top side
@@ -274,13 +274,13 @@ What is now the color of the left side of the cube?
 Answer: gold
 Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
 
-```
+````
 
 ### countdown
 Generates Countdown Number Game tasks
 
 Default configuration:
-```python
+````python
 min_numbers = 4
 max_numbers = 6
 min_value = 1
@@ -291,10 +291,10 @@ operators = ('+', '-', '*', '/')
 shuffle = True
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Calculate 139 using the numbers 36, 29, 95, 32, 4, 15.
 Each number may be used at most once.
@@ -313,23 +313,23 @@ You can only use each number once.
 Answer: 41*14 - 81 - 38 - 5
 Metadata: {'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 - 81 - 38 - 5'}
 
-```
+````
 
 ### family_relationships
 Generates family relationship reasoning tasks
 
 Default configuration:
-```python
+````python
 min_family_size = 4
 max_family_size = 8
 male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Peter', 'Daniel', 'Matthew', 'Christopher', 'Andrew', 'George', 'Edward', 'Benjamin', 'Henry', 'Samuel', 'Alexander', 'Oliver', 'Jack', 'Harry', 'Jacob', 'Noah', 'Ethan', 'Lucas', 'Mason', 'Logan', 'Sebastian', 'Theodore', 'Owen', 'Liam', 'Aiden', 'Kai', 'Jayden', 'Zion', 'Phoenix', 'Atlas', 'Axel', 'Ryder', 'Finn']
 female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen', 'Emma', 'Lisa', 'Anna', 'Margaret', 'Victoria', 'Charlotte', 'Sophia', 'Isabella', 'Olivia', 'Ava', 'Mia', 'Emily', 'Abigail', 'Amelia', 'Eleanor', 'Grace', 'Alice', 'Lucy', 'Chloe', 'Sophie', 'Lily', 'Hannah', 'Zoe', 'Luna', 'Nova', 'Aria', 'Willow', 'Aurora', 'Sage', 'River', 'Winter', 'Sky', 'Rain']
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: John is married to Isabella. They have a child called Edward. Edward is married to Victoria.
 
@@ -351,22 +351,22 @@ What is Liam to Noah?
 Answer: father
 Metadata: {'person1': 'Liam', 'person2': 'Noah', 'relationship': 'father', 'family_size': 7}
 
-```
+````
 
 ### figlet_font
 Generates FigletFont tasks
 
 Default configuration:
-```python
+````python
 static_word = None
 static_font = None
 space_letters = True
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Please read the following figlet font:
 
@@ -415,13 +415,13 @@ Question: What word does this say?
 Answer: UNDER
 Metadata: {'font': 'xcourb', 'space_letters': True}
 
-```
+````
 
 ### fraction_simplification
 Generates fraction simplification tasks
 
 Default configuration:
-```python
+````python
 min_value = 1
 max_value = 1000
 min_factor = 1
@@ -429,10 +429,10 @@ max_factor = 100
 styles = ('plain', 'latex_inline', 'latex_frac', 'latex_dfrac')
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Simplify the fraction $\frac{92}{524}$ to its lowest terms
 Answer: $\frac{23}{131}$
@@ -448,23 +448,23 @@ Question: Simplify the fraction 29330/37310 to its lowest terms
 Answer: 419/533
 Metadata: {'numerator': 29330, 'denominator': 37310, 'simplified_numerator': 419, 'simplified_denominator': 533, 'reduction_factor': 70, 'style': 'plain'}
 
-```
+````
 
 ### game_of_life
 Generates Game of Life games with configurable parameters
 
 Default configuration:
-```python
+````python
 grid_size_x = 20
 grid_size_y = 20
 filled_cells = 100
 simulation_steps = 1
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: What will this Game of Life board look like after 1 steps of simulation?
 
@@ -600,23 +600,23 @@ Answer: [[1 0 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 1]
  [0 0 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0]]
 Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulation_steps': 1}
 
-```
+````
 
 ### gcd
 Generates Greatest Common Divisor (GCD) tasks
 
 Default configuration:
-```python
+````python
 min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 1000
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 26, 760
 Answer: 2
@@ -632,23 +632,23 @@ Question: Find the Greatest Common Divisor (GCD) of these numbers: 297, 30
 Answer: 3
 Metadata: {'numbers': [297, 30], 'result': 3}
 
-```
+````
 
 ### lcm
 Generates Least Common Multiple (LCM) tasks
 
 Default configuration:
-```python
+````python
 min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 100
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Find the Least Common Multiple (LCM) of these numbers: 95, 14
 Answer: 1330
@@ -664,22 +664,22 @@ Question: Find the Least Common Multiple (LCM) of these numbers: 38, 4
 Answer: 76
 Metadata: {'numbers': [38, 4], 'result': 76}
 
-```
+````
 
 ### leg_counting
 Generates leg counting arithmetic tasks
 
 Default configuration:
-```python
+````python
 min_animals = 2
 max_animals = 5
 max_instances = 3
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: How many legs are there in total if you have 1 sea slug, 1 deer?
 Answer: 4
@@ -695,21 +695,21 @@ Question: How many legs are there in total if you have 1 crab, 2 lobsters, 1 hum
 Answer: 42
 Metadata: {'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1}, 'total_legs': 42}
 
-```
+````
 
 ### letter_counting
 Generates letter counting tasks from text spans
 
 Default configuration:
-```python
+````python
 min_words = 5
 max_words = 15
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: How many times does the letter "a" appear in the text: "bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed"?
 Answer: 6
@@ -725,13 +725,13 @@ Question: How many times does the letter "t" appear in the text: "readable form 
 Answer: 5
 Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}
 
-```
+````
 
 ### letter_jumble
 Generates word letter jumbling tasks
 
 Default configuration:
-```python
+````python
 min_word_len = 1
 max_word_len = 64
 min_words = 3
@@ -741,10 +741,10 @@ max_corruption_level = 0.9
 consecutive_words = True
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Unscramble these words: ew hsall eb ebla ot puodrce
 Answer: we shall be able to produce
@@ -760,24 +760,24 @@ Question: Unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks 
 Answer: dear Archibald keep on Since yesterday thanks to you there is a gain of subscribers Mr
 Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_words': ['dear', 'rchAdbali', 'keep', 'no', 'nSice', 'yrstyedae', 'atnhks', 'ot', 'oyu', 'rheet', 'si', 'a', 'gain', 'fo', 'sucrbbisesr', 'rM'], 'original_words': ['dear', 'Archibald', 'keep', 'on', 'Since', 'yesterday', 'thanks', 'to', 'you', 'there', 'is', 'a', 'gain', 'of', 'subscribers', 'Mr']}
 
-```
+````
 
 ### maze
 Generates mazes with guaranteed shortest path distance from start to goal
     within [min_dist, max_dist].
 
 Default configuration:
-```python
+````python
 min_dist = 5
 max_dist = 10
 min_grid_size = 5
 max_grid_size = 10
 seed = 42
 size = 50
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Navigate from '3' (start) to 'z' (goal):
 
@@ -790,8 +790,8 @@ Question: Navigate from '3' (start) to 'z' (goal):
 >>ez>3e>>
 >eee>e>e>
 >eeeee>e>
->>>>>>>>>```
-
+>>>>>>>>>
+```
 Legend: '>' = Wall, 'e' = Passage
 
 What is the minimum number of steps to reach the goal?
@@ -808,8 +808,8 @@ Question: Navigate from '`' (start) to 'i' (goal):
 4A4AA44
 44AAAA4
 44A`444
-4444444```
-
+4444444
+```
 Legend: '4' = Wall, 'A' = Passage
 
 What is the minimum number of steps to reach the goal?
@@ -826,29 +826,29 @@ QQ`%Q%Q
 Q%%Q%%Q
 Q%%%Q%Q
 Q%QQ%(Q
-QQQQQQQ```
-
+QQQQQQQ
+```
 Legend: 'Q' = Wall, '%' = Passage
 
 What is the minimum number of steps to reach the goal?
 Answer: 8
 Metadata: {'grid_size': 7, 'grid': ['QQQQQQQ', 'QQ%%%%Q', 'QQ`%Q%Q', 'Q%%Q%%Q', 'Q%%%Q%Q', 'Q%QQ%(Q', 'QQQQQQQ'], 'shortest_path_length': 8, 'start': '(', 'goal': '`', 'wall': 'Q', 'path': '%'}
 
-```
+````
 
 ### mini_sudoku
 Generates 4x4 sudoku puzzles with configurable difficulty
 
 Default configuration:
-```python
+````python
 min_empty = 8
 max_empty = 12
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Solve this 4x4 Mini Sudoku puzzle:
 _ _ _ _
@@ -885,13 +885,13 @@ Answer: 2 4 1 3
 4 2 3 1
 Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 1, 2, 4], [4, 0, 0, 0]], 'solution': [[2, 4, 1, 3], [1, 3, 4, 2], [3, 1, 2, 4], [4, 2, 3, 1]], 'num_empty': 8}
 
-```
+````
 
 ### number_filtering
 Generates number filtering tasks
 
 Default configuration:
-```python
+````python
 min_numbers = 3
 max_numbers = 10
 min_decimals = 0
@@ -900,10 +900,10 @@ min_value = -100.0
 max_value = 100.0
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Keep all numbers larger than -90 in this list: ['-95.00', '-51.0', '47.2942', '-82.612']
 Answer: ['-51.0', '47.2942', '-82.612']
@@ -919,13 +919,13 @@ Question: Keep all numbers larger than 19.8962 in this list: ['4', '-64.7', '-42
 Answer: ['37.76', '38.702']
 Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34'], 'filter_value': '19.8962', 'operation': 'keep_larger', 'result': ['37.76', '38.702']}
 
-```
+````
 
 ### number_sequence
 Generates number sequence completion tasks with dynamic pattern generation
 
 Default configuration:
-```python
+````python
 min_terms = 4
 max_terms = 8
 min_value = -100
@@ -933,10 +933,10 @@ max_value = 100
 max_complexity = 3
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: 3, 6, 12, 24, 48, 96, 192, 384, ?
 Answer: 768
@@ -952,13 +952,13 @@ Question: 8, 4, 2, 1, 0, 0, 0, ?
 Answer: 0
 Metadata: {'rule': 'halve', 'complexity': 2, 'sequence': [8, 4, 2, 1, 0, 0, 0, 0]}
 
-```
+````
 
 ### number_sorting
 Generates number sorting tasks
 
 Default configuration:
-```python
+````python
 min_numbers = 3
 max_numbers = 10
 min_decimals = 0
@@ -967,10 +967,10 @@ min_value = -100.0
 max_value = 100.0
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Sort these numbers in ascending order: 48, -51, -72, -80
 Answer: ['-80', '-72', '-51', '48']
@@ -986,7 +986,7 @@ Question: Sort these numbers in descending order: 8.39, 72.41, -64.67, -54.97, -
 Answer: ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']
 Metadata: {'original_numbers': ['8.39', '72.41', '-64.67', '-54.97', '-94.18', '-76.67', '-98.24', '-68.66', '2.74'], 'direction': 'descending', 'sorted_numbers': ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']}
 
-```
+````
 
 ### polynomial_equations
 Generates random polynomial equations of degree in [min_degree, max_degree].
@@ -995,7 +995,7 @@ Generates random polynomial equations of degree in [min_degree, max_degree].
     - The solution may be real or complex; we filter real solutions by default for simplicity.
 
 Default configuration:
-```python
+````python
 min_terms = 2
 max_terms = 4
 min_value = 1
@@ -1005,10 +1005,10 @@ max_degree = 3
 operators = ('+', '-')
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Find the real value(s) of u in the equation: -127*u = 0
 Answer: [0.0]
@@ -1024,21 +1024,21 @@ Question: Determine the real value(s) of n tha satisfies: 71*n**3 - 2*n - 29 = 0
 Answer: [0.7546129960163634]
 Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3, 'real_solutions': [0.7546129960163634]}
 
-```
+````
 
 ### prime_factorization
 Generates prime factorization tasks
 
 Default configuration:
-```python
+````python
 min_value = 2
 max_value = 1000
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Find the prime factorization of 656. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
 Answer: 2 × 2 × 2 × 2 × 41
@@ -1054,13 +1054,13 @@ Question: Find the prime factorization of 420. Write the factors separated by ×
 Answer: 2 × 2 × 3 × 5 × 7
 Metadata: {'number': 420, 'factors': [2, 2, 3, 5, 7]}
 
-```
+````
 
 ### propositional_logic
 Generates propositional logic reasoning tasks
 
 Default configuration:
-```python
+````python
 min_vars = 2
 max_vars = 4
 min_statements = 2
@@ -1068,10 +1068,10 @@ max_statements = 4
 max_complexity = 3
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Given:
 1. R
@@ -1099,20 +1099,20 @@ What can we conclude?
 Answer: (Q ∧ Q)
 Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q ↔ R) → ¬Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}
 
-```
+````
 
 ### quantum_lock
 Generates QuantumLock tasks
 
 Default configuration:
-```python
+````python
 difficulty = 10
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
 You must press the shortest correct sequence of buttons to reach the target value.
@@ -1152,22 +1152,22 @@ C: Add 2 (when any)
 Answer: B → B → B → B → B → B → B → B → B → B → B → B → B → B → B
 Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], 'target_value': 45, 'buttons': [{'name': 'A', 'type': 'subtract', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 3, 'active_state': 'any'}, {'name': 'C', 'type': 'add', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
 
-```
+````
 
 ### rubiks_cube
 Generates RubiksCube tasks
 
 Default configuration:
-```python
+````python
 scramble_steps = 3
 cube_size = 3
 remove_ansi = True
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 
@@ -1222,21 +1222,21 @@ Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
 Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'example_correct_answer': "R R U'"}
 
-```
+````
 
 ### sentence_reordering
 Generates sentence reordering tasks from text spans
 
 Default configuration:
-```python
+````python
 min_words_in_sentence = 3
 max_words_in_sentence = 20
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Restore the correct order of words in the following sentence: wish could get I sleep. "I some
 Answer: "I wish I could get some sleep.
@@ -1252,13 +1252,13 @@ Question: Restore the correct order of words in the following sentence: develope
 Answer: For ages the the energy developed by falls went unutilized.
 Metadata: {'word_count': 10}
 
-```
+````
 
 ### simple_equations
 Generates simple equations with one variable to solve
 
 Default configuration:
-```python
+````python
 min_terms = 2
 max_terms = 4
 min_value = 1
@@ -1266,10 +1266,10 @@ max_value = 100
 operators = ('+', '-', '*')
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Determine the value of u that satisfies: 32*u + 4 = 580
 Answer: 18
@@ -1285,20 +1285,20 @@ Question: Determine the value of n that satisfies: 29*n - 5 = 430
 Answer: 15
 Metadata: {'equation': '29*n - 5 = 430', 'variable': 'n'}
 
-```
+````
 
 ### spell_backward
 Generates tasks to spell words backward
 
 Default configuration:
-```python
+````python
 min_word_len = 3
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Spell this word backward (example: sun -> nus): Project
 Answer: tcejorP
@@ -1314,21 +1314,21 @@ Question: Spell this word backward (example: sun -> nus): One
 Answer: enO
 Metadata: {'word': 'One', 'word_len': 3}
 
-```
+````
 
 ### sudoku
 Generates sudoku puzzles with configurable difficulty
 
 Default configuration:
-```python
+````python
 min_empty = 30
 max_empty = 50
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Solve this Sudoku puzzle:
 4 _ _ _ 5 2 _ 3 _
@@ -1395,13 +1395,13 @@ Answer: 5 6 1 2 3 7 8 4 9
 4 1 9 5 2 8 3 6 7
 Metadata: {'puzzle': [[0, 0, 1, 2, 3, 0, 0, 0, 9], [3, 0, 0, 1, 8, 5, 6, 7, 2], [0, 0, 0, 4, 9, 6, 1, 0, 0], [1, 0, 5, 7, 0, 0, 9, 2, 0], [0, 4, 0, 0, 5, 9, 7, 1, 6], [9, 0, 6, 0, 1, 0, 4, 5, 3], [0, 0, 3, 9, 7, 0, 2, 8, 4], [0, 0, 2, 6, 4, 0, 0, 9, 1], [0, 1, 0, 5, 2, 8, 3, 0, 0]], 'solution': [[5, 6, 1, 2, 3, 7, 8, 4, 9], [3, 9, 4, 1, 8, 5, 6, 7, 2], [8, 2, 7, 4, 9, 6, 1, 3, 5], [1, 3, 5, 7, 6, 4, 9, 2, 8], [2, 4, 8, 3, 5, 9, 7, 1, 6], [9, 7, 6, 8, 1, 2, 4, 5, 3], [6, 5, 3, 9, 7, 1, 2, 8, 4], [7, 8, 2, 6, 4, 3, 5, 9, 1], [4, 1, 9, 5, 2, 8, 3, 6, 7]], 'num_empty': 33}
 
-```
+````
 
 ### syllogism
 Generates syllogism reasoning tasks
 
 Default configuration:
-```python
+````python
 terms = None
 allow_all = True
 allow_no = True
@@ -1411,10 +1411,10 @@ include_invalid = True
 invalid_ratio = 0.3
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Consider these statements:
 1. No students are humans
@@ -1448,23 +1448,23 @@ Some ... are not butterflies are whales?
 Answer: No
 Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some ... are not butterflies are whales', 'is_valid': False}
 
-```
+````
 
 ### word_ladder
 Generates word ladder transformation tasks
 
 Default configuration:
-```python
+````python
 min_word_length = 3
 max_word_length = 5
 min_chain_length = -1
 max_chain_length = -1
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Transform the word 'CEILS' into 'ANIGH' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.
 Answer: CEILS,TEILS,TEINS,THINS,THIGS,THIGH,AHIGH,ANIGH
@@ -1480,21 +1480,21 @@ Question: Transform the word 'SAUT' into 'SKER' by changing one letter at a time
 Answer: SAUT,SHUT,SHET,SKET,SKER
 Metadata: {'start_word': 'SAUT', 'end_word': 'SKER', 'word_length': 4, 'chain_length': 5}
 
-```
+````
 
 ### word_sequence_reversal
 Generates word sequence reversal tasks from text spans
 
 Default configuration:
-```python
+````python
 min_words = 3
 max_words = 8
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Reverse this list of words: bed, if, problem, but, Well, an, transmission, nutritive
 Answer: nutritive, transmission, an, Well, but, problem, if, bed
@@ -1510,13 +1510,13 @@ Question: Reverse this list of words: readable, to, he, that, to, possession
 Answer: possession, to, that, he, to, readable
 Metadata: {'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'possession']}
 
-```
+````
 
 ### word_sorting
 Generates word sorting tasks
 
 Default configuration:
-```python
+````python
 min_words = 3
 max_words = 10
 min_word_length = 3
@@ -1524,10 +1524,10 @@ max_word_length = 12
 transformation = original
 seed = 42
 size = 500
-```
+````
 
 Example tasks:
-```
+````
 Example 1:
 Question: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
 DIRECT, given, exclaims, dreaming
@@ -1546,6 +1546,6 @@ violates, yes, already, completing, pages, duty, his, EXPRESS, duly
 Answer: EXPRESS, already, completing, duly, duty, his, pages, violates, yes
 Metadata: {'original_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'transformed_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['EXPRESS', 'already', 'completing', 'duly', 'duty', 'his', 'pages', 'violates', 'yes']}
 
-```
+````
 
 

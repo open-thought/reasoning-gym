@@ -46,7 +46,7 @@ def generate_gallery() -> str:
 
         # Show examples
         content.append("Example tasks:\n")
-        content.append("```\n")
+        content.append("````\n")
         for i, item in enumerate(dataset):
             if i >= 3:
                 break
@@ -56,7 +56,7 @@ def generate_gallery() -> str:
             if item.get("metadata"):
                 content.append(f"Metadata: {item['metadata']}\n")
             content.append("\n")
-        content.append("```\n\n")
+        content.append("````\n\n")
 
     return "".join(content)
 
