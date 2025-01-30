@@ -15,6 +15,11 @@ class QuantumLockConfig:
     seed: Optional[int] = None
     size: int = 500
 
+    def validate(self) -> None:
+        """Validate configuration parameters"""
+        assert self.difficulty > 0, "difficulty must be positive"
+        assert self.size > 0, "size must be positive"
+
 
 class QuantumLockDataset(ProceduralDataset):
     """Generates QuantumLock tasks"""
