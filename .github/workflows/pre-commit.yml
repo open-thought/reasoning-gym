@@ -13,3 +13,19 @@ jobs:
       with:
         python-version: '3.11'
     - uses: pre-commit/action@v3.0.0
+      id: precommit
+      continue-on-error: true
+    - name: Comment on PR if pre-commit failed
+      if: steps.precommit.outcome == 'failure'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '❌ Pre-commit checks failed. Please run `pre-commit run --all-files` locally and fix the issues.'
+          })
+    - name: Exit with pre-commit status
+      if: steps.precommit.outcome == 'failure'
+      run: exit 1
