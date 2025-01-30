@@ -102,21 +102,24 @@ class RubiksCubeDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
         """Determine if the solution provided solves the cube"""
+        answer = answer.strip()
 
         reward = 0.0
-        if answer is not None:
-
+        if answer is not None and len(answer) > 0:
             # Reconstruct the test cube
             eval_cube = Cube(entry["metadata"]["cube_size"])
             eval_cube.rotate(entry["metadata"]["scramble_moves"])
 
             # Test the solution
-            eval_cube.rotate(answer)
-            solved = eval_cube.is_done()
+            try:
+                eval_cube.rotate(answer)
+                solved = eval_cube.is_done()
 
-            if solved:
-                reward = 1.0
-            else:
+                if solved:
+                    reward = 1.0
+                else:
+                    reward = 0.1  # Incorrect, but rotate could parse the answer
+            except:
                 reward = 0.01  # At least you tried
 
         return reward
