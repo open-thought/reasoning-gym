@@ -15,6 +15,12 @@ class BFConfig:
 
     seed: Optional[int] = None
     size: int = 500
+    difficulty: int = 1
+
+    def validate(self) -> None:
+        """Validate configuration parameters"""
+        assert self.difficulty > 0, "difficulty must be greater than 0"
+        assert self.difficulty < 4, "difficulty must be less than 4"
 
 
 class BFDataset(ProceduralDataset):
@@ -37,9 +43,8 @@ class BFDataset(ProceduralDataset):
         """
         rng = Random(self.seed + idx)
 
-        bfit_code = self.generate_bfit_code(rng)
+        bfit_code = self.generate_bfit_code(self.config.difficulty, rng)
         bf_program = self.compile_bfit_code_to_bf(bfit_code)
-
         result = bfi.interpret(bf_program, buffer_output=True)
 
         return {
@@ -48,20 +53,51 @@ class BFDataset(ProceduralDataset):
             "metadata": {"bfit_code": bfit_code, "bf_program": bf_program},
         }
 
-    def generate_bfit_code(self, rng: Random) -> str:
+    def generate_bfit_code(self, difficulty, rng: Random) -> str:
 
-        bfit_template = """
-int main() {
+        if difficulty == 1:
+            word = rng.choice(wordle_words)
+            bfit_template = f"""
+int main() {{
+    print("{word}");
+}}
+"""
+        elif difficulty == 2:
+            x = rng.randint(1, 4)
+            y = rng.randint(1, 5)
+            target = x * y * rng.randint(1, 9) + rng.randint(1, 9)
+            bfit_template = f"""
+int main() {{
     int acc = 0;
-    int target = 15;
-    int x = 2;
-    int y = 3;
-    while (acc < target) {
+    int target = {target};
+    int x = {x};
+    int y = {y};
+    while (acc < target) {{
         acc = acc + x;
         acc = acc + y;
-    }
+    }}
     printint(acc);
-}
+}}
+"""
+        elif difficulty == 3:
+            x = rng.randint(1, 7)
+            y = rng.randint(1, 9)
+            target = x * y * rng.randint(1, 9) + rng.randint(1, 9) + 50
+            conditional = target - rng.randint(1, 40)
+            bfit_template = f"""
+int main() {{
+    int acc = 0;
+    int target = {target};
+    int x = {x};
+    int y = {y};
+    while (acc < target) {{
+        acc = acc + x;
+        if (acc > {conditional}) {{
+            acc = acc + y;
+        }}
+    }}
+    printint(acc);
+}}
 """
         rendered_bfit = bfit_template
         return rendered_bfit
@@ -93,4 +129,4 @@ int main() {
             return 1.0 # Yay
 
 # Register the dataset
-register_dataset("figlet_font", BFDataset, BFConfig)
+register_dataset("bf", BFDataset, BFConfig)
