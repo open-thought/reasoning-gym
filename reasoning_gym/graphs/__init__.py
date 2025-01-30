@@ -1,3 +1,9 @@
 from .family_relationships import FamilyRelationshipsConfig, FamilyRelationshipsDataset
+from .quantum_lock import QuantumLockConfig, QuantumLockDataset
 
-__all__ = ["FamilyRelationshipsDataset", "FamilyRelationshipsConfig"]
+__all__ = [
+    "FamilyRelationshipsConfig",
+    "FamilyRelationshipsDataset", 
+    "QuantumLockConfig",
+    "QuantumLockDataset"
+]

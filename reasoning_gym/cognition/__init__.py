@@ -8,10 +8,16 @@ Cognition tasks for training reasoning capabilities:
 
 from .color_cube_rotation import ColorCubeRotationConfig, ColorCubeRotationDataset
 from .number_sequences import NumberSequenceConfig, NumberSequenceDataset
+from .rubiks_cube import RubiksCubeConfig, RubiksCubeDataset
+from .figlet_fonts import FigletFontConfig, FigletFontDataset
 
 __all__ = [
     "NumberSequenceConfig",
     "NumberSequenceDataset",
     "ColorCubeRotationConfig",
     "ColorCubeRotationDataset",
+    "RubiksCubeConfig",
+    "RubiksCubeDataset",
+    "FigletFontConfig",
+    "FigletFontDataset"
 ]

@@ -5,3 +5,10 @@ Cognition tasks for training reasoning capabilities:
 - Code Execution
 """
 
+from .family_relationships import FamilyRelationshipsConfig, FamilyRelationshipsDataset
+from .bf import BFConfig, BFDataset
+
+__all__ = [
+    "BFConfig",
+    "BFDataset"
+]
