@@ -1,0 +1,63 @@
+"""Generate a markdown gallery of all available datasets with examples"""
+
+from pathlib import Path
+import textwrap
+
+from reasoning_gym.factory import DATASETS, create_dataset
+
+
+def generate_gallery() -> str:
+    """Generate markdown content for the gallery"""
+    
+    # Start with header
+    content = ["# Dataset Gallery\n"]
+    
+    # Add index
+    content.append("## Available Datasets\n")
+    for name in sorted(DATASETS.keys()):
+        # Create anchor link
+        anchor = name.replace("_", "-")
+        content.append(f"- [{name}](#{anchor})\n")
+    content.append("\n")
+    
+    # Add examples for each dataset
+    content.append("## Examples\n")
+    for name in sorted(DATASETS.keys()):
+        dataset = create_dataset(name)
+        
+        # Add dataset header
+        content.append(f"### {name}\n")
+        
+        # Get dataset class docstring if available
+        if dataset.__class__.__doc__:
+            doc = textwrap.dedent(dataset.__class__.__doc__.strip())
+            content.append(f"{doc}\n")
+        
+        content.append("```\n")
+        # Show 3 examples
+        for i, item in enumerate(dataset):
+            if i >= 3:
+                break
+            content.append(f"Example {i+1}:\n")
+            content.append(f"Question: {item['question']}\n")
+            content.append(f"Answer: {item['answer']}\n")
+            content.append(f"Metadata: {item['metadata']}\n")
+            content.append("\n")
+        content.append("```\n\n")
+    
+    return "".join(content)
+
+
+def main():
+    """Generate gallery markdown file"""
+    gallery_path = Path(__file__).parent.parent / "GALLERY.md"
+    gallery_content = generate_gallery()
+    
+    with open(gallery_path, "w") as f:
+        f.write(gallery_content)
+    
+    print(f"Generated gallery at {gallery_path}")
+
+
+if __name__ == "__main__":
+    main()
