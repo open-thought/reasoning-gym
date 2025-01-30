@@ -711,19 +711,19 @@ size = 500
 Example tasks:
 ```
 Example 1:
-Question: How many times does the letter "o" appear in the text: "bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed"?
-Answer: 2
-Metadata: {'span_length': 15, 'target_letter': 'o', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed']}
+Question: How many times does the letter "a" appear in the text: "bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed"?
+Answer: 6
+Metadata: {'span_length': 15, 'target_letter': 'a', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed']}
 
 Example 2:
-Question: How many times does the letter "c" appear in the text: "it into a watering place"?
+Question: How many times does the letter "w" appear in the text: "it into a watering place"?
 Answer: 1
-Metadata: {'span_length': 5, 'target_letter': 'c', 'span': ['it', 'into', 'a', 'watering', 'place']}
+Metadata: {'span_length': 5, 'target_letter': 'w', 'span': ['it', 'into', 'a', 'watering', 'place']}
 
 Example 3:
-Question: How many times does the letter "o" appear in the text: "readable form accessible by the widest array of equipment including outdated"?
-Answer: 3
-Metadata: {'span_length': 11, 'target_letter': 'o', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}
+Question: How many times does the letter "t" appear in the text: "readable form accessible by the widest array of equipment including outdated"?
+Answer: 5
+Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}
 
 ```
 
@@ -781,7 +781,8 @@ Example tasks:
 Example 1:
 Question: Navigate from '3' (start) to 'z' (goal):
 
-```>>>>>>>>>
+```
+>>>>>>>>>
 >eeee>e>>
 >ee>>>>>>
 >eeeeee>>
@@ -790,6 +791,7 @@ Question: Navigate from '3' (start) to 'z' (goal):
 >eee>e>e>
 >eeeee>e>
 >>>>>>>>>```
+
 Legend: '>' = Wall, 'e' = Passage
 
 What is the minimum number of steps to reach the goal?
@@ -799,13 +801,15 @@ Metadata: {'grid_size': 9, 'grid': ['>>>>>>>>>', '>eeee>e>>', '>ee>>>>>>', '>eee
 Example 2:
 Question: Navigate from '`' (start) to 'i' (goal):
 
-```4444444
+```
+4444444
 4AAAAi4
 4A4A4A4
 4A4AA44
 44AAAA4
 44A`444
 4444444```
+
 Legend: '4' = Wall, 'A' = Passage
 
 What is the minimum number of steps to reach the goal?
@@ -815,13 +819,15 @@ Metadata: {'grid_size': 7, 'grid': ['4444444', '4AAAAi4', '4A4A4A4', '4A4AA44', 
 Example 3:
 Question: Navigate from '(' (start) to '`' (goal):
 
-```QQQQQQQ
+```
+QQQQQQQ
 QQ%%%%Q
 QQ`%Q%Q
 Q%%Q%%Q
 Q%%%Q%Q
 Q%QQ%(Q
 QQQQQQQ```
+
 Legend: 'Q' = Wall, '%' = Passage
 
 What is the minimum number of steps to reach the goal?
@@ -1524,21 +1530,21 @@ Example tasks:
 ```
 Example 1:
 Question: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-Wolcott, keep, reaching, times
-Answer: Wolcott, keep, reaching, times
-Metadata: {'original_words': ['Wolcott', 'keep', 'reaching', 'times'], 'transformed_words': ['Wolcott', 'keep', 'reaching', 'times'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Wolcott', 'keep', 'reaching', 'times']}
+DIRECT, given, exclaims, dreaming
+Answer: DIRECT, dreaming, exclaims, given
+Metadata: {'original_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'transformed_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['DIRECT', 'dreaming', 'exclaims', 'given']}
 
 Example 2:
 Question: Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-took, critical, condense
-Answer: took, critical, condense
-Metadata: {'original_words': ['took', 'critical', 'condense'], 'transformed_words': ['took', 'critical', 'condense'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['took', 'critical', 'condense']}
+heat, begun, sometimes
+Answer: sometimes, heat, begun
+Metadata: {'original_words': ['heat', 'begun', 'sometimes'], 'transformed_words': ['heat', 'begun', 'sometimes'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['sometimes', 'heat', 'begun']}
 
 Example 3:
 Question: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:
-apartment, yellow, Just, pleasure, collapse, different, purchasers, taking, opening
-Answer: Just, apartment, collapse, different, opening, pleasure, purchasers, taking, yellow
-Metadata: {'original_words': ['apartment', 'yellow', 'Just', 'pleasure', 'collapse', 'different', 'purchasers', 'taking', 'opening'], 'transformed_words': ['apartment', 'yellow', 'Just', 'pleasure', 'collapse', 'different', 'purchasers', 'taking', 'opening'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Just', 'apartment', 'collapse', 'different', 'opening', 'pleasure', 'purchasers', 'taking', 'yellow']}
+violates, yes, already, completing, pages, duty, his, EXPRESS, duly
+Answer: EXPRESS, already, completing, duly, duty, his, pages, violates, yes
+Metadata: {'original_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'transformed_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['EXPRESS', 'already', 'completing', 'duly', 'duty', 'his', 'pages', 'violates', 'yes']}
 
 ```
 
