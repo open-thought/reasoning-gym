@@ -13,6 +13,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "bfi==1.0.4",
+  "cellpylib==2.4.0",
   "sympy>=1.13.1", 
   "magiccube==0.3.0", 
   "pyfiglet==1.0.2"
