@@ -61,9 +61,9 @@ class BaseConversionDataset(ProceduralDataset):
 
         # Convert decimal to source base representation
         if source_base == 16:
-            source_repr = format(value, 'x')
+            source_repr = format(value, "x")
         elif source_base == 2:
-            source_repr = format(value, 'b')
+            source_repr = format(value, "b")
         else:
             # Manual conversion for other bases
             n = value
@@ -71,14 +71,13 @@ class BaseConversionDataset(ProceduralDataset):
             while n:
                 digits.append(int(n % source_base))
                 n //= source_base
-            source_repr = ''.join(str(d) if d < 10 else chr(ord('a') + d - 10) 
-                                for d in reversed(digits) or [0])
+            source_repr = "".join(str(d) if d < 10 else chr(ord("a") + d - 10) for d in reversed(digits) or [0])
 
         # Convert decimal to target base for answer
         if target_base == 16:
-            target_repr = format(value, 'x')
+            target_repr = format(value, "x")
         elif target_base == 2:
-            target_repr = format(value, 'b')
+            target_repr = format(value, "b")
         else:
             # Manual conversion for other bases
             n = value
@@ -86,8 +85,7 @@ class BaseConversionDataset(ProceduralDataset):
             while n:
                 digits.append(int(n % target_base))
                 n //= target_base
-            target_repr = ''.join(str(d) if d < 10 else chr(ord('a') + d - 10) 
-                                for d in reversed(digits) or [0])
+            target_repr = "".join(str(d) if d < 10 else chr(ord("a") + d - 10) for d in reversed(digits) or [0])
 
         source_name = self._format_base_name(source_base)
         target_name = self._format_base_name(target_base)
