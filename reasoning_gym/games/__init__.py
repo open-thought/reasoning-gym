@@ -11,6 +11,7 @@ from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .maze import MazeConfig, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset
 from .sudoku import SudokuConfig, SudokuDataset
+from .tower_of_hanoi import HanoiConfig, HanoiDataset
 
 __all__ = [
     "CountdownConfig",
@@ -23,4 +24,6 @@ __all__ = [
     "MazeDataset",
     "GameOfLifeConfig",
     "GameOfLifeDataset",
+    "HanoiConfig",
+    "HanoiDataset"
 ]
