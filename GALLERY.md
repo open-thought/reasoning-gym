@@ -55,19 +55,19 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Convert the base-3 number 28e to binary
+Question: Convert the base-3 number 220020 to binary
 Answer: 1010001110
-Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '28e', 'target_repr': '1010001110'}
+Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '220020', 'target_repr': '1010001110'}
 
 Example 2:
-Question: Convert the base-6 number 27 to base-13 (use lowercase letters a-z for digits above 9)
-Answer: 27
-Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '27', 'target_repr': '27'}
+Question: Convert the base-6 number 103 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 30
+Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '103', 'target_repr': '30'}
 
 Example 3:
-Question: Convert the base-10 number 1a2 to base-13 (use lowercase letters a-z for digits above 9)
-Answer: 1a2
-Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '1a2', 'target_repr': '1a2'}
+Question: Convert the base-10 number 418 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 262
+Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '418', 'target_repr': '262'}
 
 ````
 
