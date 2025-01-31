@@ -83,6 +83,32 @@ def test_base_conversion_dataset_iteration():
     assert items == list(dataset)
 
 
+def test_base_conversion_validity():
+    """Test that generated numbers are valid for their bases"""
+    config = BaseConversionConfig(
+        min_base=2,
+        max_base=36,
+        min_value=0,
+        max_value=1000,
+        size=100,
+        seed=42
+    )
+    dataset = BaseConversionDataset(config)
+
+    def is_valid_for_base(num_str: str, base: int) -> bool:
+        valid_chars = "0123456789abcdefghijklmnopqrstuvwxyz"[:base]
+        return all(c in valid_chars for c in num_str.lower())
+
+    for i in range(len(dataset)):
+        item = dataset[i]
+        assert is_valid_for_base(item["metadata"]["source_repr"], 
+                               item["metadata"]["source_base"]), \
+            f"Invalid source number {item['metadata']['source_repr']} for base {item['metadata']['source_base']}"
+        assert is_valid_for_base(item["metadata"]["target_repr"], 
+                               item["metadata"]["target_base"]), \
+            f"Invalid target number {item['metadata']['target_repr']} for base {item['metadata']['target_base']}"
+
+
 def test_base_conversion_special_bases():
     """Test conversion between special bases (binary, hex)"""
     config = BaseConversionConfig(
