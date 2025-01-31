@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional, Tuple, Dict, Any
+from typing import Any, Dict, List, Optional, Tuple
 
 import sympy
 from sympy import Symbol, symbols
@@ -158,7 +158,7 @@ class CountdownDataset(ProceduralDataset):
                 continue
 
         raise ValueError(f"Failed to generate valid expression after {max_attempts} attempts")
-    
+
     def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
@@ -168,7 +168,7 @@ class CountdownDataset(ProceduralDataset):
                 solved = user_answer == metadata["target"]
                 if solved:
                     reward = 1.0
-                elif (len(answer.strip()) > 0): # encourage partial solutions
+                elif len(answer.strip()) > 0:  # encourage partial solutions
                     reward = 0.05
                 else:
                     reward = 0.01
