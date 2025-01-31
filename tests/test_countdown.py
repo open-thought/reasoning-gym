@@ -64,6 +64,14 @@ def test_countdown_game_items():
 
         # Verify expression evaluates correctly
         expr = item["metadata"]["expression"]
+        
+        #check score
+        assert dataset.score_answer(answer=expr, metadata=item["metadata"]) == 1.0  #correct answer
+        assert dataset.score_answer(answer="45+2", metadata=item["metadata"]) == 0.05  #wrong answer but an attempt
+        assert dataset.score_answer(answer="a wrong solution", metadata=item["metadata"]) == 0.01  #wrong answer but incorrectly formatted
+        assert dataset.score_answer(answer="", metadata=item["metadata"]) == 0.01  #wrong answer but empty string
+        assert dataset.score_answer(answer=None, metadata=item["metadata"]) == 0.0  #no answer
+        
         try:
             result = eval(expr)  # Safe here since we control expression generation
             assert result == item["metadata"]["target"]
