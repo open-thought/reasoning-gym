@@ -25,5 +25,5 @@ __all__ = [
     "GameOfLifeConfig",
     "GameOfLifeDataset",
     "HanoiConfig",
-    "HanoiDataset"
+    "HanoiDataset",
 ]
