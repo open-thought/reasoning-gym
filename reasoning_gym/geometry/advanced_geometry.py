@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Optional, List
 
 import sympy
-from sympy.geometry import Point, Triangle
+from sympy.geometry import Point, Triangle, Segment
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -92,20 +92,24 @@ class AdvancedGeometryDataset(ProceduralDataset):
         """
         max_attempts = 100
         for _ in range(max_attempts):
-            xA = rng.randint(self.config.min_coord, self.config.max_coord)
-            yA = rng.randint(self.config.min_coord, self.config.max_coord)
-            xB = rng.randint(self.config.min_coord, self.config.max_coord)
-            yB = rng.randint(self.config.min_coord, self.config.max_coord)
-            xC = rng.randint(self.config.min_coord, self.config.max_coord)
-            yC = rng.randint(self.config.min_coord, self.config.max_coord)
+            # Generate points with integer coordinates
+            points = []
+            for _ in range(3):
+                x = rng.randint(self.config.min_coord, self.config.max_coord)
+                y = rng.randint(self.config.min_coord, self.config.max_coord)
+                points.append(Point(x, y))
+            
+            A, B, C = points
+            
+            # Calculate signed area to check for non-degeneracy
+            # Using the formula: 1/2 * |x1(y2 - y3) + x2(y3 - y1) + x3(y1 - y2)|
+            area = abs(
+                A.x * (B.y - C.y) + 
+                B.x * (C.y - A.y) + 
+                C.x * (A.y - B.y)
+            ) / 2
 
-            A = Point(xA, yA)
-            B = Point(xB, yB)
-            C = Point(xC, yC)
-            tri = Triangle(A, B, C)
-
-            # Check that the triangle is non-degenerate (area != 0)
-            if tri.area != 0:
+            if area > 0:
                 return A, B, C
 
         raise ValueError(f"Failed to generate a non-degenerate triangle after {max_attempts} attempts.")
@@ -114,12 +118,21 @@ class AdvancedGeometryDataset(ProceduralDataset):
         """
         Build a question about finding the orthocenter of triangle ABC.
         """
-        tri = Triangle(A, B, C)
-        # Sympy can give altitudes or direct concurrency point
-        ortho = tri.orthocenter
-        # Format the answer
-        # The orthocenter may have rational coordinates, so let's convert to float or simplified fraction
-        # We'll store both numeric approximations and exact forms in metadata
+        # Create line segments for the sides
+        AB = Segment(A, B)
+        BC = Segment(B, C)
+        CA = Segment(C, A)
+        
+        # Calculate altitudes
+        # Get perpendicular lines from each vertex to the opposite side
+        alt_A = A.perpendicular_line(BC)
+        alt_B = B.perpendicular_line(CA)
+        alt_C = C.perpendicular_line(AB)
+        
+        # Find orthocenter (intersection of any two altitudes)
+        ortho = alt_A.intersection(alt_B)[0]
+        
+        # Format coordinates
         x_ortho_approx = float(ortho.x.evalf())
         y_ortho_approx = float(ortho.y.evalf())
 
@@ -144,10 +157,19 @@ class AdvancedGeometryDataset(ProceduralDataset):
         """
         Build a question about finding the incircle radius of triangle ABC.
         """
-        tri = Triangle(A, B, C)
-        incircle = tri.incircle()
-        # incircle is a Circle object; radius is incircle.radius
-        radius = incircle.radius
+        # Calculate side lengths
+        a = B.distance(C)
+        b = C.distance(A)
+        c = A.distance(B)
+        
+        # Semi-perimeter
+        s = (a + b + c) / 2
+        
+        # Area using Heron's formula
+        area = sympy.sqrt(s * (s - a) * (s - b) * (s - c))
+        
+        # Radius of incircle = Area / Semi-perimeter
+        radius = area / s
 
         # Convert to float for final answer
         radius_approx = float(radius.evalf())
