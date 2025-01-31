@@ -30,6 +30,8 @@ addopts = "-ra -q --cov=reasoning_gym"
 testpaths = [
     "tests",
 ]
+
+[project]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: Apache Software License",
