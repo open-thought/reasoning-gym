@@ -49,7 +49,7 @@ class WordSortingDataset(ProceduralDataset):
         # Load and preprocess text
         text = read_data_file("in_the_year_2889.txt")
         # Extract unique words within length constraints
-        self.words = list(
+        self.words = sorted(
             set(
                 word
                 for word in re.findall(r"\b\w+\b", text)

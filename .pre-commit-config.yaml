@@ -18,3 +18,4 @@ repos:
     hooks:
     -   id: isort
         name: isort (python)
+exclude: GALLERY.md
