@@ -65,9 +65,21 @@ def test_base_conversion_dataset_items():
         # Verify conversion correctness
         decimal_value = item["metadata"]["decimal_value"]
         target_base = item["metadata"]["target_base"]
-        expected = format(decimal_value, "x" if target_base == 16 else "b" if target_base == 2 else "").strip()
-        if target_base not in (2, 16):
-            expected = format(decimal_value, f"{target_base}x").lower().strip()
+            
+        # Use same conversion logic as implementation
+        if target_base == 16:
+            expected = format(decimal_value, 'x')
+        elif target_base == 2:
+            expected = format(decimal_value, 'b')
+        else:
+            # Manual conversion for other bases
+            n = decimal_value
+            digits = []
+            while n:
+                digits.append(int(n % target_base))
+                n //= target_base
+            expected = ''.join(str(d) if d < 10 else chr(ord('a') + d - 10)
+                             for d in reversed(digits) or [0])
         assert item["answer"] == expected
 
 
