@@ -251,6 +251,11 @@ class HanoiDataset(ProceduralDataset):
             "- Only one disk can be moved at a time.\n"
             "- A larger disk cannot be placed on top of a smaller disk.\n"
             "- All disks must be on a peg at all times.\n"
+            "Example:\n"
+            "Move disk 1 from Peg 1 to Peg 3\n"
+            "Move disk 2 from Peg 1 to Peg 2\n"
+            "Move disk 1 from Peg 3 to Peg 2\n"
+            "\n"
             "Provide the sequence of moves."
         )
 
