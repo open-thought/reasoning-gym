@@ -118,30 +118,24 @@ class AdvancedGeometryDataset(ProceduralDataset):
         """
         Build a question about finding the orthocenter of triangle ABC.
         """
-        # Create line segments for the sides
-        AB = Segment(A, B)
-        BC = Segment(B, C)
-        CA = Segment(C, A)
+        # Convert segments to lines
+        BC_line = sympy.Line(B, C)
+        CA_line = sympy.Line(C, A)
         
-        # Calculate altitudes
-        # Get perpendicular lines from each vertex to the opposite side
-        alt_A = A.perpendicular_line(BC)
-        alt_B = B.perpendicular_line(CA)
-        alt_C = C.perpendicular_line(AB)
+        # Calculate altitudes by creating lines perpendicular from each vertex
+        alt_A = BC_line.perpendicular_line(A)
+        alt_B = CA_line.perpendicular_line(B)
         
-        # Find orthocenter (intersection of any two altitudes)
+        # Find orthocenter (intersection of any two altitudes, e.g. alt_A and alt_B)
         ortho = alt_A.intersection(alt_B)[0]
         
-        # Format coordinates
         x_ortho_approx = float(ortho.x.evalf())
         y_ortho_approx = float(ortho.y.evalf())
 
-        # Choose a prompt
         question_template = rng.choice(self._prompt_templates["orthocenter"])
         question = question_template.format(
             A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y)
         )
-        # Round to e.g. 3 decimals or keep a string representation
         answer_str = f"({x_ortho_approx:.3f}, {y_ortho_approx:.3f})"
 
         metadata = {
@@ -152,6 +146,7 @@ class AdvancedGeometryDataset(ProceduralDataset):
             "orthocenter_approx": (x_ortho_approx, y_ortho_approx),
         }
         return question, answer_str, metadata
+
 
     def _build_incircle_radius_task(self, rng: random.Random, A: Point, B: Point, C: Point):
         """
