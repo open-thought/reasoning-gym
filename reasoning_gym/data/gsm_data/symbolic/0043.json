@@ -1,0 +1,8 @@
+{
+  "question": "Dax went to their farm to pick some apples and found half as many bugs as ants in the garden. If there were 50 ants, calculate the total number of insects in the garden.",
+  "answer": "If there were 50 ants, the total number of bugs in the garden is 1 bug/2 ants * 50 ants = 25 bugs\nThe total number of insects in the garden is 25 bugs + 50 ants = <<25+50=75>>75 insects\n#### 75",
+  "id_orig": 232,
+  "id_shuffled": 43,
+  "question_annotated": "{name,Dax} went to their {place,farm} to pick some {fruit,apples} and found {frac,half} as many {insect1,bugs} as {insect2,ants} in the {location,garden}. If there were {n,50} {insect2,ants}, calculate the total number of insects in the {location,garden}.\n\n#init:\n- name = sample(names)\n- place = sample([\"orchard\", \"backyard\", \"greenhouse\", \"allotment\"])\n- fruit = sample([\"strawberries\", \"cherries\", \"blueberries\", \"raspberries\"])\n- location = sample([\"garden\", \"field\", \"plot\", \"patch\"])\n- insect1, insect2 = sample([\"beetles\", \"ladybugs\", \"grasshoppers\", \"caterpillars\", \"bees\", \"wasps\"], 2)\n- $frac = sample(fraction_alnum + multi_times)\n- $n = range(20, 201)\n\n#conditions:\n- is_int(n * frac)\n\n#answer: n + int(n * frac)",
+  "answer_annotated": "If there were {n} {insect2}, the total number of {insect1} in the {location} is {frac} * {n} {insect2} = {int(n * frac)} {insect1}\nThe total number of insects in the {location} is {int(n * frac)} {insect1} + {n} {insect2} = <<{int(n * frac)}+{n}={n + int(n * frac)}>>{n + int(n * frac)} insects\n#### {n + int(n * frac)}"
+}

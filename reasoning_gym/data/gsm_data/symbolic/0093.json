@@ -1,0 +1,8 @@
+{
+  "question": "When the water is cold Ray swims a mile in 16 minutes. When the water is warm Ray swims a mile in 2 minutes more than twice as long. How much longer does Ray take to swim 3 miles on a hot day than a cold day?",
+  "answer": "Cold water mile = <<16=16>>16 minutes\nWarm water mile = 2+2(16)=34 minutes\n3 miles in cold water: 3(16)=<<3*16=48>>48 minutes\n3 miles in warm water: 3(34)=<<3*34=102>>102 minutes\nRay takes 102-48=<<102-48=54>>54 minutes longer\n#### 54",
+  "id_orig": 554,
+  "id_shuffled": 93,
+  "question_annotated": "When the water is cold {name,Ray} swims a {unit,mile} in {t1,16} minutes. When the water is warm {name,Ray} swims a {unit,mile} in {n,2} minutes more than {mult,twice} as long. How much longer does {name,Ray} take to swim {d,3} {unit,mile}s on a hot day than a cold day?\n\n#init:\n- name = sample(names)\n- unit = sample(['mile', 'kilometer'])\n- $t1 = range(10, 50)\n- $n = range(1, 10)\n- $mult = sample(multiple_ice+multi_times)\n- $d = range(2, 10)\n\n#conditions:\n- t1 < 60\n- n + mult * t1 < 60\n- d * (n + mult * t1) - d * t1 > 0\n\n#answer: d * (n + mult * t1) - d * t1",
+  "answer_annotated": "Cold water {unit} = <<{t1}={t1}>>{t1} minutes\nWarm water {unit} = {n}+{mult}({t1})={n + mult * t1} minutes\n{d} {unit}s in cold water: {d}({t1})=<<{d}*{t1}={d*t1}>>{d*t1} minutes\n{d} {unit}s in warm water: {d}({n + mult * t1})=<<{d}*{n + mult * t1}={d*(n + mult * t1)}>>{d*(n + mult * t1)} minutes\n{name} takes {d*(n + mult * t1)}-{d*t1}=<<{d*(n + mult * t1)}-{d*t1}={d * (n + mult * t1) - d * t1}>>{d * (n + mult * t1) - d * t1} minutes longer\n#### {d * (n + mult * t1) - d * t1}"
+}

@@ -1,0 +1,8 @@
+{
+  "question": "If Sam and Harry have 100 feet of fence between them, and they agree to split it with Harry getting 60 feet more than Sam, how much is left over for Sam?",
+  "answer": "Let x be the amount of fence Sam gets and y be the amount Harry gets. We know that y = x + 60, and y + x = 100.\nSubstituting the first equation into the second equation, we get 2x+60=100\nSubtracting the 60 from both sides, we get 2x=40\nWe divide each side by two, leaving x=20. This means Sam has 20 feet of fence left over.\n#### 20",
+  "id_orig": 1084,
+  "id_shuffled": 85,
+  "question_annotated": "If {name1,Sam} and {name2,Harry} have {total,100} {unit,feet} of fence between them, and they agree to split it with {name2,Harry} getting {diff,60} {unit,feet} more than {name1,Sam}, how much is left over for {name1,Sam}?\n\n#init:\n- name1, name2 = sample(names, 2)\n- unit = sample([\"feet\", \"yards\", \"meters\"])\n- $total = range(100, 1000, 20)\n- $diff = range(20, 200, 10)\n\n#conditions:\n- total - diff > 10\n- is_int((total - diff) / 2)\n\n#answer: (total - diff) // 2",
+  "answer_annotated": "Let x be the amount of fence {name1} gets and y be the amount {name2} gets. We know that y = x + {diff}, and y + x = {total}.\nSubstituting the first equation into the second equation, we get 2x+{diff}={total}\nSubtracting the {diff} from both sides, we get 2x={total-diff}\nWe divide each side by two, leaving x={(total-diff)//2}. This means {name1} has {(total-diff)//2} {unit} of fence left over.\n#### {(total-diff)//2}"
+}

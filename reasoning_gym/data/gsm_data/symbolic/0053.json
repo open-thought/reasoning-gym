@@ -1,0 +1,8 @@
+{
+  "question": "Pierson scored 278 points in one game of bowling. Nikita scored 11 more than half as many as Pierson. How many points did Pierson and Nikita have in total?",
+  "answer": "Pierson = <<278=278>>278 points\nNikita = (1/2) 278 + 11 = 150 points\n278 + 150 = <<278+150=428>>428 points\nTogether, Pierson and Nikita scored 428 points.\n#### 428",
+  "id_orig": 800,
+  "id_shuffled": 53,
+  "question_annotated": "{name1,Pierson} scored {n1,278} points in one game of {game,bowling}. {name2,Nikita} scored {n2,11} points more than {frac,half} as many as {name1,Pierson}. How many points did {name1,Pierson} and {name2,Nikita} have in total?\n\n#init:\n- name1, name2 = sample(names, 2)\n- game = sample([\"bowling\", \"darts\", \"archery\", \"basketball\", \"tennis\"])\n- $n1 = range(200, 500)\n- $n2 = range(5, 50)\n- $frac = sample(fraction_alnum)\n\n#conditions:\n- is_int(frac * n1)\n\n#answer: n1 + int(frac * n1 + n2)",
+  "answer_annotated": "{name1} = <<{n1}={n1}>>{n1} points\n{name2} = {frac} * {n1} + {n2} = {int(frac * n1 + n2)} points\n{n1} + {int(frac * n1 + n2)} = <<{n1}+{int(frac * n1 + n2)}={n1 + int(frac * n1 + n2)}>>{n1 + int(frac * n1 + n2)} points\nTogether, {name1} and {name2} scored {n1 + int(frac * n1 + n2)} points.\n#### {n1 + int(frac * n1 + n2)}"
+}

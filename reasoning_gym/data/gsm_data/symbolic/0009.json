@@ -1,0 +1,8 @@
+{
+  "question": "When Sophie watches her nephew, she gets out a variety of toys for him. The bag of building blocks has 31 blocks in it. The bin of stuffed animals has 8 stuffed animals inside. The tower of stacking rings has 9 multicolored rings on it. Sophie recently bought a tube of bouncy balls, bringing her total number of toys for her nephew up to 62. How many bouncy balls came in the tube?",
+  "answer": "Let T be the number of bouncy balls in the tube.\nAfter buying the tube of balls, Sophie has 31 + 8 + 9 + T = 48 + T = 62 toys for her nephew.\nThus, T = 62 - 48 = <<62-48=14>>14 bouncy balls came in the tube.\n#### 14",
+  "id_orig": 930,
+  "id_shuffled": 9,
+  "question_annotated": "When {name, Sophie} watches her {family,nephew}, she gets out a variety of toys for him. The bag of building blocks has {x,31} blocks in it. The bin of stuffed animals has {y,8} stuffed animals inside. The tower of stacking rings has {z,9} multicolored rings on it. {name, Sophie} recently bought a tube of bouncy balls, bringing her total number of toys for her {family,nephew} up to {total,62}. How many bouncy balls came in the tube?\n\n#init:\n- name = sample(names_female)\n- family = sample([\"nephew\", \"cousin\", \"brother\"])\n- $x = range(70, 75)\n- $y = range(35, 50)\n- $z = range(20, 35)\n- $total = range(125, 250)\n- $ans = range(20, 100)\n\n#conditions:\n- x + y + z + ans == total\n\n#answer: ans",
+  "answer_annotated": "Let T be the number of bouncy balls in the tube.\nAfter buying the tube of balls, {name} has {x} + {y} + {z} + T = {x+y+z} + T = {total} toys for her {family}.\nThus, T = {total} - {x+y+z} = <<{total}-{x+y+z}={ans}>>{ans} bouncy balls came in the tube.\n#### {ans}"
+}

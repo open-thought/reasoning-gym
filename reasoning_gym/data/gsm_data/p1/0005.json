@@ -1,0 +1,8 @@
+{
+  "question": "Katy makes coffee using teaspoons of sugar and cups of water in the ratio of 7:13. If she used a total of 120 teaspoons of sugar and cups of water, calculate the number of teaspoonfuls of sugar she used.",
+  "answer": "The total ratio representing the ingredients she used to make the coffee is 7+13 = <<7+13=20>>20\nSince the fraction representing the number of teaspoons she used is 7/20, she used 7/20*120 = <<7/20*120=42>>42\n#### 42",
+  "id_orig": 116,
+  "id_shuffled": 5,
+  "question_annotated": "{name,Katy} makes {drink,coffee} using teaspoons of sugar and cups of water in the ratio of {m,7}:{n,13}. She also uses {p,12} tablespoons of milk for every {nn,7} cups of water. If she used a total of {x,120} teaspoons of sugar, cups of water, and tablespoons of milk, calculate the number of teaspoonfuls of sugar she used.\n\n#init:\n- name = sample(names_female)\n- drink = sample(['coffee', 'tea'])\n- $m = range(44, 101)\n- $n = range(5, 51)\n- $p = range(5, 12)\n- $nn = range(2, 25)\n- $x = range(500, 1100, 10)\n\n#conditions: \n- divides(p*n, nn)\n- m + n + p * (n/nn) < x\n- divides(x, m+n+p * (n/nn))\n- x//(m+n+p*n//nn) != 10\n\n#answer: ((m*x)//(m+n+p*(n/nn)))",
+  "answer_annotated": "The total ratio representing the ingredients she used to make the {drink} is {m}+{n}+{p}*{n}/{nn} = <<{m}+{n}+{p}*{n}/{nn}={m+n+p*n/nn}>>{m+n+p*n//nn}\nSince the fraction representing the number of teaspoons she used is {m}/{m+n+p*n//nn}, she used {m}/{m+n+p*n//nn}*{x} = <<{m}/{m+n+p*n//nn}*{x}={((m*x)//(m+n+p*n//nn))}>>{((m*x)//(m+n+p*n//nn))}\n#### {((m*x)//(m+n+p*n//nn))}"
+}

@@ -1,0 +1,8 @@
+{
+  "question": "There are currently 3 red balls, 11 blue balls, and 25 green balls in the store. Red balls cost $9, Blue balls cost $5 and green balls cost $3. How much will the store have received after all the balls are sold?",
+  "answer": "For the red balls, 3 balls * $9/ball = $<<3*9=27>>27.\nFor the blue balls, 11 balls * $5/ball = $<<11*5=55>>55.\nFor the green balls, 25 balls * $3/ball = $<<25*3=75>>75.\nFor all balls, $27 + $55 + $75 = $<<27+55+75=157>>157.\n#### 157",
+  "id_orig": 1111,
+  "id_shuffled": 75,
+  "question_annotated": "There are currently {n1,3} {c1,red} balls, {n2,11} {c2,blue} balls, and {n3,25} {c3,green} balls in the {place,store}. {c1,Red} balls cost {cur,$}{p1,9}, {c3,green} balls cost {cur,$}{p3,3}, and {c2,Blue} balls cost {cur,$}{p2,5}. How much will the {place,store} have received after all the balls are sold?\n\n#init:\n- place = sample([\"store\", \"shop\", \"market\", \"warehouse\"])\n- c1, c2, c3 = sample([\"red\", \"blue\", \"green\", \"yellow\", \"purple\", \"orange\", \"pink\"], 3)\n- cur = sample(currencies_sym)\n- $n1 = range(3, 20)\n- $n2 = range(5, 30)\n- $n3 = range(15, 50)\n- $p1 = range(5, 15)\n- $p2 = range(3, 10)\n- $p3 = range(2, 8)\n\n\n#answer: n1*p1 + n2*p2 + n3*p3",
+  "answer_annotated": "For the {c1} balls, {n1} balls * {cur}{p1}/ball = {cur}<<{n1}*{p1}={n1*p1}>>{n1*p1}.\nFor the {c2} balls, {n2} balls * {cur}{p2}/ball = {cur}<<{n2}*{p2}={n2*p2}>>{n2*p2}.\nFor the {c3} balls, {n3} balls * {cur}{p3}/ball = {cur}<<{n3}*{p3}={n3*p3}>>{n3*p3}.\nFor all balls, {cur}{n1*p1} + {cur}{n2*p2} + {cur}{n3*p3} = {cur}<<{n1*p1}+{n2*p2}+{n3*p3}={n1*p1 + n2*p2 + n3*p3}>>{n1*p1 + n2*p2 + n3*p3}.\n#### {n1*p1 + n2*p2 + n3*p3}"
+}

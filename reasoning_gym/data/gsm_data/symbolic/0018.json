@@ -1,0 +1,8 @@
+{
+  "question": "Raphael went to buy some school supplies. He bought 4 pens which cost $1.5 each, 2 notebooks which cost $4 each, and a rim of bond paper which cost $20. How much did Raphael spend on everything?",
+  "answer": "Raphael spent 4 x $1.5 = $<<4*1.5=6>>6 for the pens.\nHe also spent 2 x $4 = $<<2*4=8>>8 for the notebooks.\nTherefore, Raphael spent a total of $6 + $8 + $20 = $<<6+8+20=34>>34 for the school supplies.\n#### 34",
+  "id_orig": 158,
+  "id_shuffled": 18,
+  "question_annotated": "{name,Raphael} went to buy some school supplies. He bought {n1,4} {obj1,pens} which cost {cur,$}{c1,1.5} each, {n2,2} {obj2,notebooks} which cost {cur,$}{c2,4} each, and a rim of bond paper which cost {cur,$}{c3,20}. How much did {name,Raphael} spend on everything?\n\n#init:\n- name = sample(names_male)\n- obj1, obj2 = sample([\"notebooks\", \"pencils\", \"erasers\", \"crayons\", \"colored pencils\", \"markers\", \"rulers\", \"folders\"], 2)\n- cur = sample(currencies_sym)\n- $n1 = range(6, 25, 2)\n- $c1 = frange(2.25, 11.5, 0.25)\n- $n2 = range(4, 15, 2)\n- $c2 = frange(8.25, 19.5, 0.25)\n- $c3 = range(10, 25)\n\n#conditions:\n- is_int(n1 * c1)\n- is_int(n2 * c2)\n#answer: int(n1*c1 + n2*c2 + c3)",
+  "answer_annotated": "{name} spent {n1} x {cur}{c1} = {cur}<<{n1}*{c1}={int(n1*c1)}>>{int(n1*c1)} for the {obj1}.\nHe also spent {n2} x {cur}{c2} = {cur}<<{n2}*{c2}={int(n2*c2)}>>{int(n2*c2)} for the {obj2}.\nTherefore, {name} spent a total of {cur}{int(n1*c1)} + {cur}{int(n2*c2)} + {cur}{c3} = {cur}<<{int(n1*c1)}+{int(n2*c2)}+{c3}={int(n1*c1+n2*c2+c3)}>>{int(n1*c1+n2*c2+c3)} for the school supplies.\n#### {int(n1*c1+n2*c2+c3)}"
+}

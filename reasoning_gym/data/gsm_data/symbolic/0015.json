@@ -1,0 +1,8 @@
+{
+  "question": "Jennifer's dog has 8 puppies, 3 of which have spots. Brandon's dog has 12 puppies, 4 of which have spots. What percentage of all the puppies have spots?",
+  "answer": "First find the total number of puppies: 8 puppies + 12 puppies = <<8+12=20>>20 puppies\nThen find the total number of puppies with spots: 3 puppies + 4 puppies = <<3+4=7>>7 puppies\nThen divide the number of spotted puppies by the total number of puppies and multiply by 100% to find the percentage of puppies with spots: 7 puppies / 20 puppies * 100% = 35%\n#### 35",
+  "id_orig": 458,
+  "id_shuffled": 15,
+  "question_annotated": "{name1, Jennifer}'s dog has {n1, 8} puppies, {k1,3} of which have spots. {name2, Brandon}'s dog has {n2,12} puppies, {k2,4 } of which have spots. What percentage of all the puppies have spots?\n\n#init:\n- name1, name2 = sample(names, 2)\n- $n1 = range(950, 1050, 5)\n- $n2 = range(400, 650, 5)\n- $k1 = range(170, 290, 10)\n- $k2 = range(120, 170, 10)\n\n#conditions:\n- divides(n1 + n2, k1 + k2)\n- is_int(100 * (k1+k2) / (n1+n2))\n\n#answer: int(100 * (k1+k2) / (n1+n2))",
+  "answer_annotated": "First find the total number of puppies: {n1} puppies + {n2} puppies = <<{n1}+{n2}={n1+n2}>>{n1+n2} puppies\nThen find the total number of puppies with spots: {k1} puppies + {k2} puppies = <<{k1}+{k2}={k1+k2}>>{k1+k2} puppies\nThen divide the number of spotted puppies by the total number of puppies and multiply by 100% to find the percentage of puppies with spots: {k1+k2} puppies / {n1+n2} puppies * 100% = {int(100 * (k1+k2) / (n1+n2))}%\n#### {int(100 * (k1+k2) / (n1+n2))}"
+}

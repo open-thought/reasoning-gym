@@ -1,0 +1,8 @@
+{
+  "question": "A fog bank rolls in from the ocean to cover a city. It takes 10 minutes to cover every 3 miles of the city. If the city is 42 miles across from the oceanfront to the opposite inland edge, how many minutes will it take for the fog bank to cover the whole city?",
+  "answer": "The city will be covered in 42 / 3 = <<42/3=14>>14 intervals of 10 minutes.\nThus, it will take 14 * 10 = <<14*10=140>>140 minutes for the fog to cover the whole city.\n#### 140",
+  "id_orig": 103,
+  "id_shuffled": 1,
+  "question_annotated": "A fog bank rolls in from the ocean to cover a city. It takes {t,10} minutes to cover every {d,3} miles of the city. If the city is {y,42} miles across from the oceanfront to the opposite inland edge, how many minutes will it take for the fog bank to cover {frac,half} of the city?\n\n#init:\n- $t = range(25, 120)\n- $d = range(2, 100)\n- $y=range(2, 100)\n- $frac=sample(fractions)\n\n#conditions:\n- is_int(y*frac/d)\n\n#answer: (y*frac)//d*t",
+  "answer_annotated": "To cover {frac} of the city the fog needs {y} * {frac} / {d} = <<{y}*{frac}/{d}={y*frac//d}>>{y*frac//d} intervals of {t} minutes.\nThus, it will take {y*frac//d} * {t} = <<{y*frac//d}*{t}={y//d*t}>>{y*frac//d*t} minutes for the fog to cover the whole city.\n#### {y*frac//d*t}"
+}

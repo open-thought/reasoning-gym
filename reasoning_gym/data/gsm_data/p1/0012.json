@@ -1,0 +1,8 @@
+{
+  "question": "Jaime places eggs on the tray. Each tray can hold 24 eggs. If he has 64 eggs and 2 trays, how many eggs won't he be able to place on the tray?",
+  "answer": "Jaime will be able to place a total of 24 x 2 = <<24*2=48>>48.\nTherefore, there are 64 - 48 = <<64-48=16>>16 eggs that he won't be able to place on the tray.\n#### 16",
+  "id_orig": 491,
+  "id_shuffled": 12,
+  "question_annotated": "{name, Jaime} places {obj,egg}s on the {surface,tray} and {surface2,plate}. Each {surface,tray} can hold {x,24} {obj,egg}s while each {surface2,plate} can hold {mult,twice} that. {name, Jaime} has {n,64} {obj,egg}s, {k,2} {surface,tray}s and {kk,2} {surface2,plate}s. {name, Jaime} then eats a third of the {obj,egg}s. How many {obj,egg}s won't he be able to place on the {surface,tray}s or {surface2,plate}s?\n\n#init:\n- name = sample(names_male)\n- obj = sample([\"olive\",  \"almond\", \"cookie\",  \"cracker\", \"banana\"])\n- surface, surface2 = sample([\"plate\", \"table\", \"bowl\" ], 2)\n- $x = range(20, 51)\n- $k = range(7, 30)\n- $kk = range(3, 6)\n- $n = range(400, 750)\n- $mult = sample(multi_times)\n\n#conditions:\n- divides(n, 3)\n- k * x + (kk * mult * x)  < 2*n//3\n\n#answer: 2*n//3 - k*x - (kk * mult * x)",
+  "answer_annotated": "{name} will be able to place a total of {x} x {k} + {x} * {kk} * {mult} = <<{x}*{k} + {x}*{kk}*{mult}={x*k+x*kk*mult}>>{x*k+x*kk*mult} {obj}s.\nHe eats {n}/3 = <<{n}/3={n//3}>>{n//3}, so {n}-{n//3} = <<{n}-{n/3}={2*n//3}>>{2*n//3} remains.\nTherefore, there are {2*n//3} - {k*x} - {x*kk*mult} = <<{2*n//3}-{k*x}-{kk*x*mult}={(2*n//3)-k*x-kk*x*mult}>>{(2*n//3)-k*x-kk*x*mult} {obj}s that he won't be able to place on the {surface}.\n#### {2*n//3 - k*x - (kk * mult * x)}"
+}

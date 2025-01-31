@@ -1,0 +1,8 @@
+{
+  "question": "Shiela is required to submit a 15-page research paper. She already finished writing 1/3 of the paper. How many pages does she have left to write?",
+  "answer": "Shiela has already written one third of the paper which is 15 pages x 1/3 = <<15*1/3=5>>5 pages.\nSo, she still needs to write 15 pages - 5 pages = <<15-5=10>>10 pages.\n#### 10",
+  "id_orig": 655,
+  "id_shuffled": 77,
+  "question_annotated": "{name,Shiela} is required to submit a {n,15}-page {document,research paper}. She already finished writing {frac,1/3} of the {document,paper}. How many pages does she have left to write?\n\n#init:\n- name = sample(names_female)\n- document = sample([\"essay\", \"report\", \"thesis\", \"dissertation\", \"assignment\"])\n- $n = range(10, 325)\n- $frac = sample(fraction_alnum)\n\n#conditions:\n- is_int(n * frac)\n- n * frac < n\n\n#answer: n - int(n * frac)",
+  "answer_annotated": "{name} has already written {frac} of the {document} which is {n} pages x {frac} = <<{n}*{frac}={int(n*frac)}>>{int(n*frac)} pages.\nSo, she still needs to write {n} pages - {int(n*frac)} pages = <<{n}-{int(n*frac)}={n-int(n*frac)}>>{n-int(n*frac)} pages.\n#### {n-int(n*frac)}"
+}

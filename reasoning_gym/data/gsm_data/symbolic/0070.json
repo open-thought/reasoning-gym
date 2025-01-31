@@ -1,0 +1,8 @@
+{
+  "question": "A builder works for 4 weeks every month and for 6 days every week. If he gets paid $50 every day, how much does he earn if he works for a year?",
+  "answer": "The builder works for 6 days every week and works for 4 weeks every month so he works for 6 days/week * 4 weeks/month = <<6*4=24>>24 days/month\nIf he earns $50 every day he then earns $50/day * 24 days/month = $<<50*24=1200>>1200/month\nA year is equal to 12 months so every year he earns $1200/month * 12 months/year = $<<1200*12=14400>>14400\n#### 14400",
+  "id_orig": 401,
+  "id_shuffled": 70,
+  "question_annotated": "A {occupation,builder} works for {w,4} weeks every month and for {d,6} days every week. If he gets paid {cur,$}{p,50} every day, how much does he earn if he works for a year?\n\n#init:\n- occupation = sample([\"plumber\", \"electrician\", \"painter\", \"carpenter\", \"landscaper\"])\n- cur = sample(currencies_sym)\n- $w = range(2, 5)\n- $d = range(4, 7)\n- $p = range(40, 200, 5)\n\n\n#answer: w * d * p * 12",
+  "answer_annotated": "The {occupation} works for {d} days every week and works for {w} weeks every month so he works for {d} days/week * {w} weeks/month = <<{d}*{w}={d*w}>>{d*w} days/month\nIf he earns {cur}{p} every day he then earns {cur}{p}/day * {d*w} days/month = {cur}<<{p}*{d*w}={p*d*w}>>{p*d*w}/month\nA year is equal to 12 months so every year he earns {cur}{p*d*w}/month * 12 months/year = {cur}<<{p*d*w}*12={p*d*w*12}>>{p*d*w*12}\n#### {p*d*w*12}"
+}

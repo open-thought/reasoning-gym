@@ -1,0 +1,8 @@
+{
+  "question": "Mary has 6 jars of sprinkles in her pantry. Each jar of sprinkles can decorate 8 cupcakes. Mary wants to bake enough cupcakes to use up all of her sprinkles. If each pan holds 12 cupcakes, how many pans worth of cupcakes should she bake?",
+  "answer": "She has enough sprinkles for 6 * 8 = <<6*8=48>>48 cupcakes.\nShe needs 48 / 12 = <<48/12=4>>4 pans to bake all of the cupcakes.\n#### 4",
+  "id_orig": 469,
+  "id_shuffled": 64,
+  "question_annotated": "{name,Mary} has {n,6} jars of {item,sprinkles} in her {location,pantry}. Each jar of {item,sprinkles} can decorate {m,8} {food,cupcake}s. {name,Mary} wants to bake enough {food,cupcake}s to use up all of her {item,sprinkles}. If each {container,pan} holds {k,12} {food,cupcake}s, how many {container,pan}s worth of {food,cupcake}s should she bake?\n\n#init:\n- name = sample(names_female)\n- item = sample([\"sprinkles\", \"frosting\", \"icing\", \"chocolate chips\"])\n- food = sample([\"cupcake\", \"cookie\", \"brownie\", \"muffin\"])\n- location = sample([\"pantry\", \"cupboard\", \"kitchen cabinet\", \"storage room\"])\n- container = sample([\"pan\", \"tray\", \"baking sheet\", \"rack\"])\n- $n = range(3, 15)\n- $m = range(6, 20)\n- $k = range(6, 24)\n\n#conditions:\n- divides(n*m, k)\n\n#answer: (n*m)//k",
+  "answer_annotated": "She has enough {item} for {n} * {m} = <<{n}*{m}={n*m}>>{n*m} {food}s.\nShe needs {n*m} / {k} = <<{n*m}/{k}={(n*m)//k}>>{(n*m)//k} {container}s to bake all of the {food}s.\n#### {(n*m)//k}"
+}

@@ -1,0 +1,8 @@
+{
+  "question": "There are 96 fourth-graders at Small Tree  School. 43 of them are girls. On Friday, 5 fourth-grade girls and 4 fourth-grade boys were absent. How many fourth grade boys were at Small Tree  School on Friday?",
+  "answer": "Of the 96 fourth graders, 43 are girls, so 96 students - 43 girls = <<96-43=53>>53 boys.\nOn Friday there were 53 boys - 4 absent = <<53-4=49>>49 boys.\n#### 49",
+  "id_orig": 364,
+  "id_shuffled": 74,
+  "question_annotated": "There are {total,96} {grade,fourth}-graders at {school_name,Small Tree} School. {num_girls,43} of them are girls. On {day,Friday}, {absent_girls,5} {grade,fourth}-grade girls and {absent_boys,4} {grade,fourth}-grade boys were absent. How many {grade,fourth} grade boys were at {school_name,Small Tree} School on {day,Friday}?\n\n#init:\n- school_name = sample([\"Maple Grove\", \"Sunny Hill\", \"Oak Ridge\", \"Pine Valley\"])\n- grade = sample([\"first\", \"second\", \"third\", \"fourth\", \"fifth\"])\n- day = sample([\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\"])\n- $total = range(50, 200)\n- $num_girls = range(20, 100)\n- $absent_girls = range(2, 10)\n- $absent_boys = range(2, 10)\n\n#conditions:\n- num_girls < total\n- absent_girls < num_girls\n- absent_boys < (total - num_girls)\n\n#answer: total - num_girls - absent_boys",
+  "answer_annotated": "Of the {total} {grade} graders, {num_girls} are girls, so {total} students - {num_girls} girls = <<{total}-{num_girls}={total-num_girls}>>{total-num_girls} boys.\nOn {day} there were {total-num_girls} boys - {absent_boys} absent = <<{total-num_girls}-{absent_boys}={total-num_girls-absent_boys}>>{total-num_girls-absent_boys} boys.\n#### {total-num_girls-absent_boys}"
+}

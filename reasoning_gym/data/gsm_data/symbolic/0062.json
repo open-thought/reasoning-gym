@@ -1,0 +1,8 @@
+{
+  "question": "In a set of magicians cards, there are 15 red cards, and 60% more green cards. Yellow cards are as many, as the sum of red and green cards. How many cards of all mentioned colors are there?",
+  "answer": "There are 60/100 * 15 = <<60/100*15=9>>9 more green cards than red cards.\nWhich means there are 15 + 9 = <<15+9=24>>24 green cards.\nYellow cards make up to 15 + 24 = <<15+24=39>>39 cards.\nSo in total, there are 39 + 39 = <<39+39=78>>78 cards of different colors.\n#### 78",
+  "id_orig": 456,
+  "id_shuffled": 62,
+  "question_annotated": "In a set of {item,magician}'s cards, there are {n1,15} {c1,red} cards, and {p,60}% more {c2,green} cards. {c3,Yellow} cards are as many as the sum of {c1,red} and {c2,green} cards. How many cards of all mentioned colors are there?\n\n#init:\n- item = sample([\"magician\", \"artist\", \"chef\", \"scientist\", \"athlete\"])\n- c1, c2, c3 = sample([\"red\", \"blue\", \"green\", \"yellow\", \"purple\", \"orange\"], 3)\n- $n1 = range(20, 81)\n- $p = range(20, 90)\n\n#conditions:\n- p < 100\n- is_int(p/100 * n1)\n\n#answer: 2 * (n1 + (p/100 * n1))",
+  "answer_annotated": "There are {p}/100 * {n1} = <<{p}/100*{n1}={int(p/100*n1)}>>{int(p/100*n1)} more {c2} cards than {c1} cards.\nWhich means there are {n1} + {int(p/100*n1)} = <<{n1}+{int(p/100*n1)}={n1+int(p/100*n1)}>>{n1+int(p/100*n1)} {c2} cards.\n{c3} cards make up to {n1} + {n1+int(p/100*n1)} = <<{n1}+{n1+int(p/100*n1)}={n1+(n1+int(p/100*n1))}>>{n1+(n1+int(p/100*n1))} cards.\nSo in total, there are {n1+(n1+int(p/100*n1))} + {n1+(n1+int(p/100*n1))} = <<{n1+(n1+int(p/100*n1))}+{n1+(n1+int(p/100*n1))}={2*(n1+(n1+int(p/100*n1)))}>>{ 2*(n1+(n1+int(p/100*n1)))} cards of different colors.\n#### {2*(n1+(n1+int(p/100*n1)))}"
+}

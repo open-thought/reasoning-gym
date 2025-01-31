@@ -1,0 +1,8 @@
+{
+  "question": "The Adams family is busy making cookies. So far, they've made 7995 cookies. They have 2595 rainbow cookies, 3075 oatmeal cookies, and some chocolate chip cookies. How many chocolate chip cookies have they made?",
+  "answer": "The total number of pieces of rainbow and oatmeal cookies is 2595 + 3075 = <<2595+3075=5670>>5670.\nTherefore, they made 7995 - 5670 = <<7995-5670=2325>>2325 chocolate chip cookies.\n#### 2325",
+  "id_orig": 1305,
+  "id_shuffled": 83,
+  "question_annotated": "The {family,Adams} family is busy making {item,cookie}s. So far, they've made {total,7995} {item,cookie}s. They have {n1,2595} {flavor1,rainbow} {item,cookie}s, {n2,3075} {flavor2,oatmeal} {item,cookie}s, and some {flavor3,chocolate chip} {item,cookie}s. How many {flavor3,chocolate chip} {item,cookie}s have they made?\n\n#init:\n- family = sample([\"Smith\", \"Johnson\", \"Williams\", \"Brown\", \"Jones\"])\n- item = sample([\"cupcake\", \"muffin\", \"brownie\", \"biscuit\"])\n- flavor1, flavor2, flavor3 = sample([\"vanilla\", \"strawberry\", \"blueberry\", \"lemon\", \"peanut butter\"], 3)\n- $total = range(5000, 10000, 25)\n- $n1 = np.random.randint(1000, 3000, 50)\n- $n2 = np.random.randint(1000, 3000, 50)\n\n#conditions:\n- n1 + n2 < total\n\n#answer: total - (n1 + n2)",
+  "answer_annotated": "The total number of pieces of {flavor1} and {flavor2} {item}s is {n1} + {n2} = <<{n1}+{n2}={n1+n2}>>{n1+n2}.\nTherefore, they made {total} - {n1+n2} = <<{total}-{n1+n2}={total-(n1+n2)}>>{total-(n1+n2)} {flavor3} {item}s.\n#### {total-(n1+n2)}"
+}

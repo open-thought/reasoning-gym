@@ -1,0 +1,8 @@
+{
+  "question": "Ben has 4 tubes of blue paint and 3 tubes of yellow paint. Jasper has half as many tubes of blue paint as Ben, and three times as many tubes of yellow paint as Ben. How many tubes of paint does Jasper have?",
+  "answer": "Jasper has 4/2= <<4/2=2>>2 tubes of blue paint\nJasper has 3*3=<<3*3=9>>9 tubes of yellow paint\nJasper has a total of 2+9 =<<2+9=11>>11 tubes of paint\n#### 11",
+  "id_orig": 480,
+  "id_shuffled": 57,
+  "question_annotated": "{name1,Ben} has {n1,4} tubes of {color1,blue} paint and {n2,3} tubes of {color2,yellow} paint. {name2,Jasper} has {frac1,half} as many tubes of {color1,blue} paint as {name1,Ben}, and {mult1,three times} as many tubes of {color2,yellow} paint as {name1,Ben}. How many tubes of paint does {name2,Jasper} have?\n\n#init:\n- name1, name2 = sample(names_male, 2)\n- color1, color2 = sample(colors, 2)\n- $n1 = range(2, 20)\n- $n2 = range(2, 20)\n- $frac1 = sample(fraction_alnum)\n- $mult1 = sample(multiple_ice+multi_times)\n\n#conditions:\n- is_int(n1 * frac1)\n- is_int(n2 * mult1)\n\n#answer: int(n1 * frac1[1] + n2 * mult1[1])",
+  "answer_annotated": "{name2} has {n1}*{frac1}= <<{n1}*{frac1}={int(n1*frac1)}>>{int(n1*frac1)} tubes of {color1} paint\n{name2} has {n2}*{mult1}=<<{n2}*{mult1}={n2*mult1}>>{n2*mult1} tubes of {color2} paint\n{name2} has a total of {int(n1*frac1)}+{n2*mult1} =<<{int(n1*frac1)}+{n2*mult1}={int(n1*frac1)+n2*mult1}>>{int(n1*frac1)+n2*mult1} tubes of paint\n#### {int(n1*frac1)+n2*mult1}"
+}

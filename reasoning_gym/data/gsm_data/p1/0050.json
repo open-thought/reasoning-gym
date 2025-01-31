@@ -1,0 +1,8 @@
+{
+  "question": "The area of Billie's rectangular bedroom is 360 square feet. If the length of his room is 3 yards, what is the perimeter of the room in feet?",
+  "answer": "The length of the room is 3 yards * (3 feet / 1 yard) = <<3*(3/1)=9>>9 feet.\nThe width of the room is 360 square feet / 9 feet = <<360/9=40>>40 feet.\nThe room's perimeter is 2(40+9) = 98\n#### 98",
+  "id_orig": 440,
+  "id_shuffled": 50,
+  "question_annotated": "The area of {name,Billie}'s rectangular {room_type,bedroom} is {area,360} square {unit,feet}. If the length of his room is {diff,3} {unit,feet} longer that its width, what is the perimeter of the room in {unit,feet}?\n\n\n#init:\n- name = sample(names_male)\n- room_type = sample([\"living room\", \"study\", \"office\", \"kitchen\"])\n- unit = sample([\"feet\", \"meters\"])\n- $area = range(8, 300)\n- $width = range(2, 25)\n- $diff = range(2, 20)\n\n#conditions:\n- width * (width+diff) == area\n\n\n#answer: 2 * (width + width + diff)",
+  "answer_annotated": "If we assume the length of the room is L, then we know L * (L+{diff}) = {area}.\nSince {area} = {width} * ({width}+{diff}) = {width} * {width+diff}, So L={width}. The perimeter is 2 * ({width} + {width+diff}) = 2 * {2*width + diff} = {2 * (width + width + diff)}. \n#### {2 * (width + width + diff)}"
+}

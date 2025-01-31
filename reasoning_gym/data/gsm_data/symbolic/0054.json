@@ -1,0 +1,8 @@
+{
+  "question": "Doxa sliced an apple into 8 pieces. She ate 1 slice, her sister ate 1 more than her, and her brother ate 1 more than her sister. How many slices of apple did they all eat?",
+  "answer": "Her sister ate 1 + 1 = <<1+1=2>>2 slices.\nHer brother ate 2 + 1 = <<2+1=3>>3 slices.\nThey ate a total of 1 + 2 + 3 = <<1+2+3=6>>6 slices.\n#### 6",
+  "id_orig": 1189,
+  "id_shuffled": 54,
+  "question_annotated": "{name,Doxa} sliced a whole {fruit,apple} into {total,8} pieces. She ate {n1,1} slices, her {sibling1,sister} ate {n2,1} more than her, and her {sibling2,brother} ate {n3,1} more than her {sibling1,sister}. How many slices of {fruit,apple} did they all eat?\n\n#init:\n- name = sample(names_female)\n- fruit = sample([\"orange\", \"pear\", \"peach\", \"mango\", \"kiwi\"])\n- sibling1, sibling2 = sample([\"brother\", \"sister\", \"cousin\", \"friend\"], 2)\n- $total = range(6, 33)\n- $n1 = range(3, 15)\n- $n2 = range(5, 13)\n- $n3 = range(3, 14)\n\n#conditions:\n- n1 + (n1 + n2) + (n1 + n2 + n3) <= total\n\n#answer: n1 + (n1 + n2) + (n1 + n2 + n3)",
+  "answer_annotated": "Her {sibling1} ate {n1} + {n2} = <<{n1}+{n2}={n1+n2}>>{n1+n2} slices.\nHer {sibling2} ate {n1+n2} + {n3} = <<{n1+n2}+{n3}={n1+n2+n3}>>{n1+n2+n3} slices.\nThey ate a total of {n1} + {n1+n2} + {n1+n2+n3} = <<{n1}+{n1+n2}+{n1+n2+n3}={n1 + (n1 + n2) + (n1 + n2 + n3)}>>{n1 + (n1 + n2) + (n1 + n2 + n3)} slices.\n#### {n1 + (n1 + n2) + (n1 + n2 + n3)}"
+}

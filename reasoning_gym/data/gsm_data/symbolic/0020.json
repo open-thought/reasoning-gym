@@ -1,0 +1,8 @@
+{
+  "question": "John picks 4 bananas on Wednesday. Then he picks 6 bananas on Thursday. On Friday, he picks triple the number of bananas he did on Wednesday. How many bananas does John have?",
+  "answer": "Combining Wednesday and Thursday, John has 4 bananas + 6 bananas = <<4+6=10>>10 bananas.\nOn Friday, he picks 3 * 4 bananas = <<3*4=12>>12 bananas.\nAltogether, John has 10 bananas + 12 bananas = <<10+12=22>>22 bananas.\n#### 22",
+  "id_orig": 1020,
+  "id_shuffled": 20,
+  "question_annotated": "{name,John} picks {n1,4} {fruit,banana}s on {d1,Wednesday}. Then he picks {n2,6} {fruit,banana}s on {d2,Thursday}. On {d3,Friday}, he picks {mult,triple} the number of {fruit,banana}s he did on {d1,Wednesday}. How many {fruit,banana}s does {name,John} have?\n\n#init:\n- name = sample(names_male)\n- d1, d2, d3 = sample_sequential(weekdays, 3)\n- fruit = sample(fruits)\n- $n1 = range(30, 400)\n- $n2 = range(50, 400)\n- $mult = sample(multiple)\n\n#answer: n1 + n2 + mult * n1",
+  "answer_annotated": "Combining {d1} and {d2}, {name} has {n1} {fruit}s + {n2} {fruit}s = <<{n1}+{n2}={n1+n2}>>{n1+n2} {fruit}s.\nOn {d3}, he picks {mult} * {n1} {fruit}s = <<{mult}*{n1}={mult*n1}>>{mult*n1} {fruit}s.\nAltogether, {name} has {n1+n2} {fruit}s + {mult*n1} {fruit}s = <<{n1+n2}+{n1*mult}={n1 + n2 + mult * n1}>>{n1 + n2 + mult * n1} {fruit}s.\n#### {n1 + n2 + mult * n1}"
+}

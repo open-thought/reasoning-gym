@@ -1,0 +1,8 @@
+{
+  "question": "There are 6 students playing tennis and twice that number playing volleyball. There are 16 boys and 22 girls playing soccer. If each student only participates in one group, how many students are there in total?",
+  "answer": "There are 6 x 2 = <<6*2=12>>12 students playing volleyball.\nThere are 16 + 22 = <<16+22=38>>38 students playing soccer.\nIn total there are 6 + 12 + 38 = <<6+12+38=56>>56 students.\n#### 56",
+  "id_orig": 918,
+  "id_shuffled": 95,
+  "question_annotated": "There are {n1,6} students playing {sport1,tennis} and {mult,twice} that number playing {sport2,volleyball}. There are {n2,16} boys and {n3,22} girls playing {sport3,soccer}. If each student only participates in one group, how many students are there in total?\n\n#init:\n- sport1, sport2, sport3 = sample(['basketball', 'badminton', 'table tennis',  'football', 'volleyball'], 3)\n- $mult = sample(multiple_ice+multi_times)\n- $n1 = range(4, 21)\n- $n2 = range(10, 31)\n- $n3 = range(10, 31)\n\n#conditions:\n- n1 * mult + n2 + n3 <= 250\n\n#answer: n1 + n1 * mult[1] + n2 + n3",
+  "answer_annotated": "There are {n1} x {mult} = <<{n1}*{mult}={n1*mult}>>{n1*mult} students playing {sport2}.\nThere are {n2} + {n3} = <<{n2}+{n3}={n2+n3}>>{n2+n3} students playing {sport3}.\nIn total there are {n1} + {n1*mult} + {n2+n3} = <<{n1}+{n1*mult}+{n2+n3}={n1 + n1*mult + n2 + n3}>>{n1 + n1*mult + n2 + n3} students.\n#### {n1 + n1*mult + n2 + n3}"
+}

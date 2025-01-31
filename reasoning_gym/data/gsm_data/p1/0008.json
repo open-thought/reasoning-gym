@@ -1,0 +1,8 @@
+{
+  "question": "A juggler can juggle 16 balls.  Half of the balls are golf balls, and half of the golf balls are blue.  How many blue golf balls are there?",
+  "answer": "Golf Balls:16/2=<<16/2=8>>8\nBlue Golf Balls:8/2=<<8/2=4>>4 balls\n#### 4",
+  "id_orig": 269,
+  "id_shuffled": 8,
+  "question_annotated": "A juggler can juggle {n, 16} balls. {frac_1, half} of the balls are {ball_type, golf} balls, and {frac_2,half} of the {ball_type,golf} balls are {color, blue} of which {frac_3, half} are marked. How many marked {color, blue} {ball_type,golf} balls are there?\n\n#init:\n- ball_type = sample([\"golf\", \"tennis\"])\n- color = sample(colors)\n- $frac_1 = sample(fractions)\n- $frac_2 = sample(fractions)\n- $frac_3 = sample(fractions)\n- $n = range(120, 1000, 20)\n\n#conditions:\n- is_int(n * frac_1 *  frac_2 * frac_3)\n\n#answer:  int(n * frac_1 * frac_2 * frac_3)",
+  "answer_annotated": "{ball_type} balls:{n} * {frac_1}=<<{n}*{frac_1}={n*frac_1}>>{int(n*frac_1)}\n{color} {ball_type} balls:{int(n*frac_1)}*{frac_2}=<<{int(n*frac_1)}*{frac_2}={int(n*frac_1*frac_2)}>>{int(n*frac_1*frac_2)} balls.\nThe marked balls are {int(n*frac_1*frac_2)} * {frac_3} = {int(int(n*frac_1*frac_2) * frac_3)}\n#### {int(n*frac_1*frac_2 * frac_3)}"
+}

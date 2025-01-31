@@ -1,0 +1,8 @@
+{
+  "question": "David has $12.48 and wants to buy 16 bolts from a bin at the hardware store. Each bolt costs $0.03. How much money does David have left after paying for the bolts?",
+  "answer": "David paid 16 * 0.03 = $<<16*0.03=0.48>>0.48 for the bolts.\nDavid has $12.48 - $0.48 = $12 left.\n#### 12",
+  "id_orig": 873,
+  "id_shuffled": 30,
+  "question_annotated": "{name,David} has {cur,$}{initial_amount,12.48} and wants to buy {quantity,16} {item,bolt}s from a bin at the {store_type,hardware} store. Each {item,bolt} costs {cur,$}{unit_price,0.03}. How much money does {name,David} have left after paying for the {item,bolt}s?\n\n#init:\n- name = sample(names)\n- cur = sample(currencies_sym)\n- item = sample([\"screw\", \"nail\", \"washer\", \"nut\", \"anchor\"])\n- store_type = sample([\"hardware\", \"home improvement\", \"construction supply\"])\n- $quantity = range(15, 60)\n- $initial_amount = fix_floats(shuffle_list(list(np.arange(55.03, 105, 1.01))))\n- $unit_price = fix_floats(list(np.arange(0.01, 1, 0.01)))\n\n#conditions:\n- initial_amount > quantity * unit_price\n- int(quantity * unit_price * 1000) % 10 == 0\n- is_int((initial_amount - quantity * unit_price))\n\n#answer: int(initial_amount - quantity * unit_price)",
+  "answer_annotated": "{name} paid {quantity} * {cur}{round(unit_price,2)} = {cur}<<{quantity}*{round(unit_price,2)}={round(quantity*unit_price,2)}>>{round(quantity*unit_price,2)} for the {item}s.\n{name} has {cur}{initial_amount} - {cur}{round(quantity*unit_price,2)} = {cur}{int(initial_amount - quantity * unit_price)} left.\n#### {int(initial_amount - quantity * unit_price) }"
+}

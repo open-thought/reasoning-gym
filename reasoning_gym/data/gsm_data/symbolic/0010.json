@@ -1,0 +1,8 @@
+{
+  "question": "To make a call from a payphone, you must pay $0.25 for each minute of your call. After 16 minutes, that price drops to $0.2 per minute. How much would a 36-minute call cost?",
+  "answer": "First 16 minutes would be a cost of 16 * 0.25 = $<<16*0.25=4>>4.\nAfter that, there are 36 - 16 = <<36-16=20>>20 minutes of the call left.\nAnd these 20 minutes cost 20 * 0.2 = $<<20*0.2=4>>4.\nSo in total, the 36-minute call would cost 4 + 4 = $8.\n#### 8",
+  "id_orig": 1223,
+  "id_shuffled": 10,
+  "question_annotated": "To make a call from a {dev,payphone}, you must pay {currency,$}{frac1,0.25} for each minute of your call. After {t,16} minutes, that price drops to {currency,$}{frac2,0.2} per minute. How much would a {total,36}-minute call cost?\n\n#init:\n- dev = sample(['phone booth', 'hotel room phone'])\n- currency = sample(currencies_sym)\n- $frac1 = sample(fraction_decimals)\n- $frac2 = sample(fraction_decimals)\n- $t = range(10, 50)\n- $total = range(40, 100)\n\n#conditions:\n- is_int(frac1 * t)\n- is_int((total-t) * frac2)\n- frac2 < frac1\n- t < total\n\n#answer: int((frac1 * t) + frac2*(total-t))",
+  "answer_annotated": "First {t} minutes would be a cost of {t} * {frac1} = {currency}<<{t}*{frac1}={int(t*frac1)}>>{int(t*frac1)}.\nAfter that, there are {total} - {t} = <<{total}-{t}={total-t}>>{total-t} minutes of the call left.\nAnd these {total-t} minutes cost {total-t} * {frac2} = {currency}<<{total-t}*{frac2}={int((total-t)*frac2)}>>{int((total-t)*frac2)}.\nSo in total, the {total}-minute call would cost {int(t*frac1)} + {int((total-t)*frac2)} = {currency}{int(frac1 * t) + int(frac2*(total-t))}.\n#### {int((frac1 * t) + frac2*(total-t))}"
+}

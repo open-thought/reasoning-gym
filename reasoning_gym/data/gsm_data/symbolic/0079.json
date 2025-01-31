@@ -1,0 +1,8 @@
+{
+  "question": "Teddy finished half of a 500 piece puzzle, and then started and finished another 500 piece puzzle within an hour.  How many puzzle pieces did Teddy place during that hour?",
+  "answer": "Teddy did 1/2 * 500 pieces = <<500/2=250>>250 pieces.\nTeddy completed 250 pieces + 500 pieces = <<250+500=750>>750 pieces.\n#### 750",
+  "id_orig": 1074,
+  "id_shuffled": 79,
+  "question_annotated": "{name,Teddy} finished {frac,half} of a {n1,500} piece puzzle, and then started and finished another {n2,500} piece puzzle within an hour. How many puzzle pieces did {name,Teddy} place during that hour?\n\n#init:\n- name = sample(names)\n- $frac = sample(fraction_alnum)\n- $n1 = range(100, 501)\n- $n2 = range(300, 1001)\n\n#conditions:\n- is_int(n1 * frac)\n\n#answer: int(n1 * frac) + n2",
+  "answer_annotated": "{name} did {frac} * {n1} pieces = <<{n1}*{frac}={int(n1*frac)}>>{int(n1*frac)} pieces.\n{name} completed {int(n1*frac)} pieces + {n2} pieces = <<{int(n1*frac)}+{n2}={int(n1*frac)+n2}>>{int(n1*frac)+n2} pieces.\n#### {int(n1*frac)+n2}"
+}

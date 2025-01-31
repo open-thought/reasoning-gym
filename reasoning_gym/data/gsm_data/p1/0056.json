@@ -1,0 +1,8 @@
+{
+  "question": "A glass of milk is 8 ounces of milk.  John drinks 2 glasses of milk.  If milk has 3 calories per ounce how many calories did he consume?",
+  "answer": "He drank 8*2=<<8*2=16>>16 ounces of milk\nSo he drank 16*3=<<16*3=48>>48 calories of milk\n#### 48",
+  "id_orig": 400,
+  "id_shuffled": 56,
+  "question_annotated": "A {container,glass} of {liquid,milk} is {vol,8} {unit,ounces} of {liquid,milk}. {name,John} drinks {num,2} {container,glass}s of {liquid,milk} and adds {tsp,2} teaspoons of sugar to each {container,glass}. Each teaspoon of sugar adds {cal2,16} calories. If the {liquid,milk} has {cal,3} calories per {unit,ounce} how many calories did he consume?\n\n#init:\n- name = sample(names_male)\n- container = sample([\"cup\", \"bottle\", \"carton\"])\n- liquid = sample([\"juice\", \"soda\", \"tea\"])\n- unit = sample([\"ounces\", \"mL\", \"cc\"])\n- $vol = range(6, 16)\n- $num = range(2, 6)\n- $cal = range(2, 10)\n- $tsp = range(2, 4)\n- $cal2 = range(5, 25)\n\n\n#answer: vol * num * cal + num * tsp * cal2",
+  "answer_annotated": "{name} drank {vol}*{num}=<<{vol}*{num}={vol*num}>>{vol*num} {unit} of {liquid}.\n{name} used {tsp} per {container}. So he ate {num} * {tsp} teaspoons of sugar. \nSo he drank {vol*num}*{cal}=<<{vol*num}*{cal}={vol*num*cal}>>{vol*num*cal} calories of {liquid}. \nHe also added {tsp} teaspoons of sugar to each {container}. This will be {num*tsp} * {cal2} = {num * tsp * cal2} calories.\nTotal calories is {vol*num*cal} calories from {liquid} + {num * tsp * cal2} calories from sugar = {vol * num * cal + num * tsp * cal2} calories.\n#### {vol * num * cal + num * tsp * cal2}"
+}
