@@ -33,6 +33,7 @@ This gallery shows examples from all available datasets using their default conf
 - [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
+- [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
@@ -42,31 +43,31 @@ This gallery shows examples from all available datasets using their default conf
 Generates base conversion tasks
 
 Default configuration:
-````python
+```python
 min_base = 2
 max_base = 16
 min_value = 0
 max_value = 1000
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
 Example 1:
-Question: Convert the base-3 number 28e to binary
+Question: Convert the base-3 number 220020 to binary
 Answer: 1010001110
-Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '28e', 'target_repr': '1010001110'}
+Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '220020', 'target_repr': '1010001110'}
 
 Example 2:
-Question: Convert the base-6 number 27 to base-13 (use lowercase letters a-z for digits above 9)
-Answer: 27
-Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '27', 'target_repr': '27'}
+Question: Convert the base-6 number 103 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 30
+Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '103', 'target_repr': '30'}
 
 Example 3:
-Question: Convert the base-10 number 1a2 to base-13 (use lowercase letters a-z for digits above 9)
-Answer: 1a2
-Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '1a2', 'target_repr': '1a2'}
+Question: Convert the base-10 number 418 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 262
+Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '418', 'target_repr': '262'}
 
 ````
 
@@ -74,7 +75,7 @@ Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_r
 Dataset that generates basic arithmetic tasks with configurable complexity
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 6
 min_digits = 1
@@ -86,7 +87,7 @@ seed = 42
 size = 500
 format_style = simple
 whitespace = single
-````
+```
 
 Example tasks:
 ````
@@ -111,11 +112,11 @@ Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
 Generates BF tasks
 
 Default configuration:
-````python
+```python
 seed = 42
 size = 500
 difficulty = 1
-````
+```
 
 Example tasks:
 ````
@@ -146,7 +147,7 @@ Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program'
 Generates Caesar cipher encryption/decryption tasks
 
 Default configuration:
-````python
+```python
 delimiter = .
 min_words = 3
 max_words = 20
@@ -154,7 +155,7 @@ min_rotation = 1
 max_rotation = 25
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -179,7 +180,7 @@ Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV 
 Generates simple arithmetic tasks using only + and - operators
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 6
 min_digits = 1
@@ -187,7 +188,7 @@ max_digits = 4
 allow_negation = False
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -212,12 +213,12 @@ Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}
 Generates color cube rotation reasoning tasks
 
 Default configuration:
-````python
+```python
 min_rotations = 1
 max_rotations = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -280,7 +281,7 @@ Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet'
 Generates Countdown Number Game tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 4
 max_numbers = 6
 min_value = 1
@@ -291,7 +292,7 @@ operators = ('+', '-', '*', '/')
 shuffle = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -319,14 +320,14 @@ Metadata: {'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 -
 Generates family relationship reasoning tasks
 
 Default configuration:
-````python
+```python
 min_family_size = 4
 max_family_size = 8
 male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Peter', 'Daniel', 'Matthew', 'Christopher', 'Andrew', 'George', 'Edward', 'Benjamin', 'Henry', 'Samuel', 'Alexander', 'Oliver', 'Jack', 'Harry', 'Jacob', 'Noah', 'Ethan', 'Lucas', 'Mason', 'Logan', 'Sebastian', 'Theodore', 'Owen', 'Liam', 'Aiden', 'Kai', 'Jayden', 'Zion', 'Phoenix', 'Atlas', 'Axel', 'Ryder', 'Finn']
 female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen', 'Emma', 'Lisa', 'Anna', 'Margaret', 'Victoria', 'Charlotte', 'Sophia', 'Isabella', 'Olivia', 'Ava', 'Mia', 'Emily', 'Abigail', 'Amelia', 'Eleanor', 'Grace', 'Alice', 'Lucy', 'Chloe', 'Sophie', 'Lily', 'Hannah', 'Zoe', 'Luna', 'Nova', 'Aria', 'Willow', 'Aurora', 'Sage', 'River', 'Winter', 'Sky', 'Rain']
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -357,13 +358,13 @@ Metadata: {'person1': 'Liam', 'person2': 'Noah', 'relationship': 'father', 'fami
 Generates FigletFont tasks
 
 Default configuration:
-````python
+```python
 static_word = None
 static_font = None
 space_letters = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -421,7 +422,7 @@ Metadata: {'font': 'xcourb', 'space_letters': True}
 Generates fraction simplification tasks
 
 Default configuration:
-````python
+```python
 min_value = 1
 max_value = 1000
 min_factor = 1
@@ -429,7 +430,7 @@ max_factor = 100
 styles = ('plain', 'latex_inline', 'latex_frac', 'latex_dfrac')
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -454,14 +455,14 @@ Metadata: {'numerator': 29330, 'denominator': 37310, 'simplified_numerator': 419
 Generates Game of Life games with configurable parameters
 
 Default configuration:
-````python
+```python
 grid_size_x = 20
 grid_size_y = 20
 filled_cells = 100
 simulation_steps = 1
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -606,14 +607,14 @@ Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulatio
 Generates Greatest Common Divisor (GCD) tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 1000
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -638,14 +639,14 @@ Metadata: {'numbers': [297, 30], 'result': 3}
 Generates Least Common Multiple (LCM) tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 100
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -670,13 +671,13 @@ Metadata: {'numbers': [38, 4], 'result': 76}
 Generates leg counting arithmetic tasks
 
 Default configuration:
-````python
+```python
 min_animals = 2
 max_animals = 5
 max_instances = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -701,12 +702,12 @@ Metadata: {'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1},
 Generates letter counting tasks from text spans
 
 Default configuration:
-````python
+```python
 min_words = 5
 max_words = 15
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -731,7 +732,7 @@ Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form',
 Generates word letter jumbling tasks
 
 Default configuration:
-````python
+```python
 min_word_len = 1
 max_word_len = 64
 min_words = 3
@@ -741,7 +742,7 @@ max_corruption_level = 0.9
 consecutive_words = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -767,14 +768,14 @@ Generates mazes with guaranteed shortest path distance from start to goal
     within [min_dist, max_dist].
 
 Default configuration:
-````python
+```python
 min_dist = 5
 max_dist = 10
 min_grid_size = 5
 max_grid_size = 10
 seed = 42
 size = 50
-````
+```
 
 Example tasks:
 ````
@@ -840,12 +841,12 @@ Metadata: {'grid_size': 7, 'grid': ['QQQQQQQ', 'QQ%%%%Q', 'QQ`%Q%Q', 'Q%%Q%%Q', 
 Generates 4x4 sudoku puzzles with configurable difficulty
 
 Default configuration:
-````python
+```python
 min_empty = 8
 max_empty = 12
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -891,7 +892,7 @@ Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 1, 2, 4], [4, 0, 0, 0]], '
 Generates number filtering tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 3
 max_numbers = 10
 min_decimals = 0
@@ -900,7 +901,7 @@ min_value = -100.0
 max_value = 100.0
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -925,7 +926,7 @@ Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76
 Generates number sequence completion tasks with dynamic pattern generation
 
 Default configuration:
-````python
+```python
 min_terms = 4
 max_terms = 8
 min_value = -100
@@ -933,7 +934,7 @@ max_value = 100
 max_complexity = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -958,7 +959,7 @@ Metadata: {'rule': 'halve', 'complexity': 2, 'sequence': [8, 4, 2, 1, 0, 0, 0, 0
 Generates number sorting tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 3
 max_numbers = 10
 min_decimals = 0
@@ -967,7 +968,7 @@ min_value = -100.0
 max_value = 100.0
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -995,7 +996,7 @@ Generates random polynomial equations of degree in [min_degree, max_degree].
     - The solution may be real or complex; we filter real solutions by default for simplicity.
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 4
 min_value = 1
@@ -1005,7 +1006,7 @@ max_degree = 3
 operators = ('+', '-')
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1030,12 +1031,12 @@ Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3
 Generates prime factorization tasks
 
 Default configuration:
-````python
+```python
 min_value = 2
 max_value = 1000
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1060,7 +1061,7 @@ Metadata: {'number': 420, 'factors': [2, 2, 3, 5, 7]}
 Generates propositional logic reasoning tasks
 
 Default configuration:
-````python
+```python
 min_vars = 2
 max_vars = 4
 min_statements = 2
@@ -1068,7 +1069,7 @@ max_statements = 4
 max_complexity = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1105,11 +1106,11 @@ Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q 
 Generates QuantumLock tasks
 
 Default configuration:
-````python
+```python
 difficulty = 10
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1158,13 +1159,13 @@ Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B'
 Generates RubiksCube tasks
 
 Default configuration:
-````python
+```python
 scramble_steps = 3
 cube_size = 3
 remove_ansi = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1228,12 +1229,12 @@ Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'ex
 Generates sentence reordering tasks from text spans
 
 Default configuration:
-````python
+```python
 min_words_in_sentence = 3
 max_words_in_sentence = 20
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1258,7 +1259,7 @@ Metadata: {'word_count': 10}
 Generates simple equations with one variable to solve
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 4
 min_value = 1
@@ -1266,7 +1267,7 @@ max_value = 100
 operators = ('+', '-', '*')
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1291,11 +1292,11 @@ Metadata: {'equation': '29*n - 5 = 430', 'variable': 'n'}
 Generates tasks to spell words backward
 
 Default configuration:
-````python
+```python
 min_word_len = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1320,12 +1321,12 @@ Metadata: {'word': 'One', 'word_len': 3}
 Generates sudoku puzzles with configurable difficulty
 
 Default configuration:
-````python
+```python
 min_empty = 30
 max_empty = 50
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1401,7 +1402,7 @@ Metadata: {'puzzle': [[0, 0, 1, 2, 3, 0, 0, 0, 9], [3, 0, 0, 1, 8, 5, 6, 7, 2], 
 Generates syllogism reasoning tasks
 
 Default configuration:
-````python
+```python
 terms = None
 allow_all = True
 allow_no = True
@@ -1411,7 +1412,7 @@ include_invalid = True
 invalid_ratio = 0.3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1450,18 +1451,82 @@ Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are 
 
 ````
 
+### tower_of_hanoi
+Generates Tower of Hanoi problems with solutions.
+    Supports variable number of pegs using the optimized Frame-Stewart algorithm with Peg State Tracking.
+
+Default configuration:
+```python
+min_disks = 3
+max_disks = 7
+min_pegs = 3
+max_pegs = 4
+size = 50
+seed = 42
+visualize = False
+```
+
+Example tasks:
+````
+Example 1:
+Question: Solve the Tower of Hanoi problem with 3 disks and 3 pegs.
+Move all disks from Peg 3 to Peg 2 following the rules:
+- Only one disk can be moved at a time.
+- A larger disk cannot be placed on top of a smaller disk.
+- All disks must be on a peg at all times.
+Example:
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+
+Provide the sequence of moves.
+Answer: ['Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
+Metadata: {'num_disks': 3, 'num_pegs': 3, 'start_peg': 3, 'target_peg': 2, 'auxiliary_pegs': [1], 'solution_length': 7}
+
+Example 2:
+Question: Solve the Tower of Hanoi problem with 3 disks and 4 pegs.
+Move all disks from Peg 2 to Peg 4 following the rules:
+- Only one disk can be moved at a time.
+- A larger disk cannot be placed on top of a smaller disk.
+- All disks must be on a peg at all times.
+Example:
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+
+Provide the sequence of moves.
+Answer: ['Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 3 from Peg 2 to Peg 4', 'Move disk 2 from Peg 3 to Peg 4', 'Move disk 1 from Peg 1 to Peg 4']
+Metadata: {'num_disks': 3, 'num_pegs': 4, 'start_peg': 2, 'target_peg': 4, 'auxiliary_pegs': [1, 3], 'solution_length': 5}
+
+Example 3:
+Question: Solve the Tower of Hanoi problem with 6 disks and 3 pegs.
+Move all disks from Peg 1 to Peg 2 following the rules:
+- Only one disk can be moved at a time.
+- A larger disk cannot be placed on top of a smaller disk.
+- All disks must be on a peg at all times.
+Example:
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+
+Provide the sequence of moves.
+Answer: ['Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 5 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 4 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 6 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 4 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 5 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
+Metadata: {'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxiliary_pegs': [3], 'solution_length': 63}
+
+````
+
 ### word_ladder
 Generates word ladder transformation tasks
 
 Default configuration:
-````python
+```python
 min_word_length = 3
 max_word_length = 5
 min_chain_length = -1
 max_chain_length = -1
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1486,12 +1551,12 @@ Metadata: {'start_word': 'SAUT', 'end_word': 'SKER', 'word_length': 4, 'chain_le
 Generates word sequence reversal tasks from text spans
 
 Default configuration:
-````python
+```python
 min_words = 3
 max_words = 8
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1516,7 +1581,7 @@ Metadata: {'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'poss
 Generates word sorting tasks
 
 Default configuration:
-````python
+```python
 min_words = 3
 max_words = 10
 min_word_length = 3
@@ -1524,7 +1589,7 @@ max_word_length = 12
 transformation = original
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
