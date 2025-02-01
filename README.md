@@ -82,6 +82,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `LCMDataset`: Generate Least Common Multiple problems with configurable number of integers
 - `LegCountingDataset`: Generate animal leg counting word problems with various animals
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
+- `TimeIntervalsDataset`: Generate time interval calculation tasks with various formats (time, date, datetime) and complexities
 
 ### <small>Algorithmic Tasks</small>
 

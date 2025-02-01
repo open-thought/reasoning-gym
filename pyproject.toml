@@ -53,7 +53,7 @@ multi_line_output = 3
 line_length = 120
 
 [tool.pytest.ini_options]
-addopts = "-ra -q --cov=reasoning_gym"
+addopts = "-ra -q"
 testpaths = [
     "tests",
 ]
