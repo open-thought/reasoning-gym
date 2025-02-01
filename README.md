@@ -1,4 +1,4 @@
-# Reasoning Gym
+# Reasoning Gym 1
 
 We are building a python library of procedural dataset generators and algorithmically verifiable reasoning environments for training Reasoning Models with reinforcement learning (RL).
 
