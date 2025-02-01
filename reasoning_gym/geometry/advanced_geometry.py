@@ -1,9 +1,9 @@
 import random
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import List, Optional
 
 import sympy
-from sympy.geometry import Point, Triangle, Segment
+from sympy.geometry import Point, Segment, Triangle
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -13,9 +13,10 @@ class AdvancedGeometryConfig:
     """
     Configuration for generating advanced geometry tasks.
     """
+
     min_coord: int = -10  # Minimum x/y coordinate
-    max_coord: int = 10   # Maximum x/y coordinate
-    size: int = 50        # Number of problems to generate
+    max_coord: int = 10  # Maximum x/y coordinate
+    size: int = 50  # Number of problems to generate
     seed: Optional[int] = None
 
     # Probability or list of tasks we want to generate
@@ -98,16 +99,12 @@ class AdvancedGeometryDataset(ProceduralDataset):
                 x = rng.randint(self.config.min_coord, self.config.max_coord)
                 y = rng.randint(self.config.min_coord, self.config.max_coord)
                 points.append(Point(x, y))
-            
+
             A, B, C = points
-            
+
             # Calculate signed area to check for non-degeneracy
             # Using the formula: 1/2 * |x1(y2 - y3) + x2(y3 - y1) + x3(y1 - y2)|
-            area = abs(
-                A.x * (B.y - C.y) + 
-                B.x * (C.y - A.y) + 
-                C.x * (A.y - B.y)
-            ) / 2
+            area = abs(A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y)) / 2
 
             if area > 0:
                 return A, B, C
@@ -121,21 +118,19 @@ class AdvancedGeometryDataset(ProceduralDataset):
         # Convert segments to lines
         BC_line = sympy.Line(B, C)
         CA_line = sympy.Line(C, A)
-        
+
         # Calculate altitudes by creating lines perpendicular from each vertex
         alt_A = BC_line.perpendicular_line(A)
         alt_B = CA_line.perpendicular_line(B)
-        
+
         # Find orthocenter (intersection of any two altitudes, e.g. alt_A and alt_B)
         ortho = alt_A.intersection(alt_B)[0]
-        
+
         x_ortho_approx = float(ortho.x.evalf())
         y_ortho_approx = float(ortho.y.evalf())
 
         question_template = rng.choice(self._prompt_templates["orthocenter"])
-        question = question_template.format(
-            A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y)
-        )
+        question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y))
         answer_str = f"({x_ortho_approx:.3f}, {y_ortho_approx:.3f})"
 
         metadata = {
@@ -147,7 +142,6 @@ class AdvancedGeometryDataset(ProceduralDataset):
         }
         return question, answer_str, metadata
 
-
     def _build_incircle_radius_task(self, rng: random.Random, A: Point, B: Point, C: Point):
         """
         Build a question about finding the incircle radius of triangle ABC.
@@ -156,13 +150,13 @@ class AdvancedGeometryDataset(ProceduralDataset):
         a = B.distance(C)
         b = C.distance(A)
         c = A.distance(B)
-        
+
         # Semi-perimeter
         s = (a + b + c) / 2
-        
+
         # Area using Heron's formula
         area = sympy.sqrt(s * (s - a) * (s - b) * (s - c))
-        
+
         # Radius of incircle = Area / Semi-perimeter
         radius = area / s
 
@@ -170,9 +164,7 @@ class AdvancedGeometryDataset(ProceduralDataset):
         radius_approx = float(radius.evalf())
 
         question_template = rng.choice(self._prompt_templates["incircle_radius"])
-        question = question_template.format(
-            A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y)
-        )
+        question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y))
         answer_str = f"{radius_approx:.3f}"
 
         metadata = {
@@ -211,9 +203,7 @@ class AdvancedGeometryDataset(ProceduralDataset):
             angle_deg = float(angle_rad.evalf() * 180 / sympy.pi)
 
         question_template = rng.choice(self._prompt_templates["angle_measure"])
-        question = question_template.format(
-            A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y)
-        )
+        question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y))
 
         answer_str = f"{angle_deg:.2f}°"
         metadata = {

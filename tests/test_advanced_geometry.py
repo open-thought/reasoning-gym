@@ -1,9 +1,7 @@
 import pytest
 
-from reasoning_gym.geometry.advanced_geometry import (
-    AdvancedGeometryDataset,
-    AdvancedGeometryConfig,
-)
+from reasoning_gym.geometry.advanced_geometry import AdvancedGeometryConfig, AdvancedGeometryDataset
+
 
 def test_advanced_geometry_config_validation():
     """Test that invalid configs raise appropriate errors."""
@@ -35,8 +33,7 @@ def test_advanced_geometry_dataset_deterministic():
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i], (
-            f"Item mismatch at index {i} for same seed. "
-            f"Dataset1: {dataset1[i]} vs Dataset2: {dataset2[i]}"
+            f"Item mismatch at index {i} for same seed. " f"Dataset1: {dataset1[i]} vs Dataset2: {dataset2[i]}"
         )
 
 
@@ -55,16 +52,14 @@ def test_advanced_geometry_dataset_items():
 
         # Basic metadata checks
         metadata = item["metadata"]
-        assert "A" in metadata and "B" in metadata and "C" in metadata, (
-            "Metadata should contain coordinates for points A, B, and C."
-        )
+        assert (
+            "A" in metadata and "B" in metadata and "C" in metadata
+        ), "Metadata should contain coordinates for points A, B, and C."
 
         # Check answer format depending on task type
         # For angle measure tasks, answer should end with '°'
         if "angle_measure" in item["question"].lower() or "angle at" in item["question"].lower():
-            assert item["answer"].endswith("°"), (
-                f"Expected angle measure in degrees, got {item['answer']}"
-            )
+            assert item["answer"].endswith("°"), f"Expected angle measure in degrees, got {item['answer']}"
 
 
 def test_advanced_geometry_dataset_iteration():

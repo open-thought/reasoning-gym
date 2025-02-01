@@ -1,9 +1,7 @@
 import pytest
 
-from reasoning_gym.geometry.simple_geometry import (
-    SimpleGeometryDataset,
-    SimpleGeometryConfig,
-)
+from reasoning_gym.geometry.simple_geometry import SimpleGeometryConfig, SimpleGeometryDataset
+
 
 def test_simple_geometry_config_validation():
     """Test invalid configs raise appropriate errors."""
@@ -35,21 +33,13 @@ def test_simple_geometry_dataset_deterministic():
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i], (
-            f"Item mismatch at index {i} for same seed. "
-            f"Dataset1: {dataset1[i]} vs Dataset2: {dataset2[i]}"
+            f"Item mismatch at index {i} for same seed. " f"Dataset1: {dataset1[i]} vs Dataset2: {dataset2[i]}"
         )
 
 
 def test_simple_geometry_dataset_items():
     """Test basic properties of generated items."""
-    config = SimpleGeometryConfig(
-        min_sides=3, 
-        max_sides=5, 
-        min_angle=10, 
-        max_angle=120, 
-        size=10, 
-        seed=123
-    )
+    config = SimpleGeometryConfig(min_sides=3, max_sides=5, min_angle=10, max_angle=120, size=10, seed=123)
     dataset = SimpleGeometryDataset(config)
 
     for i in range(len(dataset)):
@@ -62,9 +52,7 @@ def test_simple_geometry_dataset_items():
 
         metadata = item["metadata"]
         assert "n_sides" in metadata, "Metadata should contain 'n_sides'."
-        assert "missing_angle_rounded" in metadata, (
-            "Metadata should contain the computed 'missing_angle_rounded'."
-        )
+        assert "missing_angle_rounded" in metadata, "Metadata should contain the computed 'missing_angle_rounded'."
 
         # Check that the missing angle is a valid float or integer
         missing_angle = float(item["answer"])

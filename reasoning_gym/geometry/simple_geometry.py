@@ -4,6 +4,7 @@ from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
+
 @dataclass
 class SimpleGeometryConfig:
     """
@@ -12,12 +13,12 @@ class SimpleGeometryConfig:
     for the first (N-1) sides, and asks the solver to find the last angle.
     """
 
-    min_sides: int = 3          # Minimum number of sides (e.g. triangle)
-    max_sides: int = 6          # Maximum number of sides (e.g. hexagon)
-    min_angle: int = 10         # Minimum angle (in degrees) for each of the first (N-1) angles
-    max_angle: int = 170        # Maximum angle (in degrees) for each of the first (N-1) angles
+    min_sides: int = 3  # Minimum number of sides (e.g. triangle)
+    max_sides: int = 6  # Maximum number of sides (e.g. hexagon)
+    min_angle: int = 10  # Minimum angle (in degrees) for each of the first (N-1) angles
+    max_angle: int = 170  # Maximum angle (in degrees) for each of the first (N-1) angles
     seed: Optional[int] = None  # Random seed
-    size: int = 100             # Number of geometry tasks to generate
+    size: int = 100  # Number of geometry tasks to generate
 
     def validate(self) -> None:
         """
@@ -85,9 +86,7 @@ class SimpleGeometryDataset(ProceduralDataset):
         # Build the question string
         angle_list_str = ", ".join(f"{a:.1f}°" for a in known_angles)
         prompt = rng.choice(self._prompt_templates).format(
-            n_sides=n_sides,
-            n_minus_1=n_sides - 1,
-            angle_list=angle_list_str
+            n_sides=n_sides, n_minus_1=n_sides - 1, angle_list=angle_list_str
         )
 
         # Round the missing angle to one decimal place or integer if it is very close to an integer
@@ -135,6 +134,7 @@ class SimpleGeometryDataset(ProceduralDataset):
             f"Could not generate valid angles for an {n_sides}-gon "
             f"with total sum {total_sum} within {max_attempts} attempts."
         )
+
 
 # Register the dataset so it can be accessed similarly to the others
 register_dataset("simple_geometry", SimpleGeometryDataset, SimpleGeometryConfig)
