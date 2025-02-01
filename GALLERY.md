@@ -2,6 +2,7 @@
 This gallery shows examples from all available datasets using their default configurations.
 
 ## Available Datasets
+- [advanced_geometry](#advanced_geometry)
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
@@ -30,6 +31,7 @@ This gallery shows examples from all available datasets using their default conf
 - [rubiks_cube](#rubiks_cube)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
+- [simple_geometry](#simple_geometry)
 - [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
@@ -40,6 +42,37 @@ This gallery shows examples from all available datasets using their default conf
 - [word_sorting](#word_sorting)
 
 ## Dataset Examples
+### advanced_geometry
+A dataset for advanced geometry tasks using coordinate geometry.
+
+Default configuration:
+```python
+min_coord = -10
+max_coord = 10
+size = 50
+seed = 42
+task_types = ['orthocenter', 'incircle_radius', 'angle_measure']
+```
+
+Example tasks:
+````
+Example 1:
+Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -6), find the measure (in degrees) of angle ABC.
+Answer: 17.10°
+Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237}
+
+Example 2:
+Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determine the orthocenter (intersection of altitudes).
+Answer: (0.304, -1.217)
+Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262)}
+
+Example 3:
+Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3).
+Answer: 2.176
+Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009}
+
+````
+
 ### base_conversion
 Generates base conversion tasks
 
@@ -1286,6 +1319,43 @@ Example 3:
 Question: Determine the value of n that satisfies: 29*n - 5 = 430
 Answer: 15
 Metadata: {'equation': '29*n - 5 = 430', 'variable': 'n'}
+
+````
+
+### simple_geometry
+A dataset for simple polygon angle-finding tasks.
+    We randomly choose the number of sides N within [min_sides, max_sides].
+    We then generate (N-1) random angles (in degrees), ensuring their sum is
+    strictly less than the total sum for an (N)-sided convex polygon (which is 180*(N-2)).
+    The question asks for the missing angle; the answer is computed by subtracting the
+    sum of known angles from 180*(N-2).
+
+Default configuration:
+```python
+min_sides = 3
+max_sides = 6
+min_angle = 10
+max_angle = 170
+seed = 42
+size = 100
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a convex polygon with 3 sides, its first 2 interior angles are: 16.0°, 80.0°. What is the measure of the remaining interior angle (in degrees)?
+Answer: 84
+Metadata: {'n_sides': 3, 'known_angles': [16.0, 80.0], 'sum_of_known_angles': 96.0, 'missing_angle_raw': 84.0, 'missing_angle_rounded': 84, 'total_interior_sum': 180}
+
+Example 2:
+Question: A convex polygon has 3 sides. The measures of the first 2 interior angles are: 83.0°, 46.0°. Find the measure of the last interior angle.
+Answer: 51
+Metadata: {'n_sides': 3, 'known_angles': [83.0, 46.0], 'sum_of_known_angles': 129.0, 'missing_angle_raw': 51.0, 'missing_angle_rounded': 51, 'total_interior_sum': 180}
+
+Example 3:
+Question: Given a convex polygon with 6 sides, its first 5 interior angles are: 143.0°, 148.0°, 39.0°, 55.0°, 107.0°. What is the measure of the remaining interior angle (in degrees)?
+Answer: 228
+Metadata: {'n_sides': 6, 'known_angles': [143.0, 148.0, 39.0, 55.0, 107.0], 'sum_of_known_angles': 492.0, 'missing_angle_raw': 228.0, 'missing_angle_rounded': 228, 'total_interior_sum': 720}
 
 ````
 
