@@ -33,6 +33,7 @@ This gallery shows examples from all available datasets using their default conf
 - [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
+- [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
@@ -1448,6 +1449,41 @@ Some ... are not butterflies are whales?
 (Answer Yes or No)
 Answer: No
 Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some ... are not butterflies are whales', 'is_valid': False}
+
+````
+
+### time_intervals
+Generates time interval calculation tasks with various formats and complexities
+
+Default configuration:
+```python
+min_time = 00:00:00
+max_time = 23:59:59.999999
+max_time_difference_seconds = 86400
+min_date = 1900-01-01
+max_date = 3000-01-01
+max_date_difference_days = 100
+task_types = ['time', 'time_seconds', 'time_ms', 'date', 'datetime', 'datetime_tz']
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: A system backup started at 2964-06-17 08:15:14 and completed at 2964-07-04 11:59:09. What was the total backup duration? Answer in D days, HH:MM.
+Answer: 17 days, 03:43
+Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 17, 8, 15, 14), 'end_time': datetime.datetime(2964, 7, 4, 11, 59, 9), 'format': '%Y-%m-%d %H:%M:%S', 'expected_format': 'D days, HH:MM'}
+
+Example 2:
+Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
+Answer: 02:38
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 1, 9, 44), 'end_time': datetime.datetime(2025, 2, 1, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+
+Example 3:
+Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
+Answer: 89 days
+Metadata: {'task_type': 'date', 'start_time': datetime.datetime(2677, 12, 22, 0, 0), 'end_time': datetime.datetime(2678, 3, 21, 0, 0), 'format': '%a %b %d %Y', 'expected_format': 'D days'}
 
 ````
 
