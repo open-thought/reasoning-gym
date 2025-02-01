@@ -11,6 +11,7 @@ class TaskType(Enum):
     """Defines the type of task for the Alice in Wonderland dataset."""
     SIBLINGS = "siblings"
     FRIENDS = "friends"
+    COLLEAGUES = "colleagues"  # Added colleagues task
 
 
 class OutputFormat(Enum):
@@ -31,7 +32,7 @@ class AliceInWonderlandConfig:
         output_formats (List[OutputFormat]): List of output formats to include in dataset.
         seed (Optional[int]): Seed for random number generation.
         size (int): Number of samples in the dataset.
-        max_entities (int): Max number of siblings/friends in questions.
+        max_entities (int): Max number of siblings/friends/colleagues in questions.
     """
     male_names: List[str] = field(
         default_factory=lambda: [
@@ -46,7 +47,7 @@ class AliceInWonderlandConfig:
         ]
     )
     task_types: List[TaskType] = field(
-        default_factory=lambda: [TaskType.SIBLINGS, TaskType.FRIENDS]
+        default_factory=lambda: [TaskType.SIBLINGS, TaskType.FRIENDS, TaskType.COLLEAGUES]  # Added Colleagues
     )
     output_formats: List[OutputFormat] = field(
         default_factory=lambda: [
@@ -111,6 +112,20 @@ class AliceInWonderlandDataset(ProceduralDataset):
                     "have?"
                 )
             ],
+            TaskType.COLLEAGUES: [  # New colleagues templates
+                Template(
+                    "$female_name has $num_male_colleagues_alice_circle male colleagues and she also has "
+                    "$num_female_colleagues_alice_circle female colleagues. These are all colleagues that $female_name has. "
+                    "All these mentioned persons around $female_name are colleagues of each other. "
+                    "$male_name has $num_male_colleagues_bob_circle male colleagues "
+					"and $num_female_colleagues_bob_circle female colleagues in total. "
+                    "All these mentioned persons around $male_name are colleagues of each other. "
+					"The people in the circle around $male_name do not have "
+					"other colleagues aside - with the only exception of Matilda. "
+                    "She is colleague of $male_name and she is also colleague of $female_name, "
+					"being part of $female_name's circle. How many female colleagues does Matilda have?"
+                ),
+            ],
         }
 
         self.format_templates = {
@@ -145,6 +160,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
         if task_type == TaskType.SIBLINGS:
             num_brothers = rng.randint(1, self.config.max_entities)
             num_sisters = rng.randint(1, self.config.max_entities)
+
             answer = num_sisters + 1
             template = rng.choice(self.templates[TaskType.SIBLINGS])
             question = template.substitute(
@@ -156,6 +172,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
         elif task_type == TaskType.FRIENDS:
             num_male = rng.randint(1, self.config.max_entities)
             num_female = rng.randint(1, self.config.max_entities)
+
             answer = num_female + 1
             template = rng.choice(self.templates[TaskType.FRIENDS])
             question = template.substitute(
@@ -163,6 +180,22 @@ class AliceInWonderlandDataset(ProceduralDataset):
                 male_name=male_name,
                 num_male=num_male,
                 num_female=num_female,
+            )
+        elif task_type == TaskType.COLLEAGUES:
+            num_male_colleagues_alice_circle = rng.randint(1, self.config.max_entities)
+            num_female_colleagues_alice_circle = rng.randint(1, self.config.max_entities)
+            num_male_colleagues_bob_circle = rng.randint(1, self.config.max_entities)
+            num_female_colleagues_bob_circle = rng.randint(1, self.config.max_entities)
+
+            answer = num_female_colleagues_alice_circle + 1
+            template = rng.choice(self.templates[TaskType.COLLEAGUES])
+            question = template.substitute(
+                female_name=female_name,
+                male_name=male_name,
+                num_male_colleagues_alice_circle=num_male_colleagues_alice_circle,
+                num_female_colleagues_alice_circle=num_female_colleagues_alice_circle,
+                num_male_colleagues_bob_circle=num_male_colleagues_bob_circle,
+                num_female_colleagues_bob_circle=num_female_colleagues_bob_circle
             )
 
         formatted_question = self.format_templates[output_format].substitute(
