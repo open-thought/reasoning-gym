@@ -193,7 +193,7 @@ class WordLadderDataset(ProceduralDataset):
         start, end, path = self._generate_word_pair(rng, length)
         
         return {
-            "question": f"Transform the word '{start}' into '{end}' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.",
+            "question": f"Transform the word ladder '{start}' to '{end}' by changing one letter at a time.",
             "answer": ",".join(path),
             "metadata": {
                 "start_word": start,
