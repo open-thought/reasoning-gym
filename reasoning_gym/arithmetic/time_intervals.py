@@ -1,5 +1,4 @@
 import random
-import zoneinfo
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from typing import List, Optional
@@ -82,7 +81,6 @@ class TimeIntervalsDataset(ProceduralDataset):
 
     def __init__(self, config: TimeIntervalsConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
-        self.timezones = list(pytz.common_timezones)
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single time interval calculation task"""

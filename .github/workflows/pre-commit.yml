@@ -1,4 +1,8 @@
-name: Pre-commit
+name:  Pre-commit Checks
+
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   pull_request:
@@ -7,10 +11,6 @@ on:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      issues: write
-      pull-requests: write
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
