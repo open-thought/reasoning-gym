@@ -51,7 +51,7 @@ class LetterCountingDataset(ProceduralDataset):
             letters = {"a"}  # Fallback if span has no letters
 
         # Select random letter that appears in the span
-        target_letter = rng.choice(list(letters))
+        target_letter = rng.choice(sorted(letters))
 
         # Count occurrences
         count = sum(word.lower().count(target_letter) for word in span)
