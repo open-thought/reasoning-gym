@@ -2,15 +2,17 @@ import pytest
 
 from reasoning_gym.algorithmic.palindrome_generation import PalindromeConfig, PalindromeDataset
 
+
 def test_palindrome_config_validation():
     """Test that invalid configs raise appropriate errors"""
     with pytest.raises(AssertionError):
         config = PalindromeConfig(min_length=0)  # Too short
         config.validate()
-    
+
     with pytest.raises(AssertionError):
         config = PalindromeConfig(min_length=5, max_length=3)  # Invalid range
         config.validate()
+
 
 def test_palindrome_deterministic():
     """Test that dataset generates same items with same seed"""
@@ -20,6 +22,7 @@ def test_palindrome_deterministic():
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
+
 
 def test_palindrome_items():
     """Test basic properties of generated items"""
@@ -40,14 +43,15 @@ def test_palindrome_items():
         palindrome = item["answer"]
         assert palindrome == palindrome[::-1], f"{palindrome} is not a palindrome"
 
+
 def test_palindrome_randomization():
     """Test letter randomization in the question"""
     config = PalindromeConfig(min_length=4, max_length=4, size=10, seed=42)
     dataset = PalindromeDataset(config)
-    
+
     for item in dataset:
         letters = item["metadata"]["letters"]
         palindrome = item["metadata"]["generated_palindrome"]
-        
+
         # Ensure the same letters are present but in different order
         assert sorted(letters) == sorted(palindrome)

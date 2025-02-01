@@ -5,6 +5,7 @@ from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
+
 @dataclass
 class PalindromeConfig:
     """
@@ -15,6 +16,7 @@ class PalindromeConfig:
     - seed: Optional seed for reproducibility.
     - size: Number of palindrome samples in the virtual dataset.
     """
+
     min_length: int = 3
     max_length: int = 10
     seed: Optional[int] = None
@@ -30,6 +32,7 @@ class PalindromeDataset(ProceduralDataset):
     """
     Generates a set of letters that can be assembled into a palindrome.
     """
+
     def __init__(self, config: PalindromeConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -50,7 +53,7 @@ class PalindromeDataset(ProceduralDataset):
         palindrome = self._assemble_palindrome(letters)
 
         question_str = (
-           f"Rearrange these letters to form a palindrome (a word, phrase, or sequence that remains the same in reverse): {', '.join(scrambled_letters)}\n\n"
+            f"Rearrange these letters to form a palindrome (a word, phrase, or sequence that remains the same in reverse): {', '.join(scrambled_letters)}\n\n"
             "Example format:\n"
             "racecar\n\n"
             "What is your palindrome?"
