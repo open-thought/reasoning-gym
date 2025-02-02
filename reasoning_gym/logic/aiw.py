@@ -14,13 +14,6 @@ class TaskType(Enum):
     COLLEAGUES = "colleagues"  # Added colleagues task
 
 
-class OutputFormat(Enum):
-    """Defines the output format for the generated questions."""
-    PLAIN = "plain"
-    RESTRICTED = "restricted"
-    THINKING = "thinking"
-
-
 @dataclass
 class AliceInWonderlandConfig:
     """Configuration options for the Alice in Wonderland dataset.

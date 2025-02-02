@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.logic.aiw import AliceInWonderlandConfig, AliceInWonderlandDataset, TaskType, OutputFormat
+from reasoning_gym.logic.aiw import AliceInWonderlandConfig, AliceInWonderlandDataset, TaskType
 
 
 def test_aiw_config_validation():
