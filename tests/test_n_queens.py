@@ -49,17 +49,17 @@ def test_nqueens_dataset_items():
 
         # Check metadata
         assert "puzzle" in item["metadata"]
-        assert "solution" in item["metadata"]
+        assert "solutions" in item["metadata"]
         assert "num_removed" in item["metadata"]
 
         puzzle = item["metadata"]["puzzle"]
-        solution = item["metadata"]["solution"]
+        solutions = item["metadata"]["solutions"]
         num_removed = item["metadata"]["num_removed"]
 
         # Verify board dimensions
         assert len(puzzle) == 8
         assert all(len(row) == 8 for row in puzzle)
-        for board in solution:
+        for board in solutions:
             assert len(board) == 8
             assert all(len(row) == 8 for row in board)
 
@@ -69,7 +69,7 @@ def test_nqueens_dataset_items():
         assert removed_count == num_removed
 
         # Verify solution validity
-        for board in solution:
+        for board in solutions:
             assert is_valid_solution(board)
 
             # Verify puzzle matches solution where filled
@@ -98,7 +98,7 @@ def test_nqueens_board_generation():
 
     for i in range(len(dataset)):
         item = dataset[i]
-        for board in item["metadata"]["solution"]:
+        for board in item["metadata"]["solutions"]:
             assert is_valid_solution(board)
 
 
