@@ -46,6 +46,24 @@ def test_all_arc_1d_tasks():
     # Fixed move_pix value for testing
     move_pix = 2
 
+    # Test task augmentation functions
+    base_task = task_move_n_pix(rng, size, move_pix, True)
+    assert base_task is not None
+    
+    mirrored = task_mirror(base_task)
+    assert mirrored is not None
+    assert mirrored["input"] == list(reversed(base_task["input"]))
+    assert mirrored["output"] == list(reversed(base_task["output"]))
+    
+    inversed = task_inverse(base_task)
+    assert inversed is not None
+    assert inversed["input"] == base_task["output"]
+    assert inversed["output"] == base_task["input"]
+    
+    identical = task_identity(base_task)
+    assert identical is not None
+    assert identical == base_task
+
     tasks = [
         (task_move_n_pix, {"move_pix": move_pix, "solid": True}),
         (task_move_n_pix_wrapped, {"move_pix": move_pix, "solid": True}),

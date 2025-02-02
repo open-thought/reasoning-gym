@@ -1030,6 +1030,31 @@ def task_gravity_weighted_colors(rng: Random, size: int) -> Optional[Dict[str, L
     return {"input": question, "output": answer}
 
 
+def task_mirror(task_result: Optional[Dict[str, List[int]]]) -> Optional[Dict[str, List[int]]]:
+    """Mirror the input and output arrays of a task result."""
+    if task_result is None:
+        return None
+    return {
+        "input": list(reversed(task_result["input"])),
+        "output": list(reversed(task_result["output"]))
+    }
+
+
+def task_inverse(task_result: Optional[Dict[str, List[int]]]) -> Optional[Dict[str, List[int]]]:
+    """Swap the input and output arrays of a task result."""
+    if task_result is None:
+        return None
+    return {
+        "input": task_result["output"],
+        "output": task_result["input"]
+    }
+
+
+def task_identity(task_result: Optional[Dict[str, List[int]]]) -> Optional[Dict[str, List[int]]]:
+    """Return the task result unchanged."""
+    return task_result
+
+
 def task_color_left_half_blocks(rng: Random, size: int) -> Optional[Dict[str, List[int]]]:
     """Generate a task where left half of blocks are colored differently."""
     pos = 0
