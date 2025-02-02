@@ -1,5 +1,5 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Optional
 
 import sympy
@@ -21,16 +21,11 @@ class AdvancedGeometryConfig:
 
     # Probability or list of tasks we want to generate
     # For demonstration, we have three categories:
-    task_types: List[str] = None
-
-    def __post_init__(self):
-        if self.task_types is None:
-            # Default set of advanced tasks
-            self.task_types = [
-                "orthocenter",
-                "incircle_radius",
-                "angle_measure",
-            ]
+    task_types: List[str] = field(default_factory=lambda: [
+        "orthocenter",
+        "incircle_radius",
+        "angle_measure",
+    ])
 
     def validate(self):
         assert self.min_coord < self.max_coord, "min_coord must be < max_coord."

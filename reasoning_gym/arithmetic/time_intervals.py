@@ -1,5 +1,5 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime, time, timedelta
 from typing import List, Optional
 
@@ -19,13 +19,11 @@ class TimeIntervalsConfig:
     min_date: date = date(1900, 1, 1)
     max_date: date = date(3000, 1, 1)
     max_date_difference_days: int = 100
-    task_types: List[str] = None
+    task_types: List[str] = field(
+        default_factory=lambda: ["time", "time_seconds", "time_ms", "date", "datetime", "datetime_tz"]
+    )
     seed: Optional[int] = None
     size: int = 500
-
-    def __post_init__(self):
-        if self.task_types is None:
-            self.task_types = ["time", "time_seconds", "time_ms", "date", "datetime", "datetime_tz"]
 
     def validate(self) -> None:
         """Validate configuration parameters"""

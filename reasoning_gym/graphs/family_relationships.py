@@ -1,5 +1,5 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 from itertools import count
 from typing import List, Optional, Set, Tuple
@@ -37,12 +37,8 @@ class Person:
     gender: Gender
     id: int
     spouse: Optional["Person"] = None
-    parents: List["Person"] = None
-    children: List["Person"] = None
-
-    def __post_init__(self):
-        self.parents = self.parents or []
-        self.children = self.children or []
+    parents: List["Person"] = field(default_factory=list)
+    children: List["Person"] = field(default_factory=list)
 
     def __hash__(self):
         return self.id
@@ -69,108 +65,24 @@ class FamilyRelationshipsConfig:
 
     min_family_size: int = 4
     max_family_size: int = 8
-    male_names: List[str] = None
-    female_names: List[str] = None
+    male_names: List[str] = field(default_factory=lambda: [
+        "James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph",
+        "Thomas", "Charles", "Peter", "Daniel", "Matthew", "Christopher", "Andrew",
+        "George", "Edward", "Benjamin", "Henry", "Samuel", "Alexander", "Oliver",
+        "Jack", "Harry", "Jacob", "Noah", "Ethan", "Lucas", "Mason", "Logan",
+        "Sebastian", "Theodore", "Owen", "Liam", "Aiden", "Kai", "Jayden", "Zion",
+        "Phoenix", "Atlas", "Axel", "Ryder", "Finn"
+    ])
+    female_names: List[str] = field(default_factory=lambda: [
+        "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan",
+        "Jessica", "Sarah", "Karen", "Emma", "Lisa", "Anna", "Margaret", "Victoria",
+        "Charlotte", "Sophia", "Isabella", "Olivia", "Ava", "Mia", "Emily",
+        "Abigail", "Amelia", "Eleanor", "Grace", "Alice", "Lucy", "Chloe",
+        "Sophie", "Lily", "Hannah", "Zoe", "Luna", "Nova", "Aria", "Willow",
+        "Aurora", "Sage", "River", "Winter", "Sky", "Rain"
+    ])
     seed: Optional[int] = None
     size: int = 500
-
-    def __post_init__(self):
-        # Default name lists if none provided
-        default_male_names = [
-            "James",
-            "John",
-            "Robert",
-            "Michael",
-            "William",
-            "David",
-            "Richard",
-            "Joseph",
-            "Thomas",
-            "Charles",
-            "Peter",
-            "Daniel",
-            "Matthew",
-            "Christopher",
-            "Andrew",
-            "George",
-            "Edward",
-            "Benjamin",
-            "Henry",
-            "Samuel",
-            "Alexander",
-            "Oliver",
-            "Jack",
-            "Harry",
-            "Jacob",
-            "Noah",
-            "Ethan",
-            "Lucas",
-            "Mason",
-            "Logan",
-            "Sebastian",
-            "Theodore",
-            "Owen",
-            "Liam",
-            "Aiden",
-            "Kai",
-            "Jayden",
-            "Zion",
-            "Phoenix",
-            "Atlas",
-            "Axel",
-            "Ryder",
-            "Finn",
-        ]
-        default_female_names = [
-            "Mary",
-            "Patricia",
-            "Jennifer",
-            "Linda",
-            "Elizabeth",
-            "Barbara",
-            "Susan",
-            "Jessica",
-            "Sarah",
-            "Karen",
-            "Emma",
-            "Lisa",
-            "Anna",
-            "Margaret",
-            "Victoria",
-            "Charlotte",
-            "Sophia",
-            "Isabella",
-            "Olivia",
-            "Ava",
-            "Mia",
-            "Emily",
-            "Abigail",
-            "Amelia",
-            "Eleanor",
-            "Grace",
-            "Alice",
-            "Lucy",
-            "Chloe",
-            "Sophie",
-            "Lily",
-            "Hannah",
-            "Zoe",
-            "Luna",
-            "Nova",
-            "Aria",
-            "Willow",
-            "Aurora",
-            "Sage",
-            "River",
-            "Winter",
-            "Sky",
-            "Rain",
-        ]
-
-        if self.male_names is None:
-            self.male_names = default_male_names
-        if self.female_names is None:
-            self.female_names = default_female_names
 
     def validate(self) -> None:
         """Validate configuration parameters"""
