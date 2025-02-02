@@ -50,3 +50,4 @@ def test_generator_files(directory_path: str) -> None:
 if __name__ == "__main__":
     generator_path = "../reasoning_gym/arithmetic/gsm_symbolic"
     test_generator_files(generator_path)
+    
