@@ -440,3 +440,211 @@ def task_copy_block_to_dots(size: int, rng: Random) -> Optional[Dict[str, List[i
         answer = write_block(block_start, block, answer)
         
     return {"input": question, "output": answer}
+
+def task_copy_block_to_dots_colors(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a block pattern is copied to dot positions with matching colors."""
+    block_size = 3 if rng.random() < 0.5 else 5
+    if block_size >= size:
+        return None
+        
+    block_color = rng.randint(1, 9)
+    block = [block_color] * block_size
+    
+    # Generate dots with minimum distance to prevent overlap
+    min_gap = block_size
+    dot_positions = []
+    dot_colors = []
+    pos = block_size + block_size//2 + 1
+    
+    while pos < size - block_size:
+        if rng.random() < 0.5:
+            dot_color = rng.randint(1, 9)
+            dot_positions.append(pos)
+            dot_colors.append(dot_color)
+            pos += min_gap
+        pos += 1
+        
+    if not dot_positions:
+        return None
+        
+    question = gen_field(size)
+    question = write_block(0, block, question)
+    for i, pos in enumerate(dot_positions):
+        question[pos] = dot_colors[i]
+        
+    answer = gen_field(size)
+    answer = write_block(0, block, answer)
+    for i, pos in enumerate(dot_positions):
+        block_start = pos - block_size//2
+        colored_block = [dot_colors[i]] * block_size
+        answer = write_block(block_start, colored_block, answer)
+        
+    return {"input": question, "output": answer}
+
+def task_paint_biggest_block(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where the largest block is painted a different color."""
+    target_color = 1
+    initial_color = rng.randint(2, 9)
+    
+    # Generate random blocks
+    question = gen_field(size)
+    blocks = []
+    pos = 0
+    
+    while pos < size:
+        if rng.random() < 0.4 and size - pos >= 2:
+            block_size = rng.randint(2, min(size - pos, 6))
+            blocks.append((pos, block_size))
+            for i in range(block_size):
+                question[pos + i] = initial_color
+            pos += block_size + 1
+        else:
+            pos += 1
+            
+    if len(blocks) < 2:
+        return None
+        
+    # Find biggest block
+    biggest_pos, biggest_size = max(blocks, key=lambda x: x[1])
+    
+    # Check if there are multiple blocks of the same size
+    biggest_count = sum(1 for _, size in blocks if size == biggest_size)
+    if biggest_count > 1:
+        return None
+        
+    answer = question.copy()
+    for i in range(biggest_size):
+        answer[biggest_pos + i] = target_color
+        
+    return {"input": question, "output": answer}
+
+def task_sort_blocks_by_size(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where blocks are sorted by size with 1 pixel gaps."""
+    color = rng.randint(1, 9)
+    blocks = []
+    pos = 0
+    
+    # Generate random blocks with random sizes
+    while pos < size:
+        if rng.random() < 0.4 and size - pos >= 2:
+            block_size = rng.randint(1, min(size - pos, 6))
+            blocks.append((pos, block_size))
+            pos += block_size + rng.randint(1, 4)  # Random gaps
+        else:
+            pos += 1
+            
+    if len(blocks) < 2:
+        return None
+        
+    # Create input field
+    question = gen_field(size)
+    for pos, block_size in blocks:
+        for i in range(block_size):
+            question[pos + i] = color
+            
+    # Sort blocks by size
+    blocks.sort(key=lambda x: x[1])
+    
+    # Check if sorted blocks fit with gaps
+    total_space = sum(size for _, size in blocks) + len(blocks) - 1
+    if total_space > size:
+        return None
+        
+    # Create answer field with sorted blocks
+    answer = gen_field(size)
+    current_pos = 0
+    
+    for _, block_size in blocks:
+        for i in range(block_size):
+            answer[current_pos + i] = color
+        current_pos += block_size + 1  # One pixel gap
+        
+    return {"input": question, "output": answer}
+
+def task_sort_complete_sequence(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a complete sequence of block sizes is sorted."""
+    # Calculate max possible block size given total array size
+    max_size = 1
+    total_space = 0
+    while total_space + max_size + 1 <= size:
+        total_space += max_size + 1
+        max_size += 1
+    max_size -= 1
+    
+    if max_size < 2:
+        return None
+        
+    color = rng.randint(1, 9)
+    
+    # Create sequence of all sizes from 1 to max_size
+    blocks = list(range(1, max_size + 1))
+    rng.shuffle(blocks)
+    
+    # Create input field with shuffled blocks
+    question = gen_field(size)
+    pos = 0
+    for block_size in blocks:
+        for i in range(block_size):
+            question[pos + i] = color
+        pos += block_size + 1
+        
+    # Create answer field with sorted blocks
+    answer = gen_field(size)
+    pos = 0
+    for block_size in range(1, max_size + 1):
+        for i in range(block_size):
+            answer[pos + i] = color
+        pos += block_size + 1
+        
+    return {"input": question, "output": answer}
+
+def task_recolor_blocks_by_size(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where two blocks are recolored based on their size."""
+    # Generate two different random sizes
+    size1 = rng.randint(2, 8)
+    size2 = rng.randint(2, 8)
+    while size2 == size1:
+        size2 = rng.randint(2, 8)
+        
+    # Ensure both blocks fit with at least 1 gap
+    if size1 + size2 + 1 > size:
+        return None
+        
+    # Place blocks with gap
+    pos1 = rng.randint(0, size - (size1 + size2 + 1))
+    pos2 = rng.randint(pos1 + size1 + 1, size - size2)
+    
+    # Create input field with both blocks color 3
+    question = gen_field(size)
+    for i in range(size1):
+        question[pos1 + i] = 3
+    for i in range(size2):
+        question[pos2 + i] = 3
+        
+    # Create answer field with recolored blocks
+    answer = question.copy()
+    if size1 > size2:
+        for i in range(size1):
+            answer[pos1 + i] = 1
+        for i in range(size2):
+            answer[pos2 + i] = 2
+    else:
+        for i in range(size1):
+            answer[pos1 + i] = 2
+        for i in range(size2):
+            answer[pos2 + i] = 1
+            
+    return {"input": question, "output": answer}
+
+def task_gravity_one_step(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where non-zero elements move one step left if possible."""
+    question = [rng.randint(1, 9) if rng.random() < 0.5 else 0 for _ in range(size)]
+    answer = question.copy()
+    
+    # Move each non-zero pixel one step left if possible
+    for i in range(1, size):
+        if answer[i] != 0 and answer[i-1] == 0:
+            answer[i-1] = answer[i]
+            answer[i] = 0
+            
+    return {"input": question, "output": answer}
