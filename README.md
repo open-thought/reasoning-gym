@@ -113,7 +113,8 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 ### <small>Logic Tasks</small>
 
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
-
+- `SyllogismDataset`: Generates a [syllogism](https://en.wikipedia.org/wiki/Syllogism) reasoning dataset
+- `AliceInWonderlandDataset`: Generates [AIW](https://openreview.net/forum?id=Mkl7dzjYiW) (Alice In Wonderland) problems with a few variations
 ### <small>Graph Tasks</small>
 
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
