@@ -1,3 +1,4 @@
+import random
 from random import Random
 from typing import Dict, List, Optional, Callable, Tuple
 
@@ -1030,6 +1031,62 @@ class Arc1DConfig:
         assert self.size > 0, "size must be positive"
 
 
+def task_gravity_weighted_colors(rng: Random, size: int) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where color 2 is heavier than color 1 in gravity."""
+    # Generate random field with only colors 1 and 2
+    question = [rng.randint(1, 2) if rng.random() < 0.5 else 0 for _ in range(size)]
+
+    # Count colors
+    count_1 = sum(1 for x in question if x == 1)
+    count_2 = sum(1 for x in question if x == 2)
+
+    # Create answer with sorted colors
+    answer = gen_field(size)
+
+    # Place heavier color 2 first
+    for i in range(count_2):
+        answer[i] = 2
+
+    # Then place color 1
+    for i in range(count_1):
+        answer[count_2 + i] = 1
+
+    return {"input": question, "output": answer}
+
+
+def task_color_left_half_blocks(rng: Random, size: int) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where left half of blocks are colored differently."""
+    pos = 0
+    question = gen_field(size)
+    blocks = []
+
+    # Generate blocks with gap 1
+    while pos < size:
+        if rng.random() < 0.4:
+            block_size = rng.randint(2, 8)
+            if pos + block_size >= size:
+                break
+
+            blocks.append((pos, block_size))
+            for i in range(block_size):
+                question[pos + i] = 2
+            pos += block_size + 1  # block size + gap
+        else:
+            pos += 1
+
+    if len(blocks) < 2:
+        return None
+
+    # Create answer with half-colored blocks
+    answer = question.copy()
+    for pos, block_size in blocks:
+        half_size = block_size // 2
+        for i in range(half_size):
+            answer[pos + i] = 8
+
+    return {"input": question, "output": answer}
+
+
 # Table of all ARC 1D task functions with their parameters
 ARC_1D_TASKS = {
     # Move tasks
@@ -1171,27 +1228,6 @@ class Arc1DDataset(ProceduralDataset):
             },
         }
 
-def task_gravity_weighted_colors(rng: Random, size: int) -> Optional[Dict[str, List[int]]]:
-    """Generate a task where color 2 is heavier than color 1 in gravity."""
-    # Generate random field with only colors 1 and 2
-    question = [rng.randint(1, 2) if rng.random() < 0.5 else 0 for _ in range(size)]
-
-    # Count colors
-    count_1 = sum(1 for x in question if x == 1)
-    count_2 = sum(1 for x in question if x == 2)
-
-    # Create answer with sorted colors
-    answer = gen_field(size)
-
-    # Place heavier color 2 first
-    for i in range(count_2):
-        answer[i] = 2
-
-    # Then place color 1
-    for i in range(count_1):
-        answer[count_2 + i] = 1
-
-    return {"input": question, "output": answer}
 
 
 def task_mirror(task_result: Optional[Dict[str, List[int]]]) -> Optional[Dict[str, List[int]]]:
@@ -1223,34 +1259,3 @@ def task_identity(task_result: Optional[Dict[str, List[int]]]) -> Optional[Dict[
 register_dataset("arc_1d", Arc1DDataset, Arc1DConfig)
 
 
-def task_color_left_half_blocks(rng: Random, size: int) -> Optional[Dict[str, List[int]]]:
-    """Generate a task where left half of blocks are colored differently."""
-    pos = 0
-    question = gen_field(size)
-    blocks = []
-
-    # Generate blocks with gap 1
-    while pos < size:
-        if rng.random() < 0.4:
-            block_size = rng.randint(2, 8)
-            if pos + block_size >= size:
-                break
-
-            blocks.append((pos, block_size))
-            for i in range(block_size):
-                question[pos + i] = 2
-            pos += block_size + 1  # block size + gap
-        else:
-            pos += 1
-
-    if len(blocks) < 2:
-        return None
-
-    # Create answer with half-colored blocks
-    answer = question.copy()
-    for pos, block_size in blocks:
-        half_size = block_size // 2
-        for i in range(half_size):
-            answer[pos + i] = 8
-
-    return {"input": question, "output": answer}
