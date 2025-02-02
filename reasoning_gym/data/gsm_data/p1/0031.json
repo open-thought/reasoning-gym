@@ -1,8 +1,0 @@
-{
-  "question": "Mia and Emma are currently 16 years apart in age. If Mia, who is younger than Emma, is 40 years old, what's the average of their ages?",
-  "answer": "If Mia is 40 years old, Emma is 40+16 = <<40+16=56>>56 years old.\nThe sum of their ages is 56+40 = <<56+40=96>>96 years\nThe average age of the two is 96/2 = <<96/2=48>>48 years\n#### 48",
-  "id_orig": 1277,
-  "id_shuffled": 31,
-  "question_annotated": "{name1,Mia}, {name2,Emma} are currently {age_diff,16} years apart in age. {name1,Mia} and {name3,Rose} are currently {age_diff2,15} years apart. If {name1,Mia}, who is younger than {name2,Emma} but older than {name3, Rose}, is {age1,40} years old, what's the average of their ages?\n\n#init:\n- name1, name2, name3 = sample(names, 3)\n- $age_diff = range(8, 30)\n- $age_diff2 = range(7, 20)\n- $age1 = range(15, 75)\n\n#conditions:\n- is_int((3*age1 + age_diff - age_diff2) / 3)\n- age1 - age_diff2 > 0\n\n#answer: (3*age1 + age_diff - age_diff2) // 3",
-  "answer_annotated": "If {name1} is {age1} years old, {name2} is {age1}+{age_diff} = <<{age1}+{age_diff}={age1+age_diff}>>{age1+age_diff} years old.\nIf {name1} is {age1} years old, {name3} is {age1}-{age_diff2} = <<{age1}-{age_diff2}={age1-age_diff2}>>{age1-age_diff2} years old.\n\nThe sum of their ages is {age1+age_diff}+{age1} + {age1-age_diff2} = <<{age1+age_diff}+{age1}+{age1-age_diff2}={3*age1+age_diff - age_diff2}>>{3*age1+age_diff-age_diff2} years\nThe average age of the two is {3*age1+age_diff-age_diff2}/3 = <<{3*age1+age_diff-age_diff2}/3={(3*age1+age_diff-age_diff2)//3}>>{(3*age1+age_diff-age_diff2)//3} years\n#### {(3*age1+age_diff-age_diff2)//3}"
-}

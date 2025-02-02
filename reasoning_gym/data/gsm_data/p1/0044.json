@@ -1,8 +1,0 @@
-{
-  "question": "There are 6 girls in the park. If there are twice the number of boys in the park, how many kids are in the park?",
-  "answer": "There are 6 girls x 2 boys/girl = <<6*2=12>>12 boys in the park.\nIn total there are 6 girls + 12 boys = <<6+12=18>>18 kids in the park\n#### 18",
-  "id_orig": 365,
-  "id_shuffled": 44,
-  "question_annotated": "There are {n,6} girls in the {place,park}. If there are {mult,twice} the number of boys in the {place,park}, what percentage of the kids in the {place,park} are girls?\n\n#init:\n- place = sample(['park', 'yard', 'field', 'playground', 'garden'])\n- $n = range(5, 51)\n- $mult = sample(multi_times+fraction_alnum)\n\n#conditions:\n- is_int(n * mult + 1)\n- n * (mult + 1) <= 200\n- is_int( 100 / (mult + 1))\n- int( 100 / (mult + 1)) < 100\n\n#answer: int( 100 / (mult + 1))",
-  "answer_annotated": "There are {n} girls x {mult} boys/girls = <<{n}*{mult}={n*mult}>>{n*mult} boys in the {place}.\nIn total there are {n} girls + {n*mult} boys = <<{n}+{n*mult}={n*(mult+1)}>> {n*(mult+1)} kids in the {place}. The percentage is {n}/{n*mult+n} = {int( 100 / (mult + 1)) }%.\n#### {int( 100 / (mult + 1)) }"
-}

@@ -1,8 +1,0 @@
-{
-  "question": "James gets 80 emails a day.  20% of those emails don't require any response.  He responds to the rest of them.  How many emails does he respond to in a 5 day work week?",
-  "answer": "He gets 80*.2=<<80*.2=16>>16 emails he doesn't need to respond to\nSo he responds to 80-16=<<80-16=64>>64 emails\nSo he responds to 64*5=<<64*5=320>>320 emails a week\n#### 320",
-  "id_orig": 1063,
-  "id_shuffled": 27,
-  "question_annotated": "{name,James} receives {n,80} emails a day. {p,20}% of those emails don't require any response. From the rest, {name,James} can only respond to {k,5} less than {frac,half} of them. How many emails does {name,James} respond to in a {d,5}-day work week?\n\n#init:\n- name = sample(names)\n- $n = range(50, 200)\n- $p = range(5, 40)\n- $k = range(2, 21)\n- $frac = sample(fractions)\n- $d = range(3, 7)\n\n#conditions:\n- is_int(n * p / 100)\n- is_int(n * (100 - p) / 100)\n- (n * (100 - p) / 100) * (frac) > k + 7\n- is_int((n * (100 - p) / 100) * (frac))\n\n#answer: int(d * (((n * (100 - p) / 100) * frac)-k))",
-  "answer_annotated": "{name} receives {int(n * p / 100)}=<<{n}*{p}/100={n*p//100}>>{n*p//100} emails that don't require a response\nSo {n}-{n*p//100}=<<{n}-{n*p//100}={n*(100-p)//100}>>{n*(100-p)//100} emails will be left. Of those, {name} can respond to {frac} minus {k}. So {n*(100-p)//100} * {frac} - {k} = {int((n*(100-p)//100)*frac)-k} emails will be responded in a day.\nIn a {d} day work week, {name} responds to {int((n*(100-p)//100)*frac)-k}*{d}=<<{int((n*(100-p)//100)*frac)-k}*{d}={d*(int((n*(100-p)//100)*frac)-k)}>> {d*(int((n*(100-p)//100)*frac)-k)} emails.\n#### {int(d * (((n * (100 - p) / 100) * frac)-k))}"
-}

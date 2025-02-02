@@ -1,8 +1,0 @@
-{
-  "question": "A tower is made out of 4 blue blocks, twice as many yellow blocks, and an unknown number of red blocks. If there are 32 blocks in the tower in total, how many red blocks are there?",
-  "answer": "There are 4*2 = <<4*2=8>>8 yellow blocks in the tower.\nThere are 32-4-8 = <<32-4-8=20>>20 red blocks in the tower.\n#### 20",
-  "id_orig": 1268,
-  "id_shuffled": 41,
-  "question_annotated": "A {structure,tower} is made out of {n1,4} {color1,blue} {obj,block}s, {mult,twice} as many {color2,yellow} {obj,block}s, and an unknown number of {color3,red} {obj,block}s. If there are {total,32} {obj,block}s in the {structure,tower} in total, what percentage of {obj,block}s are {color3,red}?\n\n#init:\n- structure = sample([\"building\", \"pyramid\", \"stack\"])\n- obj = sample([\"brick\", \"cube\", \"tile\"])\n- color1, color2, color3 = sample([\"green\", \"purple\", \"orange\", \"pink\", \"white\", \"black\"], 3)\n- $n1 = range(2, 10)\n- $mult = sample(multi_times+multiple_ice)\n- $total = range(20, 50)\n\n#conditions:\n- total > n1 + mult * n1\n- is_int((total - n1 - mult * n1)/total*100)\n\n#answer: int((total - n1 - mult * n1)/total*100)",
-  "answer_annotated": "There are {n1}*{mult} = <<{n1}*{mult}={n1*mult}>>{n1*mult} {color2} {obj}s in the {structure}.\nThere are {total}-{n1}-{n1*mult} = <<{total}-{n1}-{n1*mult}={total-n1-n1*mult}>>{total-n1-n1*mult} {color3} {obj}s in the {structure}.\nSo the percentage is {total-n1-n1*mult}/{total}*100 = {int((total - n1 - mult * n1)/total*100)}\n#### {int((total - n1 - mult * n1)/total*100)}"
-}

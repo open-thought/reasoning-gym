@@ -1,8 +1,0 @@
-{
-  "question": "A boy has 5 cards. His brother has 3 fewer cards than he has. How many cards do they have together?",
-  "answer": "His brother has 5 - 3 = <<5-3=2>>2 cards.\nTogether, they have 5 + 2 = <<5+2=7>>7 cards.\n#### 7",
-  "id_orig": 579,
-  "id_shuffled": 63,
-  "question_annotated": "A {person1,boy} has {n,5} {item,card}s. His {relation,brother} has {k,3} fewer {item,card}s than {mult,twice} what he has. How many {item,card}s do they have together?\n\n#init:\n- person1 = sample([\"student\", \"boy\", \"child\", \"kid\"])\n- item = sample([\"marble\", \"sticker\", \"toy\", \"book\", \"pencil\"])\n- relation = sample([\"sister\", \"brother\", \"friend\", \"cousin\"])\n- $n = range(5, 21)\n- $k = range(2, 10)\n- $mult = sample(multi_times)\n\n#conditions:\n- mult*n > k\n\n#answer: n + (mult*n-k)",
-  "answer_annotated": "His {relation} has {mult}*{n} - {k} = {mult*n} - {k} = {mult*n-k} {item}s.\nTogether, they have {n} + {mult*n-k} = <<{n}+{mult*n-k}={n+(mult*n-k)}>>{n+(mult*n-k)} {item}s.\n#### {n+(mult*n-k)}"
-}
