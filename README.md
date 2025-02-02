@@ -76,12 +76,14 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 ### <small>Arithmetic Tasks</small>
 
 - `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, \*, /)
+- `CalendarArithmeticDatset`: Generate arithmetic problems around calendar navigation logic
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
 - `FractionSimplificationDataset`: Generate fraction simplification tasks with configurable complexity
 - `GCDDataset`: Generate Greatest Common Divisor problems with configurable number of integers
 - `LCMDataset`: Generate Least Common Multiple problems with configurable number of integers
 - `LegCountingDataset`: Generate animal leg counting word problems with various animals
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
+- `TimeIntervalsDataset`: Generate time interval calculation tasks with various formats (time, date, datetime) and complexities
 
 ### <small>Algorithmic Tasks</small>
 

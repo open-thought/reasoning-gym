@@ -2,10 +2,13 @@
 This gallery shows examples from all available datasets using their default configurations.
 
 ## Available Datasets
+- [advanced_geometry](#advanced_geometry)
+- [aiw](#aiw)
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
 - [caesar_cipher](#caesar_cipher)
+- [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
 - [countdown](#countdown)
@@ -30,15 +33,92 @@ This gallery shows examples from all available datasets using their default conf
 - [rubiks_cube](#rubiks_cube)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
+- [simple_geometry](#simple_geometry)
 - [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
+- [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 
 ## Dataset Examples
+### advanced_geometry
+A dataset for advanced geometry tasks using coordinate geometry.
+
+Default configuration:
+```python
+min_coord = -10
+max_coord = 10
+size = 50
+seed = 42
+task_types = ['orthocenter', 'incircle_radius', 'angle_measure']
+```
+
+Example tasks:
+````
+Example 1:
+Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -6), find the measure (in degrees) of angle ABC.
+Answer: 17.10°
+Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237}
+
+Example 2:
+Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determine the orthocenter (intersection of altitudes).
+Answer: (0.304, -1.217)
+Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262)}
+
+Example 3:
+Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3).
+Answer: 2.176
+Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009}
+
+````
+
+### aiw
+A procedural dataset inspired by the "Alice in Wonderland" paper.
+
+    The dataset is inspired by the following paper:
+       @inproceedings{nezhurina2024alice,
+       title={Alice in Wonderland: Simple Tasks Reveal Severe Generalization and
+              Basic Reasoning Deficits in State-Of-the-Art Large Language Models},
+       author={Marianna Nezhurina and Lucia Cipolina-Kun and Mehdi Cherti and
+              Jenia Jitsev},
+       booktitle={NeurIPS 2024 Workshop on Scientific Methods for Understanding
+                  Deep Learning},
+       year={2024},
+       url={https://openreview.net/forum?id=Mkl7dzjYiW}
+       }
+
+Default configuration:
+```python
+male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Bob']
+female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Margaret', 'Alice']
+task_types = [<TaskType.SIBLINGS: 'siblings'>, <TaskType.FRIENDS: 'friends'>, <TaskType.COLLEAGUES: 'colleagues'>]
+seed = 42
+size = 10
+max_entities = 6
+```
+
+Example tasks:
+````
+Example 1:
+Question: Patricia has 6 male colleagues and she also has 3 female colleagues. These are all colleagues that Patricia has. All these mentioned persons around Patricia are colleagues of each other. James has 2 male colleagues and 2 female colleagues in total. All these mentioned persons around James are colleagues of each other. The people in the circle around James do not have other colleagues aside - with the only exception of Matilda. She is colleague of James and she is also colleague of Patricia, being part of Patricia's circle. How many female colleagues does Matilda have?
+Answer: 4
+Metadata: {'task_type': 'colleagues'}
+
+Example 2:
+Question: Elizabeth has 4 brothers and she also has 3 sisters. How many sisters does Elizabeth's brother have?
+Answer: 4
+Metadata: {'task_type': 'siblings'}
+
+Example 3:
+Question: Sarah has 6 male friends and she also has 1 female friends. They all are friends with each other and have no other friends aside. How many female friends does Thomas, a male friend of Sarah, have?
+Answer: 2
+Metadata: {'task_type': 'friends'}
+
+````
+
 ### base_conversion
 Generates base conversion tasks
 
@@ -173,6 +253,36 @@ Example 3:
 Question: Decrypt this Caesar cipher text: ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU
 Answer: IF YOUR STOMACH IS OUT OF IT MUST BE MENDED
 Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU', 'clear_text': 'IF YOUR STOMACH IS OUT OF IT MUST BE MENDED'}
+
+````
+
+### calendar_arithmetic
+Default configuration:
+```python
+year = 2022
+tasks = ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_day', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year']
+offset_upper_bound = 100
+leap_year_range = 200
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Between Sunday, February 27, 2022 and Wednesday, March 2, 2022 (counting both dates), what's the total count of business days (Monday through Friday)? Give the count numerically.
+Answer: 3
+Metadata: {'task': 'count_business_days', 'start_date': '2022-02-27', 'end_date': '2022-03-02'}
+
+Example 2:
+Question: Starting from Monday, May 23, 2022, which weekday was it 98 days before? Write out the full weekday name.
+Answer: Monday
+Metadata: {'task': 'weekday_offset', 'start_date': '2022-05-23', 'offset_days': -98, 'target_date': '2022-02-14'}
+
+Example 3:
+Question: If a meeting is scheduled on the last Saturday of September 2022, on which day of the month does it occur? Respond with just the number. Answer with -1 if the ordinal does not exist in the month.
+Answer: 24
+Metadata: {'task': 'recurring_event_day', 'year': 2022, 'month': 9, 'ordinal': 'last', 'weekday': 'Saturday'}
 
 ````
 
@@ -1288,6 +1398,43 @@ Metadata: {'equation': '29*n - 5 = 430', 'variable': 'n'}
 
 ````
 
+### simple_geometry
+A dataset for simple polygon angle-finding tasks.
+    We randomly choose the number of sides N within [min_sides, max_sides].
+    We then generate (N-1) random angles (in degrees), ensuring their sum is
+    strictly less than the total sum for an (N)-sided convex polygon (which is 180*(N-2)).
+    The question asks for the missing angle; the answer is computed by subtracting the
+    sum of known angles from 180*(N-2).
+
+Default configuration:
+```python
+min_sides = 3
+max_sides = 6
+min_angle = 10
+max_angle = 170
+seed = 42
+size = 100
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a convex polygon with 3 sides, its first 2 interior angles are: 16.0°, 80.0°. What is the measure of the remaining interior angle (in degrees)?
+Answer: 84
+Metadata: {'n_sides': 3, 'known_angles': [16.0, 80.0], 'sum_of_known_angles': 96.0, 'missing_angle_raw': 84.0, 'missing_angle_rounded': 84, 'total_interior_sum': 180}
+
+Example 2:
+Question: A convex polygon has 3 sides. The measures of the first 2 interior angles are: 83.0°, 46.0°. Find the measure of the last interior angle.
+Answer: 51
+Metadata: {'n_sides': 3, 'known_angles': [83.0, 46.0], 'sum_of_known_angles': 129.0, 'missing_angle_raw': 51.0, 'missing_angle_rounded': 51, 'total_interior_sum': 180}
+
+Example 3:
+Question: Given a convex polygon with 6 sides, its first 5 interior angles are: 143.0°, 148.0°, 39.0°, 55.0°, 107.0°. What is the measure of the remaining interior angle (in degrees)?
+Answer: 228
+Metadata: {'n_sides': 6, 'known_angles': [143.0, 148.0, 39.0, 55.0, 107.0], 'sum_of_known_angles': 492.0, 'missing_angle_raw': 228.0, 'missing_angle_rounded': 228, 'total_interior_sum': 720}
+
+````
+
 ### spell_backward
 Generates tasks to spell words backward
 
@@ -1448,6 +1595,41 @@ Some ... are not butterflies are whales?
 (Answer Yes or No)
 Answer: No
 Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some ... are not butterflies are whales', 'is_valid': False}
+
+````
+
+### time_intervals
+Generates time interval calculation tasks with various formats and complexities
+
+Default configuration:
+```python
+min_time = 00:00:00
+max_time = 23:59:59.999999
+max_time_difference_seconds = 86400
+min_date = 1900-01-01
+max_date = 3000-01-01
+max_date_difference_days = 100
+task_types = ['time', 'time_seconds', 'time_ms', 'date', 'datetime', 'datetime_tz']
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: A system backup started at 2964-06-17 08:15:14 and completed at 2964-07-04 11:59:09. What was the total backup duration? Answer in D days, HH:MM.
+Answer: 17 days, 03:43
+Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 17, 8, 15, 14), 'end_time': datetime.datetime(2964, 7, 4, 11, 59, 9), 'format': '%Y-%m-%d %H:%M:%S', 'expected_format': 'D days, HH:MM'}
+
+Example 2:
+Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
+Answer: 02:38
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 2, 9, 44), 'end_time': datetime.datetime(2025, 2, 2, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+
+Example 3:
+Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
+Answer: 89 days
+Metadata: {'task_type': 'date', 'start_time': datetime.datetime(2677, 12, 22, 0, 0), 'end_time': datetime.datetime(2678, 3, 21, 0, 0), 'format': '%a %b %d %Y', 'expected_format': 'D days'}
 
 ````
 

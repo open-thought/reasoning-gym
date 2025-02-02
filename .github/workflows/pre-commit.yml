@@ -1,4 +1,8 @@
-name: Pre-commit
+name:  Pre-commit Checks
+
+permissions:
+  contents: read
+  pull-requests: write
 
 on:
   pull_request:
