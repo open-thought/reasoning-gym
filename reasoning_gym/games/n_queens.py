@@ -136,16 +136,21 @@ class NQueensDataset(ProceduralDataset):
 
         # Filter all solutions that are intractable from the puzzle's starting state
         valid_solutions = [board for board in self._solutions if self._is_tractable_solution(puzzle, board)]
-        valid_solutions_str = {self._board_to_string(board) for board in valid_solutions}
+        valid_solutions_str = sorted({self._board_to_string(board) for board in valid_solutions})
 
         return {
             "question": QUESTION_TEMPLATE.format(puzzle=puzzle_str, n=len(puzzle), num_removed=num_removed),
-            "answer": valid_solutions_str,
-            "metadata": {"puzzle": puzzle, "solution": valid_solutions, "num_removed": num_removed},
+            "answer": rng.choice(valid_solutions_str),  # choose arbitary answer (e.g. for SFT)
+            "metadata": {
+                "puzzle": puzzle,
+                "solutions": valid_solutions,
+                "num_removed": num_removed,
+                "valid_answers": valid_solutions_str,
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
-        valid_solutions = entry["answer"]
+        valid_solutions = entry["metadata"]["valid_answers"]
         reward = 0.0
         if answer is not None:
             if answer in valid_solutions:
