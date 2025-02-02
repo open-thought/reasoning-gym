@@ -86,3 +86,22 @@ def test_arc_1d_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items, "Multiple iterations should yield same items"
+
+
+def test_arc_1d_scoring():
+    """Test answer scoring logic"""
+    config = Arc1DConfig(size=1, seed=42)
+    dataset = Arc1DDataset(config)
+    entry = dataset[0]
+
+    # Test exact match
+    assert dataset.score_answer(entry["answer"], entry) == 1.0
+
+    # Test partial match (answer contained within response)
+    assert dataset.score_answer(f"The answer is: {entry['answer']}", entry) == 0.5
+
+    # Test incorrect answer
+    assert dataset.score_answer("wrong answer", entry) == 0.01
+
+    # Test None answer
+    assert dataset.score_answer(None, entry) == 0.0
