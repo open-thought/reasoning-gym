@@ -15,6 +15,7 @@ from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
+from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 
 __all__ = [
     "BasicArithmeticDataset",
@@ -22,6 +23,10 @@ __all__ = [
     "basic_arithmetic_dataset",
     "ChainSum",
     "ChainSumConfig",
+    "CalendarArithmeticConfig",
+    "CalendarArithmeticDataset",
+    "Weekday",
+    "CalendarTask",
     "FractionSimplificationConfig",
     "FractionSimplificationDataset",
     "GCDConfig",

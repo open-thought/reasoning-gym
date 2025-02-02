@@ -255,6 +255,32 @@ Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV 
 
 ````
 
+### calendar_arithmetic
+Generates various calendar arithmetic tasks
+Default configuration:
+```python
+year = 2024
+tasks = None
+seed = 42
+size = 500
+```
+
+Example tasks:
+```
+Example 1:
+Question: How many business days (Monday-Friday) are there from Tuesday, December 17, 2024 to Sunday, December 29, 2024 (inclusive of both dates)? Give the count numerically.
+Answer: 9
+Metadata: {'task': 'count_business_days', 'start_date': '2024-12-17', 'end_date': '2024-12-29'}
+Example 2:
+Question: Given that January 1 fell on a Sunday, which weekday occurs on August 17? State the weekday (Monday through Sunday).
+Answer: Friday
+Metadata: {'task': 'first_day_of_year', 'year': 2024, 'first_day': 'Sunday', 'target_date': '2024-08-17', 'delta_days': 229}
+Example 3:
+Question: In August 2024, if an event recurs on the first Tuesday, what is the date (day of the month) of the event? Answer with a number. Answer with -1 if the ordinal does not exist in the month.
+Answer: 6
+Metadata: {'task': 'recurring_event_day', 'year': 2024, 'month': 8, 'ordinal': 'first', 'weekday': 'Tuesday'}
+```
+
 ### chain_sum
 Generates simple arithmetic tasks using only + and - operators
 
