@@ -1,7 +1,6 @@
 import random
 from dataclasses import dataclass
-from fractions import Fraction
-from typing import List, Optional
+from typing import Optional
 
 import sympy
 
@@ -232,3 +231,6 @@ class IntermediateIntegrationDataset(ProceduralDataset):
                 "type": substitution_type if problem_type == "substitution" else parts_type,
             },
         }
+
+
+register_dataset("intermediate_integration", IntermediateIntegrationDataset, IntermediateIntegrationConfig)
