@@ -1,7 +1,9 @@
-from datetime import date
-import pytest
-import math
 import calendar
+import math
+from datetime import date
+
+import pytest
+
 from reasoning_gym.arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 
 WEEKDAYS = [

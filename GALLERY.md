@@ -8,6 +8,7 @@ This gallery shows examples from all available datasets using their default conf
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
 - [caesar_cipher](#caesar_cipher)
+- [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
 - [countdown](#countdown)
@@ -256,30 +257,34 @@ Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV 
 ````
 
 ### calendar_arithmetic
-Generates various calendar arithmetic tasks
 Default configuration:
 ```python
-year = 2024
-tasks = None
+year = 2022
+tasks = ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_day', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year']
+offset_upper_bound = 100
+leap_year_range = 200
 seed = 42
 size = 500
 ```
 
 Example tasks:
-```
+````
 Example 1:
-Question: How many business days (Monday-Friday) are there from Tuesday, December 17, 2024 to Sunday, December 29, 2024 (inclusive of both dates)? Give the count numerically.
-Answer: 9
-Metadata: {'task': 'count_business_days', 'start_date': '2024-12-17', 'end_date': '2024-12-29'}
+Question: Between Sunday, February 27, 2022 and Wednesday, March 2, 2022 (counting both dates), what's the total count of business days (Monday through Friday)? Give the count numerically.
+Answer: 3
+Metadata: {'task': 'count_business_days', 'start_date': '2022-02-27', 'end_date': '2022-03-02'}
+
 Example 2:
-Question: Given that January 1 fell on a Sunday, which weekday occurs on August 17? State the weekday (Monday through Sunday).
-Answer: Friday
-Metadata: {'task': 'first_day_of_year', 'year': 2024, 'first_day': 'Sunday', 'target_date': '2024-08-17', 'delta_days': 229}
+Question: Starting from Monday, May 23, 2022, which weekday was it 98 days before? Write out the full weekday name.
+Answer: Monday
+Metadata: {'task': 'weekday_offset', 'start_date': '2022-05-23', 'offset_days': -98, 'target_date': '2022-02-14'}
+
 Example 3:
-Question: In August 2024, if an event recurs on the first Tuesday, what is the date (day of the month) of the event? Answer with a number. Answer with -1 if the ordinal does not exist in the month.
-Answer: 6
-Metadata: {'task': 'recurring_event_day', 'year': 2024, 'month': 8, 'ordinal': 'first', 'weekday': 'Tuesday'}
-```
+Question: If a meeting is scheduled on the last Saturday of September 2022, on which day of the month does it occur? Respond with just the number. Answer with -1 if the ordinal does not exist in the month.
+Answer: 24
+Metadata: {'task': 'recurring_event_day', 'year': 2022, 'month': 9, 'ordinal': 'last', 'weekday': 'Saturday'}
+
+````
 
 ### chain_sum
 Generates simple arithmetic tasks using only + and - operators
