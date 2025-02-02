@@ -3,6 +3,7 @@ This gallery shows examples from all available datasets using their default conf
 
 ## Available Datasets
 - [advanced_geometry](#advanced_geometry)
+- [aiw](#aiw)
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
@@ -70,6 +71,50 @@ Example 3:
 Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3).
 Answer: 2.176
 Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009}
+
+````
+
+### aiw
+A procedural dataset inspired by the "Alice in Wonderland" paper.
+
+    The dataset is inspired by the following paper:
+       @inproceedings{nezhurina2024alice,
+       title={Alice in Wonderland: Simple Tasks Reveal Severe Generalization and
+              Basic Reasoning Deficits in State-Of-the-Art Large Language Models},
+       author={Marianna Nezhurina and Lucia Cipolina-Kun and Mehdi Cherti and
+              Jenia Jitsev},
+       booktitle={NeurIPS 2024 Workshop on Scientific Methods for Understanding
+                  Deep Learning},
+       year={2024},
+       url={https://openreview.net/forum?id=Mkl7dzjYiW}
+       }
+
+Default configuration:
+```python
+male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Bob']
+female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Margaret', 'Alice']
+task_types = [<TaskType.SIBLINGS: 'siblings'>, <TaskType.FRIENDS: 'friends'>, <TaskType.COLLEAGUES: 'colleagues'>]
+seed = 42
+size = 10
+max_entities = 6
+```
+
+Example tasks:
+````
+Example 1:
+Question: Patricia has 6 male colleagues and she also has 3 female colleagues. These are all colleagues that Patricia has. All these mentioned persons around Patricia are colleagues of each other. James has 2 male colleagues and 2 female colleagues in total. All these mentioned persons around James are colleagues of each other. The people in the circle around James do not have other colleagues aside - with the only exception of Matilda. She is colleague of James and she is also colleague of Patricia, being part of Patricia's circle. How many female colleagues does Matilda have?
+Answer: 4
+Metadata: {'task_type': 'colleagues'}
+
+Example 2:
+Question: Elizabeth has 4 brothers and she also has 3 sisters. How many sisters does Elizabeth's brother have?
+Answer: 4
+Metadata: {'task_type': 'siblings'}
+
+Example 3:
+Question: Sarah has 6 male friends and she also has 1 female friends. They all are friends with each other and have no other friends aside. How many female friends does Thomas, a male friend of Sarah, have?
+Answer: 2
+Metadata: {'task_type': 'friends'}
 
 ````
 
@@ -1548,7 +1593,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 1, 9, 44), 'end_time': datetime.datetime(2025, 2, 1, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 2, 9, 44), 'end_time': datetime.datetime(2025, 2, 2, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.

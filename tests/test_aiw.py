@@ -14,8 +14,7 @@ def test_aiw_config_validation():
         config.validate()
 
     with pytest.raises(AssertionError):
-        config = AliceInWonderlandConfig(
-            female_names=["Mary", "Jane"])  # No Alice
+        config = AliceInWonderlandConfig(female_names=["Mary", "Jane"])  # No Alice
         config.validate()
 
     with pytest.raises(AssertionError):
@@ -56,8 +55,7 @@ def test_aiw_items():
         # Verify question task type characteristics
         task_type = item["metadata"]["task_type"]
         if task_type == TaskType.SIBLINGS.value:
-            assert any(phrase in item["question"]
-                       for phrase in ["brothers", "sisters"])
+            assert any(phrase in item["question"] for phrase in ["brothers", "sisters"])
         elif task_type == TaskType.FRIENDS.value:
             assert "friends" in item["question"]
         elif task_type == TaskType.COLLEAGUES:
@@ -95,5 +93,4 @@ def test_aiw_random_ranges():
         numbers = [int(n) for n in question.split() if n.isdigit()]
 
         # Check all numbers are in reasonable range (1-6 as per implementation)
-        assert all(
-            1 <= n <= 12 for n in numbers), f"Numbers out of range: {numbers}"
+        assert all(1 <= n <= 12 for n in numbers), f"Numbers out of range: {numbers}"
