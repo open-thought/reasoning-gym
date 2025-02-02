@@ -24,8 +24,8 @@ def test_all_arc_1d_tasks():
     move_pix = 2
     
     tasks = [
-        (lambda s, r, **k: task_move_n_pix(s, move_pix, **k, r=r), {"solid": True}),
-        (lambda s, r, **k: task_move_n_pix_wrapped(s, move_pix, **k, r=r), {"solid": True}),
+        (lambda s, r, **k: task_move_n_pix(s, move_pix, k["solid"], r), {"solid": True}),
+        (lambda s, r, **k: task_move_n_pix_wrapped(s, move_pix, k["solid"], r), {"solid": True}),
         (task_gravity, {}),
         (task_gravity_counting, {}),
         (task_gravity_antigravity, {}),
