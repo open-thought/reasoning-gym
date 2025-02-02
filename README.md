@@ -126,6 +126,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
 - `MazeDataset`: Generate a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
+- `NQueensDataset`: Generate N-Queens puzzles with configurable board size and number of starting queens
 
 ## Future Generator Ideas
 
