@@ -4,6 +4,7 @@ This gallery shows examples from all available datasets using their default conf
 ## Available Datasets
 - [advanced_geometry](#advanced_geometry)
 - [aiw](#aiw)
+- [arc_1d](#arc_1d)
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
@@ -119,6 +120,88 @@ Example 3:
 Question: Sarah has 6 male friends and she also has 1 female friends. They all are friends with each other and have no other friends aside. How many female friends does Thomas, a male friend of Sarah, have?
 Answer: 2
 Metadata: {'task_type': 'friends'}
+
+````
+
+### arc_1d
+Generates ARC 1D tasks by randomly selecting from available task generators
+
+Default configuration:
+```python
+min_size = 10
+max_size = 30
+num_train = 3
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+Input:  7 1 0 0 5 5 0 5 5 0 0 0 0
+Output: 7 1 0 0 7 7 0 1 1 0 0 0 0
+
+Example 2:
+Input:  5 1 0 5 5 0 5 5 0 0 0 0 0
+Output: 5 1 0 5 5 0 1 1 0 0 0 0 0
+
+Example 3:
+Input:  2 6 0 0 5 5 0 5 5 0 0 0 0
+Output: 2 6 0 0 2 2 0 6 6 0 0 0 0
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+
+Input:
+6 0 0 0 0 0 0 5 5 5 0 0 0
+Answer: 6 0 0 0 0 0 0 6 6 6 0 0 0
+Metadata: {'task_name': 'recolor_blocks_from_palette', 'size': 13, 'train_examples': [{'input': [7, 1, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0], 'output': [7, 1, 0, 0, 7, 7, 0, 1, 1, 0, 0, 0, 0]}, {'input': [5, 1, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0, 0], 'output': [5, 1, 0, 5, 5, 0, 1, 1, 0, 0, 0, 0, 0]}, {'input': [2, 6, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0], 'output': [2, 6, 0, 0, 2, 2, 0, 6, 6, 0, 0, 0, 0]}], 'test_example': {'input': [6, 0, 0, 0, 0, 0, 0, 5, 5, 5, 0, 0, 0], 'output': [6, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0]}}
+
+Example 2:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+Input:  0 8 8 8 8 8 8 8 8 8 8 8 8 0 0 0 0 0 0
+Output: 0 0 0 0 8 8 8 8 8 8 8 8 8 8 8 8 0 0 0
+
+Example 2:
+Input:  0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2 0 0 0
+Output: 0 0 0 0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2
+
+Example 3:
+Input:  0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0
+Output: 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+
+Input:
+0 0 0 0 0 0 6 6 6 6 6 6 6 6 6 0 0 0 0
+Answer: 0 0 0 0 0 0 0 0 0 6 6 6 6 6 6 6 6 6 0
+Metadata: {'task_name': 'move_3pix_solid', 'size': 19, 'train_examples': [{'input': [0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0]}, {'input': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2]}, {'input': [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0]}], 'test_example': {'input': [0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0]}}
+
+Example 3:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+Input:  0 0 0 0 0 0 0 2 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+Output: 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+
+Example 2:
+Input:  0 0 0 2 0 0 0 0 0 0 0 0 0 3 3 3 3 3 3 3 3 0 0 0 0 0
+Output: 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0
+
+Example 3:
+Input:  0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 0 0 0 0
+Output: 0 0 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+
+Input:
+0 0 0 0 0 0 0 0 0 0 0 7 7 7 7 7 7 7 7 7 7 7 7 7 2 0
+Answer: 0 0 0 0 0 0 0 0 0 0 0 7 7 7 7 7 7 7 7 7 7 7 7 7 7 0
+Metadata: {'task_name': 'block_scale_to_dot', 'size': 26, 'train_examples': [{'input': [0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0]}, {'input': [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0]}, {'input': [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0]}], 'test_example': {'input': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0]}}
 
 ````
 
@@ -1368,7 +1451,7 @@ Example tasks:
 ````
 Example 1:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
-You must press the shortest correct sequence of buttons to reach the target value.
+You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
 Target: 46
@@ -1381,7 +1464,7 @@ Metadata: {'difficulty': 10, 'solution_path': ['A', 'B', 'C', 'C', 'A', 'C'], 't
 
 Example 2:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
-You must press the shortest correct sequence of buttons to reach the target value.
+You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
 Target: 30
@@ -1394,7 +1477,7 @@ Metadata: {'difficulty': 10, 'solution_path': ['C', 'A', 'C', 'A', 'C', 'A', 'C'
 
 Example 3:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
-You must press the shortest correct sequence of buttons to reach the target value.
+You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
 Target: 45
