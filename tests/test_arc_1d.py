@@ -21,13 +21,13 @@ def test_all_arc_1d_tasks():
     
     # Test all task functions
     tasks = [
-        (task_move_n_pix, {"move_pix": 2, "solid": True}),
-        (task_move_n_pix_wrapped, {"move_pix": 2, "solid": True}),
+        (task_move_n_pix, {"solid": True}),
+        (task_move_n_pix_wrapped, {"solid": True}),
         (task_gravity, {}),
         (task_gravity_counting, {}),
         (task_gravity_antigravity, {}),
         (task_block_touch_dot, {}),
-        (task_block_touch_dot_n_pix, {"move_pix": 2}),
+        (task_block_touch_dot_n_pix, {}),
         (task_block_scale_to_dot, {}),
         (task_two_points_and_fill, {}),
         (task_reflect_block_with_border_pixel, {}),
