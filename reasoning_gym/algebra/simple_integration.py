@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
 from fractions import Fraction
-from typing import Optional
+from typing import Any, Dict, Optional
 
 import sympy
 
@@ -73,8 +73,36 @@ class SimpleIntegrationDataset(ProceduralDataset):
         return {
             "question": rng.choice(self._prompt_templates).format(integrand=derivative),
             "answer": str(polynomial) + " + C",
-            "metadata": {"integrand": str(derivative), "variable": str(symbol), "antiderivative": str(polynomial)},
+            "metadata": {
+                "integrand": str(derivative),
+                "variable": str(symbol),
+                "expected_answer_expression": polynomial,
+            },
         }
+
+    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+        """Determine if the solution provided solves the problem"""
+        reward = 0.0
+        if answer is not None:
+            try:
+                var = metadata["variable"]
+                x = sympy.Symbol(var)
+                # Parse answer while allowing integration constant 'C'
+                user_expr = sympy.parse_expr(answer, local_dict={var: x, "C": sympy.Symbol("C")})
+                # Compute derivative of student's answer
+                derivative = sympy.diff(user_expr, x)
+                integrand = sympy.parse_expr(metadata["integrand"], local_dict={var: x})
+
+                # Check mathematical equivalence through simplification
+                if sympy.simplify(derivative - integrand) == 0:
+                    reward = 1.0
+                elif answer.strip():
+                    reward = 0.05
+                else:
+                    reward = 0.01
+            except:
+                reward = 0.01
+        return reward
 
 
 register_dataset("simple_integration", SimpleIntegrationDataset, SimpleIntegrationConfig)
