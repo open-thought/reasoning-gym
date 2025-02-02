@@ -1,122 +1,88 @@
-import random
-
 import pytest
 
-from reasoning_gym.cognition.arc_1d import (
-    task_block_and_noise_remove,
-    task_block_and_noise_remove_inside,
-    task_block_scale_to_dot,
-    task_block_touch_dot,
-    task_block_touch_dot_n_pix,
-    task_change_to_five,
-    task_color_left_half_blocks,
-    task_copy_block_to_dots,
-    task_copy_block_to_dots_colors,
-    task_duplicate_block_from_seeds,
-    task_fill_from_pixel,
-    task_fill_until_collision,
-    task_gravity,
-    task_gravity_antigravity,
-    task_gravity_counting,
-    task_gravity_one_step,
-    task_gravity_weighted_colors,
-    task_identity,
-    task_inverse,
-    task_mark_size_two_blocks,
-    task_mirror,
-    task_move_block_by_own_size,
-    task_move_n_pix,
-    task_move_n_pix_wrapped,
-    task_paint_biggest_block,
-    task_recolor_blocks_by_size,
-    task_recolor_blocks_from_palette,
-    task_reflect_block_around_dot,
-    task_reflect_block_with_border_pixel,
-    task_reflect_block_with_border_pixel_random,
-    task_repeat_pattern_full,
-    task_sort_blocks_by_size,
-    task_sort_complete_sequence,
-    task_two_points_and_fill,
-)
+from reasoning_gym.cognition import Arc1DDataset, Arc1DConfig
 
 
-def test_all_arc_1d_tasks():
-    """Test that all ARC 1D task functions can be executed without exceptions."""
-    rng = random.Random(42)  # Fixed seed for reproducibility
-    size = 20  # Reasonable size for testing
+def test_arc_1d_config_validation():
+    """Test that invalid configs raise appropriate errors"""
+    with pytest.raises(AssertionError):
+        config = Arc1DConfig(min_size=0)
+        config.validate()
 
-    # Test all task functions
-    # Fixed move_pix value for testing
-    move_pix = 2
+    with pytest.raises(AssertionError):
+        config = Arc1DConfig(min_size=30, max_size=20)
+        config.validate()
 
-    # Test task augmentation functions
-    base_task = task_move_n_pix(rng, size, move_pix, True)
-    assert base_task is not None
-    
-    mirrored = task_mirror(base_task)
-    assert mirrored is not None
-    assert mirrored["input"] == list(reversed(base_task["input"]))
-    assert mirrored["output"] == list(reversed(base_task["output"]))
-    
-    inversed = task_inverse(base_task)
-    assert inversed is not None
-    assert inversed["input"] == base_task["output"]
-    assert inversed["output"] == base_task["input"]
-    
-    identical = task_identity(base_task)
-    assert identical is not None
-    assert identical == base_task
+    with pytest.raises(AssertionError):
+        config = Arc1DConfig(num_train=0)
+        config.validate()
 
-    tasks = [
-        (task_move_n_pix, {"move_pix": move_pix, "solid": True}),
-        (task_move_n_pix_wrapped, {"move_pix": move_pix, "solid": True}),
-        (task_gravity, {}),
-        (task_gravity_counting, {}),
-        (task_gravity_antigravity, {}),
-        (task_block_touch_dot, {}),
-        (task_block_touch_dot_n_pix, {"move_pix": move_pix}),
-        (task_block_scale_to_dot, {}),
-        (task_two_points_and_fill, {}),
-        (task_reflect_block_with_border_pixel, {}),
-        (task_reflect_block_with_border_pixel_random, {}),
-        (task_reflect_block_around_dot, {}),
-        (task_block_and_noise_remove, {}),
-        (task_block_and_noise_remove_inside, {}),
-        (task_copy_block_to_dots, {}),
-        (task_copy_block_to_dots_colors, {}),
-        (task_paint_biggest_block, {}),
-        (task_sort_blocks_by_size, {}),
-        (task_sort_complete_sequence, {}),
-        (task_recolor_blocks_by_size, {}),
-        (task_gravity_one_step, {}),
-        (task_move_block_by_own_size, {}),
-        (task_change_to_five, {}),
-        (task_recolor_blocks_from_palette, {}),
-        (task_duplicate_block_from_seeds, {}),
-        (task_fill_from_pixel, {}),
-        (task_mark_size_two_blocks, {}),
-        (task_fill_until_collision, {}),
-        (task_repeat_pattern_full, {}),
-        (task_gravity_weighted_colors, {}),
-        (task_color_left_half_blocks, {}),
-    ]
 
-    for task_func, kwargs in tasks:
-        # Try multiple times as some functions might return None for certain inputs
-        success = False
-        for _ in range(10):  # Try up to 10 times
-            try:
-                result = task_func(rng, size, **kwargs)
-                if result is not None:
-                    success = True
-                    # Basic structure checks
-                    assert isinstance(result, dict)
-                    assert "input" in result
-                    assert "output" in result
-                    assert len(result["input"]) == size
-                    assert len(result["output"]) == size
-                    break
-            except Exception as e:
-                pytest.fail(f"Task {task_func.__name__} failed with error: {str(e)}")
+def test_arc_1d_deterministic():
+    """Test that dataset generates same items with same seed"""
+    config = Arc1DConfig(seed=42, size=10)
+    dataset1 = Arc1DDataset(config)
+    dataset2 = Arc1DDataset(config)
 
-        assert success, f"Task {task_func.__name__} always returned None in 10 attempts"
+    for i in range(len(dataset1)):
+        assert dataset1[i] == dataset2[i]
+
+
+def test_arc_1d_items():
+    """Test basic properties of generated items"""
+    config = Arc1DConfig(min_size=10, max_size=15, num_train=2, size=50, seed=42)
+    dataset = Arc1DDataset(config)
+
+    for i in range(len(dataset)):
+        item = dataset[i]
+        assert isinstance(item, dict)
+        assert "question" in item
+        assert "answer" in item
+        assert "metadata" in item
+
+        # Check metadata contents
+        metadata = item["metadata"]
+        assert "task_name" in metadata
+        assert "size" in metadata
+        assert "train_examples" in metadata
+        assert "test_example" in metadata
+
+        # Verify size constraints
+        assert config.min_size <= metadata["size"] <= config.max_size
+
+        # Check training examples
+        train_examples = metadata["train_examples"]
+        assert len(train_examples) == config.num_train
+        for example in train_examples:
+            assert "input" in example
+            assert "output" in example
+            assert len(example["input"]) == metadata["size"]
+            assert len(example["output"]) == metadata["size"]
+
+        # Check test example
+        test_example = metadata["test_example"]
+        assert "input" in test_example
+        assert "output" in test_example
+        assert len(test_example["input"]) == metadata["size"]
+        assert len(test_example["output"]) == metadata["size"]
+
+
+def test_arc_1d_iteration():
+    """Test that iteration respects dataset size"""
+    config = Arc1DConfig(size=5, seed=42)  # Small size for testing
+    dataset = Arc1DDataset(config)
+
+    # Test manual iteration
+    items = []
+    for item in dataset:
+        items.append(item)
+    assert len(items) == config.size, "Iterator should yield exactly size items"
+
+    # Test list conversion
+    items = list(dataset)
+    assert len(items) == config.size, "Iterator should yield exactly size items"
+
+    # Test multiple iterations
+    first_items = list(dataset)
+    second_items = list(dataset)
+    assert first_items == second_items, "Multiple iterations should yield same items"
