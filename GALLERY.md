@@ -1576,14 +1576,14 @@ Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chef
 
 Example 2:
 Question: Consider these statements:
-1. Some ... are not children are animals
+1. Some children are not animals
 2. Some animals are doctors
 
 Does it logically follow that:
 All children are doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'Some ... are not children are animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Metadata: {'premise1': 'Some children are not animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
 
 Example 3:
 Question: Consider these statements:
@@ -1591,10 +1591,10 @@ Question: Consider these statements:
 2. No tigers are whales
 
 Does it logically follow that:
-Some ... are not butterflies are whales?
+Some butterflies are not whales?
 (Answer Yes or No)
 Answer: No
-Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some ... are not butterflies are whales', 'is_valid': False}
+Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': False}
 
 ````
 
