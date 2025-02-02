@@ -113,20 +113,6 @@ class AliceInWonderlandDataset(ProceduralDataset):
             ],
         }
 
-        self.format_templates = {
-            OutputFormat.PLAIN: Template("$question"),
-            OutputFormat.RESTRICTED: Template(
-                "$question To answer the question, DO NOT OUTPUT ANY TEXT EXCEPT "
-                'following format that contains final answer: "### Answer:"'
-            ),
-            OutputFormat.THINKING: Template(
-                "$question Before providing answer to this problem, think "
-                "carefully step by step and double check the path to the "
-                'correct solution for any mistakes. Provide then the final '
-                'answer in following form: "### Answer:"'
-            ),
-        }
-
     def _get_aiw(self, rng: Random) -> dict:
         """Generates a single Alice in Wonderland question.
 
