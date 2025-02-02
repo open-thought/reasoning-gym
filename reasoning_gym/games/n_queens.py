@@ -12,7 +12,7 @@ from typing import Dict, List, Optional
 from ..factory import ProceduralDataset, register_dataset
 
 MIN_BOARD_SIZE = 4
-MAX_BOARD_SIZE = 15
+MAX_BOARD_SIZE = 12
 
 QUESTION_TEMPLATE = """Solve this N Queens puzzle:
 {puzzle}
