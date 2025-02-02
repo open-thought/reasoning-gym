@@ -648,3 +648,184 @@ def task_gravity_one_step(size: int, rng: Random) -> Optional[Dict[str, List[int
             answer[i] = 0
             
     return {"input": question, "output": answer}
+
+def task_move_block_by_own_size(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a block moves right by its own size."""
+    block_size = rng.randint(1, size//2)  # Ensure space for movement
+    pos = rng.randint(0, size - block_size * 2)  # Space for block and movement
+    color = rng.randint(1, 9)
+    
+    question = gen_field(size)
+    block = [color] * block_size
+    question = write_block(pos, block, question)
+    
+    answer = write_block(pos + block_size, block, gen_field(size))
+    
+    return {"input": question, "output": answer}
+
+def task_change_to_five(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where all non-zero colors change to 5."""
+    density = 0.5
+    question = [rng.randint(1, 9) if rng.random() < density else 0 for _ in range(size)]
+    answer = [5 if x != 0 else 0 for x in question]
+    
+    return {"input": question, "output": answer}
+
+def task_recolor_blocks_from_palette(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where blocks are recolored using a color palette."""
+    # Generate blocks of same size
+    block_size = rng.randint(2, 4)
+    blocks = []
+    pos = 0
+    
+    while pos + block_size <= size:
+        if rng.random() < 0.4:
+            blocks.append(pos)
+            pos += block_size + 1
+        else:
+            pos += 1
+            
+    # Ensure we have space for palette
+    while blocks and blocks[-1] + block_size + len(blocks) + 1 >= size:
+        blocks.pop()
+        
+    if not blocks:
+        return None
+        
+    # Shift blocks right to make room for palette
+    palette_size = len(blocks)
+    blocks = [pos + palette_size + 1 for pos in blocks]
+    
+    # Generate color palette
+    colors = []
+    for _ in range(len(blocks)):
+        while True:
+            color = rng.randint(1, 9)
+            if color not in colors:
+                colors.append(color)
+                break
+                
+    # Create question with color palette and blocks
+    question = gen_field(size)
+    
+    # Place color palette at start
+    for i, color in enumerate(colors):
+        question[i] = color
+        
+    # Place blocks of color 5
+    for block_pos in blocks:
+        for i in range(block_size):
+            question[block_pos + i] = 5
+            
+    # Create answer with recolored blocks
+    answer = question.copy()
+    for block_idx, block_pos in enumerate(blocks):
+        color = colors[block_idx]
+        for i in range(block_size):
+            answer[block_pos + i] = color
+            
+    return {"input": question, "output": answer}
+
+def task_duplicate_block_from_seeds(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a block is duplicated from seed pixels."""
+    block_size = rng.randint(2, 4)
+    if block_size + 1 >= size:
+        return None
+    if size <= 3 + block_size:
+        return None
+    
+    # Position block with space for seeds
+    block_pos = rng.randint(2, size - block_size - 1)
+    
+    # Decide seed placement
+    left_seed = rng.random() < 0.5
+    right_seed = rng.random() < 0.5
+    if not (left_seed or right_seed):
+        return None
+    
+    # Create input
+    question = gen_field(size)
+    
+    # Place main block
+    for i in range(block_size):
+        question[block_pos + i] = 1
+    
+    # Place seeds with gaps
+    seeds = []
+    if left_seed:
+        color = rng.randint(1, 9)
+        question[block_pos - 2] = color
+        seeds.append(("left", block_pos - 2, color))
+    if right_seed:
+        color = rng.randint(1, 9)
+        question[block_pos + block_size + 1] = color
+        seeds.append(("right", block_pos + block_size + 1, color))
+    
+    # Create answer with duplicated blocks
+    answer = question.copy()
+    
+    for side, seed_pos, color in seeds:
+        if side == "left":
+            # For left seed, blocks end at seed
+            end_pos = seed_pos
+            while end_pos >= 0:
+                start_pos = end_pos - block_size + 1
+                for pos in range(max(0, start_pos), end_pos + 1):
+                    answer[pos] = color
+                if start_pos < 1:
+                    break
+                end_pos = start_pos - 2  # -1 for gap
+        else:  # side == "right"
+            # For right seed, blocks start at seed
+            start_pos = seed_pos
+            while start_pos < size:
+                for offset in range(min(block_size, size - start_pos)):
+                    answer[start_pos + offset] = color
+                if start_pos + block_size + 1 >= size:
+                    break
+                start_pos = start_pos + block_size + 1  # +1 for gap
+    
+    return {"input": question, "output": answer}
+
+def task_fill_from_pixel(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a pixel fills in one direction until hitting another pixel."""
+    block_size = rng.randint(3, 6)
+    if block_size >= size - 2:
+        return None
+    
+    # Position block with space for seed
+    block_pos = rng.randint(1, size - block_size - 1)
+    
+    # Create input
+    question = gen_field(size)
+    
+    # Place main block
+    block_color = rng.randint(1, 9)
+    for i in range(block_size):
+        question[block_pos + i] = block_color
+    
+    # Place seed pixel and determine fill direction
+    seed_color = rng.randint(1, 9)
+    while seed_color == block_color:
+        seed_color = rng.randint(1, 9)
+        
+    is_left = rng.random() < 0.5
+    
+    if is_left:
+        question[block_pos - 1] = seed_color
+    else:
+        question[block_pos + block_size] = seed_color
+    
+    # Create answer with fill
+    answer = question.copy()
+    
+    if is_left:
+        # Fill from seed to left border
+        for i in range(block_pos):
+            answer[i] = seed_color
+    else:
+        # Fill from seed to right border
+        for i in range(block_pos + block_size, size):
+            answer[i] = seed_color
+    
+    return {"input": question, "output": answer}
