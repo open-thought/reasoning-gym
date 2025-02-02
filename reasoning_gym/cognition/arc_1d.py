@@ -829,3 +829,205 @@ def task_fill_from_pixel(size: int, rng: Random) -> Optional[Dict[str, List[int]
             answer[i] = seed_color
     
     return {"input": question, "output": answer}
+
+def task_mark_size_two_blocks(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where size-2 blocks are marked with surrounding pixels."""
+    blocks = []
+    pos = 0
+    
+    # Generate blocks with minimum gap of 2
+    while pos < size:
+        if rng.random() < 0.4:
+            block_size = rng.randint(1, 3)
+            # Check if we have space for block and potential markers
+            needed_space = block_size + (2 if block_size == 2 else 0)
+            if pos + needed_space < size:
+                blocks.append((pos, block_size))
+                pos += block_size + 2  # Minimum gap of 2
+            
+        pos += 1
+    
+    if len(blocks) < 2:
+        return None
+    
+    # Verify gaps between blocks (including markers)
+    valid = True
+    for i in range(len(blocks)-1):
+        pos1, size1 = blocks[i]
+        pos2, _ = blocks[i+1]
+        needed_gap = 3 if size1 == 2 else 2
+        if pos2 - (pos1 + size1) < needed_gap:
+            valid = False
+            break
+    if not valid:
+        return None
+    
+    # Create input with blocks
+    question = gen_field(size)
+    for pos, block_size in blocks:
+        # Place block
+        for i in range(block_size):
+            question[pos + i] = 1
+    
+    # Create answer with markers
+    answer = question.copy()
+    for pos, block_size in blocks:
+        if block_size == 2:
+            # Add markers for size 2 blocks
+            if pos > 0:
+                answer[pos - 1] = 3
+            if pos + block_size < size:
+                answer[pos + block_size] = 3
+    
+    return {"input": question, "output": answer}
+
+def task_fill_until_collision(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where pixels fill empty space until collision."""
+    # At least 4 positions for meaningful puzzle
+    if size < 4:
+        return None
+    
+    is_left = rng.random() < 0.5
+    question = gen_field(size)
+    
+    # Place the side marker
+    if is_left:
+        question[0] = 5
+    else:
+        question[size - 1] = 5
+    
+    # Place 2-4 random pixels
+    num_pixels = rng.randint(2, 4)
+    positions = []
+    
+    if is_left:
+        # Skip first position
+        for _ in range(num_pixels):
+            while True:
+                pos = rng.randint(1, size-1)
+                if pos not in positions:
+                    positions.append(pos)
+                    break
+    else:
+        # Skip last position
+        for _ in range(num_pixels):
+            while True:
+                pos = rng.randint(0, size-2)
+                if pos not in positions:
+                    positions.append(pos)
+                    break
+    
+    # Color random pixels
+    for pos in positions:
+        question[pos] = rng.randint(1, 9)
+    
+    positions.sort()
+    
+    # Create answer
+    answer = question.copy()
+    
+    if is_left:
+        # Fill right from each pixel
+        prev_pos = 0  # Start from marker
+        for pos in positions:
+            color = question[pos]
+            # Fill from previous position to current
+            for i in range(prev_pos + 1, pos):
+                answer[i] = color
+            prev_pos = pos
+    else:
+        # Fill left from each pixel
+        prev_pos = size-1  # Start from marker
+        for pos in reversed(positions):
+            color = question[pos]
+            # Fill from current position to previous
+            for i in range(pos+1, prev_pos):
+                answer[i] = color
+            prev_pos = pos
+    
+    return {"input": question, "output": answer}
+
+def task_repeat_pattern_full(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a pattern is repeated to fill the space."""
+    # Generate initial pattern
+    pattern_size = rng.randint(2, 5)
+    pattern = [rng.randint(1, 9) for _ in range(pattern_size)]
+    
+    # Calculate total size needed for 2 repetitions
+    double_size = pattern_size * 2
+    if double_size >= size:
+        return None
+    
+    # Create input with 2 repetitions
+    question = gen_field(size)
+    for i in range(pattern_size):
+        question[i] = pattern[i]
+        question[i + pattern_size] = pattern[i]
+    
+    # Create answer with maximum repetitions
+    answer = gen_field(size)
+    pos = 0
+    while pos + pattern_size <= size:
+        for i in range(pattern_size):
+            answer[pos + i] = pattern[i]
+        pos += pattern_size
+    
+    # Fill remaining space (if any) with pattern elements
+    for i in range(pos, size):
+        answer[i] = pattern[i - pos]
+    
+    return {"input": question, "output": answer}
+
+def task_gravity_weighted_colors(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where color 2 is heavier than color 1 in gravity."""
+    # Generate random field with only colors 1 and 2
+    question = [rng.randint(1, 2) if rng.random() < 0.5 else 0 for _ in range(size)]
+    
+    # Count colors
+    count_1 = sum(1 for x in question if x == 1)
+    count_2 = sum(1 for x in question if x == 2)
+    
+    # Create answer with sorted colors
+    answer = gen_field(size)
+    
+    # Place heavier color 2 first
+    for i in range(count_2):
+        answer[i] = 2
+    
+    # Then place color 1
+    for i in range(count_1):
+        answer[count_2 + i] = 1
+    
+    return {"input": question, "output": answer}
+
+def task_color_left_half_blocks(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where left half of blocks are colored differently."""
+    pos = 0
+    question = gen_field(size)
+    blocks = []
+    
+    # Generate blocks with gap 1
+    while pos < size:
+        if rng.random() < 0.4:
+            block_size = rng.randint(2, 8)
+            if pos + block_size >= size:
+                break
+            
+            blocks.append((pos, block_size))
+            for i in range(block_size):
+                question[pos + i] = 2
+            pos += block_size + 1  # block size + gap
+        else:
+            pos += 1
+    
+    if len(blocks) < 2:
+        return None
+    
+    # Create answer with half-colored blocks
+    answer = question.copy()
+    for pos, block_size in blocks:
+        half_size = block_size // 2
+        for i in range(half_size):
+            answer[pos + i] = 8
+    
+    return {"input": question, "output": answer}
