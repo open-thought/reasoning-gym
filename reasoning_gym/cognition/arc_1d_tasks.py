@@ -1093,16 +1093,39 @@ ARC_1D_TASKS = {
     "move_2pix_colorful_right": (task_move_n_pix, {"move_pix": 2, "solid": False}),
     "move_3pix_colorful_right": (task_move_n_pix, {"move_pix": 3, "solid": False}),
     "move_4pix_colorful_right": (task_move_n_pix, {"move_pix": 4, "solid": False}),
-    
     # Move tasks - left direction (mirrored)
-    "move_1pix_solid_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 1, "solid": True}),
-    "move_2pix_solid_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 2, "solid": True}),
-    "move_3pix_solid_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 3, "solid": True}),
-    "move_4pix_solid_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 4, "solid": True}),
-    "move_1pix_colorful_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 1, "solid": False}),
-    "move_2pix_colorful_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 2, "solid": False}),
-    "move_3pix_colorful_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 3, "solid": False}),
-    "move_4pix_colorful_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)), {"move_pix": 4, "solid": False}),
+    "move_1pix_solid_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 1, "solid": True},
+    ),
+    "move_2pix_solid_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 2, "solid": True},
+    ),
+    "move_3pix_solid_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 3, "solid": True},
+    ),
+    "move_4pix_solid_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 4, "solid": True},
+    ),
+    "move_1pix_colorful_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 1, "solid": False},
+    ),
+    "move_2pix_colorful_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 2, "solid": False},
+    ),
+    "move_3pix_colorful_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 3, "solid": False},
+    ),
+    "move_4pix_colorful_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix(rng, size, **kwargs)),
+        {"move_pix": 4, "solid": False},
+    ),
     # Move wrapped tasks - right direction
     "move_1pix_solid_wrapped_right": (task_move_n_pix_wrapped, {"move_pix": 1, "solid": True}),
     "move_2pix_solid_wrapped_right": (task_move_n_pix_wrapped, {"move_pix": 2, "solid": True}),
@@ -1112,29 +1135,57 @@ ARC_1D_TASKS = {
     "move_2pix_colorful_wrapped_right": (task_move_n_pix_wrapped, {"move_pix": 2, "solid": False}),
     "move_3pix_colorful_wrapped_right": (task_move_n_pix_wrapped, {"move_pix": 3, "solid": False}),
     "move_4pix_colorful_wrapped_right": (task_move_n_pix_wrapped, {"move_pix": 4, "solid": False}),
-
     # Move wrapped tasks - left direction (mirrored)
-    "move_1pix_solid_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 1, "solid": True}),
-    "move_2pix_solid_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 2, "solid": True}),
-    "move_3pix_solid_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 3, "solid": True}),
-    "move_4pix_solid_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 4, "solid": True}),
-    "move_1pix_colorful_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 1, "solid": False}),
-    "move_2pix_colorful_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 2, "solid": False}),
-    "move_3pix_colorful_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 3, "solid": False}),
-    "move_4pix_colorful_wrapped_left": (lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)), {"move_pix": 4, "solid": False}),
+    "move_1pix_solid_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 1, "solid": True},
+    ),
+    "move_2pix_solid_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 2, "solid": True},
+    ),
+    "move_3pix_solid_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 3, "solid": True},
+    ),
+    "move_4pix_solid_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 4, "solid": True},
+    ),
+    "move_1pix_colorful_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 1, "solid": False},
+    ),
+    "move_2pix_colorful_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 2, "solid": False},
+    ),
+    "move_3pix_colorful_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 3, "solid": False},
+    ),
+    "move_4pix_colorful_wrapped_left": (
+        lambda rng, size, **kwargs: task_mirror(task_move_n_pix_wrapped(rng, size, **kwargs)),
+        {"move_pix": 4, "solid": False},
+    ),
     # Gravity tasks - right direction
     "gravity_right": (task_gravity, {}),
     "gravity_counting_right": (task_gravity_counting, {}),
     "gravity_antigravity_right": (task_gravity_antigravity, {}),
     "gravity_one_step_right": (task_gravity_one_step, {}),
     "gravity_weighted_colors_right": (task_gravity_weighted_colors, {}),
-
     # Gravity tasks - left direction (mirrored)
     "gravity_left": (lambda rng, size, **kwargs: task_mirror(task_gravity(rng, size, **kwargs)), {}),
     "gravity_counting_left": (lambda rng, size, **kwargs: task_mirror(task_gravity_counting(rng, size, **kwargs)), {}),
-    "gravity_antigravity_left": (lambda rng, size, **kwargs: task_mirror(task_gravity_antigravity(rng, size, **kwargs)), {}),
+    "gravity_antigravity_left": (
+        lambda rng, size, **kwargs: task_mirror(task_gravity_antigravity(rng, size, **kwargs)),
+        {},
+    ),
     "gravity_one_step_left": (lambda rng, size, **kwargs: task_mirror(task_gravity_one_step(rng, size, **kwargs)), {}),
-    "gravity_weighted_colors_left": (lambda rng, size, **kwargs: task_mirror(task_gravity_weighted_colors(rng, size, **kwargs)), {}),
+    "gravity_weighted_colors_left": (
+        lambda rng, size, **kwargs: task_mirror(task_gravity_weighted_colors(rng, size, **kwargs)),
+        {},
+    ),
     # Block tasks
     "block_touch_dot": (task_block_touch_dot, {}),
     "block_touch_dot_1pix": (task_block_touch_dot_n_pix, {"move_pix": 1}),
@@ -1147,7 +1198,10 @@ ARC_1D_TASKS = {
     "move_block_by_own_size": (task_move_block_by_own_size, {}),
     # Pattern tasks
     "two_points_and_fill": (task_two_points_and_fill, {}),
-    "two_points_and_fill_inv": (lambda rng, size, **kwargs: task_inverse(task_two_points_and_fill(rng, size, **kwargs)), {}),
+    "two_points_and_fill_inv": (
+        lambda rng, size, **kwargs: task_inverse(task_two_points_and_fill(rng, size, **kwargs)),
+        {},
+    ),
     "copy_block_to_dots": (task_copy_block_to_dots, {}),
     "copy_block_to_dots_colors": (task_copy_block_to_dots_colors, {}),
     "repeat_pattern_full": (task_repeat_pattern_full, {}),

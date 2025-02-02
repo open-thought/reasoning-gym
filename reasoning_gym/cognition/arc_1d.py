@@ -25,7 +25,18 @@ class Arc1DConfig:
 
 
 class Arc1DDataset(ProceduralDataset):
-    """Generates ARC 1D tasks by randomly selecting from available task generators"""
+    """
+    Generates ARC 1D tasks by randomly selecting from available task generators
+
+    This dataset is a procedural variant of the 1D-ARC dataset which is described in the paper:
+    `LLMs and the Abstraction and Reasoning Corpus:  Successes, Failures, and the Importance
+    of Object-based Representations` (https://arxiv.org/abs/2305.18354)
+
+    Ilya Sheprut (optozorax) created rust generators for most of the ARC 1d tasks. For
+    reasoning-gym rust tasks were machine-converted to python via Sonnet.
+
+    Ilya's original rust code can be found here: https://github.com/optozorax/arc_1d/
+    """
 
     def __init__(self, config: Arc1DConfig):
         from .arc_1d_tasks import ARC_1D_TASKS
