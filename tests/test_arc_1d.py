@@ -20,14 +20,17 @@ def test_all_arc_1d_tasks():
     size = 20  # Reasonable size for testing
     
     # Test all task functions
+    # Fixed move_pix value for testing
+    move_pix = 2
+    
     tasks = [
-        (task_move_n_pix, {"solid": True}),
-        (task_move_n_pix_wrapped, {"solid": True}),
+        (lambda s, r, **k: task_move_n_pix(s, move_pix, **k, r=r), {"solid": True}),
+        (lambda s, r, **k: task_move_n_pix_wrapped(s, move_pix, **k, r=r), {"solid": True}),
         (task_gravity, {}),
         (task_gravity_counting, {}),
         (task_gravity_antigravity, {}),
         (task_block_touch_dot, {}),
-        (task_block_touch_dot_n_pix, {}),
+        (lambda s, r, **k: task_block_touch_dot_n_pix(s, move_pix, r), {}),
         (task_block_scale_to_dot, {}),
         (task_two_points_and_fill, {}),
         (task_reflect_block_with_border_pixel, {}),
