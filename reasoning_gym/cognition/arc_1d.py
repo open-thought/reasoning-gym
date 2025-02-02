@@ -225,3 +225,218 @@ def task_two_points_and_fill(size: int, rng: Random) -> Optional[Dict[str, List[
         answer[i] = color
     
     return {"input": question, "output": answer}
+
+def task_reflect_block_with_border_pixel(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a block with a border pixel is reflected."""
+    block_size = rng.randint(2, size)
+    if block_size > size:
+        return None
+        
+    c1 = rng.randint(1, 9)
+    c2 = rng.randint(1, 9)
+    if c1 == c2:
+        return None
+        
+    side = "left" if rng.random() < 0.5 else "right"
+    pos = rng.randint(0, size - block_size)
+    
+    block = [c1] * block_size
+    if side == "left":
+        block[0] = c2
+    else:
+        block[block_size - 1] = c2
+        
+    question = write_block(pos, block, gen_field(size))
+    reversed_block = block[::-1]  # Reverse the block
+    answer = write_block(pos, reversed_block, gen_field(size))
+    
+    return {"input": question, "output": answer}
+
+def task_reflect_block_with_border_pixel_random(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a random-colored block with a border pixel is reflected."""
+    block_size = rng.randint(2, size)
+    if block_size > size:
+        return None
+        
+    side = "left" if rng.random() < 0.5 else "right"
+    pos = rng.randint(0, size - block_size)
+    
+    block = [rng.randint(1, 9) for _ in range(block_size)]
+    border_color = rng.randint(1, 9)
+    
+    if side == "left":
+        if block[0] == border_color:
+            return None
+        block[0] = border_color
+    else:
+        if block[block_size - 1] == border_color:
+            return None
+        block[block_size - 1] = border_color
+        
+    question = write_block(pos, block, gen_field(size))
+    reversed_block = block[::-1]  # Reverse the block
+    answer = write_block(pos, reversed_block, gen_field(size))
+    
+    return {"input": question, "output": answer}
+
+def task_reflect_block_around_dot(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a block is reflected around a dot."""
+    dot_color = 2
+    
+    dot_pos = rng.randint(0, size)
+    block_size = rng.randint(1, size)
+    block_pos = rng.randint(0, size - block_size)
+    block_end = block_pos + block_size - 1
+    
+    # Check if block is strictly to left or right of dot
+    strictly_left = block_end < dot_pos
+    strictly_right = block_pos > dot_pos
+    
+    if not (strictly_left or strictly_right):
+        return None
+        
+    block_color = rng.randint(3, 9)  # Different from dot color
+    block = [block_color] * block_size
+    
+    # Calculate reflection bounds
+    min_reflect = 2 * dot_pos - block_end
+    max_reflect = 2 * dot_pos - block_pos
+    if min_reflect < 0 or max_reflect >= size:
+        return None
+        
+    question = gen_field(size)
+    question = write_block(block_pos, block, question)
+    question[dot_pos] = dot_color
+    
+    answer = gen_field(size)
+    answer[dot_pos] = dot_color
+    for i in range(block_size):
+        reflect_idx = 2 * dot_pos - (block_pos + i)
+        answer[reflect_idx] = block[i]
+    
+    return {"input": question, "output": answer}
+
+def task_block_and_noise_remove(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where noise around a block needs to be removed."""
+    block_size = rng.randint(2, size)
+    if block_size > size:
+        return None
+        
+    block_pos = rng.randint(0, size - block_size)
+    color = rng.randint(1, 9)
+    
+    # Create field with block
+    field = gen_field(size)
+    for i in range(block_size):
+        field[block_pos + i] = color
+        
+    # Track forbidden positions for noise
+    forbidden = [False] * size
+    for i in range(block_pos, block_pos + block_size):
+        forbidden[i] = True
+    if block_pos > 0:
+        forbidden[block_pos - 1] = True
+    if block_pos + block_size < size:
+        forbidden[block_pos + block_size] = True
+        
+    # Add noise
+    noise_count = rng.randint(1, 3)
+    noise_positions = []
+    
+    for _ in range(noise_count):
+        allowed = [i for i in range(size) if not forbidden[i]]
+        if not allowed:
+            break
+        noise_pos = rng.choice(allowed)
+        noise_positions.append(noise_pos)
+        field[noise_pos] = color
+        forbidden[noise_pos] = True
+        if noise_pos > 0:
+            forbidden[noise_pos - 1] = True
+        if noise_pos + 1 < size:
+            forbidden[noise_pos + 1] = True
+            
+    if len(noise_positions) < noise_count:
+        return None
+        
+    question = field
+    answer = field.copy()
+    for pos in noise_positions:
+        answer[pos] = 0
+        
+    return {"input": question, "output": answer}
+
+def task_block_and_noise_remove_inside(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where noise inside a block needs to be removed."""
+    if size <= 6:
+        return None
+        
+    block_size = rng.randint(6, size)
+    if block_size > size:
+        return None
+        
+    block_pos = rng.randint(0, size - block_size)
+    color = rng.randint(1, 9)
+    
+    # Create field with block
+    field = gen_field(size)
+    for i in range(block_size):
+        field[block_pos + i] = color
+        
+    # Add noise inside block
+    max_noise = max(1, (block_size // 2) - 1)
+    noise_count = rng.randint(1, max_noise)
+    
+    positions = list(range(block_size))
+    rng.shuffle(positions)
+    noise_positions = positions[:noise_count]
+    
+    for offset in noise_positions:
+        pos = block_pos + offset
+        noise_color = rng.randint(1, 9)
+        while noise_color == color:
+            noise_color = rng.randint(1, 9)
+        field[pos] = noise_color
+        
+    question = field
+    answer = field.copy()
+    for offset in noise_positions:
+        answer[block_pos + offset] = color
+        
+    return {"input": question, "output": answer}
+
+def task_copy_block_to_dots(size: int, rng: Random) -> Optional[Dict[str, List[int]]]:
+    """Generate a task where a block pattern is copied to dot positions."""
+    block_size = 3 if rng.random() < 0.5 else 5
+    if block_size >= size:
+        return None
+        
+    color = rng.randint(1, 9)
+    block = [color] * block_size
+    
+    # Generate dots with minimum distance to prevent overlap
+    min_gap = block_size
+    dot_positions = []
+    pos = block_size + block_size//2 + 1
+    
+    while pos <= size - block_size:
+        if rng.random() < 0.5:  # Control dot density
+            dot_positions.append(pos)
+            pos += min_gap
+        pos += 1
+        
+    if not dot_positions:
+        return None
+        
+    question = gen_field(size)
+    question = write_block(0, block, question)
+    for pos in dot_positions:
+        question[pos] = color
+        
+    answer = gen_field(size)
+    answer = write_block(0, block, answer)
+    for pos in dot_positions:
+        block_start = pos - block_size//2
+        answer = write_block(block_start, block, answer)
+        
+    return {"input": question, "output": answer}
