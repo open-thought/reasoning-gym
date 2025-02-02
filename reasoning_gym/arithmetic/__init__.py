@@ -8,6 +8,7 @@ Arithmetic tasks for training reasoning capabilities:
 """
 
 from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
+from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 from .chain_sum import ChainSum, ChainSumConfig
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
@@ -22,6 +23,10 @@ __all__ = [
     "basic_arithmetic_dataset",
     "ChainSum",
     "ChainSumConfig",
+    "CalendarArithmeticConfig",
+    "CalendarArithmeticDataset",
+    "Weekday",
+    "CalendarTask",
     "FractionSimplificationConfig",
     "FractionSimplificationDataset",
     "GCDConfig",

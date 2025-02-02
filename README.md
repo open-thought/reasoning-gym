@@ -76,6 +76,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 ### <small>Arithmetic Tasks</small>
 
 - `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, \*, /)
+- `CalendarArithmeticDatset`: Generate arithmetic problems around calendar navigation logic
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
 - `FractionSimplificationDataset`: Generate fraction simplification tasks with configurable complexity
 - `GCDDataset`: Generate Greatest Common Divisor problems with configurable number of integers

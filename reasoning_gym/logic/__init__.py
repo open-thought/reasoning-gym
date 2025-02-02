@@ -6,10 +6,13 @@ Logic tasks for training reasoning capabilities:
 - Syllogisms
 """
 
+from .aiw import AliceInWonderlandConfig, AliceInWonderlandDataset
 from .propositional_logic import PropositionalLogicConfig, PropositionalLogicDataset
 from .syllogisms import SyllogismConfig, SyllogismDataset, Term
 
 __all__ = [
+    "AliceInWonderlandConfig",
+    "AliceInWonderlandDataset",
     "PropositionalLogicConfig",
     "PropositionalLogicDataset",
     "SyllogismConfig",
