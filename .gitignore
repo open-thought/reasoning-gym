@@ -40,3 +40,7 @@ htmlcov/
 
 # OSX
 .DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+.virtual_documents/
