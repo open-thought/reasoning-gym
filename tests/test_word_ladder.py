@@ -30,6 +30,11 @@ def test_word_ladder_config_validation():
         config = WordLadderConfig(min_chain_length=5, max_chain_length=3)
         config.validate()
 
+    # Test dataset size validation
+    with pytest.raises(ValueError):
+        config = WordLadderConfig(min_word_length=3, max_word_length=3, size=1000000)
+        config.validate()
+
 
 def test_word_ladder_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
@@ -39,6 +44,23 @@ def test_word_ladder_dataset_deterministic():
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
+
+
+def test_word_ladder_dataset_unique_pairs():
+    """Test that generated word pairs are unique"""
+    config = WordLadderConfig(size=50, seed=42)
+    dataset = WordLadderDataset(config)
+    
+    # Track all generated pairs
+    seen_pairs = set()
+    for i in range(len(dataset)):
+        item = dataset[i]
+        pair = (
+            min(item["metadata"]["start_word"], item["metadata"]["end_word"]),
+            max(item["metadata"]["start_word"], item["metadata"]["end_word"])
+        )
+        assert pair not in seen_pairs, f"Duplicate pair found: {pair}"
+        seen_pairs.add(pair)
 
 
 def test_word_ladder_dataset_items():
@@ -78,9 +100,9 @@ def test_word_ladder_dataset_items():
         solution_chain = item["answer"].split(",")
         
         # Handle chain length validation based on whether it's shortest path (-1) or specified length
-        if metadata["chain_length"] == -1:
+        if config.min_chain_length == -1:
             # For shortest path, just ensure it's a valid path (we can't predict exact length)
-            assert len(solution_chain) >= 2  # Must have at least start and end words
+            assert len(solution_chain) >= 3  # Must have at least 3 words as per validation
         else:
             # For specified length, ensure it matches config constraints
             assert config.min_chain_length <= len(solution_chain) <= config.max_chain_length
@@ -140,7 +162,7 @@ def test_word_ladder_find_path():
 
     # Test path to same word
     path3 = dataset._find_path("CAT", "CAT", word_set)
-    assert path3 == ["CAT"]
+    assert path3 is None  # Now returns None instead of [word]
 
 
 if __name__ == "__main__":
