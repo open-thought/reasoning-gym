@@ -32,6 +32,7 @@ This gallery shows examples from all available datasets using their default conf
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
+- [largest_island](#largest_island)
 - [rubiks_cube](#rubiks_cube)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
@@ -1405,6 +1406,93 @@ C: Add 2 (when any)
 Answer: B → B → B → B → B → B → B → B → B → B → B → B → B → B → B
 Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], 'target_value': 45, 'buttons': [{'name': 'A', 'type': 'subtract', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 3, 'active_state': 'any'}, {'name': 'C', 'type': 'add', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
 
+````
+
+### largest_island
+
+Generate a grid with islands and find the largest one
+
+Default configuration:
+```python
+rows = 10
+cols = 10
+max_num_islands = 5
+max_island_size = 10
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 1 0 0 0 0 0 0
+1 1 0 1 0 0 0 0 0 1
+0 1 0 1 1 0 0 0 0 1
+0 1 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 1 1
+0 0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 1 0
+1 1 0 1 1 0 0 0 1 1
+1 1 1 1 1 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 10
+
+Metadata: {'grid': [[0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 1, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]], 'solution': 10}
+
+Example 2:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 0
+
+Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 0}
+
+Example 3:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+1 1 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 3
+
+Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 3}
 ````
 
 ### rubiks_cube
