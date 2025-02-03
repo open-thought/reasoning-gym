@@ -1,7 +1,7 @@
 import random
 import string
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -53,10 +53,10 @@ class PalindromeDataset(ProceduralDataset):
         palindrome = self._assemble_palindrome(letters)
 
         question_str = (
-            f"Rearrange these letters to form a palindrome (a word, phrase, or sequence that remains the same in reverse): {', '.join(scrambled_letters)}\n\n"
-            "Example format:\n"
-            "racecar\n\n"
-            "What is your palindrome?"
+            "Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.\n\n"
+            "For example, if the letters are: a, a, b — a valid palindrome is: aba.\n\n"
+            f"Your letters: {', '.join(scrambled_letters)}\n\n"
+            "What palindrome can you form from these letters?"
         )
 
         return {
@@ -80,6 +80,36 @@ class PalindromeDataset(ProceduralDataset):
     def _assemble_palindrome(self, letters: list[str]) -> str:
         """Return the palindrome string from the letter set."""
         return "".join(letters)
+
+    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+        """Determine if the solution provided is a valid palindrome.
+        The answer is expected to be a single string
+
+        Expected behavior:
+        - Correct answer (palindrome with only correct letters in the correct quantities) gives 1.0
+        - An answer that is a palindrome, but not with the same letters as provided, gives 0.05
+        - An answer that is a string, but not a palindrome gives 0.02
+        - An empty string gives 0.01.
+        - None gives 0.0.
+        """
+        if answer is None or not isinstance(answer, str):
+            return 0.0  # No answer given
+
+        if answer == "":
+            return 0.01
+
+        answer = answer.strip().lower()
+        expected_letters = metadata["letters"]
+
+        # Check if the answer is a palindrome
+        if answer != answer[::-1]:
+            return 0.02
+
+        # Check if answer contains the same letters as provided (ignoring order)
+        if sorted(answer) != sorted(expected_letters):
+            return 0.05
+
+        return 1.0  # Correct solution
 
 
 register_dataset("palindrome", PalindromeDataset, PalindromeConfig)

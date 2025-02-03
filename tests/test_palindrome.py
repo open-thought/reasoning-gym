@@ -55,3 +55,38 @@ def test_palindrome_randomization():
 
         # Ensure the same letters are present but in different order
         assert sorted(letters) == sorted(palindrome)
+
+
+def test_score_answer():
+    """Test the scoring mechanism for palindrome answers.
+
+    Expected behavior:
+    - Correct answer (palindrome with only correct letters in the correct quantities) gives 1.0
+    - An answer that is a palindrome, but not with the same letters as provided, gives 0.05
+    - An answer that is a string, but not a palindrome gives 0.02
+    - An empty string gives 0.01.
+    - None gives 0.0.
+    """
+    config = PalindromeConfig(min_length=4, max_length=6, size=10, seed=42)
+    dataset = PalindromeDataset(config)
+
+    for item in dataset:
+        correct_answer = item["answer"]
+        metadata = item["metadata"]
+
+        # Correct answer should score 1.0
+        assert dataset.score_answer(correct_answer, metadata) == 1.0
+
+        # Incorrect answer (palindrome, but not correct one) should score 0.05
+        pal_letters = "racecar" if "racecar" != correct_answer else "aba"
+        assert dataset.score_answer(pal_letters, metadata) == 0.05
+
+        # Incorrect answer (not palindrome) should score 0.02
+        wrong_letters = "abcd" if "abcd" != correct_answer else "efgh"
+        assert dataset.score_answer(wrong_letters, metadata) == 0.02
+
+        # Empty String input should score 0.01
+        assert dataset.score_answer("", metadata) == 0.01
+
+        # Empty input should score 0.0
+        assert dataset.score_answer(None, metadata) == 0.0
