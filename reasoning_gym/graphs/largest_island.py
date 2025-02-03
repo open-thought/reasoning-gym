@@ -31,8 +31,8 @@ class LargestIslandConfig:
 
     rows: int = 10  # Number of rows in the grid
     cols: int = 10  # Number of columns in the grid
-    max_num_islands: int = 5  # Maximum number of islands
-    max_island_size: int = 10  # Maximum size of an island
+    max_num_islands: int = 5  # Maximum number of islands (actual max might be smaller due to merging of islands during random walk)
+    max_island_size: int = 10  # Maximum size of an island (actual max might be larger due to merging of islands during random walk)
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
