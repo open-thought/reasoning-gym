@@ -29,6 +29,7 @@ This gallery shows examples from all available datasets using their default conf
 - [number_filtering](#number_filtering)
 - [number_sequence](#number_sequence)
 - [number_sorting](#number_sorting)
+- [palindrome](#palindrome)
 - [polynomial_equations](#polynomial_equations)
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
@@ -126,6 +127,15 @@ Metadata: {'task_type': 'friends'}
 ### arc_1d
 Generates ARC 1D tasks by randomly selecting from available task generators
 
+    This dataset is a procedural variant of the 1D-ARC dataset which is described in the paper:
+    `LLMs and the Abstraction and Reasoning Corpus:  Successes, Failures, and the Importance
+    of Object-based Representations` (https://arxiv.org/abs/2305.18354)
+
+    Ilya Sheprut (optozorax) created rust generators for most of the ARC 1d tasks. For
+    reasoning-gym rust tasks were machine-converted to python via Sonnet.
+
+    Ilya's original rust code can be found here: https://github.com/optozorax/arc_1d/
+
 Default configuration:
 ```python
 min_size = 10
@@ -141,67 +151,67 @@ Example 1:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
 
 Example 1:
-Input:  7 1 0 0 5 5 0 5 5 0 0 0 0
-Output: 7 1 0 0 7 7 0 1 1 0 0 0 0
+Input:  0 0 0 2 9 2 3 4 4 0
+Output: 2 9 2 3 4 4 0 0 0 0
 
 Example 2:
-Input:  5 1 0 5 5 0 5 5 0 0 0 0 0
-Output: 5 1 0 5 5 0 1 1 0 0 0 0 0
+Input:  0 0 0 0 4 4 2 1 1 0
+Output: 0 4 4 2 1 1 0 0 0 0
 
 Example 3:
-Input:  2 6 0 0 5 5 0 5 5 0 0 0 0
-Output: 2 6 0 0 2 2 0 6 6 0 0 0 0
+Input:  0 0 0 7 9 4 9 1 0 0
+Output: 7 9 4 9 1 0 0 0 0 0
 
 Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
 
 Input:
-6 0 0 0 0 0 0 5 5 5 0 0 0
-Answer: 6 0 0 0 0 0 0 6 6 6 0 0 0
-Metadata: {'task_name': 'recolor_blocks_from_palette', 'size': 13, 'train_examples': [{'input': [7, 1, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0], 'output': [7, 1, 0, 0, 7, 7, 0, 1, 1, 0, 0, 0, 0]}, {'input': [5, 1, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0, 0], 'output': [5, 1, 0, 5, 5, 0, 1, 1, 0, 0, 0, 0, 0]}, {'input': [2, 6, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0], 'output': [2, 6, 0, 0, 2, 2, 0, 6, 6, 0, 0, 0, 0]}], 'test_example': {'input': [6, 0, 0, 0, 0, 0, 0, 5, 5, 5, 0, 0, 0], 'output': [6, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0]}}
+0 0 0 0 0 1 5 0 0 0
+Answer: 0 0 1 5 0 0 0 0 0 0
+Metadata: {'task_name': 'move_3pix_colorful_left', 'size': 10, 'train_examples': [{'input': [0, 0, 0, 2, 9, 2, 3, 4, 4, 0], 'output': [2, 9, 2, 3, 4, 4, 0, 0, 0, 0]}, {'input': [0, 0, 0, 0, 4, 4, 2, 1, 1, 0], 'output': [0, 4, 4, 2, 1, 1, 0, 0, 0, 0]}, {'input': [0, 0, 0, 7, 9, 4, 9, 1, 0, 0], 'output': [7, 9, 4, 9, 1, 0, 0, 0, 0, 0]}], 'test_example': {'input': [0, 0, 0, 0, 0, 1, 5, 0, 0, 0], 'output': [0, 0, 1, 5, 0, 0, 0, 0, 0, 0]}}
 
 Example 2:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
 
 Example 1:
-Input:  0 8 8 8 8 8 8 8 8 8 8 8 8 0 0 0 0 0 0
-Output: 0 0 0 0 8 8 8 8 8 8 8 8 8 8 8 8 0 0 0
+Input:  0 0 0 0 0 0 0 6 2 8 8 1 0 0 0 0 0 0 0
+Output: 0 0 0 0 0 0 0 0 6 2 8 8 1 0 0 0 0 0 0
 
 Example 2:
-Input:  0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2 0 0 0
-Output: 0 0 0 0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2
+Input:  0 6 9 7 7 3 1 2 2 7 3 2 3 9 8 3 7 9 0
+Output: 0 0 6 9 7 7 3 1 2 2 7 3 2 3 9 8 3 7 9
 
 Example 3:
-Input:  0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0
-Output: 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0
+Input:  0 0 0 0 0 0 0 0 0 3 7 2 1 1 3 1 3 5 0
+Output: 0 0 0 0 0 0 0 0 0 0 3 7 2 1 1 3 1 3 5
 
 Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
 
 Input:
-0 0 0 0 0 0 6 6 6 6 6 6 6 6 6 0 0 0 0
-Answer: 0 0 0 0 0 0 0 0 0 6 6 6 6 6 6 6 6 6 0
-Metadata: {'task_name': 'move_3pix_solid', 'size': 19, 'train_examples': [{'input': [0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0]}, {'input': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2]}, {'input': [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0]}], 'test_example': {'input': [0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0]}}
+0 9 2 1 2 8 6 6 9 8 0 0 0 0 0 0 0 0 0
+Answer: 0 0 9 2 1 2 8 6 6 9 8 0 0 0 0 0 0 0 0
+Metadata: {'task_name': 'move_1pix_colorful_right', 'size': 19, 'train_examples': [{'input': [0, 0, 0, 0, 0, 0, 0, 6, 2, 8, 8, 1, 0, 0, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 6, 2, 8, 8, 1, 0, 0, 0, 0, 0, 0]}, {'input': [0, 6, 9, 7, 7, 3, 1, 2, 2, 7, 3, 2, 3, 9, 8, 3, 7, 9, 0], 'output': [0, 0, 6, 9, 7, 7, 3, 1, 2, 2, 7, 3, 2, 3, 9, 8, 3, 7, 9]}, {'input': [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 2, 1, 1, 3, 1, 3, 5, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 2, 1, 1, 3, 1, 3, 5]}], 'test_example': {'input': [0, 9, 2, 1, 2, 8, 6, 6, 9, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'output': [0, 0, 9, 2, 1, 2, 8, 6, 6, 9, 8, 0, 0, 0, 0, 0, 0, 0, 0]}}
 
 Example 3:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
 
 Example 1:
-Input:  0 0 0 0 0 0 0 2 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
-Output: 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+Input:  0 0 0 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 0 0 0
+Output: 0 0 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 9 0 0 0
 
 Example 2:
-Input:  0 0 0 2 0 0 0 0 0 0 0 0 0 3 3 3 3 3 3 3 3 0 0 0 0 0
-Output: 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0
+Input:  0 0 0 0 0 0 0 3 3 3 3 3 3 0 0 0 0 0 0 0 0 0 0 0 0 0
+Output: 0 0 0 0 0 0 0 3 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 Example 3:
-Input:  0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 0 0 0 0
-Output: 0 0 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0
+Input:  5 5 5 5 5 5 5 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Output: 5 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
 
 Input:
-0 0 0 0 0 0 0 0 0 0 0 7 7 7 7 7 7 7 7 7 7 7 7 7 2 0
-Answer: 0 0 0 0 0 0 0 0 0 0 0 7 7 7 7 7 7 7 7 7 7 7 7 7 7 0
-Metadata: {'task_name': 'block_scale_to_dot', 'size': 26, 'train_examples': [{'input': [0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0]}, {'input': [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0]}, {'input': [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0]}], 'test_example': {'input': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0]}}
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0
+Answer: 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0
+Metadata: {'task_name': 'two_points_and_fill_inv', 'size': 26, 'train_examples': [{'input': [0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0], 'output': [0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0]}, {'input': [0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, {'input': [5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'output': [5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}], 'test_example': {'input': [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0], 'output': [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0]}}
 
 ````
 
@@ -1324,6 +1334,54 @@ Metadata: {'original_numbers': ['8.39', '72.41', '-64.67', '-54.97', '-94.18', '
 
 ````
 
+### palindrome
+Generates a set of letters that can be assembled into a palindrome.
+
+Default configuration:
+```python
+min_length = 3
+max_length = 10
+seed = 42
+size = 50
+```
+
+Example tasks:
+````
+Example 1:
+Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.
+
+For example, if the letters are: a, a, b — a valid palindrome is: aba.
+
+Your letters: h, a, h, a
+
+What palindrome can you form from these letters?
+Answer: ahha
+Metadata: {'letters': ['h', 'a', 'h', 'a'], 'generated_palindrome': 'ahha'}
+
+Example 2:
+Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.
+
+For example, if the letters are: a, a, b — a valid palindrome is: aba.
+
+Your letters: h, y, h
+
+What palindrome can you form from these letters?
+Answer: hyh
+Metadata: {'letters': ['h', 'y', 'h'], 'generated_palindrome': 'hyh'}
+
+Example 3:
+Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.
+
+For example, if the letters are: a, a, b — a valid palindrome is: aba.
+
+Your letters: n, j, n, j, d, j, s, s, d
+
+What palindrome can you form from these letters?
+Answer: nsdjjjdsn
+Metadata: {'letters': ['n', 'j', 'n', 'j', 'd', 'j', 's', 's', 'd'], 'generated_palindrome': 'nsdjjjdsn'}
+
+````
+
 ### polynomial_equations
 Generates random polynomial equations of degree in [min_degree, max_degree].
     - The polynomial is formed by summing random terms of the form: coeff * x^exponent.
@@ -1885,7 +1943,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 2, 9, 44), 'end_time': datetime.datetime(2025, 2, 2, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 3, 9, 44), 'end_time': datetime.datetime(2025, 2, 3, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
