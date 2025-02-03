@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "reasoning_gym"
-version = "0.1.2"
+version = "0.1.3"
 authors = [
   { name = "Open-Thought community", email = "andreas.koepf@xamla.com" },
 ]
@@ -16,19 +16,8 @@ dependencies = [
   "cellpylib==2.4.0",
   "sympy>=1.13.1",
   "magiccube==0.3.0",
-  "pyfiglet==1.0.2"
-]
-
-[project.optional-dependencies]
-test = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-]
-
-[tool.pytest.ini_options]
-addopts = "-ra -q --cov=reasoning_gym"
-testpaths = [
-    "tests",
+  "pyfiglet==1.0.2",
+  "pytz>=2024.1"
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -37,6 +26,12 @@ classifiers = [
 ]
 license = "Apache-2.0"
 license-files = ["LICENSE*"]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
 
 [project.urls]
 "Homepage" = "https://github.com/open-thought/reasoning-gym"
@@ -57,3 +52,9 @@ include = '\.pyi?$'
 profile = "black"
 multi_line_output = 3
 line_length = 120
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]

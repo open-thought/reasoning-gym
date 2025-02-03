@@ -76,12 +76,14 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 ### <small>Arithmetic Tasks</small>
 
 - `BasicArithmeticDataset`: Generate arithmetic expressions with configurable complexity and operators (+, -, \*, /)
+- `CalendarArithmeticDatset`: Generate arithmetic problems around calendar navigation logic
 - `ChainSum`: Generate addition/subtraction chains with configurable length and digit counts
 - `FractionSimplificationDataset`: Generate fraction simplification tasks with configurable complexity
 - `GCDDataset`: Generate Greatest Common Divisor problems with configurable number of integers
 - `LCMDataset`: Generate Least Common Multiple problems with configurable number of integers
 - `LegCountingDataset`: Generate animal leg counting word problems with various animals
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
+- `TimeIntervalsDataset`: Generate time interval calculation tasks with various formats (time, date, datetime) and complexities
 
 ### <small>Algorithmic Tasks</small>
 
@@ -111,7 +113,8 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 ### <small>Logic Tasks</small>
 
 - `PropositionalLogicDataset`: Generate propositional logic reasoning problems
-
+- `SyllogismDataset`: Generates a [syllogism](https://en.wikipedia.org/wiki/Syllogism) reasoning dataset
+- `AliceInWonderlandDataset`: Generates [AIW](https://openreview.net/forum?id=Mkl7dzjYiW) (Alice In Wonderland) problems with a few variations
 ### <small>Graph Tasks</small>
 
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
@@ -123,6 +126,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
 - `MazeDataset`: Generate a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
+- `NQueensDataset`: Generate N-Queens puzzles with configurable board size and number of starting queens
 
 ## Future Generator Ideas
 
@@ -134,4 +138,4 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 
 ## Call for Contributions
 
-If you have ideas for additional procedural dataset generators please create an issue here or contact us in the `#arc-agi-2` channel of the [GPU-Mode discord server](https://discord.gg/gpumode).
+If you have ideas for additional procedural dataset generators please create an issue here or contact us in the `#reasoning-gym` channel of the [GPU-Mode discord server](https://discord.gg/gpumode).

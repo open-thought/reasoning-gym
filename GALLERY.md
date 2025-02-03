@@ -2,10 +2,14 @@
 This gallery shows examples from all available datasets using their default configurations.
 
 ## Available Datasets
+- [advanced_geometry](#advanced_geometry)
+- [aiw](#aiw)
+- [arc_1d](#arc_1d)
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
 - [caesar_cipher](#caesar_cipher)
+- [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
 - [countdown](#countdown)
@@ -14,12 +18,14 @@ This gallery shows examples from all available datasets using their default conf
 - [fraction_simplification](#fraction_simplification)
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
+- [intermediate_integration](#intermediate_integration)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
 - [letter_counting](#letter_counting)
 - [letter_jumble](#letter_jumble)
 - [maze](#maze)
 - [mini_sudoku](#mini_sudoku)
+- [n_queens](#n_queens)
 - [number_filtering](#number_filtering)
 - [number_sequence](#number_sequence)
 - [number_sorting](#number_sorting)
@@ -30,43 +36,204 @@ This gallery shows examples from all available datasets using their default conf
 - [rubiks_cube](#rubiks_cube)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
+- [simple_geometry](#simple_geometry)
+- [simple_integration](#simple_integration)
 - [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
+- [time_intervals](#time_intervals)
+- [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 
 ## Dataset Examples
+### advanced_geometry
+A dataset for advanced geometry tasks using coordinate geometry.
+
+Default configuration:
+```python
+min_coord = -10
+max_coord = 10
+size = 50
+seed = 42
+task_types = ['orthocenter', 'incircle_radius', 'angle_measure']
+```
+
+Example tasks:
+````
+Example 1:
+Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -6), find the measure (in degrees) of angle ABC.
+Answer: 17.10°
+Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237}
+
+Example 2:
+Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determine the orthocenter (intersection of altitudes).
+Answer: (0.304, -1.217)
+Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262)}
+
+Example 3:
+Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3).
+Answer: 2.176
+Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009}
+
+````
+
+### aiw
+A procedural dataset inspired by the "Alice in Wonderland" paper.
+
+    The dataset is inspired by the following paper:
+       @inproceedings{nezhurina2024alice,
+       title={Alice in Wonderland: Simple Tasks Reveal Severe Generalization and
+              Basic Reasoning Deficits in State-Of-the-Art Large Language Models},
+       author={Marianna Nezhurina and Lucia Cipolina-Kun and Mehdi Cherti and
+              Jenia Jitsev},
+       booktitle={NeurIPS 2024 Workshop on Scientific Methods for Understanding
+                  Deep Learning},
+       year={2024},
+       url={https://openreview.net/forum?id=Mkl7dzjYiW}
+       }
+
+Default configuration:
+```python
+male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Bob']
+female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Margaret', 'Alice']
+task_types = [<TaskType.SIBLINGS: 'siblings'>, <TaskType.FRIENDS: 'friends'>, <TaskType.COLLEAGUES: 'colleagues'>]
+seed = 42
+size = 10
+max_entities = 6
+```
+
+Example tasks:
+````
+Example 1:
+Question: Patricia has 6 male colleagues and she also has 3 female colleagues. These are all colleagues that Patricia has. All these mentioned persons around Patricia are colleagues of each other. James has 2 male colleagues and 2 female colleagues in total. All these mentioned persons around James are colleagues of each other. The people in the circle around James do not have other colleagues aside - with the only exception of Matilda. She is colleague of James and she is also colleague of Patricia, being part of Patricia's circle. How many female colleagues does Matilda have?
+Answer: 4
+Metadata: {'task_type': 'colleagues'}
+
+Example 2:
+Question: Elizabeth has 4 brothers and she also has 3 sisters. How many sisters does Elizabeth's brother have?
+Answer: 4
+Metadata: {'task_type': 'siblings'}
+
+Example 3:
+Question: Sarah has 6 male friends and she also has 1 female friends. They all are friends with each other and have no other friends aside. How many female friends does Thomas, a male friend of Sarah, have?
+Answer: 2
+Metadata: {'task_type': 'friends'}
+
+````
+
+### arc_1d
+Generates ARC 1D tasks by randomly selecting from available task generators
+
+Default configuration:
+```python
+min_size = 10
+max_size = 30
+num_train = 3
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+Input:  7 1 0 0 5 5 0 5 5 0 0 0 0
+Output: 7 1 0 0 7 7 0 1 1 0 0 0 0
+
+Example 2:
+Input:  5 1 0 5 5 0 5 5 0 0 0 0 0
+Output: 5 1 0 5 5 0 1 1 0 0 0 0 0
+
+Example 3:
+Input:  2 6 0 0 5 5 0 5 5 0 0 0 0
+Output: 2 6 0 0 2 2 0 6 6 0 0 0 0
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+
+Input:
+6 0 0 0 0 0 0 5 5 5 0 0 0
+Answer: 6 0 0 0 0 0 0 6 6 6 0 0 0
+Metadata: {'task_name': 'recolor_blocks_from_palette', 'size': 13, 'train_examples': [{'input': [7, 1, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0], 'output': [7, 1, 0, 0, 7, 7, 0, 1, 1, 0, 0, 0, 0]}, {'input': [5, 1, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0, 0], 'output': [5, 1, 0, 5, 5, 0, 1, 1, 0, 0, 0, 0, 0]}, {'input': [2, 6, 0, 0, 5, 5, 0, 5, 5, 0, 0, 0, 0], 'output': [2, 6, 0, 0, 2, 2, 0, 6, 6, 0, 0, 0, 0]}], 'test_example': {'input': [6, 0, 0, 0, 0, 0, 0, 5, 5, 5, 0, 0, 0], 'output': [6, 0, 0, 0, 0, 0, 0, 6, 6, 6, 0, 0, 0]}}
+
+Example 2:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+Input:  0 8 8 8 8 8 8 8 8 8 8 8 8 0 0 0 0 0 0
+Output: 0 0 0 0 8 8 8 8 8 8 8 8 8 8 8 8 0 0 0
+
+Example 2:
+Input:  0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2 0 0 0
+Output: 0 0 0 0 0 0 0 0 0 0 0 0 0 2 2 2 2 2 2
+
+Example 3:
+Input:  0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0
+Output: 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 0
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+
+Input:
+0 0 0 0 0 0 6 6 6 6 6 6 6 6 6 0 0 0 0
+Answer: 0 0 0 0 0 0 0 0 0 6 6 6 6 6 6 6 6 6 0
+Metadata: {'task_name': 'move_3pix_solid', 'size': 19, 'train_examples': [{'input': [0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0]}, {'input': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2]}, {'input': [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0]}], 'test_example': {'input': [0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0]}}
+
+Example 3:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+Input:  0 0 0 0 0 0 0 2 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+Output: 0 0 0 0 0 0 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0
+
+Example 2:
+Input:  0 0 0 2 0 0 0 0 0 0 0 0 0 3 3 3 3 3 3 3 3 0 0 0 0 0
+Output: 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0
+
+Example 3:
+Input:  0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 3 0 0 0 0
+Output: 0 0 0 0 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+
+Input:
+0 0 0 0 0 0 0 0 0 0 0 7 7 7 7 7 7 7 7 7 7 7 7 7 2 0
+Answer: 0 0 0 0 0 0 0 0 0 0 0 7 7 7 7 7 7 7 7 7 7 7 7 7 7 0
+Metadata: {'task_name': 'block_scale_to_dot', 'size': 26, 'train_examples': [{'input': [0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0]}, {'input': [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0], 'output': [0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0]}, {'input': [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0], 'output': [0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0]}], 'test_example': {'input': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 2, 0], 'output': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0]}}
+
+````
+
 ### base_conversion
 Generates base conversion tasks
 
 Default configuration:
-````python
+```python
 min_base = 2
 max_base = 16
 min_value = 0
 max_value = 1000
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
 Example 1:
-Question: Convert the base-3 number 28e to binary
+Question: Convert the base-3 number 220020 to binary
 Answer: 1010001110
-Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '28e', 'target_repr': '1010001110'}
+Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '220020', 'target_repr': '1010001110'}
 
 Example 2:
-Question: Convert the base-6 number 27 to base-13 (use lowercase letters a-z for digits above 9)
-Answer: 27
-Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '27', 'target_repr': '27'}
+Question: Convert the base-6 number 103 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 30
+Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '103', 'target_repr': '30'}
 
 Example 3:
-Question: Convert the base-10 number 1a2 to base-13 (use lowercase letters a-z for digits above 9)
-Answer: 1a2
-Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '1a2', 'target_repr': '1a2'}
+Question: Convert the base-10 number 418 to base-13 (use lowercase letters a-z for digits above 9)
+Answer: 262
+Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '418', 'target_repr': '262'}
 
 ````
 
@@ -74,7 +241,7 @@ Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_r
 Dataset that generates basic arithmetic tasks with configurable complexity
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 6
 min_digits = 1
@@ -86,7 +253,7 @@ seed = 42
 size = 500
 format_style = simple
 whitespace = single
-````
+```
 
 Example tasks:
 ````
@@ -111,11 +278,11 @@ Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
 Generates BF tasks
 
 Default configuration:
-````python
+```python
 seed = 42
 size = 500
 difficulty = 1
-````
+```
 
 Example tasks:
 ````
@@ -146,7 +313,7 @@ Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program'
 Generates Caesar cipher encryption/decryption tasks
 
 Default configuration:
-````python
+```python
 delimiter = .
 min_words = 3
 max_words = 20
@@ -154,7 +321,7 @@ min_rotation = 1
 max_rotation = 25
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -175,11 +342,41 @@ Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV 
 
 ````
 
+### calendar_arithmetic
+Default configuration:
+```python
+year = 2022
+tasks = ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_day', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year']
+offset_upper_bound = 100
+leap_year_range = 200
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Between Sunday, February 27, 2022 and Wednesday, March 2, 2022 (counting both dates), what's the total count of business days (Monday through Friday)? Give the count numerically.
+Answer: 3
+Metadata: {'task': 'count_business_days', 'start_date': '2022-02-27', 'end_date': '2022-03-02'}
+
+Example 2:
+Question: Starting from Monday, May 23, 2022, which weekday was it 98 days before? Write out the full weekday name.
+Answer: Monday
+Metadata: {'task': 'weekday_offset', 'start_date': '2022-05-23', 'offset_days': -98, 'target_date': '2022-02-14'}
+
+Example 3:
+Question: If a meeting is scheduled on the last Saturday of September 2022, on which day of the month does it occur? Respond with just the number. Answer with -1 if the ordinal does not exist in the month.
+Answer: 24
+Metadata: {'task': 'recurring_event_day', 'year': 2022, 'month': 9, 'ordinal': 'last', 'weekday': 'Saturday'}
+
+````
+
 ### chain_sum
 Generates simple arithmetic tasks using only + and - operators
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 6
 min_digits = 1
@@ -187,7 +384,7 @@ max_digits = 4
 allow_negation = False
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -212,12 +409,12 @@ Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}
 Generates color cube rotation reasoning tasks
 
 Default configuration:
-````python
+```python
 min_rotations = 1
 max_rotations = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -280,7 +477,7 @@ Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet'
 Generates Countdown Number Game tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 4
 max_numbers = 6
 min_value = 1
@@ -291,7 +488,7 @@ operators = ('+', '-', '*', '/')
 shuffle = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -319,14 +516,14 @@ Metadata: {'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 -
 Generates family relationship reasoning tasks
 
 Default configuration:
-````python
+```python
 min_family_size = 4
 max_family_size = 8
 male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Peter', 'Daniel', 'Matthew', 'Christopher', 'Andrew', 'George', 'Edward', 'Benjamin', 'Henry', 'Samuel', 'Alexander', 'Oliver', 'Jack', 'Harry', 'Jacob', 'Noah', 'Ethan', 'Lucas', 'Mason', 'Logan', 'Sebastian', 'Theodore', 'Owen', 'Liam', 'Aiden', 'Kai', 'Jayden', 'Zion', 'Phoenix', 'Atlas', 'Axel', 'Ryder', 'Finn']
 female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen', 'Emma', 'Lisa', 'Anna', 'Margaret', 'Victoria', 'Charlotte', 'Sophia', 'Isabella', 'Olivia', 'Ava', 'Mia', 'Emily', 'Abigail', 'Amelia', 'Eleanor', 'Grace', 'Alice', 'Lucy', 'Chloe', 'Sophie', 'Lily', 'Hannah', 'Zoe', 'Luna', 'Nova', 'Aria', 'Willow', 'Aurora', 'Sage', 'River', 'Winter', 'Sky', 'Rain']
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -357,13 +554,13 @@ Metadata: {'person1': 'Liam', 'person2': 'Noah', 'relationship': 'father', 'fami
 Generates FigletFont tasks
 
 Default configuration:
-````python
+```python
 static_word = None
 static_font = None
 space_letters = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -421,7 +618,7 @@ Metadata: {'font': 'xcourb', 'space_letters': True}
 Generates fraction simplification tasks
 
 Default configuration:
-````python
+```python
 min_value = 1
 max_value = 1000
 min_factor = 1
@@ -429,7 +626,7 @@ max_factor = 100
 styles = ('plain', 'latex_inline', 'latex_frac', 'latex_dfrac')
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -454,14 +651,14 @@ Metadata: {'numerator': 29330, 'denominator': 37310, 'simplified_numerator': 419
 Generates Game of Life games with configurable parameters
 
 Default configuration:
-````python
+```python
 grid_size_x = 20
 grid_size_y = 20
 filled_cells = 100
 simulation_steps = 1
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -606,14 +803,14 @@ Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulatio
 Generates Greatest Common Divisor (GCD) tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 1000
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -634,18 +831,60 @@ Metadata: {'numbers': [297, 30], 'result': 3}
 
 ````
 
+### intermediate_integration
+Generates intermediate integration problem - either
+    by substitution or by parts
+
+Default configuration:
+```python
+problem_types = ('substitution', 'by_parts')
+substitution_types = ('linear', 'trigonometric', 'exponential', 'radical')
+by_parts_types = ('polynomial_exp_trig', 'log_inverse_trig', 'cyclic', 'repeated_parts')
+seed = 42
+size = 500
+linear_lower_bound = 1
+linear_upper_bound = 10
+min_linear_degree = 2
+max_linear_degree = 4
+outer_constant_min = 1
+outer_constant_max = 3
+min_poly_degree = 1
+max_poly_degree = 3
+symbols = ('x', 'X')
+operators = ('+', '-')
+```
+
+Example tasks:
+````
+Example 1:
+Question: Find the indefinite integral: ∫ -3*exp(3*x + 9) dx
+Answer: -exp(3*x + 9) + C
+Metadata: {'integrand': '-3*exp(3*x + 9)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': -exp(3*x + 9)}
+
+Example 2:
+Question: Evaluate the indefinite integral: ∫ -6*sin(2*X + 10)*cos(2*X + 10)**4 dx
+Answer: 3*cos(2*X + 10)**5/5 + C
+Metadata: {'integrand': '-6*sin(2*X + 10)*cos(2*X + 10)**4', 'problem_type': 'substitution', 'variable': 'X', 'type': 'trigonometric', 'expected_answer_expression': 3*cos(2*X + 10)**5/5}
+
+Example 3:
+Question: Find the indefinite integral: ∫ 2*asin(x) dx
+Answer: 2*Integral(asin(x), x) + C
+Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': 2*Integral(asin(x), x)}
+
+````
+
 ### lcm
 Generates Least Common Multiple (LCM) tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 2
 max_numbers = 2
 min_value = 1
 max_value = 100
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -670,13 +909,13 @@ Metadata: {'numbers': [38, 4], 'result': 76}
 Generates leg counting arithmetic tasks
 
 Default configuration:
-````python
+```python
 min_animals = 2
 max_animals = 5
 max_instances = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -701,12 +940,12 @@ Metadata: {'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1},
 Generates letter counting tasks from text spans
 
 Default configuration:
-````python
+```python
 min_words = 5
 max_words = 15
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -731,7 +970,7 @@ Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form',
 Generates word letter jumbling tasks
 
 Default configuration:
-````python
+```python
 min_word_len = 1
 max_word_len = 64
 min_words = 3
@@ -741,7 +980,7 @@ max_corruption_level = 0.9
 consecutive_words = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -767,14 +1006,14 @@ Generates mazes with guaranteed shortest path distance from start to goal
     within [min_dist, max_dist].
 
 Default configuration:
-````python
+```python
 min_dist = 5
 max_dist = 10
 min_grid_size = 5
 max_grid_size = 10
 seed = 42
 size = 50
-````
+```
 
 Example tasks:
 ````
@@ -840,12 +1079,12 @@ Metadata: {'grid_size': 7, 'grid': ['QQQQQQQ', 'QQ%%%%Q', 'QQ`%Q%Q', 'Q%%Q%%Q', 
 Generates 4x4 sudoku puzzles with configurable difficulty
 
 Default configuration:
-````python
+```python
 min_empty = 8
 max_empty = 12
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -887,11 +1126,108 @@ Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 1, 2, 4], [4, 0, 0, 0]], '
 
 ````
 
+### n_queens
+Generates N Queens puzzles with configurable difficulty
+
+Default configuration:
+```python
+n = 8
+min_remove = 1
+max_remove = 7
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Solve this N Queens puzzle:
+_ _ _ _ _ _ Q _
+_ Q _ _ _ _ _ _
+_ _ _ Q _ _ _ _
+_ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ Q
+_ _ _ _ Q _ _ _
+_ _ Q _ _ _ _ _
+_ _ _ _ _ Q _ _
+
+The board size is 8x8 and your job is to place 1 queen(s) on the board such that no two queens attack each other.
+
+No two queens attack each other if they are not in the same row, column, or diagonal.
+
+Place a queen by replacing an underscore (_) with a Q.
+
+Answer: _ _ _ _ _ _ Q _
+_ Q _ _ _ _ _ _
+_ _ _ Q _ _ _ _
+Q _ _ _ _ _ _ _
+_ _ _ _ _ _ _ Q
+_ _ _ _ Q _ _ _
+_ _ Q _ _ _ _ _
+_ _ _ _ _ Q _ _
+Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], 'solutions': [[['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']]], 'num_removed': 1, 'valid_answers': ['_ _ _ _ _ _ Q _\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _']}
+
+Example 2:
+Question: Solve this N Queens puzzle:
+_ Q _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+_ _ _ _ _ Q _ _
+_ _ _ _ _ _ _ Q
+_ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+_ _ _ _ _ _ Q _
+_ _ _ _ Q _ _ _
+
+The board size is 8x8 and your job is to place 3 queen(s) on the board such that no two queens attack each other.
+
+No two queens attack each other if they are not in the same row, column, or diagonal.
+
+Place a queen by replacing an underscore (_) with a Q.
+
+Answer: _ Q _ _ _ _ _ _
+_ _ _ Q _ _ _ _
+_ _ _ _ _ Q _ _
+_ _ _ _ _ _ _ Q
+_ _ Q _ _ _ _ _
+Q _ _ _ _ _ _ _
+_ _ _ _ _ _ Q _
+_ _ _ _ Q _ _ _
+Metadata: {'puzzle': [['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']], 'solutions': [[['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']]], 'num_removed': 3, 'valid_answers': ['_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\n_ _ _ _ _ Q _ _\n_ _ _ _ _ _ _ Q\n_ _ Q _ _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ _ _ Q _ _ _']}
+
+Example 3:
+Question: Solve this N Queens puzzle:
+_ _ _ _ _ _ _ _
+_ Q _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+Q _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+_ _ _ _ _ Q _ _
+
+The board size is 8x8 and your job is to place 5 queen(s) on the board such that no two queens attack each other.
+
+No two queens attack each other if they are not in the same row, column, or diagonal.
+
+Place a queen by replacing an underscore (_) with a Q.
+
+Answer: _ _ _ _ Q _ _ _
+_ Q _ _ _ _ _ _
+_ _ _ _ _ _ _ Q
+Q _ _ _ _ _ _ _
+_ _ _ Q _ _ _ _
+_ _ _ _ _ _ Q _
+_ _ Q _ _ _ _ _
+_ _ _ _ _ Q _ _
+Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', '_', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], 'solutions': [[['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], [['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], [['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']]], 'num_removed': 5, 'valid_answers': ['_ _ _ _ Q _ _ _\n_ Q _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\nQ _ _ _ _ _ _ _\n_ _ _ Q _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _', '_ _ _ _ _ _ Q _\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _', '_ _ _ _ _ _ _ Q\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _']}
+
+````
+
 ### number_filtering
 Generates number filtering tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 3
 max_numbers = 10
 min_decimals = 0
@@ -900,7 +1236,7 @@ min_value = -100.0
 max_value = 100.0
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -925,7 +1261,7 @@ Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76
 Generates number sequence completion tasks with dynamic pattern generation
 
 Default configuration:
-````python
+```python
 min_terms = 4
 max_terms = 8
 min_value = -100
@@ -933,7 +1269,7 @@ max_value = 100
 max_complexity = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -958,7 +1294,7 @@ Metadata: {'rule': 'halve', 'complexity': 2, 'sequence': [8, 4, 2, 1, 0, 0, 0, 0
 Generates number sorting tasks
 
 Default configuration:
-````python
+```python
 min_numbers = 3
 max_numbers = 10
 min_decimals = 0
@@ -967,7 +1303,7 @@ min_value = -100.0
 max_value = 100.0
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -995,7 +1331,7 @@ Generates random polynomial equations of degree in [min_degree, max_degree].
     - The solution may be real or complex; we filter real solutions by default for simplicity.
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 4
 min_value = 1
@@ -1005,7 +1341,7 @@ max_degree = 3
 operators = ('+', '-')
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1030,12 +1366,12 @@ Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3
 Generates prime factorization tasks
 
 Default configuration:
-````python
+```python
 min_value = 2
 max_value = 1000
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1060,7 +1396,7 @@ Metadata: {'number': 420, 'factors': [2, 2, 3, 5, 7]}
 Generates propositional logic reasoning tasks
 
 Default configuration:
-````python
+```python
 min_vars = 2
 max_vars = 4
 min_statements = 2
@@ -1068,7 +1404,7 @@ max_statements = 4
 max_complexity = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1105,17 +1441,17 @@ Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q 
 Generates QuantumLock tasks
 
 Default configuration:
-````python
+```python
 difficulty = 10
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
 Example 1:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
-You must press the shortest correct sequence of buttons to reach the target value.
+You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
 Target: 46
@@ -1128,7 +1464,7 @@ Metadata: {'difficulty': 10, 'solution_path': ['A', 'B', 'C', 'C', 'A', 'C'], 't
 
 Example 2:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
-You must press the shortest correct sequence of buttons to reach the target value.
+You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
 Target: 30
@@ -1141,7 +1477,7 @@ Metadata: {'difficulty': 10, 'solution_path': ['C', 'A', 'C', 'A', 'C', 'A', 'C'
 
 Example 3:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
-You must press the shortest correct sequence of buttons to reach the target value.
+You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
 Target: 45
@@ -1158,13 +1494,13 @@ Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B'
 Generates RubiksCube tasks
 
 Default configuration:
-````python
+```python
 scramble_steps = 3
 cube_size = 3
 remove_ansi = True
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1228,12 +1564,12 @@ Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'ex
 Generates sentence reordering tasks from text spans
 
 Default configuration:
-````python
+```python
 min_words_in_sentence = 3
 max_words_in_sentence = 20
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1258,7 +1594,7 @@ Metadata: {'word_count': 10}
 Generates simple equations with one variable to solve
 
 Default configuration:
-````python
+```python
 min_terms = 2
 max_terms = 4
 min_value = 1
@@ -1266,7 +1602,7 @@ max_value = 100
 operators = ('+', '-', '*')
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1287,15 +1623,88 @@ Metadata: {'equation': '29*n - 5 = 430', 'variable': 'n'}
 
 ````
 
+### simple_geometry
+A dataset for simple polygon angle-finding tasks.
+    We randomly choose the number of sides N within [min_sides, max_sides].
+    We then generate (N-1) random angles (in degrees), ensuring their sum is
+    strictly less than the total sum for an (N)-sided convex polygon (which is 180*(N-2)).
+    The question asks for the missing angle; the answer is computed by subtracting the
+    sum of known angles from 180*(N-2).
+
+Default configuration:
+```python
+min_sides = 3
+max_sides = 6
+min_angle = 10
+max_angle = 170
+seed = 42
+size = 100
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a convex polygon with 3 sides, its first 2 interior angles are: 16.0°, 80.0°. What is the measure of the remaining interior angle (in degrees)?
+Answer: 84
+Metadata: {'n_sides': 3, 'known_angles': [16.0, 80.0], 'sum_of_known_angles': 96.0, 'missing_angle_raw': 84.0, 'missing_angle_rounded': 84, 'total_interior_sum': 180}
+
+Example 2:
+Question: A convex polygon has 3 sides. The measures of the first 2 interior angles are: 83.0°, 46.0°. Find the measure of the last interior angle.
+Answer: 51
+Metadata: {'n_sides': 3, 'known_angles': [83.0, 46.0], 'sum_of_known_angles': 129.0, 'missing_angle_raw': 51.0, 'missing_angle_rounded': 51, 'total_interior_sum': 180}
+
+Example 3:
+Question: Given a convex polygon with 6 sides, its first 5 interior angles are: 143.0°, 148.0°, 39.0°, 55.0°, 107.0°. What is the measure of the remaining interior angle (in degrees)?
+Answer: 228
+Metadata: {'n_sides': 6, 'known_angles': [143.0, 148.0, 39.0, 55.0, 107.0], 'sum_of_known_angles': 492.0, 'missing_angle_raw': 228.0, 'missing_angle_rounded': 228, 'total_interior_sum': 720}
+
+````
+
+### simple_integration
+Generates simple integration problems with one variable
+
+Default configuration:
+```python
+min_terms = 2
+max_terms = 5
+min_degree = 1
+max_degree = 10
+min_bounds = 1
+max_bounds = 10
+operators = ('+', '-')
+symbols = ('x', 'X')
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Find the indefinite integral: ∫ 70*x**6 + 12*x**2/5 dx
+Answer: 10*x**7 + 4*x**3/5 + C
+Metadata: {'integrand': '70*x**6 + 12*x**2/5', 'variable': 'x', 'expected_answer_expression': 10*x**7 + 4*x**3/5}
+
+Example 2:
+Question: Find the indefinite integral: ∫ 49*x**6/10 + 48*x**5 - 4*x - 10/9 dx
+Answer: 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9 + C
+Metadata: {'integrand': '49*x**6/10 + 48*x**5 - 4*x - 10/9', 'variable': 'x', 'expected_answer_expression': 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9}
+
+Example 3:
+Question: Find the indefinite integral: ∫ -28*X**3 + 8*X dx
+Answer: -7*X**4 + 4*X**2 + C
+Metadata: {'integrand': '-28*X**3 + 8*X', 'variable': 'X', 'expected_answer_expression': -7*X**4 + 4*X**2}
+
+````
+
 ### spell_backward
 Generates tasks to spell words backward
 
 Default configuration:
-````python
+```python
 min_word_len = 3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1320,12 +1729,12 @@ Metadata: {'word': 'One', 'word_len': 3}
 Generates sudoku puzzles with configurable difficulty
 
 Default configuration:
-````python
+```python
 min_empty = 30
 max_empty = 50
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1401,7 +1810,7 @@ Metadata: {'puzzle': [[0, 0, 1, 2, 3, 0, 0, 0, 9], [3, 0, 0, 1, 8, 5, 6, 7, 2], 
 Generates syllogism reasoning tasks
 
 Default configuration:
-````python
+```python
 terms = None
 allow_all = True
 allow_no = True
@@ -1411,7 +1820,7 @@ include_invalid = True
 invalid_ratio = 0.3
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1428,14 +1837,14 @@ Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chef
 
 Example 2:
 Question: Consider these statements:
-1. Some ... are not children are animals
+1. Some children are not animals
 2. Some animals are doctors
 
 Does it logically follow that:
 All children are doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'Some ... are not children are animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Metadata: {'premise1': 'Some children are not animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
 
 Example 3:
 Question: Consider these statements:
@@ -1443,10 +1852,109 @@ Question: Consider these statements:
 2. No tigers are whales
 
 Does it logically follow that:
-Some ... are not butterflies are whales?
+Some butterflies are not whales?
 (Answer Yes or No)
 Answer: No
-Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some ... are not butterflies are whales', 'is_valid': False}
+Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': False}
+
+````
+
+### time_intervals
+Generates time interval calculation tasks with various formats and complexities
+
+Default configuration:
+```python
+min_time = 00:00:00
+max_time = 23:59:59.999999
+max_time_difference_seconds = 86400
+min_date = 1900-01-01
+max_date = 3000-01-01
+max_date_difference_days = 100
+task_types = ['time', 'time_seconds', 'time_ms', 'date', 'datetime', 'datetime_tz']
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: A system backup started at 2964-06-17 08:15:14 and completed at 2964-07-04 11:59:09. What was the total backup duration? Answer in D days, HH:MM.
+Answer: 17 days, 03:43
+Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 17, 8, 15, 14), 'end_time': datetime.datetime(2964, 7, 4, 11, 59, 9), 'format': '%Y-%m-%d %H:%M:%S', 'expected_format': 'D days, HH:MM'}
+
+Example 2:
+Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
+Answer: 02:38
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 2, 9, 44), 'end_time': datetime.datetime(2025, 2, 2, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+
+Example 3:
+Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
+Answer: 89 days
+Metadata: {'task_type': 'date', 'start_time': datetime.datetime(2677, 12, 22, 0, 0), 'end_time': datetime.datetime(2678, 3, 21, 0, 0), 'format': '%a %b %d %Y', 'expected_format': 'D days'}
+
+````
+
+### tower_of_hanoi
+Generates Tower of Hanoi problems with solutions.
+    Supports variable number of pegs using the optimized Frame-Stewart algorithm with Peg State Tracking.
+
+Default configuration:
+```python
+min_disks = 3
+max_disks = 7
+min_pegs = 3
+max_pegs = 4
+size = 50
+seed = 42
+visualize = False
+```
+
+Example tasks:
+````
+Example 1:
+Question: Solve the Tower of Hanoi problem with 3 disks and 3 pegs.
+Move all disks from Peg 3 to Peg 2 following the rules:
+- Only one disk can be moved at a time.
+- A larger disk cannot be placed on top of a smaller disk.
+- All disks must be on a peg at all times.
+Example:
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+
+Provide the sequence of moves.
+Answer: ['Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
+Metadata: {'num_disks': 3, 'num_pegs': 3, 'start_peg': 3, 'target_peg': 2, 'auxiliary_pegs': [1], 'solution_length': 7}
+
+Example 2:
+Question: Solve the Tower of Hanoi problem with 3 disks and 4 pegs.
+Move all disks from Peg 2 to Peg 4 following the rules:
+- Only one disk can be moved at a time.
+- A larger disk cannot be placed on top of a smaller disk.
+- All disks must be on a peg at all times.
+Example:
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+
+Provide the sequence of moves.
+Answer: ['Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 3 from Peg 2 to Peg 4', 'Move disk 2 from Peg 3 to Peg 4', 'Move disk 1 from Peg 1 to Peg 4']
+Metadata: {'num_disks': 3, 'num_pegs': 4, 'start_peg': 2, 'target_peg': 4, 'auxiliary_pegs': [1, 3], 'solution_length': 5}
+
+Example 3:
+Question: Solve the Tower of Hanoi problem with 6 disks and 3 pegs.
+Move all disks from Peg 1 to Peg 2 following the rules:
+- Only one disk can be moved at a time.
+- A larger disk cannot be placed on top of a smaller disk.
+- All disks must be on a peg at all times.
+Example:
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+
+Provide the sequence of moves.
+Answer: ['Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 5 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 4 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 6 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 4 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 5 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
+Metadata: {'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxiliary_pegs': [3], 'solution_length': 63}
 
 ````
 
@@ -1454,14 +1962,14 @@ Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are 
 Generates word ladder transformation tasks
 
 Default configuration:
-````python
+```python
 min_word_length = 3
 max_word_length = 5
 min_chain_length = -1
 max_chain_length = -1
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1486,12 +1994,12 @@ Metadata: {'start_word': 'SAUT', 'end_word': 'SKER', 'word_length': 4, 'chain_le
 Generates word sequence reversal tasks from text spans
 
 Default configuration:
-````python
+```python
 min_words = 3
 max_words = 8
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
@@ -1516,7 +2024,7 @@ Metadata: {'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'poss
 Generates word sorting tasks
 
 Default configuration:
-````python
+```python
 min_words = 3
 max_words = 10
 min_word_length = 3
@@ -1524,7 +2032,7 @@ max_word_length = 12
 transformation = original
 seed = 42
 size = 500
-````
+```
 
 Example tasks:
 ````
