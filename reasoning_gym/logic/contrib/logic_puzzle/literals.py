@@ -44,10 +44,6 @@ class Color(Literal):
     brown = "the person who loves brown"
 
 
-
-
-
-
 class Nationality(Literal):
     @classmethod
     def description(cls) -> str:
@@ -106,8 +102,8 @@ class Cigar(Literal):
 
 class Mother(Literal):
     @classmethod
-    def description(cls) -> str: 
-        return f"The mothers' names are:" 
+    def description(cls) -> str:
+        return f"The mothers' names are:"
 
     aniya = "The person whose mother's name is Aniya"
     holly = "The person whose mother's name is Holly"
@@ -119,9 +115,7 @@ class Mother(Literal):
 class Children(Literal):
     @classmethod
     def description(cls) -> str:
-        return (
-            f"Each mother is accompanied by their child: Bella, Fred, Meredith, Samantha, Timothy."
-        )
+        return f"Each mother is accompanied by their child: Bella, Fred, Meredith, Samantha, Timothy."
 
     bella = "the person's child is named Bella"
     fred = "the person's child is named Fred"
@@ -348,7 +342,8 @@ class Dinomon(Literal):
     traptor = "the Traptor"
 
 
-# added by yuchenl  
+# added by yuchenl
+
 
 class Name(Literal):
     @classmethod
@@ -364,6 +359,7 @@ class Name(Literal):
     david = "David"
     emily = "Emily"
 
+
 class Age(Literal):
     @classmethod
     def description(cls) -> str:
@@ -377,6 +373,7 @@ class Age(Literal):
     age_12 = "the person who is 12"
     age_13 = "the person who is 13"
     age_14 = "the person who is 14"
+
 
 class Birthday(Literal):
     @classmethod
@@ -393,14 +390,13 @@ class Birthday(Literal):
     july = "the person whose birthday is in July"
 
 
-# ChatGPT generated 
+# ChatGPT generated
 
 """
 generate more classes like this according to the common properties that you would describe a person or a house, such as the occupation, age, height, hair color, and so on
 
 """
- 
- 
+
 
 class Occupation(Literal):
     @classmethod
@@ -415,6 +411,7 @@ class Occupation(Literal):
     nurse = "the person who is a nurse"
     accountant = "the person who is an accountant"
 
+
 # class AgeGroup(Literal):
 #     @classmethod
 #     def description(cls) -> str:
@@ -427,6 +424,7 @@ class Occupation(Literal):
 #     adult = "the person who is an adult"
 #     senior = "the person who is a senior"
 
+
 class Height(Literal):
     @classmethod
     def description(cls) -> str:
@@ -438,6 +436,7 @@ class Height(Literal):
     tall = "the person who is tall"
     very_tall = "the person who is very tall"
     super_tall = "the person who is super tall"
+
 
 class HairColor(Literal):
     @classmethod
@@ -452,6 +451,7 @@ class HairColor(Literal):
     auburn = "the person who has auburn hair"
     white = "the person who has white hair"
 
+
 class CarModel(Literal):
     @classmethod
     def description(cls) -> str:
@@ -464,6 +464,7 @@ class CarModel(Literal):
     bmw_3_series = "the person who owns a BMW 3 Series"
     chevrolet_silverado = "the person who owns a Chevrolet Silverado"
     audi_a4 = "the person who owns an Audi A4"
+
 
 class PhoneModel(Literal):
     @classmethod
@@ -483,6 +484,7 @@ class FavoriteSport(Literal):
     @classmethod
     def description(cls) -> str:
         return "People have different favorite sports: soccer, basketball, tennis, swimming, baseball, volleyball, or golf."
+
     soccer = "the person who loves soccer"
     basketball = "the person who loves basketball"
     tennis = "the person who loves tennis"
@@ -491,10 +493,14 @@ class FavoriteSport(Literal):
     volleyball = "the person who loves volleyball"
     golf = "the person who loves golf"
 
+
 class MusicGenre(Literal):
     @classmethod
     def description(cls) -> str:
-        return "People have different favorite music genres: rock, pop, classical, jazz, hip-hop, country, or electronic."
+        return (
+            "People have different favorite music genres: rock, pop, classical, jazz, hip-hop, country, or electronic."
+        )
+
     rock = "the person who loves rock music"
     pop = "the person who loves pop music"
     classical = "the person who loves classical music"
@@ -503,10 +509,12 @@ class MusicGenre(Literal):
     country = "the person who loves country music"
     electronic = "the person who loves electronic music"
 
+
 class BookGenre(Literal):
     @classmethod
     def description(cls) -> str:
         return "People have different favorite book genres: mystery, science fiction, romance, fantasy, biography, historical fiction, or non-fiction."
+
     mystery = "the person who loves mystery books"
     science_fiction = "the person who loves science fiction books"
     romance = "the person who loves romance books"
@@ -514,4 +522,3 @@ class BookGenre(Literal):
     biography = "the person who loves biography books"
     historical_fiction = "the person who loves historical fiction books"
     non_fiction = "the person who loves non-fiction books"
-

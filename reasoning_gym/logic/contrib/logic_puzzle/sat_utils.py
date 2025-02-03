@@ -2,11 +2,11 @@
 
 __author__ = "Raymond Hettinger"
 
-import pycosat
-from itertools import combinations
 from functools import lru_cache
+from itertools import combinations
 from typing import Dict, FrozenSet, Iterable, List, Set, Tuple
 
+import pycosat
 
 Element = str  # literal; any string, but here it's <element house#> e.g., "tushar 5" or "chai 2"
 CNF = List[Tuple[Element, ...]]

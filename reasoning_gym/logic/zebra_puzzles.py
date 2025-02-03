@@ -2,9 +2,9 @@ from dataclasses import dataclass
 from random import Random, seed
 from typing import Dict, List, Optional, Tuple
 
+from ..factory import ProceduralDataset, register_dataset
 from .contrib.logic_puzzle.generate import generate_puzzle
 
-from ..factory import ProceduralDataset, register_dataset
 
 @dataclass
 class ZebraConfig:
@@ -19,6 +19,7 @@ class ZebraConfig:
         """Validate configuration parameters"""
         assert 2 <= self.k <= 7, "k must be between 2 and 7"
         assert 2 <= self.m <= 7, "m must be between 2 and 7"
+
 
 class ZebraDataset(ProceduralDataset):
     """Generates Game of Life games with configurable parameters"""
@@ -44,19 +45,14 @@ class ZebraDataset(ProceduralDataset):
         K = self.config.k
         M = self.config.m
         instance, puzzle = generate_puzzle(K, M, "train")
-        q = instance['questions'][0]['question']
-        a = instance['questions'][0]['answer']
-        question = str(puzzle) + '\n' + q
+        q = instance["questions"][0]["question"]
+        a = instance["questions"][0]["answer"]
+        question = str(puzzle) + "\n" + q
 
         return {
             "question": question,
             "answer": a,
-            "metadata": {
-                "K": K,
-                "M": M,
-                "answer": a
-
-            },
+            "metadata": {"K": K, "M": M, "answer": a},
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:

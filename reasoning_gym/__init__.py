@@ -10,7 +10,7 @@ __all__ = [
     "algebra",
     "algorithmic",
     "arithmetic",
-    'code',
+    "code",
     "cognition",
     "data",
     "games",

@@ -4,37 +4,36 @@ Solve the Einstein puzzle using Raymond Hettinger's approach.
 """
 
 from __future__ import annotations
+
 from contextlib import contextmanager
 from random import shuffle
 from typing import Dict, Generator, Iterable, List, Set, Tuple, Type
 
-from reasoning_gym.logic.contrib.logic_puzzle.sat_utils import one_of, solve_all
-
 from reasoning_gym.logic.contrib.logic_puzzle.clues import (
     Clue,
-    comb,
-    found_at,
-    same_house,
-    consecutive,
     beside,
+    comb,
+    consecutive,
+    found_at,
     left_of,
-    right_of,
     one_between,
+    right_of,
+    same_house,
     two_between,
 )
-
 from reasoning_gym.logic.contrib.logic_puzzle.literals import (
-    Literal,
-    Color,
-    Nationality,
     Animal,
-    Drink,
-    Cigar,
     Children,
-    Mother,
-    Food,
+    Cigar,
+    Color,
+    Drink,
     Flower,
+    Food,
+    Literal,
+    Mother,
+    Nationality,
 )
+from reasoning_gym.logic.contrib.logic_puzzle.sat_utils import one_of, solve_all
 
 
 class Puzzle:
@@ -84,8 +83,8 @@ class Puzzle:
         self.clues: Set[Clue] = set()
         self.constraints: List[Tuple[str]] = []
         self.extra_clues: Set[Clue] = set()
-        self.solution = None 
-        
+        self.solution = None
+
     def _add_constraint(self, constraints: List[Tuple[str]]) -> Puzzle:
         self.constraints.extend(constraints)
         return self
@@ -95,9 +94,7 @@ class Puzzle:
         for house in self.houses:
             for element_type in self.element_classes:
                 literals_of_that_type = [l for l in self.literals if isinstance(l, element_type)]
-                self._add_constraint(
-                    one_of(comb(value, house) for value in literals_of_that_type)
-                )
+                self._add_constraint(one_of(comb(value, house) for value in literals_of_that_type))
 
         # each value gets assigned to exactly one house
         for literal in self.literals:

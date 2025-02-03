@@ -4,11 +4,13 @@ from z3 import *
 def column(matrix, i):
     return [matrix[j][i] for j in range(len(matrix))]
 
+
 def instanciate_int_constrained(name, s, card):
     x = Int(name)
     # Each int represent an index in p[name]
     s.add(x >= 0, x <= card - 1)
     return x
+
 
 def count_solutions(s, max=1e9):
     count = 0

@@ -20,6 +20,6 @@ __all__ = [
     "SyllogismDataset",
     "syllogism_dataset",
     "Term",
-    'ZebraConfig',
-    'ZebraDataset'
+    "ZebraConfig",
+    "ZebraDataset",
 ]
