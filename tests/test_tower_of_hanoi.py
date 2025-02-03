@@ -226,3 +226,46 @@ def is_valid_final_state(pegs_state: dict, target_peg: int, num_disks: int) -> b
     if len(target_stack) != num_disks:
         return False
     return target_stack == list(range(num_disks, 0, -1))
+
+
+def test_score_answer():
+    """
+    Test that the score_answer method returns the expected reward values.
+
+    Expected behavior:
+      - Correct answer (i.e. equivalent in length, or better, than the one provided in the dataset item) gives 1.0.
+      - A correct solution that is suboptimal length gives a proportional reward of optimal_move_count/user_move_count
+      - A badly formatted answer gives a minimal reward (0.01).
+      - An answer that is syntactically valid but does not solve the puzzle gives a partial reward (0.05).
+      - An empty string gives 0.01.
+      - None gives 0.0.
+    """
+    # Create a dataset instance using the default configuration.
+    config = HanoiConfig(min_disks=3, max_disks=5, min_pegs=3, max_pegs=4, size=5, seed=42)
+    dataset = HanoiDataset(config)
+    # Pick one instance from the dataset for testing.
+    item = dataset[0]
+    metadata = item["metadata"]
+    correct_answer = item["answer"]
+
+    # 1. Correct answer should yield full reward.
+    score_correct = dataset.score_answer(answer=correct_answer, metadata=metadata)
+    assert score_correct == 1.0, f"Correct answer score {score_correct} is not 1.0."
+
+    # 2. A badly formatted answer should yield minimal reward (0.01).
+    score_bad_format = dataset.score_answer(answer="a wrong solution", metadata=metadata)
+    assert score_bad_format == 0.01, f"Badly formatted answer score {score_bad_format} is not 0.01."
+
+    # 3. An answer that is validly formatted but unsolved.
+    # For example, remove the last move from the correct answer.
+    unfinished_answer = correct_answer[:-1]
+    score_unsolved = dataset.score_answer(answer=unfinished_answer, metadata=metadata)
+    assert score_unsolved == 0.05, f"Unsolved answer score {score_unsolved} is not 0.05."
+
+    # 4. An empty answer should yield 0.01.
+    score_empty = dataset.score_answer(answer="", metadata=metadata)
+    assert score_empty == 0.01, f"Empty answer score {score_empty} is not 0.01."
+
+    # 5. A None answer should yield 0.0.
+    score_none = dataset.score_answer(answer=None, metadata=metadata)
+    assert score_none == 0.0, f"None answer score {score_none} is not 0.0."
