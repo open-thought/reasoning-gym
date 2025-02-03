@@ -31,6 +31,7 @@ This gallery shows examples from all available datasets using their default conf
 - [spell_backward](#spell-backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
+- [word_ladder](#word-ladder)
 - [word_sequence_reversal](#word-sequence-reversal)
 - [word_sorting](#word-sorting)
 
@@ -1239,6 +1240,38 @@ All whales are teachers?
 (Answer Yes or No)
 Answer: Yes
 Metadata: {'premise1': 'No whales are birds', 'premise2': 'Some birds are teachers', 'conclusion': 'All whales are teachers', 'is_valid': True}
+
+```
+
+### word_ladder {word-ladder}
+Generates word ladder transformation tasks
+
+Default configuration:
+```python
+min_word_length = 4
+max_word_length = 4
+min_chain_length = -1
+max_chain_length = -1
+seed = None
+size = 500
+```
+
+Example tasks:
+```
+Example 1:
+Question: Transform the word ladder 'COLD' to 'WARM' by changing one letter at a time.
+Answer: COLD,CORD,CARD,WARD,WARM
+Metadata: {'start_word': 'COLD', 'end_word': 'WARM', 'word_length': 4, 'chain_length': 5}
+
+Example 2:
+Question: Transform the word ladder 'DARK' to 'LIGHT' by changing one letter at a time.
+Answer: DARK,DARE,DATE,LATE,LITE,LIGHT
+Metadata: {'start_word': 'DARK', 'end_word': 'LIGHT', 'word_length': 4, 'chain_length': 6}
+
+Example 3:
+Question: Transform the word ladder 'HEAD' to 'TAIL' by changing one letter at a time.
+Answer: HEAD,HEAL,TEAL,TAIL
+Metadata: {'start_word': 'HEAD', 'end_word': 'TAIL', 'word_length': 4, 'chain_length': 4}
 
 ```
 
