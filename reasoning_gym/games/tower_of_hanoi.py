@@ -4,7 +4,7 @@ import math
 import random
 import re
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -367,6 +367,73 @@ class HanoiDataset(ProceduralDataset):
         from_peg = int(match.group(2))
         to_peg = int(match.group(3))
         return disk, from_peg, to_peg
+
+    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+        """
+        Score the user's solution for the Tower of Hanoi puzzle.
+
+        The answer is expected to be a newline-separated sequence of moves in the format:
+        "Move disk X from Peg Y to Peg Z"
+
+        Expected behavior:
+            - Correct answer (i.e. equivalent in length, or better, than the one provided in the dataset item) gives 1.0.
+            - A correct solution that is suboptimal length gives a proportional reward of optimal_move_count/user_move_count
+            - A badly formatted answer gives a minimal reward (0.01).
+            - An answer that is syntactically valid but does not solve the puzzle gives a partial reward (0.05).
+            - An empty string gives 0.01.
+            - None gives 0.0.
+        """
+        if answer is None:
+            return 0.0
+
+        if answer == "":
+            return 0.01
+
+        # If answer is a string, split it into lines; if it's already a list, use it directly.
+        if isinstance(answer, str):
+            moves = [line.strip() for line in answer.strip().splitlines() if line.strip()]
+        elif isinstance(answer, list):
+            moves = [line.strip() for line in answer if isinstance(line, str) and line.strip()]
+        else:
+            return 0.0
+
+        # Build the initial peg state from metadata.
+        num_disks = metadata["num_disks"]
+        num_pegs = metadata["num_pegs"]
+        start_peg = metadata["start_peg"]
+        target_peg = metadata["target_peg"]
+
+        peg_state = {peg: [] for peg in range(1, num_pegs + 1)}
+        for disk in range(num_disks, 0, -1):
+            peg_state[start_peg].append(disk)
+
+        # Process each move.
+        for move in moves:
+            try:
+                disk, from_peg, to_peg = self._parse_move(move)
+            except Exception:
+                return 0.01  # Invalid move format
+
+            # Validate the move using existing _validate_move method.
+            if not self._validate_move(peg_state, move):
+                return 0.01
+
+            # Execute the move.
+            peg_state[from_peg].pop()
+            peg_state[to_peg].append(disk)
+
+        # Check if the final state is solved: all disks on target peg in descending order.
+        expected_final = list(range(num_disks, 0, -1))
+        solved = peg_state[target_peg] == expected_final
+        if not solved:
+            return 0.05
+
+        optimal_moves = metadata.get("solution_length", len(moves))
+        user_moves = len(moves)
+        if user_moves <= optimal_moves:
+            return 1.0
+        else:
+            return optimal_moves / user_moves
 
 
 # Register the dataset
