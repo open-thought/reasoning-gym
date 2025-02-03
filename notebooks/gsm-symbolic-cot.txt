@@ -18,11 +18,11 @@ from typing import Dict, Any
 def generate_from_variables(time_per_interval: int, distance_per_interval: int, total_distance: int) -> Dict[str, Any]:
     intervals = total_distance // distance_per_interval
     total_time = intervals * time_per_interval
-    
+
     question = f"A fog bank rolls in from the ocean to cover a city. It takes {{time_per_interval}} minutes to cover every {{distance_per_interval}} miles of the city. If the city is {{total_distance}} miles across from the oceanfront to the opposite inland edge, how many minutes will it take for the fog bank to cover the whole city?"
-    
+
     answer_cot = f"The city will be covered in {{total_distance}} / {{distance_per_interval}} = {{intervals}} intervals of {{time_per_interval}} minutes.\nThus, it will take {{intervals}} * {{time_per_interval}} = {{total_time}} minutes for the fog to cover the whole city.\n#### {{total_time}}"
-    
+
     return {{
         'question': question,
         'answer': f'{{total_time}}',
@@ -30,7 +30,7 @@ def generate_from_variables(time_per_interval: int, distance_per_interval: int, 
         'answer_value': total_time,
         'variables': {{
             'time_per_interval': time_per_interval,
-            'distance_per_interval': distance_per_interval, 
+            'distance_per_interval': distance_per_interval,
             'total_distance': total_distance,
             'intervals': intervals
         }}
@@ -40,13 +40,13 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     # Generate random values scaled by difficulty
     distance_per_interval = int(rng.randint(2, int(10 * difficulty)))
     time_per_interval = int(rng.randint(5, int(30 * difficulty)))
-    
+
     # Ensure total distance is divisible by distance_per_interval
     num_intervals = rng.randint(2, int(20 * difficulty))
     total_distance = distance_per_interval * num_intervals
-    
+
     result = generate_from_variables(time_per_interval, distance_per_interval, total_distance)
-    
+
     return {{
         'question': result['question'],
         'answer': result['answer'],
@@ -78,15 +78,15 @@ OUTPUT 2: Output in the form which should be generated
 from random import Random
 from typing import Dict, Any
 
-def generate_from_variables(name: str, food: str, rate_per_min: int, batch_size: int, 
+def generate_from_variables(name: str, food: str, rate_per_min: int, batch_size: int,
                           time_per_batch: int, total_amount: int) -> Dict[str, Any]:
     peel_time = total_amount // rate_per_min
     num_batches = total_amount // batch_size
     cook_time = num_batches * time_per_batch
     total_time = peel_time + cook_time
-    
+
     question = f"{name} can peel {rate_per_min} {food}s a minute and saute {batch_size} {food}s in {time_per_batch} minutes. How long will it take her to peel and saute {total_amount} {food}s?"
-    
+
     answer_cot = f"First find how long it takes {name} to peel the {food}: {total_amount} {food} / {rate_per_min} {food}/minute = {peel_time} minutes\n" \
                  f"Then find how many batches of {food} she needs to cook: {total_amount} {food} / {batch_size} {food}/batch = {num_batches} batches\n" \
                  f"Then multiply the number of batches by the time per batch to find the total cook time: {num_batches} batches * {time_per_batch} minutes/batch = {cook_time} minutes\n" \
@@ -102,7 +102,7 @@ def generate_from_variables(name: str, food: str, rate_per_min: int, batch_size:
             'name': name,
             'food': food,
             'rate_per_min': rate_per_min,
-            'batch_size': batch_size, 
+            'batch_size': batch_size,
             'time_per_batch': time_per_batch,
             'total_amount': total_amount,
             'peel_time': peel_time,
@@ -113,21 +113,21 @@ def generate_from_variables(name: str, food: str, rate_per_min: int, batch_size:
 def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     names = ["Emily", "Sarah", "Emma", "Sophia", "Olivia", "Ava", "Isabella", "Mia"]
     foods = ["shrimp", "onion", "carrot", "mushroom", "clam"]
-    
+
     name = rng.choice(names)
     food = rng.choice(foods)
-    
+
     rate_per_min = int(rng.randint(4, int(15 * difficulty)))
     batch_size = int(rng.randint(20, int(50 * difficulty)) // 5 * 5)
     time_per_batch = int(rng.randint(5, int(20 * difficulty)))
-    
+
     # Ensure total is divisible by both rate_per_min and batch_size
     lcm = rate_per_min * batch_size // math.gcd(rate_per_min, batch_size)
     num_lcm = rng.randint(1, int(4 * difficulty))
     total_amount = lcm * num_lcm
 
     result = generate_from_variables(name, food, rate_per_min, batch_size, time_per_batch, total_amount)
-    
+
     return {
         'question': result['question'],
         'answer': result['answer'],
@@ -160,14 +160,14 @@ OUTPUT 3: Output in the form which should be generated
 from random import Random
 from typing import Dict, Any
 
-def generate_from_variables(family: str, item: str, total: int, n1: int, n2: int, 
+def generate_from_variables(family: str, item: str, total: int, n1: int, n2: int,
                           flavor1: str, flavor2: str, flavor3: str) -> Dict[str, Any]:
     n3 = total - (n1 + n2)
-    
+
     question = f"The {family} family is busy making {item}s. So far, they've made {total} {item}s. They have {n1} {flavor1} {item}s, {n2} {flavor2} {item}s, and some {flavor3} {item}s. How many {flavor3} {item}s have they made?"
-    
+
     answer_cot = f"The total number of pieces of {flavor1} and {flavor2} {item}s is {n1} + {n2} = {n1+n2}.\nTherefore, they made {total} - {n1+n2} = {n3} {flavor3} {item}s.\n#### {n3}"
-    
+
     return {
         'question': question,
         'answer': f'{n3}',
@@ -181,7 +181,7 @@ def generate_from_variables(family: str, item: str, total: int, n1: int, n2: int
             'flavor2_count': n2,
             'flavor3_count': n3,
             'flavor1': flavor1,
-            'flavor2': flavor2, 
+            'flavor2': flavor2,
             'flavor3': flavor3
         }
     }
@@ -190,22 +190,22 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     families = ["Smith", "Johnson", "Williams", "Brown", "Jones"]
     items = ["cupcake", "muffin", "brownie", "biscuit"]
     flavors = ["vanilla", "strawberry", "blueberry", "lemon", "peanut butter"]
-    
+
     family = rng.choice(families)
     item = rng.choice(items)
     flavor1, flavor2, flavor3 = rng.sample(flavors, 3)
-    
+
     total = int(rng.randrange(5000, int(10000 * difficulty), 25))
     n1 = int(rng.randint(1000, int(3000 * difficulty)))
     n2 = int(rng.randint(1000, int(3000 * difficulty)))
-    
+
     # Ensure conditions are met
     while n1 + n2 >= total:
         n1 = int(rng.randint(1000, int(3000 * difficulty)))
         n2 = int(rng.randint(1000, int(3000 * difficulty)))
-    
+
     result = generate_from_variables(family, item, total, n1, n2, flavor1, flavor2, flavor3)
-    
+
     return {
         'question': result['question'],
         'answer': result['answer'],
@@ -218,7 +218,7 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     }
 
 def original_example() -> Dict[str, Any]:
-    return generate_from_variables("Adams", "cookie", 7995, 2595, 3075, 
+    return generate_from_variables("Adams", "cookie", 7995, 2595, 3075,
                                  "rainbow", "oatmeal", "chocolate chip")
 ```
 
@@ -239,17 +239,17 @@ OUTPUT 4: Output in the form which should be generated
 from random import Random
 from typing import Dict, Any
 
-def generate_from_variables(name: str, event: str, food: str, obj: str, 
-                          package_husband: int, used_spoons: int, 
+def generate_from_variables(name: str, event: str, food: str, obj: str,
+                          package_husband: int, used_spoons: int,
                           remaining_spoons: int) -> Dict[str, Any]:
-    
+
     total_spoons = remaining_spoons + used_spoons
     package_julia = total_spoons - package_husband
-    
+
     question = f"{name} was preparing for a {event} at her house, where she intended to serve {food}. She noticed that she was out of plastic {obj}, so she bought a new package of {obj}. Later, her husband also bought a package of {package_husband} new {obj} and gave them to {name}. While {name} was making the {food}, she used {used_spoons} of the {obj} to sample her {food}. Later, when she went to set the table, she had a total of {remaining_spoons} {obj}. How many {obj} were in the package that {name} bought?"
-    
+
     answer_cot = f"The total number of {obj} from {name} and her husband was {remaining_spoons}+{used_spoons}={total_spoons} {obj}.\nSince the husband bought a package of {package_husband} {obj}, then {name}'s package contained {total_spoons}-{package_husband}={package_julia} {obj}.\n#### {package_julia}"
-    
+
     return {
         'question': question,
         'answer': f'{package_julia}',
@@ -257,7 +257,7 @@ def generate_from_variables(name: str, event: str, food: str, obj: str,
         'answer_value': package_julia,
         'variables': {
             'name': name,
-            'event': event, 
+            'event': event,
             'food': food,
             'obj': obj,
             'package_husband': package_husband,
@@ -271,22 +271,22 @@ def generate_from_variables(name: str, event: str, food: str, obj: str,
 def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     names = ['Emma', 'Olivia', 'Ava', 'Isabella', 'Sophia', 'Mia', 'Charlotte']
     events = ['lunch party', 'birthday party', 'potluck party', 'baby shower', 'game night']
-    foods = ['roast chicken', 'grilled salmon', 'beef stew', 'vegetable lasagna', 
+    foods = ['roast chicken', 'grilled salmon', 'beef stew', 'vegetable lasagna',
              'stuffed peppers', 'shrimp scampi', 'creme brulee']
     objects = ['spoons', 'forks', 'plates']
-    
+
     name = rng.choice(names)
     event = rng.choice(events)
     food = rng.choice(foods)
     obj = rng.choice(objects)
-    
+
     package_husband = int(rng.randint(5, int(20 * difficulty)))
     used_spoons = int(rng.randint(3, int(10 * difficulty)))
     remaining_spoons = int(rng.randint(12, int(40 * difficulty)))
-    
-    result = generate_from_variables(name, event, food, obj, package_husband, 
+
+    result = generate_from_variables(name, event, food, obj, package_husband,
                                    used_spoons, remaining_spoons)
-    
+
     return {
         'question': result['question'],
         'answer': result['answer'],
@@ -299,6 +299,6 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     }
 
 def original_example() -> Dict[str, Any]:
-    return generate_from_variables('Julia', 'dinner party', 'stew', 'spoons', 
+    return generate_from_variables('Julia', 'dinner party', 'stew', 'spoons',
                                  5, 3, 12)
 ```
