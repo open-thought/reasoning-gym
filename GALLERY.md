@@ -1944,7 +1944,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 3, 9, 44), 'end_time': datetime.datetime(2025, 2, 3, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 4, 9, 44), 'end_time': datetime.datetime(2025, 2, 4, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -2034,17 +2034,17 @@ Example tasks:
 ````
 Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
-Answer: HAND,RAND,REND,REED,FEED,FLED,FLEE,GLEE
+Answer: HAND,BAND,BEND,FEND,FEED,FLED,FLEE,GLEE
 Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
-Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
+Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FARM,FORM,DORM
 Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10}
 
 Example 3:
 Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
-Answer: SNOG,SNAG,SAAG,SANG,SANS,SUNS,SUQS
+Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 
 ````
@@ -2130,21 +2130,21 @@ Example tasks:
 ````
 Example 1:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: alice, eric, arnold, peter
- - People use different phone models: samsung galaxy s21, oneplus 9, google pixel 6, iphone 13
- - Each person has a favorite drink: coffee, water, tea, milk
- - The people keep different animals: horse, cat, fish, bird
+ - Each person has a unique name: arnold, eric, alice, peter
+ - People use different phone models: samsung galaxy s21, iphone 13, google pixel 6, oneplus 9
+ - Each person has a favorite drink: tea, water, milk, coffee
+ - The people keep different animals: fish, cat, horse, bird
 
-1. Peter is the one who only drinks water.
-9. The fish enthusiast is directly left of the person who keeps horses.
-7. The bird keeper is Peter.
-6. Alice is in the fourth house.
-2. The tea drinker is the person who uses a OnePlus 9.
-3. The person who uses an iPhone 13 is the fish enthusiast.
-5. The person who uses an iPhone 13 is directly left of the person who uses a Google Pixel 6.
-8. The coffee drinker is the person who uses an iPhone 13.
-4. The tea drinker and the person who uses an iPhone 13 are next to each other.
-10. Eric and the person who uses a Google Pixel 6 are next to each other.
+1. The tea drinker is in the second house.
+2. The person who uses an iPhone 13 is in the third house.
+3. Peter and the person who uses a OnePlus 9 are next to each other.
+4. Arnold is in the second house.
+5. Peter and the cat lover are next to each other.
+6. The person who uses a Google Pixel 6 is the person who likes milk.
+7. Alice is the person who likes milk.
+8. The fish enthusiast is in the third house.
+9. The coffee drinker and Alice are next to each other.
+10. Peter is the bird keeper.
 
 What is Name of the person who lives in House 1?
 Answer: peter
@@ -2152,21 +2152,21 @@ Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 2:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: arnold, peter, eric, alice
- - Each mother is accompanied by their child: meredith, samantha, bella, fred
- - The people are of nationalities: dane, norwegian, brit, swede
- - Everyone has something different for lunch: stew, spaghetti, pizza, grilled cheese
+ - Each person has a unique name: alice, eric, arnold, peter
+ - Each mother is accompanied by their child: fred, samantha, meredith, bella
+ - The people are of nationalities: norwegian, swede, brit, dane
+ - Everyone has something different for lunch: grilled cheese, pizza, stew, spaghetti
 
-1. The Dane is in the second house.
-8. The Norwegian is the person who loves the spaghetti eater.
-5. The person who is a pizza lover is the person's child is named Meredith.
-2. Peter is directly left of the person who loves eating grilled cheese.
-3. The British person is Alice.
-9. The Swedish person is in the fourth house.
-6. The person who is a pizza lover and Eric are next to each other.
-7. The person's child is named Samantha is in the third house.
-10. The person who is a pizza lover is in the first house.
-4. Eric is the person's child is named Fred.
+1. The Norwegian is Peter.
+2. The person's child is named Meredith and the person's child is named Fred are next to each other.
+3. Peter and the Swedish person are next to each other.
+4. Eric is directly left of the person's child is named Samantha.
+5. The person who loves the spaghetti eater is directly left of the person's child is named Bella.
+6. The person's child is named Fred is the person who loves the stew.
+7. The person who is a pizza lover is the person's child is named Meredith.
+8. The Dane is Eric.
+9. The person who loves the stew and Peter are next to each other.
+10. The person's child is named Samantha and Arnold are next to each other.
 
 What is Name of the person who lives in House 1?
 Answer: alice
@@ -2174,21 +2174,21 @@ Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 3:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: arnold, eric, peter, alice
- - Everyone has a different favorite cigar: blue master, pall mall, dunhill, prince
- - Everyone has something different for lunch: spaghetti, pizza, stew, grilled cheese
- - Each person has a favorite color: yellow, white, red, green
+ - Each person has a unique name: alice, peter, eric, arnold
+ - Everyone has a different favorite cigar: prince, dunhill, pall mall, blue master
+ - Everyone has something different for lunch: stew, pizza, spaghetti, grilled cheese
+ - Each person has a favorite color: green, red, yellow, white
 
-7. The person whose favorite color is green is the person who loves the spaghetti eater.
-5. The Dunhill smoker is the person who loves the stew.
-4. The person who loves yellow is the Dunhill smoker.
-3. The person who loves the stew is Arnold.
-1. The person whose favorite color is green is Alice.
-2. The person partial to Pall Mall is Peter.
-9. The person who smokes Blue Master is in the first house.
-10. Peter is directly left of the person who loves white.
-8. The person who loves eating grilled cheese is the person whose favorite color is red.
-6. The person partial to Pall Mall is in the third house.
+1. The person who smokes Blue Master is in the first house.
+2. The person who loves yellow and the person whose favorite color is red are next to each other.
+3. The Dunhill smoker is the person who loves yellow.
+4. Peter is directly left of the person who is a pizza lover.
+5. The person who loves the spaghetti eater and the Dunhill smoker are next to each other.
+6. The person whose favorite color is red is the person who loves eating grilled cheese.
+7. The person who loves yellow is Arnold.
+8. The person who loves eating grilled cheese and the Prince smoker are next to each other.
+9. The person who loves white is the person who is a pizza lover.
+10. Eric is the person who loves white.
 
 What is Name of the person who lives in House 1?
 Answer: alice

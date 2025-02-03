@@ -154,11 +154,7 @@ class Puzzle:
             s += f" - {desc}: " + ", ".join(e.name.replace("_", " ") for e in literals) + "\n"
 
         s += "\n"
-
-        clues = sorted(f"{i + 1}. {clue}\n" for i, clue in enumerate(self.clues))
-        self.rng.shuffle(clues)
-        s += "".join(clues)
-
+        s += "".join(f"{i + 1}. {clue}\n" for i, clue in enumerate(self.clues))
         return s
 
 

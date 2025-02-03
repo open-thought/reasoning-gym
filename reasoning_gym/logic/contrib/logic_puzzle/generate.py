@@ -4,7 +4,6 @@ puzzle_generator.py
 This is a driver script that can be used to generate new zebra puzzles.
 """
 
-# from tqdm import tqdm
 from itertools import product
 from random import Random
 from typing import Dict, Iterable, List, Set, Tuple, Type
@@ -92,7 +91,7 @@ def generate_left_right_of(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[
         items_right = {item: loc for item, loc in solution.items() if loc == right}
         pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
         for pair in pairs:
-            if randint(0, 1) == 0:
+            if puzzle.rng.randint(0, 1) == 0:
                 clues.add(left_of(pair[0], pair[1], puzzle.houses))
             else:
                 clues.add(right_of(pair[1], pair[0], puzzle.houses))
