@@ -14,17 +14,16 @@ In our informal testing, Sonnet was deemed best performance value.
 You can swap out to another API, but this will need a rewrite to remove anthropic-specific code.
 """
 
-import os
 import json
-import uuid
+import os
 import time
+import uuid
 from pathlib import Path
-
-from tqdm import tqdm
 
 import anthropic
 from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
 from anthropic.types.messages.batch_create_params import Request
+from tqdm import tqdm
 
 # Updated default output directory to use the parent directory.
 DEFAULT_OUTPUT_DIR = Path(__file__).resolve().parent.parent / "output"
@@ -36,18 +35,19 @@ BATCH_SIZE = 2500
 COMMON_UUID = uuid.uuid4().hex[:8]
 
 # Set up the Anthropic client (ensure the API key is set in the environment)
-client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
+client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+
 
 def submit_reasoning_batches(
     input_path: str = DEFAULT_INPUT_JSONL,
     batch_metadata_prefix: str = "batch_metadata",
-    system_prompt_path: str = DEFAULT_SYSTEM_PROMPT
+    system_prompt_path: str = DEFAULT_SYSTEM_PROMPT,
 ) -> None:
     """
     Reads the input JSONL file of word ladder examples, builds batch requests for any example that
     does not have reasoning, splits them into groups of BATCH_SIZE, and submits each batch using
     Anthropic's Message Batches API.
-    
+
     Args:
         input_path: Path to input JSONL file
         batch_metadata_prefix: Prefix for batch metadata files
@@ -59,34 +59,36 @@ def submit_reasoning_batches(
 
     # Read the system prompt from file (used as a preamble for every request)
     with open(system_prompt_path, "r", encoding="utf-8") as sys_file:
-        system_message = [{
-            "type": "text",
-            "text": sys_file.read(),
-            "cache_control": {"type": "ephemeral"}  # Enable anthropic prompt caching
-        }]
+        system_message = [
+            {
+                "type": "text",
+                "text": sys_file.read(),
+                "cache_control": {"type": "ephemeral"},  # Enable anthropic prompt caching
+            }
+        ]
     batch_requests = []
     custom_ids = []  # List of custom_ids for the current batch
     batch_num = 0
 
     # Get the total number of lines in advance for tqdm progress bar.
     total_lines = sum(1 for _ in open(input_path))
-    
-    with open(input_path, 'r', encoding="utf-8") as infile:
+
+    with open(input_path, "r", encoding="utf-8") as infile:
         for idx, line in tqdm(enumerate(infile), desc="Preparing batch requests", total=total_lines):
             data = json.loads(line)
-            
+
             # Skip example if 'reasoning' already exists.
-            if not data.get('reasoning'):
+            if not data.get("reasoning"):
                 # Build a custom id. Here we use the row position and the start/end words:
                 metadata = data.get("metadata", {})
                 start = metadata.get("start_word", "unknown")
                 end = metadata.get("end_word", "unknown")
                 custom_id = f"{start}_{end}_{idx}"
                 custom_ids.append(custom_id)
-                
+
                 # Build the prompt text exactly as before.
                 prompt = f"{data['question']}. The correct solution is {data['answer']}. "
-                
+
                 # Build the request payload using Request and MessageCreateParamsNonStreaming.
                 request_payload = Request(
                     custom_id=custom_id,
@@ -95,10 +97,8 @@ def submit_reasoning_batches(
                         max_tokens=8192,
                         temperature=0.5,
                         system=system_message,
-                        messages=[
-                            {"role": "user", "content": prompt}
-                        ]
-                    )
+                        messages=[{"role": "user", "content": prompt}],
+                    ),
                 )
                 # Instead of wrapping in SimpleNamespace, simply ensure custom_id is set.
                 if isinstance(request_payload, dict):
@@ -106,7 +106,7 @@ def submit_reasoning_batches(
                 else:
                     request_payload.custom_id = custom_id
                 batch_requests.append(request_payload)
-                
+
                 # If we have reached our batch size limit, submit the current batch.
                 if len(batch_requests) >= BATCH_SIZE:
                     _submit_single_batch(batch_requests, custom_ids, batch_num, batch_metadata_prefix, input_path)
@@ -114,7 +114,7 @@ def submit_reasoning_batches(
                     # Reset for the next batch
                     batch_requests = []
                     custom_ids = []
-    
+
     # Submit any remaining requests that didn't complete a full batch.
     if batch_requests:
         _submit_single_batch(batch_requests, custom_ids, batch_num, batch_metadata_prefix, input_path)
@@ -141,11 +141,11 @@ def _submit_single_batch(batch_requests, custom_ids, batch_num, batch_metadata_p
         if dt.tzinfo is not None and dt.tzinfo.utcoffset(dt) is not None:
             iso_str = iso_str.replace("+00:00", "Z")
         return iso_str
-    
+
     def extract_custom_id(req):
         # Safely extract the custom_id attribute whether req is an object or a dict.
         return req.custom_id if hasattr(req, "custom_id") else req.get("custom_id")
-        
+
     max_attempts = 2
     attempt = 0
     last_exception = None
@@ -153,9 +153,7 @@ def _submit_single_batch(batch_requests, custom_ids, batch_num, batch_metadata_p
     while attempt < max_attempts:
         try:
             print(f"Submitting batch {batch_num} with {len(batch_requests)} requests... (attempt {attempt+1})")
-            message_batch = client.messages.batches.create(
-                requests=batch_requests
-            )
+            message_batch = client.messages.batches.create(requests=batch_requests)
             time.sleep(1)
             print(f"Batch {batch_num} submitted with ID: {message_batch.id}")
             break  # Success: exit the loop.
@@ -166,17 +164,21 @@ def _submit_single_batch(batch_requests, custom_ids, batch_num, batch_metadata_p
             if attempt < max_attempts:
                 print("Retrying...")
                 time.sleep(1)
-    
+
     if message_batch is None:
         error_filename = output_dir / f"{COMMON_UUID}_failed_batches.jsonl"
-        error_msg = f"{str(last_exception)} after {max_attempts} attempts" if last_exception else f"Failed after {max_attempts} attempts"
+        error_msg = (
+            f"{str(last_exception)} after {max_attempts} attempts"
+            if last_exception
+            else f"Failed after {max_attempts} attempts"
+        )
         failed_info = {
             "batch_number": batch_num,
             "error": error_msg,
             "batch_requests": [extract_custom_id(req) for req in batch_requests],
             "input_file": input_path,
         }
-        with open(error_filename, 'a', encoding='utf-8') as error_file:
+        with open(error_filename, "a", encoding="utf-8") as error_file:
             error_file.write(json.dumps(failed_info) + "\n")
         print(f"Batch {batch_num} permanently failed. Logged to {error_filename}.")
         return
@@ -198,13 +200,14 @@ def _submit_single_batch(batch_requests, custom_ids, batch_num, batch_metadata_p
         "batch_id": message_batch.id,
         "api_response": api_response,
         "custom_ids": custom_ids,
-        "input_file": os.path.basename(input_path),  
+        "input_file": os.path.basename(input_path),
     }
     metadata_filename = output_dir / f"{COMMON_UUID}_{batch_metadata_prefix}.jsonl"
-    with open(metadata_filename, 'a', encoding='utf-8') as meta_file:
+    with open(metadata_filename, "a", encoding="utf-8") as meta_file:
         meta_file.write(json.dumps(batch_metadata) + "\n")
 
     print(f"Batch metadata for batch {batch_num} appended to {metadata_filename}.")
+
 
 if __name__ == "__main__":
     # When running this module directly, submit the reasoning batches.

@@ -1,8 +1,8 @@
-Word Ladder puzzles involve transforming a start word into an end word. You are allowed to change only one letter a time and you must keep the number of letters constant. 
-Each time you change one letter the word in the chain must be forming a new word that's valid in English. Plurals are allowed, but not proper nouns. 
+Word Ladder puzzles involve transforming a start word into an end word. You are allowed to change only one letter a time and you must keep the number of letters constant.
+Each time you change one letter the word in the chain must be forming a new word that's valid in English. Plurals are allowed, but not proper nouns.
 Your task will be to simulate a detailed step-by-step chain of thought reasoning of the transformation process from a start word to the end word of a word ladder.
 You will be given the word ladder question, as well as the correct solution path. So you don't need to solve the problem, you have the solution already, which should be your 'cheat sheet' to refer to as you go along.
-Your task is to provide a perfectly simulated chain of thought reasoning exactly in the style of the example below, 
+Your task is to provide a perfectly simulated chain of thought reasoning exactly in the style of the example below,
 including considering multiple possibilities, backtracking where needed, validating words, and showing the final path.
 Remember you're NOT trying to 'find' the shortest path necessarily. Make sure you're not lazy and show the user that you're working hard to find the intermediate words in the chain, and that you haven't gotten simply lucky in finding the steps.
 For example, you may go down a path that's no longer getting you closer to the solution, so you backtrack and try a different path, which ends up working.

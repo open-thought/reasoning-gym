@@ -9,7 +9,7 @@ It then calculates and prints statistics for each usage token field:
     - cache_creation_input_tokens
     - cache_read_input_tokens
     - output_tokens
-+pricing calculations 
++pricing calculations
 +calculates the savings from caching (vs if we hadn't done any caching)
 +forecasts costs for 10,000, 20,000 and 50,000 jobs based on tokens per query
 
@@ -17,17 +17,14 @@ Usage:
     python usage_stats.py path/to/msgbatch_01X9LgZNVkLFhzrrBd9LNgWb_results.jsonl
 """
 
-import json
 import argparse
+import json
 from statistics import mean
 
+
 def main():
-    parser = argparse.ArgumentParser(
-        description="Compute usage token statistics from a JSONL file."
-    )
-    parser.add_argument(
-        "file", help="Path to the JSONL file containing usage token data."
-    )
+    parser = argparse.ArgumentParser(description="Compute usage token statistics from a JSONL file.")
+    parser.add_argument("file", help="Path to the JSONL file containing usage token data.")
     args = parser.parse_args()
 
     # Usage token fields that we want to track
@@ -43,7 +40,7 @@ def main():
     pricing = {
         "input_tokens": base_input_rate,
         "cache_creation_input_tokens": base_input_rate * 1.25,  # More expensive for initial computation
-        "cache_read_input_tokens": base_input_rate * 0.1,         # Cheaper for cache-read tokens
+        "cache_read_input_tokens": base_input_rate * 0.1,  # Cheaper for cache-read tokens
         "output_tokens": 7.50,
     }
 
@@ -82,7 +79,7 @@ def main():
     print(f"\nProcessed {total_lines} lines with {error_count} error(s).\n")
     print("Usage Tokens Statistics:")
     print("-" * 40)
-    
+
     grand_total_cost = 0.0
     # Calculate and print stats for each token type
     for key in usage_fields:
@@ -115,7 +112,7 @@ def main():
     # Without caching, all tokens would have been charged at the standard input rate.
     #
     # Baseline cost (if no caching were used):
-    #   = (input_tokens + cache_creation_input_tokens + cache_read_input_tokens) 
+    #   = (input_tokens + cache_creation_input_tokens + cache_read_input_tokens)
     #     / 1_000_000 * base_input_rate
     #
     # Actual cost (with caching):
@@ -129,9 +126,11 @@ def main():
     sum_cache_read = sum(usage_data["cache_read_input_tokens"])
 
     baseline_input_cost = (sum_input + sum_cache_creation + sum_cache_read) / 1_000_000 * pricing["input_tokens"]
-    actual_input_cost = (sum_input) / 1_000_000 * pricing["input_tokens"] \
-                        + (sum_cache_creation) / 1_000_000 * pricing["cache_creation_input_tokens"] \
-                        + (sum_cache_read) / 1_000_000 * pricing["cache_read_input_tokens"]
+    actual_input_cost = (
+        (sum_input) / 1_000_000 * pricing["input_tokens"]
+        + (sum_cache_creation) / 1_000_000 * pricing["cache_creation_input_tokens"]
+        + (sum_cache_read) / 1_000_000 * pricing["cache_read_input_tokens"]
+    )
     caching_savings = baseline_input_cost - actual_input_cost
 
     print(f"Caching Savings (input-related tokens): ${caching_savings:.2f}")
@@ -172,12 +171,16 @@ def main():
             forecast_output = avg_output_tokens * jobs
 
             # Forecast actual cost (with caching applied for input tokens):
-            actual_input_cost_forecast = (forecast_input) / 1_000_000 * pricing["input_tokens"] \
-                                         + (forecast_cache_creation) / 1_000_000 * pricing["cache_creation_input_tokens"] \
-                                         + (forecast_cache_read) / 1_000_000 * pricing["cache_read_input_tokens"]
+            actual_input_cost_forecast = (
+                (forecast_input) / 1_000_000 * pricing["input_tokens"]
+                + (forecast_cache_creation) / 1_000_000 * pricing["cache_creation_input_tokens"]
+                + (forecast_cache_read) / 1_000_000 * pricing["cache_read_input_tokens"]
+            )
 
             # Without caching, all input-related tokens would be at base_input_rate:
-            baseline_input_cost_forecast = (forecast_input + forecast_cache_creation + forecast_cache_read) / 1_000_000 * pricing["input_tokens"]
+            baseline_input_cost_forecast = (
+                (forecast_input + forecast_cache_creation + forecast_cache_read) / 1_000_000 * pricing["input_tokens"]
+            )
 
             caching_savings_forecast = baseline_input_cost_forecast - actual_input_cost_forecast
 
@@ -197,6 +200,7 @@ def main():
             print(f"    Caching Savings (input)     = ${caching_savings_forecast:,.2f}")
     else:
         print("No valid jobs to forecast future costs.")
+
 
 if __name__ == "__main__":
     main()

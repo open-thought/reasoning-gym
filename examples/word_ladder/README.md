@@ -6,21 +6,21 @@ This project generates a dataset of word ladder puzzles and (optionally) submits
 
 The project consists of several key components:
 
-- **`main.py`**:  
+- **`main.py`**:
   Orchestrates the overall flow. It performs the following tasks:
   1. Generates a dataset of word ladder puzzles by calling functions from `utils/create_word_ladders.py`.
   2. (Optionally) Triggers the reasoning request process to augment puzzles with chain-of-thought reasoning via `utils/generate_reasoning.py`.
   3. (Planned) Additional steps such as checking results or uploading the final dataset.
-  
+
   The configuration for the dataset parameters (e.g., word length, chain length, and dataset size) is centralized here, making it easy to adjust the settings as needed.
 
-- **`utils/create_word_ladders.py`**:  
+- **`utils/create_word_ladders.py`**:
   Contains functions to create and validate a word ladder dataset. It leverages underlying modules (e.g., `reasoning_gym`) to generate individual puzzles and ensures uniqueness across the dataset.
 
-- **`utils/generate_reasoning.py`**:  
+- **`utils/generate_reasoning.py`**:
   Reads the generated dataset (in JSONL format), then filters out puzzles that already have reasoning. For puzzles missing chain-of-thought data, it splits them into batches (with a default batch size that you can adjust) and submits each batch to Anthropic's Message Batches API. Each API request includes the puzzle along with a custom system prompt (read from `system_prompt.txt`), and the resulting metadata is stored for later retrieval and analysis.
 
-- **`usage_stats.py`**:  
+- **`usage_stats.py`**:
   Analyzes API response files to compute detailed usage statistics. This script:
   - Extracts token usage metrics such as `input_tokens`, `cache_creation_input_tokens`, `cache_read_input_tokens`, and `output_tokens`.
   - Calculates costs based on pricing data and shows the savings achieved through prompt caching.
@@ -29,23 +29,23 @@ The project consists of several key components:
 
 ## Warning
 
-**Caution:**  
+**Caution:**
 Running large batches of requests via the Anthropic API (especially in `generate_reasoning.py`) can incur significant costs in Anthropic credits. **Please review and understand your API quota and budgeting before running the API call.** If you are just testing or working with a demo dataset, ensure you adjust the batch size or dataset size appropriately to avoid unexpected charges.
 
 ## Prerequisites
 
 - **Python Version:** Python 3.7+
-- **Dependencies:**  
+- **Dependencies:**
   - `tqdm`
   - `anthropic`
   - `reasoning_gym`
-- **Environment Variables:**  
+- **Environment Variables:**
   For generating reasoning batches, set your Anthropic API key:
   ```bash
   export ANTROPIC_API_KEY=your_api_key_here
   ```
 
-## Directory Structure 
+## Directory Structure
 
 ```
 examples/word_ladder/
@@ -62,15 +62,15 @@ examples/word_ladder/
 
 The dataset generation parameters are centralized in `main.py` under the `config` dictionary. You can adjust settings like:
 
-- **Word Length:**  
+- **Word Length:**
   - `min_word_length`
   - `max_word_length`
-  
-- **Chain Length:**  
+
+- **Chain Length:**
   - `min_chain_length` (e.g., set to -1 for the shortest possible chain)
   - `max_chain_length`
-  
-- **Dataset Size:**  
+
+- **Dataset Size:**
   - `size` — the number of puzzles to generate (e.g., `1000` for a demo)
 
 ## How to Run
@@ -114,19 +114,18 @@ The dataset generation parameters are centralized in `main.py` under the `config
 
 ## Troubleshooting
 
-- **File Paths:**  
+- **File Paths:**
   Verify that `system_prompt.txt` is in the `/examples/word_ladder` folder as expected. The modules use paths relative to their location.
-  
-- **Environment Variables:**  
+
+- **Environment Variables:**
   Make sure your `ANTHROPIC_API_KEY` is set correctly when submitting API requests.
-  
-- **Output Directory Permissions:**  
+
+- **Output Directory Permissions:**
   Ensure the `output` directory exists and is writable by your user.
-  
-- **Cost Monitoring:**  
+
+- **Cost Monitoring:**
   Check your Anthropic API usage and account balance before running large batches to avoid unexpected costs.
 
 ## License
 
 This project is licensed under the MIT License.
-
