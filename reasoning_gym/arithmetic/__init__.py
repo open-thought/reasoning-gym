@@ -12,7 +12,8 @@ from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDat
 from .chain_sum import ChainSum, ChainSumConfig
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
-from .gsm_symbolic.gsm_symbolic_datasets import GSMSymbolicDataset, GSMSymbolicDatasetConfig
+
+# from .gsm_symbolic.gsm_symbolic_datasets import GSMSymbolicDataset, GSMSymbolicDatasetConfig
 from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
@@ -38,8 +39,8 @@ __all__ = [
     "LegCountingDataset",
     "PrimeFactorizationConfig",
     "PrimeFactorizationDataset",
-    "GSMSymbolicDatasetConfig",
-    "GSMSymbolicDataset",
+    # "GSMSymbolicDatasetConfig",
+    # "GSMSymbolicDataset",
     "TimeIntervalsConfig",
     "TimeIntervalsDataset",
 ]

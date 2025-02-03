@@ -18,7 +18,6 @@ This gallery shows examples from all available datasets using their default conf
 - [fraction_simplification](#fraction_simplification)
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
-- [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
@@ -840,32 +839,6 @@ Example 3:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 297, 30
 Answer: 3
 Metadata: {'numbers': [297, 30], 'result': 3}
-
-````
-
-### gsm_symbolic
-Default configuration:
-```python
-seed = 42
-size = 500
-```
-
-Example tasks:
-````
-Example 1:
-Question: There are currently 16 orange balls, 12 yellow balls, and 44 blue balls in the shop. orange balls cost $13, yellow balls cost $10 and blue balls cost $6. How much will the shop have received after all the balls are sold?
-Answer: 592
-Metadata: {'difficulty': 1.0, 'answer_value': 592, 'answer_cot': 'For the orange balls, 16 balls * $13/ball = $208.\nFor the yellow balls, 12 balls * $10/ball = $120.\nFor the blue balls, 44 balls * $6/ball = $264.\nFor all balls, $208 + $120 + $264 = $592.\n#### 592', 'variables': {'store': 'shop', 'colors': ['orange', 'yellow', 'blue'], 'quantities': [16, 12, 44], 'prices': [13, 10, 6], 'currency': '$', 'subtotals': [208, 120, 264], 'total': 592}}
-
-Example 2:
-Question: A plumber works for 3 weeks every month and for 4 days every week. If he gets paid £150 every day, how much does he earn if he works for a year?
-Answer: 21600
-Metadata: {'difficulty': 1.0, 'answer_value': 21600, 'answer_cot': 'The plumber works for 4 days every week and works for 3 weeks every month so he works for 4 days/week * 3 weeks/month = 12 days/month\nIf he earns £150 every day he then earns £150/day * 12 days/month = £1800/month\nA year is equal to 12 months so every year he earns £1800/month * 12 months/year = £21600\n#### 21600', 'variables': {'occupation': 'plumber', 'weeks_per_month': 3, 'days_per_week': 4, 'pay_per_day': 150, 'currency': '£', 'days_per_month': 12, 'monthly_pay': 1800}}
-
-Example 3:
-Question: Ava sliced an mango into 33 pieces. She ate 5 slice, her cousin ate 7 more than her, and her brother ate 4 more than her cousin. How many slices of mango did they all eat?
-Answer: 33
-Metadata: {'difficulty': 1.0, 'answer_value': 33, 'answer_cot': 'Her cousin ate 5 + 7 = 12 slices.\nHer brother ate 12 + 4 = 16 slices.\nThey ate a total of 5 + 12 + 16 = 33 slices.\n#### 33', 'variables': {'name': 'Ava', 'fruit': 'mango', 'total_slices': 33, 'first_person_slices': 5, 'second_person_extra': 7, 'third_person_extra': 4, 'sibling1': 'cousin', 'sibling2': 'brother', 'total_eaten': 33}}
 
 ````
 
@@ -2061,12 +2034,12 @@ Example tasks:
 ````
 Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
-Answer: HAND,RAND,REND,FEND,FEED,FLED,FLEE,GLEE
+Answer: HAND,RAND,REND,REED,FEED,FLED,FLEE,GLEE
 Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
-Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FARM,FORM,DORM
+Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
 Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10}
 
 Example 3:
@@ -2157,21 +2130,21 @@ Example tasks:
 ````
 Example 1:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: arnold, eric, alice, peter
- - People use different phone models: samsung galaxy s21, iphone 13, google pixel 6, oneplus 9
- - Each person has a favorite drink: tea, water, milk, coffee
- - The people keep different animals: fish, cat, horse, bird
+ - Each person has a unique name: alice, eric, arnold, peter
+ - People use different phone models: samsung galaxy s21, oneplus 9, google pixel 6, iphone 13
+ - Each person has a favorite drink: coffee, water, tea, milk
+ - The people keep different animals: horse, cat, fish, bird
 
-1. The one who only drinks water is Peter.
-2. The cat lover is in the second house.
-3. The coffee drinker is the fish enthusiast.
-4. The person who uses a OnePlus 9 is the tea drinker.
-5. Peter is directly left of Arnold.
-6. The person who keeps horses is in the fourth house.
-7. The person who keeps horses is Alice.
-8. Alice is the person who uses a Google Pixel 6.
-9. The person who uses a Samsung Galaxy S21 is the one who only drinks water.
-10. Peter is in the first house.
+1. Peter is the one who only drinks water.
+9. The fish enthusiast is directly left of the person who keeps horses.
+7. The bird keeper is Peter.
+6. Alice is in the fourth house.
+2. The tea drinker is the person who uses a OnePlus 9.
+3. The person who uses an iPhone 13 is the fish enthusiast.
+5. The person who uses an iPhone 13 is directly left of the person who uses a Google Pixel 6.
+8. The coffee drinker is the person who uses an iPhone 13.
+4. The tea drinker and the person who uses an iPhone 13 are next to each other.
+10. Eric and the person who uses a Google Pixel 6 are next to each other.
 
 What is Name of the person who lives in House 1?
 Answer: peter
@@ -2179,20 +2152,21 @@ Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 2:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: alice, eric, arnold, peter
- - Each mother is accompanied by their child: fred, bella, samantha, meredith
- - The people are of nationalities: norwegian, swede, brit, dane
- - Everyone has something different for lunch: spaghetti, grilled cheese, pizza, stew
+ - Each person has a unique name: arnold, peter, eric, alice
+ - Each mother is accompanied by their child: meredith, samantha, bella, fred
+ - The people are of nationalities: dane, norwegian, brit, swede
+ - Everyone has something different for lunch: stew, spaghetti, pizza, grilled cheese
 
-1. The person who loves the stew is Eric.
-2. The person's child is named Fred is directly left of the person who loves the spaghetti eater.
-3. The person's child is named Samantha is Peter.
-4. The person who is a pizza lover is the person's child is named Meredith.
-5. The person's child is named Meredith is directly left of Eric.
-6. The British person is the person's child is named Meredith.
+1. The Dane is in the second house.
+8. The Norwegian is the person who loves the spaghetti eater.
+5. The person who is a pizza lover is the person's child is named Meredith.
+2. Peter is directly left of the person who loves eating grilled cheese.
+3. The British person is Alice.
+9. The Swedish person is in the fourth house.
+6. The person who is a pizza lover and Eric are next to each other.
 7. The person's child is named Samantha is in the third house.
-8. Arnold is the Swedish person.
-9. The person's child is named Samantha is the Norwegian.
+10. The person who is a pizza lover is in the first house.
+4. Eric is the person's child is named Fred.
 
 What is Name of the person who lives in House 1?
 Answer: alice
@@ -2200,21 +2174,21 @@ Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 3:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: alice, peter, eric, arnold
- - Everyone has a different favorite cigar: prince, dunhill, pall mall, blue master
- - Everyone has something different for lunch: stew, pizza, spaghetti, grilled cheese
- - Each person has a favorite color: green, red, yellow, white
+ - Each person has a unique name: arnold, eric, peter, alice
+ - Everyone has a different favorite cigar: blue master, pall mall, dunhill, prince
+ - Everyone has something different for lunch: spaghetti, pizza, stew, grilled cheese
+ - Each person has a favorite color: yellow, white, red, green
 
-1. Eric is the person who loves white.
-2. Alice and the Dunhill smoker are next to each other.
+7. The person whose favorite color is green is the person who loves the spaghetti eater.
+5. The Dunhill smoker is the person who loves the stew.
+4. The person who loves yellow is the Dunhill smoker.
 3. The person who loves the stew is Arnold.
-4. The person whose favorite color is green is directly left of the person who loves the stew.
-5. The person who smokes Blue Master is Alice.
-6. Alice is the person who loves the spaghetti eater.
-7. The person partial to Pall Mall is directly left of Eric.
-8. The Prince smoker is in the fourth house.
-9. The person who loves yellow is in the second house.
-10. Arnold and the person who loves eating grilled cheese are next to each other.
+1. The person whose favorite color is green is Alice.
+2. The person partial to Pall Mall is Peter.
+9. The person who smokes Blue Master is in the first house.
+10. Peter is directly left of the person who loves white.
+8. The person who loves eating grilled cheese is the person whose favorite color is red.
+6. The person partial to Pall Mall is in the third house.
 
 What is Name of the person who lives in House 1?
 Answer: alice

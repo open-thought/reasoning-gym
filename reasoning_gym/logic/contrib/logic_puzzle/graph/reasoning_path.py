@@ -26,7 +26,6 @@ def logic_grid_puzzle(inputfile, ground_truth, size, lower_part, higher_part):
     reasoning_result = []
     answers = json.load(open(ground_truth, "r"))
     puzzles = pickle.load(open(inputfile, "rb"))
-    cell_difficulty = {}
     mode = inputfile[inputfile.find("puzzles.") + 8 : inputfile.find(".pkl")]
     print("Number of puzzles", len(answers))
     assert len(answers) == len(puzzles)

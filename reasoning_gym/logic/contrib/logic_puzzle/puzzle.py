@@ -6,8 +6,8 @@ Solve the Einstein puzzle using Raymond Hettinger's approach.
 from __future__ import annotations
 
 from contextlib import contextmanager
-from random import shuffle
-from typing import Dict, Generator, Iterable, List, Set, Tuple, Type
+from random import Random
+from typing import Generator, Iterable, List, Set, Tuple, Type
 
 from reasoning_gym.logic.contrib.logic_puzzle.clues import (
     Clue,
@@ -58,6 +58,7 @@ class Puzzle:
     def __init__(
         self,
         *,
+        rng: Random,
         element_types: Iterable[Type[Literal]],
         elements: Iterable[Literal] = None,
         n_houses: int = 5,
@@ -73,6 +74,7 @@ class Puzzle:
         ones.
         """
 
+        self.rng = rng
         self.element_classes = list(element_types)
         if elements is None:
             self.literals = [el for el_class in self.element_classes for el in el_class]
@@ -145,15 +147,17 @@ class Puzzle:
         s += f"They have different characteristics:\n"
         for element_type in self.element_classes:
             literals = [l for l in self.literals if isinstance(l, element_type)]
-            shuffle(literals)
+            self.rng.shuffle(literals)
             desc = element_type.description()
             idx = desc.index(":") if ":" in desc else None
             desc = desc[:idx]
             s += f" - {desc}: " + ", ".join(e.name.replace("_", " ") for e in literals) + "\n"
 
         s += "\n"
-        for i, clue in enumerate(self.clues):
-            s += f"{i + 1}. {clue}\n"
+
+        clues = sorted(f"{i + 1}. {clue}\n" for i, clue in enumerate(self.clues))
+        self.rng.shuffle(clues)
+        s += "".join(clues)
 
         return s
 
@@ -196,7 +200,7 @@ if __name__ == "__main__":
     literals: List[Literal] = [el for group in enum_classes for el in group]
 
     # set up the puzzle with constraints and clues
-    puzzle = Puzzle(element_types=[Color, Nationality, Drink, Cigar, Animal])
+    puzzle = Puzzle(rng=Random(), element_types=[Color, Nationality, Drink, Cigar, Animal])
 
     puzzle = (
         puzzle.set_constraints()
@@ -246,7 +250,7 @@ if __name__ == "__main__":
     literals = [el for group in enum_classes for el in group]
 
     # set up the puzzle with constraints and clues
-    puzzle = Puzzle(element_types=[Mother, Children, Flower, Food])
+    puzzle = Puzzle(rng=Random(), element_types=[Mother, Children, Flower, Food])
 
     puzzle = (
         puzzle.set_constraints()

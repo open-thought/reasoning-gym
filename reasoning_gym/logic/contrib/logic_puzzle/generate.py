@@ -4,14 +4,10 @@ puzzle_generator.py
 This is a driver script that can be used to generate new zebra puzzles.
 """
 
-import json
-import pickle
-import sys
-
 # from tqdm import tqdm
 from itertools import product
-from random import choices, randint, sample, seed, shuffle
-from typing import Dict, Iterable, List, Optional, Set, Tuple, Type
+from random import Random
+from typing import Dict, Iterable, List, Set, Tuple, Type
 
 from tabulate import tabulate
 
@@ -72,7 +68,7 @@ def generate_consecutive_beside(puzzle: Puzzle, solution: Dict[Literal, int]) ->
         for pair in pairs:
             # consecutive is just a more informative version of beside, but they have same structure
             # because of this, don't include both
-            if randint(0, 1) == 0:
+            if puzzle.rng.randint(0, 1) == 0:
                 clues.add(consecutive(pair[0], pair[1], puzzle.houses))
             else:
                 clues.add(beside(pair[0], pair[1], puzzle.houses))
@@ -169,7 +165,7 @@ def try_to_remove(puzzle: Puzzle, clues: Set[Clue], n: int, must_have=set()) -> 
         return weights.get(type(clue), 1)
 
     weights = [weight(clue) for clue in clues]
-    candidates: Set[Clue] = set(choices(list(clues), weights, k=n))
+    candidates: Set[Clue] = set(puzzle.rng.choices(list(clues), weights, k=n))
     candidates = candidates - must_have
     clues = clues.difference(candidates)
     if has_unique_solution(puzzle, clues):
@@ -191,7 +187,7 @@ def reduce_individually(
     and added to `removed`. If no clues can be removed, we return the original two sets.
     """
 
-    candidates = set(sample(list(clues), len(clues)))
+    candidates = set(puzzle.rng.sample(list(clues), len(clues)))
     for clue in candidates:
         if clue not in must_have:
             clues.remove(clue)
@@ -239,7 +235,7 @@ def reduce_clues(puzzle: Puzzle, clues: Set[Clue], must_have=set()) -> Tuple[Set
     """
 
     # this is a stupid way to shuffle the set of clues without modifying it
-    minimal_clues = set(sample(list(clues), k=len(clues)))
+    minimal_clues = set(puzzle.rng.sample(list(clues), k=len(clues)))
     while True:
         # print(f"There are {len(minimal_clues)} clues in ba sing se")
 
@@ -278,7 +274,7 @@ def reduce_clues(puzzle: Puzzle, clues: Set[Clue], must_have=set()) -> Tuple[Set
     return minimal_clues, removed_clues
 
 
-def question_generation(col_name, table_data):
+def question_generation(rng: Random, col_name, table_data):
     values_by_cols = {}
     for row in table_data:
         for idx, value in enumerate(row):
@@ -294,7 +290,7 @@ def question_generation(col_name, table_data):
                 continue
             question = f"What is {col} of the person who lives in House {row[0]}?"
             options = values_by_cols[col][:]
-            shuffle(options)
+            rng.shuffle(options)
             truth = row[cid]
             assert truth in options
             questions_data.append(
@@ -306,18 +302,18 @@ def question_generation(col_name, table_data):
     return questions_data
 
 
-def generate_solution_dict(selected_elements: List[Literal], n: int) -> Dict[Literal, int]:
+def generate_solution_dict(rng: Random, selected_elements: List[Literal], n: int) -> Dict[Literal, int]:
     solution = {}
     house_ids = list(range(1, n + 1))
     for element in selected_elements:
-        shuffle(house_ids)
-        attributes: List[element] = list(element.__members__.values())
+        rng.shuffle(house_ids)
+        attributes: List[Literal] = list(element.__members__.values())
         for i in range(n):
             solution[attributes[i]] = house_ids[i]
     return solution
 
 
-def wrap_up_dict(random_elements, solution, puzzle, reduced, extra_clues, context, K, M):
+def wrap_up_dict(rng: Random, random_elements, solution, puzzle, reduced, extra_clues, context, K, M):
     col_names = [e.__name__ for e in random_elements]
     house_data = {}
     for item, house in solution.items():
@@ -337,7 +333,7 @@ def wrap_up_dict(random_elements, solution, puzzle, reduced, extra_clues, contex
     table = tabulate(table_data, headers=col_names, tablefmt="grid")
 
     ## Generate multiple-choice questions
-    q_data = question_generation(col_names, table_data)
+    q_data = question_generation(rng, col_names, table_data)
     all_in_one = {}
     all_in_one["size"] = f"{K}*{M}"
     all_in_one["puzzle_context"] = context
@@ -358,7 +354,7 @@ def check_correctness(p):
     return set(solution_set) == set(_first_solution)
 
 
-def generate_puzzle(K=2, M=3, mode="train"):
+def generate_puzzle(rng: Random, K=2, M=3):
     elements = [Color, Nationality, Animal, Drink, Cigar, Food, Flower, PhoneModel, Children, Smoothie]
     clue_types = [
         generate_found_at,
@@ -366,12 +362,12 @@ def generate_puzzle(K=2, M=3, mode="train"):
         generate_consecutive_beside,
     ]
 
-    shuffle(elements)
+    rng.shuffle(elements)
     random_elements = [Name] + elements[: M - 1]
-    solution = generate_solution_dict(random_elements, K)
+    solution = generate_solution_dict(rng, random_elements, K)
 
     # set up the puzzle with default constraints
-    puzzle = Puzzle(element_types=random_elements, elements=solution.keys(), n_houses=K).set_constraints()
+    puzzle = Puzzle(rng=rng, element_types=random_elements, elements=solution.keys(), n_houses=K).set_constraints()
     puzzle.solution = solution
     context = str(puzzle)
 
@@ -383,68 +379,11 @@ def generate_puzzle(K=2, M=3, mode="train"):
 
     reduced, _ = reduce_clues(puzzle, clues)
     extra_clues = clues - reduced
-    extra_clues = set(sample(list(extra_clues), min(len(extra_clues), 30)))
+    extra_clues = set(rng.sample(list(extra_clues), min(len(extra_clues), 30)))
     for clue in reduced:
         puzzle.add_clue(clue)
 
     assert has_unique_solution(puzzle, puzzle.clues, remove_after=False)
     assert check_correctness(puzzle)
-    all_in_one = wrap_up_dict(random_elements, solution, puzzle, reduced, extra_clues, context, K, M)
+    all_in_one = wrap_up_dict(rng, random_elements, solution, puzzle, reduced, extra_clues, context, K, M)
     return all_in_one, puzzle
-
-
-# def main():
-#     mode = sys.argv[1]
-#     print(f"mode={mode}")
-#     if mode.startswith("train"):
-#         seed(1337)
-#         N = 30
-#         if mode.endswith("_large"):
-#             N = 150
-#         if mode.endswith("_xl"):
-#             N = 1000
-#         Ks = [2,3,4]
-#         Ms = [2,3,4]
-
-#         if mode.endswith("_xxl"):
-#             N = 500
-#             Ks = [2,3,4,5,6]
-#             Ms = [2,3,4,5,6]
-
-#     elif mode == "dev" or mode.startswith("test_"):
-#         seed(42+len(mode))
-#         N = 10
-#         Ks = [2,3,4,5]
-#         Ms = [2,3,4,5]
-#         if mode.startswith("test_id_xl"):
-#             Ks = [2,3,4,5,6]
-#             Ms = [2,3,4,5,6]
-#         if mode.startswith("test_id_xxl"):
-#             Ks = [2,3,4,5,6,7]
-#             Ms = [2,3,4,5,6,7]
-#         if mode.endswith("_50"):
-#             N = 50
-
-#     instances = []
-#     puzzle_objs = []
-#     for K, M, idx in tqdm(list(product(Ks, Ms, list(range(N))))):
-#         if mode.startswith("test_id_xl"):
-#             if K != 6 and M != 6:
-#                 continue
-#         if mode.startswith("test_id_xxl"):
-#             if K != 7 and M != 7:
-#                 continue
-#         instance, puzzle = generate_puzzle(K, M, mode)
-#         instance["idx"] = f"lgp-{mode}-{K}x{M}-{idx}"
-#         instances.append(instance)
-#         puzzle_objs.append({"idx": instance["idx"], "puzzle": puzzle})
-
-#     with open(f"logic_grid_puzzles.{mode}.pkl", "wb") as f:
-#         pickle.dump(puzzle_objs, f)
-
-#     with open(f"logic_grid_puzzles.{mode}.json", "w") as f:
-#         json.dump(instances, f, indent=2)
-
-
-if __name__ == "__main__":
-    main()

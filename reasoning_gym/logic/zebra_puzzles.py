@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from random import Random, seed
-from typing import Dict, List, Optional, Tuple
+from random import Random
+from typing import Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.logic_puzzle.generate import generate_puzzle
@@ -36,11 +36,11 @@ class ZebraDataset(ProceduralDataset):
                 - answer: str, a solution string
                 - metadata: dict with generation parameters
         """
-        seed(self.seed + idx)
+        rng = Random(self.seed + idx)
 
         K = self.config.num_people
         M = self.config.num_characteristics
-        instance, puzzle = generate_puzzle(K, M, "train")
+        instance, puzzle = generate_puzzle(rng, K, M)
         q = instance["questions"][0]["question"]
         answer = instance["questions"][0]["answer"]
         question = str(puzzle) + "\n" + q
