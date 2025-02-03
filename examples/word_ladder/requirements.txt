@@ -1,0 +1,5 @@
+# Required dependencies for the Word Ladder Puzzle Dataset Generator
+# Python 3.7+
+
+anthropic>=0.45.2       # Client library for interacting with Anthropic's API
+tqdm>=4.67.1            # For progress bars
