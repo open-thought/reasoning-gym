@@ -13,6 +13,7 @@ from .gcd import GCDConfig, GCDDataset
 from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
+from .gsm_symbolic.gsm_symbolic_datasets import GSMSymbolicDataset, GSMSymbolicDatasetConfig
 
 __all__ = [
     "BasicArithmeticDataset",
@@ -30,4 +31,6 @@ __all__ = [
     "LegCountingDataset",
     "PrimeFactorizationConfig",
     "PrimeFactorizationDataset",
+    "GSMSymbolicDatasetConfig",
+    "GSMSymbolicDataset",
 ]
