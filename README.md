@@ -121,6 +121,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
 - `QuantumLockDataset`: Generates puzzles which involve stateful arithmetic and a correct sequence of operations
+- `LargestIslandDataset`: Generate a grid with islands and find the largest one
 
 ### <small>Game Tasks</small>
 
