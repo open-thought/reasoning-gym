@@ -206,6 +206,13 @@ class SyllogismDataset(ProceduralDataset):
 
         return False
 
+    def _format_quantifier_statement(self, quantifier: Quantifier, subject: Term, predicate: Term) -> str:
+        """Format a quantified statement in natural language"""
+        if quantifier == Quantifier.SOME_NOT:
+            return f"Some {subject.plural} are not {predicate.plural}"
+        else:
+            return f"{quantifier.value} {subject.plural} are {predicate.plural}"
+
     def _generate_syllogism(self, rng: Random) -> dict:
         """Generate a single syllogism problem"""
         # Select three different terms
@@ -226,9 +233,9 @@ class SyllogismDataset(ProceduralDataset):
                 conclusion = (rng.choice(quantifiers), terms[0], terms[2])
 
         # Format the syllogism as text
-        premise1_text = f"{premise1[0].value} {premise1[1].plural} are {premise1[2].plural}"
-        premise2_text = f"{premise2[0].value} {premise2[1].plural} are {premise2[2].plural}"
-        conclusion_text = f"{conclusion[0].value} {conclusion[1].plural} are {conclusion[2].plural}"
+        premise1_text = self._format_quantifier_statement(premise1[0], premise1[1], premise1[2])
+        premise2_text = self._format_quantifier_statement(premise2[0], premise2[1], premise2[2])
+        conclusion_text = self._format_quantifier_statement(conclusion[0], conclusion[1], conclusion[2])
 
         question = (
             f"Consider these statements:\n"

@@ -28,7 +28,7 @@ class QuantumLockDataset(ProceduralDataset):
         self._prompt_templates = [
             """\
 In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
-You must press the shortest correct sequence of buttons to reach the target value.
+You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: {initial_value} ({initial_state})
 Target: {target_value}

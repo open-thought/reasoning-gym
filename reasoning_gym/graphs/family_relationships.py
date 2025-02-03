@@ -1,5 +1,5 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 from itertools import count
 from typing import List, Optional, Set, Tuple
@@ -37,12 +37,8 @@ class Person:
     gender: Gender
     id: int
     spouse: Optional["Person"] = None
-    parents: List["Person"] = None
-    children: List["Person"] = None
-
-    def __post_init__(self):
-        self.parents = self.parents or []
-        self.children = self.children or []
+    parents: List["Person"] = field(default_factory=list)
+    children: List["Person"] = field(default_factory=list)
 
     def __hash__(self):
         return self.id
@@ -69,14 +65,8 @@ class FamilyRelationshipsConfig:
 
     min_family_size: int = 4
     max_family_size: int = 8
-    male_names: List[str] = None
-    female_names: List[str] = None
-    seed: Optional[int] = None
-    size: int = 500
-
-    def __post_init__(self):
-        # Default name lists if none provided
-        default_male_names = [
+    male_names: List[str] = field(
+        default_factory=lambda: [
             "James",
             "John",
             "Robert",
@@ -121,7 +111,9 @@ class FamilyRelationshipsConfig:
             "Ryder",
             "Finn",
         ]
-        default_female_names = [
+    )
+    female_names: List[str] = field(
+        default_factory=lambda: [
             "Mary",
             "Patricia",
             "Jennifer",
@@ -166,11 +158,9 @@ class FamilyRelationshipsConfig:
             "Sky",
             "Rain",
         ]
-
-        if self.male_names is None:
-            self.male_names = default_male_names
-        if self.female_names is None:
-            self.female_names = default_female_names
+    )
+    seed: Optional[int] = None
+    size: int = 500
 
     def validate(self) -> None:
         """Validate configuration parameters"""

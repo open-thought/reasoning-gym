@@ -38,4 +38,5 @@ ENV/
 htmlcov/
 .pytest_cache/
 
+# OSX
 .DS_Store

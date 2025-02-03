@@ -391,4 +391,4 @@ def test_word_ladder_edge_cases():
 
 
 if __name__ == "__main__":
-    pytest.main([__file__]) 
+    pytest.main([__file__])

@@ -60,14 +60,32 @@ class BaseConversionDataset(ProceduralDataset):
         value, source_base, target_base = self._generate_conversion(rng)
 
         # Convert decimal to source base representation
-        source_repr = format(value, f"x" if source_base == 16 else f"b" if source_base == 2 else "").strip()
-        if source_base not in (2, 16):
-            source_repr = format(value, f"{source_base}x").lower().strip()
+        if source_base == 16:
+            source_repr = format(value, "x")
+        elif source_base == 2:
+            source_repr = format(value, "b")
+        else:
+            # Manual conversion for other bases
+            n = value
+            digits = []
+            while n:
+                digits.append(int(n % source_base))
+                n //= source_base
+            source_repr = "".join(str(d) if d < 10 else chr(ord("a") + d - 10) for d in reversed(digits) or [0])
 
         # Convert decimal to target base for answer
-        target_repr = format(value, f"x" if target_base == 16 else f"b" if target_base == 2 else "").strip()
-        if target_base not in (2, 16):
-            target_repr = format(value, f"{target_base}x").lower().strip()
+        if target_base == 16:
+            target_repr = format(value, "x")
+        elif target_base == 2:
+            target_repr = format(value, "b")
+        else:
+            # Manual conversion for other bases
+            n = value
+            digits = []
+            while n:
+                digits.append(int(n % target_base))
+                n //= target_base
+            target_repr = "".join(str(d) if d < 10 else chr(ord("a") + d - 10) for d in reversed(digits) or [0])
 
         source_name = self._format_base_name(source_base)
         target_name = self._format_base_name(target_base)
