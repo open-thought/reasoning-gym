@@ -47,6 +47,7 @@ This gallery shows examples from all available datasets using their default conf
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
+- [zebra_puzzles](#zebra_puzzles)
 
 ## Dataset Examples
 ### advanced_geometry
@@ -2021,8 +2022,8 @@ Generates word ladder transformation tasks
 
 Default configuration:
 ```python
-min_word_length = 3
-max_word_length = 5
+min_word_length = 4
+max_word_length = 4
 min_chain_length = -1
 max_chain_length = -1
 seed = 42
@@ -2032,19 +2033,19 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Transform the word 'CEILS' into 'ANIGH' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.
-Answer: CEILS,TEILS,TEINS,THINS,THIGS,THIGH,AHIGH,ANIGH
-Metadata: {'start_word': 'CEILS', 'end_word': 'ANIGH', 'word_length': 5, 'chain_length': 8}
+Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
+Answer: HAND,RAND,REND,REED,FEED,FLED,FLEE,GLEE
+Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8}
 
 Example 2:
-Question: Transform the word 'KAW' into 'EFS' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.
-Answer: KAW,KAS,EAS,EFS
-Metadata: {'start_word': 'KAW', 'end_word': 'EFS', 'word_length': 3, 'chain_length': 4}
+Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
+Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FARM,FORM,DORM
+Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10}
 
 Example 3:
-Question: Transform the word 'SAUT' into 'SKER' by changing one letter at a time. Each step must create a valid English word (including plurals) and keep the same word length. Show the sequence of words needed.
-Answer: SAUT,SHUT,SHET,SKET,SKER
-Metadata: {'start_word': 'SAUT', 'end_word': 'SKER', 'word_length': 4, 'chain_length': 5}
+Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
+Answer: SNOG,SNAG,SAAG,SANG,SUNG,SUNS,SUQS
+Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 
 ````
 
@@ -2111,6 +2112,84 @@ Question: Sort these words in ascending order (using ASCII/Unicode ordering) and
 violates, yes, already, completing, pages, duty, his, EXPRESS, duly
 Answer: EXPRESS, already, completing, duly, duty, his, pages, violates, yes
 Metadata: {'original_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'transformed_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['EXPRESS', 'already', 'completing', 'duly', 'duty', 'his', 'pages', 'violates', 'yes']}
+
+````
+
+### zebra_puzzles
+Generates [Zebra Puzzles](https://en.wikipedia.org/wiki/Zebra_Puzzle) with configurable parameters
+
+Default configuration:
+```python
+num_people = 4
+num_characteristics = 4
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
+ - Each person has a unique name: arnold, eric, alice, peter
+ - People use different phone models: samsung galaxy s21, iphone 13, google pixel 6, oneplus 9
+ - Each person has a favorite drink: tea, water, milk, coffee
+ - The people keep different animals: fish, cat, horse, bird
+
+1. The fish enthusiast is directly left of Alice.
+2. The cat lover is the person who uses a OnePlus 9.
+3. The tea drinker is Arnold.
+4. The person who uses an iPhone 13 is in the third house.
+5. The one who only drinks water is directly left of the cat lover.
+6. The fish enthusiast is the coffee drinker.
+7. Peter is the person who uses a Samsung Galaxy S21.
+8. The bird keeper is directly left of the tea drinker.
+9. The person who uses an iPhone 13 is the fish enthusiast.
+
+What is Name of the person who lives in House 1?
+Answer: peter
+Metadata: {'num_people': 4, 'num_characteristics': 4}
+
+Example 2:
+Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
+ - Each person has a unique name: alice, eric, arnold, peter
+ - Each mother is accompanied by their child: fred, samantha, meredith, bella
+ - The people are of nationalities: norwegian, swede, brit, dane
+ - Everyone has something different for lunch: grilled cheese, pizza, stew, spaghetti
+
+1. The person who loves the spaghetti eater is in the third house.
+2. The Dane is in the second house.
+3. Alice is in the first house.
+4. The person who loves eating grilled cheese is the person's child is named Bella.
+5. The person who is a pizza lover is directly left of the person's child is named Fred.
+6. The person who loves the stew is the person's child is named Fred.
+7. The person's child is named Bella is Arnold.
+8. The person's child is named Meredith is the British person.
+9. The Norwegian is Peter.
+
+What is Name of the person who lives in House 1?
+Answer: alice
+Metadata: {'num_people': 4, 'num_characteristics': 4}
+
+Example 3:
+Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
+ - Each person has a unique name: eric, alice, arnold, peter
+ - Everyone has a different favorite cigar: dunhill, prince, blue master, pall mall
+ - Everyone has something different for lunch: stew, pizza, grilled cheese, spaghetti
+ - Each person has a favorite color: red, white, green, yellow
+
+1. The person who loves eating grilled cheese is the person whose favorite color is red.
+2. Arnold is the person who loves yellow.
+3. The person who loves the spaghetti eater is the person who smokes Blue Master.
+4. The person partial to Pall Mall is Peter.
+5. The Dunhill smoker is directly left of the person partial to Pall Mall.
+6. The person who is a pizza lover is Eric.
+7. The person who is a pizza lover is in the fourth house.
+8. The person whose favorite color is green is in the first house.
+9. The person who loves yellow is in the second house.
+
+What is Name of the person who lives in House 1?
+Answer: alice
+Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 ````
 
