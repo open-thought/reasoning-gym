@@ -37,10 +37,6 @@ def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[Co
 
 
 def create_dataset(name: str, **kwargs) -> ProceduralDataset:
-
-
-# Register composite dataset
-register_dataset("composite", CompositeDataset, CompositeConfig)
     """
     Create a dataset instance by name with the given configuration.
 
@@ -53,6 +49,18 @@ register_dataset("composite", CompositeDataset, CompositeConfig)
     Raises:
         ValueError: If dataset not found or config type mismatch
     """
+    if name not in DATASETS:
+        raise ValueError(f"Dataset '{name}' not registered")
+
+    dataset_cls, config_cls = DATASETS[name]
+
+    conifg = config_cls(**kwargs)
+
+    return dataset_cls(config=conifg)
+
+
+# Register composite dataset
+register_dataset("composite", CompositeDataset, CompositeConfig)
     if name not in DATASETS:
         raise ValueError(f"Dataset '{name}' not registered")
 
