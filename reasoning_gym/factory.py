@@ -11,9 +11,6 @@ DatasetT = TypeVar("DatasetT", bound=ProceduralDataset)
 # Global registry of datasets
 DATASETS: Dict[str, tuple[Type[ProceduralDataset], Type]] = {}
 
-# Register composite dataset
-register_dataset("composite", CompositeDataset, CompositeConfig)
-
 
 def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[ConfigT]) -> None:
     """
@@ -40,6 +37,10 @@ def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[Co
 
 
 def create_dataset(name: str, **kwargs) -> ProceduralDataset:
+
+
+# Register composite dataset
+register_dataset("composite", CompositeDataset, CompositeConfig)
     """
     Create a dataset instance by name with the given configuration.
 
