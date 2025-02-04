@@ -2,6 +2,7 @@ from dataclasses import is_dataclass
 from typing import Dict, Type, TypeVar
 
 from .dataset import ProceduralDataset
+from .composite import CompositeDataset, CompositeConfig
 
 # Type variables for generic type hints
 ConfigT = TypeVar("ConfigT")
@@ -9,6 +10,9 @@ DatasetT = TypeVar("DatasetT", bound=ProceduralDataset)
 
 # Global registry of datasets
 DATASETS: Dict[str, tuple[Type[ProceduralDataset], Type]] = {}
+
+# Register composite dataset
+register_dataset("composite", CompositeDataset, CompositeConfig)
 
 
 def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[ConfigT]) -> None:
