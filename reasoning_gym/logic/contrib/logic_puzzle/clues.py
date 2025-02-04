@@ -44,6 +44,9 @@ class Clue(ABC):
     @abstractmethod
     def __repr__(self) -> str: ...
 
+    def __lt__(self, other) -> bool:
+        return str(self) < str(other)
+
 
 def comb(value: Literal, house: int) -> str:
     """Format how a value is shown at a given house"""

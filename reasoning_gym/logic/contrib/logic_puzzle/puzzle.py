@@ -113,7 +113,7 @@ class Puzzle:
         return self
 
     @contextmanager
-    def with_clues(self, clues: Iterable[Clue], remove_after=True) -> Generator[Puzzle]:
+    def with_clues(self, clues: Iterable[Clue]) -> Generator[Puzzle]:
         """Create a context in which this Puzzle temporarily has clues added to it"""
 
         clues = list(clues)  # so we don't accidentally exhaust the iterable
@@ -154,7 +154,10 @@ class Puzzle:
             s += f" - {desc}: " + ", ".join(e.name.replace("_", " ") for e in literals) + "\n"
 
         s += "\n"
-        s += "".join(f"{i + 1}. {clue}\n" for i, clue in enumerate(self.clues))
+        # generate deterministically shuffled order
+        clues = sorted(self.clues)
+        self.rng.shuffle(clues)
+        s += "".join(f"{i + 1}. {clue}\n" for i, clue in enumerate(clues))
         return s
 
 

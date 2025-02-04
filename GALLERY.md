@@ -19,6 +19,7 @@ This gallery shows examples from all available datasets using their default conf
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
 - [intermediate_integration](#intermediate_integration)
+- [largest_island](#largest_island)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
 - [letter_counting](#letter_counting)
@@ -34,7 +35,6 @@ This gallery shows examples from all available datasets using their default conf
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
-- [largest_island](#largest_island)
 - [rubiks_cube](#rubiks_cube)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
@@ -885,6 +885,92 @@ Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x'
 
 ````
 
+### largest_island
+Generates Largest Island exercises with configurable difficulty
+
+Default configuration:
+```python
+rows = 10
+cols = 10
+max_num_islands = 5
+max_island_size = 10
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 1 0 0 0 0 0 0
+1 1 0 1 0 0 0 0 0 1
+0 1 0 1 1 0 0 0 0 1
+0 1 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 1 1
+0 0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 1 0
+1 1 0 1 1 0 0 0 1 1
+1 1 1 1 1 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 10
+Metadata: {'grid': [[0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 1, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]], 'solution': 10}
+
+Example 2:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 0
+Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 0}
+
+Example 3:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+1 1 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 3
+Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 3}
+
+````
+
 ### lcm
 Generates Least Common Multiple (LCM) tasks
 
@@ -1550,93 +1636,6 @@ Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B'
 
 ````
 
-### largest_island
-
-Generate a grid with islands and find the largest one
-
-Default configuration:
-```python
-rows = 10
-cols = 10
-max_num_islands = 5
-max_island_size = 10
-```
-
-Example tasks:
-````
-Example 1:
-Question: You are given the following 10 x 10 binary matrix grid:
-0 0 0 1 0 0 0 0 0 0
-1 1 0 1 0 0 0 0 0 1
-0 1 0 1 1 0 0 0 0 1
-0 1 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 1 1
-0 0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 0 1 0
-1 1 0 1 1 0 0 0 1 1
-1 1 1 1 1 0 0 0 0 0
-
-An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
-You may assume all four edges of the grid are surrounded by water.
-
-The area of an island is the number of cells with a value 1 in the island.
-
-Return the maximum area of an island in grid. If there is no island, return 0.
-
-Answer: 10
-
-Metadata: {'grid': [[0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 1, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]], 'solution': 10}
-
-Example 2:
-Question: You are given the following 10 x 10 binary matrix grid:
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-
-An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
-You may assume all four edges of the grid are surrounded by water.
-
-The area of an island is the number of cells with a value 1 in the island.
-
-Return the maximum area of an island in grid. If there is no island, return 0.
-
-Answer: 0
-
-Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 0}
-
-Example 3:
-Question: You are given the following 10 x 10 binary matrix grid:
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-1 1 0 0 0 0 0 0 0 0
-1 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 1 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 0 0 0
-
-An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
-You may assume all four edges of the grid are surrounded by water.
-
-The area of an island is the number of cells with a value 1 in the island.
-
-Return the maximum area of an island in grid. If there is no island, return 0.
-
-Answer: 3
-
-Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 3}
-````
-
 ### rubiks_cube
 Generates RubiksCube tasks
 
@@ -2122,12 +2121,12 @@ Example tasks:
 ````
 Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
-Answer: HAND,BAND,BEND,FEND,FEED,FLED,FLEE,GLEE
+Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
 Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
-Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FARM,FORM,DORM
+Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
 Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10}
 
 Example 3:
@@ -2218,68 +2217,67 @@ Example tasks:
 ````
 Example 1:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: arnold, eric, alice, peter
- - People use different phone models: samsung galaxy s21, iphone 13, google pixel 6, oneplus 9
- - Each person has a favorite drink: tea, water, milk, coffee
- - The people keep different animals: fish, cat, horse, bird
+ - Each person has a unique name: carol, arnold, alice, bob
+ - People use different phone models: huawei p50, samsung galaxy s21, oneplus 9, google pixel 6
+ - Each person has a favorite drink: milk, boba tea, coffee, water
+ - The people keep different animals: bird, cat, fish, dog
 
-1. The tea drinker is in the second house.
-2. The person who uses an iPhone 13 is in the third house.
-3. Peter and the person who uses a OnePlus 9 are next to each other.
-4. Arnold is in the second house.
-5. Peter and the cat lover are next to each other.
-6. The person who uses a Google Pixel 6 is the person who likes milk.
-7. Alice is the person who likes milk.
-8. The fish enthusiast is in the third house.
-9. The coffee drinker and Alice are next to each other.
-10. Peter is the bird keeper.
+1. Alice is the cat lover.
+2. The person who likes milk is in the third house.
+3. The person who uses a Huawei P50 is Bob.
+4. The one who only drinks water is the bird keeper.
+5. The cat lover is in the second house.
+6. The boba tea drinker is the dog owner.
+7. The person who uses a Google Pixel 6 is directly left of Carol.
+8. The one who only drinks water is Carol.
+9. Carol is the person who uses a OnePlus 9.
 
 What is Name of the person who lives in House 1?
-Answer: peter
+Answer: bob
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 2:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: alice, eric, arnold, peter
- - Each mother is accompanied by their child: fred, samantha, meredith, bella
- - The people are of nationalities: norwegian, swede, brit, dane
- - Everyone has something different for lunch: grilled cheese, pizza, stew, spaghetti
+ - Each person has a unique name: alice, bob, arnold, carol
+ - Each mother is accompanied by their child: alice, bella, billy, timothy
+ - The people are of nationalities: brit, german, chinese, dane
+ - Everyone has something different for lunch: soup, stir fry, grilled cheese, pizza
 
-1. The Norwegian is Peter.
-2. The person's child is named Meredith and the person's child is named Fred are next to each other.
-3. Peter and the Swedish person are next to each other.
-4. Eric is directly left of the person's child is named Samantha.
-5. The person who loves the spaghetti eater is directly left of the person's child is named Bella.
-6. The person's child is named Fred is the person who loves the stew.
-7. The person who is a pizza lover is the person's child is named Meredith.
-8. The Dane is Eric.
-9. The person who loves the stew and Peter are next to each other.
-10. The person's child is named Samantha and Arnold are next to each other.
+1. The British person is Arnold.
+2. The person's child is named Alice is directly left of the person who loves the soup.
+3. The person who loves stir fry is the person's child is named Bella.
+4. The Chinese is Carol.
+5. The German is the person's child is named Bella.
+6. The person's child is named Bella is Bob.
+7. The person who loves the soup is in the second house.
+8. The person who loves the soup is the British person.
+9. The person's child is named Alice is Carol.
+10. The British person is directly left of the German.
+11. The person who is the mother of Billy is the person who is a pizza lover.
 
 What is Name of the person who lives in House 1?
-Answer: alice
+Answer: carol
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 3:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: alice, peter, eric, arnold
- - Everyone has a different favorite cigar: prince, dunhill, pall mall, blue master
- - Everyone has something different for lunch: stew, pizza, spaghetti, grilled cheese
- - Each person has a favorite color: green, red, yellow, white
+ - Each person has a unique name: alice, arnold, bob, carol
+ - Everyone has a different favorite cigar: pall mall, dunhill, blue master, prince
+ - Everyone has something different for lunch: stir fry, grilled cheese, soup, pizza
+ - Each person has a favorite color: blue, purple, brown, white
 
-1. The person who smokes Blue Master is in the first house.
-2. The person who loves yellow and the person whose favorite color is red are next to each other.
-3. The Dunhill smoker is the person who loves yellow.
-4. Peter is directly left of the person who is a pizza lover.
-5. The person who loves the spaghetti eater and the Dunhill smoker are next to each other.
-6. The person whose favorite color is red is the person who loves eating grilled cheese.
-7. The person who loves yellow is Arnold.
-8. The person who loves eating grilled cheese and the Prince smoker are next to each other.
-9. The person who loves white is the person who is a pizza lover.
-10. Eric is the person who loves white.
+1. The person who loves white is the person who loves stir fry.
+2. The person who loves brown is directly left of the Prince smoker.
+3. The person who is a pizza lover and Arnold are next to each other.
+4. The person partial to Pall Mall is the person who loves white.
+5. Alice is the person who loves the soup.
+6. The person partial to Pall Mall is directly left of the person who loves the soup.
+7. The person who smokes Blue Master is directly left of the Dunhill smoker.
+8. The Dunhill smoker is Bob.
+9. The person who loves the soup is the person who loves blue.
 
 What is Name of the person who lives in House 1?
-Answer: alice
+Answer: carol
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 ````

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S PYTHONHASHSEED=1 python3
 """Generate a markdown gallery of all available datasets with examples"""
 
 import textwrap
