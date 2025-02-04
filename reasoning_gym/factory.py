@@ -2,7 +2,6 @@ from dataclasses import is_dataclass
 from typing import Dict, Type, TypeVar
 
 from .dataset import ProceduralDataset
-from .composite import CompositeDataset, CompositeConfig
 
 # Type variables for generic type hints
 ConfigT = TypeVar("ConfigT")
@@ -54,18 +53,6 @@ def create_dataset(name: str, **kwargs) -> ProceduralDataset:
 
     dataset_cls, config_cls = DATASETS[name]
 
-    conifg = config_cls(**kwargs)
+    config = config_cls(**kwargs)
 
-    return dataset_cls(config=conifg)
-
-
-# Register composite dataset
-register_dataset("composite", CompositeDataset, CompositeConfig)
-    if name not in DATASETS:
-        raise ValueError(f"Dataset '{name}' not registered")
-
-    dataset_cls, config_cls = DATASETS[name]
-
-    conifg = config_cls(**kwargs)
-
-    return dataset_cls(config=conifg)
+    return dataset_cls(config=config)
