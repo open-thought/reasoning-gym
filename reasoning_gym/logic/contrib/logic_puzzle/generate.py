@@ -4,6 +4,7 @@ puzzle_generator.py
 This is a driver script that can be used to generate new zebra puzzles.
 """
 
+from collections import OrderedDict
 from itertools import product
 from random import Random
 from typing import Dict, Iterable, List, Set, Tuple, Type
@@ -17,7 +18,7 @@ from reasoning_gym.logic.contrib.logic_puzzle.sat_utils import itersolve
 from .clues import Clue, beside, consecutive, found_at, left_of, not_at, one_between, right_of, same_house, two_between
 
 
-def generate_found_at(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
+def generate_found_at(puzzle: Puzzle, solution: OrderedDict[Literal, int]) -> Set[Clue]:
     """Generate the `found_at` / `not_at` Clue instances"""
     clues: Set[Clue] = set()
     for element, loc in solution.items():
@@ -26,18 +27,7 @@ def generate_found_at(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]
     return clues
 
 
-def generate_not_found_at(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
-    """Generate the `found_at` / `not_at` Clue instances"""
-    clues: Set[Clue] = set()
-    for element, loc in solution.items():
-        for house in puzzle.houses:
-            if house != loc:
-                clues.add(not_at(element, house))
-
-    return clues
-
-
-def generate_same_house(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
+def generate_same_house(puzzle: Puzzle, solution: OrderedDict[Literal, int]) -> Set[Clue]:
     """Generate the `same_house` Clue instances"""
 
     clues: Set[Clue] = set()
@@ -52,7 +42,7 @@ def generate_same_house(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clu
     return clues
 
 
-def generate_consecutive_beside(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
+def generate_consecutive_beside(puzzle: Puzzle, solution: OrderedDict[Literal, int]) -> Set[Clue]:
     """Generate the `consecutive` / `beside` Clue instances
 
     (Note that consecutive is just a more informative version of beside. Since they have the same
@@ -64,7 +54,7 @@ def generate_consecutive_beside(puzzle: Puzzle, solution: Dict[Literal, int]) ->
         items_left = {item: loc for item, loc in solution.items() if loc == left}
         items_right = {item: loc for item, loc in solution.items() if loc == right}
         pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
-        for pair in pairs:
+        for pair in sorted(pairs):
             # consecutive is just a more informative version of beside, but they have same structure
             # because of this, don't include both
             if puzzle.rng.randint(0, 1) == 0:
@@ -75,59 +65,7 @@ def generate_consecutive_beside(puzzle: Puzzle, solution: Dict[Literal, int]) ->
     return clues
 
 
-def generate_left_right_of(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
-    """Generate the `left_of` / `right_of` Clue instances
-
-    Note that since (x left-of y) is guaranteed to be redundant with (b right-of a), we only add
-    one of these clues to the final set.
-    """
-
-    clues: Set[Clue] = set()
-    for left, right in product(puzzle.houses, puzzle.houses):
-        if left >= right:
-            continue
-
-        items_left = {item: loc for item, loc in solution.items() if loc == left}
-        items_right = {item: loc for item, loc in solution.items() if loc == right}
-        pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
-        for pair in pairs:
-            if puzzle.rng.randint(0, 1) == 0:
-                clues.add(left_of(pair[0], pair[1], puzzle.houses))
-            else:
-                clues.add(right_of(pair[1], pair[0], puzzle.houses))
-
-    return clues
-
-
-def generate_one_between(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
-    """Generate the `one_between` Clue instances"""
-
-    clues: Set[Clue] = set()
-    for left, right in zip(puzzle.houses, puzzle.houses[2:]):
-        items_left = {item: loc for item, loc in solution.items() if loc == left}
-        items_right = {item: loc for item, loc in solution.items() if loc == right}
-        pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
-        for pair in pairs:
-            clues.add(one_between(pair[0], pair[1], puzzle.houses))
-
-    return clues
-
-
-def generate_two_between(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
-    """Generate the `two_between` Clue instances"""
-
-    clues: Set[Clue] = set()
-    for left, right in zip(puzzle.houses, puzzle.houses[3:]):
-        items_left = {item: loc for item, loc in solution.items() if loc == left}
-        items_right = {item: loc for item, loc in solution.items() if loc == right}
-        pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
-        for pair in pairs:
-            clues.add(two_between(pair[0], pair[1], puzzle.houses))
-
-    return clues
-
-
-def has_unique_solution(puzzle: Puzzle, clues: Iterable[Clue], remove_after=False) -> bool:
+def has_unique_solution(puzzle: Puzzle, clues: Iterable[Clue], remove_after: bool = False) -> bool:
     """Test if a puzzle has a unique solution under a given set of clues."""
 
     with puzzle.with_clues(clues, remove_after=remove_after):
@@ -163,8 +101,8 @@ def try_to_remove(puzzle: Puzzle, clues: Set[Clue], n: int, must_have=set()) -> 
 
         return weights.get(type(clue), 1)
 
-    weights = [weight(clue) for clue in clues]
-    candidates: Set[Clue] = set(puzzle.rng.choices(list(clues), weights, k=n))
+    weights = [weight(clue) for clue in sorted(clues)]
+    candidates: Set[Clue] = set(puzzle.rng.choices(sorted(clues), weights, k=n))
     candidates = candidates - must_have
     clues = clues.difference(candidates)
     if has_unique_solution(puzzle, clues):
@@ -186,7 +124,7 @@ def reduce_individually(
     and added to `removed`. If no clues can be removed, we return the original two sets.
     """
 
-    candidates = set(puzzle.rng.sample(list(clues), len(clues)))
+    candidates = puzzle.rng.sample(sorted(clues), len(clues))
     for clue in candidates:
         if clue not in must_have:
             clues.remove(clue)
@@ -301,12 +239,12 @@ def question_generation(rng: Random, col_name, table_data):
     return questions_data
 
 
-def generate_solution_dict(rng: Random, selected_elements: List[Literal], n: int) -> Dict[Literal, int]:
-    solution = {}
+def generate_solution_dict(rng: Random, selected_elements: List[Literal], n: int) -> OrderedDict[Literal, int]:
+    solution = OrderedDict()
     house_ids = list(range(1, n + 1))
     for element in selected_elements:
         rng.shuffle(house_ids)
-        attributes: List[Literal] = list(element.__members__.values())
+        attributes: List[Literal] = sorted(element.__members__.values())
         for i in range(n):
             solution[attributes[i]] = house_ids[i]
     return solution
@@ -314,11 +252,11 @@ def generate_solution_dict(rng: Random, selected_elements: List[Literal], n: int
 
 def wrap_up_dict(rng: Random, random_elements, solution, puzzle, reduced, extra_clues, context, K, M):
     col_names = [e.__name__ for e in random_elements]
-    house_data = {}
+    house_data = OrderedDict()
     for item, house in solution.items():
         element_name, attrname = str(item).split(".")
         if house not in house_data:
-            house_data[house] = {}
+            house_data[house] = OrderedDict()
         house_data[house][element_name] = attrname
     table_data = []
     for i in range(1, len(house_data) + 1):
@@ -333,7 +271,7 @@ def wrap_up_dict(rng: Random, random_elements, solution, puzzle, reduced, extra_
 
     ## Generate multiple-choice questions
     q_data = question_generation(rng, col_names, table_data)
-    all_in_one = {}
+    all_in_one = OrderedDict()
     all_in_one["size"] = f"{K}*{M}"
     all_in_one["puzzle_context"] = context
     all_in_one["core_rules"] = [str(clue) for clue in reduced]
@@ -342,7 +280,9 @@ def wrap_up_dict(rng: Random, random_elements, solution, puzzle, reduced, extra_
     all_in_one["extra_rules_types"] = [str(type(clue)) for clue in extra_clues]
     all_in_one["puzzle"] = str(puzzle)
     all_in_one["questions"] = q_data
-    all_in_one["solution"] = {"table_str": table, "table_rows": table_data, "table_header": col_names}
+    all_in_one["solution"] = OrderedDict(
+        (("table_str", table), ("table_rows", table_data), ("table_header", col_names))
+    )
     return all_in_one
 
 
