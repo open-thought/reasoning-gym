@@ -113,10 +113,10 @@ class Puzzle:
         return self
 
     @contextmanager
-    def with_clues(self, clues: Iterable[Clue], remove_after=True) -> Generator[Puzzle]:
+    def with_clues(self, clues: Iterable[Clue]) -> Generator[Puzzle]:
         """Create a context in which this Puzzle temporarily has clues added to it"""
 
-        clues = sorted(clues)  # so we don't accidentally exhaust the iterable
+        clues = list(clues)  # so we don't accidentally exhaust the iterable
         empty_clue = len(self.clues) == 0
         for clue in clues:
             self.add_clue(clue)
@@ -133,7 +133,7 @@ class Puzzle:
 
         # this would be a comprehension if we could use iterable unpacking
         cnf = []
-        for clue in sorted(self.clues):
+        for clue in self.clues:
             cnf.extend(clue.as_cnf())
 
         cnf.extend(self.constraints)

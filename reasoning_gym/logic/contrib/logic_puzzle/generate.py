@@ -27,6 +27,17 @@ def generate_found_at(puzzle: Puzzle, solution: OrderedDict[Literal, int]) -> Se
     return clues
 
 
+def generate_not_found_at(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
+    """Generate the `found_at` / `not_at` Clue instances"""
+    clues: Set[Clue] = set()
+    for element, loc in solution.items():
+        for house in puzzle.houses:
+            if house != loc:
+                clues.add(not_at(element, house))
+
+    return clues
+
+
 def generate_same_house(puzzle: Puzzle, solution: OrderedDict[Literal, int]) -> Set[Clue]:
     """Generate the `same_house` Clue instances"""
 
@@ -54,6 +65,7 @@ def generate_consecutive_beside(puzzle: Puzzle, solution: OrderedDict[Literal, i
         items_left = {item: loc for item, loc in solution.items() if loc == left}
         items_right = {item: loc for item, loc in solution.items() if loc == right}
         pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
+        # sorted, no hash randomization
         for pair in sorted(pairs):
             # consecutive is just a more informative version of beside, but they have same structure
             # because of this, don't include both
@@ -65,10 +77,62 @@ def generate_consecutive_beside(puzzle: Puzzle, solution: OrderedDict[Literal, i
     return clues
 
 
-def has_unique_solution(puzzle: Puzzle, clues: Iterable[Clue], remove_after: bool = False) -> bool:
+def generate_left_right_of(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
+    """Generate the `left_of` / `right_of` Clue instances
+    Note that since (x left-of y) is guaranteed to be redundant with (b right-of a), we only add
+    one of these clues to the final set.
+    """
+
+    clues: Set[Clue] = set()
+    for left, right in product(puzzle.houses, puzzle.houses):
+        if left >= right:
+            continue
+
+        items_left = {item: loc for item, loc in solution.items() if loc == left}
+        items_right = {item: loc for item, loc in solution.items() if loc == right}
+        pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
+        # sorted, no hash randomization
+        for pair in sorted(pairs):
+            if puzzle.rng.randint(0, 1) == 0:
+                clues.add(left_of(pair[0], pair[1], puzzle.houses))
+            else:
+                clues.add(right_of(pair[1], pair[0], puzzle.houses))
+
+    return clues
+
+
+def generate_one_between(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
+    """Generate the `one_between` Clue instances"""
+
+    clues: Set[Clue] = set()
+    for left, right in zip(puzzle.houses, puzzle.houses[2:]):
+        items_left = {item: loc for item, loc in solution.items() if loc == left}
+        items_right = {item: loc for item, loc in solution.items() if loc == right}
+        pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
+        for pair in pairs:
+            clues.add(one_between(pair[0], pair[1], puzzle.houses))
+
+    return clues
+
+
+def generate_two_between(puzzle: Puzzle, solution: Dict[Literal, int]) -> Set[Clue]:
+    """Generate the `two_between` Clue instances"""
+
+    clues: Set[Clue] = set()
+    for left, right in zip(puzzle.houses, puzzle.houses[3:]):
+        items_left = {item: loc for item, loc in solution.items() if loc == left}
+        items_right = {item: loc for item, loc in solution.items() if loc == right}
+        pairs: Set[Tuple[Literal, Literal]] = {(item1, item2) for item1, item2 in product(items_left, items_right)}
+        for pair in pairs:
+            clues.add(two_between(pair[0], pair[1], puzzle.houses))
+
+    return clues
+
+
+def has_unique_solution(puzzle: Puzzle, clues: Iterable[Clue]) -> bool:
     """Test if a puzzle has a unique solution under a given set of clues."""
 
-    with puzzle.with_clues(clues, remove_after=remove_after):
+    with puzzle.with_clues(clues):
         # print(f"Testing puzzle with {len(puzzle.clues)} clues")
         solutions = itersolve(puzzle.as_cnf())
         _first_solution = next(solutions)
@@ -101,6 +165,7 @@ def try_to_remove(puzzle: Puzzle, clues: Set[Clue], n: int, must_have=set()) -> 
 
         return weights.get(type(clue), 1)
 
+    # sorted, no hash randomization
     weights = [weight(clue) for clue in sorted(clues)]
     candidates: Set[Clue] = set(puzzle.rng.choices(sorted(clues), weights, k=n))
     candidates = candidates - must_have
@@ -286,14 +351,14 @@ def wrap_up_dict(rng: Random, random_elements, solution, puzzle, reduced, extra_
     return all_in_one
 
 
-def check_correctness(p):
+def check_correctness(p: Puzzle) -> bool:
     solutions = itersolve(p.as_cnf())
     _first_solution = next(solutions)
     solution_set = [f"{str(k)} {v}" for k, v in p.solution.items()]
     return set(solution_set) == set(_first_solution)
 
 
-def generate_puzzle(rng: Random, K=2, M=3):
+def generate_puzzle(rng: Random, K=2, M=3) -> tuple[OrderedDict, Puzzle]:
     elements = [Color, Nationality, Animal, Drink, Cigar, Food, Flower, PhoneModel, Children, Smoothie]
     clue_types = [
         generate_found_at,
@@ -322,7 +387,7 @@ def generate_puzzle(rng: Random, K=2, M=3):
     for clue in reduced:
         puzzle.add_clue(clue)
 
-    assert has_unique_solution(puzzle, puzzle.clues, remove_after=False)
+    assert has_unique_solution(puzzle, puzzle.clues)
     assert check_correctness(puzzle)
     all_in_one = wrap_up_dict(rng, random_elements, solution, puzzle, reduced, extra_clues, context, K, M)
     return all_in_one, puzzle
