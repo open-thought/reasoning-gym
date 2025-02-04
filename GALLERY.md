@@ -20,6 +20,7 @@ This gallery shows examples from all available datasets using their default conf
 - [gcd](#gcd)
 - [intermediate_integration](#intermediate_integration)
 - [largest_island](#largest_island)
+- [course_schedule](#course_schedule)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
 - [letter_counting](#letter_counting)
@@ -969,6 +970,64 @@ Return the maximum area of an island in grid. If there is no island, return 0.
 Answer: 3
 Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 3}
 
+````
+
+### course_schedule
+
+Generates course schedule exercises, and checks if the given course schedule is valid
+
+Default configuration:
+```python
+num_courses = 5
+max_num_prerequisites = 2
+p_solvable = 0.5
+min_cycle_length = 3
+max_cycle_length = 5
+```
+
+Example tasks:
+````
+Example 1:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i first if you want to take course a_i:
+[(2, 1), (4, 2), (4, 3), (2, 3)]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: True
+
+Metadata: {'courses': [3, 1, 2, 4, 0], 'prerequisites': [(2, 1), (4, 2), (4, 3), (2, 3)], 'solution': True, 'solvable': True}
+
+--------------------------------------------------
+
+Example 2:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i first if you want to take course a_i:
+[(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: False
+
+Metadata: {'courses': [1, 4, 3, 2, 0], 'prerequisites': [(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)], 'solution': False, 'solvable': False}
+
+--------------------------------------------------
+
+Example 3:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i first if you want to take course a_i:
+[]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: True
+
+Metadata: {'courses': [2, 1, 4, 0, 3], 'prerequisites': [], 'solution': True, 'solvable': True}
+
+--------------------------------------------------
 ````
 
 ### lcm
