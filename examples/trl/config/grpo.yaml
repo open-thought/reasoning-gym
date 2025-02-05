@@ -7,13 +7,11 @@ dataset_name: chain_sum
 
 #training arguments
 bf16: true
-use_vllm: true
-vllm_device: auto
 gradient_accumulation_steps: 16
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
       use_reentrant: false
-hub_model_id:
+hub_model_id: 
 seed: 42
 eval_seed: 101
 log_level: info
@@ -34,6 +32,6 @@ num_train_epochs: 1
 max_steps: -1
 push_to_hub: true
 report_to: ['wandb']
-do_eval: true
-eval_strategy: steps
-eval_steps: 100
+#do_eval: true
+#eval_strategy: steps
+#eval_steps: 100

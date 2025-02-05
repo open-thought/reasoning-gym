@@ -11,6 +11,8 @@ from torch.utils.data import Dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 from transformers.trainer_utils import get_last_checkpoint
 from trl import GRPOConfig, GRPOTrainer, ModelConfig, ScriptArguments, TrlParser
+from dataclasses import dataclass
+from typing import Optional
 
 import reasoning_gym
 from reasoning_gym.utils import extract_answer
@@ -38,7 +40,7 @@ class ReasoningGymDataset(Dataset):
         chat.append({"role": "user", "content": question})
 
         prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
-        return prompt, metadata
+        return {'prompt': prompt, 'metadata': metadata}
 
 
 class GRPOTrainerCustom(GRPOTrainer):
@@ -53,20 +55,23 @@ class GRPOTrainerCustom(GRPOTrainer):
         size,
         developer_role="system",
     ):
-        super().__init__(model, args, processing_class=tokenizer, peft_config=peft_config)
-        self.reward_funcs = [self._format_reward, self._accuracy_reward]
-        developer_prompt = reasoning_gym.utils.SYSTEM_PROMPT["DeepSeekZero"]
+        super().__init__(model, reward_funcs=[self._accuracy_reward, self._format_reward], args=args, processing_class=tokenizer, peft_config=peft_config)
+        developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
         self.train_dataset = ReasoningGymDataset(dataset_name, seed1, size, tokenizer, developer_prompt, developer_role)
 
     def _format_reward(self, completions, **kwargs):
-        pattern = r"^<reasoning>.*?</reasoning><answer>.*?</answer>$"
-        completion_contents = [completion[0]["content"] for completion in completions]
-        matches = [re.match(pattern, completion) for completion in completion_contents]
+        pattern = r"^<think>.*?</think><answer>.*?</answer>$"
+        print('Format reward')
+        print(completions)
+        matches = [re.match(pattern, completion) for completion in completions]
+        print(matches)
         return [1.0 if match else 0.0 for match in matches]
 
     def _accuracy_reward(self, completions, metadata, **kwargs):
+        print('Accuracy reward')
         answers = [extract_answer(completion) for completion in completions]
-        return [self.train_dataset.data.score_answer(answer, entry=metadata) for answer in answers]
+        print(answers)
+        return [self.train_dataset.data.score_answer(answer, entry=obj) for (answer, obj) in zip(answers, metadata)]
 
 
 def main(script_args, training_args, model_args):
@@ -78,7 +83,7 @@ def main(script_args, training_args, model_args):
         handlers=[logging.StreamHandler(sys.stdout)],
     )
 
-    logger = logging.getLogger(__name__)  # <-- ADD THIS FIRST
+    logger = logging.getLogger(__name__) 
 
     log_level = training_args.get_process_log_level()
     logger.setLevel(log_level)  # Set for module-level logger
@@ -100,7 +105,7 @@ def main(script_args, training_args, model_args):
         logger.info(f"Checkpoint detected, resuming training at {last_checkpoint=}.")
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_args.model_name_or_path, torch_dtype=torch.bfloat16, attn_implementation="flash_attention_2"
+        model_args.model_name_or_path, torch_dtype=torch.bfloat16
     ).to("cuda")
     tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path)
 
@@ -119,7 +124,7 @@ def main(script_args, training_args, model_args):
         tokenizer=tokenizer,
         peft_config=peft_config,
         seed1=training_args.seed,
-        size=training_args.max_train_samples,
+        size=1000,
     )
 
     # Training loop
@@ -178,9 +183,9 @@ def main(script_args, training_args, model_args):
     eval_dataset = ReasoningGymDataset(
         script_args.dataset_name,
         training_args.eval_seed,
-        training_args.max_eval_samples,
+        500,
         tokenizer,
-        reasoning_gym.utils.SYSTEM_PROMPT["DeepSeekZero"],
+        reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"],
     )
 
     eval_results = evaluate_model(model, tokenizer, eval_dataset)
