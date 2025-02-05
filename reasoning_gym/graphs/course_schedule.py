@@ -16,7 +16,7 @@ MAX_NUM_COURSES = 1_000
 
 QUESTION_TEMPLATE = """There are a total of {num_courses} courses you have to take, labeled from 0 to {last_index}.
 
-You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i first if you want to take course a_i:
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
 {prerequisites}
 
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
