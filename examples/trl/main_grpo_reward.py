@@ -61,16 +61,11 @@ class GRPOTrainerCustom(GRPOTrainer):
 
     def _format_reward(self, completions, **kwargs):
         pattern = r"^<think>.*?</think><answer>.*?</answer>$"
-        print('Format reward')
-        print(completions)
         matches = [re.match(pattern, completion) for completion in completions]
-        print(matches)
         return [1.0 if match else 0.0 for match in matches]
 
     def _accuracy_reward(self, completions, metadata, **kwargs):
-        print('Accuracy reward')
         answers = [extract_answer(completion) for completion in completions]
-        print(answers)
         return [self.train_dataset.data.score_answer(answer, entry=obj) for (answer, obj) in zip(answers, metadata)]
 
 
