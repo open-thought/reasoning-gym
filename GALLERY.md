@@ -46,6 +46,7 @@ This gallery shows examples from all available datasets using their default conf
 - [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
+- [group_anagrams](#group_anagrams)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 - [zebra_puzzles](#zebra_puzzles)
@@ -2135,6 +2136,85 @@ Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 
 ````
+
+
+### group_anagrams
+
+Group anagrams together in a list of words. 
+
+Default configuration
+```python
+anagram_groups: int = 10  # Groups of anagrams present in the input
+max_words_per_group: int = 5  # Maximum number of words in a single anagram group
+```
+
+Example tasks:
+```
+Example 1:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
+
+Answer: [["applauders", "suprapedal"], ["argonon"], ["autosight", "outasight"], ["canny", "nancy"], ["conterminal"], ["ditas"], ["merocyte"], ["oversauciness"], ["palinodist"], ["tinglers"]]
+
+Metadata: {'words': ['tinglers', 'argonon', 'ditas', 'palinodist', 'merocyte', 'conterminal', 'canny', 'nancy', 'outasight', 'autosight', 'oversauciness', 'applauders', 'suprapedal'], 'solution': [['applauders', 'suprapedal'], ['argonon'], ['autosight', 'outasight'], ['canny', 'nancy'], ['conterminal'], ['ditas'], ['merocyte'], ['oversauciness'], ['palinodist'], ['tinglers']]}
+
+--------------------------------------------------
+
+Example 2:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
+
+Answer: [["coders", "credos", "decors", "escrod", "scored"], ["expatiater"], ["meningomyelocele", "myelomeningocele"], ["muriates", "semitaur"], ["naivest", "natives", "vainest"], ["peripterous"], ["preludes", "repulsed"], ["regear"], ["wooled"], ["zanies"]]
+
+Metadata: {'words': ['regear', 'escrod', 'coders', 'decors', 'credos', 'scored', 'semitaur', 'muriates', 'peripterous', 'zanies', 'expatiater', 'wooled', 'meningomyelocele', 'myelomeningocele', 'vainest', 'natives', 'naivest', 'preludes', 'repulsed'], 'solution': [['coders', 'credos', 'decors', 'escrod', 'scored'], ['expatiater'], ['meningomyelocele', 'myelomeningocele'], ['muriates', 'semitaur'], ['naivest', 'natives', 'vainest'], ['peripterous'], ['preludes', 'repulsed'], ['regear'], ['wooled'], ['zanies']]}
+
+--------------------------------------------------
+
+Example 3:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
+
+Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
+
+Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
+
+--------------------------------------------------
+```
+
+
 
 ### word_sequence_reversal
 Generates word sequence reversal tasks from text spans
