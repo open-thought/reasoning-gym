@@ -81,9 +81,12 @@ class GroupAnagramsDataset(ProceduralDataset):
         return words
 
     def _sort_nested_list(self, lst: list[list[str]]) -> list[list[str]]:
+        """Sort a nested list of strings"""
         return sorted([sorted(sublist) for sublist in lst], key=lambda x: x[0] if x else "")
 
     def _group_anagrams(self, words: list[str]) -> list[list[str]]:
+        """Group anagrams together"""
+
         def _codify(word):
             code = [0] * 26
             for c in word:
@@ -99,6 +102,7 @@ class GroupAnagramsDataset(ProceduralDataset):
         return self._sort_nested_list(anagrams)
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        """Score a single Group Anagrams question"""
         reward = 0
         if answer is not None:
             answer = json.loads(answer)
