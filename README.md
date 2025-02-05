@@ -84,6 +84,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `LegCountingDataset`: Generate animal leg counting word problems with various animals
 - `PrimeFactorizationDataset`: Generate prime factorization tasks with configurable number ranges
 - `TimeIntervalsDataset`: Generate time interval calculation tasks with various formats (time, date, datetime) and complexities
+- `ComplexArithmeticDataset`: Generate complex arithmetic problems with configurable number of integers
 
 ### <small>Algorithmic Tasks</small>
 

@@ -2,7 +2,7 @@ from .intermediate_integration import IntermediateIntegrationConfig, Intermediat
 from .polynomial_equations import PolynomialEquationsConfig, PolynomialEquationsDataset
 from .simple_equations import SimpleEquationsConfig, SimpleEquationsDataset
 from .simple_integration import SimpleIntegrationConfig, SimpleIntegrationDataset
-
+from .complex_arithmetic import ComplexArithmeticConfig, ComplexArithmeticDataset
 __all__ = [
     "IntermediateIntegrationConfig",
     "IntermediateIntegrationDataset",
@@ -12,4 +12,6 @@ __all__ = [
     "SimpleEquationsConfig",
     "SimpleIntegrationConfig",
     "SimpleIntegrationDataset",
+    "ComplexArithmeticConfig",
+    "ComplexArithmeticDataset",
 ]
