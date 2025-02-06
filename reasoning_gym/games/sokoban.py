@@ -1,3 +1,5 @@
+# Leave this in to avoid CLI trash
+import os
 from dataclasses import dataclass
 from io import StringIO
 from random import Random
@@ -5,8 +7,6 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
-# Leave this in to avoid CLI trash
-import os
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 
 from ..factory import ProceduralDataset, register_dataset
