@@ -126,6 +126,12 @@ class ScoreBoard:
         self.metadata.append(metadata)
         self.conversations.append(conversation)
 
+    def clear(self) -> None:
+        """Clear all stored scores, metadata and conversations"""
+        self.scores.clear()
+        self.metadata.clear()
+        self.conversations.clear()
+
     def _metadata_to_key(self, metadata: Dict[str, Any]) -> Tuple[Tuple[str, Any], ...]:
         """Convert metadata dict to tuple of key-value pairs, sorted by key
         

@@ -98,6 +98,13 @@ def test_coach_with_chain_sum():
     print(aggregated)
     print(stats)
 
+    # Test clear functionality
+    coach.score_board.clear()
+    assert len(coach.score_board.scores) == 0
+    assert len(coach.score_board.metadata) == 0
+    assert len(coach.score_board.conversations) == 0
+    assert len(coach.score_board.aggregate().scores) == 0
+
 
 def test_coach_with_composite():
     # Create configs for both datasets
