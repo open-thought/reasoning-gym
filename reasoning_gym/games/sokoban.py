@@ -55,10 +55,9 @@ class SokobanDataset(ProceduralDataset):
                 - answer: str, a solution string
                 - metadata: dict with generation parameters
         """
-        # rng = Random(self.seed + idx)
 
         # Make the Sokoban!
-        (game, matrix, gamestr) = generate(seed=self.seed + idx + 1)
+        (game, matrix, gamestr) = generate(seed=self.seed + idx)
 
         # Solve the puzzle
         grid_list = [list(line) for line in gamestr.replace(" ", "").strip().split("\n")]
@@ -101,18 +100,21 @@ Here is your puzzle:
         if answer == None:
             return 0.0
 
-        grid_list = [list(line) for line in entry["metadata"]["gamestr"].replace(" ", "").strip().split("\n")]
-        matrix = np.array(grid_list)
-        state = get_state(matrix)
+        try:
+            grid_list = [list(line) for line in entry["metadata"]["gamestr"].replace(" ", "").strip().split("\n")]
+            matrix = np.array(grid_list)
+            state = get_state(matrix)
 
-        game = Game()
-        game.load_puzzle_matrix(matrix)
+            game = Game()
+            game.load_puzzle_matrix(matrix)
 
-        for move in answer:
-            game.player.update(key=move)
+            for move in answer:
+                game.player.update(key=move)
 
-        if is_solved(game.get_curr_state()):
-            return 1.0
+            if is_solved(game.get_curr_state()):
+                return 1.0
+        except Exception as e:
+            return 0.01
 
         return 0.1
 
