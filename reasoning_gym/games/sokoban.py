@@ -1,16 +1,16 @@
 from dataclasses import dataclass
+from io import StringIO
 from random import Random
 from typing import Dict, List, Optional, Tuple
 
-from .contrib.sokoban.src.generator import generate
-from .contrib.sokoban.src.astar import solve_astar
-from .contrib.sokoban.src.game import Game
-from .contrib.sokoban.src.utils import get_state, is_solved
+import numpy as np
 
 from ..factory import ProceduralDataset, register_dataset
+from .contrib.sokoban.src.astar import solve_astar
+from .contrib.sokoban.src.game import Game
+from .contrib.sokoban.src.generator import generate
+from .contrib.sokoban.src.utils import get_state, is_solved
 
-import numpy as np
-from io import StringIO
 
 @dataclass
 class SokobanConfig:
@@ -18,18 +18,19 @@ class SokobanConfig:
 
     seed: Optional[int] = None
     size: int = 500
-    min_w: int = 6 # Minimum width of the puzzle.
-    min_h: int = 6 # Minimum height of the puzzle.
-    max_w: int = 10 # Maximum width of the puzzle.
-    max_h: int = 10 # Maximum height of the puzzle.
-    min_boxes: int = 6 # Minimum number of boxes.
-    max_boxes: int = 10  #Maximum number of boxes.
+    min_w: int = 6  # Minimum width of the puzzle.
+    min_h: int = 6  # Minimum height of the puzzle.
+    max_w: int = 10  # Maximum width of the puzzle.
+    max_h: int = 10  # Maximum height of the puzzle.
+    min_boxes: int = 6  # Minimum number of boxes.
+    max_boxes: int = 10  # Maximum number of boxes.
 
     def validate(self):
-    #     """Validate configuration parameters"""
+        #     """Validate configuration parameters"""
         assert self.min_w <= self.max_w, "min_w must be lte max_w"
         assert self.min_h <= self.max_h, "min_h must be lte max_h"
         assert self.min_boxes <= self.max_boxes, "min_boxes must be lte max_boxes"
+
 
 class SokobanDataset(ProceduralDataset):
     """Generates Sokoban games with configurable parameters"""
@@ -53,16 +54,16 @@ class SokobanDataset(ProceduralDataset):
         # rng = Random(self.seed + idx)
 
         # Make the Sokoban!
-        (game, matrix, gamestr) = generate(seed = self.seed + idx + 1)
-        
+        (game, matrix, gamestr) = generate(seed=self.seed + idx + 1)
+
         # Solve the puzzle
-        grid_list = [list(line) for line in gamestr.replace(' ', '').strip().split('\n')]
+        grid_list = [list(line) for line in gamestr.replace(" ", "").strip().split("\n")]
         grid_array = np.array(grid_list)
         answer = solve_astar(grid_array)
 
         return {
-            "question": """You are going to solve a 'sokoban' puzzle. 
-            
+            "question": """You are going to solve a 'sokoban' puzzle.
+
 * - The player
 % - The player on a goal
 @ - A box
@@ -74,13 +75,10 @@ $ - A box on a goal
 Your solution must be a string of characters, ex: LDURRUDL.
 
 Here is your puzzle:
-""" + gamestr,
+"""
+            + gamestr,
             "answer": "",
-            "metadata": {
-                "possible_answer": answer[0],
-                "gamestr": gamestr,
-                "matrix": matrix
-            },
+            "metadata": {"possible_answer": answer[0], "gamestr": gamestr, "matrix": matrix},
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
@@ -99,13 +97,13 @@ Here is your puzzle:
         if answer == None:
             return 0.0
 
-        grid_list = [list(line) for line in entry['metadata']['gamestr'].replace(' ', '').strip().split('\n')]
+        grid_list = [list(line) for line in entry["metadata"]["gamestr"].replace(" ", "").strip().split("\n")]
         matrix = np.array(grid_list)
         state = get_state(matrix)
 
         game = Game()
         game.load_puzzle_matrix(matrix)
-        
+
         for move in answer:
             game.player.update(key=move)
 
@@ -113,5 +111,6 @@ Here is your puzzle:
             return 1.0
 
         return 0.1
+
 
 register_dataset("sokoban", SokobanDataset, SokobanConfig)
