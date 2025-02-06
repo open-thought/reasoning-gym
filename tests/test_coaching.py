@@ -64,9 +64,8 @@ def test_coach_with_chain_sum():
     last_3 = coach.score_board.aggregate(last_n=3)
     assert len(last_3) > 0
     
-    # The sum of lengths of all score lists should equal 3
-    total_scores = sum(len(scores) for scores in last_3.values())
-    assert total_scores == 3
+    # Verify total scores count
+    assert last_3.total_scores == 3
 
     # Verify conversation tracking
     assert len(coach.score_board.conversations) == 5

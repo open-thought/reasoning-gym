@@ -5,6 +5,13 @@ from dataclasses import dataclass, field
 from statistics import mean
 from typing import Any, Dict, List, Optional, Tuple
 
+@dataclass
+class GroupedScores:
+    """Container for grouped scores with total count"""
+    
+    scores: OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]
+    total_scores: int
+
 from .dataset import ProceduralDataset
 
 
@@ -38,7 +45,7 @@ class ScoreBoard:
             items = metadata.items()
         return tuple(sorted((str(k), v) for k, v in items))
 
-    def aggregate(self, last_n: Optional[int] = None) -> OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]:
+    def aggregate(self, last_n: Optional[int] = None) -> GroupedScores:
         """Aggregate scores by difficulty parameters or full metadata if no difficulty present
         
         Args:
@@ -63,7 +70,10 @@ class ScoreBoard:
                 result[key] = []
             result[key].append(self.scores[i])
             
-        return result
+        # Count total scores
+        total_scores = sum(len(scores) for scores in result.values())
+        
+        return GroupedScores(scores=result, total_scores=total_scores)
 
 
 class Coach(ProceduralDataset):
