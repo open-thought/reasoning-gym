@@ -2,8 +2,8 @@
 Curriculum definition for the ChainSum exercise.
 """
 
-from typing import Dict, List, Any
-from reasoning_gym.core.base_curriculum import BaseCurriculum, Template
+from typing import Dict, Any
+from reasoning_gym.core.base_curriculum import BaseCurriculum, Template, Placeholder
 from reasoning_gym.core.attributes import AttributeDefinition, AttributeType
 
 class ChainSumCurriculum(BaseCurriculum):
@@ -12,7 +12,6 @@ class ChainSumCurriculum(BaseCurriculum):
 
     def _init_curriculum(self) -> None:
         """Initialize the ChainSum curriculum configuration"""
-
         # Define valid attribute types
         self._valid_types = {
             AttributeType.STATIC,  # For base numbers
@@ -63,40 +62,31 @@ class ChainSumCurriculum(BaseCurriculum):
                 levels=[10, 2, 16],
                 default_level=0,
                 description="The base to use for the expression",
-                attr_type=AttributeType.STATIC
+                attr_type=AttributeType.APPEND
             )
         }
 
-        # Define templates
+        # Define templates with placeholders
+        expression = Placeholder("expression", "generate_expression")
         self._templates = [
             Template(
                 question="What is {expression}?",
-                answer="{result}",
+                placeholders={"expression": expression},
                 metadata={"type": "direct"}
             ),
             Template(
                 question="Calculate the following: {expression}",
-                answer="{result}",
+                placeholders={"expression": expression},
                 metadata={"type": "direct"}
             ),
             Template(
                 question="Solve {expression}",
-                answer="{result}",
+                placeholders={"expression": expression},
+                metadata={"type": "direct"}
+            ),
+            Template(
+                question="{expression} = ?",
+                placeholders={"expression": expression},
                 metadata={"type": "direct"}
             )
         ]
-
-# Generator functions for placeholders
-def generate_expression(attributes: Dict[str, Any]) -> Dict[str, str]:
-    """
-    Generates an expression and its result based on current attribute levels.
-    This is a placeholder - actual implementation will be in the Exercise class.
-
-    Args:
-        attributes: Dictionary of current attribute levels
-
-    Returns:
-        Dict containing the expression and result as strings
-    """
-    # This will be implemented in the Exercise class
-    pass

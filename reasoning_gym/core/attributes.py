@@ -5,6 +5,7 @@ Core definitions for curriculum attributes and types.
 from typing import Dict, List, Union, Any, Set, Optional
 from dataclasses import dataclass
 from enum import Enum
+import random
 
 class AttributeType(Enum):
     """Defines how attribute levels should be interpreted"""
@@ -122,3 +123,22 @@ class AttributeDefinition:
             return attr.levels[:level + 1]
 
         raise ValueError(f"Unknown attribute type: {attr.attr_type} for attribute '{curriculum}.{attr_name}'")
+
+    def get_generator(self, level: int, rng: random.Random):
+        """Returns a generator function based on attribute type and current level"""
+        match self.attr_type:
+            case AttributeType.STATIC:
+                # Returns exactly the value at current level
+                return lambda: self.levels[level]
+            
+            case AttributeType.UBOUND:
+                # Returns random value up to current level bound
+                max_val = self.levels[level]
+                return lambda: rng.randint(0, max_val)
+            
+            case AttributeType.APPEND:
+                # Returns random choice from accumulated values up to current level
+                available_values = self.levels[:level + 1]
+                return lambda: rng.choice(available_values)
+
+        raise ValueError(f"Unknown attribute type: {self.attr_type} for attribute '{self.description}'")
