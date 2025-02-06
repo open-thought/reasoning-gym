@@ -49,6 +49,7 @@ This gallery shows examples from all available datasets using their default conf
 - [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
 - [group_anagrams](#group_anagrams)
+- [palindrome_partitioning](#palindrome_partitioning)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 - [zebra_puzzles](#zebra_puzzles)
@@ -2294,6 +2295,118 @@ Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'strip
 --------------------------------------------------
 ```
 
+
+### palindrome_partitioning
+
+Partition a string into palindromic substrings
+
+Default configuration:
+```python
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+Input: "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Partition the following string into palindromes:
+begun
+
+Answer: [["b", "e", "g", "u", "n"]]
+
+Metadata: {'string': 'begun', 'solution': [['b', 'e', 'g', 'u', 'n']]}
+
+--------------------------------------------------
+
+Example 2:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+Input: "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Partition the following string into palindromes:
+condense
+
+Answer: [["c", "o", "n", "d", "e", "n", "s", "e"]]
+
+Metadata: {'string': 'condense', 'solution': [['c', 'o', 'n', 'd', 'e', 'n', 's', 'e']]}
+
+--------------------------------------------------
+
+Example 3:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+Input: "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Partition the following string into palindromes:
+located
+
+Answer: [["l", "o", "c", "a", "t", "e", "d"]]
+
+Metadata: {'string': 'located', 'solution': [['l', 'o', 'c', 'a', 't', 'e', 'd']]}
+
+--------------------------------------------------
+
+Example 4:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+Input: "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Partition the following string into palindromes:
+shall
+
+Answer: [["s", "h", "a", "l", "l"], ["s", "h", "a", "ll"]]
+
+Metadata: {'string': 'shall', 'solution': [['s', 'h', 'a', 'l', 'l'], ['s', 'h', 'a', 'll']]}
+
+--------------------------------------------------
+
+Example 5:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+Input: "aab"
+Output: [["a","a","b"],["aa","b"]]
+
+Partition the following string into palindromes:
+if
+
+Answer: [["i", "f"]]
+
+Metadata: {'string': 'if', 'solution': [['i', 'f']]}
+
+--------------------------------------------------
+````
 
 
 ### word_sequence_reversal
