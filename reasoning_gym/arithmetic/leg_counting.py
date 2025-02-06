@@ -114,7 +114,6 @@ class LegCountingDataset(ProceduralDataset):
             "metadata": {
                 "difficulty": {
                     "num_animals": len(animals),
-                    "max_count": max(animals.values()),
                 },
                 "animals": animals,
                 "total_legs": total_legs

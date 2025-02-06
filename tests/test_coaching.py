@@ -102,7 +102,7 @@ def test_coach_with_chain_sum():
 def test_coach_with_composite():
     # Create configs for both datasets
     chain_sum_config = ChainSumConfig(min_terms=2, max_terms=3, min_digits=1, max_digits=2, size=10)
-    leg_counting_config = LegCountingConfig(min_animals=2, max_animals=3, max_instances=2, size=10)
+    leg_counting_config = LegCountingConfig(min_animals=2, max_animals=3, size=10)
     
     # Create composite config
     composite_config = CompositeConfig(
