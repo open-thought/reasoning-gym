@@ -4,6 +4,8 @@ from typing import Dict, List, Optional, Tuple
 
 from .contrib.sokoban.src.generator import generate
 from .contrib.sokoban.src.astar import solve_astar
+from .contrib.sokoban.src.game import Game
+from .contrib.sokoban.src.utils import get_state, is_solved
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -14,19 +16,15 @@ from io import StringIO
 class SokobanConfig:
     """Configuration for sokoban puzzle generation"""
 
-    grid_size_x: int = 20
-    grid_size_y: int = 20
-    filled_cells: int = 100  # actually a max
-    simulation_steps: int = 1
     seed: Optional[int] = None
     size: int = 500
 
-    def validate(self):
-        """Validate configuration parameters"""
-        assert 3 <= self.grid_size_x <= 999, "grid_size_x must be between 0 and 999"
-        assert 3 <= self.grid_size_y <= 999, "grid_size_y must be between 0 and 999"
-        assert self.simulation_steps >= 0, "simulation_steps must be gte 0"
-        assert self.filled_cells <= self.grid_size_x * self.grid_size_y, "filled_cells must fit in x times y"
+    # def validate(self):
+    #     """Validate configuration parameters"""
+    #     assert 3 <= self.grid_size_x <= 999, "grid_size_x must be between 0 and 999"
+    #     assert 3 <= self.grid_size_y <= 999, "grid_size_y must be between 0 and 999"
+    #     assert self.simulation_steps >= 0, "simulation_steps must be gte 0"
+    #     assert self.filled_cells <= self.grid_size_x * self.grid_size_y, "filled_cells must fit in x times y"
 
 
 class SokobanDataset(ProceduralDataset):
@@ -52,14 +50,11 @@ class SokobanDataset(ProceduralDataset):
 
         # Make the Sokoban!
         (game, matrix, gamestr) = generate(seed = self.seed + idx + 1)
-        print(gamestr)
-
         
         # Solve the puzzle
         grid_list = [list(line) for line in gamestr.replace(' ', '').strip().split('\n')]
         grid_array = np.array(grid_list)
         answer = solve_astar(grid_array)
-
 
         return {
             "question": """You are going to solve a 'sokoban' puzzle. 
@@ -78,7 +73,9 @@ Here is your puzzle:
 """ + gamestr,
             "answer": "",
             "metadata": {
-                "possible_answer": answer[0]
+                "possible_answer": answer[0],
+                "gamestr": gamestr,
+                "matrix": matrix
             },
         }
 
@@ -97,10 +94,20 @@ Here is your puzzle:
 
         if answer == None:
             return 0.0
-        if answer.replace("\n", "") != entry["answer"].replace("\n", ""):
-            return 0.01
-        else:
-            return 1.0  # Yay
 
+        grid_list = [list(line) for line in entry['metadata']['gamestr'].replace(' ', '').strip().split('\n')]
+        matrix = np.array(grid_list)
+        state = get_state(matrix)
+
+        game = Game()
+        game.load_puzzle_matrix(matrix)
+        
+        for move in answer:
+            game.player.update(key=move)
+
+        if is_solved(game.get_curr_state()):
+            return 1.0
+
+        return 0.1
 
 register_dataset("sokoban", SokobanDataset, SokobanConfig)
