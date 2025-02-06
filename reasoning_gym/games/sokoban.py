@@ -18,14 +18,18 @@ class SokobanConfig:
 
     seed: Optional[int] = None
     size: int = 500
+    min_w: int = 6 # Minimum width of the puzzle.
+    min_h: int = 6 # Minimum height of the puzzle.
+    max_w: int = 10 # Maximum width of the puzzle.
+    max_h: int = 10 # Maximum height of the puzzle.
+    min_boxes: int = 6 # Minimum number of boxes.
+    max_boxes: int = 10  #Maximum number of boxes.
 
-    # def validate(self):
+    def validate(self):
     #     """Validate configuration parameters"""
-    #     assert 3 <= self.grid_size_x <= 999, "grid_size_x must be between 0 and 999"
-    #     assert 3 <= self.grid_size_y <= 999, "grid_size_y must be between 0 and 999"
-    #     assert self.simulation_steps >= 0, "simulation_steps must be gte 0"
-    #     assert self.filled_cells <= self.grid_size_x * self.grid_size_y, "filled_cells must fit in x times y"
-
+        assert self.min_w <= self.max_w, "min_w must be lte max_w"
+        assert self.min_h <= self.max_h, "min_h must be lte max_h"
+        assert self.min_boxes <= self.max_boxes, "min_boxes must be lte max_boxes"
 
 class SokobanDataset(ProceduralDataset):
     """Generates Sokoban games with configurable parameters"""
