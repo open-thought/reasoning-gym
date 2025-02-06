@@ -91,6 +91,33 @@ def test_coach_with_chain_sum():
     assert all(math.isnan(v) for v in next(iter(non_ignoring_stats.scores.values())))
 
 
+def test_grouped_scores_str():
+    # Test raw scores string representation
+    scores = OrderedDict()
+    scores[(("num_terms", 2), ("num_digits", 1))] = [1.0, 0.0, 1.0]
+    scores[(("num_terms", 3), ("num_digits", 2))] = [0.5, 0.5]
+    grouped = GroupedScores(scores=scores, total_scores=5)
+    
+    report = str(grouped)
+    assert "Total scores: 5" in report
+    assert "num_terms=2, num_digits=1" in report
+    assert "num_terms=3, num_digits=2" in report
+    assert "Scores: 3" in report
+    assert "Scores: 2" in report
+    
+    # Test stats string representation
+    stats = grouped.stats()
+    stats_report = str(stats)
+    assert "Mean: " in stats_report
+    assert "Std: " in stats_report
+    assert "Min: " in stats_report
+    assert "Max: " in stats_report
+    
+    # Test empty scores
+    empty = GroupedScores(scores=OrderedDict(), total_scores=0)
+    assert str(empty) == "No scores recorded"
+
+
 def test_coach_score_logging(tmp_path):
     # Create a log file in the temporary directory
     log_file = tmp_path / "scores.jsonl"

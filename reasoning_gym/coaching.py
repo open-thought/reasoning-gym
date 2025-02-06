@@ -18,6 +18,44 @@ class GroupedScores:
     scores: OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]
     total_scores: int
 
+    def __str__(self) -> str:
+        """Create a formatted report of the scores
+
+        Returns:
+            Multi-line string with score information for each difficulty group
+        """
+        if not self.scores:
+            return "No scores recorded"
+
+        lines = []
+        lines.append(f"Total scores: {self.total_scores}")
+        lines.append("")
+        
+        # Determine if this is a stats object
+        is_stats = len(next(iter(self.scores.values()))) == 4
+        
+        for key, values in self.scores.items():
+            # Format the parameter combinations
+            params = ", ".join(f"{k}={v}" for k, v in key)
+            lines.append(f"Parameters: {params}")
+            
+            if is_stats:
+                # Stats format: [mean, std, min, max]
+                lines.append(f"  Mean: {values[0]:.3f}")
+                lines.append(f"  Std:  {values[1]:.3f}")
+                lines.append(f"  Min:  {values[2]:.3f}")
+                lines.append(f"  Max:  {values[3]:.3f}")
+            else:
+                # Raw scores format
+                lines.append(f"  Scores: {len(values)}")
+                if values:
+                    lines.append(f"  Mean: {sum(values)/len(values):.3f}")
+                    lines.append(f"  Min:  {min(values):.3f}")
+                    lines.append(f"  Max:  {max(values):.3f}")
+            lines.append("")
+        
+        return "\n".join(lines)
+
     def stats(self, ignore_empty: bool = True) -> "GroupedScores":
         """Calculate statistics for each group of scores
 
