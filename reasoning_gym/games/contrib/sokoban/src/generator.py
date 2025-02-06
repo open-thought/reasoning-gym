@@ -2,8 +2,6 @@ import os
 import random
 
 import numpy as np
-
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame
 
 from reasoning_gym.games.contrib.sokoban.src.game import ReverseGame
