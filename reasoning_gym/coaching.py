@@ -5,14 +5,14 @@ from dataclasses import dataclass, field
 from statistics import mean
 from typing import Any, Dict, List, Optional, Tuple
 
+from .dataset import ProceduralDataset
+
 @dataclass
 class GroupedScores:
     """Container for grouped scores with total count"""
     
     scores: OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]
     total_scores: int
-
-from .dataset import ProceduralDataset
 
 
 @dataclass
