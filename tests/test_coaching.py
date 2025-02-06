@@ -90,7 +90,8 @@ def test_coach_with_chain_sum():
     non_ignoring_stats = GroupedScores(scores=empty_group, total_scores=0).stats(ignore_empty=False)
     assert len(non_ignoring_stats.scores) == 1
     stats_tuple = next(iter(non_ignoring_stats.scores.values()))
-    assert all(math.isnan(v) for v in stats_tuple)
+    assert stats_tuple[0] == 0  # count should be 0 for empty list
+    assert all(math.isnan(v) for v in stats_tuple[1:])  # stats should be NaN
 
     print(stats)
 
