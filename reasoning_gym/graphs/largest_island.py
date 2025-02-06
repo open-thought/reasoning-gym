@@ -55,20 +55,6 @@ class LargestIslandDataset(ProceduralDataset):
     def __init__(self, config: LargestIslandConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
-
     def _is_valid_cell(self, r: int, c: int) -> bool:
         return 0 <= r < self.config.rows and 0 <= c < self.config.cols
 

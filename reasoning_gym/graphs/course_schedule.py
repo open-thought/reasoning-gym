@@ -54,20 +54,6 @@ class CourseScheduleDataset(ProceduralDataset):
     def __init__(self, config: CourseScheduleConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
-
     def _can_finish(self, num_courses: int, prerequisites: List[List[int]]) -> bool:
         adj = defaultdict(list)
         for course, prereq in prerequisites:
