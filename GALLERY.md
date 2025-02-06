@@ -12,7 +12,6 @@ This gallery shows examples from all available datasets using their default conf
 - [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
-- [complex_arithmetic](#complex_arithmetic)
 - [countdown](#countdown)
 - [course_schedule](#course_schedule)
 - [family_relationships](#family_relationships)
@@ -485,39 +484,6 @@ Now the cube is rotated to place its bottom side at the top.
 What is now the color of the left side of the cube?
 Answer: gold
 Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
-
-````
-
-### complex_arithmetic
-Generates complex number arithmetic problems.
-
-Default configuration:
-```python
-min_real = -10
-max_real = 10
-min_imag = -10
-max_imag = 10
-operations = ('+', '-', '*', '/')
-seed = 42
-size = 500
-```
-
-Example tasks:
-````
-Example 1:
-Question: Subtract the complex numbers: (10 - 7i) - (-10 - 2i)
-Answer: 20 - 5i
-Metadata: {'num1': (10.0, -7.0), 'num2': (-10.0, -2.0), 'operation': '-', 'result': (20.0, -5.0)}
-
-Example 2:
-Question: Multiply the complex numbers: (-9 - 1i) × (-6 + 4i)
-Answer: 58 - 30i
-Metadata: {'num1': (-9.0, -1.0), 'num2': (-6.0, 4.0), 'operation': '*', 'result': (58.0, -30.0)}
-
-Example 3:
-Question: Subtract the complex numbers: (3 + 6i) - (7 - 7i)
-Answer: -4 + 13i
-Metadata: {'num1': (3.0, 6.0), 'num2': (7.0, -7.0), 'operation': '-', 'result': (-4.0, 13.0)}
 
 ````
 
@@ -2145,7 +2111,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 6, 9, 44), 'end_time': datetime.datetime(2025, 2, 6, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 5, 9, 44), 'end_time': datetime.datetime(2025, 2, 5, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
