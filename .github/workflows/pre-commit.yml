@@ -1,9 +1,5 @@
 name:  Pre-commit Checks
 
-permissions:
-  contents: read
-  pull-requests: write
-
 on:
   pull_request:
     branches: [ main ]
@@ -11,6 +7,9 @@ on:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write  # This is needed for commenting on PRs
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
