@@ -110,7 +110,7 @@ def test_coach_with_composite():
     # Create configs for both datasets
     chain_sum_config = ChainSumConfig(min_terms=2, max_terms=3, min_digits=1, max_digits=2, size=10)
     leg_counting_config = LegCountingConfig(min_animals=2, max_animals=3, size=10)
-    
+
     # Create composite config
     composite_config = CompositeConfig(
         size=20,
@@ -118,13 +118,13 @@ def test_coach_with_composite():
         datasets=[
             DatasetSpec(name="chain_sum", weight=1.0, config=chain_sum_config.__dict__),
             DatasetSpec(name="leg_counting", weight=1.0, config=leg_counting_config.__dict__),
-        ]
+        ],
     )
-    
+
     # Create composite dataset and coach
     dataset = CompositeDataset(composite_config)
     coach = Coach(dataset)
-    
+
     # Score some answers
     for i in range(5):
         item = coach[i]
@@ -138,16 +138,16 @@ def test_coach_with_composite():
             ],
         )
         assert score in (0.0, 1.0)
-    
+
     # Test aggregation
     aggregated = coach.score_board.aggregate()
     assert len(aggregated.scores) > 0
-    
+
     # Verify source dataset info is first in keys
     for key in aggregated.scores:
         assert key[0][0] == "source"  # First tuple should be ("source", dataset_name)
-        assert key[1][0] == "idx"     # Second tuple should be ("idx", index)
-    
+        assert key[1][0] == "idx"  # Second tuple should be ("idx", index)
+
     # Test stats
     stats = aggregated.stats()
     for key, values in stats.scores.items():
@@ -155,7 +155,7 @@ def test_coach_with_composite():
         assert len(values) == 5  # (count, mean, std, min, max)
         assert isinstance(values[0], int)
         assert all(isinstance(v, float) for v in values[1:])
-    
+
     print("\nComposite Dataset Stats:")
     print(stats)
 
@@ -166,14 +166,14 @@ def test_grouped_scores_str():
     scores[(("num_terms", 2), ("num_digits", 1))] = [1.0, 0.0, 1.0]
     scores[(("num_terms", 3), ("num_digits", 2))] = [0.5, 0.5]
     grouped = GroupedScores(scores=scores, total_scores=5)
-    
+
     report = str(grouped)
     assert "Total scores: 5" in report
     assert "(num_terms=2, num_digits=1): n=3" in report
     assert "(num_terms=3, num_digits=2): n=2" in report
     assert "Values: 1.00, 0.00, 1.00" in report
     assert "Values: 0.50, 0.50" in report
-    
+
     # Test stats string representation
     stats = grouped.stats()
     stats_report = str(stats)
@@ -181,7 +181,7 @@ def test_grouped_scores_str():
     assert "σ=" in stats_report
     assert "min=" in stats_report
     assert "max=" in stats_report
-    
+
     # Test empty scores
     empty = GroupedScores(scores=OrderedDict(), total_scores=0)
     assert str(empty) == "No scores recorded"
@@ -190,12 +190,12 @@ def test_grouped_scores_str():
 def test_coach_score_logging(tmp_path):
     # Create a log file in the temporary directory
     log_file = tmp_path / "scores.jsonl"
-    
+
     # Create dataset and coach with logging
     config = ChainSumConfig(min_terms=2, max_terms=3, min_digits=1, max_digits=2, size=10, seed=42)
     dataset = ChainSum(config)
     coach = Coach(dataset, score_log=log_file)
-    
+
     # Score a few answers
     for i in range(3):
         item = coach[i]
@@ -207,14 +207,14 @@ def test_coach_score_logging(tmp_path):
                 {"role": "assistant", "content": item["answer"] if i % 2 == 0 else "I don't know"},
             ],
         )
-    
+
     # Verify log file contents
     assert log_file.exists()
-    
+
     # Read and parse log entries
     log_entries = [json.loads(line) for line in log_file.open()]
     assert len(log_entries) == 3
-    
+
     # Verify log entry structure
     for i, entry in enumerate(log_entries):
         assert "score" in entry

@@ -1,7 +1,7 @@
 """Coaching module for difficulty adjustment and score tracking"""
 
-import math
 import json
+import math
 from collections import OrderedDict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -14,24 +14,26 @@ from .dataset import ProceduralDataset
 @dataclass
 class ScoreStats:
     """Container for score statistics with mean, std, min, max"""
-    
+
     scores: OrderedDict[Tuple[Tuple[str, Any], ...], Tuple[int, float, float, float, float]]
-    
+
     def __str__(self) -> str:
         """Create a formatted report of the statistics
-        
+
         Returns:
             Multi-line string with statistics for each group
         """
         if not self.scores:
             return "No scores recorded"
-            
+
         lines = []
-        
+
         for key, values in self.scores.items():
             params = ", ".join(f"{k}={v}" for k, v in key)
-            lines.append(f"({params}): n={values[0]}, μ={values[1]:.3f}, σ={values[2]:.3f}, min={values[3]:.3f}, max={values[4]:.3f}")
-            
+            lines.append(
+                f"({params}): n={values[0]}, μ={values[1]:.3f}, σ={values[2]:.3f}, min={values[3]:.3f}, max={values[4]:.3f}"
+            )
+
         return "\n".join(lines)
 
 
@@ -54,7 +56,7 @@ class GroupedScores:
         lines = []
         lines.append(f"Total scores: {self.total_scores}")
         lines.append("")
-        
+
         for key, values in self.scores.items():
             # Format the parameter combinations
             params = ", ".join(f"{k}={v}" for k, v in key)
@@ -63,15 +65,17 @@ class GroupedScores:
                 mean(values) if values else 0.0,
                 stdev(values) if len(values) > 1 else 0.0,
                 min(values) if values else 0.0,
-                max(values) if values else 0.0
+                max(values) if values else 0.0,
             )
-            lines.append(f"({params}): n={stats[0]}, μ={stats[1]:.3f}, σ={stats[2]:.3f}, min={stats[3]:.3f}, max={stats[4]:.3f}")
+            lines.append(
+                f"({params}): n={stats[0]}, μ={stats[1]:.3f}, σ={stats[2]:.3f}, min={stats[3]:.3f}, max={stats[4]:.3f}"
+            )
             # Format score list, showing only last 100 if more
             score_strs = [f"{x:.2f}" for x in values[-100:]]
             if len(values) > 100:
                 score_strs.insert(0, "..")
             lines.append(f"  Values: {', '.join(score_strs)}")
-        
+
         return "\n".join(lines)
 
     def stats(self, ignore_empty: bool = True) -> ScoreStats:
@@ -100,7 +104,7 @@ class GroupedScores:
                     mean(values),
                     stdev(values) if len(values) > 1 else 0.0,
                     min(values),
-                    max(values)
+                    max(values),
                 )
 
         return ScoreStats(scores=result)
@@ -138,32 +142,28 @@ class ScoreBoard:
 
     def _metadata_to_key(self, metadata: Dict[str, Any]) -> Tuple[Tuple[str, Any], ...]:
         """Convert metadata dict to tuple of key-value pairs, sorted by key
-        
+
         If source_dataset and source_index are present in metadata, they will be
         placed first in the tuple as ("source", dataset) and ("idx", index).
         """
         # Start with empty list
         key_items = []
-        
+
         # Add source info first if present
         if "source_dataset" in metadata and "source_index" in metadata:
-            key_items.extend([
-                ("source", metadata["source_dataset"]),
-                ("idx", metadata["source_index"])
-            ])
-        
+            key_items.extend([("source", metadata["source_dataset"]), ("idx", metadata["source_index"])])
+
         # Add difficulty parameters or other metadata
         if "difficulty" in metadata:
             # Use only difficulty parameters
             items = metadata["difficulty"].items()
         else:
             # Use all metadata except source info
-            items = ((k, v) for k, v in metadata.items() 
-                    if k not in ("source_dataset", "source_index"))
-            
+            items = ((k, v) for k, v in metadata.items() if k not in ("source_dataset", "source_index"))
+
         # Add remaining items in sorted order
         key_items.extend(sorted((str(k), v) for k, v in items))
-        
+
         return tuple(key_items)
 
     def aggregate(self, last_n: Optional[int] = None) -> GroupedScores:
@@ -239,15 +239,10 @@ class Coach(ProceduralDataset):
 
         # Track score and metadata
         self.score_board.add_score(score=score, metadata=entry["metadata"], conversation=conversation)
-        
+
         # Log score if logging is enabled
         if self.score_log is not None:
-            log_entry = {
-                "score": score,
-                "answer": answer,
-                "entry": entry,
-                "conversation": conversation
-            }
+            log_entry = {"score": score, "answer": answer, "entry": entry, "conversation": conversation}
             with self.score_log.open("a") as f:
                 json.dump(log_entry, f)
                 f.write("\n")

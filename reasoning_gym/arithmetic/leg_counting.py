@@ -116,7 +116,7 @@ class LegCountingDataset(ProceduralDataset):
                     "num_animals": len(animals),
                 },
                 "animals": animals,
-                "total_legs": total_legs
+                "total_legs": total_legs,
             },
         }
 
