@@ -1,0 +1,10 @@
+torch --index-url https://download.pytorch.org/whl/cu124
+torchvision --index-url https://download.pytorch.org/whl/cu124
+torchaudio --index-url https://download.pytorch.org/whl/cu124
+datasets
+peft
+transformers
+trl
+wandb
+huggingface_hub
+flash-attn --no-build-isolation
