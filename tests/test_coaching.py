@@ -54,7 +54,7 @@ def test_coach_with_chain_sum():
     assert len(aggregated.scores) > 0
     
     # Each key should be a tuple of tuples containing difficulty parameters
-    for key in aggregated:
+    for key in aggregated.scores:
         assert isinstance(key, tuple)
         # Each inner tuple should be (param_name, value)
         for param in key:
