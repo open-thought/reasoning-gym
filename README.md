@@ -98,6 +98,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
 - `WordLadderDataset`: Generate word ladder puzzles where one word is transformed into another by changing one letter at a time
+- `GroupAnagramsDataset`: Group anagrams together in a list of words
 
 ### <small>Code Tasks</small>
 
@@ -122,6 +123,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `FamilyRelationshipsDataset`: Generate family relationship reasoning tasks with family trees
 - `QuantumLockDataset`: Generates puzzles which involve stateful arithmetic and a correct sequence of operations
 - `LargestIslandDataset`: Generate a grid with islands and find the largest one
+- `CourseScheduleDataset`: Generate a course schedule with prerequisites and find whether you can complete all courses
 
 ### <small>Game Tasks</small>
 

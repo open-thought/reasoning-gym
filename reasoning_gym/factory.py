@@ -53,6 +53,6 @@ def create_dataset(name: str, **kwargs) -> ProceduralDataset:
 
     dataset_cls, config_cls = DATASETS[name]
 
-    conifg = config_cls(**kwargs)
+    config = config_cls(**kwargs)
 
-    return dataset_cls(config=conifg)
+    return dataset_cls(config=config)

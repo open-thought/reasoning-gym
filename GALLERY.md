@@ -13,11 +13,13 @@ This gallery shows examples from all available datasets using their default conf
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
 - [countdown](#countdown)
+- [course_schedule](#course_schedule)
 - [family_relationships](#family_relationships)
 - [figlet_font](#figlet_font)
 - [fraction_simplification](#fraction_simplification)
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
+- [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
 - [largest_island](#largest_island)
 - [lcm](#lcm)
@@ -46,6 +48,7 @@ This gallery shows examples from all available datasets using their default conf
 - [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
+- [group_anagrams](#group_anagrams)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 - [zebra_puzzles](#zebra_puzzles)
@@ -524,6 +527,57 @@ Metadata: {'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 -
 
 ````
 
+### course_schedule
+Generates Course Schedule exercises with configurable difficulty
+
+Default configuration:
+```python
+num_courses = 5
+max_num_prerequisites = 2
+p_solvable = 0.5
+min_cycle_length = 3
+max_cycle_length = 5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
+[(2, 1), (4, 2), (4, 3), (2, 3)]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: True
+Metadata: {'courses': [3, 1, 2, 4, 0], 'prerequisites': [(2, 1), (4, 2), (4, 3), (2, 3)], 'solution': True, 'solvable': True}
+
+Example 2:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
+[(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: False
+Metadata: {'courses': [1, 4, 3, 2, 0], 'prerequisites': [(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)], 'solution': False, 'solvable': False}
+
+Example 3:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
+[]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: True
+Metadata: {'courses': [2, 1, 4, 0, 3], 'prerequisites': [], 'solution': True, 'solvable': True}
+
+````
+
 ### family_relationships
 Generates family relationship reasoning tasks
 
@@ -840,6 +894,33 @@ Example 3:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 297, 30
 Answer: 3
 Metadata: {'numbers': [297, 30], 'result': 3}
+
+````
+
+### gsm_symbolic
+Default configuration:
+```python
+difficulty = 1.0
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: There are 12 students playing basketball and twice that number playing volleyball. There are 17 boys and 17 girls playing table tennis. If each student only participates in one group, how many students are there in total?
+Answer: 70
+Metadata: {'difficulty': 1.0, 'answer_value': 70, 'answer_cot': 'There are 12 x 2 = 24 students playing volleyball.\nThere are 17 + 17 = 34 students playing table tennis.\nIn total there are 12 + 24 + 34 = 70 students.\n#### 70', 'variables': {'tennis_players': 12, 'volleyball_players': 24, 'soccer_boys': 17, 'soccer_girls': 17, 'total_soccer': 34, 'total_students': 70, 'sports': ['basketball', 'volleyball', 'table tennis']}}
+
+Example 2:
+Question: In Ms. Johnson's class of 100 students, 80% of the class are volleyball players. Out of the remaining class, 65% of the students are choir members or part of robotics club members. These 3 groups of students will need to leave early today to travel to an away performance. How many students are leaving early?
+Answer: 93
+Metadata: {'difficulty': 1.0, 'answer_value': 93, 'answer_cot': "80% of the 100 student class are volleyball players so that's 0.8*100 = 80 students\nThere are 100 students and 80 are volleyball players so that leaves 100-80 = 20 students\n65% of the remaining 20 students are part of robotics club members or choir members so that's 0.65*20 = 13 students\n80 students are volleyball players and 13 are part of robotics club members/choir members so 80+13 = 93 students will be leaving early\n#### 93", 'variables': {'teacher': 'Ms. Johnson', 'total_students': 100, 'percent_group1': 80, 'percent_group23': 65, 'group1': 'volleyball players', 'group2': 'choir members', 'group3': 'robotics club members', 'event': 'performance', 'group1_count': 80, 'group23_count': 13}}
+
+Example 3:
+Question: Olivia is trying to decide whether to do her business accounting herself or hire an accountant. If she does it herself, she'll be able to do 7 fewer hours of consulting work, losing €57/hour in missed income. The accountant charges €57. How much more money will she have if she hires the accountant?
+Answer: 342
+Metadata: {'difficulty': 1.0, 'answer_value': 342, 'answer_cot': "First find the total lost revenue if Olivia does her business accounting herself: €57/hour * 7 hours = €399\nThen subtract the accountant's charge to find how much money Olivia saves: €399 - €57 = €342\n#### 342", 'variables': {'name': 'Olivia', 'task': 'her business accounting', 'profession': 'accountant', 'hours': 7, 'work_type': 'consulting', 'hourly_rate': 57, 'fee': 57, 'currency': '€', 'lost_income': 399}}
 
 ````
 
@@ -2031,7 +2112,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 4, 9, 44), 'end_time': datetime.datetime(2025, 2, 4, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 5, 9, 44), 'end_time': datetime.datetime(2025, 2, 5, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -2135,6 +2216,85 @@ Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 
 ````
+
+
+### group_anagrams
+
+Group anagrams together in a list of words. 
+
+Default configuration
+```python
+anagram_groups: int = 10  # Groups of anagrams present in the input
+max_words_per_group: int = 5  # Maximum number of words in a single anagram group
+```
+
+Example tasks:
+```
+Example 1:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
+
+Answer: [["applauders", "suprapedal"], ["argonon"], ["autosight", "outasight"], ["canny", "nancy"], ["conterminal"], ["ditas"], ["merocyte"], ["oversauciness"], ["palinodist"], ["tinglers"]]
+
+Metadata: {'words': ['tinglers', 'argonon', 'ditas', 'palinodist', 'merocyte', 'conterminal', 'canny', 'nancy', 'outasight', 'autosight', 'oversauciness', 'applauders', 'suprapedal'], 'solution': [['applauders', 'suprapedal'], ['argonon'], ['autosight', 'outasight'], ['canny', 'nancy'], ['conterminal'], ['ditas'], ['merocyte'], ['oversauciness'], ['palinodist'], ['tinglers']]}
+
+--------------------------------------------------
+
+Example 2:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
+
+Answer: [["coders", "credos", "decors", "escrod", "scored"], ["expatiater"], ["meningomyelocele", "myelomeningocele"], ["muriates", "semitaur"], ["naivest", "natives", "vainest"], ["peripterous"], ["preludes", "repulsed"], ["regear"], ["wooled"], ["zanies"]]
+
+Metadata: {'words': ['regear', 'escrod', 'coders', 'decors', 'credos', 'scored', 'semitaur', 'muriates', 'peripterous', 'zanies', 'expatiater', 'wooled', 'meningomyelocele', 'myelomeningocele', 'vainest', 'natives', 'naivest', 'preludes', 'repulsed'], 'solution': [['coders', 'credos', 'decors', 'escrod', 'scored'], ['expatiater'], ['meningomyelocele', 'myelomeningocele'], ['muriates', 'semitaur'], ['naivest', 'natives', 'vainest'], ['peripterous'], ['preludes', 'repulsed'], ['regear'], ['wooled'], ['zanies']]}
+
+--------------------------------------------------
+
+Example 3:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
+
+Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
+
+Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
+
+--------------------------------------------------
+```
+
+
 
 ### word_sequence_reversal
 Generates word sequence reversal tasks from text spans
