@@ -6,7 +6,9 @@ from pathlib import Path
 import pytest
 
 from reasoning_gym.arithmetic.chain_sum import ChainSum, ChainSumConfig
+from reasoning_gym.arithmetic.leg_counting import LegCountingConfig
 from reasoning_gym.coaching import Coach, GroupedScores
+from reasoning_gym.composite import CompositeConfig, CompositeDataset, DatasetSpec
 
 
 def test_coach_with_chain_sum():
@@ -94,6 +96,60 @@ def test_coach_with_chain_sum():
     assert all(math.isnan(v) for v in stats_tuple[1:])  # stats should be NaN
 
     print(aggregated)
+    print(stats)
+
+
+def test_coach_with_composite():
+    # Create configs for both datasets
+    chain_sum_config = ChainSumConfig(min_terms=2, max_terms=3, min_digits=1, max_digits=2, size=10)
+    leg_counting_config = LegCountingConfig(min_animals=2, max_animals=3, max_instances=2, size=10)
+    
+    # Create composite config
+    composite_config = CompositeConfig(
+        size=20,
+        seed=42,
+        datasets=[
+            DatasetSpec(name="chain_sum", weight=1.0, config=chain_sum_config.__dict__),
+            DatasetSpec(name="leg_counting", weight=1.0, config=leg_counting_config.__dict__),
+        ]
+    )
+    
+    # Create composite dataset and coach
+    dataset = CompositeDataset(composite_config)
+    coach = Coach(dataset)
+    
+    # Score some answers
+    for i in range(5):
+        item = coach[i]
+        # Correct answers for even indices
+        score = coach.score_answer(
+            answer=item["answer"] if i % 2 == 0 else None,
+            entry=item,
+            conversation=[
+                {"role": "user", "content": item["question"]},
+                {"role": "assistant", "content": item["answer"] if i % 2 == 0 else "I don't know"},
+            ],
+        )
+        assert score in (0.0, 1.0)
+    
+    # Test aggregation
+    aggregated = coach.score_board.aggregate()
+    assert len(aggregated.scores) > 0
+    
+    # Verify source dataset info is first in keys
+    for key in aggregated.scores:
+        assert key[0][0] == "source"  # First tuple should be ("source", dataset_name)
+        assert key[1][0] == "idx"     # Second tuple should be ("idx", index)
+    
+    # Test stats
+    stats = aggregated.stats()
+    for key, values in stats.scores.items():
+        assert isinstance(values, tuple)
+        assert len(values) == 5  # (count, mean, std, min, max)
+        assert isinstance(values[0], int)
+        assert all(isinstance(v, float) for v in values[1:])
+    
+    print("\nComposite Dataset Stats:")
     print(stats)
 
 
