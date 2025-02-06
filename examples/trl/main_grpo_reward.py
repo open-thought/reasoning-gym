@@ -1,3 +1,5 @@
+# This example is an adapted version of HuggingFace trl GRPO code:
+# link : https://github.com/huggingface/open-r1/blob/main/src/open_r1/grpo.py
 import logging
 import os
 import re
