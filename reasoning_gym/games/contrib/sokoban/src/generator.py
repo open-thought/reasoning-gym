@@ -1,7 +1,9 @@
-import random
-import numpy as np
 import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import random
+
+import numpy as np
+
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
 import pygame
 
 from reasoning_gym.games.contrib.sokoban.src.game import ReverseGame
@@ -12,12 +14,14 @@ def num_boxes(puzzle_area, min_boxes, max_boxes, min_w, min_h, max_w, max_h):
     b = min_boxes - m * min_w * min_h
     return int(m * puzzle_area + b)
 
+
 def random_valid(width=10, height=10):
     return random.randrange(1, width - 1), random.randrange(1, height - 1)
 
-def generate(window=None, seed=3, visualizer=False, path=None,
-             min_w=6, min_h=6, max_w=15, max_h=10,
-             min_boxes=4, max_boxes=10):
+
+def generate(
+    window=None, seed=3, visualizer=False, path=None, min_w=6, min_h=6, max_w=15, max_h=10, min_boxes=4, max_boxes=10
+):
     """
     Generates a level with the given configuration parameters.
 
@@ -35,23 +39,23 @@ def generate(window=None, seed=3, visualizer=False, path=None,
     Returns:
         A tuple (reverse_game, matrix, puzzle_string).
     """
-    path = path or 'levels/lvl0.dat'
+    path = path or "levels/lvl0.dat"
     random.seed(seed)
     valid = False
     while not valid:
         width = random.randint(min_w, max_w)
         height = random.randint(min_h, max_h)
-        puzzle = np.full((height, width), '+', dtype='<U1')
+        puzzle = np.full((height, width), "+", dtype="<U1")
         boxes = num_boxes(width * height, min_boxes, max_boxes, min_w, min_h, max_w, max_h)
         boxes_seen = set()
         player_pos = random_valid(width, height)
         puzzle_size = (height, width)
-        puzzle[player_pos[1], player_pos[0]] = '*'
+        puzzle[player_pos[1], player_pos[0]] = "*"
         boxes_created = 0
         while boxes_created < boxes:
             box_pos = random_valid(height, width)
-            if puzzle[box_pos] == '+':
-                puzzle[box_pos] = '$'
+            if puzzle[box_pos] == "+":
+                puzzle[box_pos] = "$"
                 boxes_created += 1
                 boxes_seen.add(box_pos)
         reverse_game = ReverseGame(window, level=0, seed=seed)
@@ -70,7 +74,7 @@ def generate(window=None, seed=3, visualizer=False, path=None,
         # Optionally print the puzzle:
         # player.print_puzzle(matrix)
         player.kill()
-        out_of_place_boxes = np.sum([str(x) == '@' for x in matrix.flatten()])
+        out_of_place_boxes = np.sum([str(x) == "@" for x in matrix.flatten()])
         if out_of_place_boxes >= boxes // 2:
             # Optionally save the puzzle to a file:
             # np.savetxt(path, matrix, fmt='%s')
@@ -82,5 +86,6 @@ def generate(window=None, seed=3, visualizer=False, path=None,
             del reverse_game
             # print(f'Not enough boxes out of place, generating new seed... [{out_of_place_boxes}]')
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     generate()

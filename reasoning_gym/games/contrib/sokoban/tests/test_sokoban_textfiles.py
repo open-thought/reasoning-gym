@@ -1,8 +1,8 @@
 import os
 
 import numpy as np
-
 from src.game import Game
+
 from tests.test_sokoban_mixin import SokobanMixin
 
 
@@ -20,4 +20,4 @@ class SokobanTextFilesTest(SokobanMixin):
         player_pos = game.pad_y + 2, game.pad_x + 1
         self.assertEqual(player_pos, (game.player.y, game.player.x))
         del game
-        os.remove('tmp.dat')
+        os.remove("tmp.dat")

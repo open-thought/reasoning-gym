@@ -8,7 +8,7 @@ Este é um gerador de puzzles e solucionador de puzzles Sokoban que utiliza os a
 `Sokoban` é um jogo de puzzle no qual o jogador empurra caixas em um armazém, com o objetivo de colocar todas as caixas em seus objetivos.
 
 
-### ➡️ Setup 
+### ➡️ Setup
 ```pip install -r requirements.txt```
 
 ```python -m sokoban```
@@ -66,7 +66,7 @@ Todas as três implementações verificam por deadlocks (estados impossíveis de
 - `A* Manhattan` Soluciona o puzzle atual usando A* com heurística da Distância de Manhattan
 - `Dijkstra` Soluciona o puzzle atual usando A* com heurística da distância de Dijkstra
 - `Visualize` Exibe o processo de geração do puzzle e mostra o melhor caminho atual para as soluções
- 
+
 
 ### ❕ Testes Unitários
 Todos os testes unitários estão armazenados na pasta `/tests`, separados por categorias em classes e arquivos diferentes. Use `pytest` para rodas todos os testes unitários de uma vez.

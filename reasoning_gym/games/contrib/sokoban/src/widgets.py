@@ -56,7 +56,7 @@
 # 	seedbox = TextBox(
 # 		window, 1110, 191, 75, 28, placeholderText='Seed',
 # 		borderColour=(0, 0, 0), textColour=(0, 0, 0),
-# 		onSubmit=lambda: pygame.event.post(pygame.event.Event(RANDOM_GAME_EVENT)), 
+# 		onSubmit=lambda: pygame.event.post(pygame.event.Event(RANDOM_GAME_EVENT)),
 # 		borderThickness=1, radius=2,
 # 		font=pygame.font.SysFont('Verdana', 14),
 # 	)
@@ -67,9 +67,9 @@
 # 		'restart': restart,
 # 		'random_button': random_game,
 # 		'moves_label': moves,
-# 		'prev_button': prev_button, 
-# 		'next_button': next_button, 
-# 		'label': label, 
+# 		'prev_button': prev_button,
+# 		'next_button': next_button,
+# 		'label': label,
 # 		'level_clear': level_clear,
 # 		'toggle': toggle,
 # 		'visualizer': visualizer,
@@ -109,25 +109,25 @@
 # 		self.draw()
 
 # 	def draw(self):
-# 		pygame.draw.rect( 
-# 			self.window, 
-# 			pygame.Color('gray'), 
-# 			(self.rect.x, 
-#     		self.rect.y, 
-# 			self.rect.width, 
-# 			self.rect.height) 
-# 		) 
-# 		pygame.draw.rect( 
-# 			self.window, 
-# 			(0, 0, 0), 
-# 			(self.rect.x, 
-#     		self.rect.y, 
-# 			self.rect.width, 
-# 			self.rect.height), 
-# 			width=3 
-# 		) 
-# 		text_pos_x = (self.rect.width - self.image.get_width()) // 2 + self.rect.x 
-# 		text_pos_y = (self.rect.height - self.image.get_height()) // 2 + self.rect.y 
+# 		pygame.draw.rect(
+# 			self.window,
+# 			pygame.Color('gray'),
+# 			(self.rect.x,
+#     		self.rect.y,
+# 			self.rect.width,
+# 			self.rect.height)
+# 		)
+# 		pygame.draw.rect(
+# 			self.window,
+# 			(0, 0, 0),
+# 			(self.rect.x,
+#     		self.rect.y,
+# 			self.rect.width,
+# 			self.rect.height),
+# 			width=3
+# 		)
+# 		text_pos_x = (self.rect.width - self.image.get_width()) // 2 + self.rect.x
+# 		text_pos_y = (self.rect.height - self.image.get_height()) // 2 + self.rect.y
 # 		self.window.blit(self.image, (text_pos_x, text_pos_y))
 
 
@@ -139,7 +139,7 @@
 # 			self.image = self.font.render(text, 1, color)
 # 		self.images = [self.font.render(line, 1, color) for line in self.lines]
 # 		self.max_width = max(image.get_width() for image in self.images)
-# 		self.total_height = (sum(image.get_height() for image in self.images) + 
+# 		self.total_height = (sum(image.get_height() for image in self.images) +
 # 		  				(len(self.lines) - 1) * font_size // 2)
 # 		self.rect = pygame.Rect(x, y, self.max_width + 10, self.total_height + 10)
 # 		self.max_lines = len(self.lines)
@@ -164,7 +164,7 @@
 # 			self.lines.append('')
 # 		self.images = [self.font.render(line, 1, color) for line in self.lines]
 # 		self.max_width = max(self.max_width, max(image.get_width() for image in self.images))
-# 		self.total_height = (sum(image.get_height() for image in self.images) + 
+# 		self.total_height = (sum(image.get_height() for image in self.images) +
 # 		  					 (len(self.lines) - 1) * font_size // 2)
 # 		self.rect = pygame.Rect(self.x, self.y, self.max_width + 10, self.total_height + 10)
 # 		self.draw()
@@ -193,7 +193,7 @@
 # 			self.rect.height),
 # 			width=3
 # 		)
-# 		offset = ((self.rect.height - sum(image.get_height() for image in self.images) - 
+# 		offset = ((self.rect.height - sum(image.get_height() for image in self.images) -
 # 				   (len(self.images) - 1)) // 2 + self.rect.y)
 # 		if self.transparency:
 # 			self.window.blit(transparent_surface, (self.rect.x, self.rect.y))

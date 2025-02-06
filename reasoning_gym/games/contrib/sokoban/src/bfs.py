@@ -18,7 +18,7 @@ def bfs(matrix, player_pos, widget=None, visualizer=False):
 	curr_depth = 0
 	direction = {
 		(1, 0): 'D',
-		(-1, 0): 'U', 
+		(-1, 0): 'U',
 		(0, -1): 'L',
 		(0, 1): 'R',
 	}
@@ -36,7 +36,7 @@ def bfs(matrix, player_pos, widget=None, visualizer=False):
 			if new_state in seen or deadlock:
 				continue
 			q.append((
-				new_state, 
+				new_state,
 				(pos[0] + move[0], pos[1] + move[1]),
 				depth + 1,
 				path + direction[move],
@@ -64,7 +64,7 @@ def solve_bfs(puzzle, widget=None, visualizer=False):
 	player_pos = where[0][0], where[1][0]
 	return bfs(matrix, player_pos, widget, visualizer)
 
-	
+
 if __name__ == '__main__':
 	start = time.time()
 	root = solve_bfs(np.loadtxt('levels/lvl7.dat', dtype='<U1'))
