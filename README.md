@@ -98,6 +98,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `SpellBackwardDataset`: Spell individual words backward (e.g. "sun" -> "nus")
 - `WordSequenceReversalDataset`: Reverse word order in text spans
 - `WordLadderDataset`: Generate word ladder puzzles where one word is transformed into another by changing one letter at a time
+- `GroupAnagramsDataset`: Group anagrams together in a list of words
 
 ### <small>Code Tasks</small>
 
