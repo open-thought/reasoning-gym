@@ -1,56 +1,52 @@
 """Coaching module for difficulty adjustment and score tracking"""
 
+import math
 from collections import OrderedDict
 from dataclasses import dataclass, field
 from statistics import mean, stdev
-import math
 from typing import Any, Dict, List, Optional, Tuple
 
 from .dataset import ProceduralDataset
 
+
 @dataclass
 class GroupedScores:
     """Container for grouped scores with total count"""
-    
+
     scores: OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]
     total_scores: int
 
     def stats(self, ignore_empty: bool = True) -> "GroupedScores":
         """Calculate statistics for each group of scores
-        
+
         Args:
             ignore_empty: If True, skip empty score lists
                          If False, use NaN values for empty lists
-        
+
         Returns:
             GroupedScores with lists containing [mean, std, min, max]
             total_scores is set to -1 to indicate this is a stats object
         """
         result = OrderedDict()
-        
+
         for key, values in self.scores.items():
             if not values and ignore_empty:
                 continue
-                
+
             if not values:
                 # Empty list and not ignoring - use NaN
                 result[key] = [math.nan] * 4
             else:
                 # Calculate stats
-                result[key] = [
-                    mean(values),
-                    stdev(values) if len(values) > 1 else 0.0,
-                    min(values),
-                    max(values)
-                ]
-                
+                result[key] = [mean(values), stdev(values) if len(values) > 1 else 0.0, min(values), max(values)]
+
         return GroupedScores(scores=result, total_scores=-1)
 
 
 @dataclass
 class ScoreBoard:
     """Tracks scores and metadata for coaching sessions"""
-    
+
     scores: List[float] = field(default_factory=list)
     metadata: List[Dict[str, Any]] = field(default_factory=list)
     conversations: List[Optional[List[Dict]]] = field(default_factory=list)
@@ -79,21 +75,21 @@ class ScoreBoard:
 
     def aggregate(self, last_n: Optional[int] = None) -> GroupedScores:
         """Aggregate scores by difficulty parameters or full metadata if no difficulty present
-        
+
         Args:
             last_n: Optional number of most recent entries to consider
                    If None, use all entries
-        
+
         Returns:
             OrderedDict mapping difficulty parameter combinations to lists of scores
             Keys are tuples of (param_name, value) pairs, sorted by param_name
         """
         if not self.scores:
             return GroupedScores(scores=OrderedDict(), total_scores=0)
-            
+
         # Determine start index for iteration
         start_idx = max(0, len(self.scores) - last_n) if last_n is not None else 0
-        
+
         # Group scores by difficulty parameters without creating intermediate lists
         result = OrderedDict()
         for i in range(start_idx, len(self.scores)):
@@ -101,16 +97,16 @@ class ScoreBoard:
             if key not in result:
                 result[key] = []
             result[key].append(self.scores[i])
-            
+
         # Count total scores
         total_scores = sum(len(scores) for scores in result.values())
-        
+
         return GroupedScores(scores=result, total_scores=total_scores)
 
 
 class Coach(ProceduralDataset):
     """A dataset wrapper that tracks performance and adjusts difficulty
-    
+
     The Coach wraps a ProceduralDataset (typically a CompositeDataset) and:
     1. Tracks scores and metadata in a ScoreBoard
     2. Adjusts difficulty based on performance (to be implemented)
@@ -118,7 +114,7 @@ class Coach(ProceduralDataset):
 
     def __init__(self, dataset: ProceduralDataset):
         """Initialize with inner dataset
-        
+
         Args:
             dataset: The ProceduralDataset to wrap
         """
@@ -130,10 +126,11 @@ class Coach(ProceduralDataset):
         """Forward item generation to inner dataset"""
         return self.dataset[idx]
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any], 
-                    conversation: Optional[List[Dict]] = None) -> float:
+    def score_answer(
+        self, answer: Optional[str], entry: Dict[str, Any], conversation: Optional[List[Dict]] = None
+    ) -> float:
         """Score answer and track results
-        
+
         Args:
             answer: The answer to score
             entry: The task entry containing question/answer/metadata
@@ -144,22 +141,18 @@ class Coach(ProceduralDataset):
         """
         # Get score from inner dataset
         score = self.dataset.score_answer(answer, entry)
-        
+
         # Track score and metadata
-        self.score_board.add_score(
-            score=score,
-            metadata=entry["metadata"],
-            conversation=conversation
-        )
-        
+        self.score_board.add_score(score=score, metadata=entry["metadata"], conversation=conversation)
+
         # Update difficulty based on recent performance
         self.update_difficulty()
-        
+
         return score
 
     def update_difficulty(self) -> None:
         """Update difficulty based on recent performance
-        
+
         To be implemented in future versions.
         """
         pass  # Placeholder for future difficulty adjustment logic
