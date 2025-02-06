@@ -122,7 +122,8 @@ def test_coach_score_logging(tmp_path):
     # Verify log entry structure
     for i, entry in enumerate(log_entries):
         assert "score" in entry
-        assert "metadata" in entry
+        assert "entry" in entry
+        assert "metadata" in entry["entry"]
         assert "conversation" in entry
         assert entry["score"] == (1.0 if i % 2 == 0 else 0.0)
         assert len(entry["conversation"]) == 2

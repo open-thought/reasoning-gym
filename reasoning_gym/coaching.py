@@ -153,7 +153,7 @@ class Coach(ProceduralDataset):
         if self.score_log is not None:
             log_entry = {
                 "score": score,
-                "metadata": entry["metadata"],
+                "entry": entry,
                 "conversation": conversation
             }
             with self.score_log.open("a") as f:
