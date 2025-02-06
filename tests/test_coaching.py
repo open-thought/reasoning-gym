@@ -111,10 +111,10 @@ def test_grouped_scores_str():
     # Test stats string representation
     stats = grouped.stats()
     stats_report = str(stats)
-    assert "Mean: " in stats_report
-    assert "Std: " in stats_report
-    assert "Min: " in stats_report
-    assert "Max: " in stats_report
+    assert "μ=" in stats_report
+    assert "σ=" in stats_report
+    assert "min=" in stats_report
+    assert "max=" in stats_report
     
     # Test empty scores
     empty = GroupedScores(scores=OrderedDict(), total_scores=0)
