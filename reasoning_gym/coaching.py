@@ -30,8 +30,7 @@ class ScoreStats:
         
         for key, values in self.scores.items():
             params = ", ".join(f"{k}={v}" for k, v in key)
-            lines.append(f"Parameters: {params}")
-            lines.append(f"  μ={values[0]:.3f}, σ={values[1]:.3f}, min={values[2]:.3f}, max={values[3]:.3f}")
+            lines.append(f"({params}): μ={values[0]:.3f}, σ={values[1]:.3f}, min={values[2]:.3f}, max={values[3]:.3f}")
             lines.append("")
             
         return "\n".join(lines)
