@@ -12,6 +12,38 @@ from .dataset import ProceduralDataset
 
 
 @dataclass
+class ScoreStats:
+    """Container for score statistics with mean, std, min, max"""
+    
+    scores: OrderedDict[Tuple[Tuple[str, Any], ...], Tuple[float, float, float, float]]
+    total_scores: int
+    
+    def __str__(self) -> str:
+        """Create a formatted report of the statistics
+        
+        Returns:
+            Multi-line string with statistics for each group
+        """
+        if not self.scores:
+            return "No scores recorded"
+            
+        lines = []
+        lines.append(f"Total scores: {self.total_scores}")
+        lines.append("")
+        
+        for key, values in self.scores.items():
+            params = ", ".join(f"{k}={v}" for k, v in key)
+            lines.append(f"Parameters: {params}")
+            lines.append(f"  Mean: {values[0]:.3f}")
+            lines.append(f"  Std:  {values[1]:.3f}")
+            lines.append(f"  Min:  {values[2]:.3f}")
+            lines.append(f"  Max:  {values[3]:.3f}")
+            lines.append("")
+            
+        return "\n".join(lines)
+
+
+@dataclass
 class GroupedScores:
     """Container for grouped scores with total count"""
 
@@ -31,32 +63,20 @@ class GroupedScores:
         lines.append(f"Total scores: {self.total_scores}")
         lines.append("")
         
-        # Determine if this is a stats object
-        is_stats = len(next(iter(self.scores.values()))) == 4
-        
         for key, values in self.scores.items():
             # Format the parameter combinations
             params = ", ".join(f"{k}={v}" for k, v in key)
             lines.append(f"Parameters: {params}")
-            
-            if is_stats:
-                # Stats format: [mean, std, min, max]
-                lines.append(f"  Mean: {values[0]:.3f}")
-                lines.append(f"  Std:  {values[1]:.3f}")
-                lines.append(f"  Min:  {values[2]:.3f}")
-                lines.append(f"  Max:  {values[3]:.3f}")
-            else:
-                # Raw scores format
-                lines.append(f"  Scores: {len(values)}")
-                if values:
-                    lines.append(f"  Mean: {sum(values)/len(values):.3f}")
-                    lines.append(f"  Min:  {min(values):.3f}")
-                    lines.append(f"  Max:  {max(values):.3f}")
+            lines.append(f"  Scores: {len(values)}")
+            if values:
+                lines.append(f"  Mean: {sum(values)/len(values):.3f}")
+                lines.append(f"  Min:  {min(values):.3f}")
+                lines.append(f"  Max:  {max(values):.3f}")
             lines.append("")
         
         return "\n".join(lines)
 
-    def stats(self, ignore_empty: bool = True) -> "GroupedScores":
+    def stats(self, ignore_empty: bool = True) -> ScoreStats:
         """Calculate statistics for each group of scores
 
         Args:
@@ -64,8 +84,7 @@ class GroupedScores:
                          If False, use NaN values for empty lists
 
         Returns:
-            GroupedScores with lists containing [mean, std, min, max]
-            total_scores is set to -1 to indicate this is a stats object
+            ScoreStats object containing statistics for each group
         """
         result = OrderedDict()
 
@@ -75,12 +94,17 @@ class GroupedScores:
 
             if not values:
                 # Empty list and not ignoring - use NaN
-                result[key] = [math.nan] * 4
+                result[key] = (math.nan, math.nan, math.nan, math.nan)
             else:
-                # Calculate stats
-                result[key] = [mean(values), stdev(values) if len(values) > 1 else 0.0, min(values), max(values)]
+                # Calculate stats as tuple
+                result[key] = (
+                    mean(values),
+                    stdev(values) if len(values) > 1 else 0.0,
+                    min(values),
+                    max(values)
+                )
 
-        return GroupedScores(scores=result, total_scores=-1)
+        return ScoreStats(scores=result, total_scores=-1)
 
 
 @dataclass

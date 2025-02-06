@@ -77,7 +77,8 @@ def test_coach_with_chain_sum():
     assert stats.total_scores == -1  # Indicates stats object
 
     for key, values in stats.scores.items():
-        assert len(values) == 4  # [mean, std, min, max]
+        assert isinstance(values, tuple)
+        assert len(values) == 4  # (mean, std, min, max)
         assert all(isinstance(v, float) for v in values)
 
     # Test stats with empty scores
@@ -88,7 +89,8 @@ def test_coach_with_chain_sum():
     empty_group = OrderedDict({(("test", 1),): []})
     non_ignoring_stats = GroupedScores(scores=empty_group, total_scores=0).stats(ignore_empty=False)
     assert len(non_ignoring_stats.scores) == 1
-    assert all(math.isnan(v) for v in next(iter(non_ignoring_stats.scores.values())))
+    stats_tuple = next(iter(non_ignoring_stats.scores.values()))
+    assert all(math.isnan(v) for v in stats_tuple)
 
 
 def test_grouped_scores_str():
