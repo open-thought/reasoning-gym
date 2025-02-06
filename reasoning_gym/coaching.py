@@ -234,6 +234,7 @@ class Coach(ProceduralDataset):
         if self.score_log is not None:
             log_entry = {
                 "score": score,
+                "answer": answer,
                 "entry": entry,
                 "conversation": conversation
             }
