@@ -1,7 +1,7 @@
+import cmath
 import random
 from dataclasses import dataclass
 from typing import Optional, Tuple
-import cmath
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -54,18 +54,18 @@ class ComplexArithmeticDataset(ProceduralDataset):
 
     def __getitem__(self, idx: int) -> dict:
         rng = random.Random(self.seed + idx)
-        
+
         # Generate two random complex numbers
         a = self._generate_complex(rng)
         b = self._generate_complex(rng)
-        
+
         # For division, ensure denominator is not zero
         while b == 0:
             b = self._generate_complex(rng)
 
         # Choose random operation
         op = rng.choice(self.config.operations)
-        
+
         # Calculate result
         if op == "+":
             result = a + b
@@ -76,10 +76,7 @@ class ComplexArithmeticDataset(ProceduralDataset):
         else:  # op == "/"
             result = a / b
 
-        question = self._prompt_templates[op].format(
-            a=self._format_complex(a),
-            b=self._format_complex(b)
-        )
+        question = self._prompt_templates[op].format(a=self._format_complex(a), b=self._format_complex(b))
 
         return {
             "question": question,
@@ -100,32 +97,32 @@ class ComplexArithmeticDataset(ProceduralDataset):
         try:
             # Convert the expected result from metadata
             expected_result = complex(*metadata["result"])
-            
+
             # Parse student answer
             # Remove spaces and convert to lowercase
             answer = answer.replace(" ", "").lower()
-            
+
             # Handle different forms of writing complex numbers
             if "i" not in answer and "j" not in answer:
                 # Pure real number
                 return abs(complex(float(answer)) - expected_result) < 1e-10
 
             # Replace 'i' with 'j' for Python's complex number notation
-            answer = answer.replace('i', 'j')
-            
+            answer = answer.replace("i", "j")
+
             # Handle cases like "2j" (add plus sign)
-            if answer[0] == 'j':
-                answer = '1' + answer
-            elif answer[-1] == 'j' and not any(c in answer[:-1] for c in '+-'):
-                answer = answer.replace('j', '+1j')
-            
+            if answer[0] == "j":
+                answer = "1" + answer
+            elif answer[-1] == "j" and not any(c in answer[:-1] for c in "+-"):
+                answer = answer.replace("j", "+1j")
+
             # Add missing real or imaginary parts
-            if 'j' not in answer:
-                answer += '+0j'
-            
+            if "j" not in answer:
+                answer += "+0j"
+
             # Parse the answer string into a complex number
             student_result = complex(answer)
-            
+
             # Check if the results are close enough (allowing for minor floating-point differences)
             return float(abs(student_result - expected_result) < 1e-10)
 
