@@ -31,7 +31,6 @@ class ScoreStats:
         for key, values in self.scores.items():
             params = ", ".join(f"{k}={v}" for k, v in key)
             lines.append(f"({params}): μ={values[0]:.3f}, σ={values[1]:.3f}, min={values[2]:.3f}, max={values[3]:.3f}")
-            lines.append("")
             
         return "\n".join(lines)
 
@@ -70,7 +69,6 @@ class GroupedScores:
                 if len(values) > 100:
                     score_strs.insert(0, "..")
                 lines.append(f"  Values: {', '.join(score_strs)}")
-            lines.append("")
         
         return "\n".join(lines)
 
