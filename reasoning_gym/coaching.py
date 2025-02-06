@@ -15,7 +15,7 @@ from .dataset import ProceduralDataset
 class ScoreStats:
     """Container for score statistics with mean, std, min, max"""
     
-    scores: OrderedDict[Tuple[Tuple[str, Any], ...], Tuple[float, float, float, float]]
+    scores: OrderedDict[Tuple[Tuple[str, Any], ...], Tuple[int, float, float, float, float]]
     
     def __str__(self) -> str:
         """Create a formatted report of the statistics
@@ -30,7 +30,7 @@ class ScoreStats:
         
         for key, values in self.scores.items():
             params = ", ".join(f"{k}={v}" for k, v in key)
-            lines.append(f"({params}): μ={values[0]:.3f}, σ={values[1]:.3f}, min={values[2]:.3f}, max={values[3]:.3f}")
+            lines.append(f"({params}): n={values[0]}, μ={values[1]:.3f}, σ={values[2]:.3f}, min={values[3]:.3f}, max={values[4]:.3f}")
             
         return "\n".join(lines)
 
@@ -90,10 +90,11 @@ class GroupedScores:
 
             if not values:
                 # Empty list and not ignoring - use NaN
-                result[key] = (math.nan, math.nan, math.nan, math.nan)
+                result[key] = (0, math.nan, math.nan, math.nan, math.nan)
             else:
                 # Calculate stats as tuple
                 result[key] = (
+                    len(values),
                     mean(values),
                     stdev(values) if len(values) > 1 else 0.0,
                     min(values),

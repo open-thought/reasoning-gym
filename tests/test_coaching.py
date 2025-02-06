@@ -77,7 +77,7 @@ def test_coach_with_chain_sum():
 
     for key, values in stats.scores.items():
         assert isinstance(values, tuple)
-        assert len(values) == 4  # (mean, std, min, max)
+        assert len(values) == 5  # (count, mean, std, min, max)
         assert all(isinstance(v, float) for v in values)
 
     # Test stats with empty scores
