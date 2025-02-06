@@ -59,20 +59,6 @@ class GroupAnagramsDataset(ProceduralDataset):
         with get_data_file_path("anagrams.jsonl").open() as f:
             self.anagrams = [json.loads(line)["words"] for line in f]
 
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
-
     def _get_anagram_words(self, rng: Random) -> list[str]:
         """Generate a list of words with anagrams"""
         words = []
