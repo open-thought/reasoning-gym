@@ -106,10 +106,10 @@ def test_grouped_scores_str():
     
     report = str(grouped)
     assert "Total scores: 5" in report
-    assert "num_terms=2, num_digits=1" in report
-    assert "num_terms=3, num_digits=2" in report
-    assert "Scores: 3" in report
-    assert "Scores: 2" in report
+    assert "(num_terms=2, num_digits=1): n=3" in report
+    assert "(num_terms=3, num_digits=2): n=2" in report
+    assert "Values: 1.00, 0.00, 1.00" in report
+    assert "Values: 0.50, 0.50" in report
     
     # Test stats string representation
     stats = grouped.stats()
