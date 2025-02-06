@@ -12,6 +12,7 @@ from .maze import MazeConfig, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset
 from .n_queens import NQueensDataset
 from .sudoku import SudokuConfig, SudokuDataset
+from .sokoban import SokobanConfig, SokobanDataset
 from .tower_of_hanoi import HanoiConfig, HanoiDataset
 
 __all__ = [
@@ -21,6 +22,8 @@ __all__ = [
     "MiniSudokuDataset",
     "SudokuConfig",
     "SudokuDataset",
+    "SokobanConfig",
+    "SokobanDataset",
     "MazeConfig",
     "MazeDataset",
     "GameOfLifeConfig",
