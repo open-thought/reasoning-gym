@@ -4,21 +4,21 @@ import logging
 import os
 import re
 import sys
+from dataclasses import dataclass
+from typing import Optional
 
 import datasets
 import torch
 import transformers
+from grpo_config import ScriptArguments
 from peft import LoraConfig
 from torch.utils.data import Dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 from transformers.trainer_utils import get_last_checkpoint
 from trl import GRPOConfig, GRPOTrainer, ModelConfig, TrlParser
-from dataclasses import dataclass
-from typing import Optional
 
 import reasoning_gym
 from reasoning_gym.utils import extract_answer
-from grpo_config import ScriptArguments
 
 
 class ReasoningGymDataset(Dataset):
@@ -43,7 +43,7 @@ class ReasoningGymDataset(Dataset):
         chat.append({"role": "user", "content": question})
 
         prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
-        return {'prompt': prompt, 'metadata': metadata}
+        return {"prompt": prompt, "metadata": metadata}
 
 
 class GRPOTrainerCustom(GRPOTrainer):
@@ -58,14 +58,19 @@ class GRPOTrainerCustom(GRPOTrainer):
         size,
         developer_role="system",
     ):
-        super().__init__(model, reward_funcs=[self._accuracy_reward, self._format_reward], args=args, processing_class=tokenizer, peft_config=peft_config)
+        super().__init__(
+            model,
+            reward_funcs=[self._accuracy_reward, self._format_reward],
+            args=args,
+            processing_class=tokenizer,
+            peft_config=peft_config,
+        )
         developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
         self.train_dataset = ReasoningGymDataset(dataset_name, seed1, size, tokenizer, developer_prompt, developer_role)
 
     def _format_reward(self, completions, **kwargs):
         regex = r"^<think>([^<]*(?:<(?!/?think>)[^<]*)*)<\/think>\n<answer>([\s\S]*?)<\/answer>$"
-        matches = [re.match(regex, completion, flags=re.DOTALL) 
-                for completion in completions]
+        matches = [re.match(regex, completion, flags=re.DOTALL) for completion in completions]
         return [1.0 if match else 0.0 for match in matches]
 
     def _accuracy_reward(self, completions, metadata, **kwargs):
@@ -82,7 +87,7 @@ def main(script_args, training_args, model_args):
         handlers=[logging.StreamHandler(sys.stdout)],
     )
 
-    logger = logging.getLogger(__name__) 
+    logger = logging.getLogger(__name__)
 
     log_level = training_args.get_process_log_level()
     logger.setLevel(log_level)  # Set for module-level logger
@@ -165,15 +170,18 @@ def main(script_args, training_args, model_args):
 
         for i in range(len(dataset)):
             item = dataset[i]
-            prompt = item['prompt']
-            metadata = item['metadata']
+            prompt = item["prompt"]
+            metadata = item["metadata"]
             inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
 
             with torch.no_grad():
-                outputs = model.generate(inputs,
-                                         max_new_tokens=training_args.max_completion_length,
-                                         pad_token_id=tokenizer.eos_token_id,
-                                         *args, **kwargs)
+                outputs = model.generate(
+                    inputs,
+                    max_new_tokens=training_args.max_completion_length,
+                    pad_token_id=tokenizer.eos_token_id,
+                    *args,
+                    **kwargs,
+                )
 
             generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
             answer = reasoning_gym.utils.extract_answer(generated_text)
