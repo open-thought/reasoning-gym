@@ -73,3 +73,21 @@ def test_coach_with_chain_sum():
         assert len(conv) == 2  # user question and assistant response
         assert conv[0]["role"] == "user"
         assert conv[1]["role"] == "assistant"
+        
+    # Test stats calculation
+    stats = aggregated.stats()
+    assert stats.total_scores == -1  # Indicates stats object
+    
+    for key, values in stats.scores.items():
+        assert len(values) == 4  # [mean, std, min, max]
+        assert all(isinstance(v, float) for v in values)
+        
+    # Test stats with empty scores
+    empty_stats = GroupedScores(scores=OrderedDict(), total_scores=0).stats()
+    assert len(empty_stats.scores) == 0
+    
+    # Test stats with ignore_empty=False
+    empty_group = OrderedDict({(("test", 1),): []})
+    non_ignoring_stats = GroupedScores(scores=empty_group, total_scores=0).stats(ignore_empty=False)
+    assert len(non_ignoring_stats.scores) == 1
+    assert all(math.isnan(v) for v in next(iter(non_ignoring_stats.scores.values())))

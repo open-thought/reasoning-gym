@@ -2,7 +2,8 @@
 
 from collections import OrderedDict
 from dataclasses import dataclass, field
-from statistics import mean
+from statistics import mean, stdev
+import math
 from typing import Any, Dict, List, Optional, Tuple
 
 from .dataset import ProceduralDataset
@@ -13,6 +14,37 @@ class GroupedScores:
     
     scores: OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]
     total_scores: int
+
+    def stats(self, ignore_empty: bool = True) -> "GroupedScores":
+        """Calculate statistics for each group of scores
+        
+        Args:
+            ignore_empty: If True, skip empty score lists
+                         If False, use NaN values for empty lists
+        
+        Returns:
+            GroupedScores with lists containing [mean, std, min, max]
+            total_scores is set to -1 to indicate this is a stats object
+        """
+        result = OrderedDict()
+        
+        for key, values in self.scores.items():
+            if not values and ignore_empty:
+                continue
+                
+            if not values:
+                # Empty list and not ignoring - use NaN
+                result[key] = [math.nan] * 4
+            else:
+                # Calculate stats
+                result[key] = [
+                    mean(values),
+                    stdev(values) if len(values) > 1 else 0.0,
+                    min(values),
+                    max(values)
+                ]
+                
+        return GroupedScores(scores=result, total_scores=-1)
 
 
 @dataclass
