@@ -10,12 +10,13 @@ from peft import LoraConfig
 from torch.utils.data import Dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 from transformers.trainer_utils import get_last_checkpoint
-from trl import GRPOConfig, GRPOTrainer, ModelConfig, ScriptArguments, TrlParser
+from trl import GRPOConfig, GRPOTrainer, ModelConfig, TrlParser
 from dataclasses import dataclass
 from typing import Optional
 
 import reasoning_gym
 from reasoning_gym.utils import extract_answer
+from grpo_config import ScriptArguments
 
 
 class ReasoningGymDataset(Dataset):
@@ -60,8 +61,9 @@ class GRPOTrainerCustom(GRPOTrainer):
         self.train_dataset = ReasoningGymDataset(dataset_name, seed1, size, tokenizer, developer_prompt, developer_role)
 
     def _format_reward(self, completions, **kwargs):
-        pattern = r"^<think>.*?</think><answer>.*?</answer>$"
-        matches = [re.match(pattern, completion) for completion in completions]
+        regex = r"^<think>([^<]*(?:<(?!/?think>)[^<]*)*)<\/think>\n<answer>([\s\S]*?)<\/answer>$"
+        matches = [re.match(regex, completion, flags=re.DOTALL) 
+                for completion in completions]
         return [1.0 if match else 0.0 for match in matches]
 
     def _accuracy_reward(self, completions, metadata, **kwargs):
@@ -100,9 +102,10 @@ def main(script_args, training_args, model_args):
         logger.info(f"Checkpoint detected, resuming training at {last_checkpoint=}.")
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_args.model_name_or_path, torch_dtype=torch.bfloat16
+        model_args.model_name_or_path, torch_dtype=torch.bfloat16, attn_implementation="flash_attention_2"
     ).to("cuda")
     tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path)
+    tokenizer.pad_token = tokenizer.eos_token
 
     peft_config = LoraConfig(
         r=16,
@@ -119,7 +122,7 @@ def main(script_args, training_args, model_args):
         tokenizer=tokenizer,
         peft_config=peft_config,
         seed1=training_args.seed,
-        size=1000,
+        size=script_args.train_size,
     )
 
     # Training loop
@@ -159,11 +162,16 @@ def main(script_args, training_args, model_args):
         total_preds = 0
 
         for i in range(len(dataset)):
-            prompt, metadata = dataset[i]
-            inputs = tokenizer.apply_chat_template(prompt, return_tensors="pt").to("cuda")
+            item = dataset[i]
+            prompt = item['prompt']
+            metadata = item['metadata']
+            inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
 
             with torch.no_grad():
-                outputs = model.generate(inputs, *args, **kwargs)
+                outputs = model.generate(inputs,
+                                         max_new_tokens=training_args.max_completion_length,
+                                         pad_token_id=tokenizer.eos_token_id,
+                                         *args, **kwargs)
 
             generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
             answer = reasoning_gym.utils.extract_answer(generated_text)
@@ -178,7 +186,7 @@ def main(script_args, training_args, model_args):
     eval_dataset = ReasoningGymDataset(
         script_args.dataset_name,
         training_args.eval_seed,
-        500,
+        script_args.eval_size,
         tokenizer,
         reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"],
     )
