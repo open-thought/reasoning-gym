@@ -5,6 +5,10 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
+# Leave this in to avoid CLI trash
+import os
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
+
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.sokoban.src.astar import solve_astar
 from .contrib.sokoban.src.game import Game
