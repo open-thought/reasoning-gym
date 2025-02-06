@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional, Tuple
+from typing import List, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 

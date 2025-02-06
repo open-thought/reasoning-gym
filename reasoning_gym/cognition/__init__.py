@@ -1,9 +1,5 @@
 """
-Cognition tasks for training reasoning capabilities:
-- Pattern recognition
-- Sequence completion
-- Logical reasoning
-- Working memory
+Cognition tasks for training reasoning capabilities.
 """
 
 from .arc_1d import Arc1DConfig, Arc1DDataset

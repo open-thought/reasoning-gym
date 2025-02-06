@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional
+from typing import Optional
 
 from reasoning_gym.data import read_data_file
 

@@ -1,10 +1,5 @@
 """
 Arithmetic tasks for training reasoning capabilities:
-- Basic arithmetic
-- Chain sums
-- Word problems
-- Leg counting
-- Time intervals
 """
 
 from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
@@ -21,13 +16,10 @@ from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
 __all__ = [
     "BasicArithmeticDataset",
     "BasicArithmeticDatasetConfig",
-    "basic_arithmetic_dataset",
     "ChainSum",
     "ChainSumConfig",
     "CalendarArithmeticConfig",
     "CalendarArithmeticDataset",
-    "Weekday",
-    "CalendarTask",
     "FractionSimplificationConfig",
     "FractionSimplificationDataset",
     "GCDConfig",
