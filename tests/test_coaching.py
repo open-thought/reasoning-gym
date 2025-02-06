@@ -78,7 +78,8 @@ def test_coach_with_chain_sum():
     for key, values in stats.scores.items():
         assert isinstance(values, tuple)
         assert len(values) == 5  # (count, mean, std, min, max)
-        assert all(isinstance(v, float) for v in values)
+        assert isinstance(values[0], int)  # count should be int
+        assert all(isinstance(v, float) for v in values[1:])  # stats should be floats
 
     # Test stats with empty scores
     empty_stats = GroupedScores(scores=OrderedDict(), total_scores=0).stats()
