@@ -74,7 +74,6 @@ def test_coach_with_chain_sum():
 
     # Test stats calculation
     stats = aggregated.stats()
-    assert stats.total_scores == -1  # Indicates stats object
 
     for key, values in stats.scores.items():
         assert isinstance(values, tuple)

@@ -16,7 +16,6 @@ class ScoreStats:
     """Container for score statistics with mean, std, min, max"""
     
     scores: OrderedDict[Tuple[Tuple[str, Any], ...], Tuple[float, float, float, float]]
-    total_scores: int
     
     def __str__(self) -> str:
         """Create a formatted report of the statistics
@@ -28,8 +27,6 @@ class ScoreStats:
             return "No scores recorded"
             
         lines = []
-        lines.append(f"Total scores: {self.total_scores}")
-        lines.append("")
         
         for key, values in self.scores.items():
             params = ", ".join(f"{k}={v}" for k, v in key)
@@ -104,7 +101,7 @@ class GroupedScores:
                     max(values)
                 )
 
-        return ScoreStats(scores=result, total_scores=-1)
+        return ScoreStats(scores=result)
 
 
 @dataclass
