@@ -51,7 +51,7 @@ def test_coach_with_chain_sum():
     aggregated = coach.score_board.aggregate()
     
     # Verify we have scores grouped by difficulty parameters
-    assert len(aggregated) > 0
+    assert len(aggregated.scores) > 0
     
     # Each key should be a tuple of tuples containing difficulty parameters
     for key in aggregated:
@@ -64,7 +64,7 @@ def test_coach_with_chain_sum():
     
     # Test aggregation with last_n
     last_3 = coach.score_board.aggregate(last_n=3)
-    assert len(last_3) > 0
+    assert len(last_3.scores) > 0
     
     # Verify total scores count
     assert last_3.total_scores == 3

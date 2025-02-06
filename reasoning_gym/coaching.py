@@ -89,7 +89,7 @@ class ScoreBoard:
             Keys are tuples of (param_name, value) pairs, sorted by param_name
         """
         if not self.scores:
-            return OrderedDict()
+            return GroupedScores(scores=OrderedDict(), total_scores=0)
             
         # Determine start index for iteration
         start_idx = max(0, len(self.scores) - last_n) if last_n is not None else 0
