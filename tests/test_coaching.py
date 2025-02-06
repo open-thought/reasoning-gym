@@ -1,7 +1,9 @@
+from collections import OrderedDict
+import math
 import pytest
 
 from reasoning_gym.arithmetic.chain_sum import ChainSum, ChainSumConfig
-from reasoning_gym.coaching import Coach
+from reasoning_gym.coaching import Coach, GroupedScores
 
 
 def test_coach_with_chain_sum():
