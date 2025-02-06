@@ -114,3 +114,8 @@ def test_group_anagrams_score_answer():
     answer = None
     item = {"metadata": {"solution": [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]}}
     assert dataset.score_answer(answer, item) == 0
+
+    # Verify the score is 0 when answer is malformed JSON
+    answer = '["ate", "eat", "tea"], ["bat"], ["nat", "tan"]'
+    item = {"metadata": {"solution": [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]}}
+    assert dataset.score_answer(answer, item) == 0
