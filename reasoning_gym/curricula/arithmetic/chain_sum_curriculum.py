@@ -12,14 +12,14 @@ class ChainSumCurriculum(BaseCurriculum):
 
     def _init_curriculum(self) -> None:
         """Initialize the ChainSum curriculum configuration"""
-        
+
         # Define valid attribute types
         self._valid_types = {
             AttributeType.STATIC,  # For base numbers
             AttributeType.UBOUND,  # For ranges like digits and terms
             AttributeType.APPEND   # For operators and notations
         }
-        
+
         # Define attributes
         self._attributes = {
             "num_digits": AttributeDefinition(
@@ -66,7 +66,7 @@ class ChainSumCurriculum(BaseCurriculum):
                 attr_type=AttributeType.STATIC
             )
         }
-        
+
         # Define templates
         self._templates = [
             Template(
@@ -91,10 +91,10 @@ def generate_expression(attributes: Dict[str, Any]) -> Dict[str, str]:
     """
     Generates an expression and its result based on current attribute levels.
     This is a placeholder - actual implementation will be in the Exercise class.
-    
+
     Args:
         attributes: Dictionary of current attribute levels
-        
+
     Returns:
         Dict containing the expression and result as strings
     """

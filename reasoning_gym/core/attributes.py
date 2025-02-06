@@ -35,7 +35,7 @@ class AttributeDefinition:
         """
         if not valid_types:
             raise ValueError(f"Curriculum {curriculum} has no valid attribute types defined")
-            
+
         if not attributes:
             raise ValueError(f"Curriculum {curriculum} has no attributes defined")
 
@@ -47,11 +47,11 @@ class AttributeDefinition:
                     f"Attribute '{curriculum_class}{name}' uses type {attr.attr_type.value} "
                     f"which is not in the curriculum's valid types: {[t.value for t in valid_types]}"
                 )
-            
+
             # Check levels exist
             if not attr.levels:
                 raise ValueError(f"Attribute '{curriculum}.{name}' has no levels defined")
-                
+
             # Check default level is valid
             if not 0 <= attr.default_level < len(attr.levels):
                 raise ValueError(
@@ -63,15 +63,15 @@ class AttributeDefinition:
     def check_attribute_exists(cls, attributes: Dict[str, 'AttributeDefinition'], attr_name: str, curriculum: str) -> 'AttributeDefinition':
         """
         Check if attribute exists and return its definition.
-        
+
         Args:
             attributes: Dictionary of attribute definitions
             attr_name: Name of the attribute to check
             curriculum: Name of the curriculum
-            
+
         Returns:
             The AttributeDefinition for the attribute
-            
+
         Raises:
             KeyError: If attribute doesn't exist
         """
@@ -83,13 +83,13 @@ class AttributeDefinition:
     def validate_level(cls, attr: 'AttributeDefinition', level: int, attr_name: str, curriculum: str) -> None:
         """
         Validate that a level is valid for an attribute.
-        
+
         Args:
             attr: The attribute definition
             level: Level to validate
             attr_name: Name of the attribute
             curriculum: Name of the curriculum
-            
+
         Raises:
             ValueError: If level is invalid
         """
@@ -104,13 +104,13 @@ class AttributeDefinition:
     def get_level_value(cls, attr: 'AttributeDefinition', level: int, attr_name: str, curriculum: str) -> Any:
         """
         Get the value for an attribute at a specific level based on its type.
-        
+
         Args:
             attr: The attribute definition
             level: Level to get value for
             attr_name: Name of the attribute
             curriculum: Name of the curriculum
-            
+
         Returns:
             Value for the attribute based on its level and type
         """
@@ -120,5 +120,5 @@ class AttributeDefinition:
             return attr.levels[level]
         elif attr.attr_type == AttributeType.APPEND:
             return attr.levels[:level + 1]
-            
+
         raise ValueError(f"Unknown attribute type: {attr.attr_type} for attribute '{curriculum}.{attr_name}'")
