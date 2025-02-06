@@ -58,17 +58,19 @@ class GroupedScores:
         for key, values in self.scores.items():
             # Format the parameter combinations
             params = ", ".join(f"{k}={v}" for k, v in key)
-            lines.append(f"Parameters: {params}")
-            lines.append(f"  Scores: {len(values)}")
-            if values:
-                lines.append(f"  Mean: {sum(values)/len(values):.3f}")
-                lines.append(f"  Min:  {min(values):.3f}")
-                lines.append(f"  Max:  {max(values):.3f}")
-                # Format score list, showing only last 100 if more
-                score_strs = [f"{x:.2f}" for x in values[-100:]]
-                if len(values) > 100:
-                    score_strs.insert(0, "..")
-                lines.append(f"  Values: {', '.join(score_strs)}")
+            stats = (
+                len(values),
+                mean(values) if values else 0.0,
+                stdev(values) if len(values) > 1 else 0.0,
+                min(values) if values else 0.0,
+                max(values) if values else 0.0
+            )
+            lines.append(f"({params}): n={stats[0]}, μ={stats[1]:.3f}, σ={stats[2]:.3f}, min={stats[3]:.3f}, max={stats[4]:.3f}")
+            # Format score list, showing only last 100 if more
+            score_strs = [f"{x:.2f}" for x in values[-100:]]
+            if len(values) > 100:
+                score_strs.insert(0, "..")
+            lines.append(f"  Values: {', '.join(score_strs)}")
         
         return "\n".join(lines)
 
