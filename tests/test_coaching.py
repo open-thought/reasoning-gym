@@ -159,6 +159,21 @@ def test_coach_with_composite():
     print("\nComposite Dataset Stats:")
     print(stats)
 
+    # Test config update
+    coach.dataset.update_dataset_config("chain_sum", {"min_terms": 4, "max_terms": 5})
+
+    # Verify the config was updated
+    chain_sum_dataset = coach.dataset.datasets["chain_sum"]
+    assert chain_sum_dataset.config.min_terms == 4
+    assert chain_sum_dataset.config.max_terms == 5
+
+    # Score some more items to verify new config is in effect
+    for i in range(3):
+        item = coach[i + 5]  # Use different indices
+        if "chain_sum" in item["metadata"]["source_dataset"]:
+            metadata = item["metadata"]
+            assert metadata["difficulty"]["num_terms"] >= 4
+
 
 def test_grouped_scores_str():
     # Test raw scores string representation
