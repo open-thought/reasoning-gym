@@ -221,9 +221,6 @@ class Coach(ProceduralDataset):
                 json.dump(log_entry, f)
                 f.write("\n")
 
-        # Update difficulty based on recent performance
-        self.update_difficulty()
-
         return score
 
     def update_difficulty(self) -> None:
