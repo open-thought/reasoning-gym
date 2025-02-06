@@ -132,6 +132,10 @@ class ScoreBoard:
         self.metadata.clear()
         self.conversations.clear()
 
+    def __len__(self) -> int:
+        """Return the number of stored scores"""
+        return len(self.scores)
+
     def _metadata_to_key(self, metadata: Dict[str, Any]) -> Tuple[Tuple[str, Any], ...]:
         """Convert metadata dict to tuple of key-value pairs, sorted by key
         
