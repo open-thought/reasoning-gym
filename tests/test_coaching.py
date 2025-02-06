@@ -93,6 +93,7 @@ def test_coach_with_chain_sum():
     assert stats_tuple[0] == 0  # count should be 0 for empty list
     assert all(math.isnan(v) for v in stats_tuple[1:])  # stats should be NaN
 
+    print(aggregated)
     print(stats)
 
 
