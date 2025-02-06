@@ -91,6 +91,8 @@ def test_coach_with_chain_sum():
     stats_tuple = next(iter(non_ignoring_stats.scores.values()))
     assert all(math.isnan(v) for v in stats_tuple)
 
+    print(stats)
+
 
 def test_grouped_scores_str():
     # Test raw scores string representation
