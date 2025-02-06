@@ -1,3 +1,4 @@
+from .complex_arithmetic import ComplexArithmeticConfig, ComplexArithmeticDataset
 from .intermediate_integration import IntermediateIntegrationConfig, IntermediateIntegrationDataset
 from .polynomial_equations import PolynomialEquationsConfig, PolynomialEquationsDataset
 from .simple_equations import SimpleEquationsConfig, SimpleEquationsDataset
@@ -12,4 +13,6 @@ __all__ = [
     "SimpleEquationsConfig",
     "SimpleIntegrationConfig",
     "SimpleIntegrationDataset",
+    "ComplexArithmeticConfig",
+    "ComplexArithmeticDataset",
 ]
