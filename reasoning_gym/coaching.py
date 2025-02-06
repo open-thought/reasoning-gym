@@ -127,14 +127,34 @@ class ScoreBoard:
         self.conversations.append(conversation)
 
     def _metadata_to_key(self, metadata: Dict[str, Any]) -> Tuple[Tuple[str, Any], ...]:
-        """Convert metadata dict to tuple of key-value pairs, sorted by key"""
+        """Convert metadata dict to tuple of key-value pairs, sorted by key
+        
+        If source_dataset and source_index are present in metadata, they will be
+        placed first in the tuple as ("source", dataset) and ("idx", index).
+        """
+        # Start with empty list
+        key_items = []
+        
+        # Add source info first if present
+        if "source_dataset" in metadata and "source_index" in metadata:
+            key_items.extend([
+                ("source", metadata["source_dataset"]),
+                ("idx", metadata["source_index"])
+            ])
+        
+        # Add difficulty parameters or other metadata
         if "difficulty" in metadata:
             # Use only difficulty parameters
             items = metadata["difficulty"].items()
         else:
-            # Use all metadata as key
-            items = metadata.items()
-        return tuple(sorted((str(k), v) for k, v in items))
+            # Use all metadata except source info
+            items = ((k, v) for k, v in metadata.items() 
+                    if k not in ("source_dataset", "source_index"))
+            
+        # Add remaining items in sorted order
+        key_items.extend(sorted((str(k), v) for k, v in items))
+        
+        return tuple(key_items)
 
     def aggregate(self, last_n: Optional[int] = None) -> GroupedScores:
         """Aggregate scores by difficulty parameters or full metadata if no difficulty present
