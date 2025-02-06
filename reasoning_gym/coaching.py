@@ -1,7 +1,9 @@
 """Coaching module for difficulty adjustment and score tracking"""
 
+from collections import OrderedDict
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from statistics import mean
+from typing import Any, Dict, List, Optional, Tuple
 
 from .dataset import ProceduralDataset
 
@@ -25,6 +27,49 @@ class ScoreBoard:
         self.scores.append(score)
         self.metadata.append(metadata)
         self.conversations.append(conversation)
+
+    def _metadata_to_key(self, metadata: Dict[str, Any]) -> Tuple[Tuple[str, Any], ...]:
+        """Convert metadata dict to tuple of key-value pairs, sorted by key"""
+        if "difficulty" in metadata:
+            # Use only difficulty parameters
+            items = metadata["difficulty"].items()
+        else:
+            # Use all metadata as key
+            items = metadata.items()
+        return tuple(sorted((str(k), v) for k, v in items))
+
+    def aggregate(self, last_n: Optional[int] = None) -> OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]:
+        """Aggregate scores by difficulty parameters or full metadata if no difficulty present
+        
+        Args:
+            last_n: Optional number of most recent entries to consider
+                   If None, use all entries
+        
+        Returns:
+            OrderedDict mapping difficulty parameter combinations to lists of scores
+            Keys are tuples of (param_name, value) pairs, sorted by param_name
+        """
+        if not self.scores:
+            return OrderedDict()
+            
+        # Get slice of entries to consider
+        if last_n is not None:
+            start_idx = max(0, len(self.scores) - last_n)
+            scores = self.scores[start_idx:]
+            metadata = self.metadata[start_idx:]
+        else:
+            scores = self.scores
+            metadata = self.metadata
+            
+        # Group scores by difficulty parameters
+        result = OrderedDict()
+        for score, meta in zip(scores, metadata):
+            key = self._metadata_to_key(meta)
+            if key not in result:
+                result[key] = []
+            result[key].append(score)
+            
+        return result
 
 
 class Coach(ProceduralDataset):
