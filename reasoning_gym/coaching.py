@@ -52,22 +52,16 @@ class ScoreBoard:
         if not self.scores:
             return OrderedDict()
             
-        # Get slice of entries to consider
-        if last_n is not None:
-            start_idx = max(0, len(self.scores) - last_n)
-            scores = self.scores[start_idx:]
-            metadata = self.metadata[start_idx:]
-        else:
-            scores = self.scores
-            metadata = self.metadata
-            
-        # Group scores by difficulty parameters
+        # Determine start index for iteration
+        start_idx = max(0, len(self.scores) - last_n) if last_n is not None else 0
+        
+        # Group scores by difficulty parameters without creating intermediate lists
         result = OrderedDict()
-        for score, meta in zip(scores, metadata):
-            key = self._metadata_to_key(meta)
+        for i in range(start_idx, len(self.scores)):
+            key = self._metadata_to_key(self.metadata[i])
             if key not in result:
                 result[key] = []
-            result[key].append(score)
+            result[key].append(self.scores[i])
             
         return result
 
