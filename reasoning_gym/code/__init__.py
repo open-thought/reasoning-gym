@@ -1,8 +1,5 @@
 """
-Cognition tasks for training reasoning capabilities:
-- Code Analysis
-- Code Interpretation
-- Code Execution
+Code reasing tasks
 """
 
 from .bf import BFConfig, BFDataset

@@ -3,8 +3,7 @@ import string
 from dataclasses import dataclass
 from typing import Optional, Tuple
 
-import sympy
-from sympy import Eq, Symbol, solve
+from sympy import Symbol
 
 from ..factory import ProceduralDataset, register_dataset
 

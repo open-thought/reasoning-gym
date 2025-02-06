@@ -65,8 +65,10 @@ class ChainSum(ProceduralDataset):
             "question": f"{expression} =",
             "answer": str(result),
             "metadata": {
-                "num_terms": num_terms,
-                "num_digits": num_digits,
+                "difficulty": {
+                    "num_terms": num_terms,
+                    "num_digits": num_digits,
+                },
                 "expression": expression,
             },
         }

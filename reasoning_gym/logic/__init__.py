@@ -1,9 +1,5 @@
 """
-Logic tasks for training reasoning capabilities:
-- Propositional logic
-- Predicate logic
-- Set theory
-- Syllogisms
+Logic tasks for training reasoning capabilities.
 """
 
 from .aiw import AliceInWonderlandConfig, AliceInWonderlandDataset
