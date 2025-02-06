@@ -69,6 +69,11 @@ class GroupedScores:
                 lines.append(f"  Mean: {sum(values)/len(values):.3f}")
                 lines.append(f"  Min:  {min(values):.3f}")
                 lines.append(f"  Max:  {max(values):.3f}")
+                # Format score list, showing only last 100 if more
+                score_strs = [f"{x:.2f}" for x in values[-100:]]
+                if len(values) > 100:
+                    score_strs.insert(0, "..")
+                lines.append(f"  Values: {', '.join(score_strs)}")
             lines.append("")
         
         return "\n".join(lines)
