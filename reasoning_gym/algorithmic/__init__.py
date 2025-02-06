@@ -9,6 +9,7 @@ Algorithmic tasks for training reasoning capabilities:
 from .base_conversion import BaseConversionConfig, BaseConversionDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
+from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
@@ -48,4 +49,6 @@ __all__ = [
     "PalindromeDataset",
     "GroupAnagramsConfig",
     "GroupAnagramsDataset",
+    "IsomorphicStringsConfig",
+    "IsomorphicStringsDataset",
 ]

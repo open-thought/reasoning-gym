@@ -99,6 +99,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `WordSequenceReversalDataset`: Reverse word order in text spans
 - `WordLadderDataset`: Generate word ladder puzzles where one word is transformed into another by changing one letter at a time
 - `GroupAnagramsDataset`: Group anagrams together in a list of words
+- `IsomorphicStrings`: Check if two strings are isomorphic (have the same character mapping)
 
 ### <small>Code Tasks</small>
 
