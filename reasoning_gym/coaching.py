@@ -1,10 +1,12 @@
 """Coaching module for difficulty adjustment and score tracking"""
 
 import math
+import json
 from collections import OrderedDict
 from dataclasses import dataclass, field
+from pathlib import Path
 from statistics import mean, stdev
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from .dataset import ProceduralDataset
 
@@ -112,15 +114,17 @@ class Coach(ProceduralDataset):
     2. Adjusts difficulty based on performance (to be implemented)
     """
 
-    def __init__(self, dataset: ProceduralDataset):
+    def __init__(self, dataset: ProceduralDataset, score_log: Optional[Union[str, Path]] = None):
         """Initialize with inner dataset
 
         Args:
             dataset: The ProceduralDataset to wrap
+            score_log: Optional path to jsonl file for logging scores
         """
         super().__init__(config=dataset.config, seed=dataset.seed, size=dataset.size)
         self.dataset = dataset
         self.score_board = ScoreBoard()
+        self.score_log = Path(score_log) if score_log else None
 
     def __getitem__(self, idx: int) -> dict:
         """Forward item generation to inner dataset"""
@@ -144,6 +148,17 @@ class Coach(ProceduralDataset):
 
         # Track score and metadata
         self.score_board.add_score(score=score, metadata=entry["metadata"], conversation=conversation)
+        
+        # Log score if logging is enabled
+        if self.score_log is not None:
+            log_entry = {
+                "score": score,
+                "metadata": entry["metadata"],
+                "conversation": conversation
+            }
+            with self.score_log.open("a") as f:
+                json.dump(log_entry, f)
+                f.write("\n")
 
         # Update difficulty based on recent performance
         self.update_difficulty()

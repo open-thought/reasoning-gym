@@ -1,5 +1,7 @@
+import json
 import math
 from collections import OrderedDict
+from pathlib import Path
 
 import pytest
 
@@ -87,3 +89,40 @@ def test_coach_with_chain_sum():
     non_ignoring_stats = GroupedScores(scores=empty_group, total_scores=0).stats(ignore_empty=False)
     assert len(non_ignoring_stats.scores) == 1
     assert all(math.isnan(v) for v in next(iter(non_ignoring_stats.scores.values())))
+
+
+def test_coach_score_logging(tmp_path):
+    # Create a log file in the temporary directory
+    log_file = tmp_path / "scores.jsonl"
+    
+    # Create dataset and coach with logging
+    config = ChainSumConfig(min_terms=2, max_terms=3, min_digits=1, max_digits=2, size=10, seed=42)
+    dataset = ChainSum(config)
+    coach = Coach(dataset, score_log=log_file)
+    
+    # Score a few answers
+    for i in range(3):
+        item = coach[i]
+        coach.score_answer(
+            answer=item["answer"] if i % 2 == 0 else None,
+            entry=item,
+            conversation=[
+                {"role": "user", "content": item["question"]},
+                {"role": "assistant", "content": item["answer"] if i % 2 == 0 else "I don't know"},
+            ],
+        )
+    
+    # Verify log file contents
+    assert log_file.exists()
+    
+    # Read and parse log entries
+    log_entries = [json.loads(line) for line in log_file.open()]
+    assert len(log_entries) == 3
+    
+    # Verify log entry structure
+    for i, entry in enumerate(log_entries):
+        assert "score" in entry
+        assert "metadata" in entry
+        assert "conversation" in entry
+        assert entry["score"] == (1.0 if i % 2 == 0 else 0.0)
+        assert len(entry["conversation"]) == 2
