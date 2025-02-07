@@ -246,17 +246,29 @@ class SyllogismDataset(ProceduralDataset):
         terms = rng.sample(self.terms, 3)
         quantifiers = self._get_allowed_quantifiers()
 
-        target_valid = rng.random() < self.config.invalid_ratio
-        while True:
+        target_valid = rng.random() > self.config.invalid_ratio  # Invert ratio to match meaning
+        max_attempts = 100
+        attempts = 0
+        
+        while attempts < max_attempts:
             # Generate premises and conclusion
             premise1 = (rng.choice(quantifiers), terms[0], terms[1])
             premise2 = (rng.choice(quantifiers), terms[1], terms[2])
             conclusion = (rng.choice(quantifiers), terms[0], terms[2])
 
-            # Decide if this should be a valid or invalid syllogism
+            # Check if validity matches target
             is_valid = self._is_valid_syllogism(premise1, premise2, conclusion)
             if is_valid == target_valid:
                 break
+                
+            attempts += 1
+        
+        if attempts >= max_attempts:
+            # If we couldn't find a matching syllogism, return a basic valid one
+            premise1 = (Quantifier.ALL, terms[0], terms[1])
+            premise2 = (Quantifier.ALL, terms[1], terms[2]) 
+            conclusion = (Quantifier.ALL, terms[0], terms[2])
+            is_valid = True
 
         # Format the syllogism as text
         premise1_text = self._format_quantifier_statement(premise1[0], premise1[1], premise1[2])
