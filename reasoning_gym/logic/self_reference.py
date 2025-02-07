@@ -3,7 +3,6 @@ from random import Random
 from typing import Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
-from .contrib.logic_puzzle.generate import generate_puzzle
 
 
 def is_prime(n):

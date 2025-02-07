@@ -23,6 +23,7 @@ This gallery shows examples from all available datasets using their default conf
 - [group_anagrams](#group_anagrams)
 - [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
+- [isomorphic_strings](#isomorphic_strings)
 - [largest_island](#largest_island)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
@@ -41,6 +42,7 @@ This gallery shows examples from all available datasets using their default conf
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
 - [rubiks_cube](#rubiks_cube)
+- [self_reference](#self_reference)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
 - [simple_geometry](#simple_geometry)
@@ -1072,6 +1074,99 @@ Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x'
 
 ````
 
+### isomorphic_strings
+Generates Isomorphic Strings exercises with configurable difficulty
+
+Default configuration:
+```python
+max_string_length = 10
+p_solvable = 0.5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+cc bw
+
+Answer: False
+Metadata: {'words': ['cc', 'bw'], 'solution': False, 'solvable': False}
+
+Example 2:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+nai oik
+
+Answer: True
+Metadata: {'words': ['nai', 'oik'], 'solution': True, 'solvable': True}
+
+Example 3:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+hogtytyof kgqwfwfgh
+
+Answer: True
+Metadata: {'words': ['hogtytyof', 'kgqwfwfgh'], 'solution': True, 'solvable': True}
+
+````
+
 ### largest_island
 Generates Largest Island exercises with configurable difficulty
 
@@ -1930,6 +2025,56 @@ Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
 Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'example_correct_answer': "R R U'"}
+
+````
+
+### self_reference
+Generates self-referential puzzles
+
+Default configuration:
+```python
+difficulty = 5
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 1 of these 7 statements are true.'
+ - Statement 2: 'At most 3 of these 7 statements are false.'
+ - Statement 3: 'Exactly 4 of these 7 statements are true.'
+ - Statement 4: 'Exactly 3 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 4
+
+Example 2:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 4 of these 7 statements are true.'
+ - Statement 2: 'At most 5 of these 7 statements are false.'
+ - Statement 3: 'Exactly 7 of these 7 statements are true.'
+ - Statement 4: 'Exactly 1 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 4
+
+Example 3:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 2 of these 7 statements are true.'
+ - Statement 2: 'At most 5 of these 7 statements are false.'
+ - Statement 3: 'Exactly 0 of these 7 statements are true.'
+ - Statement 4: 'Exactly 3 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 2
 
 ````
 

@@ -45,10 +45,6 @@ def test_complex_arithmetic_basic():
     # answer is formatted as "real + imagi"
     assert ComplexArithmeticDataset.parse_string_to_complex(item["answer"]) == complex(*item["metadata"]["result"])
 
-    with open("complex_arithmetic_dataset.txt", "w") as f:
-        for item in dataset:
-            f.write(str(item) + "\n")
-
 
 def test_complex_arithmetic_scoring():
     """Test scoring function with various answer formats and accuracies."""
