@@ -200,7 +200,7 @@ class TsumegoDataset(ProceduralDataset):
 
         board, solution = self._generate_capture_problem(size, rng)
         board_str = self._board_to_string(board)
-        solution_str = f"{chr(ord('A')+solution[1])}{solution[0]+1}"
+        solution_str = f"{chr(ord('A')+solution[1])}{size-solution[0]}"
 
         return {
             "question": (
@@ -225,22 +225,20 @@ class TsumegoDataset(ProceduralDataset):
         if not answer:
             return 0.01
         metadata = entry["metadata"]
-        try:
-            #  get solution from (row, col) tuple
-            expected_row, expected_col = metadata["solution"]
-        except Exception:
-            return 0.01
+        board_size = len(metadata["board"])
+        expected_row, expected_col = metadata["solution"]  # get solution from (row, col) tuple
+
         try:
             # Assume letter-number format, e.g. "C4"
             m = re.match(r"^([A-Za-z])(\d+)$", answer)
             if not m:
                 return 0.01
             col_letter, row_str = m.group(1), m.group(2)
-            row = int(row_str) - 1
+            row = board_size - int(row_str)
             col = ord(col_letter.upper()) - ord("A")
             if (row, col) == (expected_row, expected_col):
                 return 1.0
-            board_size = metadata["board_size"]
+
             if 0 <= row < board_size and 0 <= col < board_size:
                 return 0.05
         except Exception:
