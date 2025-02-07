@@ -64,7 +64,7 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 ...
 ```
 
-See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets with examples.
+See the [Dataset Gallery](https://github.com/open-thought/reasoning-gym/blob/main/GALLERY.md) for a complete list of available datasets with examples.
 
 ## Task Overview
 
