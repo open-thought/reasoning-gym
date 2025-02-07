@@ -176,7 +176,7 @@ class SyllogismDataset(ProceduralDataset):
         if q1 == Quantifier.ALL and q2 == Quantifier.ALL and qc == Quantifier.ALL:
             # Check if terms match Barbara pattern:
             # t1_1(M) -> t1_2(P), t2_1(S) -> t2_2(M), tc_1(S) -> tc_2(P)
-            if (t1_2 == t2_2 and  # Middle term M
+            if (t1_1 == t2_2 and  # Middle term M
                 t2_1 == tc_1 and  # Subject S
                 t1_2 == tc_2):    # Predicate P
                 return True
