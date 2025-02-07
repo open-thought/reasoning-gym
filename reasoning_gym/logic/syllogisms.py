@@ -181,10 +181,15 @@ class SyllogismDataset(ProceduralDataset):
             if t1_1 == t2_2 and t2_1 == tc_1 and t1_2 == tc_2:  # Middle term M  # Subject S  # Predicate P
                 return True
 
-        # Rule 2: Cesare syllogism
-        if q1 == Quantifier.ALL and q2 == Quantifier.NO:
-            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
-                return qc == Quantifier.NO
+        # Rule 2: Cesare syllogism (EAE-2)
+        # Major: No P are M
+        # Minor: All S are M
+        # Concl: No S are P
+        if q1 == Quantifier.ALL and q2 == Quantifier.NO and qc == Quantifier.NO:
+            if (t1_2 == t2_2 and  # Middle term M
+                t1_1 == tc_1 and  # Subject S
+                t2_1 == tc_2):    # Predicate P
+                return True
 
         # Rule 3: Darii syllogism
         if q1 == Quantifier.SOME and q2 == Quantifier.ALL:
