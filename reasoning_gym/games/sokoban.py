@@ -5,9 +5,6 @@ from typing import Dict, Optional
 import numpy as np
 
 from ..factory import ProceduralDataset, register_dataset
-from .contrib.sokoban.src.game import Game
-from .contrib.sokoban.src.generator import generate
-from .contrib.sokoban.src.utils import is_solved
 
 
 @dataclass
@@ -40,6 +37,15 @@ class SokobanDataset(ProceduralDataset):
 
         super().__init__(config=config, seed=config.seed, size=config.size)
 
+        # lazy loading of sokoban imports
+        from .contrib.sokoban.src.game import Game
+        from .contrib.sokoban.src.generator import generate
+        from .contrib.sokoban.src.utils import is_solved
+
+        self._Game = Game
+        self._generate = generate
+        self._is_solved = is_solved
+
     def __getitem__(self, idx: int) -> dict:
         """Generate a single Sokoban task
 
@@ -52,7 +58,7 @@ class SokobanDataset(ProceduralDataset):
 
         # Make the Sokoban!
         rng = Random(self.seed + idx)
-        gamestr, solution, difficulty = generate(rng=rng)
+        gamestr, solution, difficulty = self._generate(rng=rng)
 
         return {
             "question": """You are going to solve a 'sokoban' puzzle.
@@ -94,13 +100,13 @@ Here is your puzzle:
             grid_list = [list(line) for line in entry["metadata"]["gamestr"].replace(" ", "").strip().split("\n")]
             matrix = np.array(grid_list)
 
-            game = Game()
+            game = self._Game()
             game.load_puzzle_matrix(matrix)
 
             for move in answer:
                 game.player.update(key=move)
 
-            if is_solved(game.get_curr_state()):
+            if self._is_solved(game.get_curr_state()):
                 return 1.0
         except Exception as e:
             return 0.01
