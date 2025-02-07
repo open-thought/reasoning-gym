@@ -144,6 +144,86 @@ def test_valid_syllogism_forms():
         (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
     )
 
+    # Test Datisi (AII-3)
+    # Major premise: All M are P
+    # Minor premise: Some M are S
+    # Conclusion:    Some S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.ALL, B, C),   # All B (M) are C (P)
+        (Quantifier.SOME, B, A),  # Some B (M) are A (S)
+        (Quantifier.SOME, A, C),  # Some A (S) are C (P)
+    )
+
+    # Test Bocardo (OAO-3)
+    # Major premise: Some M are not P
+    # Minor premise: All M are S
+    # Conclusion:    Some S are not P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.SOME_NOT, B, C),  # Some B (M) are not C (P)
+        (Quantifier.ALL, B, A),       # All B (M) are A (S)
+        (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
+    )
+
+    # Test Baroco (AOO-2)
+    # Major premise: All P are M
+    # Minor premise: Some S are not M
+    # Conclusion:    Some S are not P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.ALL, C, B),        # All C (P) are B (M)
+        (Quantifier.SOME_NOT, A, B),   # Some A (S) are not B (M)
+        (Quantifier.SOME_NOT, A, C),   # Some A (S) are not C (P)
+    )
+
+    # Test Camestres (AEE-2)
+    # Major premise: All P are M
+    # Minor premise: No S are M
+    # Conclusion:    No S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.ALL, C, B),  # All C (P) are B (M)
+        (Quantifier.NO, A, B),   # No A (S) are B (M)
+        (Quantifier.NO, A, C),   # No A (S) are C (P)
+    )
+
+    # Test Dimaris (IAI-4)
+    # Major premise: Some P are M
+    # Minor premise: All M are S
+    # Conclusion:    Some S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.SOME, C, B),  # Some C (P) are B (M)
+        (Quantifier.ALL, B, A),   # All B (M) are A (S)
+        (Quantifier.SOME, A, C),  # Some A (S) are C (P)
+    )
+
+    # Test Ferison (EIO-3)
+    # Major premise: No M are P
+    # Minor premise: Some M are S
+    # Conclusion:    Some S are not P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.NO, B, C),        # No B (M) are C (P)
+        (Quantifier.SOME, B, A),      # Some B (M) are A (S)
+        (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
+    )
+
+    # Test Fresison (EIO-4)
+    # Major premise: No P are M
+    # Minor premise: Some M are S
+    # Conclusion:    Some S are not P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.NO, C, B),        # No C (P) are B (M)
+        (Quantifier.SOME, B, A),      # Some B (M) are A (S)
+        (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
+    )
+
+    # Test Camenes (AEE-4)
+    # Major premise: All P are M
+    # Minor premise: No M are S
+    # Conclusion:    No S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.ALL, C, B),  # All C (P) are B (M)
+        (Quantifier.NO, B, A),   # No B (M) are A (S)
+        (Quantifier.NO, A, C),   # No A (S) are C (P)
+    )
+
     # Test invalid forms
     assert not dataset._is_valid_syllogism(
         (Quantifier.SOME, B, C),  # Some B are C

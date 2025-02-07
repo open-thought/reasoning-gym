@@ -132,16 +132,24 @@ class SyllogismDataset(ProceduralDataset):
            - If one premise is NO and other is ALL, conclusion must be NO
            - NO A are B + ALL C are B → NO A are C (Celarent)
            - ALL A are B + NO C are B → NO A are C (Cesare)
+           - ALL A are B + ALL C are B → NO A are C (Camestres)
+           - ALL A are B + ALL C are B → NO A are C (Camenes)
 
         3. Particular Affirmative (SOME):
            - If one premise is SOME and other is ALL, conclusion must be SOME
            - SOME A are B + ALL B are C → SOME A are C (Darii)
            - ALL A are B + SOME C are B → SOME A are C (Disamis)
+           - ALL A are B + ALL B are C → SOME A are C (Datisi)
+           - ALL A are B + ALL B are C → SOME A are C (Dimaris)
 
         4. Particular Negative (SOME_NOT):
            - If one premise is SOME_NOT and other is ALL, conclusion can be SOME_NOT
            - SOME A are not B + ALL B are C → SOME A are not C (Ferio)
            - ALL A are B + SOME C are not B → SOME A are not C (Festino)
+           - ALL A are B + ALL B are C → SOME A are not C (Ferison)
+           - ALL A are B + ALL B are C → SOME A are not C (Fresison)
+           - ALL A are B + ALL C are B → SOME A are not C (Baroco)
+           - SOME A are not B + ALL B are C → SOME A are not C (Bocardo)
 
         5. Invalid combinations:
            - Two negative premises never yield a valid conclusion
@@ -232,6 +240,86 @@ class SyllogismDataset(ProceduralDataset):
         if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
             if (t1_2 == t2_2 and  # Middle term M
                 t2_1 == tc_1 and  # Subject S
+                t1_1 == tc_2):    # Predicate P
+                return True
+
+        # Datisi syllogism (AII-3)
+        # Major: All M are P
+        # Minor: Some M are S
+        # Concl: Some S are P
+        if q1 == Quantifier.ALL and q2 == Quantifier.SOME and qc == Quantifier.SOME:
+            if (t1_1 == t2_1 and  # Middle term M
+                t2_2 == tc_1 and  # Subject S
+                t1_2 == tc_2):    # Predicate P
+                return True
+
+        # Bocardo syllogism (OAO-3)
+        # Major: Some M are not P
+        # Minor: All M are S
+        # Concl: Some S are not P
+        if q1 == Quantifier.SOME_NOT and q2 == Quantifier.ALL and qc == Quantifier.SOME_NOT:
+            if (t1_1 == t2_1 and  # Middle term M
+                t2_2 == tc_1 and  # Subject S
+                t1_2 == tc_2):    # Predicate P
+                return True
+
+        # Baroco syllogism (AOO-2)
+        # Major: All P are M
+        # Minor: Some S are not M
+        # Concl: Some S are not P
+        if q1 == Quantifier.ALL and q2 == Quantifier.SOME_NOT and qc == Quantifier.SOME_NOT:
+            if (t1_1 == t1_2 and  # Middle term M
+                t2_1 == tc_1 and  # Subject S
+                t1_1 == tc_2):    # Predicate P
+                return True
+
+        # Camestres syllogism (AEE-2)
+        # Major: All P are M
+        # Minor: No S are M
+        # Concl: No S are P
+        if q1 == Quantifier.ALL and q2 == Quantifier.NO and qc == Quantifier.NO:
+            if (t1_2 == t2_2 and  # Middle term M
+                t2_1 == tc_1 and  # Subject S
+                t1_1 == tc_2):    # Predicate P
+                return True
+
+        # Dimaris syllogism (IAI-4)
+        # Major: Some P are M
+        # Minor: All M are S
+        # Concl: Some S are P
+        if q1 == Quantifier.SOME and q2 == Quantifier.ALL and qc == Quantifier.SOME:
+            if (t1_2 == t2_1 and  # Middle term M
+                t2_2 == tc_1 and  # Subject S
+                t1_1 == tc_2):    # Predicate P
+                return True
+
+        # Ferison syllogism (EIO-3)
+        # Major: No M are P
+        # Minor: Some M are S
+        # Concl: Some S are not P
+        if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
+            if (t1_1 == t2_1 and  # Middle term M
+                t2_2 == tc_1 and  # Subject S
+                t1_2 == tc_2):    # Predicate P
+                return True
+
+        # Fresison syllogism (EIO-4)
+        # Major: No P are M
+        # Minor: Some M are S
+        # Concl: Some S are not P
+        if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
+            if (t1_1 == t2_1 and  # Middle term M
+                t2_2 == tc_1 and  # Subject S
+                t1_1 == tc_2):    # Predicate P
+                return True
+
+        # Camenes syllogism (AEE-4)
+        # Major: All P are M
+        # Minor: No M are S
+        # Concl: No S are P
+        if q1 == Quantifier.ALL and q2 == Quantifier.NO and qc == Quantifier.NO:
+            if (t1_2 == t2_1 and  # Middle term M
+                t2_2 == tc_1 and  # Subject S
                 t1_1 == tc_2):    # Predicate P
                 return True
 
