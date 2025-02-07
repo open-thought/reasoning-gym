@@ -227,6 +227,11 @@ class SyllogismDataset(ProceduralDataset):
                 if not dist_major_pred:
                     return False
 
+        # If either premise is negative, the conclusion must be negative.
+        if (q1 in negative_set) or (q2 in negative_set):
+            if q3 not in negative_set:
+                return False
+
         # If all checks pass, it's valid
         return True
 
