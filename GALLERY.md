@@ -35,6 +35,7 @@ This gallery shows examples from all available datasets using their default conf
 - [number_sorting](#number_sorting)
 - [palindrome](#palindrome)
 - [polynomial_equations](#polynomial_equations)
+- [polynomial_multiplication](#polynomial_multiplication)
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
@@ -49,6 +50,7 @@ This gallery shows examples from all available datasets using their default conf
 - [syllogism](#syllogism)
 - [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
+- [tsumego](#tsumego)
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
@@ -1659,6 +1661,46 @@ Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3
 
 ````
 
+### polynomial_multiplication
+Generates [min_polynomials, max_polynomials] random polynomials of degree in [min_degree, max_degree].
+    - The polynomial is formed by summing random terms of the form: coeff * x^exponent.
+    - Then we find "F = P_0 * ... * P_1" using Sympy.
+
+Default configuration:
+```python
+min_terms = 2
+max_terms = 4
+min_value = 1
+max_value = 100
+min_degree = 1
+max_degree = 3
+min_polynomials = 2
+max_polynomials = 3
+single_variable = (True,)
+operators = ('+', '-')
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Calculate the following: (65*x - 72)*(105*x - 125)
+Answer: 6825*x**2 - 15685*x + 9000
+Metadata: {'polynomial_expr': '(65*x - 72)*(105*x - 125)', 'single_variable': (True,), 'result': '6825*x**2 - 15685*x + 9000'}
+
+Example 2:
+Question: Calculate the following: (-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)
+Answer: -774*x**4 - 2390*x**3 + 173*x**2 + 364*x
+Metadata: {'polynomial_expr': '(-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)', 'single_variable': (True,), 'result': '-774*x**4 - 2390*x**3 + 173*x**2 + 364*x'}
+
+Example 3:
+Question: Calculate the following: (43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)
+Answer: -19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x
+Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': (True,), 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
+
+````
+
 ### prime_factorization
 Generates prime factorization tasks
 
@@ -2353,6 +2395,91 @@ Move disk 1 from Peg 3 to Peg 2
 Provide the sequence of moves.
 Answer: ['Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 5 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 4 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 6 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 4 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 5 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
 Metadata: {'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxiliary_pegs': [3], 'solution_length': 63}
+
+````
+
+### tsumego
+Generates Tsumego problems with configurable parameters
+
+Default configuration:
+```python
+min_board_size = 9
+max_board_size = 13
+max_stones = 15
+size = 100
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Tsumego time. Black to play and capture some stones.
+Find the key move.
+
+   A B C D E F G H I
+ 9 X . . . X . . . .
+ 8 . . . . . . . . .
+ 7 . O . O . . X . .
+ 6 . . . . . . . . O
+ 5 O . . O . . . . .
+ 4 . X O O . . . . .
+ 3 . . . O . . . . .
+ 2 . . . . . . . . .
+ 1 . O . O . . X . .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: E6
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', 'O'], ['O', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', '.', '.', '.', '.'], ['.', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']], 'solution': (5, 4)}
+
+Example 2:
+Question: Tsumego time. Black to play and capture some stones.
+Find the key move.
+
+   A B C D E F G H I
+ 9 . . O . . . . . .
+ 8 . X O . . . . . .
+ 7 . . . O . . . . .
+ 6 . . O O . . . . .
+ 5 . . O O . . . . .
+ 4 . X . . . . . . O
+ 3 . X . . . . X . .
+ 2 O . O . . . . . .
+ 1 . . . . O . . . .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: E4
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', '.', 'O', 'O', '.', '.', '.', '.', '.'], ['.', '.', 'O', 'O', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']], 'solution': (3, 4)}
+
+Example 3:
+Question: Tsumego time. Black to play and capture some stones.
+Find the key move.
+
+   A B C D E F G H I J K L
+12 . . . . . . . . . . . .
+11 . . X . . . . . . . . .
+10 . . . . . . . . . . . .
+ 9 . . . . . . . . . . . .
+ 8 X . . . . X . . . X . .
+ 7 . X . . . . . O . . . .
+ 6 . . . . . . O O . . . O
+ 5 . . . . . . . O . . . .
+ 4 . O . . . . . . O . . O
+ 3 X . . . . . . . . . . .
+ 2 . . . . . . . . . . . .
+ 1 . . . . . . . . . . X .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: I7
+Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', 'O', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', 'O', 'O', '.', '.', '.', 'O'], ['.', '.', '.', '.', '.', '.', '.', 'O', '.', '.', '.', '.'], ['.', 'O', '.', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']], 'solution': (6, 8)}
 
 ````
 

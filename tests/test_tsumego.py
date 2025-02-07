@@ -1,7 +1,6 @@
 """Tests for Ttsumego problem generation"""
 
 import pytest
-from random import Random
 
 from reasoning_gym.games.tsumego import TsumegoConfig, TsumegoDataset
 
@@ -30,7 +29,7 @@ def test_dataset_item_properties():
         assert key in item
 
     metadata = item["metadata"]
-    for key in ["board_size", "board", "solution"]:
+    for key in ["difficulty", "board", "solution"]:
         assert key in metadata
 
     board = metadata["board"]
@@ -101,16 +100,10 @@ def test_liberties_and_move():
 def test_score_answer():
     config = TsumegoConfig(min_board_size=9, max_board_size=9, max_stones=10)
     dataset = TsumegoDataset(config)
-    metadata = {"board_size": 9, "solution": "5,5"}
-
-    # Correct numeric answer
-    assert dataset.score_answer("5,5", metadata) == 1.0
+    metadata = {"board_size": 9, "solution": (4, 4)}
 
     # Correct letter-number answer (E corresponds to 5)
     assert dataset.score_answer("E5", metadata) == 1.0
-
-    # Valid but incorrect numeric move
-    assert dataset.score_answer("4,4", metadata) == 0.05
 
     # Valid but incorrect letter-number move (D corresponds to 4)
     assert dataset.score_answer("D4", metadata) == 0.05

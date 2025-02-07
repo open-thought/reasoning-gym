@@ -1,5 +1,6 @@
 """Go problem (tsumego) generator"""
 
+import re
 from dataclasses import dataclass
 from random import Random
 from typing import Dict, List, Optional, Set, Tuple
@@ -37,9 +38,9 @@ class TsumegoDataset(ProceduralDataset):
 
     def __init__(self, config: TsumegoConfig):
         self._prompt_templates = [
-            "Black to play and capture some stones.\nFind the key move.",
-            "It's Black's turn. Capture the marked white stones.",
-            "Play as Black. What's the best move to capture?",
+            "Tsumego time. Black to play and capture some stones.\nFind the key move.",
+            "I have a Go problem for you. Black moves next - can you capture some of the white stones?",
+            "Here's a Go challenge. Playing as Black, how can you capture as many white stones as possible?",
         ]
         self._ko_point = None
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -147,7 +148,7 @@ class TsumegoDataset(ProceduralDataset):
 
         return True
 
-    def _generate_capture_problem(self, size: int, rng: Random) -> Tuple[List[List[str]], str]:
+    def _generate_capture_problem(self, size: int, rng: Random) -> Tuple[List[List[str]], Tuple[int, int]]:
         """Generate a capture problem"""
         board = [["." for _ in range(size)] for _ in range(size)]
         stones_placed = 0
@@ -172,7 +173,7 @@ class TsumegoDataset(ProceduralDataset):
                 board[row + 1][col] = "O"
                 board[row][col - 1] = "O"
                 if self._is_valid_move(board, row, col + 1, "X"):
-                    return board, f"{row+1},{col+2}"
+                    return board, (row, col + 1)
             tries += 1
         raise RuntimeError("Failed to generate a capture problem")
 
@@ -199,15 +200,18 @@ class TsumegoDataset(ProceduralDataset):
 
         board, solution = self._generate_capture_problem(size, rng)
         board_str = self._board_to_string(board)
+        solution_str = f"{chr(ord('A')+solution[1])}{solution[0]+1}"
 
         return {
             "question": (
                 rng.choice(self._prompt_templates) + "\n\n" + board_str + "\n\n"
+                "X - Black\n"
+                "O - White\n\n"
                 "Specify your move in coordinates (e.g. 'C4' for column C, row 4)"
             ),
-            "answer": solution,
+            "answer": solution_str,
             "metadata": {
-                "board_size": size,
+                "difficulty": {"board_size": size},
                 "board": board,
                 "solution": solution,
             },
@@ -221,28 +225,22 @@ class TsumegoDataset(ProceduralDataset):
         if not answer:
             return 0.01
         try:
-            # Parse expected solution in the format "row,col"
-            expected_row, expected_col = map(int, metadata["solution"].split(","))
+            #  get solution from (row, col) tuple
+            expected_row, expected_col = metadata["solution"]
         except Exception:
             return 0.01
         try:
-            if "," in answer:
-                # Assume numeric format: "row,col"
-                row, col = map(int, answer.split(","))
-            else:
-                # Assume letter-number format, e.g. "C4"
-                import re
-
-                m = re.match(r"^([A-Za-z])(\d+)$", answer)
-                if not m:
-                    return 0.01
-                col_letter, row_str = m.group(1), m.group(2)
-                row = int(row_str)
-                col = ord(col_letter.upper()) - ord("A") + 1
+            # Assume letter-number format, e.g. "C4"
+            m = re.match(r"^([A-Za-z])(\d+)$", answer)
+            if not m:
+                return 0.01
+            col_letter, row_str = m.group(1), m.group(2)
+            row = int(row_str) - 1
+            col = ord(col_letter.upper()) - ord("A")
             if (row, col) == (expected_row, expected_col):
                 return 1.0
             board_size = metadata["board_size"]
-            if 1 <= row <= board_size and 1 <= col <= board_size:
+            if 0 <= row < board_size and 0 <= col < board_size:
                 return 0.05
         except Exception:
             return 0.01
