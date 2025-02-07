@@ -115,122 +115,120 @@ class SyllogismDataset(ProceduralDataset):
         return quantifiers
 
     @staticmethod
-    def _compute_valid_patterns():
-        """Compute all valid syllogistic patterns"""
-        # The four figures of syllogism based on middle term position
-        FIGURES = [
-            # Figure 1: M-P, S-M
-            ((1,1, 2,2, None), (2,1, None,1), (1,2, None,2)),
-            # Figure 2: P-M, S-M
-            ((1,2, 2,2, None), (2,1, None,1), (1,1, None,2)),
-            # Figure 3: M-P, M-S
-            ((1,1, 2,1, None), (None,2, None,1), (1,2, None,2)),
-            # Figure 4: P-M, M-S
-            ((1,2, 2,1, None), (2,2, None,1), (1,1, None,2))
-        ]
-
-        # All possible quantifier combinations
-        QUANTIFIERS = ['ALL', 'NO', 'SOME', 'SOME_NOT']
-        
-        valid_patterns = []
-        
-        for fig_idx, (middle, subject, predicate) in enumerate(FIGURES, 1):
-            for maj in QUANTIFIERS:
-                for min in QUANTIFIERS:
-                    for conc in QUANTIFIERS:
-                        # Apply syllogistic rules
-                        # Rule 1: Two negative premises -> invalid
-                        if maj in ('NO', 'SOME_NOT') and min in ('NO', 'SOME_NOT'):
-                            continue
-                            
-                        # Rule 2: Two particular premises -> invalid
-                        if maj in ('SOME', 'SOME_NOT') and min in ('SOME', 'SOME_NOT'):
-                            continue
-                            
-                        # Rule 3: Universal conclusion needs universal premises
-                        if conc in ('ALL', 'NO') and (
-                            maj in ('SOME', 'SOME_NOT') or 
-                            min in ('SOME', 'SOME_NOT')):
-                            continue
-
-                        # Rule 4: Negative conclusion needs negative premise
-                        if conc in ('NO', 'SOME_NOT') and not (
-                            maj in ('NO', 'SOME_NOT') or 
-                            min in ('NO', 'SOME_NOT')):
-                            continue
-
-                        # Rule 5: Particular conclusion from universal premises 
-                        # is valid but weaker than possible
-                        if conc in ('SOME', 'SOME_NOT') and (
-                            maj in ('ALL', 'NO') and 
-                            min in ('ALL', 'NO')):
-                            continue
-
-                        valid_patterns.append(
-                            (maj, min, conc, middle, subject, predicate)
-                        )
-        
-        return valid_patterns
-
-    # Valid syllogism patterns computed from rules
-    VALID_PATTERNS = _compute_valid_patterns()
-
     def _is_valid_syllogism(
-        self,
-        premise1: Tuple[Quantifier, Term, Term],
-        premise2: Tuple[Quantifier, Term, Term],
-        conclusion: Tuple[Quantifier, Term, Term],
+        premise1: Tuple[Quantifier, "Term", "Term"],
+        premise2: Tuple[Quantifier, "Term", "Term"],
+        conclusion: Tuple[Quantifier, "Term", "Term"],
     ) -> bool:
-        """Check if a syllogism is logically valid using pattern matching."""
-        q1, t1_1, t1_2 = premise1
-        q2, t2_1, t2_2 = premise2
-        qc, tc_1, tc_2 = conclusion
+        """
+        Checks whether a given syllogism is valid under classical (Aristotelian) rules,
+        including the distribution rule:
+        - If a term is distributed in the conclusion, it must be distributed
+          in the premise where it appears as subject/predicate.
+        """
 
-        # Invalid combinations
-        if (q1 in (Quantifier.NO, Quantifier.SOME_NOT) and 
-            q2 in (Quantifier.NO, Quantifier.SOME_NOT)):  # Two negative premises
+        # --- 1) Extract data ---
+        q1, p1_subj, p1_pred = premise1
+        q2, p2_subj, p2_pred = premise2
+        q3, c_subj, c_pred = conclusion
+
+        negative_set = {Quantifier.NO, Quantifier.SOME_NOT}
+        particular_set = {Quantifier.SOME, Quantifier.SOME_NOT}
+        universal_set = {Quantifier.ALL, Quantifier.NO}
+
+        # --- 2) Identify a unique middle term ---
+        premise1_terms = {p1_subj, p1_pred}
+        premise2_terms = {p2_subj, p2_pred}
+        common_terms = premise1_terms.intersection(premise2_terms)
+
+        if len(common_terms) != 1:
             return False
-        if (q1 in (Quantifier.SOME, Quantifier.SOME_NOT) and 
-            q2 in (Quantifier.SOME, Quantifier.SOME_NOT)):  # Two particular premises
+        middle_term = next(iter(common_terms))
+
+        # Gather all terms => must be exactly 3 distinct terms
+        all_terms = premise1_terms.union(premise2_terms)
+        if len(all_terms) != 3:
             return False
-        if qc in (Quantifier.ALL, Quantifier.NO) and (
-            q1 in (Quantifier.SOME, Quantifier.SOME_NOT) or 
-            q2 in (Quantifier.SOME, Quantifier.SOME_NOT)):  # Universal conclusion with particular premise
+
+        # The conclusion must use the other two terms (not the middle)
+        other_two = all_terms - {middle_term}
+        conclusion_terms = {c_subj, c_pred}
+        if conclusion_terms != other_two:
             return False
 
-        terms = ((t1_1, t1_2), (t2_1, t2_2), (tc_1, tc_2))
-        quants = (q1.value, q2.value, qc.value)
+        # --- 3) Identify which premise is major vs. minor ---
+        def premise_contains(premise, term):
+            return (premise[1] == term) or (premise[2] == term)
 
-        # Check against valid patterns
-        for pattern_q1, pattern_q2, pattern_qc, middle, subject, predicate in self.VALID_PATTERNS:
-            if (pattern_q1, pattern_q2, pattern_qc) != quants:
-                continue
+        if premise_contains(premise1, c_pred):
+            major = premise1
+            minor = premise2
+        elif premise_contains(premise2, c_pred):
+            major = premise2
+            minor = premise1
+        else:
+            return False
 
-            # Get terms according to pattern positions
-            def get_term(pos):
-                if pos is None:
-                    return None
-                premise_idx, term_idx = pos
-                return terms[premise_idx-1][term_idx-1]
+        # The minor premise must contain the conclusion's subject
+        if not premise_contains(minor, c_subj):
+            return False
 
-            # Check term positions match pattern
-            middle_terms = [get_term(p) for p in middle[:2] if p is not None]
-            if len(middle_terms) >= 2 and len(set(middle_terms)) != 1:
-                continue
+        # --- 4) Quick checks (traditional “no two negative,” etc.) ---
+        if (q1 in negative_set) and (q2 in negative_set):
+            return False
+        if (q1 in particular_set) and (q2 in particular_set):
+            return False
+        if q3 in universal_set:
+            if (q1 in particular_set) or (q2 in particular_set):
+                return False
+        if q3 in negative_set:
+            if not ((q1 in negative_set) or (q2 in negative_set)):
+                return False
 
-            subject_terms = [get_term(p) for p in subject[:2] if p is not None]
-            if len(subject_terms) >= 2 and len(set(subject_terms)) != 1:
-                continue
+        # --- 5) Distribution checks ---
+        def distribution(q: Quantifier):
+            if q == Quantifier.ALL:  # A
+                return (True, False)
+            elif q == Quantifier.NO:  # E
+                return (True, True)
+            elif q == Quantifier.SOME:  # I
+                return (False, False)
+            elif q == Quantifier.SOME_NOT:  # O
+                return (False, True)
+            else:
+                raise ValueError(f"Unknown quantifier: {q}")
 
-            predicate_terms = [get_term(p) for p in predicate[:2] if p is not None]
-            if len(predicate_terms) >= 2 and len(set(predicate_terms)) != 1:
-                continue
+        # Conclusion distribution
+        dist_c_subj, dist_c_pred = distribution(q3)
 
-            # Verify the terms are in correct positions
-            if middle_terms and subject_terms and predicate_terms:
-                return True
+        # Major premise distribution
+        q_major, major_subj, major_pred = major
+        dist_major_subj, dist_major_pred = distribution(q_major)
 
-        return False
+        # Minor premise distribution
+        q_minor, minor_subj, minor_pred = minor
+        dist_minor_subj, dist_minor_pred = distribution(q_minor)
+
+        # If the conclusion's subject is distributed, check it in the minor premise
+        if dist_c_subj:
+            if c_subj == minor_subj:
+                if not dist_minor_subj:
+                    return False
+            elif c_subj == minor_pred:
+                if not dist_minor_pred:
+                    return False
+
+        # If the conclusion's predicate is distributed, check it in the major premise
+        if dist_c_pred:
+            if c_pred == major_subj:
+                if not dist_major_subj:
+                    return False
+            elif c_pred == major_pred:
+                if not dist_major_pred:
+                    return False
+
+        # If all checks pass, it's valid
+        return True
 
     def _format_quantifier_statement(self, quantifier: Quantifier, subject: Term, predicate: Term) -> str:
         """Format a quantified statement in natural language"""
@@ -248,7 +246,7 @@ class SyllogismDataset(ProceduralDataset):
         target_valid = rng.random() > self.config.invalid_ratio  # Invert ratio to match meaning
         max_attempts = 100
         attempts = 0
-        
+
         while attempts < max_attempts:
             # Generate premises and conclusion
             premise1 = (rng.choice(quantifiers), terms[0], terms[1])
@@ -257,16 +255,15 @@ class SyllogismDataset(ProceduralDataset):
 
             # Check if validity matches target
             is_valid = self._is_valid_syllogism(premise1, premise2, conclusion)
-            print(attempts, is_valid, target_valid, terms, premise1, premise2)
             if is_valid == target_valid:
                 break
-                
+
             attempts += 1
-        
+
         if attempts >= max_attempts:
             # If we couldn't find a matching syllogism, return a basic valid one
             premise1 = (Quantifier.ALL, terms[0], terms[1])
-            premise2 = (Quantifier.ALL, terms[1], terms[2]) 
+            premise2 = (Quantifier.ALL, terms[1], terms[2])
             conclusion = (Quantifier.ALL, terms[0], terms[2])
             is_valid = True
 

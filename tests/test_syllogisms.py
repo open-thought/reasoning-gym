@@ -79,9 +79,9 @@ def test_valid_syllogism_forms():
     # Minor premise: All S are M
     # Conclusion:    All S are P
     assert dataset._is_valid_syllogism(
-        (Quantifier.ALL, B, C),  # All B (M) are C (P)  [Major premise]
-        (Quantifier.ALL, A, B),  # All A (S) are B (M)  [Minor premise]
-        (Quantifier.ALL, A, C),  # All A (S) are C (P)  [Conclusion]
+        (Quantifier.ALL, B, C),  # All B (M) are C (P)
+        (Quantifier.ALL, A, B),  # All A (S) are B (M)
+        (Quantifier.ALL, A, C),  # All A (S) are C (P)
     )
 
     # Test Celarent (EAE-1)
@@ -94,14 +94,14 @@ def test_valid_syllogism_forms():
         (Quantifier.NO, A, C),  # No A (S) are C (P)
     )
 
-    # Test Cesare (EAE-2)
+    # Test Cesare (EAE-2) — corrected order
     # Major premise: No P are M
     # Minor premise: All S are M
     # Conclusion:    No S are P
     assert dataset._is_valid_syllogism(
-        (Quantifier.ALL, A, B),  # All A (S) are B (M)
-        (Quantifier.NO, C, B),   # No C (P) are B (M)
-        (Quantifier.NO, A, C),   # No A (S) are C (P)
+        (Quantifier.NO, C, B),  # No C (P) are B (M)  [Major premise]
+        (Quantifier.ALL, A, B),  # All A (S) are B (M) [Minor premise]
+        (Quantifier.NO, A, C),  # No A (S) are C (P)
     )
 
     # Test Darii (AII-1)
@@ -109,7 +109,7 @@ def test_valid_syllogism_forms():
     # Minor premise: Some S are M
     # Conclusion:    Some S are P
     assert dataset._is_valid_syllogism(
-        (Quantifier.ALL, B, C),   # All B (M) are C (P)
+        (Quantifier.ALL, B, C),  # All B (M) are C (P)
         (Quantifier.SOME, A, B),  # Some A (S) are B (M)
         (Quantifier.SOME, A, C),  # Some A (S) are C (P)
     )
@@ -120,7 +120,7 @@ def test_valid_syllogism_forms():
     # Conclusion:    Some S are P
     assert dataset._is_valid_syllogism(
         (Quantifier.SOME, B, C),  # Some B (M) are C (P)
-        (Quantifier.ALL, B, A),   # All B (M) are A (S)
+        (Quantifier.ALL, B, A),  # All B (M) are A (S)
         (Quantifier.SOME, A, C),  # Some A (S) are C (P)
     )
 
@@ -129,8 +129,8 @@ def test_valid_syllogism_forms():
     # Minor premise: Some S are M
     # Conclusion:    Some S are not P
     assert dataset._is_valid_syllogism(
-        (Quantifier.NO, B, C),        # No B (M) are C (P)
-        (Quantifier.SOME, A, B),      # Some A (S) are B (M)
+        (Quantifier.NO, B, C),  # No B (M) are C (P)
+        (Quantifier.SOME, A, B),  # Some A (S) are B (M)
         (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
     )
 
@@ -139,8 +139,8 @@ def test_valid_syllogism_forms():
     # Minor premise: Some S are M
     # Conclusion:    Some S are not P
     assert dataset._is_valid_syllogism(
-        (Quantifier.NO, C, B),        # No C (P) are B (M)
-        (Quantifier.SOME, A, B),      # Some A (S) are B (M)
+        (Quantifier.NO, C, B),  # No C (P) are B (M)
+        (Quantifier.SOME, A, B),  # Some A (S) are B (M)
         (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
     )
 
@@ -149,7 +149,7 @@ def test_valid_syllogism_forms():
     # Minor premise: Some M are S
     # Conclusion:    Some S are P
     assert dataset._is_valid_syllogism(
-        (Quantifier.ALL, B, C),   # All B (M) are C (P)
+        (Quantifier.ALL, B, C),  # All B (M) are C (P)
         (Quantifier.SOME, B, A),  # Some B (M) are A (S)
         (Quantifier.SOME, A, C),  # Some A (S) are C (P)
     )
@@ -160,7 +160,7 @@ def test_valid_syllogism_forms():
     # Conclusion:    Some S are not P
     assert dataset._is_valid_syllogism(
         (Quantifier.SOME_NOT, B, C),  # Some B (M) are not C (P)
-        (Quantifier.ALL, B, A),       # All B (M) are A (S)
+        (Quantifier.ALL, B, A),  # All B (M) are A (S)
         (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
     )
 
@@ -169,9 +169,9 @@ def test_valid_syllogism_forms():
     # Minor premise: Some S are not M
     # Conclusion:    Some S are not P
     assert dataset._is_valid_syllogism(
-        (Quantifier.ALL, C, B),        # All C (P) are B (M)
-        (Quantifier.SOME_NOT, A, B),   # Some A (S) are not B (M)
-        (Quantifier.SOME_NOT, A, C),   # Some A (S) are not C (P)
+        (Quantifier.ALL, C, B),  # All C (P) are B (M)
+        (Quantifier.SOME_NOT, A, B),  # Some A (S) are not B (M)
+        (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
     )
 
     # Test Camestres (AEE-2)
@@ -180,8 +180,8 @@ def test_valid_syllogism_forms():
     # Conclusion:    No S are P
     assert dataset._is_valid_syllogism(
         (Quantifier.ALL, C, B),  # All C (P) are B (M)
-        (Quantifier.NO, A, B),   # No A (S) are B (M)
-        (Quantifier.NO, A, C),   # No A (S) are C (P)
+        (Quantifier.NO, A, B),  # No A (S) are B (M)
+        (Quantifier.NO, A, C),  # No A (S) are C (P)
     )
 
     # Test Dimaris (IAI-4)
@@ -190,7 +190,7 @@ def test_valid_syllogism_forms():
     # Conclusion:    Some S are P
     assert dataset._is_valid_syllogism(
         (Quantifier.SOME, C, B),  # Some C (P) are B (M)
-        (Quantifier.ALL, B, A),   # All B (M) are A (S)
+        (Quantifier.ALL, B, A),  # All B (M) are A (S)
         (Quantifier.SOME, A, C),  # Some A (S) are C (P)
     )
 
@@ -199,8 +199,8 @@ def test_valid_syllogism_forms():
     # Minor premise: Some M are S
     # Conclusion:    Some S are not P
     assert dataset._is_valid_syllogism(
-        (Quantifier.NO, B, C),        # No B (M) are C (P)
-        (Quantifier.SOME, B, A),      # Some B (M) are A (S)
+        (Quantifier.NO, B, C),  # No B (M) are C (P)
+        (Quantifier.SOME, B, A),  # Some B (M) are A (S)
         (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
     )
 
@@ -209,8 +209,8 @@ def test_valid_syllogism_forms():
     # Minor premise: Some M are S
     # Conclusion:    Some S are not P
     assert dataset._is_valid_syllogism(
-        (Quantifier.NO, C, B),        # No C (P) are B (M)
-        (Quantifier.SOME, B, A),      # Some B (M) are A (S)
+        (Quantifier.NO, C, B),  # No C (P) are B (M)
+        (Quantifier.SOME, B, A),  # Some B (M) are A (S)
         (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
     )
 
@@ -220,8 +220,8 @@ def test_valid_syllogism_forms():
     # Conclusion:    No S are P
     assert dataset._is_valid_syllogism(
         (Quantifier.ALL, C, B),  # All C (P) are B (M)
-        (Quantifier.NO, B, A),   # No B (M) are A (S)
-        (Quantifier.NO, A, C),   # No A (S) are C (P)
+        (Quantifier.NO, B, A),  # No B (M) are A (S)
+        (Quantifier.NO, A, C),  # No A (S) are C (P)
     )
 
     # Test invalid forms
@@ -245,6 +245,20 @@ def test_valid_syllogism_forms():
         (Quantifier.NO, S, M),  # No students are humans
         (Quantifier.NO, M, P),  # No humans are chefs
         (Quantifier.NO, S, P),  # No students are chefs (invalid!)
+    )
+
+    child = Term("child", "children")
+    animal = Term("animal", "animals")
+    doctor = Term("doctor", "doctors")
+
+    # Premise 1: Some children are not animals
+    # Premise 2: All animals are doctors
+    # Conclusion: Some children are not doctors
+    # We expect this NOT to be a valid syllogism
+    assert not dataset._is_valid_syllogism(
+        (Quantifier.SOME_NOT, child, animal),  # Some children are not animals
+        (Quantifier.ALL, animal, doctor),  # All animals are doctors
+        (Quantifier.SOME_NOT, child, doctor),  # Some children are not doctors
     )
 
 
