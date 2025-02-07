@@ -62,9 +62,8 @@ class FutoshikiDataset(ProceduralDataset):
         puzzle = self._remove_clues(copy.deepcopy(solution), constraints, self.config.difficulty, rng)
 
         # Format as strings
-        # TODO: write functions for this with nice formatting, combining puzzle & constraints into puzzle_str, then solution into solution_str
-        puzzle_str = ...
-        solution_str = ...
+        puzzle_str = self._puzzle_to_string(puzzle, constraints)
+        solution_str = self._puzzle_to_string(solution, constraints)
 
         return {
             "question": f"Solve the following Futoshiki puzzle:\n{puzzle_str}",
@@ -78,10 +77,84 @@ class FutoshikiDataset(ProceduralDataset):
             },
         }
 
-    # TODO: currently this gets very slow for larger grid sizes as it relies on brute force backtracking
-    # next step: implement optimisations, using common rules in Futoshiki to reduce search space
+    def _puzzle_to_string(
+        self,
+        puzzle_grid: List[List[int]], 
+        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str]
+    ) -> str:
+        n = len(puzzle_grid)
+        
+        def cell_str(val: int) -> str:
+            return str(val) if val != 0 else "_"
+        
+        # Helper to look up constraints between two adjacent cells
+        # Ensures the first tuple is always the “lesser” in row-major order
+        # If order is reversed in the dict, invert the constraint
+        def get_constraint(r1, c1, r2, c2) -> Optional[str]:
+            if (r1, c1) == (r2, c2):
+                return None
+            if (r1, c1) < (r2, c2):
+                key = ((r1, c1), (r2, c2))
+                sign = constraints.get(key)
+                if sign == ">":      # first is bigger
+                    if r1 == r2:     # horizontal
+                        return ">"
+                    else:            # vertical
+                        return "\u2227"
+                elif sign == "<":    # first is smaller
+                    if r1 == r2:     # horizontal
+                        return "<"
+                    else:
+                        return "\u2228"
+            else:
+                # reversed order in the dictionary -> invert the sign
+                key = ((r2, c2), (r1, c1))
+                sign = constraints.get(key)
+                if sign == ">":
+                    if r1 == r2: 
+                        return "<"
+                    else:
+                        return "\u2228"
+                elif sign == "<":
+                    if r1 == r2:
+                        return ">"
+                    else:
+                        return "\u2227"
+            return None
+        
+        lines = []
+        
+        for r in range(n):
+            # Build the row string with horizontal constraints
+            row_cells = []
+            for c in range(n):
+                row_cells.append(cell_str(puzzle_grid[r][c]))
+                if c < n - 1:
+                    hc = get_constraint(r, c, r, c + 1)
+                    row_cells.append(hc if hc else " ")
+            lines.append(" ".join(row_cells))
+            
+            # If not the last row, build the line of vertical constraints
+            if r < n - 1:
+                vert_cells = []
+                for c in range(n):
+                    vc = get_constraint(r, c, r + 1, c)
+                    if vc:
+                        vert_cells.append(vc)
+                    else:
+                        vert_cells.append(" ")
+                    # Space out columns so vertical symbols line up under the correct spot
+                    if c < n - 1:
+                        vert_cells.append(" ")
+                lines.append(" ".join(vert_cells))
+        
+        return "\n".join(lines)
+
+    # currently this gets a bit slow for larger grid sizes as it relies on brute force backtracking
+    # possible improvements: implement optimisations, using common rules in Futoshiki to reduce search space
     # see: https://www.futoshiki.com/how-to-solve
     # also see other solvers' approaches e.g. https://github.com/davidswarbrick/futoshiki-solver/blob/master/Futoshiki.py
+    # however I attempted some optimisations based on the code of the above parser, such as the recursive constraint following, and it was actually quite a lot slower
 
     def _solve(
         self,
@@ -314,7 +387,7 @@ class FutoshikiDataset(ProceduralDataset):
 
             # Check if unsolvable or non-unique
             puzzle_copy = copy.deepcopy(grid)
-            sol = self._solve(puzzle_copy, constraints, find_multiple=True)
+            sol = self._solve(puzzle_copy, constraints, rng, find_multiple=True)
             if sol is None:
                 # Not solvable or non-unique, revert
                 grid[r][c] = saved
