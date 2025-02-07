@@ -72,7 +72,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 
 - `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3\*x + 2 = 14")
 - `PolynomialEquationsDataset`: Generate polynomial equations with one variable to solve (e.g. "-6*h\*\*4 + 4*h\**2 - 5*h = 0")
-- `PolynomialMultiplicationDataset`: Generate polynomial multiplicatons (e.g. "(8x^3 + x + 2)*(y - 3)")
+- `PolynomialMultiplicationDataset`: Generate polynomial multiplicatons (e.g. "(8x^3 + x + 2)\*(y - 3)")
 
 ### <small>Arithmetic Tasks</small>
 
@@ -118,6 +118,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `SyllogismDataset`: Generates a [syllogism](https://en.wikipedia.org/wiki/Syllogism) reasoning dataset
 - `AliceInWonderlandDataset`: Generates [AIW](https://openreview.net/forum?id=Mkl7dzjYiW) (Alice In Wonderland) problems with a few variations
 - `ZebraDataset`: Generates [Zebra Puzzles](https://en.wikipedia.org/wiki/Zebra_Puzzle) of varying difficulty.
+- `SelfReferenceDataset`: Generates self-referencing logic puzzles.
 
 ### <small>Graph Tasks</small>
 

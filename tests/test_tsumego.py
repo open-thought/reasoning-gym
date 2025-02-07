@@ -1,7 +1,8 @@
 """Tests for Ttsumego problem generation"""
 
-import pytest
 from random import Random
+
+import pytest
 
 from reasoning_gym.games.tsumego import TsumegoConfig, TsumegoDataset
 
