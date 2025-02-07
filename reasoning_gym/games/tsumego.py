@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -217,13 +217,14 @@ class TsumegoDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], metadata: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Score the answer against the solution"""
         if answer is None:
             return 0.0
         answer = answer.strip()
         if not answer:
             return 0.01
+        metadata = entry["metadata"]
         try:
             #  get solution from (row, col) tuple
             expected_row, expected_col = metadata["solution"]

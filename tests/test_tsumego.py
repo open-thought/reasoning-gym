@@ -98,27 +98,30 @@ def test_liberties_and_move():
 
 
 def test_score_answer():
-    config = TsumegoConfig(min_board_size=9, max_board_size=9, max_stones=10)
+    config = TsumegoConfig(min_board_size=9, max_board_size=9, max_stones=10, size=5)
     dataset = TsumegoDataset(config)
-    metadata = {"board_size": 9, "solution": (4, 4)}
+    entry = {"metadata": {"board_size": 9, "solution": (4, 4)}}
 
     # Correct letter-number answer (E corresponds to 5)
-    assert dataset.score_answer("E5", metadata) == 1.0
+    assert dataset.score_answer("E5", entry) == 1.0
 
     # Valid but incorrect letter-number move (D corresponds to 4)
-    assert dataset.score_answer("D4", metadata) == 0.05
+    assert dataset.score_answer("D4", entry) == 0.05
 
     # Invalid format
-    assert dataset.score_answer("invalid", metadata) == 0.01
+    assert dataset.score_answer("invalid", entry) == 0.01
 
     # Empty answer
-    assert dataset.score_answer("", metadata) == 0.01
+    assert dataset.score_answer("", entry) == 0.01
 
     # None answer
-    assert dataset.score_answer(None, metadata) == 0.0
+    assert dataset.score_answer(None, entry) == 0.0
 
     # Out-of-bound letter-number move: 'J' corresponds to 10 which is greater than board size = 9
-    assert dataset.score_answer("J9", metadata) == 0.01
+    assert dataset.score_answer("J9", entry) == 0.01
+
+    for x in dataset:
+        assert dataset.score_answer(x["answer"], entry=x) == 1.0
 
 
 # Additional tests for game logic edge cases
