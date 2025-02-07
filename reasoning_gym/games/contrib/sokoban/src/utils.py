@@ -2,11 +2,6 @@ from heapq import heappop, heappush
 
 import numpy as np
 
-# def play_solution(solution, game, widgets, show_solution, moves):
-#     for move in solution:
-#         moves += game.player.update(move)
-#     return moves
-
 
 def print_state(state, shape):
     if not state:

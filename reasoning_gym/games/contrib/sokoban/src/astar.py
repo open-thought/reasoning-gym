@@ -74,7 +74,7 @@ def astar(matrix, player_pos, debug=False, heuristic="manhattan"):
     return (None, -1 if not heap else depth + 1)
 
 
-def solve_astar(puzzle, widget=None, visualizer=False, heuristic="manhattan"):
+def solve_astar(puzzle, visualizer=False, heuristic="manhattan"):
     matrix = puzzle
     where = np.where((matrix == "*") | (matrix == "%"))
     player_pos = where[0][0], where[1][0]

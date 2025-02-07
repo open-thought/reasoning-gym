@@ -2,7 +2,8 @@ from random import Random
 
 import numpy as np
 
-from reasoning_gym.games.contrib.sokoban.src.game import ReverseGame
+from reasoning_gym.games.contrib.sokoban.src.astar import solve_astar
+from reasoning_gym.games.contrib.sokoban.src.game import Game, ReverseGame
 
 
 def num_boxes(puzzle_area, min_boxes, max_boxes, min_w, min_h, max_w, max_h):
@@ -17,7 +18,7 @@ def random_valid(rng: Random, width: int = 10, height: int = 10):
 
 def generate(
     rng: Random,
-    visualizer: bool = False,
+    debug: bool = False,
     path: str = None,
     min_w: int = 6,
     min_h: int = 6,
@@ -25,7 +26,7 @@ def generate(
     max_h: int = 10,
     min_boxes: int = 4,
     max_boxes: int = 10,
-):
+) -> tuple[str, str, dict]:
     """
     Generates a level with the given configuration parameters.
 
@@ -40,11 +41,10 @@ def generate(
         min_boxes: Minimum number of boxes.
         max_boxes: Maximum number of boxes.
     Returns:
-        A tuple (reverse_game, matrix, puzzle_string).
+        puzzle_string, solution
     """
     path = path or "levels/lvl0.dat"
-    valid = False
-    while not valid:
+    while True:
         width = rng.randint(min_w, max_w)
         height = rng.randint(min_h, max_h)
         puzzle = np.full((height, width), "+", dtype="<U1")
@@ -73,19 +73,35 @@ def generate(
         slice_y = slice(reverse_game.pad_y, reverse_game.pad_y + height)
         matrix = reverse_game.puzzle[slice_y, slice_x]
         # Optionally print the puzzle:
-        # player.print_puzzle(matrix)
-        # player.kill()
+        if debug:
+            player.print_puzzle(matrix)
+
         out_of_place_boxes = np.sum([str(x) == "@" for x in matrix.flatten()])
         if out_of_place_boxes >= boxes // 2:
             # Optionally save the puzzle to a file:
             # np.savetxt(path, matrix, fmt='%s')
-            valid = True
-            result = (reverse_game, matrix, player.puzzle_to_string(matrix))
-            return result
+            puzzle_str = player.puzzle_to_string(matrix)
+
+            grid_list = [list(line) for line in puzzle_str.replace(" ", "").strip().split("\n")]
+            grid_array = np.array(grid_list)
+            solution, _ = solve_astar(grid_array)
+
+            if debug:
+                print(f"solution={solution}")
+                game = Game()
+                game.load_puzzle_matrix(grid_array)
+
+                for step, move in enumerate(solution):
+                    print(f"move #{step}: {move}")
+                    game.player.update(key=move)
+                    game.print_puzzle()
+
+            difficulty = {"size": puzzle_size, "num_steps": len(solution)}
+            return puzzle_str, solution, difficulty
         else:
-            del reverse_game
-            print(f"Not enough boxes out of place, retrying generation... [{out_of_place_boxes}]")
+            if debug:
+                print(f"Not enough boxes out of place, retrying generation... [{out_of_place_boxes}/{boxes}]")
 
 
 if __name__ == "__main__":
-    generate()
+    generate(rng=Random(), debug=True)

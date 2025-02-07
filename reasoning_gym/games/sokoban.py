@@ -1,19 +1,13 @@
-# Leave this in to avoid CLI trash
-import os
 from dataclasses import dataclass
-from io import StringIO
 from random import Random
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
 import numpy as np
 
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "hide"
-
 from ..factory import ProceduralDataset, register_dataset
-from .contrib.sokoban.src.astar import solve_astar
 from .contrib.sokoban.src.game import Game
 from .contrib.sokoban.src.generator import generate
-from .contrib.sokoban.src.utils import get_state, is_solved
+from .contrib.sokoban.src.utils import is_solved
 
 
 @dataclass
@@ -30,7 +24,7 @@ class SokobanConfig:
     max_boxes: int = 10  # Maximum number of boxes.
 
     def validate(self):
-        #     """Validate configuration parameters"""
+        """Validate configuration parameters"""
         assert self.min_w <= self.max_w, "min_w must be lte max_w"
         assert self.min_h <= self.max_h, "min_h must be lte max_h"
         assert self.min_boxes <= self.max_boxes, "min_boxes must be lte max_boxes"
@@ -58,12 +52,7 @@ class SokobanDataset(ProceduralDataset):
 
         # Make the Sokoban!
         rng = Random(self.seed + idx)
-        (game, matrix, gamestr) = generate(rng=rng)
-
-        # Solve the puzzle
-        grid_list = [list(line) for line in gamestr.replace(" ", "").strip().split("\n")]
-        grid_array = np.array(grid_list)
-        answer = solve_astar(grid_array)
+        gamestr, solution, difficulty = generate(rng=rng)
 
         return {
             "question": """You are going to solve a 'sokoban' puzzle.
@@ -81,8 +70,8 @@ Your solution must be a string of characters, ex: LDURRUDL.
 Here is your puzzle:
 """
             + gamestr,
-            "answer": "",
-            "metadata": {"possible_answer": answer[0], "gamestr": gamestr, "matrix": matrix},
+            "answer": solution,
+            "metadata": {"gamestr": gamestr, "difficulty": difficulty},
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
@@ -104,7 +93,6 @@ Here is your puzzle:
         try:
             grid_list = [list(line) for line in entry["metadata"]["gamestr"].replace(" ", "").strip().split("\n")]
             matrix = np.array(grid_list)
-            state = get_state(matrix)
 
             game = Game()
             game.load_puzzle_matrix(matrix)

@@ -16,16 +16,16 @@ class Player:
         move = None
         if key:
             if key == "R":
-                move = (64, 0)
+                move = (1, 0)
             elif key == "L":
-                move = (-64, 0)
+                move = (-1, 0)
             elif key == "U":
-                move = (0, -64)
+                move = (0, -1)
             elif key == "D":
-                move = (0, 64)
+                move = (0, 1)
         if move:
             curr = self.y, self.x
-            target = self.y + move[1] // 64, self.x + move[0] // 64
+            target = self.y + move[1], self.x + move[0]
             target_elem = self.game.puzzle[target]
             if not (target_elem and target_elem.obj and isinstance(target_elem.obj, Obstacle)):
                 is_box = isinstance(target_elem.obj, Box)
@@ -53,16 +53,7 @@ class ReversePlayer(Player):
         self.prev_move = (0, 0)
 
     def print_puzzle(self, matrix=None):
-        matrix = matrix if matrix is not None else self.game.puzzle
-        height, width = len(matrix), len(matrix[0])
-        for h in range(height):
-            for w in range(width):
-                if matrix[h, w]:
-                    print(matrix[h, w], end=" ")
-                else:
-                    print("F", end=" ")
-            print(" ")
-        print("\n")
+        print(self.puzzle_to_string(matrix=matrix))
 
     def puzzle_to_string(self, matrix=None):
         matrix = matrix if matrix is not None else self.game.puzzle
@@ -98,14 +89,14 @@ class ReversePlayer(Player):
             "@": "-",
             "$": "X",
         }
-        moves_tuples = [(64, 0), (-64, 0), (0, -64), (0, 64)]
+        moves_tuples = [(1, 0), (-1, 0), (0, -1), (0, 1)]
         moves = self.rng.choices(moves_tuples, weights=[0.1 if m == self.prev_move else 1 for m in moves_tuples], k=1)
         self.curr_state = self.get_state()
         for move in moves:
             self.states[self.curr_state] += 1
             curr_pos = self.y, self.x
-            target = self.y + move[0] // 64, self.x + move[1] // 64
-            reverse_target = self.y - move[0] // 64, self.x - move[1] // 64
+            target = self.y + move[0], self.x + move[1]
+            reverse_target = self.y - move[0], self.x - move[1]
             if (
                 target[1] == self.game.pad_x
                 or target[0] == self.game.pad_y
