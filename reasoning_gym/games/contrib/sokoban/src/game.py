@@ -1,5 +1,6 @@
+from random import Random
+
 import numpy as np
-import pygame
 
 from reasoning_gym.games.contrib.sokoban.src.box import Box, Obstacle
 from reasoning_gym.games.contrib.sokoban.src.floor import Floor, Goal
@@ -18,29 +19,21 @@ class PuzzleElement:
 
 
 class Game:
-    def __init__(self, window=None, width=1216, height=640, level=None, seed=None, path=None):
-        self.seed = seed
-        self.window = window
+    def __init__(self, width=1216, height=640, level=None, path=None):
         self.level = level
         self.width = width
         self.height = height
         self.puzzle = np.empty((height // 64, width // 64), dtype=PuzzleElement)
-        self.floor_group = pygame.sprite.Group()
-        self.object_group = pygame.sprite.Group()
-        self.player_group = pygame.sprite.Group()
-        self.goal_group = pygame.sprite.Group()
+
         self.player = None
         self.puzzle_size = None
         self.pad_x = 0
         self.pad_y = 0
         self.path = path or f"levels/lvl{level}.dat"
-        self.load_floor()
+
         if path:
             if type(self) == Game:
                 self.load_puzzle()
-
-    def __del__(self):
-        self.clear_objects()
 
     def get_matrix(self):
         slice_x = slice(self.pad_x, self.pad_x + self.puzzle_size[1])
@@ -72,17 +65,6 @@ class Game:
                     boxes_left += 1
         return boxes_left == 0
 
-    def clear_objects(self):
-        for sprite in self.object_group:
-            del sprite
-        for sprite in self.floor_group:
-            del sprite
-
-    def load_floor(self):
-        for i in range(self.width // 64):
-            for j in range(self.height // 64):
-                Floor(self.floor_group, x=i, y=j)
-
     def load_puzzle(self):
         """Load puzzle from file"""
         try:
@@ -94,7 +76,6 @@ class Game:
                 self._process_puzzle_data(data)
         except (OSError, ValueError) as e:
             print(f"{e}")
-            self.clear_objects()
             return
 
     def load_puzzle_matrix(self, matrix):
@@ -110,13 +91,10 @@ class Game:
             self._process_puzzle_data(data)
         except ValueError as e:
             print(f"{e}")
-            self.clear_objects()
             return
 
     def _process_puzzle_data(self, data):
         """Shared core logic for processing puzzle data"""
-        # Clear previous state
-        self.clear_objects()
 
         # Calculate puzzle size and padding
         self.puzzle_size = (len(data), len(data[0]) if len(data) > 0 else 0)
@@ -132,28 +110,29 @@ class Game:
 
                 # Create game objects based on characters
                 if c == "+":  # Wall
-                    new_elem.obj = Obstacle(self.object_group, x=j + pad_x, y=i + pad_y)
+                    new_elem.obj = Obstacle(None, x=j + pad_x, y=i + pad_y)
                 elif c == "@":  # Box
-                    new_elem.obj = Box(self.object_group, x=j + pad_x, y=i + pad_y, game=self)
+                    new_elem.obj = Box(None, x=j + pad_x, y=i + pad_y, game=self)
                 elif c == "*":  # Player
-                    new_elem.obj = Player(self.object_group, self.player_group, x=j + pad_x, y=i + pad_y, game=self)
+                    new_elem.obj = Player(x=j + pad_x, y=i + pad_y, game=self)
                     self.player = new_elem.obj
                 elif c == "X":  # Goal
-                    new_elem.ground = Goal(self.goal_group, x=j + pad_x, y=i + pad_y)
+                    new_elem.ground = Goal(None, x=j + pad_x, y=i + pad_y)
                 elif c == "$":  # Box on goal
-                    new_elem.ground = Goal(self.goal_group, x=j + pad_x, y=i + pad_y)
-                    new_elem.obj = Box(self.object_group, x=j + pad_x, y=i + pad_y, game=self)
+                    new_elem.ground = Goal(None, x=j + pad_x, y=i + pad_y)
+                    new_elem.obj = Box(None, x=j + pad_x, y=i + pad_y, game=self)
                 elif c == "%":  # Player on goal
-                    new_elem.obj = Player(self.object_group, self.player_group, x=j + pad_x, y=i + pad_y, game=self)
-                    new_elem.ground = Goal(self.goal_group, x=j + pad_x, y=i + pad_y)
+                    new_elem.obj = Player(x=j + pad_x, y=i + pad_y, game=self)
+                    new_elem.ground = Goal(None, x=j + pad_x, y=i + pad_y)
                     self.player = new_elem.obj
                 elif c not in " -":  # Validation
                     raise ValueError(f"Invalid character in puzzle: {c}")
 
 
 class ReverseGame(Game):
-    def __init__(self, window=None, width=1216, height=640, level=None, seed=None):
-        super().__init__(window, width, height, level, seed)
+    def __init__(self, rng: Random, width=1216, height=640, level=None):
+        super().__init__(width, height, level)
+        self.rng = rng
         self.pad_x = 0
         self.pad_y = 0
 
@@ -166,22 +145,18 @@ class ReverseGame(Game):
                 new_elem = PuzzleElement(c)
                 self.puzzle[i + pad_y, j + pad_x] = new_elem
                 if c == "+":  # wall
-                    new_elem.obj = Obstacle(self.object_group, x=j + pad_x, y=i + pad_y)
+                    new_elem.obj = Obstacle(None, x=j + pad_x, y=i + pad_y)
                 elif c == "@":  # box
-                    new_elem.obj = Box(self.object_group, x=j + pad_x, y=i + pad_y, game=self)
+                    new_elem.obj = Box(None, x=j + pad_x, y=i + pad_y, game=self)
                 elif c == "*":  # player
-                    new_elem.obj = ReversePlayer(
-                        self.object_group, self.player_group, x=j + pad_x, y=i + pad_y, game=self
-                    )
+                    new_elem.obj = ReversePlayer(rng=self.rng, x=j + pad_x, y=i + pad_y, game=self)
                     self.player = new_elem.obj
                 elif c == "X":  # goal
-                    new_elem.ground = Goal(self.goal_group, x=j + pad_x, y=i + pad_y)
+                    new_elem.ground = Goal(None, x=j + pad_x, y=i + pad_y)
                 elif c == "$":  # box on goal
-                    new_elem.ground = Goal(self.goal_group, x=j + pad_x, y=i + pad_y)
-                    new_elem.obj = Box(self.object_group, x=j + pad_x, y=i + pad_y, game=self)
+                    new_elem.ground = Goal(None, x=j + pad_x, y=i + pad_y)
+                    new_elem.obj = Box(None, x=j + pad_x, y=i + pad_y, game=self)
                 elif c == "%":  # player on goal
-                    new_elem.obj = ReversePlayer(
-                        self.object_group, self.player_group, x=j + pad_x, y=i + pad_y, game=self
-                    )
-                    new_elem.ground = Goal(self.goal_group, x=j + pad_x, y=i + pad_y)
+                    new_elem.obj = ReversePlayer(rng=self.rng, x=j + pad_x, y=i + pad_y, game=self)
+                    new_elem.ground = Goal(None, x=j + pad_x, y=i + pad_y)
                     self.player = new_elem.obj

@@ -1,9 +1,7 @@
-import time
 from collections import defaultdict
 from heapq import heappop, heappush
 
 import numpy as np
-import pygame
 
 from reasoning_gym.games.contrib.sokoban.src.utils import (
     can_move,
@@ -12,11 +10,10 @@ from reasoning_gym.games.contrib.sokoban.src.utils import (
     is_deadlock,
     is_solved,
     manhattan_sum,
-    print_state,
 )
 
 
-def astar(matrix, player_pos, widget=None, visualizer=False, heuristic="manhattan"):
+def astar(matrix, player_pos, debug=False, heuristic="manhattan"):
     # print(f'A* - {heuristic.title()} Heuristic')
     heur = "[A*]" if heuristic == "manhattan" else "[Dijkstra]"
     shape = matrix.shape
@@ -38,8 +35,6 @@ def astar(matrix, player_pos, widget=None, visualizer=False, heuristic="manhatta
         (0, 1): "R",
     }
     while heap:
-        if widget:
-            pygame.event.pump()
         _, curr_cost, state, pos, depth, path = heappop(heap)
         seen.add(state)
         for move in moves:
@@ -67,18 +62,15 @@ def astar(matrix, player_pos, widget=None, visualizer=False, heuristic="manhatta
             )
             if is_solved(new_state):
                 # print(f'{heur} Solution found!\n\n{path + direction[move]}\nDepth {depth + 1}\n')
-                if widget and visualizer:
-                    widget.solved = True
-                    widget.set_text(f"{heur} Solution Found!\n{path + direction[move]}", 20)
-                    pygame.display.update()
+                if debug:
+                    print(f"{heur} Solution Found!\n{path + direction[move]}", 20)
                 return (path + direction[move], depth + 1)
-            if widget and visualizer:
-                widget.set_text(f"{heur} Solution Depth: {depth + 1}\n{path + direction[move]}", 20)
-                pygame.display.update()
+            if debug:
+                print(f"{heur} Solution Depth: {depth + 1}\n{path + direction[move]}", 20)
     print(f"{heur} Solution not found!\n")
-    if widget and visualizer:
-        widget.set_text(f"{heur} Solution Not Found!\nDepth {depth + 1}", 20)
-        pygame.display.update()
+    if debug:
+        print(f"{heur} Solution Not Found!\nDepth {depth + 1}", 20)
+
     return (None, -1 if not heap else depth + 1)
 
 
@@ -86,4 +78,4 @@ def solve_astar(puzzle, widget=None, visualizer=False, heuristic="manhattan"):
     matrix = puzzle
     where = np.where((matrix == "*") | (matrix == "%"))
     player_pos = where[0][0], where[1][0]
-    return astar(matrix, player_pos, widget, visualizer, heuristic)
+    return astar(matrix, player_pos, debug=visualizer, heuristic=heuristic)

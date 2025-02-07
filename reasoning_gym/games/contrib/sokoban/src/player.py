@@ -1,45 +1,27 @@
-import random
 from collections import defaultdict
-
-import pygame
-from pygame.sprite import Sprite
+from random import Random
 
 from reasoning_gym.games.contrib.sokoban.src.box import Box, Obstacle
 
 
-class Player(Sprite):
+class Player:
     """A player that can only push boxes"""
 
-    def __init__(self, *groups, x, y, game):
-        super().__init__(*groups)
+    def __init__(self, x, y, game):
         self.game = game
-        self.up = pygame.image.load("reasoning_gym/games/contrib/sokoban/img/playerU.png")
-        self.up = pygame.transform.scale(self.up, [64, 64])
-        self.down = pygame.image.load("reasoning_gym/games/contrib/sokoban/img/playerD.png")
-        self.down = pygame.transform.scale(self.down, [64, 64])
-        self.left = pygame.image.load("reasoning_gym/games/contrib/sokoban/img/playerL.png")
-        self.left = pygame.transform.scale(self.left, [64, 64])
-        self.right = pygame.image.load("reasoning_gym/games/contrib/sokoban/img/playerR.png")
-        self.right = pygame.transform.scale(self.right, [64, 64])
-        self.image = self.down
-        self.rect = pygame.Rect(x * 64, y * 64, 64, 64)
         self.x = x
         self.y = y
 
-    def update(self, key=None):
+    def update(self, key: str = None) -> int:
         move = None
         if key:
             if key == "R":
-                self.image = self.right
                 move = (64, 0)
             elif key == "L":
-                self.image = self.left
                 move = (-64, 0)
             elif key == "U":
-                self.image = self.up
                 move = (0, -64)
             elif key == "D":
-                self.image = self.down
                 move = (0, 64)
         if move:
             curr = self.y, self.x
@@ -49,7 +31,6 @@ class Player(Sprite):
                 is_box = isinstance(target_elem.obj, Box)
                 if not is_box or (is_box and target_elem.obj.can_move(move)):
                     curr_elem = self.game.puzzle[curr]
-                    self.rect.y, self.rect.x = target[0] * 64, target[1] * 64
                     self.y, self.x = target
                     curr_elem.char = "-" if not curr_elem.ground else "X"
                     curr_elem.obj = None
@@ -58,15 +39,14 @@ class Player(Sprite):
                     return 1
         return 0
 
-    def __del__(self):
-        self.kill()
-
 
 class ReversePlayer(Player):
     """A player that can only pull boxes"""
 
-    def __init__(self, *groups, x, y, game=None, puzzle=None):
-        super().__init__(*groups, x=x, y=y, game=game)
+    def __init__(self, rng: Random, x, y, game=None, puzzle=None):
+        super().__init__(x=x, y=y, game=game)
+        self.rng = rng
+        self.game = game
         self.puzzle = puzzle
         self.curr_state = ""
         self.states = defaultdict(int)
@@ -119,7 +99,7 @@ class ReversePlayer(Player):
             "$": "X",
         }
         moves_tuples = [(64, 0), (-64, 0), (0, -64), (0, 64)]
-        moves = random.choices(moves_tuples, weights=[0.1 if m == self.prev_move else 1 for m in moves_tuples], k=1)
+        moves = self.rng.choices(moves_tuples, weights=[0.1 if m == self.prev_move else 1 for m in moves_tuples], k=1)
         self.curr_state = self.get_state()
         for move in moves:
             self.states[self.curr_state] += 1
@@ -139,19 +119,9 @@ class ReversePlayer(Player):
             self.game.puzzle[curr_pos].char = quick_chars[self.game.puzzle[curr_pos].char]
             self.game.puzzle[curr_pos].obj = None
             self.game.puzzle[target].char = quick_chars[self.game.puzzle[target].char]
-            if self.game.puzzle[target].obj:
-                self.game.puzzle[target].obj.kill()
             self.game.puzzle[target].obj = self
             if (c := self.game.puzzle[reverse_target].char) in "@$":
                 self.game.puzzle[reverse_target].char = quick_chars[c]
                 self.game.puzzle[reverse_target].obj.reverse_move(move)
-            self.rect.y, self.rect.x = target[0] * 64, target[1] * 64
+
             self.y, self.x = target
-            if move == (64, 0):
-                self.image = self.down
-            elif move == (-64, 0):
-                self.image = self.up
-            elif move == (0, 64):
-                self.image = self.right
-            else:
-                self.image = self.left

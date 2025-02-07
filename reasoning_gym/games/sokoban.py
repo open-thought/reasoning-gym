@@ -57,7 +57,8 @@ class SokobanDataset(ProceduralDataset):
         """
 
         # Make the Sokoban!
-        (game, matrix, gamestr) = generate(seed=self.seed + idx)
+        rng = Random(self.seed + idx)
+        (game, matrix, gamestr) = generate(rng=rng)
 
         # Solve the puzzle
         grid_list = [list(line) for line in gamestr.replace(" ", "").strip().split("\n")]

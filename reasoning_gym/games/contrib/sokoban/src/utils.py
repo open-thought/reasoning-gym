@@ -1,25 +1,11 @@
 from heapq import heappop, heappush
 
 import numpy as np
-import pygame
 
-
-def play_solution(solution, game, widgets, show_solution, moves):
-    for move in solution:
-        events = pygame.event.get()
-        moves += game.player.update(move)
-        game.floor_group.draw(game.window)
-        game.goal_group.draw(game.window)
-        game.object_group.draw(game.window)
-        widgets["label"].draw()
-        widgets["seed"].draw()
-        widgets["visualizer"].draw()
-        widgets["moves_label"].set_moves(f" Moves - {moves} ", 20)
-        if show_solution:
-            widgets["paths"].draw()
-        pygame.display.update()
-        pygame.time.delay(130)
-    return moves
+# def play_solution(solution, game, widgets, show_solution, moves):
+#     for move in solution:
+#         moves += game.player.update(move)
+#     return moves
 
 
 def print_state(state, shape):
