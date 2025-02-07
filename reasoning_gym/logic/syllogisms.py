@@ -201,10 +201,15 @@ class SyllogismDataset(ProceduralDataset):
                 t1_2 == tc_2):    # Predicate P
                 return True
 
-        # Rule 3: Disamis syllogism
-        if q1 == Quantifier.ALL and q2 == Quantifier.SOME:
-            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
-                return qc == Quantifier.SOME
+        # Rule 3: Disamis syllogism (IAI-3)
+        # Major: Some M are P
+        # Minor: All M are S
+        # Concl: Some S are P
+        if q1 == Quantifier.SOME and q2 == Quantifier.ALL and qc == Quantifier.SOME:
+            if (t1_1 == t2_1 and  # Middle term M
+                t2_2 == tc_1 and  # Subject S
+                t1_2 == tc_2):    # Predicate P
+                return True
 
         # Rule 4: Ferio syllogism
         if q1 == Quantifier.SOME_NOT and q2 == Quantifier.ALL:
