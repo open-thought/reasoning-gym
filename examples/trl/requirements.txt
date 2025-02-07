@@ -1,6 +1,4 @@
-torch --index-url https://download.pytorch.org/whl/cu124
-torchvision --index-url https://download.pytorch.org/whl/cu124
-torchaudio --index-url https://download.pytorch.org/whl/cu124
+torch>=2.6.0
 datasets
 peft
 transformers
