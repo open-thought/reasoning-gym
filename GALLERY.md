@@ -2430,12 +2430,10 @@ Generates syllogism reasoning tasks
 
 Default configuration:
 ```python
-terms = None
 allow_all = True
 allow_no = True
 allow_some = True
 allow_some_not = True
-include_invalid = True
 invalid_ratio = 0.3
 seed = 42
 size = 500
@@ -2446,24 +2444,24 @@ Example tasks:
 Example 1:
 Question: Consider these statements:
 1. No students are humans
-2. No humans are chefs
+2. All humans are chefs
 
 Does it logically follow that:
-No students are chefs?
+All students are chefs?
 (Answer Yes or No)
-Answer: Yes
-Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chefs', 'conclusion': 'No students are chefs', 'is_valid': True}
+Answer: No
+Metadata: {'premise1': 'No students are humans', 'premise2': 'All humans are chefs', 'conclusion': 'All students are chefs', 'is_valid': False}
 
 Example 2:
 Question: Consider these statements:
-1. Some children are not animals
-2. Some animals are doctors
+1. All children are animals
+2. No animals are doctors
 
 Does it logically follow that:
-All children are doctors?
+Some children are not doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'Some children are not animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Metadata: {'premise1': 'All children are animals', 'premise2': 'No animals are doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True}
 
 Example 3:
 Question: Consider these statements:
@@ -2473,8 +2471,8 @@ Question: Consider these statements:
 Does it logically follow that:
 Some butterflies are not whales?
 (Answer Yes or No)
-Answer: No
-Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': False}
+Answer: Yes
+Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': True}
 
 ````
 
