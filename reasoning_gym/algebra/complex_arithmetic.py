@@ -51,31 +51,35 @@ class ComplexArithmeticDataset(ProceduralDataset):
             return f"{imag:.2f}i"
         else:
             sign = "+" if imag >= 0 else "-"
-            return f"{real:.2f} {sign} {abs(imag):.2f}i"
+            return f"{real} {sign} {abs(imag)}i"
 
     def __getitem__(self, idx: int) -> dict:
         rng = random.Random(self.seed + idx)
 
-        # Generate two random complex numbers
-        a = self._generate_complex(rng)
-        b = self._generate_complex(rng)
-
-        # For division, ensure denominator is not zero
-        while b == 0:
-            b = self._generate_complex(rng)
-
         # Choose random operation
         op = rng.choice(self.config.operations)
 
-        # Calculate result
-        if op == "+":
-            result = a + b
-        elif op == "-":
-            result = a - b
-        elif op == "*":
-            result = a * b
-        else:  # op == "/"
-            result = a / b
+        if op == "/":
+            # For division, first generate the quotient (a) and divisor (b)
+            # Then calculate the dividend (result) as a * b
+            a = self._generate_complex(rng)  # This will be the final result
+            b = self._generate_complex(rng)
+            while b == 0:  # Ensure non-zero divisor
+                b = self._generate_complex(rng)
+            result = a  # Store the intended result
+            a = result * b  # Calculate dividend to ensure whole number division
+        else:
+            # For other operations, generate numbers normally
+            a = self._generate_complex(rng)
+            b = self._generate_complex(rng)
+            
+            # Calculate result
+            if op == "+":
+                result = a + b
+            elif op == "-":
+                result = a - b
+            else:  # op == "*"
+                result = a * b
 
         question = self._prompt_templates[op].format(a=self._format_complex(a), b=self._format_complex(b))
 
@@ -86,7 +90,7 @@ class ComplexArithmeticDataset(ProceduralDataset):
                 "num1": (a.real, a.imag),
                 "num2": (b.real, b.imag),
                 "operation": op,
-                "result": (result.real, result.imag),
+                "result": (int(result.real), int(result.imag)),  # Convert to int since we ensure whole numbers
             },
         }
 
