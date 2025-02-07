@@ -120,7 +120,7 @@ class SyllogismDataset(ProceduralDataset):
         # The four figures of syllogism based on middle term position
         FIGURES = [
             # Figure 1: M-P, S-M
-            ((1,2, 2,1, None), (2,1, None,1), (1,2, None,2)),
+            ((1,1, 2,2, None), (2,1, None,1), (1,2, None,2)),
             # Figure 2: P-M, S-M
             ((1,2, 2,2, None), (2,1, None,1), (1,1, None,2)),
             # Figure 3: M-P, M-S
