@@ -128,6 +128,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 ### <small>Game Tasks</small>
 
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
+- `SokobanDataset`: Generate [Sokoban](https://en.wikipedia.org/wiki/Sokoban) puzzles with configurable size and detail.
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
 - `MazeDataset`: Generate a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value

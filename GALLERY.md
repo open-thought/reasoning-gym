@@ -19,6 +19,7 @@ This gallery shows examples from all available datasets using their default conf
 - [fraction_simplification](#fraction_simplification)
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
+- [group_anagrams](#group_anagrams)
 - [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
 - [largest_island](#largest_island)
@@ -42,13 +43,13 @@ This gallery shows examples from all available datasets using their default conf
 - [simple_equations](#simple_equations)
 - [simple_geometry](#simple_geometry)
 - [simple_integration](#simple_integration)
+- [sokoban](#sokoban)
 - [spell_backward](#spell_backward)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
 - [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
 - [word_ladder](#word_ladder)
-- [group_anagrams](#group_anagrams)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 - [zebra_puzzles](#zebra_puzzles)
@@ -406,17 +407,17 @@ Example tasks:
 Example 1:
 Question: 4 + 3 =
 Answer: 7
-Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '4 + 3'}
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 1}, 'expression': '4 + 3'}
 
 Example 2:
 Question: 812 + 880 =
 Answer: 1692
-Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '812 + 880'}
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812 + 880'}
 
 Example 3:
 Question: 2 + 6 + 3 + 4 + 0 =
 Answer: 15
-Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}
+Metadata: {'difficulty': {'num_terms': 5, 'num_digits': 1}, 'expression': '2 + 6 + 3 + 4 + 0'}
 
 ````
 
@@ -897,6 +898,75 @@ Metadata: {'numbers': [297, 30], 'result': 3}
 
 ````
 
+### group_anagrams
+Generates Group Anagrams exercises with configurable difficulty
+
+Default configuration:
+```python
+anagram_groups = 10
+max_words_per_group = 5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
+
+Answer: [["applauders", "suprapedal"], ["argonon"], ["autosight", "outasight"], ["canny", "nancy"], ["conterminal"], ["ditas"], ["merocyte"], ["oversauciness"], ["palinodist"], ["tinglers"]]
+Metadata: {'words': ['tinglers', 'argonon', 'ditas', 'palinodist', 'merocyte', 'conterminal', 'canny', 'nancy', 'outasight', 'autosight', 'oversauciness', 'applauders', 'suprapedal'], 'solution': [['applauders', 'suprapedal'], ['argonon'], ['autosight', 'outasight'], ['canny', 'nancy'], ['conterminal'], ['ditas'], ['merocyte'], ['oversauciness'], ['palinodist'], ['tinglers']]}
+
+Example 2:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
+
+Answer: [["coders", "credos", "decors", "escrod", "scored"], ["expatiater"], ["meningomyelocele", "myelomeningocele"], ["muriates", "semitaur"], ["naivest", "natives", "vainest"], ["peripterous"], ["preludes", "repulsed"], ["regear"], ["wooled"], ["zanies"]]
+Metadata: {'words': ['regear', 'escrod', 'coders', 'decors', 'credos', 'scored', 'semitaur', 'muriates', 'peripterous', 'zanies', 'expatiater', 'wooled', 'meningomyelocele', 'myelomeningocele', 'vainest', 'natives', 'naivest', 'preludes', 'repulsed'], 'solution': [['coders', 'credos', 'decors', 'escrod', 'scored'], ['expatiater'], ['meningomyelocele', 'myelomeningocele'], ['muriates', 'semitaur'], ['naivest', 'natives', 'vainest'], ['peripterous'], ['preludes', 'repulsed'], ['regear'], ['wooled'], ['zanies']]}
+
+Example 3:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
+
+Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
+Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
+
+````
+
 ### gsm_symbolic
 Default configuration:
 ```python
@@ -1101,17 +1171,17 @@ Example tasks:
 Example 1:
 Question: How many legs are there in total if you have 1 sea slug, 1 deer?
 Answer: 4
-Metadata: {'animals': {'sea slug': 1, 'deer': 1}, 'total_legs': 4}
+Metadata: {'difficulty': {'num_animals': 2}, 'animals': {'sea slug': 1, 'deer': 1}, 'total_legs': 4}
 
 Example 2:
 Question: How many legs are there in total if you have 2 sheeps, 2 dogs?
 Answer: 16
-Metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
+Metadata: {'difficulty': {'num_animals': 2}, 'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 
 Example 3:
 Question: How many legs are there in total if you have 1 crab, 2 lobsters, 1 human, 1 cow, 1 bee?
 Answer: 42
-Metadata: {'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1}, 'total_legs': 42}
+Metadata: {'difficulty': {'num_animals': 5}, 'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1}, 'total_legs': 42}
 
 ````
 
@@ -1923,6 +1993,107 @@ Metadata: {'integrand': '-28*X**3 + 8*X', 'variable': 'X', 'expected_answer_expr
 
 ````
 
+### sokoban
+Generates Sokoban games with configurable parameters
+
+Default configuration:
+```python
+seed = 42
+size = 500
+min_w = 6
+min_h = 6
+max_w = 10
+max_h = 10
+min_boxes = 6
+max_boxes = 10
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are going to solve a 'sokoban' puzzle.
+
+* - The player
+% - The player on a goal
+@ - A box
+X - A goal
+$ - A box on a goal
++ - A wall
+- - An empty position
+
+Your solution must be a string of characters, ex: LDURRUDL.
+
+Here is your puzzle:
++ + + + + + + + +  
++ + X - @ * @ X +  
++ + + - - @ - + +  
++ + + - - - X $ +  
++ + + + - + + + +  
++ + $ + + + + + +  
++ + + + + + + + +  
+
+
+Answer: RLDULLRRDLDR
+Metadata: {'gamestr': '+ + + + + + + + +  \n+ + X - @ * @ X +  \n+ + + - - @ - + +  \n+ + + - - - X $ +  \n+ + + + - + + + +  \n+ + $ + + + + + +  \n+ + + + + + + + +  \n\n', 'difficulty': {'size': (7, 9), 'num_steps': 12}}
+
+Example 2:
+Question: You are going to solve a 'sokoban' puzzle.
+
+* - The player
+% - The player on a goal
+@ - A box
+X - A goal
+$ - A box on a goal
++ - A wall
+- - An empty position
+
+Your solution must be a string of characters, ex: LDURRUDL.
+
+Here is your puzzle:
++ + + + + +  
++ - * - - +  
++ @ - - @ +  
++ X - @ - +  
++ - - - X +  
++ X - @ X +  
++ - - - - +  
++ + + + + +  
+
+
+Answer: LDRRDRDDLLURURDULUURDD
+Metadata: {'gamestr': '+ + + + + +  \n+ - * - - +  \n+ @ - - @ +  \n+ X - @ - +  \n+ - - - X +  \n+ X - @ X +  \n+ - - - - +  \n+ + + + + +  \n\n', 'difficulty': {'size': (8, 6), 'num_steps': 22}}
+
+Example 3:
+Question: You are going to solve a 'sokoban' puzzle.
+
+* - The player
+% - The player on a goal
+@ - A box
+X - A goal
+$ - A box on a goal
++ - A wall
+- - An empty position
+
+Your solution must be a string of characters, ex: LDURRUDL.
+
+Here is your puzzle:
++ + + + + + + + + + + +  
++ - $ - X + - - - - - +  
++ - @ - - - - - @ - X +  
++ - * - @ - - X - $ - +  
++ - - - - X + - - - - +  
++ + - - - - + $ - @ - +  
++ + + - - - - - - - - +  
++ + + - - - $ - - - - +  
++ + + + - - - - - - - +  
++ + + + + + + + + + + +  
+
+
+Answer: RRRRURRRLDDRRDLULDRDLLLLULLDRDRUULUUULDLLURRDRU
+Metadata: {'gamestr': '+ + + + + + + + + + + +  \n+ - $ - X + - - - - - +  \n+ - @ - - - - - @ - X +  \n+ - * - @ - - X - $ - +  \n+ - - - - X + - - - - +  \n+ + - - - - + $ - @ - +  \n+ + + - - - - - - - - +  \n+ + + - - - $ - - - - +  \n+ + + + - - - - - - - +  \n+ + + + + + + + + + + +  \n\n', 'difficulty': {'size': (10, 12), 'num_steps': 47}}
+
+````
+
 ### spell_backward
 Generates tasks to spell words backward
 
@@ -2112,7 +2283,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 5, 9, 44), 'end_time': datetime.datetime(2025, 2, 5, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 7, 9, 44), 'end_time': datetime.datetime(2025, 2, 7, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -2216,85 +2387,6 @@ Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 
 ````
-
-
-### group_anagrams
-
-Group anagrams together in a list of words. 
-
-Default configuration
-```python
-anagram_groups: int = 10  # Groups of anagrams present in the input
-max_words_per_group: int = 5  # Maximum number of words in a single anagram group
-```
-
-Example tasks:
-```
-Example 1:
-Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
-
-Your job is to group the anagrams together. You can return the answer in any order.
-
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-
-Group the following list of words into anagrams:
-["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
-
-Answer: [["applauders", "suprapedal"], ["argonon"], ["autosight", "outasight"], ["canny", "nancy"], ["conterminal"], ["ditas"], ["merocyte"], ["oversauciness"], ["palinodist"], ["tinglers"]]
-
-Metadata: {'words': ['tinglers', 'argonon', 'ditas', 'palinodist', 'merocyte', 'conterminal', 'canny', 'nancy', 'outasight', 'autosight', 'oversauciness', 'applauders', 'suprapedal'], 'solution': [['applauders', 'suprapedal'], ['argonon'], ['autosight', 'outasight'], ['canny', 'nancy'], ['conterminal'], ['ditas'], ['merocyte'], ['oversauciness'], ['palinodist'], ['tinglers']]}
-
---------------------------------------------------
-
-Example 2:
-Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
-
-Your job is to group the anagrams together. You can return the answer in any order.
-
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-
-Group the following list of words into anagrams:
-["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
-
-Answer: [["coders", "credos", "decors", "escrod", "scored"], ["expatiater"], ["meningomyelocele", "myelomeningocele"], ["muriates", "semitaur"], ["naivest", "natives", "vainest"], ["peripterous"], ["preludes", "repulsed"], ["regear"], ["wooled"], ["zanies"]]
-
-Metadata: {'words': ['regear', 'escrod', 'coders', 'decors', 'credos', 'scored', 'semitaur', 'muriates', 'peripterous', 'zanies', 'expatiater', 'wooled', 'meningomyelocele', 'myelomeningocele', 'vainest', 'natives', 'naivest', 'preludes', 'repulsed'], 'solution': [['coders', 'credos', 'decors', 'escrod', 'scored'], ['expatiater'], ['meningomyelocele', 'myelomeningocele'], ['muriates', 'semitaur'], ['naivest', 'natives', 'vainest'], ['peripterous'], ['preludes', 'repulsed'], ['regear'], ['wooled'], ['zanies']]}
-
---------------------------------------------------
-
-Example 3:
-Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
-
-Your job is to group the anagrams together. You can return the answer in any order.
-
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-
-Group the following list of words into anagrams:
-["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
-
-Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
-
-Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
-
---------------------------------------------------
-```
-
-
 
 ### word_sequence_reversal
 Generates word sequence reversal tasks from text spans
