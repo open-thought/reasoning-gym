@@ -2443,25 +2443,25 @@ Example tasks:
 ````
 Example 1:
 Question: Consider these statements:
-1. Some students are not humans
+1. No students are humans
 2. All humans are chefs
 
 Does it logically follow that:
 All students are chefs?
 (Answer Yes or No)
 Answer: No
-Metadata: {'premise1': 'Some students are not humans', 'premise2': 'All humans are chefs', 'conclusion': 'All students are chefs', 'is_valid': False}
+Metadata: {'premise1': 'No students are humans', 'premise2': 'All humans are chefs', 'conclusion': 'All students are chefs', 'is_valid': False}
 
 Example 2:
 Question: Consider these statements:
-1. No children are animals
-2. All animals are doctors
+1. All children are animals
+2. No animals are doctors
 
 Does it logically follow that:
-All children are doctors?
+Some children are not doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'No children are animals', 'premise2': 'All animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Metadata: {'premise1': 'All children are animals', 'premise2': 'No animals are doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True}
 
 Example 3:
 Question: Consider these statements:
