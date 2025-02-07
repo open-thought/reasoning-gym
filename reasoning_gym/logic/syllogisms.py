@@ -169,10 +169,17 @@ class SyllogismDataset(ProceduralDataset):
         ):
             return False
 
-        # Rule 1: Barbara syllogism
-        if q1 == Quantifier.ALL and q2 == Quantifier.ALL:
-            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
-                return qc == Quantifier.ALL
+        # Rule 1: Barbara syllogism (AAA-1)
+        # Major: All M are P
+        # Minor: All S are M 
+        # Concl: All S are P
+        if q1 == Quantifier.ALL and q2 == Quantifier.ALL and qc == Quantifier.ALL:
+            # Check if terms match Barbara pattern:
+            # t1_1(M) -> t1_2(P), t2_1(S) -> t2_2(M), tc_1(S) -> tc_2(P)
+            if (t1_2 == t2_2 and  # Middle term M
+                t2_1 == tc_1 and  # Subject S
+                t1_2 == tc_2):    # Predicate P
+                return True
 
         # Rule 2: Celarent syllogism
         if q1 == Quantifier.NO and q2 == Quantifier.ALL:
