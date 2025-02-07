@@ -27,17 +27,11 @@ class Term:
 class SyllogismConfig:
     """Configuration for syllogism task generation"""
 
-    # Lists of terms to use in syllogisms
-    terms: List[Term] = None  # Will be populated with defaults if None
-
     # Control which quantifiers to use
     allow_all: bool = True
     allow_no: bool = True
     allow_some: bool = True
     allow_some_not: bool = True
-
-    # Whether to include invalid syllogisms as negative examples
-    include_invalid: bool = True
 
     # Percentage of invalid examples if included (0.0 to 1.0)
     invalid_ratio: float = 0.3
@@ -101,7 +95,7 @@ class SyllogismDataset(ProceduralDataset):
 
     def __init__(self, config: SyllogismConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
-        self.terms = self.DEFAULT_TERMS if config.terms is None else config.terms
+        self.terms = self.DEFAULT_TERMS
 
     def _get_allowed_quantifiers(self) -> List[Quantifier]:
         """Get list of allowed quantifiers based on config"""
@@ -171,14 +165,12 @@ class SyllogismDataset(ProceduralDataset):
 
         # Rule 1: Barbara syllogism (AAA-1)
         # Major: All M are P
-        # Minor: All S are M 
+        # Minor: All S are M
         # Concl: All S are P
         if q1 == Quantifier.ALL and q2 == Quantifier.ALL and qc == Quantifier.ALL:
             # Check if terms match Barbara pattern:
             # t1_1(M) -> t1_2(P), t2_1(S) -> t2_2(M), tc_1(S) -> tc_2(P)
-            if (t1_1 == t2_2 and  # Middle term M
-                t2_1 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
+            if t1_1 == t2_2 and t2_1 == tc_1 and t1_2 == tc_2:  # Middle term M  # Subject S  # Predicate P
                 return True
 
         # Rule 2: Celarent syllogism (EAE-1)
@@ -186,9 +178,7 @@ class SyllogismDataset(ProceduralDataset):
         # Minor: All S are M
         # Concl: No S are P
         if q1 == Quantifier.NO and q2 == Quantifier.ALL and qc == Quantifier.NO:
-            if (t1_1 == t2_2 and  # Middle term M
-                t2_1 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
+            if t1_1 == t2_2 and t2_1 == tc_1 and t1_2 == tc_2:  # Middle term M  # Subject S  # Predicate P
                 return True
 
         # Rule 2: Cesare syllogism
@@ -231,18 +221,17 @@ class SyllogismDataset(ProceduralDataset):
         terms = rng.sample(self.terms, 3)
         quantifiers = self._get_allowed_quantifiers()
 
-        # Generate premises and conclusion
-        premise1 = (rng.choice(quantifiers), terms[0], terms[1])
-        premise2 = (rng.choice(quantifiers), terms[1], terms[2])
-        conclusion = (rng.choice(quantifiers), terms[0], terms[2])
+        target_valid = rng.random() < self.config.invalid_ratio
+        while True:
+            # Generate premises and conclusion
+            premise1 = (rng.choice(quantifiers), terms[0], terms[1])
+            premise2 = (rng.choice(quantifiers), terms[1], terms[2])
+            conclusion = (rng.choice(quantifiers), terms[0], terms[2])
 
-        # Decide if this should be a valid or invalid syllogism
-        is_valid = True
-        if self.config.include_invalid and rng.random() < self.config.invalid_ratio:
-            is_valid = False
-            # If should be invalid, regenerate conclusion until invalid
-            while self._is_valid_syllogism(premise1, premise2, conclusion):
-                conclusion = (rng.choice(quantifiers), terms[0], terms[2])
+            # Decide if this should be a valid or invalid syllogism
+            is_valid = self._is_valid_syllogism(premise1, premise2, conclusion)
+            if is_valid == target_valid:
+                break
 
         # Format the syllogism as text
         premise1_text = self._format_quantifier_statement(premise1[0], premise1[1], premise1[2])

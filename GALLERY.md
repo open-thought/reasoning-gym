@@ -2430,12 +2430,10 @@ Generates syllogism reasoning tasks
 
 Default configuration:
 ```python
-terms = None
 allow_all = True
 allow_no = True
 allow_some = True
 allow_some_not = True
-include_invalid = True
 invalid_ratio = 0.3
 seed = 42
 size = 500
@@ -2445,25 +2443,25 @@ Example tasks:
 ````
 Example 1:
 Question: Consider these statements:
-1. No students are humans
+1. All students are humans
 2. No humans are chefs
 
 Does it logically follow that:
 No students are chefs?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chefs', 'conclusion': 'No students are chefs', 'is_valid': True}
+Metadata: {'premise1': 'All students are humans', 'premise2': 'No humans are chefs', 'conclusion': 'No students are chefs', 'is_valid': True}
 
 Example 2:
 Question: Consider these statements:
-1. Some children are not animals
-2. Some animals are doctors
+1. Some children are animals
+2. All animals are doctors
 
 Does it logically follow that:
-All children are doctors?
+Some children are not doctors?
 (Answer Yes or No)
-Answer: Yes
-Metadata: {'premise1': 'Some children are not animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Answer: No
+Metadata: {'premise1': 'Some children are animals', 'premise2': 'All animals are doctors', 'conclusion': 'Some children are not doctors', 'is_valid': False}
 
 Example 3:
 Question: Consider these statements:

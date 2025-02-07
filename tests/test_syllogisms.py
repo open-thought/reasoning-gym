@@ -64,6 +64,60 @@ def test_syllogism_dataset_items():
         assert "Does it logically follow that:" in item["question"]
 
 
+def test_valid_syllogism_forms():
+    """Test specific valid syllogistic forms"""
+    config = SyllogismConfig(size=1, seed=42)
+    dataset = SyllogismDataset(config)
+
+    # Create some test terms
+    A = Term("mortal", "mortals")
+    B = Term("human", "humans")
+    C = Term("animal", "animals")
+
+    # Test Barbara (AAA-1)
+    # Major premise: All M are P
+    # Minor premise: All S are M
+    # Conclusion:    All S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.ALL, B, C),  # All B (M) are C (P)  [Major premise]
+        (Quantifier.ALL, A, B),  # All A (S) are B (M)  [Minor premise]
+        (Quantifier.ALL, A, C),  # All A (S) are C (P)  [Conclusion]
+    )
+
+    # Test Celarent (EAE-1)
+    # Major premise: No M are P
+    # Minor premise: All S are M
+    # Conclusion:    No S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.NO, B, C),  # No B (M) are C (P)
+        (Quantifier.ALL, A, B),  # All A (S) are B (M)
+        (Quantifier.NO, A, C),  # No A (S) are C (P)
+    )
+
+    # Test invalid forms
+    assert not dataset._is_valid_syllogism(
+        (Quantifier.SOME, B, C),  # Some B are C
+        (Quantifier.SOME, A, B),  # Some A are B
+        (Quantifier.SOME, A, C),  # Some A are C (invalid: two particular premises)
+    )
+
+    assert not dataset._is_valid_syllogism(
+        (Quantifier.NO, B, C),  # No B are C
+        (Quantifier.NO, A, B),  # No A are B
+        (Quantifier.NO, A, C),  # No A are C (invalid: two negative premises)
+    )
+
+    # Test specific invalid case with two negative premises
+    S = Term("student", "students")
+    M = Term("human", "humans")
+    P = Term("chef", "chefs")
+    assert not dataset._is_valid_syllogism(
+        (Quantifier.NO, S, M),  # No students are humans
+        (Quantifier.NO, M, P),  # No humans are chefs
+        (Quantifier.NO, S, P),  # No students are chefs (invalid!)
+    )
+
+
 def test_syllogism_dataset_iteration():
     """Test that iteration respects dataset size"""
     config = SyllogismConfig(size=5, seed=42)
@@ -74,41 +128,3 @@ def test_syllogism_dataset_iteration():
 
     # Test multiple iterations yield same items
     assert items == list(dataset)
-
-
-def test_syllogism_custom_terms():
-    """Test syllogism generation with custom terms"""
-    custom_terms = [
-        Term("programmer", "programmers"),
-        Term("coder", "coders"),
-        Term("developer", "developers"),
-    ]
-    config = SyllogismConfig(terms=custom_terms, size=10, seed=42)
-    dataset = SyllogismDataset(config)
-
-    for item in dataset:
-        # Verify only custom terms are used
-        text = item["question"] + str(item["metadata"])
-        assert any(term.name in text or term.plural in text for term in custom_terms)
-        # Verify default terms are not used
-        assert "mortal" not in text
-        assert "human" not in text
-
-
-def test_syllogism_validity():
-    """Test logical validity rules"""
-    config = SyllogismConfig(
-        allow_all=True,
-        allow_no=False,
-        allow_some=False,
-        allow_some_not=False,
-        include_invalid=False,  # Only generate valid syllogisms
-        size=10,
-        seed=42,
-    )
-    dataset = SyllogismDataset(config)
-
-    for item in dataset:
-        # All valid ALL syllogisms should have "Yes" as answer
-        assert item["answer"] == "Yes"
-        assert item["metadata"]["is_valid"] is True
