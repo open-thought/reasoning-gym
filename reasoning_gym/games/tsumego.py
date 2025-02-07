@@ -1,5 +1,21 @@
 """Go problem (tsumego) generator"""
 
+"""
+This module generates one-move Tsumego puzzles, which are Go problems focused on tactical capture scenarios.
+
+The puzzles generated here have the following characteristics:
+- They are created on a board of configurable size (with a minimum and maximum board size).
+- A number of stones are randomly placed on the board, subject to a maximum stone limit.
+- A specific capture problem is then constructed by arranging white stones in a plus-shaped formation.
+- Extra liberties surrounding this white group are filled with black stones, except for one key liberty.
+  This forces a situation where a single move by Black (at the remaining liberty) results in a capture.
+- Puzzle generation is deterministic given a seed, which ensures reproducibility.
+
+These puzzles are intended to provide focused practice on reading and executing capturing moves in Go.
+
+TODO: Generate multi-step Tsumego problems.
+"""
+
 import re
 from dataclasses import dataclass
 from random import Random
@@ -163,17 +179,59 @@ class TsumegoDataset(ProceduralDataset):
                 stones_placed += 1
 
         tries = 0
+        formation_options = {
+            "plus": {
+                "white_offsets": [(0, 0), (-1, 0), (1, 0), (0, -1)],
+                "forced_move_offset": (0, 1),
+                "neighbor_offsets": [(0, 0), (-1, 0), (1, 0), (0, -1), (0, 1)],
+            },
+            "L": {
+                "white_offsets": [(0, 0), (0, 1), (1, 0)],
+                "forced_move_offset": (1, 1),
+                "neighbor_offsets": [(0, 0), (0, 1), (1, 0), (1, 1)],
+            },
+            "T": {
+                "white_offsets": [(0, -1), (0, 0), (0, 1), (1, 0)],
+                "forced_move_offset": (-1, 0),
+                "neighbor_offsets": [(0, -1), (0, 0), (0, 1), (1, 0), (-1, 0)],
+            },
+        }
+
         while tries < 50:
             row = rng.randint(1, size - 2)
             col = rng.randint(1, size - 2)
-            capture_neighbors = [(0, 0)] + DIRECTIONS  # <-- incorporate (0,0) with the constant DIRECTIONS
-            if board[row][col] == "." and all(board[row + dr][col + dc] == "." for dr, dc in capture_neighbors):
-                board[row][col] = "O"
-                board[row - 1][col] = "O"
-                board[row + 1][col] = "O"
-                board[row][col - 1] = "O"
-                if self._is_valid_move(board, row, col + 1, "X"):
-                    return board, (row, col + 1)
+            formation_type = rng.choice(list(formation_options.keys()))
+            formation = formation_options[formation_type]
+            if all(board[row + dr][col + dc] == "." for dr, dc in formation["neighbor_offsets"]):
+                # Place white stones according to chosen formation
+                for dr, dc in formation["white_offsets"]:
+                    board[row + dr][col + dc] = "O"
+                forced_move = (row + formation["forced_move_offset"][0], col + formation["forced_move_offset"][1])
+                white_group = {(row + dr, col + dc) for dr, dc in formation["white_offsets"]}
+                extra_liberties = set()
+                for r, c in white_group:
+                    extra_liberties |= self._get_liberties(board, r, c)
+                extra_liberties.discard(forced_move)
+                for r, c in extra_liberties:
+                    board[r][c] = "X"
+
+                # Add decoy stone to enhance puzzle difficulty
+                current_stone_count = sum(cell in "XO" for row in board for cell in row)
+                if current_stone_count < self.config.max_stones + 7:
+                    center = (row, col)  # using the base white stone as center
+                    decoy_candidates = []
+                    for i in range(center[0] - 2, center[0] + 3):
+                        for j in range(center[1] - 2, center[1] + 3):
+                            if abs(i - center[0]) + abs(j - center[1]) == 2:
+                                if 0 <= i < size and 0 <= j < size and board[i][j] == "." and (i, j) != forced_move:
+                                    decoy_candidates.append((i, j))
+                    if decoy_candidates:
+                        decoy_pos = rng.choice(decoy_candidates)
+                        decoy_color = "X" if rng.random() < 0.5 else "O"
+                        board[decoy_pos[0]][decoy_pos[1]] = decoy_color
+
+                if self._is_valid_move(board, forced_move[0], forced_move[1], "X"):
+                    return board, forced_move
             tries += 1
         raise RuntimeError("Failed to generate a capture problem")
 
@@ -200,7 +258,8 @@ class TsumegoDataset(ProceduralDataset):
 
         board, solution = self._generate_capture_problem(size, rng)
         board_str = self._board_to_string(board)
-        solution_str = f"{chr(ord('A')+solution[1])}{size-solution[0]}"
+        solution_str = f"{chr(ord('A')+solution[1])}{size - solution[0]}"
+        self._ko_point = None
 
         return {
             "question": (
@@ -210,11 +269,7 @@ class TsumegoDataset(ProceduralDataset):
                 "Specify your move in coordinates (e.g. 'C4' for column C, row 4)"
             ),
             "answer": solution_str,
-            "metadata": {
-                "difficulty": {"board_size": size},
-                "board": board,
-                "solution": solution,
-            },
+            "metadata": {"difficulty": {"board_size": size}, "board": board, "solution": solution_str},
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
