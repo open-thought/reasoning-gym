@@ -133,6 +133,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `MazeDataset`: Generate a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
 - `NQueensDataset`: Generate N-Queens puzzles with configurable board size and number of starting queens
+- `TsumegoDataset`: Generate Tsumego capture puzzles with variable board sizes and stone placements
 
 ## Future Generator Ideas
 
