@@ -22,7 +22,7 @@ class Term:
         self.name = name
         self.plural = plural
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         """Return string representation of the term"""
         return f"Term({self.name}, {self.plural})"
 
@@ -262,7 +262,7 @@ class SyllogismDataset(ProceduralDataset):
 
             # Check if validity matches target
             is_valid = self._is_valid_syllogism(premise1, premise2, conclusion)
-            print(is_valid, target_valid, terms)
+            print(attempts, is_valid, target_valid, terms, premise1, premise2)
             if is_valid == target_valid:
                 break
                 
