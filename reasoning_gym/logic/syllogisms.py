@@ -22,6 +22,10 @@ class Term:
         self.name = name
         self.plural = plural
 
+    def __str__(self) -> str:
+        """Return string representation of the term"""
+        return f"Term({self.name}, {self.plural})"
+
 
 @dataclass
 class SyllogismConfig:
