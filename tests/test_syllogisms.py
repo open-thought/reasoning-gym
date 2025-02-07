@@ -94,6 +94,56 @@ def test_valid_syllogism_forms():
         (Quantifier.NO, A, C),  # No A (S) are C (P)
     )
 
+    # Test Cesare (EAE-2)
+    # Major premise: No P are M
+    # Minor premise: All S are M
+    # Conclusion:    No S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.ALL, A, B),  # All A (S) are B (M)
+        (Quantifier.NO, C, B),   # No C (P) are B (M)
+        (Quantifier.NO, A, C),   # No A (S) are C (P)
+    )
+
+    # Test Darii (AII-1)
+    # Major premise: All M are P
+    # Minor premise: Some S are M
+    # Conclusion:    Some S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.ALL, B, C),   # All B (M) are C (P)
+        (Quantifier.SOME, A, B),  # Some A (S) are B (M)
+        (Quantifier.SOME, A, C),  # Some A (S) are C (P)
+    )
+
+    # Test Disamis (IAI-3)
+    # Major premise: Some M are P
+    # Minor premise: All M are S
+    # Conclusion:    Some S are P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.SOME, B, C),  # Some B (M) are C (P)
+        (Quantifier.ALL, B, A),   # All B (M) are A (S)
+        (Quantifier.SOME, A, C),  # Some A (S) are C (P)
+    )
+
+    # Test Ferio (EIO-1)
+    # Major premise: No M are P
+    # Minor premise: Some S are M
+    # Conclusion:    Some S are not P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.NO, B, C),        # No B (M) are C (P)
+        (Quantifier.SOME, A, B),      # Some A (S) are B (M)
+        (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
+    )
+
+    # Test Festino (EIO-2)
+    # Major premise: No P are M
+    # Minor premise: Some S are M
+    # Conclusion:    Some S are not P
+    assert dataset._is_valid_syllogism(
+        (Quantifier.NO, C, B),        # No C (P) are B (M)
+        (Quantifier.SOME, A, B),      # Some A (S) are B (M)
+        (Quantifier.SOME_NOT, A, C),  # Some A (S) are not C (P)
+    )
+
     # Test invalid forms
     assert not dataset._is_valid_syllogism(
         (Quantifier.SOME, B, C),  # Some B are C
