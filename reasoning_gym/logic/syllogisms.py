@@ -114,31 +114,66 @@ class SyllogismDataset(ProceduralDataset):
             quantifiers.append(Quantifier.SOME_NOT)
         return quantifiers
 
-    # Valid syllogism patterns as (major_quant, minor_quant, concl_quant, middle_pos, subject_pos, predicate_pos)
-    VALID_PATTERNS = [
-        # Figure 1 (Middle term is predicate in major premise and subject in minor)
-        ('ALL', 'ALL', 'ALL', (1,2, 2,1, None), (2,1, None,1), (1,2, None,2)),     # Barbara (AAA-1)
-        ('NO', 'ALL', 'NO', (1,1, 2,2, None), (2,1, None,1), (1,2, None,2)),       # Celarent (EAE-1)
-        ('ALL', 'SOME', 'SOME', (1,1, 2,2, None), (2,1, None,1), (1,2, None,2)),   # Darii (AII-1)
-        ('NO', 'SOME', 'SOME_NOT', (1,1, 2,2, None), (2,1, None,1), (1,2, None,2)), # Ferio (EIO-1)
+    @staticmethod
+    def _compute_valid_patterns():
+        """Compute all valid syllogistic patterns"""
+        # The four figures of syllogism based on middle term position
+        FIGURES = [
+            # Figure 1: M-P, S-M
+            ((1,2, 2,1, None), (2,1, None,1), (1,2, None,2)),
+            # Figure 2: P-M, S-M
+            ((1,2, 2,2, None), (2,1, None,1), (1,1, None,2)),
+            # Figure 3: M-P, M-S
+            ((1,1, 2,1, None), (None,2, None,1), (1,2, None,2)),
+            # Figure 4: P-M, M-S
+            ((1,2, 2,1, None), (2,2, None,1), (1,1, None,2))
+        ]
 
-        # Figure 2 (Middle term is predicate in both premises)
-        ('ALL', 'NO', 'NO', (1,2, 2,2, None), (2,1, None,1), (1,1, None,2)),       # Cesare (EAE-2)
-        ('ALL', 'SOME_NOT', 'SOME_NOT', (1,2, 2,None, None), (2,1, None,1), (1,1, None,2)), # Baroco (AOO-2)
-        ('ALL', 'NO', 'NO', (1,2, 2,2, None), (2,1, None,1), (1,1, None,2)),       # Camestres (AEE-2)
-        ('NO', 'SOME', 'SOME_NOT', (1,2, 2,2, None), (2,1, None,1), (1,1, None,2)), # Festino (EIO-2)
+        # All possible quantifier combinations
+        QUANTIFIERS = ['ALL', 'NO', 'SOME', 'SOME_NOT']
+        
+        valid_patterns = []
+        
+        for fig_idx, (middle, subject, predicate) in enumerate(FIGURES, 1):
+            for maj in QUANTIFIERS:
+                for min in QUANTIFIERS:
+                    for conc in QUANTIFIERS:
+                        # Apply syllogistic rules
+                        # Rule 1: Two negative premises -> invalid
+                        if maj in ('NO', 'SOME_NOT') and min in ('NO', 'SOME_NOT'):
+                            continue
+                            
+                        # Rule 2: Two particular premises -> invalid
+                        if maj in ('SOME', 'SOME_NOT') and min in ('SOME', 'SOME_NOT'):
+                            continue
+                            
+                        # Rule 3: Universal conclusion needs universal premises
+                        if conc in ('ALL', 'NO') and (
+                            maj in ('SOME', 'SOME_NOT') or 
+                            min in ('SOME', 'SOME_NOT')):
+                            continue
 
-        # Figure 3 (Middle term is subject in both premises)
-        ('ALL', 'SOME', 'SOME', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Datisi (AII-3)
-        ('SOME_NOT', 'ALL', 'SOME_NOT', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Bocardo (OAO-3)
-        ('SOME', 'ALL', 'SOME', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Disamis (IAI-3)
-        ('NO', 'SOME', 'SOME_NOT', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Ferison (EIO-3)
+                        # Rule 4: Negative conclusion needs negative premise
+                        if conc in ('NO', 'SOME_NOT') and not (
+                            maj in ('NO', 'SOME_NOT') or 
+                            min in ('NO', 'SOME_NOT')):
+                            continue
 
-        # Figure 4 (Middle term is predicate in major and subject in minor)
-        ('ALL', 'NO', 'NO', (1,2, 2,1, None), (2,2, None,1), (1,1, None,2)),       # Camenes (AEE-4)
-        ('SOME', 'ALL', 'SOME', (1,2, 2,1, None), (2,2, None,1), (1,1, None,2)),   # Dimaris (IAI-4)
-        ('NO', 'SOME', 'SOME_NOT', (1,1, 2,1, None), (2,2, None,1), (1,1, None,2)), # Fresison (EIO-4)
-    ]
+                        # Rule 5: Particular conclusion from universal premises 
+                        # is valid but weaker than possible
+                        if conc in ('SOME', 'SOME_NOT') and (
+                            maj in ('ALL', 'NO') and 
+                            min in ('ALL', 'NO')):
+                            continue
+
+                        valid_patterns.append(
+                            (maj, min, conc, middle, subject, predicate)
+                        )
+        
+        return valid_patterns
+
+    # Valid syllogism patterns computed from rules
+    VALID_PATTERNS = _compute_valid_patterns()
 
     def _is_valid_syllogism(
         self,
