@@ -14,6 +14,7 @@ from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
+from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
@@ -48,4 +49,6 @@ __all__ = [
     "PalindromeDataset",
     "GroupAnagramsConfig",
     "GroupAnagramsDataset",
+    "RansomNoteConfig",
+    "RansomNoteDataset",
 ]

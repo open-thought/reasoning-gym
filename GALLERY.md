@@ -20,6 +20,7 @@ This gallery shows examples from all available datasets using their default conf
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
 - [group_anagrams](#group_anagrams)
+- [ransom_note](#ransom_note)
 - [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
 - [largest_island](#largest_island)
@@ -965,6 +966,91 @@ Group the following list of words into anagrams:
 Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
 Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
 
+````
+
+
+### ransom_note
+
+Check if you can construct a ransom note from letters in a magazine
+
+Default configuration
+```python
+max_note_length: int = 10  # Maximum length of the ransom note
+max_magazine_length = 30 # Maximum length of the magazine
+p_solvable: float = 0.5  # Probability that the ransom note can be constructed
+```
+
+Example tasks:
+````
+Sample 1:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: w
+Magazine: addyplkvt
+
+Answer: False
+
+Metadata: {'ransom_note': 'w', 'magazine': 'addyplkvt', 'solution': False, 'solvable': False}
+
+--------------------------------------------------
+
+Sample 2:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: ztx
+Magazine: zizohkpdrhvdoaxtrxosmerfb
+
+Answer: True
+
+Metadata: {'ransom_note': 'ztx', 'magazine': 'zizohkpdrhvdoaxtrxosmerfb', 'solution': True, 'solvable': True}
+
+--------------------------------------------------
+
+Sample 3:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: rdmalrnnc
+Magazine: nzbepjclllltnmdaucybmraddrr
+
+Answer: True
+
+Metadata: {'ransom_note': 'rdmalrnnc', 'magazine': 'nzbepjclllltnmdaucybmraddrr', 'solution': True, 'solvable': True}
+
+--------------------------------------------------
+
+Sample 4:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: cjyaqjka
+Magazine: crjqaiajkyc
+
+Answer: True
+
+Metadata: {'ransom_note': 'cjyaqjka', 'magazine': 'crjqaiajkyc', 'solution': True, 'solvable': True}
+
+--------------------------------------------------
+
+Sample 5:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: eusvpne
+Magazine: irzhvekszobxnsrexnpkltchp
+
+Answer: False
+
+Metadata: {'ransom_note': 'eusvpne', 'magazine': 'irzhvekszobxnsrexnpkltchp', 'solution': False, 'solvable': False}
+
+--------------------------------------------------
 ````
 
 ### gsm_symbolic
