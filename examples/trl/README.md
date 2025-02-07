@@ -4,7 +4,7 @@ This directory contains examples using the [TRL (Transformer Reinforcement Learn
 
 ## GRPO Example
 
-The main example demonstrates using GRPO (Generative Reinforcement Learning with Preference Optimization) to fine-tune a language model on reasoning tasks from reasoning-gym. It includes:
+The main example demonstrates using GRPO (Group Relative Policy Optimization) to fine-tune a language model on reasoning tasks from reasoning-gym. It includes:
 
 - Custom reward functions for answer accuracy and format compliance
 - Integration with reasoning-gym datasets
