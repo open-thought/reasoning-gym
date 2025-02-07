@@ -114,214 +114,84 @@ class SyllogismDataset(ProceduralDataset):
             quantifiers.append(Quantifier.SOME_NOT)
         return quantifiers
 
+    # Valid syllogism patterns as (major_quant, minor_quant, concl_quant, middle_pos, subject_pos, predicate_pos)
+    VALID_PATTERNS = [
+        # Figure 1 (Middle term is predicate in major premise and subject in minor)
+        ('ALL', 'ALL', 'ALL', (1,2, 2,1, None), (2,1, None,1), (1,2, None,2)),     # Barbara (AAA-1)
+        ('NO', 'ALL', 'NO', (1,1, 2,2, None), (2,1, None,1), (1,2, None,2)),       # Celarent (EAE-1)
+        ('ALL', 'SOME', 'SOME', (1,1, 2,2, None), (2,1, None,1), (1,2, None,2)),   # Darii (AII-1)
+        ('NO', 'SOME', 'SOME_NOT', (1,1, 2,2, None), (2,1, None,1), (1,2, None,2)), # Ferio (EIO-1)
+
+        # Figure 2 (Middle term is predicate in both premises)
+        ('ALL', 'NO', 'NO', (1,2, 2,2, None), (2,1, None,1), (1,1, None,2)),       # Cesare (EAE-2)
+        ('ALL', 'SOME_NOT', 'SOME_NOT', (1,2, 2,None, None), (2,1, None,1), (1,1, None,2)), # Baroco (AOO-2)
+        ('ALL', 'NO', 'NO', (1,2, 2,2, None), (2,1, None,1), (1,1, None,2)),       # Camestres (AEE-2)
+        ('NO', 'SOME', 'SOME_NOT', (1,2, 2,2, None), (2,1, None,1), (1,1, None,2)), # Festino (EIO-2)
+
+        # Figure 3 (Middle term is subject in both premises)
+        ('ALL', 'SOME', 'SOME', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Datisi (AII-3)
+        ('SOME_NOT', 'ALL', 'SOME_NOT', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Bocardo (OAO-3)
+        ('SOME', 'ALL', 'SOME', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Disamis (IAI-3)
+        ('NO', 'SOME', 'SOME_NOT', (1,1, 2,1, None), (None,2, None,1), (1,2, None,2)), # Ferison (EIO-3)
+
+        # Figure 4 (Middle term is predicate in major and subject in minor)
+        ('ALL', 'NO', 'NO', (1,2, 2,1, None), (2,2, None,1), (1,1, None,2)),       # Camenes (AEE-4)
+        ('SOME', 'ALL', 'SOME', (1,2, 2,1, None), (2,2, None,1), (1,1, None,2)),   # Dimaris (IAI-4)
+        ('NO', 'SOME', 'SOME_NOT', (1,1, 2,1, None), (2,2, None,1), (1,1, None,2)), # Fresison (EIO-4)
+    ]
+
     def _is_valid_syllogism(
         self,
         premise1: Tuple[Quantifier, Term, Term],
         premise2: Tuple[Quantifier, Term, Term],
         conclusion: Tuple[Quantifier, Term, Term],
     ) -> bool:
-        """
-        Check if a syllogism is logically valid using classical logic rules.
-
-        Rules implemented:
-        1. Universal Affirmative (ALL):
-           - If both premises are ALL, conclusion must be ALL
-           - ALL A are B + ALL B are C → ALL A are C (Barbara)
-
-        2. Universal Negative (NO):
-           - If one premise is NO and other is ALL, conclusion must be NO
-           - NO A are B + ALL C are B → NO A are C (Celarent)
-           - ALL A are B + NO C are B → NO A are C (Cesare)
-           - ALL A are B + ALL C are B → NO A are C (Camestres)
-           - ALL A are B + ALL C are B → NO A are C (Camenes)
-
-        3. Particular Affirmative (SOME):
-           - If one premise is SOME and other is ALL, conclusion must be SOME
-           - SOME A are B + ALL B are C → SOME A are C (Darii)
-           - ALL A are B + SOME C are B → SOME A are C (Disamis)
-           - ALL A are B + ALL B are C → SOME A are C (Datisi)
-           - ALL A are B + ALL B are C → SOME A are C (Dimaris)
-
-        4. Particular Negative (SOME_NOT):
-           - If one premise is SOME_NOT and other is ALL, conclusion can be SOME_NOT
-           - SOME A are not B + ALL B are C → SOME A are not C (Ferio)
-           - ALL A are B + SOME C are not B → SOME A are not C (Festino)
-           - ALL A are B + ALL B are C → SOME A are not C (Ferison)
-           - ALL A are B + ALL B are C → SOME A are not C (Fresison)
-           - ALL A are B + ALL C are B → SOME A are not C (Baroco)
-           - SOME A are not B + ALL B are C → SOME A are not C (Bocardo)
-
-        5. Invalid combinations:
-           - Two negative premises never yield a valid conclusion
-           - Two particular premises never yield a valid conclusion
-           - If both premises are particular, no valid conclusion
-           - If conclusion is universal but either premise is particular, invalid
-        """
+        """Check if a syllogism is logically valid using pattern matching."""
         q1, t1_1, t1_2 = premise1
         q2, t2_1, t2_2 = premise2
         qc, tc_1, tc_2 = conclusion
 
-        # Rule 5: Two negative premises -> invalid
-        if q1 in (Quantifier.NO, Quantifier.SOME_NOT) and q2 in (Quantifier.NO, Quantifier.SOME_NOT):
+        # Invalid combinations
+        if (q1 in (Quantifier.NO, Quantifier.SOME_NOT) and 
+            q2 in (Quantifier.NO, Quantifier.SOME_NOT)):  # Two negative premises
             return False
-
-        # Rule 5: Two particular premises -> invalid
-        if q1 in (Quantifier.SOME, Quantifier.SOME_NOT) and q2 in (Quantifier.SOME, Quantifier.SOME_NOT):
+        if (q1 in (Quantifier.SOME, Quantifier.SOME_NOT) and 
+            q2 in (Quantifier.SOME, Quantifier.SOME_NOT)):  # Two particular premises
             return False
-
-        # Rule 5: Universal conclusion with particular premise -> invalid
         if qc in (Quantifier.ALL, Quantifier.NO) and (
-            q1 in (Quantifier.SOME, Quantifier.SOME_NOT) or q2 in (Quantifier.SOME, Quantifier.SOME_NOT)
-        ):
+            q1 in (Quantifier.SOME, Quantifier.SOME_NOT) or 
+            q2 in (Quantifier.SOME, Quantifier.SOME_NOT)):  # Universal conclusion with particular premise
             return False
 
-        # Rule 1: Barbara syllogism (AAA-1)
-        # Major: All M are P
-        # Minor: All S are M
-        # Concl: All S are P
-        if q1 == Quantifier.ALL and q2 == Quantifier.ALL and qc == Quantifier.ALL:
-            # Check if terms match Barbara pattern:
-            # t1_1(M) -> t1_2(P), t2_1(S) -> t2_2(M), tc_1(S) -> tc_2(P)
-            if t1_1 == t2_2 and t2_1 == tc_1 and t1_2 == tc_2:  # Middle term M  # Subject S  # Predicate P
-                return True
+        terms = ((t1_1, t1_2), (t2_1, t2_2), (tc_1, tc_2))
+        quants = (q1.value, q2.value, qc.value)
 
-        # Rule 2: Celarent syllogism (EAE-1)
-        # Major: No M are P
-        # Minor: All S are M
-        # Concl: No S are P
-        if q1 == Quantifier.NO and q2 == Quantifier.ALL and qc == Quantifier.NO:
-            if t1_1 == t2_2 and t2_1 == tc_1 and t1_2 == tc_2:  # Middle term M  # Subject S  # Predicate P
-                return True
+        # Check against valid patterns
+        for pattern_q1, pattern_q2, pattern_qc, middle, subject, predicate in self.VALID_PATTERNS:
+            if (pattern_q1, pattern_q2, pattern_qc) != quants:
+                continue
 
-        # Rule 2: Cesare syllogism (EAE-2)
-        # Major: No P are M
-        # Minor: All S are M
-        # Concl: No S are P
-        if q1 == Quantifier.ALL and q2 == Quantifier.NO and qc == Quantifier.NO:
-            if (t1_2 == t2_2 and  # Middle term M
-                t1_1 == tc_1 and  # Subject S
-                t2_1 == tc_2):    # Predicate P
-                return True
+            # Get terms according to pattern positions
+            def get_term(pos):
+                if pos is None:
+                    return None
+                premise_idx, term_idx = pos
+                return terms[premise_idx-1][term_idx-1]
 
-        # Rule 3: Darii syllogism (AII-1)
-        # Major: All M are P
-        # Minor: Some S are M
-        # Concl: Some S are P
-        if q1 == Quantifier.ALL and q2 == Quantifier.SOME and qc == Quantifier.SOME:
-            if (t1_1 == t2_2 and  # Middle term M
-                t2_1 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
-                return True
+            # Check term positions match pattern
+            middle_terms = [get_term(p) for p in middle[:2]]
+            if None not in middle_terms and middle_terms[0] != middle_terms[1]:
+                continue
 
-        # Rule 3: Disamis syllogism (IAI-3)
-        # Major: Some M are P
-        # Minor: All M are S
-        # Concl: Some S are P
-        if q1 == Quantifier.SOME and q2 == Quantifier.ALL and qc == Quantifier.SOME:
-            if (t1_1 == t2_1 and  # Middle term M
-                t2_2 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
-                return True
+            subject_terms = [get_term(p) for p in subject[:2]]
+            if None not in subject_terms and subject_terms[0] != subject_terms[1]:
+                continue
 
-        # Rule 4: Ferio syllogism (EIO-1)
-        # Major: No M are P
-        # Minor: Some S are M
-        # Concl: Some S are not P
-        if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
-            if (t1_1 == t2_2 and  # Middle term M
-                t2_1 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
-                return True
+            predicate_terms = [get_term(p) for p in predicate[:2]]
+            if None not in predicate_terms and predicate_terms[0] != predicate_terms[1]:
+                continue
 
-        # Rule 4: Festino syllogism (EIO-2)
-        # Major: No P are M
-        # Minor: Some S are M
-        # Concl: Some S are not P
-        if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
-            if (t1_2 == t2_2 and  # Middle term M
-                t2_1 == tc_1 and  # Subject S
-                t1_1 == tc_2):    # Predicate P
-                return True
-
-        # Datisi syllogism (AII-3)
-        # Major: All M are P
-        # Minor: Some M are S
-        # Concl: Some S are P
-        if q1 == Quantifier.ALL and q2 == Quantifier.SOME and qc == Quantifier.SOME:
-            if (t1_1 == t2_1 and  # Middle term M
-                t2_2 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
-                return True
-
-        # Bocardo syllogism (OAO-3)
-        # Major: Some M are not P
-        # Minor: All M are S
-        # Concl: Some S are not P
-        if q1 == Quantifier.SOME_NOT and q2 == Quantifier.ALL and qc == Quantifier.SOME_NOT:
-            if (t1_1 == t2_1 and  # Middle term M
-                t2_2 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
-                return True
-
-        # Baroco syllogism (AOO-2)
-        # Major: All P are M
-        # Minor: Some S are not M
-        # Concl: Some S are not P
-        if q1 == Quantifier.ALL and q2 == Quantifier.SOME_NOT and qc == Quantifier.SOME_NOT:
-            if (t1_1 == t1_2 and  # Middle term M
-                t2_1 == tc_1 and  # Subject S
-                t1_1 == tc_2):    # Predicate P
-                return True
-
-        # Camestres syllogism (AEE-2)
-        # Major: All P are M
-        # Minor: No S are M
-        # Concl: No S are P
-        if q1 == Quantifier.ALL and q2 == Quantifier.NO and qc == Quantifier.NO:
-            if (t1_2 == t2_2 and  # Middle term M
-                t2_1 == tc_1 and  # Subject S
-                t1_1 == tc_2):    # Predicate P
-                return True
-
-        # Dimaris syllogism (IAI-4)
-        # Major: Some P are M
-        # Minor: All M are S
-        # Concl: Some S are P
-        if q1 == Quantifier.SOME and q2 == Quantifier.ALL and qc == Quantifier.SOME:
-            if (t1_2 == t2_1 and  # Middle term M
-                t2_2 == tc_1 and  # Subject S
-                t1_1 == tc_2):    # Predicate P
-                return True
-
-        # Ferison syllogism (EIO-3)
-        # Major: No M are P
-        # Minor: Some M are S
-        # Concl: Some S are not P
-        if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
-            if (t1_1 == t2_1 and  # Middle term M
-                t2_2 == tc_1 and  # Subject S
-                t1_2 == tc_2):    # Predicate P
-                return True
-
-        # Fresison syllogism (EIO-4)
-        # Major: No P are M
-        # Minor: Some M are S
-        # Concl: Some S are not P
-        if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
-            if (t1_1 == t2_1 and  # Middle term M
-                t2_2 == tc_1 and  # Subject S
-                t1_1 == tc_2):    # Predicate P
-                return True
-
-        # Camenes syllogism (AEE-4)
-        # Major: All P are M
-        # Minor: No M are S
-        # Concl: No S are P
-        if q1 == Quantifier.ALL and q2 == Quantifier.NO and qc == Quantifier.NO:
-            if (t1_2 == t2_1 and  # Middle term M
-                t2_2 == tc_1 and  # Subject S
-                t1_1 == tc_2):    # Predicate P
-                return True
+            return True
 
         return False
 
