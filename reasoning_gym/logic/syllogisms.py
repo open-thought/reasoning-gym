@@ -214,19 +214,21 @@ class SyllogismDataset(ProceduralDataset):
                 return terms[premise_idx-1][term_idx-1]
 
             # Check term positions match pattern
-            middle_terms = [get_term(p) for p in middle[:2]]
-            if None not in middle_terms and middle_terms[0] != middle_terms[1]:
+            middle_terms = [get_term(p) for p in middle[:2] if p is not None]
+            if len(middle_terms) >= 2 and len(set(middle_terms)) != 1:
                 continue
 
-            subject_terms = [get_term(p) for p in subject[:2]]
-            if None not in subject_terms and subject_terms[0] != subject_terms[1]:
+            subject_terms = [get_term(p) for p in subject[:2] if p is not None]
+            if len(subject_terms) >= 2 and len(set(subject_terms)) != 1:
                 continue
 
-            predicate_terms = [get_term(p) for p in predicate[:2]]
-            if None not in predicate_terms and predicate_terms[0] != predicate_terms[1]:
+            predicate_terms = [get_term(p) for p in predicate[:2] if p is not None]
+            if len(predicate_terms) >= 2 and len(set(predicate_terms)) != 1:
                 continue
 
-            return True
+            # Verify the terms are in correct positions
+            if middle_terms and subject_terms and predicate_terms:
+                return True
 
         return False
 
