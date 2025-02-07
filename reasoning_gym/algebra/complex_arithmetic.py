@@ -1,6 +1,6 @@
 import cmath
-import random
 import math
+import random
 from dataclasses import dataclass
 from typing import Optional, Tuple
 
@@ -89,7 +89,7 @@ class ComplexArithmeticDataset(ProceduralDataset):
                 "result": (result.real, result.imag),
             },
         }
-    
+
     @staticmethod
     def parse_string_to_complex(answer: str) -> complex:
         try:
@@ -97,7 +97,7 @@ class ComplexArithmeticDataset(ProceduralDataset):
             answer = answer.replace(" ", "").lower()
             # Convert mathematical notation 'i' to Python's 'j' for complex numbers
             answer = answer.replace("i", "j")
-            
+
             # Handle real numbers (no imaginary part)
             if "j" not in answer:
                 student_result = complex(float(answer))
@@ -110,19 +110,19 @@ class ComplexArithmeticDataset(ProceduralDataset):
                 elif answer[-1] == "j" and not any(c in answer[:-1] for c in "+-"):
                     # Convert "3j" to "3+1j"
                     answer = answer.replace("j", "+1j")
-                
+
                 # Ensure the string has an imaginary part, even if zero
                 if "j" not in answer:
                     answer += "+0j"
-                    
+
                 # Parse the normalized string into a complex number
                 student_result = complex(answer)
 
         except ValueError:
             return None
-        
+
         return student_result
-    
+
     def score_answer(self, answer: str, metadata: dict) -> float:
         """Score the answer using exponential distance-based scoring."""
         if answer is None:
