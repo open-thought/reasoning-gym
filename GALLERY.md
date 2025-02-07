@@ -12,6 +12,7 @@ This gallery shows examples from all available datasets using their default conf
 - [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
+- [complex_arithmetic](#complex_arithmetic)
 - [countdown](#countdown)
 - [course_schedule](#course_schedule)
 - [family_relationships](#family_relationships)
@@ -488,6 +489,39 @@ Now the cube is rotated to place its bottom side at the top.
 What is now the color of the left side of the cube?
 Answer: gold
 Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
+
+````
+
+### complex_arithmetic
+Generates complex number arithmetic problems.
+
+Default configuration:
+```python
+min_real = -10
+max_real = 10
+min_imag = -10
+max_imag = 10
+operations = ('+', '-', '*', '/')
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Add the complex numbers: (-10.0 - 2.0i) + (-3.0 - 3.0i)
+Answer: -13.0 - 5.0i
+Metadata: {'num1': (-10.0, -2.0), 'num2': (-3.0, -3.0), 'operation': '+', 'result': (-13, -5)}
+
+Example 2:
+Question: Add the complex numbers: (-1.0 - 6.0i) + (4.0 + 1.0i)
+Answer: 3.0 - 5.0i
+Metadata: {'num1': (-1.0, -6.0), 'num2': (4.0, 1.0), 'operation': '+', 'result': (3, -5)}
+
+Example 3:
+Question: Divide the complex numbers: (-7.0 - 79.0i) ÷ (-7.0 - 5.0i)
+Answer: 6.0 + 7.0i
+Metadata: {'num1': (-7.0, -79.0), 'num2': (-7.0, -5.0), 'operation': '/', 'result': (6, 7)}
 
 ````
 
@@ -2431,7 +2465,7 @@ X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
-Answer: E6
+Answer: E4
 Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', 'O'], ['O', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', '.', '.', '.', '.'], ['.', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']], 'solution': (5, 4)}
 
 Example 2:
@@ -2453,7 +2487,7 @@ X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
-Answer: E4
+Answer: E6
 Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', '.', 'O', 'O', '.', '.', '.', '.', '.'], ['.', '.', 'O', 'O', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']], 'solution': (3, 4)}
 
 Example 3:
@@ -2478,7 +2512,7 @@ X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
-Answer: I7
+Answer: I6
 Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', 'O', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', 'O', 'O', '.', '.', '.', 'O'], ['.', '.', '.', '.', '.', '.', '.', 'O', '.', '.', '.', '.'], ['.', 'O', '.', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']], 'solution': (6, 8)}
 
 ````
