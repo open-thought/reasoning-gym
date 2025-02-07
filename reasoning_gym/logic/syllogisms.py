@@ -211,10 +211,15 @@ class SyllogismDataset(ProceduralDataset):
                 t1_2 == tc_2):    # Predicate P
                 return True
 
-        # Rule 4: Ferio syllogism
-        if q1 == Quantifier.SOME_NOT and q2 == Quantifier.ALL:
-            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
-                return qc == Quantifier.SOME_NOT
+        # Rule 4: Ferio syllogism (EIO-1)
+        # Major: No M are P
+        # Minor: Some S are M
+        # Concl: Some S are not P
+        if q1 == Quantifier.NO and q2 == Quantifier.SOME and qc == Quantifier.SOME_NOT:
+            if (t1_1 == t2_2 and  # Middle term M
+                t2_1 == tc_1 and  # Subject S
+                t1_2 == tc_2):    # Predicate P
+                return True
 
         # Rule 4: Festino syllogism
         if q1 == Quantifier.ALL and q2 == Quantifier.SOME_NOT:
