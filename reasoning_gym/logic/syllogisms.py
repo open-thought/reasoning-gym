@@ -191,10 +191,15 @@ class SyllogismDataset(ProceduralDataset):
                 t2_1 == tc_2):    # Predicate P
                 return True
 
-        # Rule 3: Darii syllogism
-        if q1 == Quantifier.SOME and q2 == Quantifier.ALL:
-            if t1_2 == t2_1 and tc_1 == t1_1 and tc_2 == t2_2:
-                return qc == Quantifier.SOME
+        # Rule 3: Darii syllogism (AII-1)
+        # Major: All M are P
+        # Minor: Some S are M
+        # Concl: Some S are P
+        if q1 == Quantifier.ALL and q2 == Quantifier.SOME and qc == Quantifier.SOME:
+            if (t1_1 == t2_2 and  # Middle term M
+                t2_1 == tc_1 and  # Subject S
+                t1_2 == tc_2):    # Predicate P
+                return True
 
         # Rule 3: Disamis syllogism
         if q1 == Quantifier.ALL and q2 == Quantifier.SOME:
