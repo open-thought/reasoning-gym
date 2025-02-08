@@ -308,21 +308,21 @@ difficulty = 1
 Example tasks:
 ````
 Example 1:
-Question: This is a BF (Brainf*ck) computer program. What is the output?
+Question: This is a BF (Brainf*ck) computer program. What is the output? 
 
 >[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<
 Answer: onset
 Metadata: {'bfit_code': '\nint main() {\n    print("onset");\n}\n', 'bf_program': '>[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<'}
 
 Example 2:
-Question: This is a BF (Brainf*ck) computer program. What is the output?
+Question: This is a BF (Brainf*ck) computer program. What is the output? 
 
 >[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<
 Answer: perch
 Metadata: {'bfit_code': '\nint main() {\n    print("perch");\n}\n', 'bf_program': '>[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<'}
 
 Example 3:
-Question: This is a BF (Brainf*ck) computer program. What is the output?
+Question: This is a BF (Brainf*ck) computer program. What is the output? 
 
 >[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<
 Answer: under
@@ -672,14 +672,14 @@ Example tasks:
 Example 1:
 Question: Please read the following figlet font:
 
-  sSSSs        d s  b        sss.      d sss        sss sssss
- S     S       S  S S      d           S                S
-S       S      S   SS      Y           S                S
-S       S      S    S        ss.       S sSSs           S
-S       S      S    S           b      S                S
- S     S       S    S           P      S                S
-  "sss"        P    P      ` ss'       P sSSss          P
-
+  sSSSs        d s  b        sss.      d sss        sss sssss 
+ S     S       S  S S      d           S                S     
+S       S      S   SS      Y           S                S     
+S       S      S    S        ss.       S sSSs           S     
+S       S      S    S           b      S                S     
+ S     S       S    S           P      S                S     
+  "sss"        P    P      ` ss'       P sSSss          P     
+                                                              
 
 Answer: ONSET
 Metadata: {'font': 'amc_tubes', 'space_letters': True}
@@ -687,14 +687,14 @@ Metadata: {'font': 'amc_tubes', 'space_letters': True}
 Example 2:
 Question: What word does this say?
 
-######   ######   ######     ####   ##    ##
- ##  ##   ##  ##   ##  ##   ##  ##   ##  ##
- ##  ##   ##       ##  ##  ##   ##   ##  ##
- #####    ####     #####   ##        ######
- ##       ##       ## ##   ##   ##   ##  ##
- ##       ##  ##   ## ##    ##  ##   ##  ##
-####     ######   ### ###    ####   ##    ##
-
+######   ######   ######     ####   ##    ## 
+ ##  ##   ##  ##   ##  ##   ##  ##   ##  ##  
+ ##  ##   ##       ##  ##  ##   ##   ##  ##  
+ #####    ####     #####   ##        ######  
+ ##       ##       ## ##   ##   ##   ##  ##  
+ ##       ##  ##   ## ##    ##  ##   ##  ##  
+####     ######   ### ###    ####   ##    ## 
+                                             
 
 Answer: PERCH
 Metadata: {'font': 'demo_2__', 'space_letters': True}
@@ -702,17 +702,17 @@ Metadata: {'font': 'demo_2__', 'space_letters': True}
 Example 3:
 Question: What word does this say?
 
-
-
-
-### ###   ### ###   #####    ######   #####
- ## ##     ##  #     ## ##    ##  #    ## ##
- ## ##     ### #     ## ##    ####     ## ##
- ## ##     #####     ## ##    ##       ####
- ## ##     ## ##     ## ##    ## ##    ## ##
-  ###     ### ##    #####    ######   #### ##
-
-
+                                              
+                                              
+                                              
+### ###   ### ###   #####    ######   #####   
+ ## ##     ##  #     ## ##    ##  #    ## ##  
+ ## ##     ### #     ## ##    ####     ## ##  
+ ## ##     #####     ## ##    ##       ####   
+ ## ##     ## ##     ## ##    ## ##    ## ##  
+  ###     ### ##    #####    ######   #### ## 
+                                              
+                                              
 
 Answer: UNDER
 Metadata: {'font': 'xcourb', 'space_letters': True}
@@ -1975,16 +1975,16 @@ Example tasks:
 Example 1:
 Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 
-          G  Y  G
-          G  Y  G
-          G  R  G
- W  W  W  O  G  O  Y  Y  Y  R  B  R
- R  R  R  W  G  W  O  O  O  Y  B  Y
- R  R  R  W  G  W  O  O  O  Y  B  Y
-          B  O  B
-          B  W  B
-          B  W  B
-
+          G  Y  G                   
+          G  Y  G                   
+          G  R  G                   
+ W  W  W  O  G  O  Y  Y  Y  R  B  R 
+ R  R  R  W  G  W  O  O  O  Y  B  Y 
+ R  R  R  W  G  W  O  O  O  Y  B  Y 
+          B  O  B                   
+          B  W  B                   
+          B  W  B                   
+ 
 
 Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
@@ -1993,16 +1993,16 @@ Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "F L' R", 'exa
 Example 2:
 Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 
-          Y  Y  R
-          Y  Y  R
-          G  G  R
- B  B  Y  R  R  B  W  W  W  G  O  O
- R  R  W  G  G  G  Y  O  O  B  B  Y
- R  R  W  G  G  G  Y  O  O  B  B  Y
-          O  O  O
-          B  W  W
-          B  W  W
-
+          Y  Y  R                   
+          Y  Y  R                   
+          G  G  R                   
+ B  B  Y  R  R  B  W  W  W  G  O  O 
+ R  R  W  G  G  G  Y  O  O  B  B  Y 
+ R  R  W  G  G  G  Y  O  O  B  B  Y 
+          O  O  O                   
+          B  W  W                   
+          B  W  W                   
+ 
 
 Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
@@ -2011,16 +2011,16 @@ Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "L' F U'", 'ex
 Example 3:
 Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 
-          Y  Y  W
-          Y  Y  W
-          Y  Y  W
- G  G  G  O  O  B  O  O  O  G  R  R
- R  R  R  G  G  B  O  O  O  G  B  B
- R  R  R  G  G  R  B  B  B  O  B  B
-          W  W  Y
-          W  W  Y
-          W  W  Y
-
+          Y  Y  W                   
+          Y  Y  W                   
+          Y  Y  W                   
+ G  G  G  O  O  B  O  O  O  G  R  R 
+ R  R  R  G  G  B  O  O  O  G  B  B 
+ R  R  R  G  G  R  B  B  B  O  B  B 
+          W  W  Y                   
+          W  W  Y                   
+          W  W  Y                   
+ 
 
 Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
@@ -2041,7 +2041,7 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Given the truthfulness of these statements, please tell me the number of possible solutions:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
  - Statement 1: 'At least 1 of these 7 statements are true.'
  - Statement 2: 'At most 3 of these 7 statements are false.'
  - Statement 3: 'Exactly 4 of these 7 statements are true.'
@@ -2053,7 +2053,7 @@ Question: Given the truthfulness of these statements, please tell me the number 
 Answer: 4
 
 Example 2:
-Question: Given the truthfulness of these statements, please tell me the number of possible solutions:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
  - Statement 1: 'At least 4 of these 7 statements are true.'
  - Statement 2: 'At most 5 of these 7 statements are false.'
  - Statement 3: 'Exactly 7 of these 7 statements are true.'
@@ -2065,7 +2065,7 @@ Question: Given the truthfulness of these statements, please tell me the number 
 Answer: 4
 
 Example 3:
-Question: Given the truthfulness of these statements, please tell me the number of possible solutions:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
  - Statement 1: 'At least 2 of these 7 statements are true.'
  - Statement 2: 'At most 5 of these 7 statements are false.'
  - Statement 3: 'Exactly 0 of these 7 statements are true.'
@@ -2245,13 +2245,13 @@ $ - A box on a goal
 Your solution must be a string of characters, ex: LDURRUDL.
 
 Here is your puzzle:
-+ + + + + + + + +
-+ + X - @ * @ X +
-+ + + - - @ - + +
-+ + + - - - X $ +
-+ + + + - + + + +
-+ + $ + + + + + +
-+ + + + + + + + +
++ + + + + + + + +  
++ + X - @ * @ X +  
++ + + - - @ - + +  
++ + + - - - X $ +  
++ + + + - + + + +  
++ + $ + + + + + +  
++ + + + + + + + +  
 
 
 Answer: RLDULLRRDLDR
@@ -2271,14 +2271,14 @@ $ - A box on a goal
 Your solution must be a string of characters, ex: LDURRUDL.
 
 Here is your puzzle:
-+ + + + + +
-+ - * - - +
-+ @ - - @ +
-+ X - @ - +
-+ - - - X +
-+ X - @ X +
-+ - - - - +
-+ + + + + +
++ + + + + +  
++ - * - - +  
++ @ - - @ +  
++ X - @ - +  
++ - - - X +  
++ X - @ X +  
++ - - - - +  
++ + + + + +  
 
 
 Answer: LDRRDRDDLLURURDULUURDD
@@ -2298,16 +2298,16 @@ $ - A box on a goal
 Your solution must be a string of characters, ex: LDURRUDL.
 
 Here is your puzzle:
-+ + + + + + + + + + + +
-+ - $ - X + - - - - - +
-+ - @ - - - - - @ - X +
-+ - * - @ - - X - $ - +
-+ - - - - X + - - - - +
-+ + - - - - + $ - @ - +
-+ + + - - - - - - - - +
-+ + + - - - $ - - - - +
-+ + + + - - - - - - - +
-+ + + + + + + + + + + +
++ + + + + + + + + + + +  
++ - $ - X + - - - - - +  
++ - @ - - - - - @ - X +  
++ - * - @ - - X - $ - +  
++ - - - - X + - - - - +  
++ + - - - - + $ - @ - +  
++ + + - - - - - - - - +  
++ + + - - - $ - - - - +  
++ + + + - - - - - - - +  
++ + + + + + + + + + + +  
 
 
 Answer: RRRRURRRLDDRRDLULDRDLLLLULLDRDRUULUUULDLLURRDRU
@@ -2842,3 +2842,5 @@ Answer: carol
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 ````
+
+
