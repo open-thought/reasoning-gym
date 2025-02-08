@@ -2430,12 +2430,10 @@ Generates syllogism reasoning tasks
 
 Default configuration:
 ```python
-terms = None
 allow_all = True
 allow_no = True
 allow_some = True
 allow_some_not = True
-include_invalid = True
 invalid_ratio = 0.3
 seed = 42
 size = 500
@@ -2446,24 +2444,24 @@ Example tasks:
 Example 1:
 Question: Consider these statements:
 1. No students are humans
-2. No humans are chefs
+2. All humans are chefs
 
 Does it logically follow that:
-No students are chefs?
+All students are chefs?
 (Answer Yes or No)
-Answer: Yes
-Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chefs', 'conclusion': 'No students are chefs', 'is_valid': True}
+Answer: No
+Metadata: {'premise1': 'No students are humans', 'premise2': 'All humans are chefs', 'conclusion': 'All students are chefs', 'is_valid': False}
 
 Example 2:
 Question: Consider these statements:
-1. Some children are not animals
-2. Some animals are doctors
+1. All children are animals
+2. No animals are doctors
 
 Does it logically follow that:
-All children are doctors?
+Some children are not doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'Some children are not animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Metadata: {'premise1': 'All children are animals', 'premise2': 'No animals are doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True}
 
 Example 3:
 Question: Consider these statements:
@@ -2473,8 +2471,8 @@ Question: Consider these statements:
 Does it logically follow that:
 Some butterflies are not whales?
 (Answer Yes or No)
-Answer: No
-Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': False}
+Answer: Yes
+Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': True}
 
 ````
 
@@ -2578,32 +2576,31 @@ Metadata: {'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxi
 ````
 
 ### tsumego
-Generates Tsumego problems with configurable parameters
+Generates (one-move) Tsumego problems with configurable parameters
 
 Default configuration:
 ```python
 min_board_size = 9
 max_board_size = 13
 max_stones = 15
-size = 100
+size = 10
 seed = 42
 ```
 
 Example tasks:
 ````
 Example 1:
-Question: Tsumego time. Black to play and capture some stones.
-Find the key move.
+Question: I have a Go problem for you. Black moves next - can you capture some of the white stones?
 
    A B C D E F G H I
  9 X . . . X . . . .
  8 . . . . . . . . .
  7 . O . O . . X . .
- 6 . . . . . . . . O
- 5 O . . O . . . . .
- 4 . X O O . . . . .
- 3 . . . O . . . . .
- 2 . . . . . . . . .
+ 6 . . . X . . . . O
+ 5 O . X O X . . . .
+ 4 . X O O . O . . .
+ 3 . . X O X . . . .
+ 2 . . . X . . . . .
  1 . O . O . . X . .
 
 X - Black
@@ -2611,18 +2608,20 @@ O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
 Answer: E4
-Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', 'O'], ['O', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', '.', '.', '.', '.'], ['.', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']], 'solution': (5, 4)}
+
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', 'O'], ['O', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', 'O', '.', '.', '.'], ['.', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']], 'solution': 'E4'}
+
+--------------------------------------------------
 
 Example 2:
-Question: Tsumego time. Black to play and capture some stones.
-Find the key move.
+Question: Here's a Go challenge. Playing as Black, how can you capture as many white stones as possible?
 
    A B C D E F G H I
  9 . . O . . . . . .
  8 . X O . . . . . .
- 7 . . . O . . . . .
- 6 . . O O . . . . .
- 5 . . O O . . . . .
+ 7 X . X . . . . . .
+ 6 O O O X . . . . .
+ 5 X O O . . . . . .
  4 . X . . . . . . O
  3 . X . . . . X . .
  2 O . O . . . . . .
@@ -2632,8 +2631,11 @@ X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
-Answer: E6
-Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', 'O', '.', '.', '.', '.', '.'], ['.', '.', 'O', 'O', '.', '.', '.', '.', '.'], ['.', '.', 'O', 'O', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']], 'solution': (3, 4)}
+Answer: B7
+
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.'], ['O', 'O', 'O', 'X', '.', '.', '.', '.', '.'], ['X', 'O', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']], 'solution': 'B7'}
+
+--------------------------------------------------
 
 Example 3:
 Question: Tsumego time. Black to play and capture some stones.
@@ -2645,11 +2647,11 @@ Find the key move.
 10 . . . . . . . . . . . .
  9 . . . . . . . . . . . .
  8 X . . . . X . . . X . .
- 7 . X . . . . . O . . . .
- 6 . . . . . . O O . . . O
- 5 . . . . . . . O . . . .
- 4 . O . . . . . . O . . O
- 3 X . . . . . . . . . . .
+ 7 . X . . . . . . . . . .
+ 6 . O X X . . . . . . . O
+ 5 . X O O X . . . . . . .
+ 4 . O O . . . . . O . . O
+ 3 X . X . . . . . . . . .
  2 . . . . . . . . . . . .
  1 . . . . . . . . . . X .
 
@@ -2657,8 +2659,9 @@ X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
-Answer: I6
-Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', 'O', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', 'O', 'O', '.', '.', '.', 'O'], ['.', '.', '.', '.', '.', '.', '.', 'O', '.', '.', '.', '.'], ['.', 'O', '.', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']], 'solution': (6, 8)}
+Answer: D4
+
+Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'X', 'X', '.', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', 'O', 'O', 'X', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'O', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']], 'solution': 'D4'}
 
 ````
 
