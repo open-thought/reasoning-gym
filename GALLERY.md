@@ -1167,7 +1167,6 @@ Metadata: {'words': ['hogtytyof', 'kgqwfwfgh'], 'solution': True, 'solvable': Tr
 
 ````
 
-
 ### largest_island
 Generates Largest Island exercises with configurable difficulty
 
