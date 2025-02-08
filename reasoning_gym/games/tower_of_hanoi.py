@@ -368,7 +368,7 @@ class HanoiDataset(ProceduralDataset):
         to_peg = int(match.group(3))
         return disk, from_peg, to_peg
 
-    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """
         Score the user's solution for the Tower of Hanoi puzzle.
 
@@ -398,6 +398,7 @@ class HanoiDataset(ProceduralDataset):
             return 0.0
 
         # Build the initial peg state from metadata.
+        metadata = entry["metadata"]
         num_disks = metadata["num_disks"]
         num_pegs = metadata["num_pegs"]
         start_peg = metadata["start_peg"]

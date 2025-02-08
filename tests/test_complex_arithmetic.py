@@ -52,30 +52,30 @@ def test_complex_arithmetic_scoring():
     dataset = ComplexArithmeticDataset(config)
 
     # Test case with answer 3 + 2i
-    metadata = {"result": (3.0, 2.0)}
+    entry = {"metadata": {"result": (3.0, 2.0)}}
 
     # Test exact matches (should get score of 1.0)
-    assert dataset.score_answer("3 + 2i", metadata) == 1.0
-    assert dataset.score_answer("3+2i", metadata) == 1.0
-    assert dataset.score_answer("3.0 + 2.0i", metadata) == 1.0
+    assert dataset.score_answer("3 + 2i", entry) == 1.0
+    assert dataset.score_answer("3+2i", entry) == 1.0
+    assert dataset.score_answer("3.0 + 2.0i", entry) == 1.0
 
     # Test answers with small errors (should get high but < 1.0 scores)
-    print(dataset.score_answer("3.1 + 2i", metadata))
-    assert 0.9 < dataset.score_answer("3.1 + 2i", metadata) < 1.0
-    assert 0.9 < dataset.score_answer("3 + 2.1i", metadata) < 1.0
-    assert 0.7 < dataset.score_answer("3.1 + 2.1i", metadata) < 0.95
+    print(dataset.score_answer("3.1 + 2i", entry))
+    assert 0.9 < dataset.score_answer("3.1 + 2i", entry) < 1.0
+    assert 0.9 < dataset.score_answer("3 + 2.1i", entry) < 1.0
+    assert 0.7 < dataset.score_answer("3.1 + 2.1i", entry) < 0.95
 
     # Test answers with moderate errors (should get medium scores)
-    assert 0.3 < dataset.score_answer("4 + 2i", metadata) < 0.4
-    assert 0.3 < dataset.score_answer("3 + 3i", metadata) < 0.4
+    assert 0.3 < dataset.score_answer("4 + 2i", entry) < 0.4
+    assert 0.3 < dataset.score_answer("3 + 3i", entry) < 0.4
 
     # Test answers with large errors (should get very low scores)
-    assert dataset.score_answer("10 + 10i", metadata) < 0.01
+    assert dataset.score_answer("10 + 10i", entry) < 0.01
 
     # Test invalid answers (should get 0.0)
-    assert dataset.score_answer("invalid", metadata) == 0.0
-    assert dataset.score_answer(None, metadata) == 0.0
-    assert dataset.score_answer("inf + 2i", metadata) == 0.0
+    assert dataset.score_answer("invalid", entry) == 0.0
+    assert dataset.score_answer(None, entry) == 0.0
+    assert dataset.score_answer("inf + 2i", entry) == 0.0
 
 
 def test_complex_arithmetic_division_by_zero():

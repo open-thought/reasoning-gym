@@ -54,7 +54,7 @@ def test_rearc_solution_validation():
     for item in dataset:
         # Test correct solution
         correct = format_board(item["metadata"]["output"], dataset.board_format_opts)
-        assert dataset.score_answer(correct, item["metadata"]) == 1.0
+        assert dataset.score_answer(correct, entry=item) == 1.0
 
         # Test invalid format
         invalid_grid = """
@@ -63,10 +63,10 @@ def test_rearc_solution_validation():
 7 8 7
 0 0 0
 """
-        assert dataset.score_answer(invalid_grid, item["metadata"]) == 0.05
+        assert dataset.score_answer(invalid_grid, entry=item) == 0.05
 
         # Test empty answer
-        assert dataset.score_answer(None, item["metadata"]) == 0.0
+        assert dataset.score_answer(None, entry=item) == 0.0
 
 
 def test_rearc_scoring_edge_cases():
@@ -77,11 +77,11 @@ def test_rearc_scoring_edge_cases():
     for item in dataset:
         # Partial match
         partial = format_board([[0, 0], [0, 0]], dataset.board_format_opts)
-        assert 0.0 < dataset.score_answer(partial, item["metadata"]) < 1.0
+        assert 0.0 < dataset.score_answer(partial, entry=item) < 1.0
 
         # Malformed answer
-        assert dataset.score_answer("[[invalid", item["metadata"]) == 0.01
+        assert dataset.score_answer("[[invalid", entry=item) == 0.01
 
         # Case sensitivity
         answer = format_board(item["metadata"]["output"], dataset.board_format_opts).lower()
-        assert dataset.score_answer(answer, item["metadata"]) == 1.0
+        assert dataset.score_answer(answer, entry=item) == 1.0

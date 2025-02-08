@@ -138,8 +138,9 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
 
         return polynomial_expr
 
-    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         reward = 0.0
+        metadata = entry["metadata"]
         if answer is not None:
             try:
                 predicted_poly = sp.parse_expr(answer)
