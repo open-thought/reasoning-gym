@@ -34,7 +34,7 @@ class TsumegoConfig:
     min_board_size: int = 9
     max_board_size: int = 13
     max_stones: int = 15
-    size: int = 100
+    size: int = 500
     seed: Optional[int] = None
 
     def __post_init__(self):

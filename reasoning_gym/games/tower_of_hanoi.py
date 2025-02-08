@@ -27,7 +27,7 @@ class HanoiConfig:
     max_disks: int = 7
     min_pegs: int = 3
     max_pegs: int = 4
-    size: int = 50
+    size: int = 500
     seed: Optional[int] = None
     visualize: bool = False  # New parameter
 
