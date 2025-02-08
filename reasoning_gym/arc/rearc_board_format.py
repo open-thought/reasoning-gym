@@ -10,9 +10,21 @@ class BoardFormattingOptions:
     array_brackets: bool
 
 
+def default_board_format_opts() -> BoardFormattingOptions:
+    return BoardFormattingOptions(
+        alphabet=[str(i) for i in range(10)],
+        col_delimiter=" ",
+        row_delimiter="\n",
+        array_brackets=False,
+    )
+
+
 def format_arc_task(
     input_grid: Tuple[Tuple[int, ...], ...], output_grid: Tuple[Tuple[int, ...], ...], options: BoardFormattingOptions
 ) -> str:
+    """
+    Format an ARC task as a string
+    """
 
     buffer = []
     if options.task_identifier:
@@ -30,6 +42,9 @@ def format_arc_task(
 def format_board(
     board: List[List[int]], formatting_options: BoardFormattingOptions, with_board_shape: bool = False
 ) -> str:
+    """
+    Format a board as a string
+    """
     alphabet = formatting_options.alphabet
     col_delimiter = formatting_options.col_delimiter
     row_delimiter = formatting_options.row_delimiter
@@ -72,6 +87,9 @@ def format_board_pair(
     pair: dict[str, List[List[int]]],
     formatting_options: BoardFormattingOptions,
 ) -> str:
+    """
+    Format a board pair as a string
+    """
     input_element = format_board(
         pair["input"],
         formatting_options=formatting_options,
