@@ -1626,16 +1626,19 @@ Example tasks:
 ````
 Example 1:
 Question: Keep all numbers larger than -90 in this list: ['-95.00', '-51.0', '47.2942', '-82.612']
+Return the new list in the same format.
 Answer: ['-51.0', '47.2942', '-82.612']
 Metadata: {'original_numbers': ['-95.00', '-51.0', '47.2942', '-82.612'], 'filter_value': '-90', 'operation': 'keep_larger', 'result': ['-51.0', '47.2942', '-82.612']}
 
 Example 2:
 Question: Remove all numbers larger than 18.236 in this list: ['-42.8', '91.88', '34']
+Return the new list in the same format.
 Answer: ['-42.8']
 Metadata: {'original_numbers': ['-42.8', '91.88', '34'], 'filter_value': '18.236', 'operation': 'remove_larger', 'result': ['-42.8']}
 
 Example 3:
 Question: Keep all numbers larger than 19.8962 in this list: ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34']
+Return the new list in the same format.
 Answer: ['37.76', '38.702']
 Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34'], 'filter_value': '19.8962', 'operation': 'keep_larger', 'result': ['37.76', '38.702']}
 
@@ -1809,7 +1812,7 @@ min_degree = 1
 max_degree = 3
 min_polynomials = 2
 max_polynomials = 3
-single_variable = (True,)
+single_variable = True
 operators = ('+', '-')
 seed = 42
 size = 500
@@ -1820,17 +1823,17 @@ Example tasks:
 Example 1:
 Question: Calculate the following: (65*x - 72)*(105*x - 125)
 Answer: 6825*x**2 - 15685*x + 9000
-Metadata: {'polynomial_expr': '(65*x - 72)*(105*x - 125)', 'single_variable': (True,), 'result': '6825*x**2 - 15685*x + 9000'}
+Metadata: {'polynomial_expr': '(65*x - 72)*(105*x - 125)', 'single_variable': True, 'result': '6825*x**2 - 15685*x + 9000'}
 
 Example 2:
 Question: Calculate the following: (-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)
 Answer: -774*x**4 - 2390*x**3 + 173*x**2 + 364*x
-Metadata: {'polynomial_expr': '(-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)', 'single_variable': (True,), 'result': '-774*x**4 - 2390*x**3 + 173*x**2 + 364*x'}
+Metadata: {'polynomial_expr': '(-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)', 'single_variable': True, 'result': '-774*x**4 - 2390*x**3 + 173*x**2 + 364*x'}
 
 Example 3:
 Question: Calculate the following: (43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)
 Answer: -19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x
-Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': (True,), 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
+Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': True, 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
 
 ````
 
