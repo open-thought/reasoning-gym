@@ -1589,20 +1589,20 @@ Metadata: {'words': ['hogtytyof', 'kgqwfwfgh'], 'solution': True, 'solvable': Tr
 ````
 
 ### knight_swap
-Generates Knight Swap puzzles with configurable difficulty
+Generates Knight Swap puzzles with configurable parameters.
 
 Default configuration:
 ```python
-min_nodes: int = 6  # Minimum number of squares on the board
-max_nodes: int = 9  # Maximum number of squares on the board
-min_pieces: int = 2  # Minimum number of pieces per color
-max_pieces: int = 2  # Maximum number of pieces per color
-min_steps: int = 4  # Minimum solution length
-max_steps: int = 20  # Maximum solution length
-max_attempts: int = 100  # Maximum attempts for board generation and puzzle creation
-seed: Optional[int] = 42
-size: int = 5  # Virtual dataset size
-impossible_ratio: float = 0.2  # Ratio of puzzles that should be impossible
+min_nodes = 6
+max_nodes = 9
+min_pieces = 2
+max_pieces = 2
+min_steps = 4
+max_steps = 20
+max_attempts = 100
+seed = 42
+size = 5
+impossible_ratio = 0.2
 ```
 
 Example tasks:
@@ -1613,11 +1613,11 @@ Question: Knight Swap Challenge:
 ```
     A   B   C   D
    ----------------
-3 |   | w | w | . |
+3 |   | . |   | . |
    ----------------
-2 | B |   |   | . |
+2 | B | w |   |   |
    ----------------
-1 |   | B | . |   |
+1 |   |   | B | w |
    ----------------
 ```
 
@@ -1644,11 +1644,7 @@ Answer Format:
   Example: ["w,A1,B3"] means white knight moves A1→B3
 
 Answer: No
-
-
-Metadata: {'board': {'D3': ['C1'], 'C3': ['B1'], 'B3': ['C1', 'D2'], 'B1': ['C3', 'D2'], 'A2': ['C1'], 'C1': ['A2', 'B3', 'D3'], 'D2': ['B1', 'B3']}, 'pieces': {'D3': None, 'C3': 'w', 'B3': 'w', 'B1': 'B', 'A2': 'B', 'C1': None, 'D2': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
-
---------------------------------------------------
+Metadata: {'board': {'C1': ['A2', 'B3', 'D3'], 'A2': ['C1'], 'B3': ['C1'], 'D1': ['B2'], 'B2': ['D1', 'D3'], 'D3': ['B2', 'C1']}, 'pieces': {'C1': 'B', 'A2': 'B', 'B3': None, 'D1': 'w', 'B2': 'w', 'D3': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
 
 Example 2:
 Question: Knight Swap Challenge:
@@ -1656,241 +1652,11 @@ Question: Knight Swap Challenge:
 ```
     A   B   C   D
    ----------------
-3 |   | B | w |   |
-   ----------------
-2 | . | . |   | B |
-   ----------------
-1 | . | w | . | . |
-   ----------------
-```
-
-Legend:
-- 'w' = White Knight
-- 'B' = Black Knight
-- Empty squares are marked with '.'
-
-Objective:
-Swap the positions of all white knights with all black knights through valid moves.
-
-Rules:
-1. Knights move in L-shape (2 squares + 1 square perpendicular)
-2. Knights can only move to empty squares
-3. w moves first, then players alternate
-4. All knights must reach their target positions (white ↔ black)
-
-Question:
-Is it possible to swap all knights' positions? If yes, list the moves.
-
-Answer Format:
-- For impossible puzzles: "No"
-- For possible puzzles: List moves as ["color,from,to", ...]
-  Example: ["w,A1,B3"] means white knight moves A1→B3
-
-Answer: ["w,C3,A2", "B,B3,A1", "w,B1,C3", "B,D2,B1", "w,A2,C1", "B,A1,B3", "w,C3,A2", "B,B3,D2", "w,C1,B3", "B,B1,C3", "w,A2,C1", "B,D2,B1", "w,B3,D2", "B,C3,A2", "w,C1,B3", "B,A2,C3"]
-
-Board states after each move:
-
-Move 0:
-    A   B   C   D
-   ----------------
-3 |   | B | w |   |
-   ----------------
-2 | . | . |   | B |
-   ----------------
-1 | . | w | . | . |
-   ----------------
-
-Move 1:
-Move made: w C3→A2
-    A   B   C   D
-   ----------------
-3 |   | B | . |   |
-   ----------------
-2 | w | . |   | B |
-   ----------------
-1 | . | w | . | . |
-   ----------------
-
-Move 2:
-Move made: B B3→A1
-    A   B   C   D
-   ----------------
-3 |   | . | . |   |
-   ----------------
-2 | w | . |   | B |
-   ----------------
-1 | B | w | . | . |
-   ----------------
-
-Move 3:
-Move made: w B1→C3
-    A   B   C   D
-   ----------------
-3 |   | . | w |   |
-   ----------------
-2 | w | . |   | B |
-   ----------------
-1 | B | . | . | . |
-   ----------------
-
-Move 4:
-Move made: B D2→B1
-    A   B   C   D
-   ----------------
-3 |   | . | w |   |
-   ----------------
-2 | w | . |   | . |
-   ----------------
-1 | B | B | . | . |
-   ----------------
-
-Move 5:
-Move made: w A2→C1
-    A   B   C   D
-   ----------------
-3 |   | . | w |   |
-   ----------------
-2 | . | . |   | . |
-   ----------------
-1 | B | B | w | . |
-   ----------------
-
-Move 6:
-Move made: B A1→B3
-    A   B   C   D
-   ----------------
-3 |   | B | w |   |
-   ----------------
-2 | . | . |   | . |
-   ----------------
-1 | . | B | w | . |
-   ----------------
-
-Move 7:
-Move made: w C3→A2
-    A   B   C   D
-   ----------------
-3 |   | B | . |   |
-   ----------------
-2 | w | . |   | . |
-   ----------------
-1 | . | B | w | . |
-   ----------------
-
-Move 8:
-Move made: B B3→D2
-    A   B   C   D
-   ----------------
-3 |   | . | . |   |
-   ----------------
-2 | w | . |   | B |
-   ----------------
-1 | . | B | w | . |
-   ----------------
-
-Move 9:
-Move made: w C1→B3
-    A   B   C   D
-   ----------------
 3 |   | w | . |   |
    ----------------
-2 | w | . |   | B |
+2 | w |   |   | B |
    ----------------
-1 | . | B | . | . |
-   ----------------
-
-Move 10:
-Move made: B B1→C3
-    A   B   C   D
-   ----------------
-3 |   | w | B |   |
-   ----------------
-2 | w | . |   | B |
-   ----------------
-1 | . | . | . | . |
-   ----------------
-
-Move 11:
-Move made: w A2→C1
-    A   B   C   D
-   ----------------
-3 |   | w | B |   |
-   ----------------
-2 | . | . |   | B |
-   ----------------
-1 | . | . | w | . |
-   ----------------
-
-Move 12:
-Move made: B D2→B1
-    A   B   C   D
-   ----------------
-3 |   | w | B |   |
-   ----------------
-2 | . | . |   | . |
-   ----------------
-1 | . | B | w | . |
-   ----------------
-
-Move 13:
-Move made: w B3→D2
-    A   B   C   D
-   ----------------
-3 |   | . | B |   |
-   ----------------
-2 | . | . |   | w |
-   ----------------
-1 | . | B | w | . |
-   ----------------
-
-Move 14:
-Move made: B C3→A2
-    A   B   C   D
-   ----------------
-3 |   | . | . |   |
-   ----------------
-2 | B | . |   | w |
-   ----------------
-1 | . | B | w | . |
-   ----------------
-
-Move 15:
-Move made: w C1→B3
-    A   B   C   D
-   ----------------
-3 |   | w | . |   |
-   ----------------
-2 | B | . |   | w |
-   ----------------
-1 | . | B | . | . |
-   ----------------
-
-Move 16:
-Move made: B A2→C3
-    A   B   C   D
-   ----------------
-3 |   | w | B |   |
-   ----------------
-2 | . | . |   | w |
-   ----------------
-1 | . | B | . | . |
-   ----------------
-
-Other metadata: {'board': {'A2': ['C1', 'C3'], 'A1': ['B3'], 'B1': ['C3', 'D2'], 'D2': ['B1', 'B3'], 'B3': ['A1', 'C1', 'D2'], 'D1': ['B2', 'C3'], 'C3': ['A2', 'B1', 'D1'], 'B2': ['D1'], 'C1': ['A2', 'B3']}, 'pieces': {'A2': None, 'A1': None, 'B1': 'w', 'D2': 'B', 'B3': 'B', 'D1': None, 'C3': 'w', 'B2': None, 'C1': None}, 'start_turn': 'w', 'solution': [('w', 'C3', 'A2'), ('B', 'B3', 'A1'), ('w', 'B1', 'C3'), ('B', 'D2', 'B1'), ('w', 'A2', 'C1'), ('B', 'A1', 'B3'), ('w', 'C3', 'A2'), ('B', 'B3', 'D2'), ('w', 'C1', 'B3'), ('B', 'B1', 'C3'), ('w', 'A2', 'C1'), ('B', 'D2', 'B1'), ('w', 'B3', 'D2'), ('B', 'C3', 'A2'), ('w', 'C1', 'B3'), ('B', 'A2', 'C3')], 'is_possible': True, 'num_steps': 16}
-
---------------------------------------------------
-
-Example 3:
-Question: Knight Swap Challenge:
-
-```
-    A   B   C   D
-   ----------------
-3 |   | . | B | . |
-   ----------------
-2 | w |   | w |   |
-   ----------------
-1 | . | . | B |   |
+1 |   |   | . | B |
    ----------------
 ```
 
@@ -1917,11 +1683,47 @@ Answer Format:
   Example: ["w,A1,B3"] means white knight moves A1→B3
 
 Answer: No
+Metadata: {'board': {'B3': ['C1'], 'D1': ['C3'], 'C3': ['A2', 'D1'], 'C1': ['A2', 'B3'], 'D2': [], 'A2': ['C1', 'C3']}, 'pieces': {'B3': 'w', 'D1': 'B', 'C3': None, 'C1': None, 'D2': 'B', 'A2': 'w'}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
 
+Example 3:
+Question: Knight Swap Challenge:
 
-Metadata: {'board': {'C1': ['A2', 'B3', 'D3'], 'B3': ['A1', 'C1'], 'C3': ['B1'], 'D3': ['C1'], 'A1': ['B3', 'C2'], 'A2': ['C1'], 'B1': ['C3'], 'C2': ['A1']}, 'pieces': {'C1': 'B', 'B3': None, 'C3': 'B', 'D3': None, 'A1': None, 'A2': 'w', 'B1': None, 'C2': 'w'}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+```
+    A   B   C
+   ------------
+3 | . |   | B |
+   ------------
+2 | w |   | . |
+   ------------
+1 |   | w | B |
+   ------------
+```
 
---------------------------------------------------
+Legend:
+- 'w' = White Knight
+- 'B' = Black Knight
+- Empty squares are marked with '.'
+
+Objective:
+Swap the positions of all white knights with all black knights through valid moves.
+
+Rules:
+1. Knights move in L-shape (2 squares + 1 square perpendicular)
+2. Knights can only move to empty squares
+3. w moves first, then players alternate
+4. All knights must reach their target positions (white ↔ black)
+
+Question:
+Is it possible to swap all knights' positions? If yes, list the moves.
+
+Answer Format:
+- For impossible puzzles: "No"
+- For possible puzzles: List moves as ["color,from,to", ...]
+  Example: ["w,A1,B3"] means white knight moves A1→B3
+
+Answer: No
+Metadata: {'board': {'B1': ['A3'], 'A3': ['B1', 'C2'], 'A2': ['C1', 'C3'], 'C3': ['A2'], 'C1': ['A2'], 'C2': ['A3']}, 'pieces': {'B1': 'w', 'A3': None, 'A2': 'w', 'C3': 'B', 'C1': 'B', 'C2': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+
 ````
 
 ### largest_island
