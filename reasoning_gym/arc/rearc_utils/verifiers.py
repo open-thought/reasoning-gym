@@ -1,4 +1,4 @@
-from dsl import *
+from .dsl import *
 
 
 def verify_007bbfb7(I: Grid) -> Grid:

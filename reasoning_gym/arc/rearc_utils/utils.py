@@ -1,11 +1,10 @@
 import random
+from typing import Any, List, Tuple
 
 import matplotlib.pyplot as plt
-from dsl import *
 from matplotlib.colors import ListedColormap, Normalize
 
-global rng
-rng = []
+from .dsl import *
 
 
 def unifint(rng: random.Random, diff_lb: float, diff_ub: float, bounds: Tuple[int, int]) -> int:
