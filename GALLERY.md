@@ -52,14 +52,14 @@ This gallery shows examples from all available datasets using their default conf
 - [simple_integration](#simple_integration)
 - [sokoban](#sokoban)
 - [spell_backward](#spell_backward)
+- [spiral_matrix](#spiral_matrix)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
 - [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
 - [tsumego](#tsumego)
 - [word_ladder](#word_ladder)
-- [group_anagrams](#group_anagrams)
-p- [word_sequence_reversal](#word_sequence_reversal)
+- [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 - [zebra_puzzles](#zebra_puzzles)
 
@@ -2756,6 +2756,81 @@ Metadata: {'word': 'One', 'word_len': 3}
 
 ````
 
+### spiral_matrix
+Generates Spiral Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
+
+Example:
+
+Input:
+1 2 3
+4 5 6
+7 8 9
+
+Output: 1 2 3 6 9 8 7 4 5
+
+For the matrix below, what is the list of elements in spiral order?
+3 0
+3 4
+
+Answer: 3 0 4 3
+Metadata: {'matrix': [[3, 0], [3, 4]], 'solution': [3, 0, 4, 3]}
+
+Example 2:
+Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
+
+Example:
+
+Input:
+1 2 3
+4 5 6
+7 8 9
+
+Output: 1 2 3 6 9 8 7 4 5
+
+For the matrix below, what is the list of elements in spiral order?
+4
+
+Answer: 4
+Metadata: {'matrix': [[4]], 'solution': [4]}
+
+Example 3:
+Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
+
+Example:
+
+Input:
+1 2 3
+4 5 6
+7 8 9
+
+Output: 1 2 3 6 9 8 7 4 5
+
+For the matrix below, what is the list of elements in spiral order?
+6 4 1 8 2 6 2
+9 5 1 3 4 8 0
+1 2 1 4 0 5 2
+9 5 5 9 6 1 0
+8 3 3 0 5 7 0
+8 1 4 6 9 7 1
+4 1 3 4 6 1 3
+
+Answer: 6 4 1 8 2 6 2 0 2 0 0 1 3 1 6 4 3 1 4 8 8 9 1 9 5 1 3 4 8 5 1 7 7 9 6 4 1 3 5 2 1 4 0 6 5 0 3 5 9
+Metadata: {'matrix': [[6, 4, 1, 8, 2, 6, 2], [9, 5, 1, 3, 4, 8, 0], [1, 2, 1, 4, 0, 5, 2], [9, 5, 5, 9, 6, 1, 0], [8, 3, 3, 0, 5, 7, 0], [8, 1, 4, 6, 9, 7, 1], [4, 1, 3, 4, 6, 1, 3]], 'solution': [6, 4, 1, 8, 2, 6, 2, 0, 2, 0, 0, 1, 3, 1, 6, 4, 3, 1, 4, 8, 8, 9, 1, 9, 5, 1, 3, 4, 8, 5, 1, 7, 7, 9, 6, 4, 1, 3, 5, 2, 1, 4, 0, 6, 5, 0, 3, 5, 9]}
+
+````
+
 ### sudoku
 Generates sudoku puzzles with configurable difficulty
 
@@ -3102,84 +3177,6 @@ Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 
 ````
-
-
-### group_anagrams
-
-Group anagrams together in a list of words. 
-
-Default configuration
-```python
-anagram_groups: int = 10  # Groups of anagrams present in the input
-max_words_per_group: int = 5  # Maximum number of words in a single anagram group
-```
-
-Example tasks:
-```
-Example 1:
-Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
-
-Your job is to group the anagrams together. You can return the answer in any order.
-
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-
-Group the following list of words into anagrams:
-["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
-
-Answer: [["applauders", "suprapedal"], ["argonon"], ["autosight", "outasight"], ["canny", "nancy"], ["conterminal"], ["ditas"], ["merocyte"], ["oversauciness"], ["palinodist"], ["tinglers"]]
-
-Metadata: {'words': ['tinglers', 'argonon', 'ditas', 'palinodist', 'merocyte', 'conterminal', 'canny', 'nancy', 'outasight', 'autosight', 'oversauciness', 'applauders', 'suprapedal'], 'solution': [['applauders', 'suprapedal'], ['argonon'], ['autosight', 'outasight'], ['canny', 'nancy'], ['conterminal'], ['ditas'], ['merocyte'], ['oversauciness'], ['palinodist'], ['tinglers']]}
-
---------------------------------------------------
-
-Example 2:
-Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
-
-Your job is to group the anagrams together. You can return the answer in any order.
-
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-
-Group the following list of words into anagrams:
-["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
-
-Answer: [["coders", "credos", "decors", "escrod", "scored"], ["expatiater"], ["meningomyelocele", "myelomeningocele"], ["muriates", "semitaur"], ["naivest", "natives", "vainest"], ["peripterous"], ["preludes", "repulsed"], ["regear"], ["wooled"], ["zanies"]]
-
-Metadata: {'words': ['regear', 'escrod', 'coders', 'decors', 'credos', 'scored', 'semitaur', 'muriates', 'peripterous', 'zanies', 'expatiater', 'wooled', 'meningomyelocele', 'myelomeningocele', 'vainest', 'natives', 'naivest', 'preludes', 'repulsed'], 'solution': [['coders', 'credos', 'decors', 'escrod', 'scored'], ['expatiater'], ['meningomyelocele', 'myelomeningocele'], ['muriates', 'semitaur'], ['naivest', 'natives', 'vainest'], ['peripterous'], ['preludes', 'repulsed'], ['regear'], ['wooled'], ['zanies']]}
-
---------------------------------------------------
-
-Example 3:
-Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
-
-Your job is to group the anagrams together. You can return the answer in any order.
-
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-
-Group the following list of words into anagrams:
-["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
-
-Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
-
-Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
-
---------------------------------------------------
-```
-
 
 ### word_sequence_reversal
 Generates word sequence reversal tasks from text spans
