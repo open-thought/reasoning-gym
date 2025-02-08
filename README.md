@@ -64,7 +64,7 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 ...
 ```
 
-See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets with examples.
+See the [Dataset Gallery](https://github.com/open-thought/reasoning-gym/blob/main/GALLERY.md) for a complete list of available datasets with examples.
 
 ## Task Overview
 
@@ -72,6 +72,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 
 - `SimpleEquationsDataset`: Generate linear equations with one variable to solve (e.g. "3\*x + 2 = 14")
 - `PolynomialEquationsDataset`: Generate polynomial equations with one variable to solve (e.g. "-6*h\*\*4 + 4*h\**2 - 5*h = 0")
+- `PolynomialMultiplicationDataset`: Generate polynomial multiplicatons (e.g. "(8x^3 + x + 2)\*(y - 3)")
 
 ### <small>Arithmetic Tasks</small>
 
@@ -100,6 +101,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `WordLadderDataset`: Generate word ladder puzzles where one word is transformed into another by changing one letter at a time
 - `GroupAnagramsDataset`: Group anagrams together in a list of words
 - `SprialMatrixDataset`: Print elements of a matrix in spiral order
+- `IsomorphicStrings`: Check if two strings are isomorphic (have the same character mapping)
 
 ### <small>Code Tasks</small>
 
@@ -118,6 +120,7 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 - `SyllogismDataset`: Generates a [syllogism](https://en.wikipedia.org/wiki/Syllogism) reasoning dataset
 - `AliceInWonderlandDataset`: Generates [AIW](https://openreview.net/forum?id=Mkl7dzjYiW) (Alice In Wonderland) problems with a few variations
 - `ZebraDataset`: Generates [Zebra Puzzles](https://en.wikipedia.org/wiki/Zebra_Puzzle) of varying difficulty.
+- `SelfReferenceDataset`: Generates self-referencing logic puzzles.
 
 ### <small>Graph Tasks</small>
 
@@ -129,10 +132,12 @@ See the [Dataset Gallery](GALLERY.md) for a complete list of available datasets 
 ### <small>Game Tasks</small>
 
 - `SudokuDataset`: Generate 9x9 Sudoku puzzles with configurable number of empty cells
+- `SokobanDataset`: Generate [Sokoban](https://en.wikipedia.org/wiki/Sokoban) puzzles with configurable size and detail.
 - `MiniSudokuDataset`: Generate 4x4 Mini Sudoku puzzles with configurable difficulty
 - `MazeDataset`: Generate a maze with a start and a goal
 - `CountdownDataset`: Generate number game tasks where numbers and operators must be combined to reach a target value
 - `NQueensDataset`: Generate N-Queens puzzles with configurable board size and number of starting queens
+- `TsumegoDataset`: Generate Tsumego capture puzzles with variable board sizes and stone placements
 
 ## Future Generator Ideas
 
