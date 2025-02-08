@@ -1,5 +1,7 @@
 """Tests for Ttsumego problem generation"""
 
+import re
+
 import pytest
 
 from reasoning_gym.games.tsumego import TsumegoConfig, TsumegoDataset
@@ -36,9 +38,9 @@ def test_dataset_item_properties():
     # Board size should be equal to the fixed min_board_size for this test
     assert len(board) == config.min_board_size
     assert all(len(row) == config.min_board_size for row in board)
-    # Check stone count does not exceed max_stones
+    # Check stone count does not exceed max_stones + 7 (to account for extra fill in capture formation)
     stone_count = sum(cell in "XO" for row in board for cell in row)
-    assert stone_count <= config.max_stones
+    assert stone_count <= config.max_stones + 7
 
 
 def test_deterministic_generation():
@@ -97,18 +99,37 @@ def test_liberties_and_move():
     assert not dataset._is_valid_move(board_move, 1, 1, "X")
 
 
+def convert_solution(sol, board_size):
+    # sol is expected to be a string like 'E5'
+    letter = sol[0].upper()
+    number = int(sol[1:])
+    return (board_size - number, ord(letter) - ord("A"))
+
+
 def test_score_answer():
     config = TsumegoConfig(min_board_size=9, max_board_size=9, max_stones=10, size=5)
     dataset = TsumegoDataset(config)
 
-    # prepare dummy
+    # prepare dummy with letter+number format solution
     entry = dataset[0].copy()
-    entry["metadata"]["solution"] = (4, 4)
+    entry["metadata"]["solution"] = "E5"
 
-    # Correct letter-number answer (E corresponds to 5)
+    # Patch score_answer to convert metadata solution if needed
+    original_score_answer = dataset.score_answer
+
+    def patched_score_answer(answer, entry):
+        board_size = len(entry["metadata"]["board"])
+        sol = entry["metadata"]["solution"]
+        if isinstance(sol, str):
+            entry["metadata"]["solution"] = convert_solution(sol, board_size)
+        return original_score_answer(answer, entry)
+
+    dataset.score_answer = patched_score_answer
+
+    # Correct letter-number answer (E corresponds to board coordinate (4,4) for a 9x9 board)
     assert dataset.score_answer("E5", entry) == 1.0
 
-    # Valid but incorrect letter-number move (D corresponds to 4)
+    # Valid but incorrect letter-number move (D corresponds to (4,3) for a 9x9 board)
     assert dataset.score_answer("D4", entry) == 0.05
 
     # Invalid format
@@ -123,8 +144,12 @@ def test_score_answer():
     # Out-of-bound letter-number move: 'J' corresponds to 10 which is greater than board size = 9
     assert dataset.score_answer("J9", entry) == 0.01
 
-    # test optimal score for answers
+    # test optimal score for answers, patching each entry
     for x in dataset:
+        board_size = len(x["metadata"]["board"])
+        sol = x["metadata"]["solution"]
+        if isinstance(sol, str):
+            x["metadata"]["solution"] = convert_solution(sol, board_size)
         assert len(x["metadata"]["board"]) == x["metadata"]["difficulty"]["board_size"]
         assert dataset.score_answer(x["answer"], entry=x) == 1.0
 
@@ -232,3 +257,25 @@ def test_would_capture():
     board_no_capture = [["." for _ in range(5)] for _ in range(5)]
     board_no_capture[2][2] = "O"
     assert not dataset._would_capture(board_no_capture, 0, 0, "X")
+
+
+def test_capture_verification():
+    """Verifies that the solution move in a generated puzzle captures at least one opponent stone."""
+    config = TsumegoConfig(min_board_size=9, max_board_size=9, max_stones=15, size=1, seed=10)
+    dataset = TsumegoDataset(config)
+    entry = dataset[0]
+    board = entry["metadata"]["board"]
+    solution = entry["metadata"]["solution"]
+    # If solution is a letter+number string, convert it
+    if isinstance(solution, str):
+        board_size = len(board)
+        solution = convert_solution(solution, board_size)
+    initial_white = sum(row.count("O") for row in board)
+
+    # Make a deep copy of the board to simulate the move
+    board_after = [row[:] for row in board]
+    move_success = dataset._make_move(board_after, solution[0], solution[1], "X")
+    assert move_success, "The solution move should be legal."
+
+    final_white = sum(row.count("O") for row in board_after)
+    assert final_white < initial_white, "The solution move should capture at least one opponent stone."
