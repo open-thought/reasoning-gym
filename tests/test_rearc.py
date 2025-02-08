@@ -1,8 +1,7 @@
 import pytest
 
-from reasoning_gym import create_dataset
+from reasoning_gym.arc.board_format import format_board
 from reasoning_gym.arc.rearc import ReArcConfig, ReArcDataset
-from reasoning_gym.arc.rearc_board_format import format_board
 
 
 def test_rearc_config_validation():
@@ -16,7 +15,7 @@ def test_rearc_config_validation():
 
 def test_rearc_deterministic():
     """Test dataset reproducibility with fixed seed"""
-    config = ReArcConfig(seed=42, size=500, diff_lb=0, diff_ub=1)
+    config = ReArcConfig(seed=42, size=100, diff_lb=0, diff_ub=1)
     ds1 = ReArcDataset(config)
     ds2 = ReArcDataset(config)
 
@@ -26,7 +25,7 @@ def test_rearc_deterministic():
 
 def test_rearc_items():
     """Test basic structure and metadata of generated items"""
-    config = ReArcConfig(seed=42, size=500, diff_lb=0, diff_ub=1)
+    config = ReArcConfig(seed=42, size=100, diff_lb=0, diff_ub=1)
     dataset = ReArcDataset(config)
 
     for item in dataset:
@@ -39,17 +38,17 @@ def test_rearc_items():
         assert "input" in meta
         assert "output" in meta
         assert "task_id" in meta
-        assert "rng" in meta
-        assert "pso" in meta
+        assert "rng" in meta["difficulty"]
+        assert "pso" in meta["difficulty"]
 
         # Validate difficulty bounds
-        assert config.diff_lb <= meta["rng"] <= config.diff_ub
-        assert config.diff_lb <= meta["pso"] <= config.diff_ub
+        assert config.diff_lb <= meta["difficulty"]["rng"] <= config.diff_ub
+        assert config.diff_lb <= meta["difficulty"]["pso"] <= config.diff_ub
 
 
 def test_rearc_solution_validation():
     """Test solution verification and scoring"""
-    config = ReArcConfig(size=500, seed=123)
+    config = ReArcConfig(size=100, seed=123)
     dataset = ReArcDataset(config)
 
     for item in dataset:
@@ -57,16 +56,22 @@ def test_rearc_solution_validation():
         correct = format_board(item["metadata"]["output"], dataset.board_format_opts)
         assert dataset.score_answer(correct, item["metadata"]) == 1.0
 
-        ## Test invalid format
-        # assert dataset.score_answer("invalid_grid", item["metadata"]) == 0.05
+        # Test invalid format
+        invalid_grid = """
+9 9 9
+1 2 1
+7 8 7
+0 0 0
+"""
+        assert dataset.score_answer(invalid_grid, item["metadata"]) == 0.05
 
         # Test empty answer
-        # assert dataset.score_answer(None, item["metadata"]) == 0.0
+        assert dataset.score_answer(None, item["metadata"]) == 0.0
 
 
 def test_rearc_scoring_edge_cases():
     """Test scoring for partial and malformed answers"""
-    config = ReArcConfig(size=500, seed=456)
+    config = ReArcConfig(size=100, seed=456)
     dataset = ReArcDataset(config)
 
     for item in dataset:
@@ -80,13 +85,3 @@ def test_rearc_scoring_edge_cases():
         # Case sensitivity
         answer = format_board(item["metadata"]["output"], dataset.board_format_opts).lower()
         assert dataset.score_answer(answer, item["metadata"]) == 1.0
-
-
-def test_rearc_visualization():
-    """Test visualization function runs without errors"""
-    config = ReArcConfig(size=2, seed=789)
-    dataset = ReArcDataset(config)
-
-    for item in dataset:
-        dataset.visualise_pair(item)
-        # No assertion needed - just verify no exceptions

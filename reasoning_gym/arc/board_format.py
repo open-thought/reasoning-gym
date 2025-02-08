@@ -1,22 +1,13 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Tuple
 
 
 @dataclass
 class BoardFormattingOptions:
-    alphabet: list[str]
-    col_delimiter: str
-    row_delimiter: str
-    array_brackets: bool
-
-
-def default_board_format_opts() -> BoardFormattingOptions:
-    return BoardFormattingOptions(
-        alphabet=[str(i) for i in range(10)],
-        col_delimiter=" ",
-        row_delimiter="\n",
-        array_brackets=False,
-    )
+    alphabet: list[str] = field(default_factory=lambda: [str(i) for i in range(10)])
+    col_delimiter: str = " "
+    row_delimiter: str = "\n"
+    array_brackets: bool = False
 
 
 def format_arc_task(

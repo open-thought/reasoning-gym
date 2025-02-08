@@ -41,6 +41,9 @@ This gallery shows examples from all available datasets using their default conf
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
+- [ransom_note](#ransom_note)
+- [rearc](#rearc)
+- [rotate_matrix](#rotate_matrix)
 - [rubiks_cube](#rubiks_cube)
 - [self_reference](#self_reference)
 - [sentence_reordering](#sentence_reordering)
@@ -1005,7 +1008,6 @@ Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'strip
 
 ````
 
-
 ### gsm_symbolic
 Default configuration:
 ```python
@@ -1959,6 +1961,417 @@ Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B'
 
 ````
 
+### ransom_note
+Generates Ransom Note exercises with configurable difficulty
+
+Default configuration:
+```python
+max_note_length = 10
+max_magazine_length = 30
+p_solvable = 0.5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: c
+Magazine: kjjfnerbv
+
+Answer: False
+Metadata: {'ransom_note': 'c', 'magazine': 'kjjfnerbv', 'solution': False, 'solvable': False}
+
+Example 2:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: pan
+Magazine: pipmrxluyrkumtnaynmqosywf
+
+Answer: True
+Metadata: {'ransom_note': 'pan', 'magazine': 'pipmrxluyrkumtnaynmqosywf', 'solution': True, 'solvable': True}
+
+Example 3:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: yuothygge
+Magazine: gpfslbehhhhagoutvejfoytuuyy
+
+Answer: True
+Metadata: {'ransom_note': 'yuothygge', 'magazine': 'gpfslbehhhhagoutvejfoytuuyy', 'solution': True, 'solvable': True}
+
+````
+
+### rearc
+Default configuration:
+```python
+min_examples = 3
+max_examples = 5
+diff_lb = 0
+diff_ub = 0.2
+board_format_opts = BoardFormattingOptions(alphabet=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], col_delimiter=' ', row_delimiter='\n', array_brackets=False)
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 9
+Output:
+9 9 9 9
+1 1 1 1
+9 9 9 9
+1 1 1 1
+1 9 9 9
+1 9 1 1
+1 9 1 9
+
+Example 2:
+
+Input:
+4 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+Output:
+4 8 4 8 4 8 4
+8 8 4 8 4 8 4
+4 4 4 8 4 8 4
+8 8 8 8 4 8 4
+4 4 4 4 4 8 4
+
+Example 3:
+
+Input:
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+5 2 2 2
+Output:
+2 2 2 2
+5 5 5 5
+2 2 2 2
+5 5 5 5
+2 2 2 2
+5 5 5 2
+2 2 5 2
+5 2 5 2
+
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+3 3 3 3 3 3 3 9
+3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3
+
+Answer: ((3, 9, 3, 9, 3, 9, 3, 9), (3, 9, 3, 9, 3, 9, 3, 3), (3, 9, 3, 9, 3, 9, 9, 9), (3, 9, 3, 9, 3, 3, 3, 3), (3, 9, 3, 9, 9, 9, 9, 9))
+Metadata: {'input': ((3, 3, 3, 3, 3, 3, 3, 9), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3)), 'output': ((3, 9, 3, 9, 3, 9, 3, 9), (3, 9, 3, 9, 3, 9, 3, 3), (3, 9, 3, 9, 3, 9, 9, 9), (3, 9, 3, 9, 3, 3, 3, 3), (3, 9, 3, 9, 9, 9, 9, 9)), 'task_id': 'd22278a0', 'difficulty': {'rng': 0.07173948707162241, 'pso': 0.12314814814814816}}
+
+Example 2:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 9 6 6 6 9 6
+6 6 6 9 6 9 6 6
+6 6 6 6 9 6 6 6
+6 6 6 9 6 9 6 6
+6 6 9 6 6 6 9 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+Output:
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 9 6 6 6 9 6
+6 6 6 9 6 9 6 6
+6 6 6 6 9 6 6 6
+6 6 6 9 6 9 6 6
+6 6 9 6 6 6 9 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+
+Example 2:
+
+Input:
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 2 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+Output:
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 2 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+
+Example 3:
+
+Input:
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 2 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+Output:
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 2 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+
+Example 4:
+
+Input:
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7
+Output:
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7
+
+Example 5:
+
+Input:
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 6 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+Output:
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 6 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 8 7 7 7
+7 7 7 7 7 7 8 7 8 7 7
+7 7 7 7 7 8 7 8 7 8 7
+7 7 7 7 7 7 8 7 8 7 7
+7 7 7 7 7 7 7 8 7 7 7
+7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7
+
+Answer: ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 8, 7, 8, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7))
+Metadata: {'input': ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 8, 7, 8, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)), 'output': ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 8, 7, 8, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)), 'task_id': '11852cab', 'difficulty': {'rng': 0.09651305327452808, 'pso': 0.15228956228956228}}
+
+Example 3:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+9 9
+9 9
+Output:
+9 9
+9 9
+9 9
+9 9
+
+Example 2:
+
+Input:
+4 4 4 6
+Output:
+4 4 4 6
+4 4 4 6
+
+Example 3:
+
+Input:
+4 1 1
+4 4 4
+Output:
+4 1 1
+4 4 4
+4 4 4
+4 1 1
+
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+1 1 1 1 1
+1 1 1 1 1
+
+Answer: ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1))
+Metadata: {'input': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'output': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'task_id': '8be77c9e', 'difficulty': {'rng': 0.09322002370336528, 'pso': 0.0638888888888889}}
+
+````
+
+### rotate_matrix
+Generates Rotate Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10
+max_rotations = 4
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a square matrix, your job is to rotate it clockwise.
+
+Example:
+
+Input: Rotate the matrix below by 90 degrees clockwise:
+1 2 3
+4 5 6
+7 8 9
+
+Output:
+7 4 1
+8 5 2
+9 6 3
+
+Rotate the matrix below by 90 degrees clockwise:
+3 1
+2 0
+
+Answer: 2 3
+0 1
+Metadata: {'matrix': [[3, 1], [2, 0]], 'num_rotations': 1, 'solution': [[2, 3], [0, 1]]}
+
+Example 2:
+Question: Given a square matrix, your job is to rotate it clockwise.
+
+Example:
+
+Input: Rotate the matrix below by 90 degrees clockwise:
+1 2 3
+4 5 6
+7 8 9
+
+Output:
+7 4 1
+8 5 2
+9 6 3
+
+Rotate the matrix below by 180 degrees clockwise:
+0
+
+Answer: 0
+Metadata: {'matrix': [[0]], 'num_rotations': 2, 'solution': [[0]]}
+
+Example 3:
+Question: Given a square matrix, your job is to rotate it clockwise.
+
+Example:
+
+Input: Rotate the matrix below by 90 degrees clockwise:
+1 2 3
+4 5 6
+7 8 9
+
+Output:
+7 4 1
+8 5 2
+9 6 3
+
+Rotate the matrix below by 180 degrees clockwise:
+28 17 38 29 8 15 26
+35 13 37 39 27 40 20
+4 30 23 16 3 5 48
+9 25 2 46 47 21 22
+31 12 41 43 19 32 10
+6 0 36 45 42 1 18
+14 24 11 7 44 34 33
+
+Answer: 33 34 44 7 11 24 14
+18 1 42 45 36 0 6
+10 32 19 43 41 12 31
+22 21 47 46 2 25 9
+48 5 3 16 23 30 4
+20 40 27 39 37 13 35
+26 15 8 29 38 17 28
+Metadata: {'matrix': [[28, 17, 38, 29, 8, 15, 26], [35, 13, 37, 39, 27, 40, 20], [4, 30, 23, 16, 3, 5, 48], [9, 25, 2, 46, 47, 21, 22], [31, 12, 41, 43, 19, 32, 10], [6, 0, 36, 45, 42, 1, 18], [14, 24, 11, 7, 44, 34, 33]], 'num_rotations': 2, 'solution': [[33, 34, 44, 7, 11, 24, 14], [18, 1, 42, 45, 36, 0, 6], [10, 32, 19, 43, 41, 12, 31], [22, 21, 47, 46, 2, 25, 9], [48, 5, 3, 16, 23, 30, 4], [20, 40, 27, 39, 37, 13, 35], [26, 15, 8, 29, 38, 17, 28]]}
+
+````
+
 ### rubiks_cube
 Generates RubiksCube tasks
 
@@ -2220,14 +2633,14 @@ Generates Sokoban games with configurable parameters
 
 Default configuration:
 ```python
-seed = 42
-size = 500
 min_w = 6
 min_h = 6
 max_w = 10
 max_h = 10
 min_boxes = 6
 max_boxes = 10
+seed = 42
+size = 500
 ```
 
 Example tasks:
@@ -2436,6 +2849,7 @@ allow_no = True
 allow_some = True
 allow_some_not = True
 invalid_ratio = 0.3
+inversion_probability = 0.3
 seed = 42
 size = 500
 ```
@@ -2448,32 +2862,32 @@ Question: Consider these statements:
 2. All humans are chefs
 
 Does it logically follow that:
-All students are chefs?
+Some chefs are humans?
 (Answer Yes or No)
-Answer: No
-Metadata: {'premise1': 'No students are humans', 'premise2': 'All humans are chefs', 'conclusion': 'All students are chefs', 'is_valid': False}
+Answer: Yes
+Metadata: {'premise1': 'No students are humans', 'premise2': 'All humans are chefs', 'selected_premise': 2, 'conclusion': 'Some chefs are humans', 'is_valid': True, 'type': 'inversion'}
 
 Example 2:
 Question: Consider these statements:
 1. All children are animals
-2. No animals are doctors
+2. Some animals are not doctors
 
 Does it logically follow that:
 Some children are not doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'All children are animals', 'premise2': 'No animals are doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True}
+Metadata: {'premise1': 'All children are animals', 'premise2': 'Some animals are not doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True, 'type': 'syllogism'}
 
 Example 3:
 Question: Consider these statements:
-1. All butterflies are tigers
+1. Some butterflies are not tigers
 2. No tigers are whales
 
 Does it logically follow that:
-Some butterflies are not whales?
+Some butterflies are whales?
 (Answer Yes or No)
-Answer: Yes
-Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': True}
+Answer: No
+Metadata: {'premise1': 'Some butterflies are not tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are whales', 'is_valid': False, 'type': 'syllogism'}
 
 ````
 
@@ -2522,7 +2936,7 @@ min_disks = 3
 max_disks = 7
 min_pegs = 3
 max_pegs = 4
-size = 50
+size = 500
 seed = 42
 visualize = False
 ```
@@ -2584,7 +2998,7 @@ Default configuration:
 min_board_size = 9
 max_board_size = 13
 max_stones = 15
-size = 100
+size = 500
 seed = 42
 ```
 

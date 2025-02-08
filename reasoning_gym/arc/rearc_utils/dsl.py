@@ -1,7 +1,7 @@
 # types
 
 
-from typing import Any, Callable, Container, FrozenSet, Iterable, List, Tuple, Union
+from typing import Any, Callable, Container, FrozenSet, Tuple, Union
 
 Boolean = bool
 Integer = int
