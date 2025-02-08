@@ -39,6 +39,9 @@ class SyllogismConfig:
 
     # Percentage of invalid examples if included (0.0 to 1.0)
     invalid_ratio: float = 0.3
+    
+    # Probability of generating inversion problems instead of syllogisms (0.0 to 1.0)
+    inversion_probability: float = 0.3
 
     seed: Optional[int] = None
     size: int = 500
@@ -49,6 +52,7 @@ class SyllogismConfig:
             [self.allow_all, self.allow_no, self.allow_some, self.allow_some_not]
         ), "At least one quantifier type must be allowed"
         assert 0.0 <= self.invalid_ratio <= 1.0, "invalid_ratio must be between 0.0 and 1.0"
+        assert 0.0 <= self.inversion_probability <= 1.0, "inversion_probability must be between 0.0 and 1.0"
 
 
 class SyllogismDataset(ProceduralDataset):
@@ -242,12 +246,139 @@ class SyllogismDataset(ProceduralDataset):
         else:
             return f"{quantifier.value} {subject.plural} are {predicate.plural}"
 
+    def _check_logical_equivalence(self, premise: Tuple[Quantifier, Term, Term],
+                                 conclusion: Tuple[Quantifier, Term, Term]) -> bool:
+        """Check if a conclusion is logically equivalent to a premise"""
+        p_quant, p_subj, p_pred = premise
+        c_quant, c_subj, c_pred = conclusion
+
+        # Direct inversion for universal negative
+        if p_quant == Quantifier.NO:
+            if c_quant == Quantifier.NO:
+                return (p_subj == c_pred and p_pred == c_subj)
+            return False
+
+        # Particular inversion for universal affirmative
+        if p_quant == Quantifier.ALL:
+            if c_quant == Quantifier.SOME:
+                return (p_subj == c_pred and p_pred == c_subj)
+            return False
+
+        # Rules for particular statements
+        if p_quant == Quantifier.SOME:
+            if c_quant == Quantifier.SOME:
+                return (p_subj == c_pred and p_pred == c_subj)
+            return False
+
+        if p_quant == Quantifier.SOME_NOT:
+            # Some A are not B does not imply Some B are not A
+            return False
+
+        return False
+
     def _generate_syllogism(self, rng: Random) -> dict:
         """Generate a single syllogism problem"""
         # Select three different terms
         terms = rng.sample(self.terms, 3)
         quantifiers = self._get_allowed_quantifiers()
 
+        # Decide whether to generate a traditional syllogism or an inversion problem
+        if rng.random() < self.config.inversion_probability:
+            # Generate two premises, one will be used for inversion, the other as distractor
+            quantifier1 = rng.choice(quantifiers)
+            quantifier2 = rng.choice(quantifiers)
+            term1, term2, term3 = terms  # Use all three terms
+            
+            # Create two different premises
+            premise1 = (quantifier1, term1, term2)
+            premise2 = (quantifier2, term2, term3)
+            
+            # Format both premises
+            premise1_text = self._format_quantifier_statement(premise1[0], premise1[1], premise1[2])
+            premise2_text = self._format_quantifier_statement(premise2[0], premise2[1], premise2[2])
+            
+            # Randomly select which premise to use for inversion
+            if rng.random() < 0.5:
+                premise = premise1
+                selected_premise_num = 1
+            else:
+                premise = premise2
+                selected_premise_num = 2
+
+            # Decide whether to generate a valid or invalid inversion
+            target_valid = rng.random() > self.config.invalid_ratio
+
+            # Get the quantifier and terms from the selected premise
+            premise_quantifier, premise_term1, premise_term2 = premise
+
+            if target_valid:
+                # Generate valid inversions
+                if premise_quantifier == Quantifier.NO:
+                    conclusion = (premise_quantifier, premise_term2, premise_term1)  # No B are A
+                elif premise_quantifier == Quantifier.ALL:
+                    conclusion = (Quantifier.SOME, premise_term2, premise_term1)  # Some B are A
+                elif premise_quantifier == Quantifier.SOME:
+                    conclusion = (premise_quantifier, premise_term2, premise_term1)  # Some B are A
+                else:  # SOME_NOT - try a different quantifier
+                    new_quantifier = rng.choice([q for q in quantifiers if q != Quantifier.SOME_NOT])
+                    # Update the premise with the new quantifier
+                    premise = (new_quantifier, premise_term1, premise_term2)
+                    premise_quantifier = new_quantifier  # Update the quantifier for conclusion generation
+                    if selected_premise_num == 1:
+                        premise1 = premise
+                        premise1_text = self._format_quantifier_statement(premise[0], premise[1], premise[2])
+                    else:
+                        premise2 = premise
+                        premise2_text = self._format_quantifier_statement(premise[0], premise[1], premise[2])
+                    
+                    # Handle the new quantifier
+                    if new_quantifier == Quantifier.NO:
+                        conclusion = (new_quantifier, premise_term2, premise_term1)
+                    elif new_quantifier == Quantifier.ALL:
+                        conclusion = (Quantifier.SOME, premise_term2, premise_term1)
+                    else:  # SOME
+                        conclusion = (new_quantifier, premise_term2, premise_term1)
+            else:
+                # Generate invalid inversions by sampling from inappropriate quantifiers
+                if premise_quantifier == Quantifier.NO:
+                    # For NO statements, use ALL or SOME
+                    conclusion = (rng.choice([Quantifier.ALL, Quantifier.SOME]), premise_term2, premise_term1)
+                elif premise_quantifier == Quantifier.ALL:
+                    # For ALL statements, use ALL or NO
+                    conclusion = (rng.choice([Quantifier.ALL, Quantifier.NO]), premise_term2, premise_term1)
+                elif premise_quantifier == Quantifier.SOME:
+                    # For SOME statements, use ALL or NO
+                    conclusion = (rng.choice([Quantifier.ALL, Quantifier.NO]), premise_term2, premise_term1)
+                else:  # SOME_NOT
+                    # For SOME_NOT statements, use any other quantifier
+                    conclusion = (rng.choice([q for q in quantifiers if q != Quantifier.SOME_NOT]), premise_term2, premise_term1)
+
+            conclusion_text = self._format_quantifier_statement(conclusion[0], conclusion[1], conclusion[2])
+            is_valid = self._check_logical_equivalence(premise, conclusion)
+
+            question = (
+                f"Consider these statements:\n"
+                f"1. {premise1_text}\n"
+                f"2. {premise2_text}\n\n"
+                f"Does it logically follow that:\n"
+                f"{conclusion_text}?\n"
+                f"(Answer Yes or No)"
+            )
+
+            return {
+                "question": question,
+                "answer": "Yes" if is_valid else "No",
+                "metadata": {
+                    "premise1": premise1_text,
+                    "premise2": premise2_text,
+                    "selected_premise": selected_premise_num,
+                    "conclusion": conclusion_text,
+                    "is_valid": is_valid,
+                    "type": "inversion"
+                },
+            }
+
+        # Traditional syllogism generation
         target_valid = rng.random() > self.config.invalid_ratio  # Invert ratio to match meaning
         max_attempts = 100
         attempts = 0
@@ -294,6 +425,7 @@ class SyllogismDataset(ProceduralDataset):
                 "premise2": premise2_text,
                 "conclusion": conclusion_text,
                 "is_valid": is_valid,
+                "type": "syllogism"
             },
         }
 
