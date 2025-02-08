@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from random import Random
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 import arckit
 
