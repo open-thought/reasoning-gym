@@ -12,6 +12,7 @@ This gallery shows examples from all available datasets using their default conf
 - [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
+- [complex_arithmetic](#complex_arithmetic)
 - [countdown](#countdown)
 - [course_schedule](#course_schedule)
 - [family_relationships](#family_relationships)
@@ -23,6 +24,7 @@ This gallery shows examples from all available datasets using their default conf
 - [ransom_note](#ransom_note)
 - [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
+- [isomorphic_strings](#isomorphic_strings)
 - [largest_island](#largest_island)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
@@ -36,10 +38,12 @@ This gallery shows examples from all available datasets using their default conf
 - [number_sorting](#number_sorting)
 - [palindrome](#palindrome)
 - [polynomial_equations](#polynomial_equations)
+- [polynomial_multiplication](#polynomial_multiplication)
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
 - [rubiks_cube](#rubiks_cube)
+- [self_reference](#self_reference)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
 - [simple_geometry](#simple_geometry)
@@ -50,6 +54,7 @@ This gallery shows examples from all available datasets using their default conf
 - [syllogism](#syllogism)
 - [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
+- [tsumego](#tsumego)
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
@@ -487,6 +492,39 @@ Now the cube is rotated to place its bottom side at the top.
 What is now the color of the left side of the cube?
 Answer: gold
 Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
+
+````
+
+### complex_arithmetic
+Generates complex number arithmetic problems.
+
+Default configuration:
+```python
+min_real = -10
+max_real = 10
+min_imag = -10
+max_imag = 10
+operations = ('+', '-', '*', '/')
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Add the complex numbers: (-10.0 - 2.0i) + (-3.0 - 3.0i)
+Answer: -13.0 - 5.0i
+Metadata: {'num1': (-10.0, -2.0), 'num2': (-3.0, -3.0), 'operation': '+', 'result': (-13, -5)}
+
+Example 2:
+Question: Add the complex numbers: (-1.0 - 6.0i) + (4.0 + 1.0i)
+Answer: 3.0 - 5.0i
+Metadata: {'num1': (-1.0, -6.0), 'num2': (4.0, 1.0), 'operation': '+', 'result': (3, -5)}
+
+Example 3:
+Question: Divide the complex numbers: (-7.0 - 79.0i) ÷ (-7.0 - 5.0i)
+Answer: 6.0 + 7.0i
+Metadata: {'num1': (-7.0, -79.0), 'num2': (-7.0, -5.0), 'operation': '/', 'result': (6, 7)}
 
 ````
 
@@ -1122,6 +1160,99 @@ Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x'
 
 ````
 
+### isomorphic_strings
+Generates Isomorphic Strings exercises with configurable difficulty
+
+Default configuration:
+```python
+max_string_length = 10
+p_solvable = 0.5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+cc bw
+
+Answer: False
+Metadata: {'words': ['cc', 'bw'], 'solution': False, 'solvable': False}
+
+Example 2:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+nai oik
+
+Answer: True
+Metadata: {'words': ['nai', 'oik'], 'solution': True, 'solvable': True}
+
+Example 3:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+hogtytyof kgqwfwfgh
+
+Answer: True
+Metadata: {'words': ['hogtytyof', 'kgqwfwfgh'], 'solution': True, 'solvable': True}
+
+````
+
 ### largest_island
 Generates Largest Island exercises with configurable difficulty
 
@@ -1745,6 +1876,46 @@ Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3
 
 ````
 
+### polynomial_multiplication
+Generates [min_polynomials, max_polynomials] random polynomials of degree in [min_degree, max_degree].
+    - The polynomial is formed by summing random terms of the form: coeff * x^exponent.
+    - Then we find "F = P_0 * ... * P_1" using Sympy.
+
+Default configuration:
+```python
+min_terms = 2
+max_terms = 4
+min_value = 1
+max_value = 100
+min_degree = 1
+max_degree = 3
+min_polynomials = 2
+max_polynomials = 3
+single_variable = (True,)
+operators = ('+', '-')
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Calculate the following: (65*x - 72)*(105*x - 125)
+Answer: 6825*x**2 - 15685*x + 9000
+Metadata: {'polynomial_expr': '(65*x - 72)*(105*x - 125)', 'single_variable': (True,), 'result': '6825*x**2 - 15685*x + 9000'}
+
+Example 2:
+Question: Calculate the following: (-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)
+Answer: -774*x**4 - 2390*x**3 + 173*x**2 + 364*x
+Metadata: {'polynomial_expr': '(-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)', 'single_variable': (True,), 'result': '-774*x**4 - 2390*x**3 + 173*x**2 + 364*x'}
+
+Example 3:
+Question: Calculate the following: (43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)
+Answer: -19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x
+Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': (True,), 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
+
+````
+
 ### prime_factorization
 Generates prime factorization tasks
 
@@ -1940,6 +2111,56 @@ Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
 Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'example_correct_answer': "R R U'"}
+
+````
+
+### self_reference
+Generates self-referential puzzles
+
+Default configuration:
+```python
+difficulty = 5
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 1 of these 7 statements are true.'
+ - Statement 2: 'At most 3 of these 7 statements are false.'
+ - Statement 3: 'Exactly 4 of these 7 statements are true.'
+ - Statement 4: 'Exactly 3 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 4
+
+Example 2:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 4 of these 7 statements are true.'
+ - Statement 2: 'At most 5 of these 7 statements are false.'
+ - Statement 3: 'Exactly 7 of these 7 statements are true.'
+ - Statement 4: 'Exactly 1 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 4
+
+Example 3:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 2 of these 7 statements are true.'
+ - Statement 2: 'At most 5 of these 7 statements are false.'
+ - Statement 3: 'Exactly 0 of these 7 statements are true.'
+ - Statement 4: 'Exactly 3 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 2
 
 ````
 
@@ -2295,12 +2516,10 @@ Generates syllogism reasoning tasks
 
 Default configuration:
 ```python
-terms = None
 allow_all = True
 allow_no = True
 allow_some = True
 allow_some_not = True
-include_invalid = True
 invalid_ratio = 0.3
 seed = 42
 size = 500
@@ -2311,24 +2530,24 @@ Example tasks:
 Example 1:
 Question: Consider these statements:
 1. No students are humans
-2. No humans are chefs
+2. All humans are chefs
 
 Does it logically follow that:
-No students are chefs?
+All students are chefs?
 (Answer Yes or No)
-Answer: Yes
-Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chefs', 'conclusion': 'No students are chefs', 'is_valid': True}
+Answer: No
+Metadata: {'premise1': 'No students are humans', 'premise2': 'All humans are chefs', 'conclusion': 'All students are chefs', 'is_valid': False}
 
 Example 2:
 Question: Consider these statements:
-1. Some children are not animals
-2. Some animals are doctors
+1. All children are animals
+2. No animals are doctors
 
 Does it logically follow that:
-All children are doctors?
+Some children are not doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'Some children are not animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Metadata: {'premise1': 'All children are animals', 'premise2': 'No animals are doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True}
 
 Example 3:
 Question: Consider these statements:
@@ -2338,8 +2557,8 @@ Question: Consider these statements:
 Does it logically follow that:
 Some butterflies are not whales?
 (Answer Yes or No)
-Answer: No
-Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': False}
+Answer: Yes
+Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': True}
 
 ````
 
@@ -2439,6 +2658,96 @@ Move disk 1 from Peg 3 to Peg 2
 Provide the sequence of moves.
 Answer: ['Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 5 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 4 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 6 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 4 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 5 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
 Metadata: {'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxiliary_pegs': [3], 'solution_length': 63}
+
+````
+
+### tsumego
+Generates (one-move) Tsumego problems with configurable parameters
+
+Default configuration:
+```python
+min_board_size = 9
+max_board_size = 13
+max_stones = 15
+size = 10
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: I have a Go problem for you. Black moves next - can you capture some of the white stones?
+
+   A B C D E F G H I
+ 9 X . . . X . . . .
+ 8 . . . . . . . . .
+ 7 . O . O . . X . .
+ 6 . . . X . . . . O
+ 5 O . X O X . . . .
+ 4 . X O O . O . . .
+ 3 . . X O X . . . .
+ 2 . . . X . . . . .
+ 1 . O . O . . X . .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: E4
+
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', 'O'], ['O', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', 'O', '.', '.', '.'], ['.', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']], 'solution': 'E4'}
+
+--------------------------------------------------
+
+Example 2:
+Question: Here's a Go challenge. Playing as Black, how can you capture as many white stones as possible?
+
+   A B C D E F G H I
+ 9 . . O . . . . . .
+ 8 . X O . . . . . .
+ 7 X . X . . . . . .
+ 6 O O O X . . . . .
+ 5 X O O . . . . . .
+ 4 . X . . . . . . O
+ 3 . X . . . . X . .
+ 2 O . O . . . . . .
+ 1 . . . . O . . . .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: B7
+
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.'], ['O', 'O', 'O', 'X', '.', '.', '.', '.', '.'], ['X', 'O', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']], 'solution': 'B7'}
+
+--------------------------------------------------
+
+Example 3:
+Question: Tsumego time. Black to play and capture some stones.
+Find the key move.
+
+   A B C D E F G H I J K L
+12 . . . . . . . . . . . .
+11 . . X . . . . . . . . .
+10 . . . . . . . . . . . .
+ 9 . . . . . . . . . . . .
+ 8 X . . . . X . . . X . .
+ 7 . X . . . . . . . . . .
+ 6 . O X X . . . . . . . O
+ 5 . X O O X . . . . . . .
+ 4 . O O . . . . . O . . O
+ 3 X . X . . . . . . . . .
+ 2 . . . . . . . . . . . .
+ 1 . . . . . . . . . . X .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: D4
+
+Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'X', 'X', '.', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', 'O', 'O', 'X', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'O', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']], 'solution': 'D4'}
 
 ````
 

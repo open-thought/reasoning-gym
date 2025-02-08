@@ -14,6 +14,7 @@ from .n_queens import NQueensDataset
 from .sokoban import SokobanConfig, SokobanDataset
 from .sudoku import SudokuConfig, SudokuDataset
 from .tower_of_hanoi import HanoiConfig, HanoiDataset
+from .tsumego import TsumegoConfig, TsumegoDataset
 
 __all__ = [
     "CountdownConfig",
@@ -31,4 +32,6 @@ __all__ = [
     "HanoiConfig",
     "HanoiDataset",
     "NQueensDataset",
+    "TsumegoConfig",
+    "TsumegoDataset",
 ]
