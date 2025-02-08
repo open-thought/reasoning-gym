@@ -127,11 +127,12 @@ class ComplexArithmeticDataset(ProceduralDataset):
 
         return student_result
 
-    def score_answer(self, answer: str, metadata: dict) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict) -> float:
         """Score the answer using exponential distance-based scoring."""
         if answer is None:
             return 0.0
 
+        metadata = entry["metadata"]
         try:
             student_result = self.parse_string_to_complex(answer)
             expected_result = complex(*metadata["result"])

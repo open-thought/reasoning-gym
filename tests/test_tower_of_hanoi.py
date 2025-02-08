@@ -245,27 +245,26 @@ def test_score_answer():
     dataset = HanoiDataset(config)
     # Pick one instance from the dataset for testing.
     item = dataset[0]
-    metadata = item["metadata"]
     correct_answer = item["answer"]
 
     # 1. Correct answer should yield full reward.
-    score_correct = dataset.score_answer(answer=correct_answer, metadata=metadata)
+    score_correct = dataset.score_answer(answer=correct_answer, entry=item)
     assert score_correct == 1.0, f"Correct answer score {score_correct} is not 1.0."
 
     # 2. A badly formatted answer should yield minimal reward (0.01).
-    score_bad_format = dataset.score_answer(answer="a wrong solution", metadata=metadata)
+    score_bad_format = dataset.score_answer(answer="a wrong solution", entry=item)
     assert score_bad_format == 0.01, f"Badly formatted answer score {score_bad_format} is not 0.01."
 
     # 3. An answer that is validly formatted but unsolved.
     # For example, remove the last move from the correct answer.
     unfinished_answer = correct_answer[:-1]
-    score_unsolved = dataset.score_answer(answer=unfinished_answer, metadata=metadata)
+    score_unsolved = dataset.score_answer(answer=unfinished_answer, entry=item)
     assert score_unsolved == 0.05, f"Unsolved answer score {score_unsolved} is not 0.05."
 
     # 4. An empty answer should yield 0.01.
-    score_empty = dataset.score_answer(answer="", metadata=metadata)
+    score_empty = dataset.score_answer(answer="", entry=item)
     assert score_empty == 0.01, f"Empty answer score {score_empty} is not 0.01."
 
     # 5. A None answer should yield 0.0.
-    score_none = dataset.score_answer(answer=None, metadata=metadata)
+    score_none = dataset.score_answer(answer=None, entry=item)
     assert score_none == 0.0, f"None answer score {score_none} is not 0.0."
