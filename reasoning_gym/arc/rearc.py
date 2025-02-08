@@ -3,7 +3,13 @@ from random import Random
 from typing import Any, Callable, Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
-from .rearc_board_format import BoardFormattingOptions, default_board_format_opts, format_board, format_board_pair
+from .rearc_board_format import (
+    BoardFormattingOptions,
+    default_board_format_opts,
+    format_board,
+    format_board_pair,
+    parse_board,
+)
 from .rearc_utils import generators, verifiers
 from .rearc_utils.dsl import *
 from .rearc_utils.utils import *
@@ -166,9 +172,8 @@ class ReArcDataset(ProceduralDataset):
         reward = 0.0
         if answer is not None:
             try:
-                task_id = metadata["task_id"]
-                verifier = self._verifiers[task_id]
-                if verifier(metadata["input"]) == metadata["output"]:
+                formatted_answer = parse_board(answer, self.board_format_opts)
+                if formatted_answer == metadata["output"]:
                     reward = 1.0
                 else:
                     reward = 0.05
