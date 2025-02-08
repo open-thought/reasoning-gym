@@ -53,7 +53,7 @@ def test_syllogism_dataset_items():
         assert "conclusion" in item["metadata"]
         assert "is_valid" in item["metadata"]
         assert "type" in item["metadata"]
-            
+
         # For traditional syllogisms, check for premise2
         if item["metadata"]["type"] == "syllogism":
             assert "premise2" in item["metadata"]

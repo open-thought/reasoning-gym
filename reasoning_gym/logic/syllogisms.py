@@ -39,7 +39,7 @@ class SyllogismConfig:
 
     # Percentage of invalid examples if included (0.0 to 1.0)
     invalid_ratio: float = 0.3
-    
+
     # Probability of generating inversion problems instead of syllogisms (0.0 to 1.0)
     inversion_probability: float = 0.3
 
@@ -246,8 +246,9 @@ class SyllogismDataset(ProceduralDataset):
         else:
             return f"{quantifier.value} {subject.plural} are {predicate.plural}"
 
-    def _check_logical_equivalence(self, premise: Tuple[Quantifier, Term, Term],
-                                 conclusion: Tuple[Quantifier, Term, Term]) -> bool:
+    def _check_logical_equivalence(
+        self, premise: Tuple[Quantifier, Term, Term], conclusion: Tuple[Quantifier, Term, Term]
+    ) -> bool:
         """Check if a conclusion is logically equivalent to a premise"""
         p_quant, p_subj, p_pred = premise
         c_quant, c_subj, c_pred = conclusion
@@ -255,19 +256,19 @@ class SyllogismDataset(ProceduralDataset):
         # Direct inversion for universal negative
         if p_quant == Quantifier.NO:
             if c_quant == Quantifier.NO:
-                return (p_subj == c_pred and p_pred == c_subj)
+                return p_subj == c_pred and p_pred == c_subj
             return False
 
         # Particular inversion for universal affirmative
         if p_quant == Quantifier.ALL:
             if c_quant == Quantifier.SOME:
-                return (p_subj == c_pred and p_pred == c_subj)
+                return p_subj == c_pred and p_pred == c_subj
             return False
 
         # Rules for particular statements
         if p_quant == Quantifier.SOME:
             if c_quant == Quantifier.SOME:
-                return (p_subj == c_pred and p_pred == c_subj)
+                return p_subj == c_pred and p_pred == c_subj
             return False
 
         if p_quant == Quantifier.SOME_NOT:
@@ -288,15 +289,15 @@ class SyllogismDataset(ProceduralDataset):
             quantifier1 = rng.choice(quantifiers)
             quantifier2 = rng.choice(quantifiers)
             term1, term2, term3 = terms  # Use all three terms
-            
+
             # Create two different premises
             premise1 = (quantifier1, term1, term2)
             premise2 = (quantifier2, term2, term3)
-            
+
             # Format both premises
             premise1_text = self._format_quantifier_statement(premise1[0], premise1[1], premise1[2])
             premise2_text = self._format_quantifier_statement(premise2[0], premise2[1], premise2[2])
-            
+
             # Randomly select which premise to use for inversion
             if rng.random() < 0.5:
                 premise = premise1
@@ -330,7 +331,7 @@ class SyllogismDataset(ProceduralDataset):
                     else:
                         premise2 = premise
                         premise2_text = self._format_quantifier_statement(premise[0], premise[1], premise[2])
-                    
+
                     # Handle the new quantifier
                     if new_quantifier == Quantifier.NO:
                         conclusion = (new_quantifier, premise_term2, premise_term1)
@@ -351,7 +352,11 @@ class SyllogismDataset(ProceduralDataset):
                     conclusion = (rng.choice([Quantifier.ALL, Quantifier.NO]), premise_term2, premise_term1)
                 else:  # SOME_NOT
                     # For SOME_NOT statements, use any other quantifier
-                    conclusion = (rng.choice([q for q in quantifiers if q != Quantifier.SOME_NOT]), premise_term2, premise_term1)
+                    conclusion = (
+                        rng.choice([q for q in quantifiers if q != Quantifier.SOME_NOT]),
+                        premise_term2,
+                        premise_term1,
+                    )
 
             conclusion_text = self._format_quantifier_statement(conclusion[0], conclusion[1], conclusion[2])
             is_valid = self._check_logical_equivalence(premise, conclusion)
@@ -374,7 +379,7 @@ class SyllogismDataset(ProceduralDataset):
                     "selected_premise": selected_premise_num,
                     "conclusion": conclusion_text,
                     "is_valid": is_valid,
-                    "type": "inversion"
+                    "type": "inversion",
                 },
             }
 
@@ -425,7 +430,7 @@ class SyllogismDataset(ProceduralDataset):
                 "premise2": premise2_text,
                 "conclusion": conclusion_text,
                 "is_valid": is_valid,
-                "type": "syllogism"
+                "type": "syllogism",
             },
         }
 
