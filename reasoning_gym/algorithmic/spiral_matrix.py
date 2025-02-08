@@ -10,16 +10,16 @@ from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
-QUESTION_TEMPLATE = """Given a matrix, your job is to generate a list of elements in spiral order.
+QUESTION_TEMPLATE = """Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
 Example:
 
 Input:
-1 2 3 4
-5 6 7 8
-9 10 11 12
+1 2 3
+4 5 6
+7 8 9
 
-Output: 1 2 3 4 8 12 11 10 9 5 6 7
+Output: 1 2 3 6 9 8 7 4 5
 
 For the matrix below, what is the list of elements in spiral order?
 {matrix}
@@ -30,16 +30,14 @@ For the matrix below, what is the list of elements in spiral order?
 class SpiralMatrixConfig:
     """Configuration for Spiral Matrix dataset generation"""
 
-    max_rows: int = 10  # Maximum number of rows in the matrix
-    max_cols: int = 10  # Maximum number of columns in the matrix
+    max_n: int = 10  # Maximum number of rows/cols in the matrix
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 1 <= self.max_rows, "max_rows must be at least 1"
-        assert 1 <= self.max_cols, "max_cols must be at least 1"
+        assert 1 <= self.max_n, "max_n must be at least 1"
 
 
 class SpiralMatrixDataset(ProceduralDataset):
@@ -50,10 +48,10 @@ class SpiralMatrixDataset(ProceduralDataset):
 
     def _get_matrix(self, rng: Random) -> list[list[int]]:
         """Generate a random matrix"""
-        rows, cols = rng.randint(1, self.config.max_rows), rng.randint(1, self.config.max_cols)
-        numbers = list(range(rows * cols))
+        n = rng.randint(1, self.config.max_n)
+        numbers = [rng.randint(0, 9) for _ in range(n**2)]
         rng.shuffle(numbers)
-        matrix = [numbers[i * cols : (i + 1) * cols] for i in range(rows)]
+        matrix = [numbers[i * n : (i + 1) * n] for i in range(n)]
         return matrix
 
     def _get_spiral(self, matrix: list[list[int]]) -> list[int]:

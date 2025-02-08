@@ -8,19 +8,11 @@ from reasoning_gym.algorithmic.spiral_matrix import SpiralMatrixConfig, SpiralMa
 def test_spiral_matrix_config_validation():
     """Test that invalid configs raise appropriate errors"""
     with pytest.raises(AssertionError):
-        config = SpiralMatrixConfig(max_rows=-1)  # Negative not allowed
+        config = SpiralMatrixConfig(max_n=-1)  # Negative not allowed
         config.validate()
 
     with pytest.raises(AssertionError):
-        config = SpiralMatrixConfig(max_rows=0)  # Zero not allowed
-        config.validate()
-
-    with pytest.raises(AssertionError):
-        config = SpiralMatrixConfig(max_cols=-1)  # Negative not allowed
-        config.validate()
-
-    with pytest.raises(AssertionError):
-        config = SpiralMatrixConfig(max_cols=0)  # Zero not allowed
+        config = SpiralMatrixConfig(max_n=0)  # Zero not allowed
         config.validate()
 
 
@@ -36,7 +28,7 @@ def test_spiral_matrix_dataset_deterministic():
 
 def test_spiral_matrix_dataset_items():
     """Test basic properties of generated items"""
-    config = SpiralMatrixConfig(max_rows=5, max_cols=5, size=10, seed=42)
+    config = SpiralMatrixConfig(max_n=5, size=10, seed=42)
     dataset = SpiralMatrixDataset(config)
 
     for i in range(len(dataset)):
@@ -55,10 +47,9 @@ def test_spiral_matrix_dataset_items():
         solution = item["metadata"]["solution"]
 
         # Verify list dimensions
-        assert len(matrix) <= config.max_rows
-        assert all(len(row) <= config.max_cols for row in matrix)
+        assert len(matrix) <= config.max_n
+        assert all(len(row) <= config.max_n for row in matrix)
         assert sum(len(row) for row in matrix) == len(solution)
-        assert len(list(set(solution))) == len(solution)
 
 
 def test_spiral_matrix_dataset_iteration():
