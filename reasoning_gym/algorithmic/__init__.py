@@ -15,6 +15,8 @@ from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
+from .ransom_note import RansomNoteConfig, RansomNoteDataset
+from .rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
@@ -52,6 +54,10 @@ __all__ = [
     "GroupAnagramsDataset",
     "SpiralMatrixConfig",
     "SpiralMatrixDataset",
+    "RansomNoteConfig",
+    "RansomNoteDataset",
     "IsomorphicStringsConfig",
     "IsomorphicStringsDataset",
+    "RotateMatrixConfig",
+    "RotateMatrixDataset",
 ]
