@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from typing import Any, Dict, Optional, Tuple
 
 import sympy as sp
-from sympy import Eq, Symbol, expand, solve
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -23,7 +22,7 @@ class PolynomialMultiplicationConfig:
     max_degree: int = 3  # Maximum polynomial degree
     min_polynomials: int = 2  # Minimum number of polynomials being multiplied
     max_polynomials: int = 3  # Maximum number of polynomials being multiplied
-    single_variable: bool = (True,)
+    single_variable: bool = True
     operators: Tuple[str, ...] = (
         "+",
         "-",
@@ -116,7 +115,7 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
         variable = self._get_variable(rng)
         degree = rng.randint(self.config.min_degree, self.config.max_degree)
 
-        x = Symbol(variable)
+        x = sp.Symbol(variable)
 
         # Choose the number of terms and their respective degrees
         num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
