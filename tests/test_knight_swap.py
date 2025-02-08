@@ -1,4 +1,5 @@
 import pytest
+
 from reasoning_gym.games.knight_swap import KnightSwapConfig, KnightSwapDataset, KnightSwapLogic
 
 

@@ -1,11 +1,10 @@
-from dataclasses import dataclass
-from random import Random
-from typing import Dict, List, Optional, Set, Tuple, FrozenSet
 import collections
 import json
+from dataclasses import dataclass
+from random import Random
+from typing import Dict, FrozenSet, List, Optional, Set, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
-
 
 QUESTION_TEMPLATE = """Knight Swap Challenge:
 
