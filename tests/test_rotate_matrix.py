@@ -15,6 +15,10 @@ def test_rotate_matrix_config_validation():
         config = RotateMatrixConfig(max_n=0)  # Zero not allowed
         config.validate()
 
+    with pytest.raises(AssertionError):
+        config = RotateMatrixConfig(max_rotations=-1)  # Negative not allowed
+        config.validate()
+
 
 def test_rotate_matrix_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
@@ -45,6 +49,7 @@ def test_rotate_matrix_dataset_items():
 
         matrix = item["metadata"]["matrix"]
         solution = item["metadata"]["solution"]
+        num_rotations = item["metadata"]["num_rotations"]
 
         # Verify matrix dimensions
         assert len(matrix) <= config.max_n
@@ -52,6 +57,7 @@ def test_rotate_matrix_dataset_items():
         assert len(solution) <= config.max_n
         assert all(len(row) <= config.max_n for row in solution)
         assert set(e for row in matrix for e in row) == set(e for row in solution for e in row)
+        assert num_rotations <= config.max_rotations
 
 
 def test_rotate_matrix_dataset_iteration():
@@ -71,23 +77,25 @@ def test_rotate_matrix_answer():
     config = RotateMatrixConfig(seed=42)
     dataset = RotateMatrixDataset(config)
 
-    # n = 1
+    # n = 1, num_rotations = 1
     matrix = [[8]]
     expected = [[8]]
-    assert dataset._get_rotated(matrix) == expected
+    assert dataset._get_rotated(matrix, num_rotations=1) == expected
 
-    # n = 2
+    # n = 3, num_rotations = 0 (no rotation)
     matrix = [
-        [0, 1],
-        [2, 3],
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
     ]
     expected = [
-        [2, 0],
-        [3, 1],
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
     ]
-    assert dataset._get_rotated(matrix) == expected
+    assert dataset._get_rotated(matrix, num_rotations=0) == expected
 
-    # n = 3
+    # n = 3, num_rotations = 1 (90 degrees clockwise)
     matrix = [
         [0, 1, 2],
         [3, 4, 5],
@@ -98,3 +106,39 @@ def test_rotate_matrix_answer():
         [7, 4, 1],
         [8, 5, 2],
     ]
+    assert dataset._get_rotated(matrix, num_rotations=1) == expected
+
+    # n = 3, num_rotations = 2 (180 degrees clockwise)
+    matrix = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+    ]
+    expected = [
+        [8, 7, 6],
+        [5, 4, 3],
+        [2, 1, 0],
+    ]
+    assert dataset._get_rotated(matrix, num_rotations=2) == expected
+
+    # n = 3, num_rotations = 3 (270 degrees clockwise)
+    matrix = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+    ]
+    expected = [[2, 5, 8], [1, 4, 7], [0, 3, 6]]
+    assert dataset._get_rotated(matrix, num_rotations=3) == expected
+
+    # n = 4, num_rotations = 4 (360 degrees clockwise == 0 degrees)
+    matrix = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+    ]
+    expected = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+    ]
+    assert dataset._get_rotated(matrix, num_rotations=4) == expected

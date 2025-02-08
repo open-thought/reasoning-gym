@@ -101,7 +101,7 @@ See the [Dataset Gallery](https://github.com/open-thought/reasoning-gym/blob/mai
 - `WordLadderDataset`: Generate word ladder puzzles where one word is transformed into another by changing one letter at a time
 - `GroupAnagramsDataset`: Group anagrams together in a list of words
 - `IsomorphicStrings`: Check if two strings are isomorphic (have the same character mapping)
-- `RotateMatrix`: Rotate a matrix by 90 degrees clockwise
+- `RotateMatrix`: Rotate a matrix by X degrees clockwise
 
 ### <small>Code Tasks</small>
 
