@@ -29,7 +29,7 @@ Thank you for your interest in contributing to Reasoning Gym! This document prov
 
 When creating new datasets, please follow these guidelines:
 
-1. **Focus on Complex Problems**: 
+1. **Focus on Complex Problems**:
    - Prioritize problems where guessing has a low probability of success (e.g., number multiplication)
    - Avoid tasks with small answer sets (true/false, multiple-choice) as they create noisy rewards for RL
 
@@ -38,13 +38,12 @@ When creating new datasets, please follow these guidelines:
    - Derive your dataset class from `ProceduralDataset` (see [dataset.py](https://github.com/open-thought/reasoning-gym/blob/main/reasoning_gym/dataset.py))
    - Include comprehensive unit tests
    - Return dictionary items with keys: `"question"`, `"answer"`, and `"metadata"`
-   - Use `None` for `"answer"` when multiple valid answers exist
-   - For complex datasets, implement the `score_answer()` method (return value range: [0, 1])
+   - For datasets with multiple correct answers, override the `score_answer()` method (return value range: [0, 1])
 
 3. **Getting Started**:
-   - Review example implementations:
-     - [chain_sum.py](reasoning_gym/arithmetic/chain_sum.py)
-     - [test_chain_sum.py](https://github.com/open-thought/reasoning-gym/blob/main/tests/test_chain_sum.py)
+   - Review an example implementation:
+     - Configuration & dataset class: [chain_sum.py](reasoning_gym/arithmetic/chain_sum.py)
+     - Unit tests: [test_chain_sum.py](https://github.com/open-thought/reasoning-gym/blob/main/tests/test_chain_sum.py)
    - Write clear question prompts that an average human can understand and answer correctly
 
 ## Pull Request Process
@@ -76,5 +75,3 @@ When creating new datasets, please follow these guidelines:
 ## Need Help?
 
 Join our community discussion in the `#reasoning-gym` channel on the [GPU-Mode Discord server](https://discord.gg/gpumode).
-
-
