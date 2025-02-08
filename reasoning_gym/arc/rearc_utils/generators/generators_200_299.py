@@ -2013,20 +2013,24 @@ def generate_3906de3d(rng: random.Random, diff_lb: float, diff_ub: float) -> dic
     bx = backdrop(frozenset({(0, locj), (oh - 1, locj + ow - 1)}))
     gi = canvas(bgc, (h, w))
     gi = fill(gi, boxc, bx)
-    rng = range(locj, locj + ow)
-    cutoffs = [rng.randint(1, oh - 1) for j in rng]
-    for jj, co in zip(rng, cutoffs):
+    columns_range = range(locj, locj + ow)
+
+    cutoffs = [rng.randint(1, oh - 1) for j in columns_range]
+    for jj, co in zip(columns_range, cutoffs):
         gi = fill(gi, bgc, connect((co, jj), (oh - 1, jj)))
+
     numlns = unifint(rng, diff_lb, diff_ub, (1, ow - 1))
-    lnlocs = rng.sample(list(rng), numlns)
+    lnlocs = rng.sample(list(columns_range), numlns)
     go = tuple(e for e in gi)
-    for jj, co in zip(rng, cutoffs):
+
+    for jj, co in zip(columns_range, cutoffs):
         if jj in lnlocs:
             lineh = rng.randint(1, h - co - 1)
             linei = connect((h - lineh, jj), (h - 1, jj))
             lineo = connect((co, jj), (co + lineh - 1, jj))
             gi = fill(gi, linc, linei)
             go = fill(go, linc, lineo)
+
     rotf = rng.choice((identity, rot90, rot180, rot270))
     gi = rotf(gi)
     go = rotf(go)
@@ -2548,6 +2552,8 @@ def generate_d9fac9be(rng: random.Random, diff_lb: float, diff_ub: float) -> dic
     w = unifint(rng, diff_lb, diff_ub, (6, 30))
     bgc, noisec, ringc = rng.sample(cols, 3)
     gi = canvas(bgc, (h, w))
+
+    # Generate noise patterns
     nnoise1 = unifint(rng, diff_lb, diff_ub, (1, (h * w) // 3 - 1))
     nnoise2 = unifint(rng, diff_lb, diff_ub, (1, max(1, (h * w) // 3 - 9)))
     inds = asindices(gi)
@@ -2555,22 +2561,28 @@ def generate_d9fac9be(rng: random.Random, diff_lb: float, diff_ub: float) -> dic
     noise2 = rng.sample(difference(totuple(inds), noise1), nnoise2)
     gi = fill(gi, noisec, noise1)
     gi = fill(gi, ringc, noise2)
-    rng = neighbors((1, 1))
-    fp1 = recolor(noisec, rng)
-    fp2 = recolor(ringc, rng)
+
+    neighbor_pattern = neighbors((1, 1))
+    fp1 = recolor(noisec, neighbor_pattern)
+    fp2 = recolor(ringc, neighbor_pattern)
+
     fp1occ = occurrences(gi, fp1)
     fp2occ = occurrences(gi, fp2)
+
     for occ1 in fp1occ:
-        loc = rng.choice(totuple(shift(rng, occ1)))
+        loc = rng.choice(totuple(shift(neighbor_pattern, occ1)))
         gi = fill(gi, rng.choice((bgc, ringc)), {loc})
+
     for occ2 in fp2occ:
-        loc = rng.choice(totuple(shift(rng, occ2)))
+        loc = rng.choice(totuple(shift(neighbor_pattern, occ2)))
         gi = fill(gi, rng.choice((bgc, noisec)), {loc})
+
     loci = rng.randint(0, h - 3)
     locj = rng.randint(0, w - 3)
-    ringp = shift(rng, (loci, locj))
+    ringp = shift(neighbor_pattern, (loci, locj))
     gi = fill(gi, ringc, ringp)
     gi = fill(gi, noisec, {(loci + 1, locj + 1)})
+
     go = canvas(noisec, (1, 1))
     return {"input": gi, "output": go}
 
