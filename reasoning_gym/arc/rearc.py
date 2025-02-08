@@ -58,6 +58,10 @@ class ReArcConfig:
     seed: Optional[int] = None
     size: int = 500
 
+    def validate(self):
+        assert self.diff_lb < self.diff_ub, "diff_lb must be < diff_ub."
+        assert self.size > 0, "Size of dataset must be positive."
+
 
 class ReArcDataset(ProceduralDataset):
     def __init__(self, config: ReArcConfig):
