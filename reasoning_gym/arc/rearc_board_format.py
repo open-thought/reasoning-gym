@@ -99,3 +99,40 @@ def format_board_pair(
         formatting_options=formatting_options,
     )
     return f"Example {index}:\n\nInput:\n{input_element}\nOutput:\n{output_element}\n\n"
+
+
+def parse_board(formatted_str: str, formatting_options: BoardFormattingOptions) -> Tuple[Tuple[int, ...], ...]:
+    """
+    Convert a formatted board string back to a tuple grid using formatting options
+    """
+    lines = [line.strip() for line in formatted_str.split("\n") if not line.strip().startswith("Shape: ")]
+    grid_str = "\n".join(lines).strip()
+
+    if formatting_options.array_brackets:
+        if grid_str.startswith("[") and grid_str.endswith("]"):
+            grid_str = grid_str[1:-1].strip()
+
+    rows = grid_str.split(formatting_options.row_delimiter)
+    if not rows:
+        return tuple()
+
+    grid = []
+    for row in rows:
+        row = row.strip()
+        if formatting_options.array_brackets:
+            if row.startswith("[") and row.endswith("]"):
+                row = row[1:-1].strip()
+        cells = row.split(formatting_options.col_delimiter)
+        try:
+            grid.append(
+                tuple(
+                    formatting_options.alphabet.index(cell.strip())
+                    for cell in cells
+                    if cell.strip()  # Handle empty strings from trailing delimiters
+                )
+            )
+        except ValueError as e:
+            valid_chars = ", ".join(f"'{c}'" for c in formatting_options.alphabet)
+            raise ValueError(f"Invalid character in board string. Valid options: {valid_chars}") from e
+
+    return tuple(grid)
