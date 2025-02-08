@@ -20,11 +20,14 @@ class ArcAgiConfig:
     use_train: bool = True
     use_eval: bool = True
     board_format_opts: BoardFormattingOptions = field(default_factory=lambda: BoardFormattingOptions())
-    seed: Optional[int] = None
-    size: int = 500
+
+    # Augmentation options
     use_rotations: bool = True
     use_mirrors: bool = True
     use_color_permutation: bool = True
+    
+    seed: Optional[int] = None
+    size: int = 500
 
     def validate(self):
         assert self.size > 0, "Size of dataset must be positive."
