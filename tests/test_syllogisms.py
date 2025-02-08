@@ -50,9 +50,13 @@ def test_syllogism_dataset_items():
 
         # Check metadata
         assert "premise1" in item["metadata"]
-        assert "premise2" in item["metadata"]
         assert "conclusion" in item["metadata"]
         assert "is_valid" in item["metadata"]
+        assert "type" in item["metadata"]
+
+        # For traditional syllogisms, check for premise2
+        if item["metadata"]["type"] == "syllogism":
+            assert "premise2" in item["metadata"]
 
         # Verify answer format
         assert item["answer"] in ("Yes", "No")
@@ -60,7 +64,8 @@ def test_syllogism_dataset_items():
         # Verify question format
         assert "Consider these statements:" in item["question"]
         assert "1." in item["question"]
-        assert "2." in item["question"]
+        if item["metadata"]["type"] == "syllogism":
+            assert "2." in item["question"]
         assert "Does it logically follow that:" in item["question"]
 
 
@@ -260,6 +265,67 @@ def test_valid_syllogism_forms():
         (Quantifier.ALL, animal, doctor),  # All animals are doctors
         (Quantifier.SOME_NOT, child, doctor),  # Some children are not doctors
     )
+
+
+def test_logical_equivalence():
+    """Test logical equivalence rules for inversions"""
+    config = SyllogismConfig(size=1, seed=42)
+    dataset = SyllogismDataset(config)
+
+    # Create test terms
+    A = Term("student", "students")
+    B = Term("human", "humans")
+
+    # Test direct inversion of NO statements
+    assert dataset._check_logical_equivalence(
+        (Quantifier.NO, A, B),  # No students are humans
+        (Quantifier.NO, B, A),  # No humans are students
+    )
+
+    # Test particular inversion of ALL statements
+    assert dataset._check_logical_equivalence(
+        (Quantifier.ALL, A, B),  # All students are humans
+        (Quantifier.SOME, B, A),  # Some humans are students
+    )
+
+    # Test direct inversion of SOME statements
+    assert dataset._check_logical_equivalence(
+        (Quantifier.SOME, A, B),  # Some students are humans
+        (Quantifier.SOME, B, A),  # Some humans are students
+    )
+
+    # Test invalid inversions
+    assert not dataset._check_logical_equivalence(
+        (Quantifier.SOME_NOT, A, B),  # Some students are not humans
+        (Quantifier.SOME_NOT, B, A),  # Some humans are not students (invalid)
+    )
+
+    assert not dataset._check_logical_equivalence(
+        (Quantifier.ALL, A, B),  # All students are humans
+        (Quantifier.ALL, B, A),  # All humans are students (invalid)
+    )
+
+
+def test_inversion_generation():
+    """Test generation of inversion problems"""
+    # Force inversion problems by setting probability to 1.0
+    config = SyllogismConfig(size=10, seed=42, inversion_probability=1.0)
+    dataset = SyllogismDataset(config)
+
+    for item in dataset:
+        # Check type is marked as inversion
+        assert item["metadata"]["type"] == "inversion"
+        # Check both premises and selection
+        assert "premise1" in item["metadata"]
+        assert "premise2" in item["metadata"]
+        assert "selected_premise" in item["metadata"]
+        assert item["metadata"]["selected_premise"] in (1, 2)
+        # Check format
+        assert item["answer"] in ("Yes", "No")
+        assert "Consider these statements:" in item["question"]
+        assert "1." in item["question"]
+        assert "2." in item["question"]  # Inversion questions now show both premises
+        assert "Does it logically follow that:" in item["question"]
 
 
 def test_syllogism_dataset_iteration():

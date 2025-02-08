@@ -11,14 +11,14 @@ from ..factory import ProceduralDataset, register_dataset
 class SokobanConfig:
     """Configuration for sokoban puzzle generation"""
 
-    seed: Optional[int] = None
-    size: int = 500
     min_w: int = 6  # Minimum width of the puzzle.
     min_h: int = 6  # Minimum height of the puzzle.
     max_w: int = 10  # Maximum width of the puzzle.
     max_h: int = 10  # Maximum height of the puzzle.
     min_boxes: int = 6  # Minimum number of boxes.
     max_boxes: int = 10  # Maximum number of boxes.
+    seed: Optional[int] = None
+    size: int = 500
 
     def validate(self):
         """Validate configuration parameters"""
