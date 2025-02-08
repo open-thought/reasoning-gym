@@ -61,7 +61,7 @@ class RotateMatrixDataset(ProceduralDataset):
         return matrix
 
     def _get_rotated(self, matrix: list[list[int]], num_rotations: int) -> list[list[int]]:
-        """Rotate the matrix by 90 degrees clockwise"""
+        """Rotate the matrix K times by 90 degrees clockwise"""
         num_rotations %= 4
         n = len(matrix)
         output = deepcopy(matrix)
