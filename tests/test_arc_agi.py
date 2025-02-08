@@ -49,6 +49,54 @@ def test_arc_agi_items():
         assert isinstance(meta["task_id"], str)
 
 
+def test_arc_agi_augmentations():
+    """Test that augmentations can be selectively enabled/disabled"""
+    # Test with all augmentations disabled
+    config = ArcAgiConfig(
+        seed=42, 
+        size=10,
+        use_rotations=False,
+        use_mirrors=False, 
+        use_color_permutation=False
+    )
+    base_dataset = ArcAgiDataset(config)
+    base_items = list(base_dataset)
+
+    # Test with rotations only
+    rot_config = ArcAgiConfig(
+        seed=42,
+        size=10,
+        use_rotations=True,
+        use_mirrors=False,
+        use_color_permutation=False
+    )
+    rot_dataset = ArcAgiDataset(rot_config)
+    rot_items = list(rot_dataset)
+
+    # Items should differ when rotations are enabled
+    assert any(
+        base_items[i]["metadata"]["input"] != rot_items[i]["metadata"]["input"]
+        for i in range(len(base_items))
+    ), "Rotation augmentation had no effect"
+
+    # Test with color permutation only
+    color_config = ArcAgiConfig(
+        seed=42,
+        size=10,
+        use_rotations=False,
+        use_mirrors=False,
+        use_color_permutation=True
+    )
+    color_dataset = ArcAgiDataset(color_config)
+    color_items = list(color_dataset)
+
+    # Items should differ when color permutation is enabled
+    assert any(
+        base_items[i]["metadata"]["input"] != color_items[i]["metadata"]["input"]
+        for i in range(len(base_items))
+    ), "Color permutation had no effect"
+
+
 def test_arc_agi_scoring():
     """Test solution verification and scoring"""
     config = ArcAgiConfig(size=10, seed=123)
