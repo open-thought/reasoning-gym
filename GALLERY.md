@@ -9,6 +9,7 @@ This gallery shows examples from all available datasets using their default conf
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
+- [binary_matrix](#binary_matrix)
 - [caesar_cipher](#caesar_cipher)
 - [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
@@ -748,6 +749,98 @@ Question: This is a BF (Brainf*ck) computer program. What is the output?
 >[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<
 Answer: under
 Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program': '>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<'}
+
+````
+
+### binary_matrix
+Generates Binary Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10
+p_zero = 0.25
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+
+Example:
+
+Input: Find the distance to the nearest 0 for each cell in the matrix below:
+0 0 0
+0 1 0
+1 1 1
+
+Output:
+0 0 0
+0 1 0
+1 2 1
+
+Find the distance to the nearest 0 for each cell in the matrix below:
+0 0
+1 0
+
+Answer: 0 0
+1 0
+Metadata: {'matrix': [[0, 0], [1, 0]], 'solution': [[0, 0], [1, 0]]}
+
+Example 2:
+Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+
+Example:
+
+Input: Find the distance to the nearest 0 for each cell in the matrix below:
+0 0 0
+0 1 0
+1 1 1
+
+Output:
+0 0 0
+0 1 0
+1 2 1
+
+Find the distance to the nearest 0 for each cell in the matrix below:
+0
+
+Answer: 0
+Metadata: {'matrix': [[0]], 'solution': [[0]]}
+
+Example 3:
+Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+
+Example:
+
+Input: Find the distance to the nearest 0 for each cell in the matrix below:
+0 0 0
+0 1 0
+1 1 1
+
+Output:
+0 0 0
+0 1 0
+1 2 1
+
+Find the distance to the nearest 0 for each cell in the matrix below:
+1 0 1 1 0 1 1
+1 0 1 1 1 1 1
+1 1 1 1 0 1 1
+1 1 1 1 0 0 1
+0 1 1 1 1 1 0
+1 0 1 1 1 1 0
+1 1 1 1 1 1 1
+
+Answer: 1 0 1 1 0 1 2
+1 0 1 2 1 2 3
+2 1 2 1 0 1 2
+1 2 2 1 0 0 1
+0 1 2 2 1 1 0
+1 0 1 2 2 1 0
+2 1 2 3 3 2 1
+Metadata: {'matrix': [[1, 0, 1, 1, 0, 1, 1], [1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 0, 0, 1], [0, 1, 1, 1, 1, 1, 0], [1, 0, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1]], 'solution': [[1, 0, 1, 1, 0, 1, 2], [1, 0, 1, 2, 1, 2, 3], [2, 1, 2, 1, 0, 1, 2], [1, 2, 2, 1, 0, 0, 1], [0, 1, 2, 2, 1, 1, 0], [1, 0, 1, 2, 2, 1, 0], [2, 1, 2, 3, 3, 2, 1]]}
 
 ````
 

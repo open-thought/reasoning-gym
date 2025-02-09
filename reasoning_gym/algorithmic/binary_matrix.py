@@ -5,14 +5,13 @@ https://leetcode.com/problems/01-matrix/description/
 """
 
 from collections import deque
-from copy import deepcopy
 from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
-QUESTION_TEMPLATE = """Given a square matrix, your job is to find the distance of the nearest 0 for each cell.
+QUESTION_TEMPLATE = """Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
 
 Example:
 
@@ -36,7 +35,7 @@ class BinaryMatrixConfig:
     """Configuration for Binary Matrix dataset generation"""
 
     max_n: int = 10  # Maximum size of the matrix
-    p_zero: float = 0.7  # Probability of a cell being 0
+    p_zero: float = 0.25  # Probability of a cell being 0
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
