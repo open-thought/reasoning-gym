@@ -85,6 +85,37 @@ def test_prime_factorization_known_values():
     assert item["answer"] == "2 × 2 × 3"
 
 
+def test_prime_factorization_score_answer():
+    """Test scoring of answers"""
+    config = PrimeFactorizationConfig(min_value=12, max_value=12, size=1, seed=42)  # Force specific number
+    dataset = PrimeFactorizationDataset(config)
+    item = dataset[0]
+
+    # Perfectly ordered answer
+    answer = "2 × 2 × 3"
+    assert dataset.score_answer(answer, item) == 1.0
+
+    # No white spaces answer (still correct)
+    answer = "2×2×3"
+    assert dataset.score_answer(answer, item) == 1.0
+
+    # Shuffled factors (still correct)
+    answer = "2 × 3 × 2"
+    assert dataset.score_answer(answer, item) == 1.0
+
+    # Partially correct answer (not all numbers are fully factorized)
+    answer = "2 × 6"
+    assert dataset.score_answer(answer, item) == 0.5
+
+    # Incorrect answer
+    answer = "2 × 5"
+    assert dataset.score_answer(answer, item) == 0.01
+
+    # Answer is none
+    answer = None
+    assert dataset.score_answer(answer, item) == 0.0
+
+
 def is_prime(n: int) -> bool:
     """Helper function to check if a number is prime"""
     if n < 2:
