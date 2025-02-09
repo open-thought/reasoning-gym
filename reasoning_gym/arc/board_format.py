@@ -1,6 +1,16 @@
 from dataclasses import dataclass, field
 from typing import List, Tuple
 
+ARC_PROMPT_TEMPLATE = """Find the common rule that maps an input grid to an output grid, given the examples below.
+
+{examples}
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+{input_grid}
+"""
+
 
 @dataclass
 class BoardFormattingOptions:
@@ -8,26 +18,6 @@ class BoardFormattingOptions:
     col_delimiter: str = " "
     row_delimiter: str = "\n"
     array_brackets: bool = False
-
-
-def format_arc_task(
-    input_grid: Tuple[Tuple[int, ...], ...], output_grid: Tuple[Tuple[int, ...], ...], options: BoardFormattingOptions
-) -> str:
-    """
-    Format an ARC task as a string
-    """
-
-    buffer = []
-    if options.task_identifier:
-        buffer.append(f"ARC Task: {options.task_identifier}")
-
-    buffer.append("\nInput Grid:")
-    buffer.append(format_board(input_grid, options))
-
-    buffer.append("\n\nOutput Grid:")
-    buffer.append(format_board(output_grid, options))
-
-    return "\n".join(buffer)
 
 
 def format_board(
