@@ -398,7 +398,6 @@ class FutoshikiDataset(ProceduralDataset):
         self,
         grid: List[List[int]],
         constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str],
-        rng: Random,
     ) -> List[List[int]] | None:
         """
         Backtracking Futoshiki solver. Used to verify generated puzzles.
@@ -430,7 +429,7 @@ class FutoshikiDataset(ProceduralDataset):
                 continue
             if self._is_valid(grid, r, c, val, constraints):
                 grid[r][c] = val
-                solution = self._solve(grid, constraints, rng)
+                solution = self._solve(grid, constraints)
                 if solution is not None:
                     grid[r][c] = 0
                     return solution
@@ -598,7 +597,7 @@ class FutoshikiDataset(ProceduralDataset):
                 grid[r][c] = 0
 
                 # Check if unsolvable
-                sol = self._solve(copy.deepcopy(grid), constraints, rng)
+                sol = self._solve(copy.deepcopy(grid), constraints)
                 if sol is None:
                     grid[r][c] = saved
                     continue
