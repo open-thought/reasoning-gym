@@ -2,8 +2,7 @@ import math
 import re
 from decimal import Decimal, InvalidOperation
 from fractions import Fraction
-from typing import Any, Optional, Union, Dict
-import json
+from typing import Any, Optional, Union
 
 # DeepSeek Zero system prompt
 SYSTEM_PROMPTS = {

@@ -4,7 +4,6 @@ from collections import deque
 from dataclasses import dataclass
 from random import Random
 from typing import Dict, List, Optional, Set, Tuple, Any
-from pathlib import Path
 
 from reasoning_gym.data import read_data_file, read_json_file
 
