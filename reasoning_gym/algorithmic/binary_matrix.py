@@ -16,7 +16,7 @@ QUESTION_TEMPLATE = """Given a square matrix, your job is to find the distance o
 
 Example:
 
-Input: Rotate the matrix below by 90 degrees clockwise:
+Input: Find the distance to the nearest 0 for each cell in the matrix below:
 0 0 0
 0 1 0
 1 1 1
@@ -58,6 +58,7 @@ class BinaryMatrixDataset(ProceduralDataset):
         n = rng.randint(1, self.config.max_n)
         # Ensure at least one 0 in the matrix, so that a solution exists
         numbers = [0] + [0 if rng.random() < self.config.p_zero else 1 for _ in range(n**2 - 1)]
+        rng.shuffle(numbers)
         matrix = [numbers[i * n : (i + 1) * n] for i in range(n)]
         return matrix
 
