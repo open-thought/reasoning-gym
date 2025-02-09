@@ -83,7 +83,7 @@ class RotateMatrixDataset(ProceduralDataset):
         return "\n".join(" ".join(str(x) for x in row) for row in matrix)
 
     def __getitem__(self, idx: int) -> dict:
-        """Generate a single Spiral Matrix question"""
+        """Generate a single Rotate Matrix question"""
         rng = Random(self.seed + idx)
 
         matrix = self._get_matrix(rng)
