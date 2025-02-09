@@ -129,12 +129,6 @@ class WordLadderDataset(ProceduralDataset):
         if self._word_dict is None:
             self._word_dict = self._load_word_dictionary(self.config.dictionary_file_path)
         return self._word_dict
-    
-    # Lazy loading of word dictionary
-    def load_word_dictionary(self, file_path: str) -> Set[str]:
-        if not hasattr(self, "_word_dict"):
-            self._word_dict = self._load_word_dictionary(file_path)
-        return self._word_dict
 
     def _get_neighbors(self, word: str, word_set: Set[str]) -> Set[str]:
         """Get neighbors from either precomputed graph or by computing on demand"""
