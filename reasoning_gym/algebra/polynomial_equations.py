@@ -1,8 +1,8 @@
+import math
 import random
 import string
-import math
 from dataclasses import dataclass
-from typing import Optional, Tuple, List, Dict
+from typing import Dict, List, Optional, Tuple
 
 from sympy import Eq, Symbol, expand, solve
 
@@ -44,8 +44,7 @@ class PolynomialEquationsConfig:
 
         allowed_ops = {"+", "-"}
         assert len(self.operators) > 0, "operators tuple cannot be empty."
-        assert all(
-            op in allowed_ops for op in self.operators), "Invalid operator found. Must be a subset of {+, -}."
+        assert all(op in allowed_ops for op in self.operators), "Invalid operator found. Must be a subset of {+, -}."
 
 
 class PolynomialEquationsDataset(ProceduralDataset):
@@ -154,16 +153,16 @@ class PolynomialEquationsDataset(ProceduralDataset):
     def _parse_score_to_list(self, answer: Optional[str]) -> List[float]:
         """Parses a comma-separated string of scores into a sorted list of floats.
 
-        This method takes a string containing comma-separated numeric values, 
-        attempts to convert each value to a float, and returns a sorted list of these floats.  
+        This method takes a string containing comma-separated numeric values,
+        attempts to convert each value to a float, and returns a sorted list of these floats.
         Any values that cannot be converted to a float are ignored.
         Handles empty strings gracefully.
 
         Args:
-            answer: An optional string containing comma-separated numeric values.  
+            answer: An optional string containing comma-separated numeric values.
             Can be None or an empty string.
         Returns:
-            A sorted list of floats parsed from the input string. 
+            A sorted list of floats parsed from the input string.
             Returns an empty list if the input is None, empty, or contains no valid numeric values.
         """
 
@@ -184,7 +183,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
         """
         Score an answer based on its numerical distance to oracle solutions using exponential decay.
-        This function compares a predicted answer (or list of answers) to a set of oracle solutions 
+        This function compares a predicted answer (or list of answers) to a set of oracle solutions
         (also a list of numbers). It calculates a reward based on how close the predicted solutions
         are to the oracle solutions, using an exponential decay function.  It also applies penalties
         for missing or extra predicted solutions. The implementation is a greedy algorithm where we
@@ -192,7 +191,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
         oracle solution to match once.
 
         Args:
-            answer: The predicted answer (or a string that can be parsed into a list of numbers).  
+            answer: The predicted answer (or a string that can be parsed into a list of numbers).
                     May be None.
             entry: A dictionary containing the oracle solution(s) under the key "answer"
                 (which can be a string that can be parsed into a list of numbers).
@@ -200,10 +199,8 @@ class PolynomialEquationsDataset(ProceduralDataset):
         Returns:
             A float representing the final score. The score is non-negative.
         """
-        oracle_solutions = self._parse_score_to_list(
-            entry["answer"])  # Parse oracle solutions
-        predicted_solutions = self._parse_score_to_list(
-            answer)  # Parse predicted solutions
+        oracle_solutions = self._parse_score_to_list(entry["answer"])  # Parse oracle solutions
+        predicted_solutions = self._parse_score_to_list(answer)  # Parse predicted solutions
 
         total_reward = 0.0
         matched_solutions = 0
@@ -214,12 +211,11 @@ class PolynomialEquationsDataset(ProceduralDataset):
 
             # find the closest matching solution from the oracle solutions.
             # this is a greedy approach to computing the score
-            matched_distance = float('inf')
+            matched_distance = float("inf")
             matched_distance_index = None
             for oracle_solution_index, oracle_solution in enumerate(oracle_solutions):
                 if matched_distance > abs(predicted_solution - oracle_solution):
-                    matched_distance = abs(
-                        predicted_solution - oracle_solution)
+                    matched_distance = abs(predicted_solution - oracle_solution)
                     matched_distance_index = oracle_solution_index
 
             if matched_distance_index is not None:
@@ -236,7 +232,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
         for oracle_solution in oracle_solutions:
             missing_solutions += 1
 
-         # Calculate penalty for either missing or extra solutions
+        # Calculate penalty for either missing or extra solutions
         penalty = missing_solutions * self.config.penalty_missing_factor
         penalty += extra_solutions * self.config.penalty_extra_factor
 
@@ -251,5 +247,4 @@ class PolynomialEquationsDataset(ProceduralDataset):
         return final_reward
 
 
-register_dataset("polynomial_equations",
-                 PolynomialEquationsDataset, PolynomialEquationsConfig)
+register_dataset("polynomial_equations", PolynomialEquationsDataset, PolynomialEquationsConfig)

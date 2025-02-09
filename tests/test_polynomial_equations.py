@@ -124,11 +124,11 @@ def test_polynomial_solutions_evaluation():
         ("4,-4.12", "4,-4.12", 1.0),  # Exact match
         ("4,-4.12", "4.0001,-4.120001", approx(0.9999, rel=1e-3)),  # Very close match
         ("4,-4.12", "4.1,-4.2", approx(0.9139, rel=1e-3)),
-        ("4,8", "4", approx(0.9, rel=1e-3)), # Missing an oracle solution -> missing solution penalty applies
-        ("4", "4,8", approx(0.95, rel=1e-3)), # extra solution -> extra solution penalty
-        ("-1,-2", "1,4", approx(0.06890, rel=1e-3)), # -1 matched w/ 1 and -2 matched w/ 4
-        ("", "1", approx(0, rel=1e-4)), # oracle no solution, predicted extra solution
-        ("1", "", approx(0, rel=1e-4)), # oracle has a solution, predicted no solution
+        ("4,8", "4", approx(0.9, rel=1e-3)),  # Missing an oracle solution -> missing solution penalty applies
+        ("4", "4,8", approx(0.95, rel=1e-3)),  # extra solution -> extra solution penalty
+        ("-1,-2", "1,4", approx(0.06890, rel=1e-3)),  # -1 matched w/ 1 and -2 matched w/ 4
+        ("", "1", approx(0, rel=1e-4)),  # oracle no solution, predicted extra solution
+        ("1", "", approx(0, rel=1e-4)),  # oracle has a solution, predicted no solution
     ],
 )
 def test_polynomial_solutions_score_answer(oracle_answer, predicted_answer, expected_reward):
@@ -136,7 +136,5 @@ def test_polynomial_solutions_score_answer(oracle_answer, predicted_answer, expe
     cfg = PolynomialEquationsConfig(seed=999, size=3)
     ds = PolynomialEquationsDataset(cfg)
 
-    actual_reward = ds.score_answer(
-        predicted_answer, {"answer": oracle_answer})
-    assert actual_reward == pytest.approx(
-        expected_reward, rel=1e-3)  # Fuzzy comparison for floats
+    actual_reward = ds.score_answer(predicted_answer, {"answer": oracle_answer})
+    assert actual_reward == pytest.approx(expected_reward, rel=1e-3)  # Fuzzy comparison for floats
