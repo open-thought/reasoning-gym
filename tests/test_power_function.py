@@ -1,9 +1,9 @@
-
 """Tests for Power Function questions generation"""
 
 import pytest
 
 from reasoning_gym.arithmetic import PowerFunctionConfig, PowerFunctionDataset
+
 
 def test_power_function_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
@@ -60,7 +60,7 @@ def test_power_function_score_function():
     dataset = PowerFunctionDataset(config)
 
     item = dataset[0]
-    
+
     # Answer is within 1e-6 of solution
     answer = str(item["metadata"]["solution"] - 1e-7)
     assert dataset.score_answer(answer, item) == 1.0
