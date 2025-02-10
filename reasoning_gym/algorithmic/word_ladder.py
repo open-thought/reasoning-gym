@@ -5,8 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Dict, List, Optional, Set, Tuple
 
-from reasoning_gym.data import read_data_file
-
+from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -64,6 +63,7 @@ class WordLadderDataset(ProceduralDataset):
         self.config = config
         self.word_sets = {}
         self.word_graphs = {}
+        self._vocabulary = None  # A large list of dictionary words to validate words against
 
         # Load words from CSV
         self.word_sets = self._load_words_from_csv(
@@ -84,28 +84,24 @@ class WordLadderDataset(ProceduralDataset):
         assert 3 <= min_length <= max_length <= 5, "Word length must be between 3 and 5 inclusive"
 
         import csv
-        from io import StringIO
 
         word_sets = {}
 
         try:
             # Get CSV content as string
-            csv_content = read_data_file("words.csv")
+            with get_data_file_path("words.csv").open("r", encoding="utf-8") as csv_file:
+                reader = csv.DictReader(csv_file)
 
-            # Use StringIO to create a file-like object from the string
-            csv_file = StringIO(csv_content)
-            reader = csv.DictReader(csv_file)
+                for row in reader:
+                    # Process each word length column using config range
+                    for length in range(min_length, max_length + 1):
+                        col_name = f"{length}_letter"
+                        word = row.get(col_name, "")
 
-            for row in reader:
-                # Process each word length column using config range
-                for length in range(min_length, max_length + 1):
-                    col_name = f"{length}_letter"
-                    word = row.get(col_name, "")
+                        if not word:  # Skip empty entries
+                            continue
 
-                    if not word:  # Skip empty entries
-                        continue
-
-                    word_sets.setdefault(length, set()).add(word.upper())
+                        word_sets.setdefault(length, set()).add(word.upper())
 
         except Exception as e:
             raise RuntimeError(f"Error processing words.csv content: {e}") from e
@@ -219,6 +215,44 @@ class WordLadderDataset(ProceduralDataset):
             "answer": ",".join(path),
             "metadata": {"start_word": start, "end_word": end, "word_length": length, "chain_length": len(path)},
         }
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        if answer is None:
+            return 0
+
+        answer_words = tuple(s.strip() for s in answer.upper().split(","))
+
+        metadata = entry["metadata"]
+        start_word = metadata["start_word"]
+        end_word = metadata["end_word"]
+        word_length = len(end_word)
+        known_words = self.word_sets[word_length]
+
+        # Check conditions:
+        # 1. start and end word match question
+        # 2. all words have the correct length
+        # 3. every changed word is a single letter change from the previous word
+        # 4. all words are in our vocabulary
+
+        if len(answer_words) < 2:
+            return 0
+
+        if answer_words[0] != start_word or answer_words[-1] != end_word:
+            return 0.01
+
+        if not all(len(w) == word_length for w in answer_words):
+            return 0.01
+
+        for i in range(1, len(answer_words)):
+            if sum(1 for a, b in zip(answer_words[i - 1], answer_words[i]) if a != b) != 1:
+                return 0.01
+
+        reward = 1.0
+        for word in answer_words:
+            if not word in known_words:
+                reward *= 0.5
+
+        return reward
 
 
 register_dataset("word_ladder", WordLadderDataset, WordLadderConfig)
