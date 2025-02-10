@@ -359,17 +359,12 @@ def test_word_ladder_score_answer():
     """Test the score_answer method"""
     config = WordLadderConfig(min_word_length=4, max_word_length=4)
     dataset = WordLadderDataset(config)
-    
+
     # Create a test entry
     entry = {
         "question": "Transform the word ladder 'COLD' to 'WARM' by changing one letter at a time.",
         "answer": "COLD,CORD,CARD,WARD,WARM",
-        "metadata": {
-            "start_word": "COLD",
-            "end_word": "WARM",
-            "word_length": 4,
-            "chain_length": 5
-        }
+        "metadata": {"start_word": "COLD", "end_word": "WARM", "word_length": 4, "chain_length": 5},
     }
 
     # Test perfect answer
@@ -402,7 +397,3 @@ def test_word_ladder_score_answer():
     # Test with unknown words (should return partial credit)
     assert dataset.score_answer("COLD,COXD,CARD,WARD,WARM", entry) < 1.0
     assert dataset.score_answer("COLD,COXD,CARD,WARD,WARM", entry) > 0.0
-
-
-if __name__ == "__main__":
-    pytest.main([__file__])
