@@ -1,25 +1,27 @@
 """Computhe the power of a number."""
 
-from math import pow
 from dataclasses import dataclass
+from math import pow
 from random import Random
-from typing import Optional, Dict
+from typing import Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Compute {base}^{exponent}"""
 
+
 @dataclass
 class PowerFunctionConfig:
     """Configuration for Power Function dataset generation"""
 
-    min_base: float = -10**6  # Minimum base value
+    min_base: float = -(10**6)  # Minimum base value
     max_base: float = 10**6  # Maximum base value
-    min_exponent: int = -50 # Minimum exponent value
-    max_exponent: int = 50 # Maximum exponent value
+    min_exponent: int = -50  # Minimum exponent value
+    max_exponent: int = 50  # Maximum exponent value
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
+
 
 class PowerFunctionDataset(ProceduralDataset):
     """Generates Power Function exercises with configurable difficulty"""
@@ -49,7 +51,7 @@ class PowerFunctionDataset(ProceduralDataset):
         base = rng.uniform(self.config.min_base, self.config.max_base)
         exponent = rng.randint(self.config.min_exponent, self.config.max_exponent)
         answer = pow(base, exponent)
-        
+
         return {
             "question": f"Compute {base}^{exponent}",
             "answer": str(answer),
