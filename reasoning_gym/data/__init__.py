@@ -2,8 +2,6 @@
 
 from importlib import resources
 from pathlib import Path
-from typing import Any, Dict
-import json
 
 
 def get_data_file_path(filename: str) -> Path:
@@ -36,12 +34,6 @@ def read_data_file(filename: str) -> str:
         >>> content = read_data_file("pg19362.txt")
     """
     return resources.files("reasoning_gym.data").joinpath(filename).read_text()
-
-def read_json_file(file_name: str) -> Dict[str, Any]:
-    """Read a json file from a file path into a dictionary."""
-    file_path = get_data_file_path(file_name)
-    with open(file_path, "r") as file:
-        return json.load(file)
 
 
 __all__ = ["get_data_file_path", "read_data_file"]

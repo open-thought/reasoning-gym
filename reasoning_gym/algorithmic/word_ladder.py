@@ -5,8 +5,8 @@ from dataclasses import dataclass
 from random import Random
 from typing import Dict, List, Optional, Set, Tuple
 
-from reasoning_gym.data import get_data_file_path
-from reasoning_gym.factory import ProceduralDataset, register_dataset
+from ..data import get_data_file_path
+from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
@@ -220,10 +220,7 @@ class WordLadderDataset(ProceduralDataset):
         if answer is None:
             return 0
 
-        oracle_answer = entry["answer"].upper()
-        answer = answer.upper()
-
-        answer_words = tuple(s.strip() for s in answer.split(","))
+        answer_words = tuple(s.strip() for s in answer.upper().split(","))
 
         metadata = entry["metadata"]
         start_word = metadata["start_word"]
@@ -246,11 +243,11 @@ class WordLadderDataset(ProceduralDataset):
         if not all(len(w) == word_length for w in answer_words):
             return 0.01
 
-        reward = 1.0
         for i in range(1, len(answer_words)):
             if sum(1 for a, b in zip(answer_words[i - 1], answer_words[i]) if a != b) != 1:
-                reward *= 0.5
+                return 0.01
 
+        reward = 1.0
         for word in answer_words:
             if not word in known_words:
                 reward *= 0.5
