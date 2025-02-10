@@ -12,6 +12,7 @@ from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
+from .power_function import PowerFunctionConfig, PowerFunctionDataset
 
 __all__ = [
     "BasicArithmeticDataset",
