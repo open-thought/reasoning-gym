@@ -21,7 +21,7 @@ mkdir -p "$OUTPUT_DIR"
 # Run evaluations
 for model in "${MODELS[@]}"; do
     echo "Evaluating $model..."
-    python eval_basic.py \
+    python eval.py \
         --model "$model" \
         --config "eval_basic.json" \
         --output-dir "$OUTPUT_DIR"
