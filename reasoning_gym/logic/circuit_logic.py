@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
 from random import Random
+from typing import Any, Dict, List, Optional, Tuple
+
 from ..factory import ProceduralDataset, register_dataset
 
 VERT = "│"
