@@ -8,7 +8,7 @@ from pathlib import Path
 from statistics import mean, stdev
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-from .dataset import ProceduralDataset
+from ..dataset import ProceduralDataset
 
 
 @dataclass
