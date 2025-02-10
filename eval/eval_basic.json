@@ -1,0 +1,21 @@
+[
+    {
+      "name": "letter_counting",
+      "min_words": 5,
+      "max_words": 15,
+      "size": 10,
+      "seed": 42
+    },
+    {
+      "name": "propositional_logic",
+      "size": 10,
+      "seed": 42
+    },
+    {
+      "name": "leg_counting",
+      "min_animals": 3,
+      "max_animals": 8,
+      "size": 10,
+      "seed": 42
+    }
+  ]
