@@ -14,10 +14,10 @@ QUESTION_TEMPLATE = """Compute {base}^{exponent}"""
 class PowerFunctionConfig:
     """Configuration for Power Function dataset generation"""
 
-    min_base: float = -(10**6)  # Minimum base value
-    max_base: float = 10**6  # Maximum base value
-    min_exponent: int = -50  # Minimum exponent value
-    max_exponent: int = 50  # Maximum exponent value
+    min_base: float = -1e3  # Minimum base value
+    max_base: float = 1e3  # Maximum base value
+    min_exponent: int = -8  # Minimum exponent value
+    max_exponent: int = 8  # Maximum exponent value
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
