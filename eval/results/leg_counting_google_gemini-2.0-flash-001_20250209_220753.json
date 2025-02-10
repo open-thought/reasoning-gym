@@ -1,0 +1,186 @@
+{
+  "metrics": {
+    "dataset_name": "leg_counting",
+    "model": "google/gemini-2.0-flash-001",
+    "size": 10,
+    "seed": 42,
+    "average_score": 0.45099999999999996,
+    "total_examples": 10,
+    "timestamp": "2025-02-10T06:07:53.290258"
+  },
+  "results": [
+    {
+      "question": "How many legs are there in total if you have 1 sea slug, 1 deer?",
+      "expected_answer": "4",
+      "model_answer": "*   A sea slug has no legs.\n*   A deer has 4 legs.\n\nTherefore, there are a total of 0 + 4 = $\\boxed{4}$ legs.\n",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 2
+        },
+        "animals": {
+          "sea slug": 1,
+          "deer": 1
+        },
+        "total_legs": 4
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 2 sheeps, 2 dogs?",
+      "expected_answer": "16",
+      "model_answer": "* Sheep have 4 legs each, so 2 sheep have 2 * 4 = 8 legs\n* Dogs have 4 legs each, so 2 dogs have 2 * 4 = 8 legs\n\nIn total, there are 8 + 8 = **16** legs.\n",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 2
+        },
+        "animals": {
+          "sheep": 2,
+          "dog": 2
+        },
+        "total_legs": 16
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 1 crab, 2 lobsters, 1 human, 1 cow, 1 bee?",
+      "expected_answer": "42",
+      "model_answer": "Here's the breakdown:\n\n*   **Crab:** 10 legs\n*   **Lobster:** 10 legs each, so 2 * 10 = 20 legs\n*   **Human:** 2 legs\n*   **Cow:** 4 legs\n*   **Bee:** 6 legs\n\n**Total:** 10 + 20 + 2 + 4 + 6 = **42 legs**",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 5
+        },
+        "animals": {
+          "crab": 1,
+          "lobster": 2,
+          "human": 1,
+          "cow": 1,
+          "bee": 1
+        },
+        "total_legs": 42
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 2 grasshoppers, 2 spiders, 1 tiger, 1 chicken?",
+      "expected_answer": "34",
+      "model_answer": "Here's the breakdown:\n\n*   **Grasshopper:** 6 legs each, so 2 grasshoppers have 2 * 6 = 12 legs\n*   **Spider:** 8 legs each, so 2 spiders have 2 * 8 = 16 legs\n*   **Tiger:** 4 legs\n*   **Chicken:** 2 legs\n\nTotal: 12 + 16 + 4 + 2 = 34 legs\n\nThere are a total of $\\boxed{34}$ legs.",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 4
+        },
+        "animals": {
+          "grasshopper": 2,
+          "spider": 2,
+          "tiger": 1,
+          "chicken": 1
+        },
+        "total_legs": 34
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 3 wasps, 3 jellyfishs?",
+      "expected_answer": "18",
+      "model_answer": "*   **Wasps:** Each wasp has 6 legs, so 3 wasps have 3 * 6 = 18 legs.\n*   **Jellyfish:** Jellyfish do not have legs.\n\n**Total:** 18 + 0 = 18 legs\n\nThere are a total of $\\boxed{18}$ legs.\n",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 2
+        },
+        "animals": {
+          "wasp": 3,
+          "jellyfish": 3
+        },
+        "total_legs": 18
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 3 leechs, 2 crickets, 2 shrimps, 3 praying mantiss?",
+      "expected_answer": "50",
+      "model_answer": "Here's how to calculate the total number of legs:\n\n*   **Leeches:** Leeches don't have legs.\n*   **Crickets:** 2 Crickets * 6 legs/cricket = 12 legs\n*   **Shrimp:** 2 Shrimps * 10 legs/shrimp = 20 legs\n*   **Praying Mantises:** 3 Mantises * 6 legs/mantis = 18 legs\n\n**Total:** 0 + 12 + 20 + 18 = 50 legs\n\nThere are a total of 50 legs.",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 4
+        },
+        "animals": {
+          "leech": 3,
+          "cricket": 2,
+          "shrimp": 2,
+          "praying mantis": 3
+        },
+        "total_legs": 50
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 3 ducks, 1 shrimp, 3 lobsters, 2 starfishs?",
+      "expected_answer": "56",
+      "model_answer": "Here's how to calculate the total number of legs:\n\n*   Ducks: 3 ducks * 2 legs/duck = 6 legs\n*   Shrimp: 1 shrimp * 10 legs/shrimp = 10 legs\n*   Lobsters: 3 lobsters * 10 legs/lobster = 30 legs\n*   Starfish: 2 starfish * 0 legs/starfish = 0 legs\n\nTotal: 6 + 10 + 30 + 0 = 46 legs\n\nThere are a total of 46 legs.",
+      "score": 0.01,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 4
+        },
+        "animals": {
+          "duck": 3,
+          "shrimp": 1,
+          "lobster": 3,
+          "starfish": 2
+        },
+        "total_legs": 56
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 1 butterfly, 2 grasshoppers?",
+      "expected_answer": "18",
+      "model_answer": "* A butterfly has 6 legs.\n* A grasshopper has 6 legs.\n\nSo, 1 butterfly has 6 legs, and 2 grasshoppers have 2 * 6 = 12 legs.\n\nIn total, there are 6 + 12 = $\\boxed{18}$ legs.\n",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 2
+        },
+        "animals": {
+          "butterfly": 1,
+          "grasshopper": 2
+        },
+        "total_legs": 18
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 1 deer, 3 beetles, 2 giraffes, 1 firefly, 3 ants?",
+      "expected_answer": "54",
+      "model_answer": "Let's count the legs for each animal:\n* Deer: 1 deer * 4 legs/deer = 4 legs\n* Beetles: 3 beetles * 6 legs/beetle = 18 legs\n* Giraffes: 2 giraffes * 4 legs/giraffe = 8 legs\n* Firefly: 1 firefly * 6 legs/firefly = 6 legs\n* Ants: 3 ants * 6 legs/ant = 18 legs\n\nNow, add up the legs for all the animals:\n4 + 18 + 8 + 6 + 18 = 54 legs\n\nTherefore, there are a total of 54 legs.\n\nFinal Answer: The final answer is $\\boxed{54}$",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 5
+        },
+        "animals": {
+          "deer": 1,
+          "beetle": 3,
+          "giraffe": 2,
+          "firefly": 1,
+          "ant": 3
+        },
+        "total_legs": 54
+      }
+    },
+    {
+      "question": "How many legs are there in total if you have 1 scorpion, 1 shrimp, 3 cats?",
+      "expected_answer": "30",
+      "model_answer": "Here's how to figure that out:\n\n*   **Scorpion:** Scorpions have 8 legs.\n*   **Shrimp:** Shrimp have 10 legs.\n*   **Cats:** Cats have 4 legs each, so 3 cats have 3 * 4 = 12 legs.\n\n**Total:** 8 + 10 + 12 = 30 legs\n\nThere are a total of 30 legs.",
+      "score": 0.5,
+      "metadata": {
+        "difficulty": {
+          "num_animals": 3
+        },
+        "animals": {
+          "scorpion": 1,
+          "shrimp": 1,
+          "cat": 3
+        },
+        "total_legs": 30
+      }
+    }
+  ]
+}
