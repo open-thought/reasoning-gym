@@ -8,8 +8,12 @@ from reasoning_gym.algorithmic.manipulate_matrix import ManipulateMatrixConfig, 
 def test_manipulate_matrix_config_validation():
     """Test that invalid configs raise appropriate errors"""
 
+    with pytest.raises(AssertionError):
+        config = ManipulateMatrixConfig(max_transforms=-1)  # max_transforms should be non-negative
+        config.validate()
+
     invalid_dims = [-1, 0]  # Dimensions should be positive integers
-    dim_fields = ["max_rows", "max_cols"]
+    dim_fields = ["min_rows", "min_cols", "max_rows", "max_cols"]
 
     for field in dim_fields:
         for dim in invalid_dims:

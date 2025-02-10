@@ -28,8 +28,11 @@ def num_cols(matrix: list[list[int]]) -> int:
 class ManipulateMatrixConfig:
     """Configuration for Manipulate Matrix dataset generation"""
 
+    min_rows: int = 1  # Minimum number of rows
+    min_cols: int = 1  # Minimum number of columns
     max_rows: int = 10  # Maximum number of rows
     max_cols: int = 10  # Maximum number of columns
+    max_transforms: int = 5  # Maximum number of transformations to apply
     p_rotate: float = 0.2  # Probability of rotating the matrix
     p_hmirror: float = 0.2  # Probability of horizontally mirroring the matrix
     p_vmirror: float = 0.2  # Probability of vertically mirroring the matrix
@@ -46,8 +49,11 @@ class ManipulateMatrixConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 1 <= self.max_rows, "max_rows must be at least 1"
-        assert 1 <= self.max_cols, "max_cols must be at least 1"
+        assert 1 <= self.min_rows, "min_rows must be at least 1"
+        assert 1 <= self.min_cols, "min_cols must be at least 1"
+        assert self.min_rows <= self.max_rows, "max_rows must be at least min_rows"
+        assert self.min_cols <= self.max_cols, "max_cols must be at least min_cols"
+        assert 0 <= self.max_transforms, "max_transforms must be non-negative"
         assert 0 <= self.p_rotate <= 1, "p_rotate must be between 0 and 1"
         assert 0 <= self.p_hmirror <= 1, "p_hmirror must be between 0 and 1"
         assert 0 <= self.p_vmirror <= 1, "p_vmirror must be between 0 and 1"
@@ -86,8 +92,8 @@ class ManipulateMatrixDataset(ProceduralDataset):
 
     def _get_matrix(self, rng: Random) -> list[list[int]]:
         """Generate a random matrix"""
-        rows = rng.randint(1, self.config.max_rows)
-        cols = rng.randint(1, self.config.max_cols)
+        rows = rng.randint(self.config.min_rows, self.config.max_rows)
+        cols = rng.randint(self.config.min_cols, self.config.max_cols)
         numbers = [rng.randint(0, 9) for _ in range(rows * cols)]
         matrix = [numbers[i * cols : (i + 1) * cols] for i in range(rows)]
         return matrix
@@ -157,14 +163,13 @@ class ManipulateMatrixDataset(ProceduralDataset):
         matrix = self._get_matrix(rng)
         matrix_str = self._matrix_to_str(matrix)
 
-        # Shuffle the order of operations (make sure to copy the list to guarantee same order)
-        all_transforms = deepcopy(self._all_transforms)
-        rng.shuffle(all_transforms)
+        num_transforms = rng.randint(0, self.config.max_transforms)
+        transforms = rng.sample(self._all_transforms, num_transforms)
         operations = []
 
         answer = deepcopy(matrix)
 
-        for transform in all_transforms:
+        for transform in transforms:
             # Rotate
             if transform == "rotate" and rng.random() < self.config.p_rotate:
                 rotation = rng.choice(list(self._rotations.keys()))
