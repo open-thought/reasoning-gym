@@ -5,6 +5,7 @@ Arithmetic tasks for training reasoning capabilities:
 from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
 from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 from .chain_sum import ChainSum, ChainSumConfig
+from .count_bits import CountBitsConfig, CountBitsDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
@@ -35,4 +36,6 @@ __all__ = [
     "GSMSymbolicDataset",
     "TimeIntervalsConfig",
     "TimeIntervalsDataset",
+    "CountBitsConfig",
+    "CountBitsDataset",
 ]
