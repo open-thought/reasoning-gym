@@ -12,6 +12,7 @@ from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
+from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
@@ -60,4 +61,6 @@ __all__ = [
     "IsomorphicStringsDataset",
     "RotateMatrixConfig",
     "RotateMatrixDataset",
+    "ManipulateMatrixConfig",
+    "ManipulateMatrixDataset",
 ]
