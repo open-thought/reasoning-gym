@@ -15,6 +15,7 @@ This gallery shows examples from all available datasets using their default conf
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
 - [complex_arithmetic](#complex_arithmetic)
+- [count_bits](#count_bits)
 - [countdown](#countdown)
 - [course_schedule](#course_schedule)
 - [family_relationships](#family_relationships)
@@ -32,6 +33,7 @@ This gallery shows examples from all available datasets using their default conf
 - [leg_counting](#leg_counting)
 - [letter_counting](#letter_counting)
 - [letter_jumble](#letter_jumble)
+- [manipulate_matrix](#manipulate_matrix)
 - [maze](#maze)
 - [mini_sudoku](#mini_sudoku)
 - [n_queens](#n_queens)
@@ -41,6 +43,7 @@ This gallery shows examples from all available datasets using their default conf
 - [palindrome](#palindrome)
 - [polynomial_equations](#polynomial_equations)
 - [polynomial_multiplication](#polynomial_multiplication)
+- [power_function](#power_function)
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
@@ -1041,6 +1044,35 @@ Metadata: {'num1': (-7.0, -79.0), 'num2': (-7.0, -5.0), 'operation': '/', 'resul
 
 ````
 
+### count_bits
+Generates Count Bits exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 2147483647
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: How many 1 bits are there in the binary representation of the number 1373158607?
+Answer: 18
+Metadata: {'number': 1373158607, 'solution': 18, 'binary': '1010001110110001011110011001111'}
+
+Example 2:
+Question: How many 1 bits are there in the binary representation of the number 82789451?
+Answer: 14
+Metadata: {'number': 82789451, 'solution': 14, 'binary': '100111011110100010001001011'}
+
+Example 3:
+Question: How many 1 bits are there in the binary representation of the number 877324117?
+Answer: 16
+Metadata: {'number': 877324117, 'solution': 16, 'binary': '110100010010101110011101010101'}
+
+````
+
 ### countdown
 Generates Countdown Number Game tasks
 
@@ -2033,6 +2065,81 @@ Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_wo
 
 ````
 
+### manipulate_matrix
+Generates Manipulate Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+min_rows = 1
+min_cols = 1
+max_rows = 10
+max_cols = 10
+max_transforms = 5
+p_rotate = 0.2
+p_hmirror = 0.2
+p_vmirror = 0.2
+p_dmirror = 0.2
+p_cmirror = 0.2
+p_map = 0.2
+p_crop = 0.2
+p_remove_every_nth_row = 0.2
+p_remove_every_nth_col = 0.2
+p_zero_divisible = 0.2
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: For the following matrix:
+4
+3
+
+Perform the following series of operations in order:
+- Identity transformation, i.e. no change
+
+
+Answer: 4
+3
+Metadata: {'matrix': [[4], [3]], 'solution': [[4], [3]], 'operations': []}
+
+Example 2:
+Question: For the following matrix:
+2 7 5 1 7
+
+Perform the following series of operations in order:
+- Identity transformation, i.e. no change
+
+
+Answer: 2 7 5 1 7
+Metadata: {'matrix': [[2, 7, 5, 1, 7]], 'solution': [[2, 7, 5, 1, 7]], 'operations': []}
+
+Example 3:
+Question: For the following matrix:
+8 1 2 6 3 4 0 3 1
+9 0 1 2 8 4 6 9 6
+5 5 1 5 4 9 2 1 8
+1 9 1 4 5 1 4 0 5
+6 1 7 7 3 3 2 4 3
+0 0 6 0 5 5 7 7 9
+8 2 3 7 7 5 9 0 4
+
+Perform the following series of operations in order:
+- Identity transformation, i.e. no change
+
+
+Answer: 8 1 2 6 3 4 0 3 1
+9 0 1 2 8 4 6 9 6
+5 5 1 5 4 9 2 1 8
+1 9 1 4 5 1 4 0 5
+6 1 7 7 3 3 2 4 3
+0 0 6 0 5 5 7 7 9
+8 2 3 7 7 5 9 0 4
+Metadata: {'matrix': [[8, 1, 2, 6, 3, 4, 0, 3, 1], [9, 0, 1, 2, 8, 4, 6, 9, 6], [5, 5, 1, 5, 4, 9, 2, 1, 8], [1, 9, 1, 4, 5, 1, 4, 0, 5], [6, 1, 7, 7, 3, 3, 2, 4, 3], [0, 0, 6, 0, 5, 5, 7, 7, 9], [8, 2, 3, 7, 7, 5, 9, 0, 4]], 'solution': [[8, 1, 2, 6, 3, 4, 0, 3, 1], [9, 0, 1, 2, 8, 4, 6, 9, 6], [5, 5, 1, 5, 4, 9, 2, 1, 8], [1, 9, 1, 4, 5, 1, 4, 0, 5], [6, 1, 7, 7, 3, 3, 2, 4, 3], [0, 0, 6, 0, 5, 5, 7, 7, 9], [8, 2, 3, 7, 7, 5, 9, 0, 4]], 'operations': []}
+
+````
+
 ### maze
 Generates mazes with guaranteed shortest path distance from start to goal
     within [min_dist, max_dist].
@@ -2482,6 +2589,38 @@ Example 3:
 Question: Calculate the following: (43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)
 Answer: -19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x
 Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': True, 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
+
+````
+
+### power_function
+Generates Power Function exercises with configurable difficulty
+
+Default configuration:
+```python
+min_base = -1000.0
+max_base = 1000.0
+min_exponent = -8
+max_exponent = 8
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Compute 278.8535969157674^-8
+Answer: 2.735205704728613e-20
+Metadata: {'base': 278.8535969157674, 'exponent': -8, 'solution': 2.735205704728613e-20}
+
+Example 2:
+Question: Compute -922.8963213252399^-4
+Answer: 1.3784415023500506e-12
+Metadata: {'base': -922.8963213252399, 'exponent': -4, 'solution': 1.3784415023500506e-12}
+
+Example 3:
+Question: Compute -182.9282414910125^-5
+Answer: -4.881982323540115e-12
+Metadata: {'base': -182.9282414910125, 'exponent': -5, 'solution': -4.881982323540115e-12}
 
 ````
 
@@ -3655,7 +3794,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 9, 9, 44), 'end_time': datetime.datetime(2025, 2, 9, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 10, 9, 44), 'end_time': datetime.datetime(2025, 2, 10, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
