@@ -116,7 +116,7 @@ class DiceDataset(ProceduralDataset):
         """
         rng = Random(self.seed + idx)
         puzzle = generate_puzzle(self.config.num_dice, self.config.max_dice_size, rng)
-        puzzle_str = f"I have these dice: {puzzle['dice_str']}. What are the odds of rolling {puzzle['target']} or higher? Please respond with a reduced fraction representing the probability [ex., 1/60]."
+        puzzle_str = f"I have these dice: {puzzle['dice_str']}. What are the odds of rolling {puzzle['target']} or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60]."
         answer_str = f"{puzzle['num']}/{puzzle['den']}"
 
         return {
