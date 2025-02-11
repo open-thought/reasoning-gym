@@ -59,7 +59,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
         self._prompt_templates = [
             "Find the real value(s) of {variable} in the equation: {polynomial_expanded} = 0",
             "Solve for real {variable}: {polynomial_expanded} = 0",
-            "Determine the real value(s) of {variable} tha satisfies: {polynomial_expanded} = 0",
+            "Determine the real value(s) of {variable} that satisfies: {polynomial_expanded} = 0",
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
