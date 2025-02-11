@@ -1,0 +1,13 @@
+model: deepseek/deepseek-r1
+category: algebra
+datasets:
+  - intermediate_integration
+  - polynomial_equations
+  - polynomial_multiplication
+  - simple_equations
+  - simple_integration
+  - complex_arithmetic
+eval_dir: eval/r1
+dataset_size: 50
+dataset_seed: 42
+developer_role: system

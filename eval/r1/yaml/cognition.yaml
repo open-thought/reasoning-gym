@@ -1,0 +1,11 @@
+model: deepseek/deepseek-r1
+category: cognition
+datasets:
+  -  color_cube_rotation
+  -  figlet_font
+  -  number_sequence
+  -  rubiks_cube
+eval_dir: eval/r1
+dataset_size: 50
+dataset_seed: 42
+developer_role: system
