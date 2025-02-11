@@ -1,9 +1,7 @@
-import pytest
-
 from reasoning_gym.algorithmic.ab import ABConfig, ABDataset
 
 
-def test_zebra_puzzles():
+def test_abconfig_puzzles():
     """Test basic properties and solution of generated items"""
     config = ABConfig(seed=42, size=10, length=5)
     dataset = ABDataset(config)
