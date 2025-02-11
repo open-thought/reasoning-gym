@@ -123,7 +123,7 @@ async def main_async():
     
     eval_start_time = time.time()
     all_results = await evaluator.evaluate_datasets(dataset_configs)
-    print(f'Time taken to collect evaluation data: {time.time() - eval_start_time}')
+    print(f'Time taken to collect evaluation data: {time.time() - eval_start_time:.2f} seconds')
     # Save results
     output_file = os.path.join(
         args.output_dir,
