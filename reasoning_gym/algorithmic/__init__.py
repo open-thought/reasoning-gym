@@ -6,6 +6,7 @@ Algorithmic tasks for training reasoning capabilities:
 - Pattern matching
 """
 
+from .ab import ABConfig, ABDataset
 from .base_conversion import BaseConversionConfig, BaseConversionDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
@@ -66,4 +67,6 @@ __all__ = [
     "ManipulateMatrixDataset",
     "BinaryMatrixConfig",
     "BinaryMatrixDataset",
+    "ABConfig",
+    "ABDataset",
 ]
