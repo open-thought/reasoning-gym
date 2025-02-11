@@ -1,6 +1,7 @@
 import pytest
 
 from reasoning_gym.arithmetic import ChainSum, ChainSumConfig
+from reasoning_gym.arithmetic.chain_sum import ChainSumCurriculum
 
 
 def test_chain_sum_config_validation():
@@ -127,3 +128,30 @@ def test_chain_sum_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items, "Multiple iterations should yield same items"
+
+
+def test_chain_sum_curriculum():
+    curriculum = ChainSumCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: ChainSumConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_digits == 1 and base_cfg.max_digits == 1
+    assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
+
+    # test incrementing attribute levels for num_terms & num_digits attributes
+    curriculum.increment_attr_level("num_terms")
+    curriculum.increment_attr_level("num_digits")
+
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_digits == 1 and increased_cfg.max_digits == 2
+    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3
+
+    # test decrementing attribute level for num_digits again
+    curriculum.decrement_attr_level("num_digits")
+
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_digits == 1 and partially_decreased_cfg.max_digits == 1
+    assert partially_decreased_cfg.min_terms == 2 and partially_decreased_cfg.max_terms == 3
