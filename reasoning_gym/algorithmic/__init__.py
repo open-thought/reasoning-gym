@@ -25,6 +25,7 @@ from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
 from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
 from .word_sorting import TextTransformation, WordSortingConfig, WordSortingDataset
+from .count_primes import CountPrimesConfig, CountPrimesDataset
 
 __all__ = [
     "SpellBackwardConfig",
@@ -66,4 +67,6 @@ __all__ = [
     "ManipulateMatrixDataset",
     "BinaryMatrixConfig",
     "BinaryMatrixDataset",
+    "CountPrimesConfig",
+    "CountPrimesDataset",
 ]
