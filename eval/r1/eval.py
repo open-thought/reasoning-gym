@@ -45,7 +45,7 @@ class OpenRouterEvaluator:
             "total_examples": len(results),
             "timestamp": datetime.now().isoformat(),
             "config": asdict(dataset.config),
-            "results": results,
+            "results": results,  # save results to allow for performance recalculation
         }
 
         with open(file_name, "w") as f:
@@ -57,7 +57,11 @@ class OpenRouterEvaluator:
             {"role": self.config.developer_role, "content": self.config.developer_prompt},
             {"role": "user", "content": prompt},
         ]
-        payload = {"model": self.model, "messages": messages, "provider": {"order": ["Nebius"]}}
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "provider": {"order": ["Nebius"], "allow_fallbacks": False},
+        }  # make sure only one provider is used
 
         return payload
 
@@ -92,7 +96,8 @@ class OpenRouterEvaluator:
             )
             results = []
 
-            for entry in dataset:
+            for i, entry in enumerate(dataset):
+                print(f"On example {i+1} of {len(dataset)}")
                 response = self.get_model_response(entry["question"])
                 model_answer = extract_answer(response)
 
@@ -100,14 +105,14 @@ class OpenRouterEvaluator:
 
                 result = {
                     "question": entry["question"],
-                    "expected_answer": entry["answer"],
+                    "expected_answer": str(entry["answer"]),
                     "model_answer": model_answer,
                     "score": score,
-                    "metadata": entry["metadata"],
+                    "metadata": str(entry["metadata"]),
                 }
                 results.append(result)
 
-            metrics = self.save_results(results, dataset)
+            metrics = self.save_results(results, dataset, dataset_name)
 
             all_results.append({"metrics": metrics, "results": results})
 
