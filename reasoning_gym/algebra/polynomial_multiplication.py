@@ -1,5 +1,5 @@
 import random
-import string
+import warnings
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Tuple
 
@@ -22,7 +22,9 @@ class PolynomialMultiplicationConfig:
     max_degree: int = 3  # Maximum polynomial degree
     min_polynomials: int = 2  # Minimum number of polynomials being multiplied
     max_polynomials: int = 3  # Maximum number of polynomials being multiplied
-    single_variable: bool = True
+    variables: Tuple[str] = ("x", "y", "z")  # Tuple of variable names, that will be chosen randomly
+    allow_cross_variable_product: bool = False  # Generate tasks like "Multiply (x^2+3x-1)*(y^2-5)"
+    allow_multivariate_polynomials: bool = False  # Generate multivariate tasks like "Multiply (2x^2 + 3y)*(5x^2+3x-1)"
     operators: Tuple[str, ...] = (
         "+",
         "-",
@@ -43,6 +45,11 @@ class PolynomialMultiplicationConfig:
 
         assert self.min_polynomials >= 2, "min_polynomials must be >= 2."
         assert self.max_polynomials >= self.min_polynomials, "max_polynomials must be >= min_polynomials."
+
+        assert len(self.variables) > 0, "The variable tuple is empty."
+        assert not (
+            self.allow_multivariate_polynomials and not self.allow_cross_variable_product
+        ), "Multivariate polynomials require cross product."
 
         allowed_ops = {"+", "-"}
         assert len(self.operators) > 0, "operators tuple cannot be empty."
@@ -71,13 +78,11 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
             A dict with:
                 - question: str (e.g. "Multiply polynomials: (8x^3 + x + 2)*(x - 3)")
                 - answer: str (Product, e.g. "8x^4 - 24x^3 + x^2 - x - 6")
-                - metadata: dict with details (polynomial_expr, single_variable)
+                - metadata: dict with details (polynomial_expr, result, variables)
         """
         rng = random.Random(self.seed + idx)
-        number_polynomials = rng.randint(self.config.min_polynomials, self.config.max_polynomials)
-        polynomials = [self._generate_polynomial_expr(rng) for i in range(number_polynomials)]
 
-        polynomial_expr = sp.prod(polynomials)
+        polynomial_expr = sp.prod(self._generate_polynomial_product(rng))
         product = sp.expand(polynomial_expr)
 
         return {
@@ -87,18 +92,55 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
             "answer": product,
             "metadata": {
                 "polynomial_expr": str(polynomial_expr),
-                "single_variable": self.config.single_variable,
                 "result": str(product),
+                "variables": list(product.free_symbols),
             },
         }
 
     def _get_variable(self, rng: random.Random) -> str:
         """Get a random lowercase variable name"""
-        if self.config.single_variable:
-            return "x"
-        return rng.choice(string.ascii_lowercase)
+        return rng.choice(self.config.variables)
 
-    def _generate_polynomial_expr(self, rng: random.Random):
+    def _generate_polynomial_product(self, rng):
+        """Helper for selecting regular or multivariate polynomial. Returns expressions and unique variables."""
+
+        variable = None if self.config.allow_cross_variable_product else self._get_variable(rng)
+        number_polynomials = rng.randint(self.config.min_polynomials, self.config.max_polynomials)
+
+        if self.config.allow_multivariate_polynomials:
+            generated = [self._generate_multivariate_polynomial(rng) for _ in range(number_polynomials)]
+        else:
+            generated = [self._generate_regular_polynomial(rng, variable) for _ in range(number_polynomials)]
+
+        return generated
+
+    def _generate_multivariate_polynomial(self, rng: random.Random):
+        """Generates a multivariate polynomial, returns variable set and expression."""
+        # Choose the number of terms and their respective degrees
+        num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
+
+        polynomial_expr = 0
+        for _ in range(num_terms):
+            # Pick a nonzero random coefficient between min_value and max_value.
+            coeff = rng.randint(self.config.min_value, self.config.max_value)
+
+            # Build the monomial by choosing each exponent independently.
+            monomial = 1
+            var = self._get_variable(rng)
+            for v in var:
+                v = sp.Symbol(v)
+                exp = random.randint(self.config.min_degree, self.config.max_degree)
+                monomial *= v**exp
+
+            # If '-' in operators, we can randomly flip the sign
+            if "-" in self.config.operators and rng.random() < 0.5:
+                coeff = -coeff
+
+            polynomial_expr += coeff * monomial
+
+        return polynomial_expr
+
+    def _generate_regular_polynomial(self, rng: random.Random, variable: Optional[str]):
         """
         Randomly generate a polynomial expression of 'degree'.
         We'll use the config parameters:
@@ -112,7 +154,7 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
         Returns:
             Polynomial string
         """
-        variable = self._get_variable(rng)
+        variable = variable if variable else self._get_variable(rng)
         degree = rng.randint(self.config.min_degree, self.config.max_degree)
 
         x = sp.Symbol(variable)
@@ -143,11 +185,11 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
         metadata = entry["metadata"]
         if answer is not None:
             try:
-                predicted_poly = sp.parse_expr(answer)
-                target_poly = sp.parse_expr(metadata["result"])
+                predicted_poly = sp.Poly(answer)
+                target_poly = sp.Poly(metadata["result"])
 
                 # Check if the difference simplifies to zero (i.e. they are equivalent).
-                if sp.simplify(predicted_poly - target_poly) == 0:
+                if predicted_poly == target_poly:
                     reward = 1.0
                 elif answer.strip():
                     reward = 0.05
