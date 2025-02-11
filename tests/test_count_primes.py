@@ -16,7 +16,6 @@ def test_count_primes_config_validation():
         config.validate()
 
 
-
 def test_count_primes_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
     config = CountPrimesConfig(seed=42, size=10)

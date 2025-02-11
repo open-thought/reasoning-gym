@@ -9,6 +9,7 @@ Algorithmic tasks for training reasoning capabilities:
 from .base_conversion import BaseConversionConfig, BaseConversionDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
+from .count_primes import CountPrimesConfig, CountPrimesDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
@@ -25,7 +26,6 @@ from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
 from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
 from .word_sorting import TextTransformation, WordSortingConfig, WordSortingDataset
-from .count_primes import CountPrimesConfig, CountPrimesDataset
 
 __all__ = [
     "SpellBackwardConfig",
