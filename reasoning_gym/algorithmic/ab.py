@@ -58,7 +58,8 @@ class ABConfig:
 
     def validate(self) -> None:
         """Validate configuration parameters"""
-        assert self.length > 0, "difficulty must be greater than 0"
+        assert self.length > 0, "length must be greater than 0"
+        assert self.size > 0, "size must be greater than 0"
 
 
 class ABDataset(ProceduralDataset):
