@@ -14,6 +14,7 @@ from .leg_counting import LegCountingConfig, LegCountingDataset
 from .power_function import PowerFunctionConfig, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
+from .dice import DiceConfig, DiceDataset
 
 __all__ = [
     "BasicArithmeticDataset",
@@ -38,4 +39,6 @@ __all__ = [
     "TimeIntervalsDataset",
     "CountBitsConfig",
     "CountBitsDataset",
+    "DiceConfig",
+    "DiceDataset",
 ]
