@@ -88,8 +88,7 @@ class ABDataset(ProceduralDataset):
         # Via:
         #   https://x.com/VictorTaelin/status/1776248021858111542
         #   https://gist.github.com/VictorTaelin/e514844f4df9e5f182b28e5a07e44b17
-        prompt = f"""
-A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
+        prompt = f"""A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
 
 An A::B program is a sequence of tokens. Example:
 
