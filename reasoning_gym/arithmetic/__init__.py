@@ -6,6 +6,7 @@ from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConf
 from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 from .chain_sum import ChainSum, ChainSumConfig
 from .count_bits import CountBitsConfig, CountBitsDataset
+from .dice import DiceConfig, DiceDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
@@ -14,7 +15,6 @@ from .leg_counting import LegCountingConfig, LegCountingDataset
 from .power_function import PowerFunctionConfig, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
-from .dice import DiceConfig, DiceDataset
 
 __all__ = [
     "BasicArithmeticDataset",
