@@ -1,7 +1,7 @@
 model: deepseek/deepseek-r1
 category: cognition
 datasets:
-  - color_cube_rotation
+  -  color_cube_rotation
   -  figlet_font
   -  number_sequence
   -  rubiks_cube
