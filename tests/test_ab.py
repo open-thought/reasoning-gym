@@ -1,3 +1,4 @@
+import random
 import pytest
 from reasoning_gym.algorithmic.ab import ABConfig, ABDataset, compute_steps, generate_program
 
