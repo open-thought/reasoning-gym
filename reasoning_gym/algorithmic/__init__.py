@@ -17,6 +17,7 @@ from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
+from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
@@ -66,4 +67,6 @@ __all__ = [
     "ManipulateMatrixDataset",
     "BinaryMatrixConfig",
     "BinaryMatrixDataset",
+    "PoolMatrixConfig",
+    "PoolMatrixDataset",
 ]
