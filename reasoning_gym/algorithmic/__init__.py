@@ -25,10 +25,10 @@ from .rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
+from .string_insertion import StringInsertionConfig, StringInsertionDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
 from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
 from .word_sorting import TextTransformation, WordSortingConfig, WordSortingDataset
-from .string_insertion import StringInsertionConfig, StringInsertionDataset
 
 __all__ = [
     "SpellBackwardConfig",
