@@ -1,0 +1,61 @@
+[
+  {
+    "dataset_name": "letter_counting",
+    "model": "openai/o1",
+    "average_score": 0.99,
+    "total_examples": 50,
+    "timestamp": "2025-02-12T10:26:39.897674",
+    "config": {
+      "min_words": 5,
+      "max_words": 15,
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "propositional_logic",
+    "model": "openai/o1",
+    "average_score": 0.010000000000000004,
+    "total_examples": 50,
+    "timestamp": "2025-02-12T10:27:45.054740",
+    "config": {
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "leg_counting",
+    "model": "openai/o1",
+    "average_score": 0.802,
+    "total_examples": 50,
+    "timestamp": "2025-02-12T10:28:06.199253",
+    "config": {
+      "min_animals": 3,
+      "max_animals": 8,
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "group_anagrams",
+    "model": "openai/o1",
+    "average_score": 0.94,
+    "total_examples": 50,
+    "timestamp": "2025-02-12T10:30:02.084562",
+    "config": {
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "spell_backward",
+    "model": "openai/o1",
+    "average_score": 0.9802000000000001,
+    "total_examples": 50,
+    "timestamp": "2025-02-12T10:30:17.839014",
+    "config": {
+      "size": 50,
+      "seed": 42
+    }
+  }
+]

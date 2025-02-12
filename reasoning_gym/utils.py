@@ -4,12 +4,15 @@ from decimal import Decimal, InvalidOperation
 from fractions import Fraction
 from typing import Any, Optional, Union
 
-# DeepSeek Zero system prompt
 SYSTEM_PROMPTS = {
     "DeepSeekZero": """A conversation between User and Assistant. The user asks a question, and the Assistant solves it.
 The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think>
 <answer> answer here </answer>
-"""
+""",
+    "default": """Given a problem, your task is to answer the question by thinking step-by-step in a clear and specific manner.
+Once you have thought about the reasoning process, provide the answer in the following format:
+<answer> answer here </answer>
+""",
 }
 
 
