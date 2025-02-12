@@ -2,6 +2,7 @@ import argparse
 import asyncio
 import json
 import os
+import re
 import time
 from datetime import datetime
 from typing import Any, Dict, List
@@ -10,6 +11,7 @@ from openai import AsyncOpenAI
 from tqdm.asyncio import tqdm_asyncio
 
 from reasoning_gym.factory import create_dataset
+from reasoning_gym.utils import SYSTEM_PROMPTS
 
 
 class AsyncOpenRouterEvaluator:
@@ -25,22 +27,33 @@ class AsyncOpenRouterEvaluator:
         async with self.semaphore:
             try:
                 completion = await self.client.chat.completions.create(
-                    extra_headers=self.extra_headers, model=self.model, messages=[{"role": "user", "content": prompt}]
+                    extra_headers=self.extra_headers,
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": SYSTEM_PROMPTS["default"]},
+                        {"role": "user", "content": prompt},
+                    ],
                 )
                 return completion.choices[0].message.content
             except Exception as e:
                 print(f"Error calling OpenRouter API: {str(e)}")
                 raise
 
+    def parse_model_response(self, response: str) -> str:
+        """Gather the final answer between the <answer> and </answer> tags."""
+        match = re.search(r"<answer>(.*?)</answer>", response, re.DOTALL)
+        return match.group(1).strip() if match else response
+
     async def process_single_question(self, entry: Dict, dataset) -> Dict:
         """Process a single question and return the result."""
         response = await self.get_model_response(entry["question"])
-        score = dataset.score_answer(answer=response, entry=entry)
+        answer = self.parse_model_response(response)
+        score = dataset.score_answer(answer=answer, entry=entry)
 
         return {
             "question": entry["question"],
             "expected_answer": entry["answer"],
-            "model_answer": response,
+            "model_answer": answer,
             "score": score,
             "metadata": entry["metadata"],
         }
