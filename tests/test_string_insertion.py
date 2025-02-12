@@ -7,13 +7,13 @@ from reasoning_gym.algorithmic.string_insertion import StringInsertionConfig, St
 
 def test_string_insertion_config_validation():
     """Test that invalid configs raise appropriate errors"""
-    
+
     for field in ["min_string_length", "max_string_length"]:
         for i in range(-1, 5):
             with pytest.raises(AssertionError):
-                config = StringInsertionConfig(**{field: i}) # [-1, 4] is invalid
+                config = StringInsertionConfig(**{field: i})  # [-1, 4] is invalid
                 config.validate()
-    
+
 
 def test_string_insertion_dataset_deterministic():
     """Test that dataset generates same items with same seed"""
@@ -67,7 +67,7 @@ def test_string_insertion_answer():
     config = StringInsertionConfig(seed=42)
     dataset = StringInsertionDataset(config)
 
-    # No pattern match 
+    # No pattern match
     assert dataset._get_answer("AAAAAAA") == "AAAAAAA"
     assert dataset._get_answer("ADBEEBEA") == "ADBEEBEA"
     assert dataset._get_answer("ADEACA") == "ADEACA"
