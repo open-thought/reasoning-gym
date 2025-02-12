@@ -34,7 +34,7 @@ class BaseCurriculum:
             raise KeyError(f"Attribute '{self.name}.{attr_name}' does not exist")
         return self._attributes[attr_name]
 
-    def _define_attributes(self, attrs: Iterable[AttributeDefinition]) -> None:
+    def _define_attributes(self, *attrs: tuple[AttributeDefinition, ...]) -> None:
         for attr in attrs:
             if attr.name in self.attributes:
                 raise RuntimeError(f"Attribute with name {attr.name} is already defined.")
