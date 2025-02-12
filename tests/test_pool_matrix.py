@@ -9,7 +9,7 @@ from reasoning_gym.algorithmic.pool_matrix import PoolMatrixConfig, PoolMatrixDa
 def test_pool_matrix_config_validation():
     """Test that invalid configs raise appropriate errors"""
 
-    for field in ["max_rows", "max_cols", "max_pool_size"]:
+    for field in ["min_rows", "min_cols", "max_rows", "max_cols"]:
         with pytest.raises(AssertionError):
             config = PoolMatrixConfig(**{field: -1})  # Negative not allowed
             config.validate()
@@ -17,6 +17,18 @@ def test_pool_matrix_config_validation():
         with pytest.raises(AssertionError):
             config = PoolMatrixConfig(**{field: 0})  # Zero not allowed
             config.validate()
+
+        with pytest.raises(AssertionError):
+            config = PoolMatrixConfig(**{field: 1})  # One not allowed
+            config.validate()
+
+    with pytest.raises(AssertionError):
+        config = PoolMatrixConfig(max_pool_size=-1)  # Negative not allowed
+        config.validate()
+
+    with pytest.raises(AssertionError):
+        config = PoolMatrixConfig(max_pool_size=0)  # Zero not allowed
+        config.validate()
 
 
 def test_pool_matrix_dataset_deterministic():
@@ -80,9 +92,6 @@ def test_pool_matrix_answer():
     dataset = PoolMatrixDataset(config)
 
     # 1. Max pooling
-    matrix = np.array([[1]])
-    assert np.allclose(dataset._max_pool(matrix, 2), np.array([[1]]))
-
     matrix = np.array([[1, 2], [3, 4]])
     assert np.allclose(dataset._max_pool(matrix, 2), np.array([[4]]))
 
@@ -106,10 +115,6 @@ def test_pool_matrix_answer():
     assert np.allclose(dataset._max_pool(matrix, 2), np.array([[6, 8], [14, 16]]))
 
     # 2. Average pooling
-
-    matrix = np.array([[1]])
-    assert np.allclose(dataset._average_pool(matrix, 2), np.array([[1]]))
-
     matrix = np.array([[1, 2], [3, 4]])
     assert np.allclose(dataset._average_pool(matrix, 2), np.array([[2.5]]))
 
