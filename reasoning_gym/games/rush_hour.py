@@ -22,6 +22,38 @@ H = 1 # horizontal stride
 V = BoardSize # vertical stride
 DoWalls = MinPieceSize == 1
 
+# board boundry limits
+def create_row_masks():
+    row_masks = []
+    for y in range(BoardSize):
+        mask = 0
+        for x in range(BoardSize):
+            i = y * BoardSize + x
+            mask |= 1 << i
+        row_masks.append(mask)
+    return row_masks
+
+
+def create_column_masks():
+    column_masks = []
+    for x in range(BoardSize):
+        mask = 0
+        for y in range(BoardSize):
+            i = y * BoardSize + x
+            mask |= 1 << i
+        column_masks.append(mask)
+    return column_masks
+
+RowMasks = create_row_masks()
+TopRow = RowMasks[0]
+BottomRow = RowMasks[-1]
+
+ColumnMasks = create_column_masks()
+LeftColumn = ColumnMasks[0]
+RightColumn = ColumnMasks[-1]
+
+
+
 class Piece:
     def __init__(self, position: int, size: int, stride: int):
         self.Position = position
@@ -106,6 +138,37 @@ class Board:
             piece.Move(steps)
             self.m_VertMask |= piece.Mask 
 
+    def Moves(self):
+        boardMask = self.Mask
+        for i in range(len(self.m_Pieces)):
+            piece = self.m_Pieces[i]
+            if piece.Fixed:
+                continue
+            if piece.Stride == H:
+                # reverse / left (negative steps)
+                if ((piece.Mask & LeftColumn) == 0):
+                    mask = (piece.Mask >> H) & ~piece.Mask
+                    steps = -1
+                
+                # forward / right (positive steps)
+                if ((piece.Mask & RightColumn) == 0):
+                    mask = (piece.Mask << H) & ~piece.Mask
+                    steps = 1
+            else:
+                # reverse / up (negative steps)
+                if ((piece.Mask & TopRow) == 0):
+                    mask = (piece.Mask >> V) & ~piece.Mask
+                    steps = -1
+
+                # forward / down (positive steps)
+                if ((piece.Mask & BottomRow) == 0):
+                    mask = (piece.Mask << V) & ~piece.Mask
+                    steps = 1
+        return
+
+    def Solved(self):
+        return self.m_Pieces[0].Position == Target
+
     def String(self):
         s = ['.'] * (BoardSize * (BoardSize + 1))
         for i in range(len(self.m_Pieces)):
@@ -142,5 +205,5 @@ if __name__ == "__main__":
     print("-= Board =-")
     print("{}".format(b.String2D() ))
     print("-= Moved B =-")
-    b.DoMove(1,1)
+    b.DoMove(1, 1)
     print("{}".format(b.String2D() ))
