@@ -130,41 +130,87 @@ class Board:
     def DoMove(self, i: int, steps: int):
         piece = self.m_Pieces[i]
         if (piece.Stride == H):
+            # Clears the current position from the horizontal mask
             self.m_HorzMask &= ~piece.Mask
             piece.Move(steps)
+            # Adds the new position to the horizontal mask
             self.m_HorzMask |= piece.Mask
         else:
             self.m_VertMask &= ~piece.Mask
             piece.Move(steps)
             self.m_VertMask |= piece.Mask 
 
-    def Moves(self):
-        boardMask = self.Mask
-        for i in range(len(self.m_Pieces)):
-            piece = self.m_Pieces[i]
-            if piece.Fixed:
-                continue
-            if piece.Stride == H:
-                # reverse / left (negative steps)
-                if ((piece.Mask & LeftColumn) == 0):
-                    mask = (piece.Mask >> H) & ~piece.Mask
-                    steps = -1
+    def Moves(self, i: int, steps: int = 1):
+        # The position of piecs are stored as bits, 
+        # it is compaired with the barrier (row/column) to confim the move being made is valid.
+        # Example format
+        #                                  11 Piece (B-car)
+        #     1000001000001000001000001000001 LeftColumn Barrier
+        #100110111100111101001111011111011011 Puzzle Board
+        #
+        boardMask = self.Mask()
+        piece = self.m_Pieces[i]
+        # boards incress difficulty by having unmovable blocks
+        if piece.Fixed():
+            return
+        if piece.Stride == H:
+            # reverse / left (negative steps)
+            if ((piece.Mask & LeftColumn) == 0) and steps < 0:
+                mask = (piece.Mask >> H) & ~piece.Mask
+                # check pieces are intersected on a position
+                if (boardMask & mask) == 0:
+                    # shift to potential position
+                    # mask >>= H
+                    # board bounds check
+                    if (mask & LeftColumn) != 0:
+                        return
+                    # update the board
+                    self.DoMove(i, steps)
+                    return
+            
+            # forward / right (positive steps)
+            if ((piece.Mask & RightColumn) == 0) and steps > 0:
+                mask = (piece.Mask << H) & ~piece.Mask
+                if (boardMask & mask) == 0:
+                    # mask <<= H
+                    if (mask & RightColumn) != 0:
+                        return
+                    self.DoMove(i, steps)
+                    return
                 
-                # forward / right (positive steps)
-                if ((piece.Mask & RightColumn) == 0):
-                    mask = (piece.Mask << H) & ~piece.Mask
-                    steps = 1
-            else:
-                # reverse / up (negative steps)
-                if ((piece.Mask & TopRow) == 0):
-                    mask = (piece.Mask >> V) & ~piece.Mask
-                    steps = -1
+            print("NOOP")
+        else:
+            # reverse / up (negative steps)
+            if ((piece.Mask & TopRow) == 0) and steps < 0:
+                mask = (piece.Mask >> V) & ~piece.Mask
+                if (boardMask & mask) == 0:
+                    # mask >>= V
+                    if (mask & TopRow) != 0:
+                        print("no up")
+                        return
+                    
+                    print("Up")
+                    self.DoMove(i, steps)
+                    return
 
-                # forward / down (positive steps)
-                if ((piece.Mask & BottomRow) == 0):
-                    mask = (piece.Mask << V) & ~piece.Mask
-                    steps = 1
-        return
+            # forward / down (positive steps)
+            if ((piece.Mask & BottomRow) == 0) and steps > 0:
+                mask = (piece.Mask << V) & ~piece.Mask
+                if (boardMask & mask) == 0:
+                    print("{0:36b}".format(piece.Mask))
+                    # mask <<= V - 1
+                    print("{0:36b}".format(mask))
+                    print("{0:36b}".format(BottomRow))
+                    # print("{0:36b}".format(boardMask))
+                    # if (mask & BottomRow) != 0:
+                    #     print("no down")x
+                    #     return
+                    
+                    print("Down")
+                    self.DoMove(i, steps)
+                    return
+        
+        # print("NOOP")
 
     def Solved(self):
         return self.m_Pieces[0].Position == Target
@@ -201,9 +247,25 @@ class Board:
     
 
 if __name__ == "__main__":
+    # See it in action
     b = Board(TEST_STRING)
-    print("-= Board =-")
+    print("-= Board String =-")
+    print(b.String())
+    
+    print('\n' + "-= Board 2D =-")
+    print("{}".format(b.String2D()))
+
+    print("Number of Pieces")
+    print(len(b.m_Pieces))
+    
+    print('\n' + "Lets move B-car and two No-OP moves to test")
+    # b.Moves(1, 1) # B
+    b.Moves(6, 1) # G
+    b.Moves(6, 1) # G
+    # b.Moves(6, -1) # G
+    # b.Moves(2,-1) # C 
+    print("\n" + "-= Updated Board2D =-")
     print("{}".format(b.String2D() ))
-    print("-= Moved B =-")
-    b.DoMove(1, 1)
-    print("{}".format(b.String2D() ))
+
+    print("Solved the board?")
+    print(b.Solved())
