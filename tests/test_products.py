@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.arithmetic import Products, ProductsConfig
+from reasoning_gym.arithmetic import ProductsConfig, ProductsDataset
 from reasoning_gym.arithmetic.products import ProductsCurriculum
 
 
@@ -18,8 +18,8 @@ def test_products_config_validation():
 def test_products_deterministic():
     """Test that dataset generates same items with same seed"""
     config = ProductsConfig(seed=42, size=10)
-    dataset1 = Products(config)
-    dataset2 = Products(config)
+    dataset1 = ProductsDataset(config)
+    dataset2 = ProductsDataset(config)
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
@@ -28,7 +28,7 @@ def test_products_deterministic():
 def test_products_items():
     """Test basic properties of generated items"""
     config = ProductsConfig(min_terms=2, max_terms=4, min_digits=1, max_digits=2, size=100, seed=42)
-    dataset = Products(config)
+    dataset = ProductsDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
@@ -57,7 +57,7 @@ def test_products_number_ranges():
         size=50,
         seed=42,
     )
-    dataset = Products(config)
+    dataset = ProductsDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
@@ -68,7 +68,7 @@ def test_products_number_ranges():
 
     # Test 1-digit numbers
     config = ProductsConfig(min_terms=2, max_terms=2, min_digits=1, max_digits=1, size=50, seed=42)
-    dataset = Products(config)
+    dataset = ProductsDataset(config)
     for i in range(len(dataset)):
         item = dataset[i]
         expression = item["metadata"]["expression"]
@@ -80,7 +80,7 @@ def test_products_number_ranges():
 def test_products_iteration():
     """Test that iteration respects dataset size"""
     config = ProductsConfig(min_terms=2, max_terms=2, size=5, seed=42)  # Small size for testing
-    dataset = Products(config)
+    dataset = ProductsDataset(config)
 
     # Test manual iteration
     items = []
@@ -101,18 +101,18 @@ def test_products_iteration():
 def test_products_scoring():
     """Test that scoring works correctly"""
     config = ProductsConfig(min_terms=2, max_terms=2, size=10, seed=42)
-    dataset = Products(config)
+    dataset = ProductsDataset(config)
 
     # Test scoring with exact match
     item = dataset[0]
     assert dataset.score_answer(item["answer"], item) == 1.0, "Exact match should score 1.0"
-    
+
     # Test scoring with wrong answer
     assert dataset.score_answer("wrong", item) == 0.01, "Wrong answer should score 0.01"
-    
+
     # Test scoring with partial match (answer contained in response)
     assert dataset.score_answer(f"The answer is {item['answer']}", item) == 0.5, "Partial match should score 0.5"
-    
+
     # Test scoring with None
     assert dataset.score_answer(None, item) == 0.0, "None should score 0.0"
 

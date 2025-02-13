@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.arithmetic import ChainSum, ChainSumConfig
+from reasoning_gym.arithmetic import ChainSumConfig, ChainSumDataset
 from reasoning_gym.arithmetic.chain_sum import ChainSumCurriculum
 
 
@@ -18,8 +18,8 @@ def test_chain_sum_config_validation():
 def test_chain_sum_deterministic():
     """Test that dataset generates same items with same seed"""
     config = ChainSumConfig(seed=42, size=10)
-    dataset1 = ChainSum(config)
-    dataset2 = ChainSum(config)
+    dataset1 = ChainSumDataset(config)
+    dataset2 = ChainSumDataset(config)
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
@@ -28,7 +28,7 @@ def test_chain_sum_deterministic():
 def test_chain_sum_items():
     """Test basic properties of generated items"""
     config = ChainSumConfig(min_terms=2, max_terms=4, min_digits=1, max_digits=2, size=100, seed=42)
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
@@ -57,7 +57,7 @@ def test_chain_sum_number_ranges():
         size=50,
         seed=42,
     )
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
@@ -71,7 +71,7 @@ def test_chain_sum_number_ranges():
 
     # Test 1-digit numbers
     config = ChainSumConfig(min_terms=2, max_terms=2, min_digits=1, max_digits=1, size=50, seed=42)
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
     for i in range(len(dataset)):
         item = dataset[i]
         expression = item["metadata"]["expression"]
@@ -88,7 +88,7 @@ def test_chain_sum_negation():
     config = ChainSumConfig(
         min_terms=2, max_terms=2, min_digits=2, max_digits=2, size=100, seed=42, allow_negation=True
     )
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     # Track if we see both positive and negative numbers
     has_positive = False
@@ -112,7 +112,7 @@ def test_chain_sum_negation():
 def test_chain_sum_iteration():
     """Test that iteration respects dataset size"""
     config = ChainSumConfig(min_terms=2, max_terms=2, size=5, seed=42)  # Small size for testing
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     # Test manual iteration
     items = []
