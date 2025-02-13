@@ -70,28 +70,32 @@ class PolynomialEquationsDataset(ProceduralDataset):
 
         Returns:
             A dict with:
-                - question: str (e.g. "Solve the polynomial equation: 2*x^2 - 3*x + 1 = 0")
-                - answer: str (the sorted list of real solutions, e.g. "[0.5, 1.0]")
+                - question: str (e.g. "Solve the polynomial equation: 2*x**2 - 3*x + 1 = 0")
+                - answer: str (the sorted list of real solutions, e.g. "0.5, 1.0")
                 - metadata: dict with details (polynomial_expr, degree, etc.)
         """
         rng = random.Random(self.seed + idx)
+        for _ in range(8):
+            # Get variable and generate polynomial equation in standard form
+            variable = self._get_variable(rng)
+            degree = rng.randint(self.config.min_degree, self.config.max_degree)
+            polynomial_expr = self._generate_polynomial_expr(rng, variable, degree)
+            polynomial_expanded = expand(polynomial_expr)
 
-        # Get variable and generate polynomial equation in standard form
-        variable = self._get_variable(rng)
-        degree = rng.randint(self.config.min_degree, self.config.max_degree)
-        polynomial_expr = self._generate_polynomial_expr(rng, variable, degree)
-        polynomial_expanded = expand(polynomial_expr)
+            # Solve the polynomial = 0
+            # We filter real solutions only
+            solutions = solve(Eq(polynomial_expanded, 0), variable, dict=False)
+            real_solutions = []
+            for sol in solutions:
+                if sol.is_real:
+                    # Evaluate symbolic solution to a floating approximation
+                    real_solutions.append(float(sol.evalf()))
 
-        # Solve the polynomial = 0
-        # We filter real solutions only
-        solutions = solve(Eq(polynomial_expanded, 0), variable, dict=False)
-        real_solutions = []
-        for sol in solutions:
-            if sol.is_real:
-                # Evaluate symbolic solution to a floating approximation
-                real_solutions.append(float(sol.evalf()))
-        real_solutions.sort()
-        answer_str = str(real_solutions)
+            if len(real_solutions) > 0:
+                real_solutions.sort()
+                break
+
+        answer_str = ", ".join(str(x) for x in real_solutions)
 
         return {
             "question": rng.choice(self._prompt_templates).format(
@@ -109,7 +113,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
 
     def _get_variable(self, rng: random.Random) -> str:
         """Get a random lowercase variable name"""
-        return rng.choice(string.ascii_lowercase)
+        return rng.choice("abcdefghklmnopqrstuvwxyz")  # remove ij to avoid confusion with complex numbers
 
     def _generate_polynomial_expr(self, rng: random.Random, variable: Symbol, degree: int):
         """
@@ -201,6 +205,9 @@ class PolynomialEquationsDataset(ProceduralDataset):
         """
         oracle_solutions = self._parse_score_to_list(entry["answer"])  # Parse oracle solutions
         predicted_solutions = self._parse_score_to_list(answer)  # Parse predicted solutions
+
+        if len(oracle_solutions) == 0 and len(predicted_solutions) == 0:
+            return 1.0
 
         total_reward = 0.0
         matched_solutions = 0
