@@ -62,6 +62,15 @@ class PolynomialEquationsDataset(ProceduralDataset):
             "Determine the real value(s) of {variable} that satisfies: {polynomial_expanded} = 0",
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
+        self.added_instruction = """
+        \n\n
+        In solving the equations, please abide by the following instruction:
+        ## 1. All answers should be inserted in square brackets. For example [], [-0.3773, 0.4005] etc.
+        ## 2. In cases where your answer is b = [2 + sqrt(4560)] / 172 and b = [2 - sqrt(4560)] / 172. Since b can be 2 numbers Resolve your answer like this instead, [-0.3773, 0.4005]
+        ## 3. If there are no real values of i that satisfy the equation, report your answer as empty square bracket, []
+        ## 4. If there are 2 answers, resolve the answers as floats and fill the 2 numbers in square bracket, if 3 answers, fill it with 3 answers.
+        ## 5. Resolve all numbers in square brackets as floats. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+        """
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
@@ -89,15 +98,13 @@ class PolynomialEquationsDataset(ProceduralDataset):
         for sol in solutions:
             if sol.is_real:
                 # Evaluate symbolic solution to a floating approximation
-                real_solutions.append(float(sol.evalf()))
+                real_solutions.append(round(float(sol.evalf()), 4))
         real_solutions.sort()
         answer_str = str(real_solutions)
+        question = rng.choice(self._prompt_templates).format(variable=variable, polynomial_expanded=polynomial_expanded) + self.added_instruction
 
         return {
-            "question": rng.choice(self._prompt_templates).format(
-                variable=variable,
-                polynomial_expanded=polynomial_expanded,
-            ),
+            "question": question,
             "answer": answer_str,
             "metadata": {
                 "polynomial_expr": str(polynomial_expanded),

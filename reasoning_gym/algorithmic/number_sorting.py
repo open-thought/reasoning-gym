@@ -34,6 +34,12 @@ class NumberSortingDataset(ProceduralDataset):
 
     def __init__(self, config: NumberSortingConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
+        self.added_instruction = """
+        \n\n
+        Please follow the instruction below:
+        # 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
+        # 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
+        """
 
     def _format_number(self, num: float, decimals: int) -> str:
         """Format number with specified decimal places"""
@@ -78,9 +84,10 @@ class NumberSortingDataset(ProceduralDataset):
         is_ascending = rng.choice([True, False])
         direction = "ascending" if is_ascending else "descending"
         answer = asc_answer if is_ascending else desc_answer
+        question = f"Sort these numbers in {direction} order: {', '.join(number_strs)}" + self.added_instruction
 
         return {
-            "question": f"Sort these numbers in {direction} order: {', '.join(number_strs)}",
+            "question": question,
             "answer": str(answer),
             "metadata": {"original_numbers": number_strs, "direction": direction, "sorted_numbers": answer},
         }

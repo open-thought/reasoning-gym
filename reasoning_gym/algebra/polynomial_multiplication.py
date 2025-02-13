@@ -61,6 +61,12 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
             "Simplify this expression: {polynomial_expr}",
             "Calculate the following: {polynomial_expr}",
         ]
+        self.added_instruction = """
+        \n\n
+        In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+        ## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+        ## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers. 
+        """
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
@@ -79,11 +85,10 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
 
         polynomial_expr = sp.prod(polynomials)
         product = sp.expand(polynomial_expr)
+        question = rng.choice(self._prompt_templates).format(polynomial_expr=polynomial_expr) + self.added_instruction
 
         return {
-            "question": rng.choice(self._prompt_templates).format(
-                polynomial_expr=polynomial_expr,
-            ),
+            "question": question,
             "answer": product,
             "metadata": {
                 "polynomial_expr": str(polynomial_expr),
