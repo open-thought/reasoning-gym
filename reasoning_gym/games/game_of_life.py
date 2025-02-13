@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass
 from random import Random
 from typing import Dict, List, Optional, Tuple
@@ -31,7 +32,7 @@ class GameOfLifeDataset(ProceduralDataset):
 
     def __init__(self, config: GameOfLifeConfig):
         self._prompt_templates = [
-            "What will this Game of Life board look like after {simulation_steps} steps of simulation?\n\n{board}"
+            "What will this Game of Life board look like after {simulation_steps} steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])\n\n{board}."
         ]
 
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -63,7 +64,9 @@ class GameOfLifeDataset(ProceduralDataset):
         )
 
         board_str = str(board[0])
-        result_str = str(evolved[-1])
+        final_step = evolved[-1]
+        final_step_list = final_step.tolist()
+        result_str = json.dumps(final_step_list, separators=(",", ":"))
 
         return {
             "question": rng.choice(self._prompt_templates).format(
@@ -93,10 +96,17 @@ class GameOfLifeDataset(ProceduralDataset):
 
         if answer == None:
             return 0.0
-        if answer.replace("\n", "") != entry["answer"].replace("\n", ""):
+
+        try:
+            ans_arr = json.loads(answer)
+            correct_arr = json.loads(entry["answer"])
+
+            if correct_arr != ans_arr:
+                return 0.01
+            else:
+                return 1.0  # Yay
+        except Exception as e:
             return 0.01
-        else:
-            return 1.0  # Yay
 
 
 register_dataset("game_of_life", GameOfLifeDataset, GameOfLifeConfig)
