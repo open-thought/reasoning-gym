@@ -31,6 +31,8 @@ __all__ = [
     "LCMDataset",
     "LegCountingConfig",
     "LegCountingDataset",
+    "PowerFunctionConfig",
+    "PowerFunctionDataset",
     "PrimeFactorizationConfig",
     "PrimeFactorizationDataset",
     "GSMSymbolicDatasetConfig",
