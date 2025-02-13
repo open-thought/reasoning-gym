@@ -138,3 +138,13 @@ def test_polynomial_solutions_score_answer(oracle_answer, predicted_answer, expe
 
     actual_reward = ds.score_answer(predicted_answer, {"answer": oracle_answer})
     assert actual_reward == pytest.approx(expected_reward, rel=1e-3)  # Fuzzy comparison for floats
+
+
+def test_polynomial_perfect_score():
+    """Test that scoring an item's own answer gives a perfect score"""
+    cfg = PolynomialEquationsConfig(seed=42, size=10)
+    ds = PolynomialEquationsDataset(cfg)
+    
+    for item in ds:
+        score = ds.score_answer(item["answer"], item)
+        assert score == pytest.approx(1.0, rel=1e-6)
