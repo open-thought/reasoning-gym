@@ -77,19 +77,17 @@ class FutoshikiDataset(ProceduralDataset):
         }
 
     def _puzzle_to_string(
-        self,
-        puzzle_grid: List[List[int]], 
-        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str]
+        self, puzzle_grid: List[List[int]], constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str]
     ) -> str:
         """
         Formats a Futoshiki puzzle grid as a string with constraints.
         Constraints are represented as '<', '>', '\u2227', or '\u2228' between adjacent cells.
         """
         n = len(puzzle_grid)
-        
+
         def cell_str(val: int) -> str:
             return str(val) if val != 0 else "_"
-        
+
         # Helper to look up constraints between two adjacent cells
         # Ensures the first tuple is always the “lesser” in row-major order
         # If order is reversed in the dict, invert the constraint
@@ -99,13 +97,13 @@ class FutoshikiDataset(ProceduralDataset):
             if (r1, c1) < (r2, c2):
                 key = ((r1, c1), (r2, c2))
                 sign = constraints.get(key)
-                if sign == ">":      # first is bigger
-                    if r1 == r2:     # horizontal
+                if sign == ">":  # first is bigger
+                    if r1 == r2:  # horizontal
                         return ">"
-                    else:            # vertical
+                    else:  # vertical
                         return "\u2228"
-                elif sign == "<":    # first is smaller
-                    if r1 == r2:     # horizontal
+                elif sign == "<":  # first is smaller
+                    if r1 == r2:  # horizontal
                         return "<"
                     else:
                         return "\u2227"
@@ -114,7 +112,7 @@ class FutoshikiDataset(ProceduralDataset):
                 key = ((r2, c2), (r1, c1))
                 sign = constraints.get(key)
                 if sign == ">":
-                    if r1 == r2: 
+                    if r1 == r2:
                         return "<"
                     else:
                         return "\u2227"
@@ -124,9 +122,9 @@ class FutoshikiDataset(ProceduralDataset):
                     else:
                         return "\u2228"
             return None
-        
+
         lines = []
-        
+
         for r in range(n):
             # Build the row string with horizontal constraints
             row_cells = []
@@ -136,7 +134,7 @@ class FutoshikiDataset(ProceduralDataset):
                     hc = get_constraint(r, c, r, c + 1)
                     row_cells.append(hc if hc else " ")
             lines.append(" ".join(row_cells))
-            
+
             # If not the last row, build the line of vertical constraints
             if r < n - 1:
                 vert_cells = []
@@ -150,7 +148,7 @@ class FutoshikiDataset(ProceduralDataset):
                     if c < n - 1:
                         vert_cells.append(" ")
                 lines.append(" ".join(vert_cells))
-        
+
         return "\n".join(lines)
 
     def _solve_logical(
@@ -167,10 +165,7 @@ class FutoshikiDataset(ProceduralDataset):
 
         # Starting point all numbers are candidates for all unfilled squares
         candidates: List[List[Set[int]]] = [
-            [
-                set(range(1, len(grid) + 1)) if grid[r][c] == 0 else {grid[r][c]}
-                for c in range(len(grid))
-            ]
+            [set(range(1, len(grid) + 1)) if grid[r][c] == 0 else {grid[r][c]} for c in range(len(grid))]
             for r in range(len(grid))
         ]
 
@@ -416,7 +411,7 @@ class FutoshikiDataset(ProceduralDataset):
                 if grid[r][c] == 0:
                     empty_cell = (r, c)
                     break
-            if empty_cell: 
+            if empty_cell:
                 break
 
         # If no empty cell, solution is complete
@@ -443,7 +438,7 @@ class FutoshikiDataset(ProceduralDataset):
         row: int,
         col: int,
         val: int,
-        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str]
+        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str],
     ) -> bool:
         """Check row, col, and inequality constraints for placing val in grid[row][col]."""
         size = len(grid)
@@ -512,7 +507,7 @@ class FutoshikiDataset(ProceduralDataset):
 
     def _generate_random_constraints(
         self, solution: List[List[int]], difficulty: int, rng: Random
-    ) -> Dict[Tuple[Tuple[int, int], Tuple[int,int]], str]:
+    ) -> Dict[Tuple[Tuple[int, int], Tuple[int, int]], str]:
         """
         Randomly add inequality constraints that match the solution.
         We only add constraints for adjacent cells (horizontal or vertical).
@@ -528,7 +523,7 @@ class FutoshikiDataset(ProceduralDataset):
                 # Horizontal neighbor
                 if c < size - 1:
                     if rng.random() < base_prob:
-                        if solution[r][c] < solution[r][c+1]:
+                        if solution[r][c] < solution[r][c + 1]:
                             constraints[((r, c), (r, c + 1))] = "<"
                         else:
                             constraints[((r, c), (r, c + 1))] = ">"
@@ -586,7 +581,7 @@ class FutoshikiDataset(ProceduralDataset):
             return sum(g[r][c] != 0 for r in range(size) for c in range(size))
 
         def _try_remove():
-            for (r,c) in coords:
+            for r, c in coords:
                 if _count_filled_cells(grid) <= target_filled:
                     break  # Removal target hit
 
