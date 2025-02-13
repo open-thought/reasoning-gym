@@ -98,6 +98,25 @@ def test_products_iteration():
     assert first_items == second_items, "Multiple iterations should yield same items"
 
 
+def test_products_scoring():
+    """Test that scoring works correctly"""
+    config = ProductsConfig(min_terms=2, max_terms=2, size=10, seed=42)
+    dataset = Products(config)
+
+    # Test scoring with exact match
+    item = dataset[0]
+    assert dataset.score_answer(item["answer"], item) == 1.0, "Exact match should score 1.0"
+    
+    # Test scoring with wrong answer
+    assert dataset.score_answer("wrong", item) == 0.01, "Wrong answer should score 0.01"
+    
+    # Test scoring with partial match (answer contained in response)
+    assert dataset.score_answer(f"The answer is {item['answer']}", item) == 0.5, "Partial match should score 0.5"
+    
+    # Test scoring with None
+    assert dataset.score_answer(None, item) == 0.0, "None should score 0.0"
+
+
 def test_products_curriculum():
     curriculum = ProductsCurriculum()
 
