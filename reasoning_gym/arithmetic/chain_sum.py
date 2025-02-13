@@ -2,6 +2,7 @@ import random
 from dataclasses import dataclass
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -31,7 +32,7 @@ class ChainSumConfig:
             assert 10 ** (self.min_digits - 1) >= 1, "min_digits would result in invalid number range"
 
 
-class ChainSum(ProceduralDataset):
+class ChainSumDataset(ProceduralDataset):
     """Generates simple arithmetic tasks using only + and - operators"""
 
     def __init__(self, config: ChainSumConfig):
@@ -50,23 +51,25 @@ class ChainSum(ProceduralDataset):
                 - metadata: dict with generation parameters
         """
         # Create deterministic RNG from base seed and idx
-        item_rng = random.Random(self.seed + idx)
+        rng = random.Random(self.seed + idx)
 
-        num_terms = item_rng.randint(self.config.min_terms, self.config.max_terms)
-        num_digits = item_rng.randint(self.config.min_digits, self.config.max_digits)
+        num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
+        num_digits = rng.randint(self.config.min_digits, self.config.max_digits)
 
         # Calculate value ranges based on number of digits
         min_value = 0 if num_digits == 1 else 10 ** (num_digits - 1)  # Special case for 1 digit
         max_value = (10**num_digits) - 1  # e.g., 999 for 3 digits
 
-        expression, result = self._generate_task(item_rng, num_terms, min_value, max_value)
+        expression, result = self._generate_task(rng, num_terms, min_value, max_value)
 
         return {
             "question": f"{expression} =",
             "answer": str(result),
             "metadata": {
-                "num_terms": num_terms,
-                "num_digits": num_digits,
+                "difficulty": {
+                    "num_terms": num_terms,
+                    "num_digits": num_digits,
+                },
                 "expression": expression,
             },
         }
@@ -110,5 +113,34 @@ class ChainSum(ProceduralDataset):
         return expression, result
 
 
+class ChainSumCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(ChainSumCurriculum.__name__, ChainSumConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_terms",
+                levels=[2, 3, 4, 5],
+                default_level=0,  # Start with 2 terms
+                description="Maximum number of terms in the expression",
+                attr_type=AttributeType.APPEND,
+                min_value=2,  # Ensure at least 2 terms
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+            ),
+            RangeAttributeDefinition(
+                name="num_digits",
+                levels=[1, 2, 4, 10],
+                default_level=0,  # Start with 1-digit numbers
+                description="Number of digits in each operand",
+                attr_type=AttributeType.APPEND,
+                min_value=1,  # Ensure numbers are at least 1 digit
+                lower_field_name="min_digits",
+                upper_field_name="max_digits",
+            ),
+        )
+
+
 # Register the dataset
-register_dataset("chain_sum", ChainSum, ChainSumConfig)
+register_dataset("chain_sum", ChainSumDataset, ChainSumConfig)

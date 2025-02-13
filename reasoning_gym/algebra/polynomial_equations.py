@@ -1,7 +1,8 @@
+import math
 import random
 import string
 from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from sympy import Eq, Symbol, expand, solve
 
@@ -26,6 +27,9 @@ class PolynomialEquationsConfig:
     )  # Allowed operators between terms, Avoid adding '*' or '/' because they will affect the degree
     seed: Optional[int] = None
     size: int = 500
+    # reward function hyperparameters
+    penalty_missing_factor = 0.1
+    penalty_extra_factor = 0.05
 
     def validate(self) -> None:
         """Validate configuration parameters."""
@@ -55,7 +59,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
         self._prompt_templates = [
             "Find the real value(s) of {variable} in the equation: {polynomial_expanded} = 0",
             "Solve for real {variable}: {polynomial_expanded} = 0",
-            "Determine the real value(s) of {variable} tha satisfies: {polynomial_expanded} = 0",
+            "Determine the real value(s) of {variable} that satisfies: {polynomial_expanded} = 0",
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -66,28 +70,32 @@ class PolynomialEquationsDataset(ProceduralDataset):
 
         Returns:
             A dict with:
-                - question: str (e.g. "Solve the polynomial equation: 2*x^2 - 3*x + 1 = 0")
-                - answer: str (the sorted list of real solutions, e.g. "[0.5, 1.0]")
+                - question: str (e.g. "Solve the polynomial equation: 2*x**2 - 3*x + 1 = 0")
+                - answer: str (the sorted list of real solutions, e.g. "0.5, 1.0")
                 - metadata: dict with details (polynomial_expr, degree, etc.)
         """
         rng = random.Random(self.seed + idx)
+        for _ in range(8):
+            # Get variable and generate polynomial equation in standard form
+            variable = self._get_variable(rng)
+            degree = rng.randint(self.config.min_degree, self.config.max_degree)
+            polynomial_expr = self._generate_polynomial_expr(rng, variable, degree)
+            polynomial_expanded = expand(polynomial_expr)
 
-        # Get variable and generate polynomial equation in standard form
-        variable = self._get_variable(rng)
-        degree = rng.randint(self.config.min_degree, self.config.max_degree)
-        polynomial_expr = self._generate_polynomial_expr(rng, variable, degree)
-        polynomial_expanded = expand(polynomial_expr)
+            # Solve the polynomial = 0
+            # We filter real solutions only
+            solutions = solve(Eq(polynomial_expanded, 0), variable, dict=False)
+            real_solutions = []
+            for sol in solutions:
+                if sol.is_real:
+                    # Evaluate symbolic solution to a floating approximation
+                    real_solutions.append(float(sol.evalf()))
 
-        # Solve the polynomial = 0
-        # We filter real solutions only
-        solutions = solve(Eq(polynomial_expanded, 0), variable, dict=False)
-        real_solutions = []
-        for sol in solutions:
-            if sol.is_real:
-                # Evaluate symbolic solution to a floating approximation
-                real_solutions.append(float(sol.evalf()))
-        real_solutions.sort()
-        answer_str = str(real_solutions)
+            if len(real_solutions) > 0:
+                real_solutions.sort()
+                break
+
+        answer_str = ", ".join(str(x) for x in real_solutions)
 
         return {
             "question": rng.choice(self._prompt_templates).format(
@@ -105,7 +113,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
 
     def _get_variable(self, rng: random.Random) -> str:
         """Get a random lowercase variable name"""
-        return rng.choice(string.ascii_lowercase)
+        return rng.choice("abcdefghklmnopqrstuvwxyz")  # remove ij to avoid confusion with complex numbers
 
     def _generate_polynomial_expr(self, rng: random.Random, variable: Symbol, degree: int):
         """
@@ -145,6 +153,105 @@ class PolynomialEquationsDataset(ProceduralDataset):
             polynomial_expr += term_expr
 
         return polynomial_expr
+
+    def _parse_score_to_list(self, answer: Optional[str]) -> List[float]:
+        """Parses a comma-separated string of scores into a sorted list of floats.
+
+        This method takes a string containing comma-separated numeric values,
+        attempts to convert each value to a float, and returns a sorted list of these floats.
+        Any values that cannot be converted to a float are ignored.
+        Handles empty strings gracefully.
+
+        Args:
+            answer: An optional string containing comma-separated numeric values.
+            Can be None or an empty string.
+        Returns:
+            A sorted list of floats parsed from the input string.
+            Returns an empty list if the input is None, empty, or contains no valid numeric values.
+        """
+
+        if answer is None or len(answer) == 0:  # Handle None or empty input
+            return []
+
+        output_float_vals = []
+        for output_val in answer.split(","):
+            try:
+                # Convert to float, strip whitespace
+                output_float_vals.append(float(output_val.strip()))
+            except ValueError:
+                # Ignore values that cannot be converted to float
+                continue
+
+        return sorted(output_float_vals)  # Return the sorted list of floats
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        """
+        Score an answer based on its numerical distance to oracle solutions using exponential decay.
+        This function compares a predicted answer (or list of answers) to a set of oracle solutions
+        (also a list of numbers). It calculates a reward based on how close the predicted solutions
+        are to the oracle solutions, using an exponential decay function.  It also applies penalties
+        for missing or extra predicted solutions. The implementation is a greedy algorithm where we
+        find the closest matching oracle solution for a given predicted solution and only allow an
+        oracle solution to match once.
+
+        Args:
+            answer: The predicted answer (or a string that can be parsed into a list of numbers).
+                    May be None.
+            entry: A dictionary containing the oracle solution(s) under the key "answer"
+                (which can be a string that can be parsed into a list of numbers).
+
+        Returns:
+            A float representing the final score. The score is non-negative.
+        """
+        oracle_solutions = self._parse_score_to_list(entry["answer"])  # Parse oracle solutions
+        predicted_solutions = self._parse_score_to_list(answer)  # Parse predicted solutions
+
+        if len(oracle_solutions) == 0 and len(predicted_solutions) == 0:
+            return 1.0
+
+        total_reward = 0.0
+        matched_solutions = 0
+        extra_solutions = 0
+        missing_solutions = 0
+
+        for predicted_solution in predicted_solutions:
+
+            # find the closest matching solution from the oracle solutions.
+            # this is a greedy approach to computing the score
+            matched_distance = float("inf")
+            matched_distance_index = None
+            for oracle_solution_index, oracle_solution in enumerate(oracle_solutions):
+                if matched_distance > abs(predicted_solution - oracle_solution):
+                    matched_distance = abs(predicted_solution - oracle_solution)
+                    matched_distance_index = oracle_solution_index
+
+            if matched_distance_index is not None:
+                matched_solutions += 1
+                # Remove matched oracle solution
+                oracle_solutions.pop(matched_distance_index)
+                # Exponential decay reward
+                total_reward += math.exp(-matched_distance)
+            else:
+                # Extra predicted solution
+                extra_solutions += 1
+
+        # Count remaining oracle solutions as missing
+        for oracle_solution in oracle_solutions:
+            missing_solutions += 1
+
+        # Calculate penalty for either missing or extra solutions
+        penalty = missing_solutions * self.config.penalty_missing_factor
+        penalty += extra_solutions * self.config.penalty_extra_factor
+
+        if matched_solutions > 0:
+            # normalize the rewards that we found matching solutions for
+            # so that the value is bounded between 0 and 1
+            total_reward = total_reward / matched_solutions
+
+        # Final reward capped at 0
+        final_reward = max(0, total_reward - penalty)
+
+        return final_reward
 
 
 register_dataset("polynomial_equations", PolynomialEquationsDataset, PolynomialEquationsConfig)

@@ -2,7 +2,7 @@ import random
 
 import pytest
 
-from reasoning_gym.cognition.arc_1d_tasks import (
+from reasoning_gym.arc.arc_1d_tasks import (
     task_block_and_noise_remove,
     task_block_and_noise_remove_inside,
     task_block_scale_to_dot,

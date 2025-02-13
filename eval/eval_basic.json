@@ -1,0 +1,31 @@
+[
+    {
+      "name": "letter_counting",
+      "min_words": 5,
+      "max_words": 15,
+      "size": 50,
+      "seed": 42
+    },
+    {
+      "name": "propositional_logic",
+      "size": 50,
+      "seed": 42
+    },
+    {
+      "name": "leg_counting",
+      "min_animals": 3,
+      "max_animals": 8,
+      "size": 50,
+      "seed": 42
+    },
+    {
+        "name": "group_anagrams",
+        "size": 50,
+        "seed": 42
+    },
+    {
+        "name": "spell_backward",
+        "size": 50,
+        "seed": 42
+    }
+  ]

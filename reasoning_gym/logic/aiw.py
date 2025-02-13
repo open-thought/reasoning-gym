@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from random import Random
 from string import Template
 from typing import List, Optional
@@ -7,7 +7,7 @@ from typing import List, Optional
 from ..factory import ProceduralDataset, register_dataset
 
 
-class TaskType(Enum):
+class TaskType(StrEnum):
     """Defines the type of task for the Alice in Wonderland dataset."""
 
     SIBLINGS = "siblings"

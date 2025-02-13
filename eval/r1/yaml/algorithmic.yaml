@@ -1,0 +1,24 @@
+model: deepseek/deepseek-r1
+category: algorithmic
+datasets:
+  - binary_matrix
+  - caesar_cipher
+  - group_anagrams
+  - isomorphic_strings
+  - letter_counting
+  - letter_jumble
+  - number_filtering
+  - number_sorting
+  - palindrome
+  - ransom_note
+  - rotate_matrix
+  - sentence_reordering
+  - spell_backward
+  - spiral_matrix
+  - word_ladder
+  - word_sequence_reversal
+  - word_sorting
+eval_dir: eval/r1
+dataset_size: 50
+dataset_seed: 42
+developer_role: system

@@ -1,6 +1,7 @@
 import pytest
 
-from reasoning_gym.arithmetic import ChainSum, ChainSumConfig
+from reasoning_gym.arithmetic import ChainSumConfig, ChainSumDataset
+from reasoning_gym.arithmetic.chain_sum import ChainSumCurriculum
 
 
 def test_chain_sum_config_validation():
@@ -17,8 +18,8 @@ def test_chain_sum_config_validation():
 def test_chain_sum_deterministic():
     """Test that dataset generates same items with same seed"""
     config = ChainSumConfig(seed=42, size=10)
-    dataset1 = ChainSum(config)
-    dataset2 = ChainSum(config)
+    dataset1 = ChainSumDataset(config)
+    dataset2 = ChainSumDataset(config)
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
@@ -27,7 +28,7 @@ def test_chain_sum_deterministic():
 def test_chain_sum_items():
     """Test basic properties of generated items"""
     config = ChainSumConfig(min_terms=2, max_terms=4, min_digits=1, max_digits=2, size=100, seed=42)
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
@@ -56,7 +57,7 @@ def test_chain_sum_number_ranges():
         size=50,
         seed=42,
     )
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
@@ -70,7 +71,7 @@ def test_chain_sum_number_ranges():
 
     # Test 1-digit numbers
     config = ChainSumConfig(min_terms=2, max_terms=2, min_digits=1, max_digits=1, size=50, seed=42)
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
     for i in range(len(dataset)):
         item = dataset[i]
         expression = item["metadata"]["expression"]
@@ -87,7 +88,7 @@ def test_chain_sum_negation():
     config = ChainSumConfig(
         min_terms=2, max_terms=2, min_digits=2, max_digits=2, size=100, seed=42, allow_negation=True
     )
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     # Track if we see both positive and negative numbers
     has_positive = False
@@ -111,7 +112,7 @@ def test_chain_sum_negation():
 def test_chain_sum_iteration():
     """Test that iteration respects dataset size"""
     config = ChainSumConfig(min_terms=2, max_terms=2, size=5, seed=42)  # Small size for testing
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
 
     # Test manual iteration
     items = []
@@ -127,3 +128,30 @@ def test_chain_sum_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items, "Multiple iterations should yield same items"
+
+
+def test_chain_sum_curriculum():
+    curriculum = ChainSumCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: ChainSumConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_digits == 1 and base_cfg.max_digits == 1
+    assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
+
+    # test incrementing attribute levels for num_terms & num_digits attributes
+    curriculum.increment_attr_level("num_terms")
+    curriculum.increment_attr_level("num_digits")
+
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_digits == 1 and increased_cfg.max_digits == 2
+    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3
+
+    # test decrementing attribute level for num_digits again
+    curriculum.decrement_attr_level("num_digits")
+
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_digits == 1 and partially_decreased_cfg.max_digits == 1
+    assert partially_decreased_cfg.min_terms == 2 and partially_decreased_cfg.max_terms == 3

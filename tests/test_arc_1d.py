@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.cognition import Arc1DConfig, Arc1DDataset
+from reasoning_gym.arc import Arc1DConfig, Arc1DDataset
 
 
 def test_arc_1d_config_validation():

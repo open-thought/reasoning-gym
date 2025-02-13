@@ -72,21 +72,20 @@ def test_score_answer():
 
     for item in dataset:
         correct_answer = item["answer"]
-        metadata = item["metadata"]
 
         # Correct answer should score 1.0
-        assert dataset.score_answer(correct_answer, metadata) == 1.0
+        assert dataset.score_answer(correct_answer, entry=item) == 1.0
 
         # Incorrect answer (palindrome, but not correct one) should score 0.05
         pal_letters = "racecar" if "racecar" != correct_answer else "aba"
-        assert dataset.score_answer(pal_letters, metadata) == 0.05
+        assert dataset.score_answer(pal_letters, entry=item) == 0.05
 
         # Incorrect answer (not palindrome) should score 0.02
         wrong_letters = "abcd" if "abcd" != correct_answer else "efgh"
-        assert dataset.score_answer(wrong_letters, metadata) == 0.02
+        assert dataset.score_answer(wrong_letters, entry=item) == 0.02
 
         # Empty String input should score 0.01
-        assert dataset.score_answer("", metadata) == 0.01
+        assert dataset.score_answer("", entry=item) == 0.01
 
         # Empty input should score 0.0
-        assert dataset.score_answer(None, metadata) == 0.0
+        assert dataset.score_answer(None, entry=item) == 0.0

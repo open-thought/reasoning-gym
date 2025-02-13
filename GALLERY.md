@@ -2,27 +2,41 @@
 This gallery shows examples from all available datasets using their default configurations.
 
 ## Available Datasets
+- [ab](#ab)
 - [advanced_geometry](#advanced_geometry)
 - [aiw](#aiw)
 - [arc_1d](#arc_1d)
+- [arc_agi](#arc_agi)
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
+- [binary_matrix](#binary_matrix)
 - [caesar_cipher](#caesar_cipher)
 - [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [color_cube_rotation](#color_cube_rotation)
+- [complex_arithmetic](#complex_arithmetic)
+- [count_bits](#count_bits)
+- [count_primes](#count_primes)
 - [countdown](#countdown)
+- [course_schedule](#course_schedule)
+- [dice](#dice)
 - [family_relationships](#family_relationships)
 - [figlet_font](#figlet_font)
 - [fraction_simplification](#fraction_simplification)
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
+- [group_anagrams](#group_anagrams)
+- [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
+- [isomorphic_strings](#isomorphic_strings)
+- [knight_swap](#knight_swap)
+- [largest_island](#largest_island)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
 - [letter_counting](#letter_counting)
 - [letter_jumble](#letter_jumble)
+- [manipulate_matrix](#manipulate_matrix)
 - [maze](#maze)
 - [mini_sudoku](#mini_sudoku)
 - [n_queens](#n_queens)
@@ -31,25 +45,160 @@ This gallery shows examples from all available datasets using their default conf
 - [number_sorting](#number_sorting)
 - [palindrome](#palindrome)
 - [polynomial_equations](#polynomial_equations)
+- [polynomial_multiplication](#polynomial_multiplication)
+- [power_function](#power_function)
 - [prime_factorization](#prime_factorization)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
+- [ransom_note](#ransom_note)
+- [rearc](#rearc)
+- [rectangle_count](#rectangle_count)
+- [rotate_matrix](#rotate_matrix)
 - [rubiks_cube](#rubiks_cube)
+- [self_reference](#self_reference)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
 - [simple_geometry](#simple_geometry)
 - [simple_integration](#simple_integration)
+- [sokoban](#sokoban)
 - [spell_backward](#spell_backward)
+- [spiral_matrix](#spiral_matrix)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
 - [time_intervals](#time_intervals)
 - [tower_of_hanoi](#tower_of_hanoi)
+- [tsumego](#tsumego)
 - [word_ladder](#word_ladder)
 - [word_sequence_reversal](#word_sequence_reversal)
 - [word_sorting](#word_sorting)
 - [zebra_puzzles](#zebra_puzzles)
 
 ## Dataset Examples
+### ab
+Generates A::B tasks, as described by @VictorTaelin [here](https://x.com/VictorTaelin/status/1776096481704804789)
+
+Default configuration:
+```python
+seed = 42
+size = 500
+length = 10
+```
+
+Example tasks:
+````
+Example 1:
+Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
+
+An A::B program is a sequence of tokens. Example:
+
+    B# A# #B #A B#
+
+To *compute* a program, we must rewrite neighbor tokens, using the rules:
+
+    A# #A ... becomes ... nothing
+    A# #B ... becomes ... #B A#
+    B# #A ... becomes ... #A B#
+    B# #B ... becomes ... nothing
+
+In other words, whenever two neighbor tokens have their '#' facing each-other,
+they must be rewritten according to the corresponding rule. For example, the
+first example shown here is computed as:
+
+    B# A# #B #A B# =
+    B# #B A# #A B# =
+    A# #A B# =
+    B#
+
+The steps were:
+1. We replaced `A# #B` by `#B A#`.
+2. We replaced `B# #B` by nothing.
+3. We replaced `A# #A` by nothing.
+The final result was just `B#`.
+
+Now, consider the following program:
+
+A# A# #A B# B# B# A# A# #B A#
+
+Return the final state of the program.
+
+Answer: A# B# B# A# A# A#
+
+Example 2:
+Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
+
+An A::B program is a sequence of tokens. Example:
+
+    B# A# #B #A B#
+
+To *compute* a program, we must rewrite neighbor tokens, using the rules:
+
+    A# #A ... becomes ... nothing
+    A# #B ... becomes ... #B A#
+    B# #A ... becomes ... #A B#
+    B# #B ... becomes ... nothing
+
+In other words, whenever two neighbor tokens have their '#' facing each-other,
+they must be rewritten according to the corresponding rule. For example, the
+first example shown here is computed as:
+
+    B# A# #B #A B# =
+    B# #B A# #A B# =
+    A# #A B# =
+    B#
+
+The steps were:
+1. We replaced `A# #B` by `#B A#`.
+2. We replaced `B# #B` by nothing.
+3. We replaced `A# #A` by nothing.
+The final result was just `B#`.
+
+Now, consider the following program:
+
+A# #A B# #B #A A# #B #B A# #B
+
+Return the final state of the program.
+
+Answer: #A #B #B #B A# A#
+
+Example 3:
+Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
+
+An A::B program is a sequence of tokens. Example:
+
+    B# A# #B #A B#
+
+To *compute* a program, we must rewrite neighbor tokens, using the rules:
+
+    A# #A ... becomes ... nothing
+    A# #B ... becomes ... #B A#
+    B# #A ... becomes ... #A B#
+    B# #B ... becomes ... nothing
+
+In other words, whenever two neighbor tokens have their '#' facing each-other,
+they must be rewritten according to the corresponding rule. For example, the
+first example shown here is computed as:
+
+    B# A# #B #A B# =
+    B# #B A# #A B# =
+    A# #A B# =
+    B#
+
+The steps were:
+1. We replaced `A# #B` by `#B A#`.
+2. We replaced `B# #B` by nothing.
+3. We replaced `A# #A` by nothing.
+The final result was just `B#`.
+
+Now, consider the following program:
+
+#B A# B# #B B# #A A# B# A# A#
+
+Return the final state of the program.
+
+Answer: #B B# A# B# A# A#
+
+````
+
 ### advanced_geometry
 A dataset for advanced geometry tasks using coordinate geometry.
 
@@ -216,6 +365,421 @@ Metadata: {'task_name': 'two_points_and_fill_inv', 'size': 26, 'train_examples':
 
 ````
 
+### arc_agi
+Default configuration:
+```python
+use_train = True
+use_eval = True
+board_format_opts = BoardFormattingOptions(alphabet=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], col_delimiter=' ', row_delimiter='\n', array_brackets=False)
+rotations = ['90', '180', '270']
+mirrors = ['horizontal', 'vertical', 'diagonal', 'counterdiagonal']
+use_color_permutation = True
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 6 3 6 7 7 7 7 7 7 7 7 7 7
+7 6 6 3 7 6 6 6 7 7 6 3 7 7
+7 7 7 7 7 6 3 6 7 7 6 6 7 7
+7 7 7 7 7 6 6 3 7 7 7 7 7 7
+7 7 7 7 7 3 6 6 7 7 7 6 6 6
+7 7 7 7 7 7 7 7 7 7 7 6 3 6
+7 6 6 3 7 7 7 7 7 7 7 6 6 6
+7 3 6 6 7 7 7 7 7 7 7 7 7 7
+7 6 6 6 7 7 7 6 6 6 7 7 7 7
+7 7 7 7 7 7 7 6 6 6 7 7 7 7
+7 7 7 7 7 7 7 3 6 6 7 7 7 7
+7 7 7 7 7 7 7 6 6 6 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+Output:
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 6 3 7 7
+7 7 7 7 7 7 7 7 7 7 6 6 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 6 6 6
+7 7 7 7 7 7 7 7 7 7 7 6 3 6
+7 7 7 7 7 7 7 7 7 7 7 6 6 6
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 6 6 6 7 7 7 7
+7 7 7 7 7 7 7 6 6 6 7 7 7 7
+7 7 7 7 7 7 7 3 6 6 7 7 7 7
+7 7 7 7 7 7 7 6 6 6 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+
+Example 2:
+
+Input:
+7 7 7 7 7 6 3 6 7 7 7 6 6 7
+7 7 7 7 7 6 6 6 7 7 7 6 6 7
+6 6 6 6 7 6 6 6 7 7 7 6 6 7
+6 3 6 6 7 7 7 7 7 7 7 7 7 7
+6 6 6 6 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 6 6 3 6 7
+7 7 7 7 7 7 7 7 7 6 3 6 6 7
+7 7 7 6 6 6 6 7 7 6 6 6 3 7
+7 7 7 6 6 3 6 7 7 7 7 7 7 7
+7 7 7 6 3 6 6 7 7 7 7 7 7 7
+7 7 7 6 6 6 6 7 7 7 6 3 6 6
+7 7 7 7 7 7 7 7 7 7 6 6 6 3
+7 7 7 7 7 7 7 7 7 7 6 3 3 6
+7 7 7 7 7 7 7 7 7 7 6 6 6 6
+Output:
+7 7 7 7 7 6 3 6 7 7 7 6 6 7
+7 7 7 7 7 6 6 6 7 7 7 6 6 7
+6 6 6 6 7 6 6 6 7 7 7 6 6 7
+6 3 6 6 7 7 7 7 7 7 7 7 7 7
+6 6 6 6 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7
+
+Example 3:
+
+Input:
+7 7 7 7 7 6 6 6 6 7 7 3 6 7 7
+6 6 6 6 7 3 6 6 3 7 7 6 3 7 7
+6 3 6 6 7 6 6 6 6 7 7 7 7 7 7
+6 6 6 6 7 6 6 3 6 7 7 6 6 6 6
+7 7 7 7 7 7 7 7 7 7 7 6 3 6 6
+7 7 7 7 7 7 7 7 7 7 7 6 6 6 6
+7 7 6 6 3 6 6 7 7 7 7 7 7 7 7
+7 7 6 6 6 3 6 7 7 7 7 7 7 7 7
+7 7 6 3 6 6 6 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 6 6 3 7 7 7
+7 7 6 6 6 6 7 7 7 6 3 6 7 7 7
+7 7 6 6 6 6 7 7 7 6 6 6 7 7 7
+7 7 6 6 6 6 7 7 7 3 6 3 7 7 7
+Output:
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+6 6 6 6 7 7 7 7 7 7 7 7 7 7 7
+6 3 6 6 7 7 7 7 7 7 7 7 7 7 7
+6 6 6 6 7 7 7 7 7 7 7 6 6 6 6
+7 7 7 7 7 7 7 7 7 7 7 6 3 6 6
+7 7 7 7 7 7 7 7 7 7 7 6 6 6 6
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+7 7 6 6 6 6 7 7 7 7 7 7 7 7 7
+7 7 6 6 6 6 7 7 7 7 7 7 7 7 7
+7 7 6 6 6 6 7 7 7 7 7 7 7 7 7
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+7 7 7 7 7 7 7 7 6 3 6 6
+6 6 6 7 7 7 7 7 6 6 6 6
+3 6 6 7 7 7 7 7 6 3 6 3
+6 6 6 7 3 6 6 7 7 7 7 7
+7 7 7 7 6 6 6 7 7 7 7 7
+7 7 7 7 6 6 3 7 7 7 7 7
+7 7 7 7 6 6 6 7 6 6 6 6
+7 7 7 7 7 7 7 7 6 6 3 6
+7 6 6 6 6 6 6 7 6 6 6 6
+7 6 6 6 6 3 6 7 6 6 6 6
+7 6 3 6 6 6 6 7 7 7 7 7
+7 6 6 6 6 6 6 7 6 6 6 7
+7 7 7 7 7 7 7 7 6 6 6 7
+
+Answer: 7 7 7 7 7 7 7 7 7 7 7 7
+6 6 6 7 7 7 7 7 7 7 7 7
+3 6 6 7 7 7 7 7 7 7 7 7
+6 6 6 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 6 6 6 6
+7 7 7 7 7 7 7 7 6 6 3 6
+7 7 7 7 7 7 7 7 6 6 6 6
+7 7 7 7 7 7 7 7 6 6 6 6
+7 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 6 6 6 7
+7 7 7 7 7 7 7 7 6 6 6 7
+Metadata: {'input': ((7, 7, 7, 7, 7, 7, 7, 7, 6, 3, 6, 6), (6, 6, 6, 7, 7, 7, 7, 7, 6, 6, 6, 6), (3, 6, 6, 7, 7, 7, 7, 7, 6, 3, 6, 3), (6, 6, 6, 7, 3, 6, 6, 7, 7, 7, 7, 7), (7, 7, 7, 7, 6, 6, 6, 7, 7, 7, 7, 7), (7, 7, 7, 7, 6, 6, 3, 7, 7, 7, 7, 7), (7, 7, 7, 7, 6, 6, 6, 7, 6, 6, 6, 6), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 3, 6), (7, 6, 6, 6, 6, 6, 6, 7, 6, 6, 6, 6), (7, 6, 6, 6, 6, 3, 6, 7, 6, 6, 6, 6), (7, 6, 3, 6, 6, 6, 6, 7, 7, 7, 7, 7), (7, 6, 6, 6, 6, 6, 6, 7, 6, 6, 6, 7), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 7)), 'output': ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7), (3, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7), (6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 3, 6), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 7), (7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 7)), 'task_id': 'a934301b'}
+
+Example 2:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+2 8 8 8 8 8 8 8 8 9
+2 8 8 0 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 0 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 0 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+Output:
+2 8 8 8 8 8 8 8 8 9
+2 8 8 2 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 9 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 9 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+2 8 8 8 8 8 8 8 8 9
+
+Example 2:
+
+Input:
+6 6 6 6 6 6 6 6 6 6
+8 8 8 8 8 8 8 8 8 8
+8 8 0 8 8 8 8 8 0 8
+8 8 8 8 8 8 0 8 8 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 0 8 8 8 8
+8 0 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8
+1 1 1 1 1 1 1 1 1 1
+Output:
+6 6 6 6 6 6 6 6 6 6
+8 8 8 8 8 8 8 8 8 8
+8 8 6 8 8 8 8 8 6 8
+8 8 8 8 8 8 6 8 8 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 1 8 8 8 8
+8 1 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8
+1 1 1 1 1 1 1 1 1 1
+
+Example 3:
+
+Input:
+5 5 5 5 5 5 5 5 5 5
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 0 8 8 8 8
+8 8 0 8 8 8 8 8 0 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 0 8 8 8 8 0 8
+8 8 8 8 8 8 0 8 8 8
+8 8 8 8 8 8 8 8 8 8
+7 7 7 7 7 7 7 7 7 7
+Output:
+5 5 5 5 5 5 5 5 5 5
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 5 8 8 8 8
+8 8 5 8 8 8 8 8 5 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8
+8 8 8 7 8 8 8 8 7 8
+8 8 8 8 8 8 7 8 8 8
+8 8 8 8 8 8 8 8 8 8
+7 7 7 7 7 7 7 7 7 7
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+6 8 8 8 8 8 8 8 0 4
+6 0 8 8 0 8 8 8 8 4
+6 8 8 8 8 8 8 8 8 4
+6 8 8 8 8 8 0 8 8 4
+6 8 8 0 8 8 8 8 8 4
+6 8 8 8 8 8 0 8 8 4
+6 8 8 8 8 8 8 8 8 4
+6 8 8 8 8 0 8 8 8 4
+6 8 8 0 8 8 8 0 8 4
+6 8 8 8 8 8 8 8 8 4
+
+Answer: 6 8 8 8 8 8 8 8 4 4
+6 6 8 8 6 8 8 8 8 4
+6 8 8 8 8 8 8 8 8 4
+6 8 8 8 8 8 4 8 8 4
+6 8 8 6 8 8 8 8 8 4
+6 8 8 8 8 8 4 8 8 4
+6 8 8 8 8 8 8 8 8 4
+6 8 8 8 8 4 8 8 8 4
+6 8 8 6 8 8 8 4 8 4
+6 8 8 8 8 8 8 8 8 4
+Metadata: {'input': ((6, 8, 8, 8, 8, 8, 8, 8, 0, 4), (6, 0, 8, 8, 0, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 8, 0, 8, 8, 4), (6, 8, 8, 0, 8, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 8, 0, 8, 8, 4), (6, 8, 8, 8, 8, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 0, 8, 8, 8, 4), (6, 8, 8, 0, 8, 8, 8, 0, 8, 4), (6, 8, 8, 8, 8, 8, 8, 8, 8, 4)), 'output': ((6, 8, 8, 8, 8, 8, 8, 8, 4, 4), (6, 6, 8, 8, 6, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 8, 4, 8, 8, 4), (6, 8, 8, 6, 8, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 8, 4, 8, 8, 4), (6, 8, 8, 8, 8, 8, 8, 8, 8, 4), (6, 8, 8, 8, 8, 4, 8, 8, 8, 4), (6, 8, 8, 6, 8, 8, 8, 4, 8, 4), (6, 8, 8, 8, 8, 8, 8, 8, 8, 4)), 'task_id': '2204b7a8'}
+
+Example 3:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 8 8 8 8 8 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 8 8 8 8 8 5
+5 5 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 8 8 8 8 5 5 5 5 5
+5 5 8 8 8 8 5 5 5 5 5 8 8 8 8 5 5 5 5 5
+2 5 8 8 8 8 5 5 5 5 5 8 8 8 8 5 5 5 5 2
+5 5 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 8 8 8 8 8 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 8 8 8 8 8 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 8 8 8 8 8 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 8 8 8 8 8 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 8 8 8 8 5 5
+Output:
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 8 8 8 8 8 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 8 8 8 8 8 5
+5 5 8 8 8 8 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 8 8 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 8 8 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 2 5 5 5 2 2 2 2 5 5 5 5 5
+5 5 2 2 2 2 5 2 5 5 5 2 2 2 2 5 5 5 5 5
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+5 5 2 2 2 2 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 2 2 2 2 2 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 2 2 2 2 2 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 2 2 2 2 2 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 2 2 2 2 2 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5 8 8 8 8 5 5
+
+Example 2:
+
+Input:
+5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 5 5 5 5 5 8 8 8 5 5 5 5 8 8 8 8
+5 5 5 5 5 5 5 5 5 8 8 8 5 5 5 5 8 8 8 8
+5 5 5 8 8 8 8 8 5 8 8 8 5 5 5 5 8 8 8 8
+5 5 5 8 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 8 8 8 8 8 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 8 8 8 8 8 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5
+Output:
+5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 5 5 2 5 5 8 8 8 5 5 5 5 8 8 8 8
+5 5 5 5 5 5 2 5 5 8 8 8 5 5 5 5 8 8 8 8
+5 5 5 2 2 2 2 2 5 8 8 8 5 5 5 5 8 8 8 8
+5 5 5 2 2 2 2 2 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 2 2 2 2 2 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 2 2 2 2 2 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+Example 3:
+
+Input:
+5 8 8 8 8 8 5 2 5 5 5 5 5 5
+5 8 8 8 8 8 5 5 5 5 5 8 8 8
+5 5 5 5 5 5 5 5 5 5 5 8 8 8
+5 5 5 5 8 8 8 8 8 8 5 8 8 8
+5 5 5 5 8 8 8 8 8 8 5 8 8 8
+5 5 5 5 8 8 8 8 8 8 5 8 8 8
+8 8 5 5 8 8 8 8 8 8 5 5 5 5
+8 8 5 5 8 8 8 8 8 8 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 8 8 8 5 5 8 8 8 5 5 5 5
+2 5 8 8 8 5 5 8 8 8 5 5 5 2
+5 5 8 8 8 5 5 5 5 5 5 5 5 5
+5 5 8 8 8 5 5 2 5 5 5 5 5 5
+Output:
+5 8 8 8 8 8 5 2 5 5 5 5 5 5
+5 8 8 8 8 8 5 2 5 5 5 8 8 8
+5 5 5 5 5 5 5 2 5 5 5 8 8 8
+5 5 5 5 2 2 2 2 2 2 5 8 8 8
+5 5 5 5 2 2 2 2 2 2 5 8 8 8
+5 5 5 5 2 2 2 2 2 2 5 8 8 8
+8 8 5 5 2 2 2 2 2 2 5 5 5 5
+8 8 5 5 2 2 2 2 2 2 5 5 5 5
+5 5 5 5 5 5 5 2 5 5 5 5 5 5
+5 5 2 2 2 5 5 2 2 2 5 5 5 5
+2 2 2 2 2 2 2 2 2 2 2 2 2 2
+5 5 2 2 2 5 5 2 5 5 5 5 5 5
+5 5 2 2 2 5 5 2 5 5 5 5 5 5
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 8 8 8 8 8 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 8 8 8 8 8 8 8 8 8 5 5 5 8 8 5 5 5 5 5 5
+5 5 5 5 5 8 8 8 8 8 8 8 8 8 5 5 5 8 8 5 5 8 8 8 5
+5 5 5 5 5 8 8 8 8 8 8 8 8 8 5 5 5 5 5 5 5 8 8 8 5
+5 5 5 5 5 8 8 8 8 8 8 8 8 8 5 5 5 5 5 5 5 8 8 8 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 8 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 8 8 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+2 8 8 8 8 8 5 5 5 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 2
+5 8 8 8 8 8 5 5 5 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 8 8 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 8 8 8 8 8 5 5 5 5 8 8 5
+5 5 5 5 5 5 5 5 5 5 5 5 5 8 8 8 8 8 5 5 5 5 8 8 5
+5 5 5 5 8 8 8 5 5 5 5 5 5 8 8 8 8 8 5 5 5 5 5 5 5
+2 5 5 5 8 8 8 5 5 5 5 5 5 8 8 8 8 8 5 8 8 8 8 5 2
+5 5 5 5 8 8 8 5 5 8 8 8 5 8 8 8 8 8 5 8 8 8 8 5 5
+5 5 5 5 5 5 5 5 5 8 8 8 5 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 5 5 5 5 8 8 8 5 5 5 5 5 5 5 8 8 8 8 5 5
+5 5 5 5 5 2 5 5 5 8 8 8 5 5 5 5 5 5 5 5 5 5 5 5 5
+
+Answer: 5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 2 2 2 2 2 2 2 2 2 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 2 2 2 2 2 2 2 2 2 5 5 5 8 8 5 5 5 5 5 5
+5 5 5 5 5 2 2 2 2 2 2 2 2 2 5 5 5 8 8 5 5 8 8 8 5
+5 5 5 5 5 2 2 2 2 2 2 2 2 2 5 5 5 5 5 5 5 8 8 8 5
+5 5 5 5 5 2 2 2 2 2 2 2 2 2 5 5 5 5 5 5 5 8 8 8 5
+5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 2 2 2 2 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 2 2 2 2 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+5 2 2 2 2 2 5 5 5 2 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 2 5 5 5 2 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+5 5 5 5 5 2 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 8 8 5
+5 5 5 5 5 2 5 5 5 5 5 5 5 2 2 2 2 2 5 5 5 5 8 8 5
+5 5 5 5 5 2 5 5 5 5 5 5 5 2 2 2 2 2 5 5 5 5 8 8 5
+5 5 5 5 2 2 2 5 5 5 5 5 5 2 2 2 2 2 5 5 5 5 5 5 5
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+5 5 5 5 2 2 2 5 5 2 2 2 5 2 2 2 2 2 5 2 2 2 2 5 5
+5 5 5 5 5 2 5 5 5 2 2 2 5 5 5 5 5 5 5 2 2 2 2 5 5
+5 5 5 5 5 2 5 5 5 2 2 2 5 5 5 5 5 5 5 2 2 2 2 5 5
+5 5 5 5 5 2 5 5 5 2 2 2 5 5 5 5 5 5 5 5 5 5 5 5 5
+Metadata: {'input': ((5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5, 5, 8, 8, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5, 5, 8, 8, 5, 5, 8, 8, 8, 5), (5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 5), (5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 8, 8, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 8, 8, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (2, 8, 8, 8, 8, 8, 5, 5, 5, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2), (5, 8, 8, 8, 8, 8, 5, 5, 5, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 5, 5, 5, 5, 8, 8, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 5, 5, 5, 5, 8, 8, 5), (5, 5, 5, 5, 8, 8, 8, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5), (2, 5, 5, 5, 8, 8, 8, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 5, 8, 8, 8, 8, 5, 2), (5, 5, 5, 5, 8, 8, 8, 5, 5, 8, 8, 8, 5, 8, 8, 8, 8, 8, 5, 8, 8, 8, 8, 5, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 5, 5), (5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 8, 8, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5)), 'output': ((5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 8, 8, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 8, 8, 5, 5, 8, 8, 8, 5), (5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 5), (5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), (5, 2, 2, 2, 2, 2, 5, 5, 5, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 5, 5, 5, 5, 8, 8, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 5, 5, 5, 5, 8, 8, 5), (5, 5, 5, 5, 2, 2, 2, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5), (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2), (5, 5, 5, 5, 2, 2, 2, 5, 5, 2, 2, 2, 5, 2, 2, 2, 2, 2, 5, 2, 2, 2, 2, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 5, 5), (5, 5, 5, 5, 5, 2, 5, 5, 5, 2, 2, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5)), 'task_id': '0d87d2a6'}
+
+````
+
 ### base_conversion
 Generates base conversion tasks
 
@@ -320,6 +884,98 @@ Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program'
 
 ````
 
+### binary_matrix
+Generates Binary Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10
+p_zero = 0.25
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+
+Example:
+
+Input: Find the distance to the nearest 0 for each cell in the matrix below:
+0 0 0
+0 1 0
+1 1 1
+
+Output:
+0 0 0
+0 1 0
+1 2 1
+
+Find the distance to the nearest 0 for each cell in the matrix below:
+0 0
+1 0
+
+Answer: 0 0
+1 0
+Metadata: {'matrix': [[0, 0], [1, 0]], 'solution': [[0, 0], [1, 0]]}
+
+Example 2:
+Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+
+Example:
+
+Input: Find the distance to the nearest 0 for each cell in the matrix below:
+0 0 0
+0 1 0
+1 1 1
+
+Output:
+0 0 0
+0 1 0
+1 2 1
+
+Find the distance to the nearest 0 for each cell in the matrix below:
+0
+
+Answer: 0
+Metadata: {'matrix': [[0]], 'solution': [[0]]}
+
+Example 3:
+Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+
+Example:
+
+Input: Find the distance to the nearest 0 for each cell in the matrix below:
+0 0 0
+0 1 0
+1 1 1
+
+Output:
+0 0 0
+0 1 0
+1 2 1
+
+Find the distance to the nearest 0 for each cell in the matrix below:
+1 0 1 1 0 1 1
+1 0 1 1 1 1 1
+1 1 1 1 0 1 1
+1 1 1 1 0 0 1
+0 1 1 1 1 1 0
+1 0 1 1 1 1 0
+1 1 1 1 1 1 1
+
+Answer: 1 0 1 1 0 1 2
+1 0 1 2 1 2 3
+2 1 2 1 0 1 2
+1 2 2 1 0 0 1
+0 1 2 2 1 1 0
+1 0 1 2 2 1 0
+2 1 2 3 3 2 1
+Metadata: {'matrix': [[1, 0, 1, 1, 0, 1, 1], [1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 0, 0, 1], [0, 1, 1, 1, 1, 1, 0], [1, 0, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1]], 'solution': [[1, 0, 1, 1, 0, 1, 2], [1, 0, 1, 2, 1, 2, 3], [2, 1, 2, 1, 0, 1, 2], [1, 2, 2, 1, 0, 0, 1], [0, 1, 2, 2, 1, 1, 0], [1, 0, 1, 2, 2, 1, 0], [2, 1, 2, 3, 3, 2, 1]]}
+
+````
+
 ### caesar_cipher
 Generates Caesar cipher encryption/decryption tasks
 
@@ -402,17 +1058,17 @@ Example tasks:
 Example 1:
 Question: 4 + 3 =
 Answer: 7
-Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '4 + 3'}
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 1}, 'expression': '4 + 3'}
 
 Example 2:
 Question: 812 + 880 =
 Answer: 1692
-Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '812 + 880'}
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812 + 880'}
 
 Example 3:
 Question: 2 + 6 + 3 + 4 + 0 =
 Answer: 15
-Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '2 + 6 + 3 + 4 + 0'}
+Metadata: {'difficulty': {'num_terms': 5, 'num_digits': 1}, 'expression': '2 + 6 + 3 + 4 + 0'}
 
 ````
 
@@ -484,6 +1140,97 @@ Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet'
 
 ````
 
+### complex_arithmetic
+Generates complex number arithmetic problems.
+
+Default configuration:
+```python
+min_real = -10
+max_real = 10
+min_imag = -10
+max_imag = 10
+operations = ('+', '-', '*', '/')
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Add the complex numbers: (-10.0 - 2.0i) + (-3.0 - 3.0i)
+Answer: -13.0 - 5.0i
+Metadata: {'num1': (-10.0, -2.0), 'num2': (-3.0, -3.0), 'operation': '+', 'result': (-13, -5)}
+
+Example 2:
+Question: Add the complex numbers: (-1.0 - 6.0i) + (4.0 + 1.0i)
+Answer: 3.0 - 5.0i
+Metadata: {'num1': (-1.0, -6.0), 'num2': (4.0, 1.0), 'operation': '+', 'result': (3, -5)}
+
+Example 3:
+Question: Divide the complex numbers: (-7.0 - 79.0i) ÷ (-7.0 - 5.0i)
+Answer: 6.0 + 7.0i
+Metadata: {'num1': (-7.0, -79.0), 'num2': (-7.0, -5.0), 'operation': '/', 'result': (6, 7)}
+
+````
+
+### count_bits
+Generates Count Bits exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 2147483647
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: How many 1 bits are there in the binary representation of the number 1373158607?
+Answer: 18
+Metadata: {'number': 1373158607, 'solution': 18, 'binary': '1010001110110001011110011001111'}
+
+Example 2:
+Question: How many 1 bits are there in the binary representation of the number 82789451?
+Answer: 14
+Metadata: {'number': 82789451, 'solution': 14, 'binary': '100111011110100010001001011'}
+
+Example 3:
+Question: How many 1 bits are there in the binary representation of the number 877324117?
+Answer: 16
+Metadata: {'number': 877324117, 'solution': 16, 'binary': '110100010010101110011101010101'}
+
+````
+
+### count_primes
+Generates Count Primes exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10000
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Count how many prime numbers there are between 1825 and 2029 (inclusive) ?
+Answer: 27
+Metadata: {'start': 1825, 'end': 2029, 'primes': [False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True], 'solution': 27}
+
+Example 2:
+Question: Count how many prime numbers there are between 632 and 5319 (inclusive) ?
+Answer: 589
+Metadata: {'start': 632, 'end': 5319, 'primes': [False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False], 'solution': 589}
+
+Example 3:
+Question: Count how many prime numbers there are between 6694 and 8824 (inclusive) ?
+Answer: 236
+Metadata: {'start': 6694, 'end': 8824, 'primes': [False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False], 'solution': 236}
+
+````
+
 ### countdown
 Generates Countdown Number Game tasks
 
@@ -520,6 +1267,84 @@ Question: Using the numbers 5, 41, 38, 81, 14, create an expression that equals 
 You can only use each number once.
 Answer: 41*14 - 81 - 38 - 5
 Metadata: {'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 - 81 - 38 - 5'}
+
+````
+
+### course_schedule
+Generates Course Schedule exercises with configurable difficulty
+
+Default configuration:
+```python
+num_courses = 5
+max_num_prerequisites = 2
+p_solvable = 0.5
+min_cycle_length = 3
+max_cycle_length = 5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
+[(2, 1), (4, 2), (4, 3), (2, 3)]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: True
+Metadata: {'courses': [3, 1, 2, 4, 0], 'prerequisites': [(2, 1), (4, 2), (4, 3), (2, 3)], 'solution': True, 'solvable': True}
+
+Example 2:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
+[(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: False
+Metadata: {'courses': [1, 4, 3, 2, 0], 'prerequisites': [(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)], 'solution': False, 'solvable': False}
+
+Example 3:
+Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+
+You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
+[]
+
+Return True if you can finish all courses considering the prerequisites, or False otherwise.
+
+Answer: True
+Metadata: {'courses': [2, 1, 4, 0, 3], 'prerequisites': [], 'solution': True, 'solvable': True}
+
+````
+
+### dice
+Generates Dice-based puzzles with configurable parameters
+
+Default configuration:
+```python
+num_dice = 4
+max_dice_size = 20
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: I have these dice: 1d20, 1d10, 1d5, 1d2. What are the odds of rolling 18 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
+Answer: 13/20
+
+Example 2:
+Question: I have these dice: 1d20, 1d11, 1d6, 1d3. What are the odds of rolling 23 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
+Answer: 19/40
+
+Example 3:
+Question: I have these dice: 1d20, 1d19, 1d18, 1d15. What are the odds of rolling 48 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
+Answer: 9677/51300
 
 ````
 
@@ -842,6 +1667,102 @@ Metadata: {'numbers': [297, 30], 'result': 3}
 
 ````
 
+### group_anagrams
+Generates Group Anagrams exercises with configurable difficulty
+
+Default configuration:
+```python
+anagram_groups = 10
+max_words_per_group = 5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
+
+Answer: [["applauders", "suprapedal"], ["argonon"], ["autosight", "outasight"], ["canny", "nancy"], ["conterminal"], ["ditas"], ["merocyte"], ["oversauciness"], ["palinodist"], ["tinglers"]]
+Metadata: {'words': ['tinglers', 'argonon', 'ditas', 'palinodist', 'merocyte', 'conterminal', 'canny', 'nancy', 'outasight', 'autosight', 'oversauciness', 'applauders', 'suprapedal'], 'solution': [['applauders', 'suprapedal'], ['argonon'], ['autosight', 'outasight'], ['canny', 'nancy'], ['conterminal'], ['ditas'], ['merocyte'], ['oversauciness'], ['palinodist'], ['tinglers']]}
+
+Example 2:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
+
+Answer: [["coders", "credos", "decors", "escrod", "scored"], ["expatiater"], ["meningomyelocele", "myelomeningocele"], ["muriates", "semitaur"], ["naivest", "natives", "vainest"], ["peripterous"], ["preludes", "repulsed"], ["regear"], ["wooled"], ["zanies"]]
+Metadata: {'words': ['regear', 'escrod', 'coders', 'decors', 'credos', 'scored', 'semitaur', 'muriates', 'peripterous', 'zanies', 'expatiater', 'wooled', 'meningomyelocele', 'myelomeningocele', 'vainest', 'natives', 'naivest', 'preludes', 'repulsed'], 'solution': [['coders', 'credos', 'decors', 'escrod', 'scored'], ['expatiater'], ['meningomyelocele', 'myelomeningocele'], ['muriates', 'semitaur'], ['naivest', 'natives', 'vainest'], ['peripterous'], ['preludes', 'repulsed'], ['regear'], ['wooled'], ['zanies']]}
+
+Example 3:
+Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
+
+Your job is to group the anagrams together. You can return the answer in any order.
+
+Example:
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
+Explanation:
+    - There is no string in the input that can be rearranged to form "bat".
+    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+
+Group the following list of words into anagrams:
+["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
+
+Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
+Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
+
+````
+
+### gsm_symbolic
+Default configuration:
+```python
+difficulty = 1.0
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: There are 12 students playing basketball and twice that number playing volleyball. There are 17 boys and 17 girls playing table tennis. If each student only participates in one group, how many students are there in total?
+Answer: 70
+Metadata: {'difficulty': 1.0, 'answer_value': 70, 'answer_cot': 'There are 12 x 2 = 24 students playing volleyball.\nThere are 17 + 17 = 34 students playing table tennis.\nIn total there are 12 + 24 + 34 = 70 students.\n#### 70', 'variables': {'tennis_players': 12, 'volleyball_players': 24, 'soccer_boys': 17, 'soccer_girls': 17, 'total_soccer': 34, 'total_students': 70, 'sports': ['basketball', 'volleyball', 'table tennis']}}
+
+Example 2:
+Question: In Ms. Johnson's class of 100 students, 80% of the class are volleyball players. Out of the remaining class, 65% of the students are choir members or part of robotics club members. These 3 groups of students will need to leave early today to travel to an away performance. How many students are leaving early?
+Answer: 93
+Metadata: {'difficulty': 1.0, 'answer_value': 93, 'answer_cot': "80% of the 100 student class are volleyball players so that's 0.8*100 = 80 students\nThere are 100 students and 80 are volleyball players so that leaves 100-80 = 20 students\n65% of the remaining 20 students are part of robotics club members or choir members so that's 0.65*20 = 13 students\n80 students are volleyball players and 13 are part of robotics club members/choir members so 80+13 = 93 students will be leaving early\n#### 93", 'variables': {'teacher': 'Ms. Johnson', 'total_students': 100, 'percent_group1': 80, 'percent_group23': 65, 'group1': 'volleyball players', 'group2': 'choir members', 'group3': 'robotics club members', 'event': 'performance', 'group1_count': 80, 'group23_count': 13}}
+
+Example 3:
+Question: Olivia is trying to decide whether to do her business accounting herself or hire an accountant. If she does it herself, she'll be able to do 7 fewer hours of consulting work, losing €57/hour in missed income. The accountant charges €57. How much more money will she have if she hires the accountant?
+Answer: 342
+Metadata: {'difficulty': 1.0, 'answer_value': 342, 'answer_cot': "First find the total lost revenue if Olivia does her business accounting herself: €57/hour * 7 hours = €399\nThen subtract the accountant's charge to find how much money Olivia saves: €399 - €57 = €342\n#### 342", 'variables': {'name': 'Olivia', 'task': 'her business accounting', 'profession': 'accountant', 'hours': 7, 'work_type': 'consulting', 'hourly_rate': 57, 'fee': 57, 'currency': '€', 'lost_income': 399}}
+
+````
+
 ### intermediate_integration
 Generates intermediate integration problem - either
     by substitution or by parts
@@ -881,6 +1802,323 @@ Example 3:
 Question: Find the indefinite integral: ∫ 2*asin(x) dx
 Answer: 2*Integral(asin(x), x) + C
 Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': 2*Integral(asin(x), x)}
+
+````
+
+### isomorphic_strings
+Generates Isomorphic Strings exercises with configurable difficulty
+
+Default configuration:
+```python
+max_string_length = 10
+p_solvable = 0.5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+cc bw
+
+Answer: False
+Metadata: {'words': ['cc', 'bw'], 'solution': False, 'solvable': False}
+
+Example 2:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+nai oik
+
+Answer: True
+Metadata: {'words': ['nai', 'oik'], 'solution': True, 'solvable': True}
+
+Example 3:
+Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters.
+
+No two characters may map to the same character, but a character may map to itself.
+
+Example 1:
+Input: egg add
+Output: True
+Explanation: The strings s and t can be made identical by:
+    - Mapping 'e' to 'a'.
+    - Mapping 'g' to 'd'.
+
+Example 2:
+Input: foo bar
+Output: False
+Explanation:
+    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+
+Return True if the following two strings are isomorphic, or False otherwise:
+hogtytyof kgqwfwfgh
+
+Answer: True
+Metadata: {'words': ['hogtytyof', 'kgqwfwfgh'], 'solution': True, 'solvable': True}
+
+````
+
+### knight_swap
+Generates Knight Swap puzzles with configurable parameters.
+
+Default configuration:
+```python
+min_nodes = 6
+max_nodes = 9
+min_pieces = 2
+max_pieces = 2
+min_steps = 4
+max_steps = 20
+max_attempts = 100
+seed = 42
+size = 5
+impossible_ratio = 0.2
+```
+
+Example tasks:
+````
+Example 1:
+Question: Knight Swap Challenge:
+
+```
+    A   B   C   D
+   ----------------
+3 |   | . |   | . |
+   ----------------
+2 | B | w |   |   |
+   ----------------
+1 |   |   | B | w |
+   ----------------
+```
+
+Legend:
+- 'w' = White Knight
+- 'B' = Black Knight
+- Empty squares are marked with '.'
+
+Objective:
+Swap the positions of all white knights with all black knights through valid moves.
+
+Rules:
+1. Knights move in L-shape (2 squares + 1 square perpendicular)
+2. Knights can only move to empty squares
+3. w moves first, then players alternate
+4. All knights must reach their target positions (white ↔ black)
+
+Question:
+Is it possible to swap all knights' positions? If yes, list the moves.
+
+Answer Format:
+- For impossible puzzles: "No"
+- For possible puzzles: List moves as ["color,from,to", ...]
+  Example: ["w,A1,B3"] means white knight moves A1→B3
+
+Answer: No
+Metadata: {'board': {'C1': ['A2', 'B3', 'D3'], 'A2': ['C1'], 'B3': ['C1'], 'D1': ['B2'], 'B2': ['D1', 'D3'], 'D3': ['B2', 'C1']}, 'pieces': {'C1': 'B', 'A2': 'B', 'B3': None, 'D1': 'w', 'B2': 'w', 'D3': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+
+Example 2:
+Question: Knight Swap Challenge:
+
+```
+    A   B   C   D
+   ----------------
+3 |   | w | . |   |
+   ----------------
+2 | w |   |   | B |
+   ----------------
+1 |   |   | . | B |
+   ----------------
+```
+
+Legend:
+- 'w' = White Knight
+- 'B' = Black Knight
+- Empty squares are marked with '.'
+
+Objective:
+Swap the positions of all white knights with all black knights through valid moves.
+
+Rules:
+1. Knights move in L-shape (2 squares + 1 square perpendicular)
+2. Knights can only move to empty squares
+3. w moves first, then players alternate
+4. All knights must reach their target positions (white ↔ black)
+
+Question:
+Is it possible to swap all knights' positions? If yes, list the moves.
+
+Answer Format:
+- For impossible puzzles: "No"
+- For possible puzzles: List moves as ["color,from,to", ...]
+  Example: ["w,A1,B3"] means white knight moves A1→B3
+
+Answer: No
+Metadata: {'board': {'B3': ['C1'], 'D1': ['C3'], 'C3': ['A2', 'D1'], 'C1': ['A2', 'B3'], 'D2': [], 'A2': ['C1', 'C3']}, 'pieces': {'B3': 'w', 'D1': 'B', 'C3': None, 'C1': None, 'D2': 'B', 'A2': 'w'}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+
+Example 3:
+Question: Knight Swap Challenge:
+
+```
+    A   B   C
+   ------------
+3 | . |   | B |
+   ------------
+2 | w |   | . |
+   ------------
+1 |   | w | B |
+   ------------
+```
+
+Legend:
+- 'w' = White Knight
+- 'B' = Black Knight
+- Empty squares are marked with '.'
+
+Objective:
+Swap the positions of all white knights with all black knights through valid moves.
+
+Rules:
+1. Knights move in L-shape (2 squares + 1 square perpendicular)
+2. Knights can only move to empty squares
+3. w moves first, then players alternate
+4. All knights must reach their target positions (white ↔ black)
+
+Question:
+Is it possible to swap all knights' positions? If yes, list the moves.
+
+Answer Format:
+- For impossible puzzles: "No"
+- For possible puzzles: List moves as ["color,from,to", ...]
+  Example: ["w,A1,B3"] means white knight moves A1→B3
+
+Answer: No
+Metadata: {'board': {'B1': ['A3'], 'A3': ['B1', 'C2'], 'A2': ['C1', 'C3'], 'C3': ['A2'], 'C1': ['A2'], 'C2': ['A3']}, 'pieces': {'B1': 'w', 'A3': None, 'A2': 'w', 'C3': 'B', 'C1': 'B', 'C2': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+
+````
+
+### largest_island
+Generates Largest Island exercises with configurable difficulty
+
+Default configuration:
+```python
+rows = 10
+cols = 10
+max_num_islands = 5
+max_island_size = 10
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 1 0 0 0 0 0 0
+1 1 0 1 0 0 0 0 0 1
+0 1 0 1 1 0 0 0 0 1
+0 1 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 1 1
+0 0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 1 0
+1 1 0 1 1 0 0 0 1 1
+1 1 1 1 1 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 10
+Metadata: {'grid': [[0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 1, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]], 'solution': 10}
+
+Example 2:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 0
+Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 0}
+
+Example 3:
+Question: You are given the following 10 x 10 binary matrix grid:
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+1 1 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 3
+Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 3}
 
 ````
 
@@ -933,17 +2171,17 @@ Example tasks:
 Example 1:
 Question: How many legs are there in total if you have 1 sea slug, 1 deer?
 Answer: 4
-Metadata: {'animals': {'sea slug': 1, 'deer': 1}, 'total_legs': 4}
+Metadata: {'difficulty': {'num_animals': 2}, 'animals': {'sea slug': 1, 'deer': 1}, 'total_legs': 4}
 
 Example 2:
 Question: How many legs are there in total if you have 2 sheeps, 2 dogs?
 Answer: 16
-Metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
+Metadata: {'difficulty': {'num_animals': 2}, 'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 
 Example 3:
 Question: How many legs are there in total if you have 1 crab, 2 lobsters, 1 human, 1 cow, 1 bee?
 Answer: 42
-Metadata: {'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1}, 'total_legs': 42}
+Metadata: {'difficulty': {'num_animals': 5}, 'animals': {'crab': 1, 'lobster': 2, 'human': 1, 'cow': 1, 'bee': 1}, 'total_legs': 42}
 
 ````
 
@@ -1009,6 +2247,81 @@ Example 3:
 Question: Unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks ot oyu rheet si a gain fo sucrbbisesr rM
 Answer: dear Archibald keep on Since yesterday thanks to you there is a gain of subscribers Mr
 Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_words': ['dear', 'rchAdbali', 'keep', 'no', 'nSice', 'yrstyedae', 'atnhks', 'ot', 'oyu', 'rheet', 'si', 'a', 'gain', 'fo', 'sucrbbisesr', 'rM'], 'original_words': ['dear', 'Archibald', 'keep', 'on', 'Since', 'yesterday', 'thanks', 'to', 'you', 'there', 'is', 'a', 'gain', 'of', 'subscribers', 'Mr']}
+
+````
+
+### manipulate_matrix
+Generates Manipulate Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+min_rows = 1
+min_cols = 1
+max_rows = 10
+max_cols = 10
+max_transforms = 5
+p_rotate = 0.2
+p_hmirror = 0.2
+p_vmirror = 0.2
+p_dmirror = 0.2
+p_cmirror = 0.2
+p_map = 0.2
+p_crop = 0.2
+p_remove_every_nth_row = 0.2
+p_remove_every_nth_col = 0.2
+p_zero_divisible = 0.2
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: For the following matrix:
+4
+3
+
+Perform the following series of operations in order:
+- Identity transformation, i.e. no change
+
+
+Answer: 4
+3
+Metadata: {'matrix': [[4], [3]], 'solution': [[4], [3]], 'operations': []}
+
+Example 2:
+Question: For the following matrix:
+2 7 5 1 7
+
+Perform the following series of operations in order:
+- Identity transformation, i.e. no change
+
+
+Answer: 2 7 5 1 7
+Metadata: {'matrix': [[2, 7, 5, 1, 7]], 'solution': [[2, 7, 5, 1, 7]], 'operations': []}
+
+Example 3:
+Question: For the following matrix:
+8 1 2 6 3 4 0 3 1
+9 0 1 2 8 4 6 9 6
+5 5 1 5 4 9 2 1 8
+1 9 1 4 5 1 4 0 5
+6 1 7 7 3 3 2 4 3
+0 0 6 0 5 5 7 7 9
+8 2 3 7 7 5 9 0 4
+
+Perform the following series of operations in order:
+- Identity transformation, i.e. no change
+
+
+Answer: 8 1 2 6 3 4 0 3 1
+9 0 1 2 8 4 6 9 6
+5 5 1 5 4 9 2 1 8
+1 9 1 4 5 1 4 0 5
+6 1 7 7 3 3 2 4 3
+0 0 6 0 5 5 7 7 9
+8 2 3 7 7 5 9 0 4
+Metadata: {'matrix': [[8, 1, 2, 6, 3, 4, 0, 3, 1], [9, 0, 1, 2, 8, 4, 6, 9, 6], [5, 5, 1, 5, 4, 9, 2, 1, 8], [1, 9, 1, 4, 5, 1, 4, 0, 5], [6, 1, 7, 7, 3, 3, 2, 4, 3], [0, 0, 6, 0, 5, 5, 7, 7, 9], [8, 2, 3, 7, 7, 5, 9, 0, 4]], 'solution': [[8, 1, 2, 6, 3, 4, 0, 3, 1], [9, 0, 1, 2, 8, 4, 6, 9, 6], [5, 5, 1, 5, 4, 9, 2, 1, 8], [1, 9, 1, 4, 5, 1, 4, 0, 5], [6, 1, 7, 7, 3, 3, 2, 4, 3], [0, 0, 6, 0, 5, 5, 7, 7, 9], [8, 2, 3, 7, 7, 5, 9, 0, 4]], 'operations': []}
 
 ````
 
@@ -1253,16 +2566,19 @@ Example tasks:
 ````
 Example 1:
 Question: Keep all numbers larger than -90 in this list: ['-95.00', '-51.0', '47.2942', '-82.612']
+Return the new list in the same format.
 Answer: ['-51.0', '47.2942', '-82.612']
 Metadata: {'original_numbers': ['-95.00', '-51.0', '47.2942', '-82.612'], 'filter_value': '-90', 'operation': 'keep_larger', 'result': ['-51.0', '47.2942', '-82.612']}
 
 Example 2:
 Question: Remove all numbers larger than 18.236 in this list: ['-42.8', '91.88', '34']
+Return the new list in the same format.
 Answer: ['-42.8']
 Metadata: {'original_numbers': ['-42.8', '91.88', '34'], 'filter_value': '18.236', 'operation': 'remove_larger', 'result': ['-42.8']}
 
 Example 3:
 Question: Keep all numbers larger than 19.8962 in this list: ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34']
+Return the new list in the same format.
 Answer: ['37.76', '38.702']
 Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34'], 'filter_value': '19.8962', 'operation': 'keep_larger', 'result': ['37.76', '38.702']}
 
@@ -1410,14 +2726,86 @@ Answer: [0.0]
 Metadata: {'polynomial_expr': '-127*u', 'variable': 'u', 'degree': 1, 'real_solutions': [0.0]}
 
 Example 2:
-Question: Determine the real value(s) of b tha satisfies: 86*b**2 - 2*b - 13 = 0
+Question: Determine the real value(s) of b that satisfies: 86*b**2 - 2*b - 13 = 0
 Answer: [-0.3773425275273891, 0.4005983414808775]
 Metadata: {'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773425275273891, 0.4005983414808775]}
 
 Example 3:
-Question: Determine the real value(s) of n tha satisfies: 71*n**3 - 2*n - 29 = 0
+Question: Determine the real value(s) of n that satisfies: 71*n**3 - 2*n - 29 = 0
 Answer: [0.7546129960163634]
 Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3, 'real_solutions': [0.7546129960163634]}
+
+````
+
+### polynomial_multiplication
+Generates [min_polynomials, max_polynomials] random polynomials of degree in [min_degree, max_degree].
+    - The polynomial is formed by summing random terms of the form: coeff * x^exponent.
+    - Then we find "F = P_0 * ... * P_1" using Sympy.
+
+Default configuration:
+```python
+min_terms = 2
+max_terms = 4
+min_value = 1
+max_value = 100
+min_degree = 1
+max_degree = 3
+min_polynomials = 2
+max_polynomials = 3
+single_variable = True
+operators = ('+', '-')
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Calculate the following: (65*x - 72)*(105*x - 125)
+Answer: 6825*x**2 - 15685*x + 9000
+Metadata: {'polynomial_expr': '(65*x - 72)*(105*x - 125)', 'single_variable': True, 'result': '6825*x**2 - 15685*x + 9000'}
+
+Example 2:
+Question: Calculate the following: (-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)
+Answer: -774*x**4 - 2390*x**3 + 173*x**2 + 364*x
+Metadata: {'polynomial_expr': '(-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)', 'single_variable': True, 'result': '-774*x**4 - 2390*x**3 + 173*x**2 + 364*x'}
+
+Example 3:
+Question: Calculate the following: (43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)
+Answer: -19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x
+Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': True, 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
+
+````
+
+### power_function
+Generates Power Function exercises with configurable difficulty
+
+Default configuration:
+```python
+min_base = -1000.0
+max_base = 1000.0
+min_exponent = -8
+max_exponent = 8
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Compute 278.8535969157674^-8
+Answer: 2.735205704728613e-20
+Metadata: {'base': 278.8535969157674, 'exponent': -8, 'solution': 2.735205704728613e-20}
+
+Example 2:
+Question: Compute -922.8963213252399^-4
+Answer: 1.3784415023500506e-12
+Metadata: {'base': -922.8963213252399, 'exponent': -4, 'solution': 1.3784415023500506e-12}
+
+Example 3:
+Question: Compute -182.9282414910125^-5
+Answer: -4.881982323540115e-12
+Metadata: {'base': -182.9282414910125, 'exponent': -5, 'solution': -4.881982323540115e-12}
 
 ````
 
@@ -1549,6 +2937,702 @@ Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B'
 
 ````
 
+### ransom_note
+Generates Ransom Note exercises with configurable difficulty
+
+Default configuration:
+```python
+max_note_length = 10
+max_magazine_length = 30
+p_solvable = 0.5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: c
+Magazine: kjjfnerbv
+
+Answer: False
+Metadata: {'ransom_note': 'c', 'magazine': 'kjjfnerbv', 'solution': False, 'solvable': False}
+
+Example 2:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: pan
+Magazine: pipmrxluyrkumtnaynmqosywf
+
+Answer: True
+Metadata: {'ransom_note': 'pan', 'magazine': 'pipmrxluyrkumtnaynmqosywf', 'solution': True, 'solvable': True}
+
+Example 3:
+Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
+
+Each letter in the magazine string can only be used once in your ransom note.
+
+Ransom note: yuothygge
+Magazine: gpfslbehhhhagoutvejfoytuuyy
+
+Answer: True
+Metadata: {'ransom_note': 'yuothygge', 'magazine': 'gpfslbehhhhagoutvejfoytuuyy', 'solution': True, 'solvable': True}
+
+````
+
+### rearc
+Default configuration:
+```python
+min_examples = 3
+max_examples = 5
+diff_lb = 0
+diff_ub = 0.2
+board_format_opts = BoardFormattingOptions(alphabet=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], col_delimiter=' ', row_delimiter='\n', array_brackets=False)
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 9
+Output:
+9 9 9 9
+1 1 1 1
+9 9 9 9
+1 1 1 1
+1 9 9 9
+1 9 1 1
+1 9 1 9
+
+Example 2:
+
+Input:
+4 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+Output:
+4 8 4 8 4 8 4
+8 8 4 8 4 8 4
+4 4 4 8 4 8 4
+8 8 8 8 4 8 4
+4 4 4 4 4 8 4
+
+Example 3:
+
+Input:
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+5 2 2 2
+Output:
+2 2 2 2
+5 5 5 5
+2 2 2 2
+5 5 5 5
+2 2 2 2
+5 5 5 2
+2 2 5 2
+5 2 5 2
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+3 3 3 3 3 3 3 9
+3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3
+
+Answer: 3 9 3 9 3 9 3 9
+3 9 3 9 3 9 3 3
+3 9 3 9 3 9 9 9
+3 9 3 9 3 3 3 3
+3 9 3 9 9 9 9 9
+Metadata: {'input': ((3, 3, 3, 3, 3, 3, 3, 9), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3)), 'output': ((3, 9, 3, 9, 3, 9, 3, 9), (3, 9, 3, 9, 3, 9, 3, 3), (3, 9, 3, 9, 3, 9, 9, 9), (3, 9, 3, 9, 3, 3, 3, 3), (3, 9, 3, 9, 9, 9, 9, 9)), 'task_id': 'd22278a0', 'difficulty': {'rng': 0.07173948707162241, 'pso': 0.12314814814814816}}
+
+Example 2:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 9 6 6 6 9 6
+6 6 6 9 6 9 6 6
+6 6 6 6 9 6 6 6
+6 6 6 9 6 9 6 6
+6 6 9 6 6 6 9 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+Output:
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 9 6 6 6 9 6
+6 6 6 9 6 9 6 6
+6 6 6 6 9 6 6 6
+6 6 6 9 6 9 6 6
+6 6 9 6 6 6 9 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+6 6 6 6 6 6 6 6
+
+Example 2:
+
+Input:
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 2 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+Output:
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 2 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+5 5 8 5 8 5 8 5 5 5
+5 5 5 5 5 5 5 5 5 5
+
+Example 3:
+
+Input:
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 2 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+Output:
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 2 1 1 1 1
+1 1 1 2 1 2 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1
+
+Example 4:
+
+Input:
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7
+Output:
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 1 7 1 7 1 7 7
+7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7
+
+Example 5:
+
+Input:
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 6 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+Output:
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 6 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 6 3 3 3 6 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+3 3 3 3 3 3 3 3 3 3 3
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 8 7 7 7
+7 7 7 7 7 7 8 7 8 7 7
+7 7 7 7 7 8 7 8 7 8 7
+7 7 7 7 7 7 8 7 8 7 7
+7 7 7 7 7 7 7 8 7 7 7
+7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7
+
+Answer: 7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 8 7 7 7
+7 7 7 7 7 7 8 7 8 7 7
+7 7 7 7 7 8 7 8 7 8 7
+7 7 7 7 7 7 8 7 8 7 7
+7 7 7 7 7 7 7 8 7 7 7
+7 7 7 7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7 7 7 7
+Metadata: {'input': ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 8, 7, 8, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)), 'output': ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 8, 7, 8, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)), 'task_id': '11852cab', 'difficulty': {'rng': 0.09651305327452808, 'pso': 0.15228956228956228}}
+
+Example 3:
+Question: Find the common rule that maps an input grid to an output grid, given the examples below.
+
+Example 1:
+
+Input:
+9 9
+9 9
+Output:
+9 9
+9 9
+9 9
+9 9
+
+Example 2:
+
+Input:
+4 4 4 6
+Output:
+4 4 4 6
+4 4 4 6
+
+Example 3:
+
+Input:
+4 1 1
+4 4 4
+Output:
+4 1 1
+4 4 4
+4 4 4
+4 1 1
+
+
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
+Your final answer should just be the text output grid itself.
+
+Input:
+1 1 1 1 1
+1 1 1 1 1
+
+Answer: 1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+Metadata: {'input': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'output': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'task_id': '8be77c9e', 'difficulty': {'rng': 0.09322002370336528, 'pso': 0.0638888888888889}}
+
+````
+
+### rectangle_count
+Generates [RectangleCount Puzzles](https://en.wikipedia.org/wiki/RectangleCount_Puzzle) with configurable parameters
+
+Default configuration:
+```python
+max_rectangles = 10
+width = 80
+height = 80
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+
+                                                                                 
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                 ##################################################             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 ##################################################             
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+   ######################################                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   ######################################                                       
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+
+Answer: 2
+
+Example 2:
+Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+
+                                                                                 
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                    ############                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    ############                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+
+Answer: 1
+
+Example 3:
+Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+
+                                                                                 
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                         #########################              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       ############   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                    #####█#######################██#########█#  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #####█#######################██#########█#  
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #      ##########       ##         #   
+                                         #      #        #       ############   
+                                         #      #        #       #              
+                                         #      ##########       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #########################              
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+            #######################                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #               ######█###                                          
+            #               #     #  #                                          
+            #               ######█###                                          
+            #                     #   ###########################               
+            #                     #   #                         #               
+            #                     #   #                         #               
+            #######################   ###########################               
+                                                                                
+
+Answer: 7
+
+````
+
+### rotate_matrix
+Generates Rotate Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10
+max_rotations = 4
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a square matrix, your job is to rotate it clockwise.
+
+Example:
+
+Input: Rotate the matrix below by 90 degrees clockwise:
+1 2 3
+4 5 6
+7 8 9
+
+Output:
+7 4 1
+8 5 2
+9 6 3
+
+Rotate the matrix below by 90 degrees clockwise:
+3 1
+2 0
+
+Answer: 2 3
+0 1
+Metadata: {'matrix': [[3, 1], [2, 0]], 'num_rotations': 1, 'solution': [[2, 3], [0, 1]]}
+
+Example 2:
+Question: Given a square matrix, your job is to rotate it clockwise.
+
+Example:
+
+Input: Rotate the matrix below by 90 degrees clockwise:
+1 2 3
+4 5 6
+7 8 9
+
+Output:
+7 4 1
+8 5 2
+9 6 3
+
+Rotate the matrix below by 180 degrees clockwise:
+0
+
+Answer: 0
+Metadata: {'matrix': [[0]], 'num_rotations': 2, 'solution': [[0]]}
+
+Example 3:
+Question: Given a square matrix, your job is to rotate it clockwise.
+
+Example:
+
+Input: Rotate the matrix below by 90 degrees clockwise:
+1 2 3
+4 5 6
+7 8 9
+
+Output:
+7 4 1
+8 5 2
+9 6 3
+
+Rotate the matrix below by 180 degrees clockwise:
+28 17 38 29 8 15 26
+35 13 37 39 27 40 20
+4 30 23 16 3 5 48
+9 25 2 46 47 21 22
+31 12 41 43 19 32 10
+6 0 36 45 42 1 18
+14 24 11 7 44 34 33
+
+Answer: 33 34 44 7 11 24 14
+18 1 42 45 36 0 6
+10 32 19 43 41 12 31
+22 21 47 46 2 25 9
+48 5 3 16 23 30 4
+20 40 27 39 37 13 35
+26 15 8 29 38 17 28
+Metadata: {'matrix': [[28, 17, 38, 29, 8, 15, 26], [35, 13, 37, 39, 27, 40, 20], [4, 30, 23, 16, 3, 5, 48], [9, 25, 2, 46, 47, 21, 22], [31, 12, 41, 43, 19, 32, 10], [6, 0, 36, 45, 42, 1, 18], [14, 24, 11, 7, 44, 34, 33]], 'num_rotations': 2, 'solution': [[33, 34, 44, 7, 11, 24, 14], [18, 1, 42, 45, 36, 0, 6], [10, 32, 19, 43, 41, 12, 31], [22, 21, 47, 46, 2, 25, 9], [48, 5, 3, 16, 23, 30, 4], [20, 40, 27, 39, 37, 13, 35], [26, 15, 8, 29, 38, 17, 28]]}
+
+````
+
 ### rubiks_cube
 Generates RubiksCube tasks
 
@@ -1616,6 +3700,56 @@ Question: You are given a 3x3x3 Rubik's cube. It looks like this:
 Please provide a solution to solve this cube using Singmaster notation.
 Answer: None
 Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'example_correct_answer': "R R U'"}
+
+````
+
+### self_reference
+Generates self-referential puzzles
+
+Default configuration:
+```python
+difficulty = 5
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 1 of these 7 statements are true.'
+ - Statement 2: 'At most 3 of these 7 statements are false.'
+ - Statement 3: 'Exactly 4 of these 7 statements are true.'
+ - Statement 4: 'Exactly 3 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 4
+
+Example 2:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 4 of these 7 statements are true.'
+ - Statement 2: 'At most 5 of these 7 statements are false.'
+ - Statement 3: 'Exactly 7 of these 7 statements are true.'
+ - Statement 4: 'Exactly 1 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 4
+
+Example 3:
+Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
+ - Statement 1: 'At least 2 of these 7 statements are true.'
+ - Statement 2: 'At most 5 of these 7 statements are false.'
+ - Statement 3: 'Exactly 0 of these 7 statements are true.'
+ - Statement 4: 'Exactly 3 of these 7 statements are false.'
+ - Statement 5: 'Either Statement 3 or Statement 4 is true, but not both.'
+ - Statement 6: 'The number of true statements is a prime number.'
+ - Statement 7: 'The number of false statements is a composite number.'
+
+Answer: 2
 
 ````
 
@@ -1755,6 +3889,107 @@ Metadata: {'integrand': '-28*X**3 + 8*X', 'variable': 'X', 'expected_answer_expr
 
 ````
 
+### sokoban
+Generates Sokoban games with configurable parameters
+
+Default configuration:
+```python
+min_w = 6
+min_h = 6
+max_w = 10
+max_h = 10
+min_boxes = 6
+max_boxes = 10
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are going to solve a 'sokoban' puzzle.
+
+* - The player
+% - The player on a goal
+@ - A box
+X - A goal
+$ - A box on a goal
++ - A wall
+- - An empty position
+
+Your solution must be a string of characters, ex: LDURRUDL.
+
+Here is your puzzle:
++ + + + + + + + +  
++ + X - @ * @ X +  
++ + + - - @ - + +  
++ + + - - - X $ +  
++ + + + - + + + +  
++ + $ + + + + + +  
++ + + + + + + + +  
+
+
+Answer: RLDULLRRDLDR
+Metadata: {'gamestr': '+ + + + + + + + +  \n+ + X - @ * @ X +  \n+ + + - - @ - + +  \n+ + + - - - X $ +  \n+ + + + - + + + +  \n+ + $ + + + + + +  \n+ + + + + + + + +  \n\n', 'difficulty': {'size': (7, 9), 'num_steps': 12}}
+
+Example 2:
+Question: You are going to solve a 'sokoban' puzzle.
+
+* - The player
+% - The player on a goal
+@ - A box
+X - A goal
+$ - A box on a goal
++ - A wall
+- - An empty position
+
+Your solution must be a string of characters, ex: LDURRUDL.
+
+Here is your puzzle:
++ + + + + +  
++ - * - - +  
++ @ - - @ +  
++ X - @ - +  
++ - - - X +  
++ X - @ X +  
++ - - - - +  
++ + + + + +  
+
+
+Answer: LDRRDRDDLLURURDULUURDD
+Metadata: {'gamestr': '+ + + + + +  \n+ - * - - +  \n+ @ - - @ +  \n+ X - @ - +  \n+ - - - X +  \n+ X - @ X +  \n+ - - - - +  \n+ + + + + +  \n\n', 'difficulty': {'size': (8, 6), 'num_steps': 22}}
+
+Example 3:
+Question: You are going to solve a 'sokoban' puzzle.
+
+* - The player
+% - The player on a goal
+@ - A box
+X - A goal
+$ - A box on a goal
++ - A wall
+- - An empty position
+
+Your solution must be a string of characters, ex: LDURRUDL.
+
+Here is your puzzle:
++ + + + + + + + + + + +  
++ - $ - X + - - - - - +  
++ - @ - - - - - @ - X +  
++ - * - @ - - X - $ - +  
++ - - - - X + - - - - +  
++ + - - - - + $ - @ - +  
++ + + - - - - - - - - +  
++ + + - - - $ - - - - +  
++ + + + - - - - - - - +  
++ + + + + + + + + + + +  
+
+
+Answer: RRRRURRRLDDRRDLULDRDLLLLULLDRDRUULUUULDLLURRDRU
+Metadata: {'gamestr': '+ + + + + + + + + + + +  \n+ - $ - X + - - - - - +  \n+ - @ - - - - - @ - X +  \n+ - * - @ - - X - $ - +  \n+ - - - - X + - - - - +  \n+ + - - - - + $ - @ - +  \n+ + + - - - - - - - - +  \n+ + + - - - $ - - - - +  \n+ + + + - - - - - - - +  \n+ + + + + + + + + + + +  \n\n', 'difficulty': {'size': (10, 12), 'num_steps': 47}}
+
+````
+
 ### spell_backward
 Generates tasks to spell words backward
 
@@ -1781,6 +4016,81 @@ Example 3:
 Question: Spell this word backward (example: sun -> nus): One
 Answer: enO
 Metadata: {'word': 'One', 'word_len': 3}
+
+````
+
+### spiral_matrix
+Generates Spiral Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
+
+Example:
+
+Input:
+1 2 3
+4 5 6
+7 8 9
+
+Output: 1 2 3 6 9 8 7 4 5
+
+For the matrix below, what is the list of elements in spiral order?
+3 0
+3 4
+
+Answer: 3 0 4 3
+Metadata: {'matrix': [[3, 0], [3, 4]], 'solution': [3, 0, 4, 3]}
+
+Example 2:
+Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
+
+Example:
+
+Input:
+1 2 3
+4 5 6
+7 8 9
+
+Output: 1 2 3 6 9 8 7 4 5
+
+For the matrix below, what is the list of elements in spiral order?
+4
+
+Answer: 4
+Metadata: {'matrix': [[4]], 'solution': [4]}
+
+Example 3:
+Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
+
+Example:
+
+Input:
+1 2 3
+4 5 6
+7 8 9
+
+Output: 1 2 3 6 9 8 7 4 5
+
+For the matrix below, what is the list of elements in spiral order?
+6 4 1 8 2 6 2
+9 5 1 3 4 8 0
+1 2 1 4 0 5 2
+9 5 5 9 6 1 0
+8 3 3 0 5 7 0
+8 1 4 6 9 7 1
+4 1 3 4 6 1 3
+
+Answer: 6 4 1 8 2 6 2 0 2 0 0 1 3 1 6 4 3 1 4 8 8 9 1 9 5 1 3 4 8 5 1 7 7 9 6 4 1 3 5 2 1 4 0 6 5 0 3 5 9
+Metadata: {'matrix': [[6, 4, 1, 8, 2, 6, 2], [9, 5, 1, 3, 4, 8, 0], [1, 2, 1, 4, 0, 5, 2], [9, 5, 5, 9, 6, 1, 0], [8, 3, 3, 0, 5, 7, 0], [8, 1, 4, 6, 9, 7, 1], [4, 1, 3, 4, 6, 1, 3]], 'solution': [6, 4, 1, 8, 2, 6, 2, 0, 2, 0, 0, 1, 3, 1, 6, 4, 3, 1, 4, 8, 8, 9, 1, 9, 5, 1, 3, 4, 8, 5, 1, 7, 7, 9, 6, 4, 1, 3, 5, 2, 1, 4, 0, 6, 5, 0, 3, 5, 9]}
 
 ````
 
@@ -1870,13 +4180,12 @@ Generates syllogism reasoning tasks
 
 Default configuration:
 ```python
-terms = None
 allow_all = True
 allow_no = True
 allow_some = True
 allow_some_not = True
-include_invalid = True
 invalid_ratio = 0.3
+inversion_probability = 0.3
 seed = 42
 size = 500
 ```
@@ -1886,35 +4195,35 @@ Example tasks:
 Example 1:
 Question: Consider these statements:
 1. No students are humans
-2. No humans are chefs
+2. All humans are chefs
 
 Does it logically follow that:
-No students are chefs?
+Some chefs are humans?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'No students are humans', 'premise2': 'No humans are chefs', 'conclusion': 'No students are chefs', 'is_valid': True}
+Metadata: {'premise1': 'No students are humans', 'premise2': 'All humans are chefs', 'selected_premise': 2, 'conclusion': 'Some chefs are humans', 'is_valid': True, 'type': 'inversion'}
 
 Example 2:
 Question: Consider these statements:
-1. Some children are not animals
-2. Some animals are doctors
+1. All children are animals
+2. Some animals are not doctors
 
 Does it logically follow that:
-All children are doctors?
+Some children are not doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'Some children are not animals', 'premise2': 'Some animals are doctors', 'conclusion': 'All children are doctors', 'is_valid': True}
+Metadata: {'premise1': 'All children are animals', 'premise2': 'Some animals are not doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True, 'type': 'syllogism'}
 
 Example 3:
 Question: Consider these statements:
-1. All butterflies are tigers
+1. Some butterflies are not tigers
 2. No tigers are whales
 
 Does it logically follow that:
-Some butterflies are not whales?
+Some butterflies are whales?
 (Answer Yes or No)
 Answer: No
-Metadata: {'premise1': 'All butterflies are tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are not whales', 'is_valid': False}
+Metadata: {'premise1': 'Some butterflies are not tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are whales', 'is_valid': False, 'type': 'syllogism'}
 
 ````
 
@@ -1944,7 +4253,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 3, 9, 44), 'end_time': datetime.datetime(2025, 2, 3, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 11, 9, 44), 'end_time': datetime.datetime(2025, 2, 11, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -1963,7 +4272,7 @@ min_disks = 3
 max_disks = 7
 min_pegs = 3
 max_pegs = 4
-size = 50
+size = 500
 seed = 42
 visualize = False
 ```
@@ -2017,6 +4326,89 @@ Metadata: {'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxi
 
 ````
 
+### tsumego
+Generates Tsumego problems with configurable parameters
+
+Default configuration:
+```python
+min_board_size = 9
+max_board_size = 13
+max_stones = 15
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: I have a Go problem for you. Black moves next - can you capture some of the white stones?
+
+   A B C D E F G H I
+ 9 X . . . X . . . .
+ 8 . . . . . . . . .
+ 7 . O . O . . X . .
+ 6 . . . X . . . . O
+ 5 O . X O X . . . .
+ 4 . X O O . O . . .
+ 3 . . X O X . . . .
+ 2 . . . X . . . . .
+ 1 . O . O . . X . .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: E4
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', 'O'], ['O', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', 'O', '.', '.', '.'], ['.', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']], 'solution': 'E4'}
+
+Example 2:
+Question: Here's a Go challenge. Playing as Black, how can you capture as many white stones as possible?
+
+   A B C D E F G H I
+ 9 . . O . . . . . .
+ 8 . X O . . . . . .
+ 7 X . X . . . . . .
+ 6 O O O X . . . . .
+ 5 X O O . . . . . .
+ 4 . X . . . . . . O
+ 3 . X . . . . X . .
+ 2 O . O . . . . . .
+ 1 . . . . O . . . .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: B7
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.'], ['O', 'O', 'O', 'X', '.', '.', '.', '.', '.'], ['X', 'O', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']], 'solution': 'B7'}
+
+Example 3:
+Question: Tsumego time. Black to play and capture some stones.
+Find the key move.
+
+   A B C D E F G H I J K L
+12 . . . . . . . . . . . .
+11 . . X . . . . . . . . .
+10 . . . . . . . . . . . .
+ 9 . . . . . . . . . . . .
+ 8 X . . . . X . . . X . .
+ 7 . X . . . . . . . . . .
+ 6 . O X X . . . . . . . O
+ 5 . X O O X . . . . . . .
+ 4 . O O . . . . . O . . O
+ 3 X . X . . . . . . . . .
+ 2 . . . . . . . . . . . .
+ 1 . . . . . . . . . . X .
+
+X - Black
+O - White
+
+Specify your move in coordinates (e.g. 'C4' for column C, row 4)
+Answer: D4
+Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'X', 'X', '.', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', 'O', 'O', 'X', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'O', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']], 'solution': 'D4'}
+
+````
+
 ### word_ladder
 Generates word ladder transformation tasks
 
@@ -2034,17 +4426,17 @@ Example tasks:
 ````
 Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
-Answer: HAND,RAND,REND,REED,FEED,FLED,FLEE,GLEE
+Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
 Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
-Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FARM,FORM,DORM
+Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
 Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10}
 
 Example 3:
 Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
-Answer: SNOG,SNAG,SAAG,SANG,SUNG,SUNS,SUQS
+Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 
 ````
@@ -2130,65 +4522,67 @@ Example tasks:
 ````
 Example 1:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: arnold, eric, alice, peter
- - People use different phone models: samsung galaxy s21, iphone 13, google pixel 6, oneplus 9
- - Each person has a favorite drink: tea, water, milk, coffee
- - The people keep different animals: fish, cat, horse, bird
+ - Each person has a unique name: carol, arnold, alice, bob
+ - People use different phone models: huawei p50, samsung galaxy s21, oneplus 9, google pixel 6
+ - Each person has a favorite drink: milk, boba tea, coffee, water
+ - The people keep different animals: bird, cat, fish, dog
 
-1. The fish enthusiast is directly left of Alice.
-2. The cat lover is the person who uses a OnePlus 9.
-3. The tea drinker is Arnold.
-4. The person who uses an iPhone 13 is in the third house.
-5. The one who only drinks water is directly left of the cat lover.
-6. The fish enthusiast is the coffee drinker.
-7. Peter is the person who uses a Samsung Galaxy S21.
-8. The bird keeper is directly left of the tea drinker.
-9. The person who uses an iPhone 13 is the fish enthusiast.
+1. Alice is the cat lover.
+2. The person who likes milk is in the third house.
+3. The person who uses a Huawei P50 is Bob.
+4. The one who only drinks water is the bird keeper.
+5. The cat lover is in the second house.
+6. The boba tea drinker is the dog owner.
+7. The person who uses a Google Pixel 6 is directly left of Carol.
+8. The one who only drinks water is Carol.
+9. Carol is the person who uses a OnePlus 9.
 
 What is Name of the person who lives in House 1?
-Answer: peter
+Answer: bob
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 2:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: alice, eric, arnold, peter
- - Each mother is accompanied by their child: fred, samantha, meredith, bella
- - The people are of nationalities: norwegian, swede, brit, dane
- - Everyone has something different for lunch: grilled cheese, pizza, stew, spaghetti
+ - Each person has a unique name: alice, bob, arnold, carol
+ - Each mother is accompanied by their child: alice, bella, billy, timothy
+ - The people are of nationalities: brit, german, chinese, dane
+ - Everyone has something different for lunch: soup, stir fry, grilled cheese, pizza
 
-1. The person who loves the spaghetti eater is in the third house.
-2. The Dane is in the second house.
-3. Alice is in the first house.
-4. The person who loves eating grilled cheese is the person's child is named Bella.
-5. The person who is a pizza lover is directly left of the person's child is named Fred.
-6. The person who loves the stew is the person's child is named Fred.
-7. The person's child is named Bella is Arnold.
-8. The person's child is named Meredith is the British person.
-9. The Norwegian is Peter.
+1. The British person is Arnold.
+2. The person's child is named Alice is directly left of the person who loves the soup.
+3. The person who loves stir fry is the person's child is named Bella.
+4. The Chinese is Carol.
+5. The German is the person's child is named Bella.
+6. The person's child is named Bella is Bob.
+7. The person who loves the soup is in the second house.
+8. The person who loves the soup is the British person.
+9. The person's child is named Alice is Carol.
+10. The British person is directly left of the German.
+11. The person who is the mother of Billy is the person who is a pizza lover.
 
 What is Name of the person who lives in House 1?
-Answer: alice
+Answer: carol
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 Example 3:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
- - Each person has a unique name: eric, alice, arnold, peter
- - Everyone has a different favorite cigar: dunhill, prince, blue master, pall mall
- - Everyone has something different for lunch: stew, pizza, grilled cheese, spaghetti
- - Each person has a favorite color: red, white, green, yellow
+ - Each person has a unique name: alice, arnold, bob, carol
+ - Everyone has a different favorite cigar: pall mall, dunhill, blue master, prince
+ - Everyone has something different for lunch: stir fry, grilled cheese, soup, pizza
+ - Each person has a favorite color: blue, purple, brown, white
 
-1. The person who loves eating grilled cheese is the person whose favorite color is red.
-2. Arnold is the person who loves yellow.
-3. The person who loves the spaghetti eater is the person who smokes Blue Master.
-4. The person partial to Pall Mall is Peter.
-5. The Dunhill smoker is directly left of the person partial to Pall Mall.
-6. The person who is a pizza lover is Eric.
-7. The person who is a pizza lover is in the fourth house.
-8. The person whose favorite color is green is in the first house.
-9. The person who loves yellow is in the second house.
+1. The person who loves white is the person who loves stir fry.
+2. The person who loves brown is directly left of the Prince smoker.
+3. The person who is a pizza lover and Arnold are next to each other.
+4. The person partial to Pall Mall is the person who loves white.
+5. Alice is the person who loves the soup.
+6. The person partial to Pall Mall is directly left of the person who loves the soup.
+7. The person who smokes Blue Master is directly left of the Dunhill smoker.
+8. The Dunhill smoker is Bob.
+9. The person who loves the soup is the person who loves blue.
 
 What is Name of the person who lives in House 1?
-Answer: alice
+Answer: carol
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
 ````

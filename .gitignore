@@ -21,13 +21,13 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-# pyenv
-.python-version
 
 # Virtual Environment
 venv/
 env/
 ENV/
+# pyenv
+.python-version
 
 # IDE
 .idea/
@@ -42,3 +42,7 @@ htmlcov/
 
 # OSX
 .DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+.virtual_documents/

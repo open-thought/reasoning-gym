@@ -1,20 +1,14 @@
 """
-Cognition tasks for training reasoning capabilities:
-- Pattern recognition
-- Sequence completion
-- Logical reasoning
-- Working memory
+Cognition tasks for training reasoning capabilities.
 """
 
-from .arc_1d import Arc1DConfig, Arc1DDataset
 from .color_cube_rotation import ColorCubeRotationConfig, ColorCubeRotationDataset
 from .figlet_fonts import FigletFontConfig, FigletFontDataset
 from .number_sequences import NumberSequenceConfig, NumberSequenceDataset
+from .rectangle_count import RectangleCountConfig, RectangleCountDataset
 from .rubiks_cube import RubiksCubeConfig, RubiksCubeDataset
 
 __all__ = [
-    "Arc1DConfig",
-    "Arc1DDataset",
     "ColorCubeRotationConfig",
     "ColorCubeRotationDataset",
     "FigletFontConfig",
@@ -23,4 +17,6 @@ __all__ = [
     "NumberSequenceDataset",
     "RubiksCubeConfig",
     "RubiksCubeDataset",
+    "RectangleCountConfig",
+    "RectangleCountDataset",
 ]

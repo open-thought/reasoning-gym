@@ -235,9 +235,10 @@ class IntermediateIntegrationDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
+        metadata = entry["metadata"]
         if answer is not None:
             try:
                 var = metadata["variable"]

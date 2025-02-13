@@ -100,7 +100,7 @@ def test_verify_answer():
     dataset = IntermediateIntegrationDataset(config)
     for i in range(len(dataset)):
         item = dataset[i]
-        score = dataset.score_answer(item["answer"], item["metadata"])
+        score = dataset.score_answer(answer=item["answer"], entry=item)
         assert score == 1.0
 
 
@@ -140,5 +140,6 @@ def test_score_answer_cases():
     ]
 
     for answer, metadata, expected in test_cases:
-        score = dataset.score_answer(answer, metadata)
+        dummy_entry = {"metadata": metadata}
+        score = dataset.score_answer(answer, entry=dummy_entry)
         assert score == expected, f"Failed case: {answer} | Expected {expected}, got {score}"

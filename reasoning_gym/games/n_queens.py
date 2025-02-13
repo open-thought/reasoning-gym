@@ -50,20 +50,6 @@ class NQueensDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
         self._solutions = self._get_all_solutions(config.n)
 
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
-
     def _get_all_solutions(self, n: int) -> List[List[List[str]]]:
         """Get all solutions for the N Queens puzzle"""
 

@@ -3,7 +3,7 @@ import math
 import random
 from dataclasses import dataclass
 from datetime import date, timedelta
-from enum import Enum, auto
+from enum import Enum, StrEnum, auto
 from typing import Any, Dict, List, Optional, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
@@ -38,7 +38,7 @@ class Weekday(Enum):
         return self.name.capitalize()
 
 
-class CalendarTask(Enum):
+class CalendarTask(StrEnum):
     WEEKDAY_OFFSET = "weekday_offset"
     WEEKDAY_OF_DATE = "weekday_of_date"
     WEEKDAY_OF_DATE_FROM_FIRST_DATE = "weekday_of_date_from_first_day"
@@ -122,9 +122,9 @@ class CalendarArithmeticDataset(ProceduralDataset):
         self.tasks = [self.task_handlers[task] for task in self.config.tasks]
 
     def __getitem__(self, idx: int) -> dict:
-        item_rng = random.Random(self.seed + idx)
-        task = item_rng.choice(self.tasks)
-        question, answer, metadata = task(item_rng)
+        rng = random.Random(self.seed + idx)
+        task = rng.choice(self.tasks)
+        question, answer, metadata = task(rng)
         return {
             "question": question,
             "answer": str(answer),

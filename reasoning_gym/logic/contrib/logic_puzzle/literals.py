@@ -29,6 +29,9 @@ class Literal(Enum):
     def description(cls) -> str:
         return "".join(cls.__members__)  # type:ignore
 
+    def __lt__(self, other) -> bool:
+        return self.value < other.value
+
 
 class Color(Literal):
     @classmethod

@@ -1,0 +1,8 @@
+torch>=2.6.0
+datasets
+peft
+transformers
+trl
+wandb
+huggingface_hub
+flash-attn --no-build-isolation

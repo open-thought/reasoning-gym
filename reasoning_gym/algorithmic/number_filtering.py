@@ -86,7 +86,7 @@ class NumberFilteringDataset(ProceduralDataset):
         return {
             "question": (
                 f"{keep_remove.capitalize()} all numbers {larger_smaller} than {filter_str} "
-                f"in this list: {str_numbers}"
+                f"in this list: {str_numbers}\nReturn the new list in the same format."
             ),
             "answer": str(result_strs) if result_strs else "[]",
             "metadata": {
