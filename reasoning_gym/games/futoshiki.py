@@ -103,12 +103,12 @@ class FutoshikiDataset(ProceduralDataset):
                     if r1 == r2:     # horizontal
                         return ">"
                     else:            # vertical
-                        return "\u2227"
+                        return "\u2228"
                 elif sign == "<":    # first is smaller
                     if r1 == r2:     # horizontal
                         return "<"
                     else:
-                        return "\u2228"
+                        return "\u2227"
             else:
                 # reversed order in the dictionary -> invert the sign
                 key = ((r2, c2), (r1, c1))
@@ -117,12 +117,12 @@ class FutoshikiDataset(ProceduralDataset):
                     if r1 == r2: 
                         return "<"
                     else:
-                        return "\u2228"
+                        return "\u2227"
                 elif sign == "<":
                     if r1 == r2:
                         return ">"
                     else:
-                        return "\u2227"
+                        return "\u2228"
             return None
         
         lines = []
