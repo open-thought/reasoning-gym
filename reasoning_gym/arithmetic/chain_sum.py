@@ -119,28 +119,26 @@ class ChainSumCurriculum(BaseCurriculum):
 
         # Define attributes
         self._define_attributes(
-            (
-                RangeAttributeDefinition(
-                    name="num_terms",
-                    levels=[2, 3, 4, 5],
-                    default_level=0,  # Start with 2 terms
-                    description="Maximum number of terms in the expression",
-                    attr_type=AttributeType.APPEND,
-                    min_value=2,  # Ensure at least 2 terms
-                    lower_field_name="min_terms",
-                    upper_field_name="max_terms",
-                ),
-                RangeAttributeDefinition(
-                    name="num_digits",
-                    levels=[1, 2, 4, 10],
-                    default_level=0,  # Start with 1-digit numbers
-                    description="Number of digits in each operand",
-                    attr_type=AttributeType.APPEND,
-                    min_value=1,  # Ensure numbers are at least 1 digit
-                    lower_field_name="min_digits",
-                    upper_field_name="max_digits",
-                ),
-            )
+            RangeAttributeDefinition(
+                name="num_terms",
+                levels=[2, 3, 4, 5],
+                default_level=0,  # Start with 2 terms
+                description="Maximum number of terms in the expression",
+                attr_type=AttributeType.APPEND,
+                min_value=2,  # Ensure at least 2 terms
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+            ),
+            RangeAttributeDefinition(
+                name="num_digits",
+                levels=[1, 2, 4, 10],
+                default_level=0,  # Start with 1-digit numbers
+                description="Number of digits in each operand",
+                attr_type=AttributeType.APPEND,
+                min_value=1,  # Ensure numbers are at least 1 digit
+                lower_field_name="min_digits",
+                upper_field_name="max_digits",
+            ),
         )
 
 

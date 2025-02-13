@@ -1,9 +1,8 @@
 model: deepseek/deepseek-r1
 category: algorithmic
 datasets:
-  - base_conversion
   - binary_matrix
-  - caesar _cipher
+  - caesar_cipher
   - group_anagrams
   - isomorphic_strings
   - letter_counting
