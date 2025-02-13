@@ -1,0 +1,367 @@
+{
+  "dataset_name": "sentence_reordering",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.14859999999999984,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T16:42:34.678091",
+  "config": {
+    "min_words_in_sentence": 3,
+    "max_words_in_sentence": 20,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Restore the correct order of words in the following sentence: wish could get I sleep. \"I some",
+      "expected_answer": "\"I wish I could get some sleep.",
+      "model_answer": "I wish I could get some sleep.",
+      "score": 0.01,
+      "metadata": "{'word_count': 7}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: the high level name. itself its unable it maintain at was of to Unfortunately,",
+      "expected_answer": "Unfortunately, it was unable to maintain itself at the high level of its name.",
+      "model_answer": "Unfortunately, it was unable to maintain itself at the high level of its name.",
+      "score": 1.0,
+      "metadata": "{'word_count': 14}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: developed by For the unutilized. energy falls ages went the",
+      "expected_answer": "For ages the the energy developed by falls went unutilized.",
+      "model_answer": "For the unutilized, the ages went by the developed energy falls.",
+      "score": 0.01,
+      "metadata": "{'word_count': 10}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: In Mr. that said case,\"",
+      "expected_answer": "In that case,\" said Mr.",
+      "model_answer": "In that case, Mr. said",
+      "score": 0.01,
+      "metadata": "{'word_count': 5}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: first thing Mr. that The",
+      "expected_answer": "The first thing that Mr.",
+      "model_answer": "The first thing that Mr.",
+      "score": 1.0,
+      "metadata": "{'word_count': 5}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: is who so 3000 It away. thus or miles to take one _t\u00eate-\u00e0-t\u00eate_ with breakfast delightful is",
+      "expected_answer": "It is is delightful thus to take breakfast _t\u00eate-\u00e0-t\u00eate_ with one who 3000 miles or so away.",
+      "model_answer": "It is so delightful to take a 3000-mile t\u00eate-\u00e0-t\u00eate with breakfast away. Thus, who is so or...",
+      "score": 0.01,
+      "metadata": "{'word_count': 19}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: home? But, are coming pray, when you",
+      "expected_answer": "But, pray, when are you coming home?",
+      "model_answer": "But, pray, when are you coming home?",
+      "score": 1.0,
+      "metadata": "{'word_count': 7}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: at present take this then 25th of Let year 2889. September random us",
+      "expected_answer": "Let us then take at random September 25th of this present year 2889.",
+      "model_answer": "Let us take this random 25th of September 2889 at present, then.",
+      "score": 0.01,
+      "metadata": "{'word_count': 13}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: the was by was quite a It of opening. dark sound he when door aroused",
+      "expected_answer": "It was was quite dark when he aroused by the sound of a door opening.",
+      "model_answer": "It was quite a dark sound when the door was opened by him.  \n**Alternative possible arrangement (if considering the period placement):**  \nIt was quite a dark sound of the opening door when he was aroused.  \n\n**Most coherent version based on context:**  \nWhen the door was opened by him, it was quite a dark sound that aroused...  \n\n**Final Answer (best fit for the given words):**  \nIt was quite a dark sound when the door was opened by him.",
+      "score": 0.01,
+      "metadata": "{'word_count': 15}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: sky! Smith, cloudless \"a",
+      "expected_answer": "Smith, \"a cloudless sky!",
+      "model_answer": "Smith, a cloudless sky!",
+      "score": 0.01,
+      "metadata": "{'word_count': 4}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: answered wish? all the that \"True,\" we can \"but we do \" Russian;",
+      "expected_answer": "\" \"True,\" answered the Russian; \"but can we we do all that wish?",
+      "model_answer": "\"True,\" we answered, \"but we can do all that the Russian wish?\"",
+      "score": 0.01,
+      "metadata": "{'word_count': 12}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: ' every one exclaims present.",
+      "expected_answer": "' exclaims every one present.",
+      "model_answer": "Every one present exclaims.",
+      "score": 0.01,
+      "metadata": "{'word_count': 4}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: enters Smith continues the round hall. and reporters' his",
+      "expected_answer": "Smith continues his round and enters the reporters' hall.",
+      "model_answer": "Smith enters the round hall and continues his reporters' round.",
+      "score": 0.01,
+      "metadata": "{'word_count': 9}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: a pronouncing name--Fritz! talking, name--his is She",
+      "expected_answer": "She is talking, pronouncing a name--his name--Fritz!",
+      "model_answer": "She is talking, pronouncing a name--Fritz! His name--his is She.",
+      "score": 0.01,
+      "metadata": "{'word_count': 9}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: said \"Good-by, while,\" then, a little for \" Mr.",
+      "expected_answer": "\" \"Good-by, then, for a little while,\" said Mr.",
+      "model_answer": " \"Good-by for a little while,\" said Mr. For, then. ",
+      "score": 0.01,
+      "metadata": "{'word_count': 9}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: Mr. subscription contained thousand names, hundred ago but then a its Twenty and few list years",
+      "expected_answer": "Twenty years ago its subscription list contained but a few hundred thousand names, and then Mr.",
+      "model_answer": "  \nA hundred years ago, Mr. Subscription's list contained twenty thousand names, but then a few years ago, its list contained a few.  \n",
+      "score": 0.01,
+      "metadata": "{'word_count': 16}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: alone, Left Mr.",
+      "expected_answer": "Left alone, Mr.",
+      "model_answer": "Mr. Left alone",
+      "score": 0.01,
+      "metadata": "{'word_count': 3}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: of settled. are definitively Olympus \"The elements",
+      "expected_answer": "\"The elements of Olympus are definitively settled.",
+      "model_answer": "The elements of Olympus are definitively settled.",
+      "score": 0.01,
+      "metadata": "{'word_count': 7}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: slightest Smith, the without irritation. manifesting",
+      "expected_answer": "Smith, without manifesting the slightest irritation.",
+      "model_answer": "Smith, manifesting without the slightest irritation.",
+      "score": 0.01,
+      "metadata": "{'word_count': 6}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: not did by it was the the hour, Entranced notice forgetful dark. that harmony, Smith of growing",
+      "expected_answer": "Entranced by the the harmony, forgetful of hour, Smith did not notice that it was growing dark.",
+      "model_answer": " \n\nEntranced by the dark, forgetful harmony of growing, Smith did not notice that it was not by the hour. \n\n",
+      "score": 0.01,
+      "metadata": "{'word_count': 17}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: and come You must see.",
+      "expected_answer": "You must come and see.",
+      "model_answer": "You must come and see.",
+      "score": 1.0,
+      "metadata": "{'word_count': 5}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: what your outcome practical \"And be will the discovery? of",
+      "expected_answer": "\"And what will be the practical outcome of your discovery?",
+      "model_answer": "What will be the practical outcome of your discovery?",
+      "score": 0.01,
+      "metadata": "{'word_count': 10}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: bold remember Dr. the ago will by Every a experiment hundred years one made",
+      "expected_answer": "Every one will remember the bold experiment made a hundred years ago by Dr.",
+      "model_answer": "Every hundred years, one will remember the bold experiment made by Dr. One years ago.",
+      "score": 0.01,
+      "metadata": "{'word_count': 14}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: understands a One readily beset of situated man must requests be as how kinds. Smith all is with",
+      "expected_answer": "One readily understands how a man situated as Smith is must be beset with requests of all kinds.",
+      "model_answer": "One readily understands how a man situated as Smith is with all must be beset with all kinds of requests.",
+      "score": 0.01,
+      "metadata": "{'word_count': 18}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: Fritz bad in very humor. awoke Smith Napoleon",
+      "expected_answer": "Fritz Napoleon Smith awoke in very bad humor.",
+      "model_answer": "Fritz Smith awoke Napoleon in very bad humor.",
+      "score": 0.01,
+      "metadata": "{'word_count': 8}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: years their marriage, Mrs. though Incredible all that time this ten first since in the the is seems, it",
+      "expected_answer": "Incredible though it seems, in all the the ten years since their marriage, this is first time that Mrs.",
+      "model_answer": "\nThough Mrs. Incredible, this is the first time in the ten years since their marriage; all that time, it seems.\n",
+      "score": 0.01,
+      "metadata": "{'word_count': 19}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: Please donation Gutenberg addresses. web the methods pages Project check current for and",
+      "expected_answer": "Please check the Project Gutenberg web pages for current donation methods and addresses.",
+      "model_answer": "Please check the Project Gutenberg web pages for current donation addresses and methods.",
+      "score": 0.01,
+      "metadata": "{'word_count': 13}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: country States. The United than representations other of any copyright the status in any the work makes concerning no Foundation",
+      "expected_answer": "The Foundation makes no representations concerning the the copyright status of any any work in country other than United States.",
+      "model_answer": "The Foundation makes no representations concerning the copyright status of any work in any country other than the United States.",
+      "score": 0.01,
+      "metadata": "{'word_count': 20}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: of not it lacks of truth. Your picture is the life; elements a story",
+      "expected_answer": "Your story is not a picture of of life; it lacks the elements truth.",
+      "model_answer": "Your picture is the life of a story; it lacks not elements of truth.",
+      "score": 0.01,
+      "metadata": "{'word_count': 14}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: completing Smith, sentence. the",
+      "expected_answer": "Smith, completing the sentence.",
+      "model_answer": "Smith completing the sentence.",
+      "score": 0.01,
+      "metadata": "{'word_count': 4}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: His left eight disconsolate. for days was feeling ago, France having he wife",
+      "expected_answer": "His wife having left for France eight days ago, he was feeling disconsolate.",
+      "model_answer": " Eight days ago, having left his wife in France, he was feeling disconsolate for days. ",
+      "score": 0.01,
+      "metadata": "{'word_count': 13}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: that time bothered This us. have the not the Chinese is first",
+      "expected_answer": "This is not the the first time that Chinese have bothered us.",
+      "model_answer": "This is the first time that the Chinese have not bothered us.",
+      "score": 0.01,
+      "metadata": "{'word_count': 12}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: for suspended a while moment These are experiments Dr.",
+      "expected_answer": "These experiments are suspended for a moment while Dr.",
+      "model_answer": "These experiments are suspended for a moment, Dr. While.",
+      "score": 0.01,
+      "metadata": "{'word_count': 9}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: Smith, him. interrupting",
+      "expected_answer": "Smith, interrupting him.",
+      "model_answer": "Interrupting him, Smith.",
+      "score": 0.01,
+      "metadata": "{'word_count': 3}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: Mrs. the He just was when finishing dessert",
+      "expected_answer": "He was just finishing the dessert when Mrs.",
+      "model_answer": "He was just finishing the dessert when the Mrs.",
+      "score": 0.01,
+      "metadata": "{'word_count': 8}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: \"go Mr. see he, Go,\" engineer, said addressing head the",
+      "expected_answer": "Go,\" said he, addressing the head engineer, \"go see Mr.",
+      "model_answer": "\"Go, Mr. See,\" he said, addressing the head engineer.",
+      "score": 0.01,
+      "metadata": "{'word_count': 10}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: with from getting the he William \"failing any continued, But,\" moon? addressing we are results Jupiter, again Cooley,",
+      "expected_answer": "But,\" he continued, again addressing William Cooley, \"failing with Jupiter, are we getting any results from the moon?",
+      "model_answer": "\n\"But,\" William Cooley continued, addressing the moon, \"we are getting results from Jupiter again. Any continued failing...?\"\n",
+      "score": 0.01,
+      "metadata": "{'word_count': 18}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: withal. And confusion is no there",
+      "expected_answer": "And there is no confusion withal.",
+      "model_answer": "And there is no confusion withal.",
+      "score": 1.0,
+      "metadata": "{'word_count': 6}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: In that Mr. said case,\"",
+      "expected_answer": "In that case,\" said Mr.",
+      "model_answer": "\"Mr. said, 'In that case,'\"",
+      "score": 0.01,
+      "metadata": "{'word_count': 5}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: \"How are you?",
+      "expected_answer": "\"How are you?",
+      "model_answer": "How are you?",
+      "score": 0.01,
+      "metadata": "{'word_count': 3}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: withal. confusion And is no there",
+      "expected_answer": "And there is no confusion withal.",
+      "model_answer": "And there is no confusion withal.",
+      "score": 1.0,
+      "metadata": "{'word_count': 6}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: sound a dark when the of he by It was quite was opening. door aroused",
+      "expected_answer": "It was was quite dark when he aroused by the sound of a door opening.",
+      "model_answer": "It was quite dark when he was aroused by the sound of a door opening.",
+      "score": 0.01,
+      "metadata": "{'word_count': 15}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: org/contact Section 4.",
+      "expected_answer": "org/contact Section 4.",
+      "model_answer": "Section 4 org/contact",
+      "score": 0.01,
+      "metadata": "{'word_count': 4}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: it,\" added Peer. \" \"That's",
+      "expected_answer": "\" \"That's it,\" added Peer.",
+      "model_answer": "\"That's it,\" added Peer.",
+      "score": 0.01,
+      "metadata": "{'word_count': 5}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: man of that into put the power have is hands a They infinite. almost",
+      "expected_answer": "They have put into the hands of man a power that is almost infinite.",
+      "model_answer": "They have put into the hands of that man a power almost infinite.",
+      "score": 0.01,
+      "metadata": "{'word_count': 14}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: no is confusion And withal. there",
+      "expected_answer": "And there is no confusion withal.",
+      "model_answer": "And there is no confusion withal.",
+      "score": 1.0,
+      "metadata": "{'word_count': 6}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: his at was Smith a him window. waiting in \" for stepped air-coach, into which",
+      "expected_answer": "\" Smith stepped into his air-coach, which was in waiting for him at a window.",
+      "model_answer": "\"Smith was waiting at his window for the air-coach, into which he stepped.\"",
+      "score": 0.01,
+      "metadata": "{'word_count': 15}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: science of our of time. Here triumphs great another the in is",
+      "expected_answer": "Here is another of of the great triumphs science in our time.",
+      "model_answer": "Here is another of the great triumphs in the science of our time.",
+      "score": 0.01,
+      "metadata": "{'word_count': 12}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: \"At presents to answered she us. face the \"on which least,\" Cooley,",
+      "expected_answer": "\"At least,\" answered Cooley, \"on the face which she presents to us.",
+      "model_answer": "She answered to us at present. Cooley faced the \"on which least,\"",
+      "score": 0.01,
+      "metadata": "{'word_count': 12}"
+    },
+    {
+      "question": "Restore the correct order of words in the following sentence: indeed, Mr. invention valuable and A",
+      "expected_answer": "A valuable invention indeed, and Mr.",
+      "model_answer": "Indeed, Mr. A's invention is valuable.",
+      "score": 0.01,
+      "metadata": "{'word_count': 6}"
+    }
+  ]
+}

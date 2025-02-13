@@ -1,0 +1,375 @@
+{
+  "dataset_name": "polynomial_equations",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.0,
+  "total_examples": 50,
+  "timestamp": "2025-02-11T19:59:51.374578",
+  "config": {
+    "min_terms": 2,
+    "max_terms": 4,
+    "min_value": 1,
+    "max_value": 100,
+    "min_degree": 1,
+    "max_degree": 3,
+    "operators": [
+      "+",
+      "-"
+    ],
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Find the real value(s) of u in the equation: -127*u = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe real value of \\( u \\) is \\boxed{0}.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-127*u', 'variable': 'u', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Determine the real value(s) of b tha satisfies: 86*b**2 - 2*b - 13 = 0",
+      "expected_answer": "[-0.3773425275273891, 0.4005983414808775]",
+      "model_answer": "\nThe real values of \\( b \\) are \\( \\boxed{\\dfrac{1 + \\sqrt{1119}}{86}} \\) and \\( \\boxed{\\dfrac{1 - \\sqrt{1119}}{86}} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773425275273891, 0.4005983414808775]}"
+    },
+    {
+      "question": "Determine the real value(s) of n tha satisfies: 71*n**3 - 2*n - 29 = 0",
+      "expected_answer": "[0.7546129960163634]",
+      "model_answer": null,
+      "score": 0,
+      "metadata": "{'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3, 'real_solutions': [0.7546129960163634]}"
+    },
+    {
+      "question": "Find the real value(s) of i in the equation: -39*i**2 - 10*i - 15 = 0",
+      "expected_answer": "[]",
+      "model_answer": "There are no real solutions.",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-39*i**2 - 10*i - 15', 'variable': 'i', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Solve for real c: 106*c**2 = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe solution to the equation \\(106c^2 = 0\\) is \\( \\boxed{0} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '106*c**2', 'variable': 'c', 'degree': 2, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Find the real value(s) of l in the equation: 138*l = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe real value of \\( l \\) is \\boxed{0}.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '138*l', 'variable': 'l', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real r:\n27*r**2 = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\n\\( \\boxed{0} \\)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '27*r**2', 'variable': 'r', 'degree': 2, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve for real c: 97*c**2 + 98*c + 7 = 0",
+      "expected_answer": "[-0.9329586375514728, -0.0773506407990427]",
+      "model_answer": "\nThe real solutions are \n<c = \\frac{-49 + \\sqrt{1722}}{97}</c> and <c = \\frac{-49 - \\sqrt{1722}}{97}</c>.\n\nIn boxed form: \n\\boxed{ \\frac{-49 + \\sqrt{1722}}{97} } \\quad \\text{and} \\quad \\boxed{ \\frac{-49 - \\sqrt{1722}}{97} }.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '97*c**2 + 98*c + 7', 'variable': 'c', 'degree': 2, 'real_solutions': [-0.9329586375514728, -0.0773506407990427]}"
+    },
+    {
+      "question": "Find the real value(s) of p in the equation: -132*p**2 - 41 = 0",
+      "expected_answer": "[]",
+      "model_answer": "There are no real solutions since the equation results in \\( p^2 = -\\frac{41}{132} \\), and the square of a real number cannot be negative.",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-132*p**2 - 41', 'variable': 'p', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Determine the real value(s) of h tha satisfies: -71*h**3 + 182*h = 0",
+      "expected_answer": "[-1.6010559895550627, 0.0, 1.6010559895550627]",
+      "model_answer": "The real values of \\( h \\) that satisfy the equation are \\( h = 0 \\), \\( h = \\sqrt{\\dfrac{182}{71}} \\), and \\( h = -\\sqrt{\\dfrac{182}{71}} \\).",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-71*h**3 + 182*h', 'variable': 'h', 'degree': 3, 'real_solutions': [-1.6010559895550627, 0.0, 1.6010559895550627]}"
+    },
+    {
+      "question": "Find the real value(s) of i in the equation: 34*i = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "The real value of i that satisfies the equation \\(34i = 0\\) is \\(\\boxed{0}\\).",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '34*i', 'variable': 'i', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Determine the real value(s) of t tha satisfies: -85*t = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe solution is \\boxed{0}.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-85*t', 'variable': 't', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Find the real value(s) of e in the equation: -49*e**2 + 119*e = 0",
+      "expected_answer": "[0.0, 2.4285714285714284]",
+      "model_answer": "\nThe real values of \\( e \\) are \\( \\boxed{0} \\) and \\( \\boxed{\\dfrac{17}{7}} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-49*e**2 + 119*e', 'variable': 'e', 'degree': 2, 'real_solutions': [0.0, 2.4285714285714284]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real c:\n-28*c = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nc = 0\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-28*c', 'variable': 'c', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve for real r: r = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\n\\( r = 0 \\)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': 'r', 'variable': 'r', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve for real b: 7 - 128*b**2 = 0",
+      "expected_answer": "[-0.23385358667337133, 0.23385358667337133]",
+      "model_answer": "\nThe real solutions are \\( b = \\pm \\dfrac{\\sqrt{14}}{16} \\).\n\n\\boxed{b = \\pm \\dfrac{\\sqrt{14}}{16}}\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '7 - 128*b**2', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.23385358667337133, 0.23385358667337133]}"
+    },
+    {
+      "question": "Determine the real value(s) of s tha satisfies: -6*s - 52 = 0",
+      "expected_answer": "[-8.666666666666666]",
+      "model_answer": "\nThe real value of \\( s \\) that satisfies the equation is \\boxed{-\\dfrac{26}{3}}.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-6*s - 52', 'variable': 's', 'degree': 1, 'real_solutions': [-8.666666666666666]}"
+    },
+    {
+      "question": "Solve for real h: 127*h - 132 = 0",
+      "expected_answer": "[1.0393700787401574]",
+      "model_answer": "\n\\( h = \\dfrac{132}{127} \\)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '127*h - 132', 'variable': 'h', 'degree': 1, 'real_solutions': [1.0393700787401574]}"
+    },
+    {
+      "question": "Solve for real j: -62*j**2 + 6*j + 55 = 0",
+      "expected_answer": "[-0.8947131552286269, 0.991487348777014]",
+      "model_answer": "\nThe solutions are \\( j = \\frac{3 + \\sqrt{3419}}{62} \\) and \\( j = \\frac{3 - \\sqrt{3419}}{62} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-62*j**2 + 6*j + 55', 'variable': 'j', 'degree': 2, 'real_solutions': [-0.8947131552286269, 0.991487348777014]}"
+    },
+    {
+      "question": "Solve for real p: -64*p - 4 = 0",
+      "expected_answer": "[-0.0625]",
+      "model_answer": "\n\\( p = -\\dfrac{1}{16} \\)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-64*p - 4', 'variable': 'p', 'degree': 1, 'real_solutions': [-0.0625]}"
+    },
+    {
+      "question": "Solve for real s: -60*s - 86 = 0",
+      "expected_answer": "[-1.4333333333333333]",
+      "model_answer": "\nThe solution is \\( s = -\\dfrac{43}{30} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-60*s - 86', 'variable': 's', 'degree': 1, 'real_solutions': [-1.4333333333333333]}"
+    },
+    {
+      "question": "Find the real value(s) of o in the equation: -85*o**2 - 181*o = 0",
+      "expected_answer": "[-2.1294117647058823, 0.0]",
+      "model_answer": "\nThe real values of \\( o \\) are \\( \\boxed{0} \\) and \\( \\boxed{-\\dfrac{181}{85}} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-85*o**2 - 181*o', 'variable': 'o', 'degree': 2, 'real_solutions': [-2.1294117647058823, 0.0]}"
+    },
+    {
+      "question": "Solve for real p: 116*p + 126 = 0",
+      "expected_answer": "[-1.0862068965517242]",
+      "model_answer": "\n\\( p = -\\dfrac{63}{58} \\)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '116*p + 126', 'variable': 'p', 'degree': 1, 'real_solutions': [-1.0862068965517242]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real n:\n44 = 0",
+      "expected_answer": "[]",
+      "model_answer": "There is no real solution to the equation 44 = 0 because the equation is a contradiction; 44 \u2260 0.",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '44', 'variable': 'n', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Solve for real c: -38*c**2 - 64*c - 72 = 0",
+      "expected_answer": "[]",
+      "model_answer": "\nThe equation \\(-38c^2 - 64c - 72 = 0\\) has no real solutions.  \n**Steps:**  \n1. Multiply the equation by \\(-1\\) to simplify coefficients:  \n   \\[\n   38c^2 + 64c + 72 = 0\n   \\]  \n2. Divide by 2 to simplify:  \n   \\[\n   19c^2 + 32c + 36 = 0\n   \\]  \n3. Compute the discriminant \\(D = b^2 - 4ac = 32^2 - 4(19)(36)\\):  \n   \\[\n   D = 1024 - 2736 = -1712\n   \\]  \n4. Since \\(D < 0\\), the quadratic equation has **no real solutions**.  \n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-38*c**2 - 64*c - 72', 'variable': 'c', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Solve for real c: 16*c = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\n\\boxed{0}\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '16*c', 'variable': 'c', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Determine the real value(s) of x tha satisfies: 115*x**2 - 43 = 0",
+      "expected_answer": "[-0.6114842953651883, 0.6114842953651883]",
+      "model_answer": "\nThe real solutions are \\( x = \\pm \\sqrt{\\dfrac{43}{115}} \\), which can also be expressed as \\( x = \\pm \\dfrac{\\sqrt{4945}}{115} \\).\n\n**Step-by-Step Explanation:**\n\n1. **Start with the equation:**\n   \\[\n   115x^2 - 43 = 0\n   \\]\n\n2. **Isolate \\( x^2 \\):**\n   \\[\n   115x^2 = 43 \\implies x^2 = \\dfrac{43}{115}\n   \\]\n\n3. **Solve for \\( x \\) by taking square roots:**\n   \\[\n   x = \\pm \\sqrt{\\dfrac{43}{115}}\n   \\]\n\n4. **(Optional) Rationalize the denominator:**\n   \\[\n   x = \\pm \\dfrac{\\sqrt{43}}{\\sqrt{115}} = \\pm \\dfrac{\\sqrt{43 \\times 115}}{115} = \\pm \\dfrac{\\sqrt{4945}}{115}\n   \\]\n\n**Final Answer:** \\( x = \\pm \\sqrt{\\dfrac{43}{115}} \\) or \\( x = \\pm \\dfrac{\\sqrt{4945}}{115} \\)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '115*x**2 - 43', 'variable': 'x', 'degree': 2, 'real_solutions': [-0.6114842953651883, 0.6114842953651883]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real v:\n9*v + 42 = 0",
+      "expected_answer": "[-4.666666666666667]",
+      "model_answer": "v = -\\dfrac{14}{3}",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '9*v + 42', 'variable': 'v', 'degree': 1, 'real_solutions': [-4.666666666666667]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real d:\n42*d**2 + 107*d + 92 = 0",
+      "expected_answer": "[]",
+      "model_answer": "The equation \\(42d^2 + 107d + 92 = 0\\) has no real solutions because the discriminant is negative. \n\n**Steps:**\n1. **Discriminant (\\(D\\))**: \\(D = b^2 - 4ac\\)  \n   \\(D = 107^2 - 4 \\cdot 42 \\cdot 92 = 11449 - 15456 = -4007\\).  \n\n2. **Conclusion**: Since \\(D < 0\\), the quadratic equation has no real roots (the solutions are complex numbers).  \n\n**Answer:** There are no real solutions for \\(d\\).",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '42*d**2 + 107*d + 92', 'variable': 'd', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Determine the real value(s) of k tha satisfies: 97*k**3 - 66*k**2 + 25*k - 34 = 0",
+      "expected_answer": "[0.8569571876679274]",
+      "model_answer": "\nThe cubic equation \\( 97k^3 - 66k^2 + 25k - 34 = 0 \\) has **one real root** since the derivative \\( f'(k) = 291k^2 - 132k + 25 \\) has no real roots (discriminant \\( < 0 \\)), meaning the function is strictly increasing. \n\nUsing the Newton-Raphson method starting with \\( k = 0.85 \\), the real root is approximately:\n\n\\[\n\\boxed{0.857}\n\\]\n\n(For higher precision, the root is closer to \\( 0.8567 \\), but rounded to three decimal places, it is \\( 0.857 \\).)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '97*k**3 - 66*k**2 + 25*k - 34', 'variable': 'k', 'degree': 3, 'real_solutions': [0.8569571876679274]}"
+    },
+    {
+      "question": "Solve for real c: 40*c**3 + 107*c**2 + 88*c = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe real solution is \\boxed{0}\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '40*c**3 + 107*c**2 + 88*c', 'variable': 'c', 'degree': 3, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real i:\n-39*i - 65 = 0",
+      "expected_answer": "[-1.6666666666666667]",
+      "model_answer": "\nThe solution is \\boxed{-\\dfrac{5}{3}}\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-39*i - 65', 'variable': 'i', 'degree': 1, 'real_solutions': [-1.6666666666666667]}"
+    },
+    {
+      "question": "Solve for real t: 16*t**3 + 24*t**2 = 0",
+      "expected_answer": "[-1.5, 0.0]",
+      "model_answer": "\nThe real solutions are t = 0 and t = -\\frac{3}{2}.\n\n**Steps:**\n\n1. **Factor out the greatest common factor (GCF):**\n   \\[\n   16t^3 + 24t^2 = 8t^2(2t + 3) = 0\n   \\]\n\n2. **Set each factor equal to 0:**\n   - \\( 8t^2 = 0 \\)  \n     Dividing by 8: \\( t^2 = 0 \\)  \n     Taking the square root: \\( t = 0 \\) (double root).  \n   - \\( 2t + 3 = 0 \\)  \n     Solving for \\( t \\): \\( t = -\\frac{3}{2} \\).\n\n**Final Answer:**  \n\\( t = 0 \\) or \\( t = -\\frac{3}{2} \\)\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '16*t**3 + 24*t**2', 'variable': 't', 'degree': 3, 'real_solutions': [-1.5, 0.0]}"
+    },
+    {
+      "question": "Determine the real value(s) of o tha satisfies: 181*o**3 + 61 = 0",
+      "expected_answer": "[-0.6959057421964915]",
+      "model_answer": "\nThe real value of \\( o \\) that satisfies the equation is \\( o = -\\sqrt[3]{\\frac{61}{181}} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '181*o**3 + 61', 'variable': 'o', 'degree': 3, 'real_solutions': [-0.6959057421964915]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real l:\n-7*l**2 + 97*l - 31 = 0",
+      "expected_answer": "[0.327319228250273, 13.529823628892585]",
+      "model_answer": "\nThe real solutions to the equation are:\n\\[\nl = \\frac{97 \\pm \\sqrt{8541}}{14}\n\\]\nThis can be simplified to \\( l = \\frac{97 \\pm 3\\sqrt{949}}{14} \\), but \\(\\sqrt{8541}\\) does not simplify further. Thus, the exact solutions are \\(\\boxed{\\frac{97 + \\sqrt{8541}}{14}}\\) and \\(\\boxed{\\frac{97 - \\sqrt{8541}}{14}}\\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-7*l**2 + 97*l - 31', 'variable': 'l', 'degree': 2, 'real_solutions': [0.327319228250273, 13.529823628892585]}"
+    },
+    {
+      "question": "Solve for real z: 25*z**2 + 57 = 0",
+      "expected_answer": "[]",
+      "model_answer": "\nThere are no real solutions for the equation \\(25z^2 + 57 = 0\\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '25*z**2 + 57', 'variable': 'z', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Solve the polynomial equation for real g:\n-164*g = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe solution is \\( g = 0 \\).\n\n**Steps:**\n1. Start with the equation: \\( -164g = 0 \\).\n2. Divide both sides by \\(-164\\):  \n   \\[\n   \\frac{-164g}{-164} = \\frac{0}{-164}\n   \\]\n3. Simplify:  \n   \\[\n   g = 0\n   \\]\n\nThus, \\( g = 0 \\) is the solution.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-164*g', 'variable': 'g', 'degree': 1, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve for real e: -120*e**2 - 9 = 0",
+      "expected_answer": "[]",
+      "model_answer": "\nThere are no real solutions since e2 equals a negative number which is impossible for real e.\n\n\\boxed{\\text{No real solutions}}\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-120*e**2 - 9', 'variable': 'e', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Find the real value(s) of i in the equation: -i**2 + 148*i = 0",
+      "expected_answer": "[0.0, 148.0]",
+      "model_answer": "\nThe real values of \\( i \\) are \\( \\boxed{0} \\) and \\( \\boxed{148} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-i**2 + 148*i', 'variable': 'i', 'degree': 2, 'real_solutions': [0.0, 148.0]}"
+    },
+    {
+      "question": "Find the real value(s) of q in the equation: 5*q**2 = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe real value of \\( q \\) is \\(\\boxed{0}\\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '5*q**2', 'variable': 'q', 'degree': 2, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve for real e: -88*e**2 + 98*e - 69 = 0",
+      "expected_answer": "[]",
+      "model_answer": "\nThe quadratic equation has no real solutions because the discriminant is negative. \n\n$\\boxed{\\text{No real solutions}}$\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-88*e**2 + 98*e - 69', 'variable': 'e', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Solve for real p: -49*p**2 - 84 = 0",
+      "expected_answer": "[]",
+      "model_answer": "No real solution.",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-49*p**2 - 84', 'variable': 'p', 'degree': 2, 'real_solutions': []}"
+    },
+    {
+      "question": "Solve for real x: x**2 - 85*x = 0",
+      "expected_answer": "[0.0, 85.0]",
+      "model_answer": "\nThe solutions are \\( x = 0 \\) and \\( x = 85 \\). \n\n**Steps:**\n\n1. Factor the quadratic equation:\n   \\[\n   x^2 - 85x = 0 \\implies x(x - 85) = 0\n   \\]\n2. Apply the Zero Product Property:\n   \\[\n   x = 0 \\quad \\text{or} \\quad x - 85 = 0\n   \\]\n3. Solve for \\( x \\):\n   \\[\n   x = 0 \\quad \\text{or} \\quad x = 85\n   \\]\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': 'x**2 - 85*x', 'variable': 'x', 'degree': 2, 'real_solutions': [0.0, 85.0]}"
+    },
+    {
+      "question": "Solve for real g: -29*g**3 + 45*g**2 - 88*g + 99 = 0",
+      "expected_answer": "[1.2736529493378654]",
+      "model_answer": null,
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-29*g**3 + 45*g**2 - 88*g + 99', 'variable': 'g', 'degree': 3, 'real_solutions': [1.2736529493378654]}"
+    },
+    {
+      "question": "Find the real value(s) of z in the equation: 10*z + 107 = 0",
+      "expected_answer": "[-10.7]",
+      "model_answer": "\nThe real value of \\( z \\) is \\boxed{-\\dfrac{107}{10}}.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '10*z + 107', 'variable': 'z', 'degree': 1, 'real_solutions': [-10.7]}"
+    },
+    {
+      "question": "Determine the real value(s) of e tha satisfies: 36*e**3 + 83 = 0",
+      "expected_answer": "[-1.3210680740816174]",
+      "model_answer": "\nThe real value of \\( e \\) is \\(\\boxed{ - \\sqrt[3]{\\dfrac{83}{36}} }\\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '36*e**3 + 83', 'variable': 'e', 'degree': 3, 'real_solutions': [-1.3210680740816174]}"
+    },
+    {
+      "question": "Solve for real m: 68*m - 86 = 0",
+      "expected_answer": "[1.2647058823529411]",
+      "model_answer": "\nThe solution is \\( m = \\frac{43}{34} \\).\n\n**Steps:**\n1. Start with the equation:  \n   \\( 68m - 86 = 0 \\).\n2. Add 86 to both sides:  \n   \\( 68m = 86 \\).\n3. Divide both sides by 68:  \n   \\( m = \\frac{86}{68} \\).\n4. Simplify the fraction by dividing numerator and denominator by 2 (GCD of 86 and 68):  \n   \\( m = \\frac{43}{34} \\).\n\nThus, \\( m = \\frac{43}{34} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '68*m - 86', 'variable': 'm', 'degree': 1, 'real_solutions': [1.2647058823529411]}"
+    },
+    {
+      "question": "Solve for real c: -9*c**3 - 142*c**2 - 27*c = 0",
+      "expected_answer": "[-15.585288560243967, -0.1924892175338099, 0.0]",
+      "model_answer": "\nThe real solutions are \\( c = 0 \\), \\( c = \\frac{-71 + \\sqrt{4798}}{9} \\), and \\( c = \\frac{-71 - \\sqrt{4798}}{9} \\). \n\nSo, the solutions are:\n\\[\nc = 0, \\quad c = \\frac{-71 + \\sqrt{4798}}{9}, \\quad \\text{and} \\quad c = \\frac{-71 - \\sqrt{4798}}{9}\n\\]\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '-9*c**3 - 142*c**2 - 27*c', 'variable': 'c', 'degree': 3, 'real_solutions': [-15.585288560243967, -0.1924892175338099, 0.0]}"
+    },
+    {
+      "question": "Determine the real value(s) of g tha satisfies: 125*g**3 = 0",
+      "expected_answer": "[0.0]",
+      "model_answer": "\nThe real value of \\( g \\) that satisfies the equation is \\boxed{0}.\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '125*g**3', 'variable': 'g', 'degree': 3, 'real_solutions': [0.0]}"
+    },
+    {
+      "question": "Solve the polynomial equation for real c:\n52*c**3 - 96*c = 0",
+      "expected_answer": "[-1.3587324409735149, 0.0, 1.3587324409735149]",
+      "model_answer": "\nThe real solutions are \\( c = 0 \\), \\( c = \\frac{2\\sqrt{78}}{13} \\), and \\( c = -\\frac{2\\sqrt{78}}{13} \\).\n",
+      "score": 0,
+      "metadata": "{'polynomial_expr': '52*c**3 - 96*c', 'variable': 'c', 'degree': 3, 'real_solutions': [-1.3587324409735149, 0.0, 1.3587324409735149]}"
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "dataset_name": "spell_backward",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.8614,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T16:28:32.873744",
+  "config": {
+    "min_word_len": 3,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Spell this word backward (example: sun -> nus): Project",
+      "expected_answer": "tcejorP",
+      "model_answer": "TCEJORP",
+      "score": 0.01,
+      "metadata": "{'word': 'Project', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): Would",
+      "expected_answer": "dluoW",
+      "model_answer": "Dluow",
+      "score": 0.01,
+      "metadata": "{'word': 'Would', 'word_len': 5}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): One",
+      "expected_answer": "enO",
+      "model_answer": "enO",
+      "score": 1.0,
+      "metadata": "{'word': 'One', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): seconds",
+      "expected_answer": "sdnoces",
+      "model_answer": "sdnoces",
+      "score": 1.0,
+      "metadata": "{'word': 'seconds', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): winter",
+      "expected_answer": "retniw",
+      "model_answer": "retniw",
+      "score": 1.0,
+      "metadata": "{'word': 'winter', 'word_len': 6}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): the",
+      "expected_answer": "eht",
+      "model_answer": "eht",
+      "score": 1.0,
+      "metadata": "{'word': 'the', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): will",
+      "expected_answer": "lliw",
+      "model_answer": "lliw",
+      "score": 1.0,
+      "metadata": "{'word': 'will', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): too",
+      "expected_answer": "oot",
+      "model_answer": "oot",
+      "score": 1.0,
+      "metadata": "{'word': 'too', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): looking",
+      "expected_answer": "gnikool",
+      "model_answer": "gnikool",
+      "score": 1.0,
+      "metadata": "{'word': 'looking', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): gentlemen",
+      "expected_answer": "nemeltneg",
+      "model_answer": "nemeltneg",
+      "score": 1.0,
+      "metadata": "{'word': 'gentlemen', 'word_len': 9}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): settled",
+      "expected_answer": "delttes",
+      "model_answer": "delttes",
+      "score": 1.0,
+      "metadata": "{'word': 'settled', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): long",
+      "expected_answer": "gnol",
+      "model_answer": "gnol",
+      "score": 1.0,
+      "metadata": "{'word': 'long', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): have",
+      "expected_answer": "evah",
+      "model_answer": "evah",
+      "score": 1.0,
+      "metadata": "{'word': 'have', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): his",
+      "expected_answer": "sih",
+      "model_answer": "sih",
+      "score": 1.0,
+      "metadata": "{'word': 'his', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): 2889",
+      "expected_answer": "9882",
+      "model_answer": "9882",
+      "score": 1.0,
+      "metadata": "{'word': '2889', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): but",
+      "expected_answer": "tub",
+      "model_answer": "tub",
+      "score": 1.0,
+      "metadata": "{'word': 'but', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): PROJECT",
+      "expected_answer": "TCEJORP",
+      "model_answer": "TCEJORP",
+      "score": 1.0,
+      "metadata": "{'word': 'PROJECT', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): withal",
+      "expected_answer": "lahtiw",
+      "model_answer": "lahtiw",
+      "score": 1.0,
+      "metadata": "{'word': 'withal', 'word_len': 6}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): only",
+      "expected_answer": "ylno",
+      "model_answer": "ylno",
+      "score": 1.0,
+      "metadata": "{'word': 'only', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): supplied",
+      "expected_answer": "deilppus",
+      "model_answer": "deilppus",
+      "score": 1.0,
+      "metadata": "{'word': 'supplied', 'word_len': 8}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): purpose",
+      "expected_answer": "esoprup",
+      "model_answer": "esoprup",
+      "score": 1.0,
+      "metadata": "{'word': 'purpose', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): His",
+      "expected_answer": "siH",
+      "model_answer": "sih",
+      "score": 0.01,
+      "metadata": "{'word': 'His', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): that",
+      "expected_answer": "taht",
+      "model_answer": "taht",
+      "score": 1.0,
+      "metadata": "{'word': 'that', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): every",
+      "expected_answer": "yreve",
+      "model_answer": "yreve",
+      "score": 1.0,
+      "metadata": "{'word': 'every', 'word_len': 5}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): electricity",
+      "expected_answer": "yticirtcele",
+      "model_answer": "yticirtcele",
+      "score": 1.0,
+      "metadata": "{'word': 'electricity', 'word_len': 11}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): power",
+      "expected_answer": "rewop",
+      "model_answer": "rewop",
+      "score": 1.0,
+      "metadata": "{'word': 'power', 'word_len': 5}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): received",
+      "expected_answer": "deviecer",
+      "model_answer": "deveicer",
+      "score": 0.01,
+      "metadata": "{'word': 'received', 'word_len': 8}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): access",
+      "expected_answer": "ssecca",
+      "model_answer": "ssecca",
+      "score": 1.0,
+      "metadata": "{'word': 'access', 'word_len': 6}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): 000",
+      "expected_answer": "000",
+      "model_answer": "000",
+      "score": 1.0,
+      "metadata": "{'word': '000', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): the",
+      "expected_answer": "eht",
+      "model_answer": "eht",
+      "score": 1.0,
+      "metadata": "{'word': 'the', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): the",
+      "expected_answer": "eht",
+      "model_answer": "eht",
+      "score": 1.0,
+      "metadata": "{'word': 'the', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): clouds",
+      "expected_answer": "sduolc",
+      "model_answer": "sduolc",
+      "score": 1.0,
+      "metadata": "{'word': 'clouds', 'word_len': 6}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): compilation",
+      "expected_answer": "noitalipmoc",
+      "model_answer": "noitalipmoc",
+      "score": 1.0,
+      "metadata": "{'word': 'compilation', 'word_len': 11}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): and",
+      "expected_answer": "dna",
+      "model_answer": "dna",
+      "score": 1.0,
+      "metadata": "{'word': 'and', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): takes",
+      "expected_answer": "sekat",
+      "model_answer": "sekat",
+      "score": 1.0,
+      "metadata": "{'word': 'takes', 'word_len': 5}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): depends",
+      "expected_answer": "sdneped",
+      "model_answer": "sdneped",
+      "score": 1.0,
+      "metadata": "{'word': 'depends', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): met",
+      "expected_answer": "tem",
+      "model_answer": "tem",
+      "score": 1.0,
+      "metadata": "{'word': 'met', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): life",
+      "expected_answer": "efil",
+      "model_answer": "efil",
+      "score": 1.0,
+      "metadata": "{'word': 'life', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): days",
+      "expected_answer": "syad",
+      "model_answer": "syad",
+      "score": 1.0,
+      "metadata": "{'word': 'days', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): Smith",
+      "expected_answer": "htimS",
+      "model_answer": "htims",
+      "score": 0.01,
+      "metadata": "{'word': 'Smith', 'word_len': 5}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): considerations",
+      "expected_answer": "snoitaredisnoc",
+      "model_answer": "snoitaredisnoc",
+      "score": 1.0,
+      "metadata": "{'word': 'considerations', 'word_len': 14}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): with",
+      "expected_answer": "htiw",
+      "model_answer": "htiw",
+      "score": 1.0,
+      "metadata": "{'word': 'with', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): YOU",
+      "expected_answer": "UOY",
+      "model_answer": "UOY",
+      "score": 1.0,
+      "metadata": "{'word': 'YOU', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): hundred",
+      "expected_answer": "derdnuh",
+      "model_answer": "DERDNUH",
+      "score": 0.01,
+      "metadata": "{'word': 'hundred', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): Archive",
+      "expected_answer": "evihcrA",
+      "model_answer": "evihcra",
+      "score": 0.01,
+      "metadata": "{'word': 'Archive', 'word_len': 7}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): His",
+      "expected_answer": "siH",
+      "model_answer": "siH",
+      "score": 1.0,
+      "metadata": "{'word': 'His', 'word_len': 3}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): certainly",
+      "expected_answer": "ylniatrec",
+      "model_answer": "ylniatrec",
+      "score": 1.0,
+      "metadata": "{'word': 'certainly', 'word_len': 9}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): light",
+      "expected_answer": "thgil",
+      "model_answer": "thgil",
+      "score": 1.0,
+      "metadata": "{'word': 'light', 'word_len': 5}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): them",
+      "expected_answer": "meht",
+      "model_answer": "meht",
+      "score": 1.0,
+      "metadata": "{'word': 'them', 'word_len': 4}"
+    },
+    {
+      "question": "Spell this word backward (example: sun -> nus): been",
+      "expected_answer": "neeb",
+      "model_answer": "neeb",
+      "score": 1.0,
+      "metadata": "{'word': 'been', 'word_len': 4}"
+    }
+  ]
+}

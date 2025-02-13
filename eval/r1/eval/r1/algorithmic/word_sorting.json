@@ -1,0 +1,370 @@
+{
+  "dataset_name": "word_sorting",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.5540000000000003,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T18:11:57.441969",
+  "config": {
+    "min_words": 3,
+    "max_words": 10,
+    "min_word_length": 3,
+    "max_word_length": 12,
+    "transformation": "original",
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nDIRECT, given, exclaims, dreaming",
+      "expected_answer": "DIRECT, dreaming, exclaims, given",
+      "model_answer": "DIRECT, dreaming, exclaims, given",
+      "score": 1.0,
+      "metadata": "{'original_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'transformed_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['DIRECT', 'dreaming', 'exclaims', 'given']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nheat, begun, sometimes",
+      "expected_answer": "sometimes, heat, begun",
+      "model_answer": "sometimes, heat, begun",
+      "score": 1.0,
+      "metadata": "{'original_words': ['heat', 'begun', 'sometimes'], 'transformed_words': ['heat', 'begun', 'sometimes'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['sometimes', 'heat', 'begun']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nviolates, yes, already, completing, pages, duty, his, EXPRESS, duly",
+      "expected_answer": "EXPRESS, already, completing, duly, duty, his, pages, violates, yes",
+      "model_answer": "EXPRESS, already, completing, duly, duty, his, pages, violates, yes",
+      "score": 1.0,
+      "metadata": "{'original_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'transformed_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['EXPRESS', 'already', 'completing', 'duly', 'duty', 'his', 'pages', 'violates', 'yes']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nreaching, telephote, fifteen, THE, infinite, marriage, City",
+      "expected_answer": "City, THE, fifteen, infinite, marriage, reaching, telephote",
+      "model_answer": "City, THE, fifteen, infinite, marriage, reaching, telephote",
+      "score": 1.0,
+      "metadata": "{'original_words': ['reaching', 'telephote', 'fifteen', 'THE', 'infinite', 'marriage', 'City'], 'transformed_words': ['reaching', 'telephote', 'fifteen', 'THE', 'infinite', 'marriage', 'City'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['City', 'THE', 'fifteen', 'infinite', 'marriage', 'reaching', 'telephote']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\npresent, HAVE, edifice, using",
+      "expected_answer": "HAVE, edifice, present, using",
+      "model_answer": "HAVE, edifice, present, using",
+      "score": 1.0,
+      "metadata": "{'original_words': ['present', 'HAVE', 'edifice', 'using'], 'transformed_words': ['present', 'HAVE', 'edifice', 'using'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['HAVE', 'edifice', 'present', 'using']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nOnce, replies, short, men, fibers, unimaginable, performing, plans",
+      "expected_answer": "Once, fibers, men, performing, plans, replies, short, unimaginable",
+      "model_answer": " Once,fibers,men,performing,plans,replies,short,unimaginable ",
+      "score": 0.01,
+      "metadata": "{'original_words': ['Once', 'replies', 'short', 'men', 'fibers', 'unimaginable', 'performing', 'plans'], 'transformed_words': ['Once', 'replies', 'short', 'men', 'fibers', 'unimaginable', 'performing', 'plans'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Once', 'fibers', 'men', 'performing', 'plans', 'replies', 'short', 'unimaginable']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nartificial, wish, indirectly, trifle, country, resultant, child, busied",
+      "expected_answer": "artificial, busied, child, country, indirectly, resultant, trifle, wish",
+      "model_answer": "artificial, busied, child, country, indirectly, resultant, trifle, wish",
+      "score": 1.0,
+      "metadata": "{'original_words': ['artificial', 'wish', 'indirectly', 'trifle', 'country', 'resultant', 'child', 'busied'], 'transformed_words': ['artificial', 'wish', 'indirectly', 'trifle', 'country', 'resultant', 'child', 'busied'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['artificial', 'busied', 'child', 'country', 'indirectly', 'resultant', 'trifle', 'wish']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nmere, pure, admirable, library",
+      "expected_answer": "admirable, library, mere, pure",
+      "model_answer": "admirable, library, mere, pure",
+      "score": 1.0,
+      "metadata": "{'original_words': ['mere', 'pure', 'admirable', 'library'], 'transformed_words': ['mere', 'pure', 'admirable', 'library'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['admirable', 'library', 'mere', 'pure']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nformats, novel, every, strain, locomotion, Think, worked, lacks, due, This",
+      "expected_answer": "Think, This, due, every, formats, lacks, locomotion, novel, strain, worked",
+      "model_answer": " Think, This, due, every, formats, lacks, locomotion, novel, strain, worked ",
+      "score": 0.5,
+      "metadata": "{'original_words': ['formats', 'novel', 'every', 'strain', 'locomotion', 'Think', 'worked', 'lacks', 'due', 'This'], 'transformed_words': ['formats', 'novel', 'every', 'strain', 'locomotion', 'Think', 'worked', 'lacks', 'due', 'This'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Think', 'This', 'due', 'every', 'formats', 'lacks', 'locomotion', 'novel', 'strain', 'worked']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ntranscribe, certain, existence, elect, feelings, posted",
+      "expected_answer": "transcribe, posted, feelings, existence, elect, certain",
+      "model_answer": "transcribe,posted,feelings,existence,elect,certain",
+      "score": 0.01,
+      "metadata": "{'original_words': ['transcribe', 'certain', 'existence', 'elect', 'feelings', 'posted'], 'transformed_words': ['transcribe', 'certain', 'existence', 'elect', 'feelings', 'posted'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['transcribe', 'posted', 'feelings', 'existence', 'elect', 'certain']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nMercury, uninhabited, synonymous, open, prominently, February, banks",
+      "expected_answer": "February, Mercury, banks, open, prominently, synonymous, uninhabited",
+      "model_answer": "February, Mercury, banks, open, prominently, synonymous, uninhabited",
+      "score": 1.0,
+      "metadata": "{'original_words': ['Mercury', 'uninhabited', 'synonymous', 'open', 'prominently', 'February', 'banks'], 'transformed_words': ['Mercury', 'uninhabited', 'synonymous', 'open', 'prominently', 'February', 'banks'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['February', 'Mercury', 'banks', 'open', 'prominently', 'synonymous', 'uninhabited']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nsimplest, transactions, suspended, vision, next, side",
+      "expected_answer": "next, side, simplest, suspended, transactions, vision",
+      "model_answer": "next, side, simplest, suspended, transactions, vision",
+      "score": 1.0,
+      "metadata": "{'original_words': ['simplest', 'transactions', 'suspended', 'vision', 'next', 'side'], 'transformed_words': ['simplest', 'transactions', 'suspended', 'vision', 'next', 'side'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['next', 'side', 'simplest', 'suspended', 'transactions', 'vision']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nroom, improvement, suspending, telephonic, paper",
+      "expected_answer": "improvement, paper, room, suspending, telephonic",
+      "model_answer": "improvement, paper, room, suspending, telephonic",
+      "score": 1.0,
+      "metadata": "{'original_words': ['room', 'improvement', 'suspending', 'telephonic', 'paper'], 'transformed_words': ['room', 'improvement', 'suspending', 'telephonic', 'paper'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['improvement', 'paper', 'room', 'suspending', 'telephonic']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ncure, bodies, individual, South",
+      "expected_answer": "South, bodies, cure, individual",
+      "model_answer": "South,bodies,cure,individual",
+      "score": 0.01,
+      "metadata": "{'original_words': ['cure', 'bodies', 'individual', 'South'], 'transformed_words': ['cure', 'bodies', 'individual', 'South'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['South', 'bodies', 'cure', 'individual']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nstreets, wanted, indemnify",
+      "expected_answer": "wanted, streets, indemnify",
+      "model_answer": " wanted,streets,indemnify ",
+      "score": 0.01,
+      "metadata": "{'original_words': ['streets', 'wanted', 'indemnify'], 'transformed_words': ['streets', 'wanted', 'indemnify'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['wanted', 'streets', 'indemnify']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\noccurrences, CONTRACT, during",
+      "expected_answer": "occurrences, during, CONTRACT",
+      "model_answer": "occurrences,during,CONTRACT",
+      "score": 0.01,
+      "metadata": "{'original_words': ['occurrences', 'CONTRACT', 'during'], 'transformed_words': ['occurrences', 'CONTRACT', 'during'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['occurrences', 'during', 'CONTRACT']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ndescendant, decline, Hence, countries, sent, progress",
+      "expected_answer": "sent, progress, descendant, decline, countries, Hence",
+      "model_answer": " sent,progress,descendant,decline,countries,Hence ",
+      "score": 0.01,
+      "metadata": "{'original_words': ['descendant', 'decline', 'Hence', 'countries', 'sent', 'progress'], 'transformed_words': ['descendant', 'decline', 'Hence', 'countries', 'sent', 'progress'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['sent', 'progress', 'descendant', 'decline', 'countries', 'Hence']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nThese, sleeping, Congress, atmospheric, including, Cooley",
+      "expected_answer": "Congress, Cooley, These, atmospheric, including, sleeping",
+      "model_answer": "Congress, Cooley, These, atmospheric, including, sleeping",
+      "score": 1.0,
+      "metadata": "{'original_words': ['These', 'sleeping', 'Congress', 'atmospheric', 'including', 'Cooley'], 'transformed_words': ['These', 'sleeping', 'Congress', 'atmospheric', 'including', 'Cooley'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Congress', 'Cooley', 'These', 'atmospheric', 'including', 'sleeping']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nhas, building, forgotten, editors, swarm, springs, lucky",
+      "expected_answer": "building, editors, forgotten, has, lucky, springs, swarm",
+      "model_answer": "building,editors,forgotten,has,lucky,springs,swarm",
+      "score": 0.01,
+      "metadata": "{'original_words': ['has', 'building', 'forgotten', 'editors', 'swarm', 'springs', 'lucky'], 'transformed_words': ['has', 'building', 'forgotten', 'editors', 'swarm', 'springs', 'lucky'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['building', 'editors', 'forgotten', 'has', 'lucky', 'springs', 'swarm']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nconfirmation, dissecting, least, hundred, leave, Donations, taxed, near, never, PROJECT",
+      "expected_answer": "taxed, never, near, leave, least, hundred, dissecting, confirmation, PROJECT, Donations",
+      "model_answer": "PROJECT, Donations, taxed, never, near, leave, least, hundred, dissecting, confirmation",
+      "score": 0.01,
+      "metadata": "{'original_words': ['confirmation', 'dissecting', 'least', 'hundred', 'leave', 'Donations', 'taxed', 'near', 'never', 'PROJECT'], 'transformed_words': ['confirmation', 'dissecting', 'least', 'hundred', 'leave', 'Donations', 'taxed', 'near', 'never', 'PROJECT'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['taxed', 'never', 'near', 'leave', 'least', 'hundred', 'dissecting', 'confirmation', 'PROJECT', 'Donations']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nPROJECT, entity, spark, involve, names",
+      "expected_answer": "PROJECT, entity, involve, names, spark",
+      "model_answer": "PROJECT,entity,involve,names,spark",
+      "score": 0.01,
+      "metadata": "{'original_words': ['PROJECT', 'entity', 'spark', 'involve', 'names'], 'transformed_words': ['PROJECT', 'entity', 'spark', 'involve', 'names'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['PROJECT', 'entity', 'involve', 'names', 'spark']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nscientific, hygiene, falling, table, True, performing, Singularly, Salt, definitively, home",
+      "expected_answer": "Salt, Singularly, True, definitively, falling, home, hygiene, performing, scientific, table",
+      "model_answer": " Salt, Singularly, True, definitively, falling, home, hygiene, performing, scientific, table ",
+      "score": 0.5,
+      "metadata": "{'original_words': ['scientific', 'hygiene', 'falling', 'table', 'True', 'performing', 'Singularly', 'Salt', 'definitively', 'home'], 'transformed_words': ['scientific', 'hygiene', 'falling', 'table', 'True', 'performing', 'Singularly', 'Salt', 'definitively', 'home'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Salt', 'Singularly', 'True', 'definitively', 'falling', 'home', 'hygiene', 'performing', 'scientific', 'table']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\napparent, produce, witness, Australia, depart, free, dedicated, better, South, rate",
+      "expected_answer": "witness, rate, produce, free, depart, dedicated, better, apparent, South, Australia",
+      "model_answer": "witness, rate, produce, free, depart, dedicated, better, apparent, South, Australia",
+      "score": 1.0,
+      "metadata": "{'original_words': ['apparent', 'produce', 'witness', 'Australia', 'depart', 'free', 'dedicated', 'better', 'South', 'rate'], 'transformed_words': ['apparent', 'produce', 'witness', 'Australia', 'depart', 'free', 'dedicated', 'better', 'South', 'rate'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['witness', 'rate', 'produce', 'free', 'depart', 'dedicated', 'better', 'apparent', 'South', 'Australia']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nhighly, here, updated, domestic, schemes, situation, whatever, saying, marvel",
+      "expected_answer": "whatever, updated, situation, schemes, saying, marvel, highly, here, domestic",
+      "model_answer": "whatever, updated, situation, schemes, saying, marvel, highly, here, domestic",
+      "score": 1.0,
+      "metadata": "{'original_words': ['highly', 'here', 'updated', 'domestic', 'schemes', 'situation', 'whatever', 'saying', 'marvel'], 'transformed_words': ['highly', 'here', 'updated', 'domestic', 'schemes', 'situation', 'whatever', 'saying', 'marvel'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['whatever', 'updated', 'situation', 'schemes', 'saying', 'marvel', 'highly', 'here', 'domestic']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nitself, respective, exists, seated",
+      "expected_answer": "seated, respective, itself, exists",
+      "model_answer": "seated, respective, itself, exists",
+      "score": 1.0,
+      "metadata": "{'original_words': ['itself', 'respective', 'exists', 'seated'], 'transformed_words': ['itself', 'respective', 'exists', 'seated'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['seated', 'respective', 'itself', 'exists']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nalmost, proper, staff, race",
+      "expected_answer": "staff, race, proper, almost",
+      "model_answer": "staff,race,proper,almost",
+      "score": 0.01,
+      "metadata": "{'original_words': ['almost', 'proper', 'staff', 'race'], 'transformed_words': ['almost', 'proper', 'staff', 'race'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['staff', 'race', 'proper', 'almost']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ntoward, advanced, everywhere, reproducing, state, forgotten, located, rigors, night, chorus",
+      "expected_answer": "advanced, chorus, everywhere, forgotten, located, night, reproducing, rigors, state, toward",
+      "model_answer": "advanced, chorus, everywhere, forgotten, located, night, reproducing, rigors, state, toward",
+      "score": 1.0,
+      "metadata": "{'original_words': ['toward', 'advanced', 'everywhere', 'reproducing', 'state', 'forgotten', 'located', 'rigors', 'night', 'chorus'], 'transformed_words': ['toward', 'advanced', 'everywhere', 'reproducing', 'state', 'forgotten', 'located', 'rigors', 'night', 'chorus'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['advanced', 'chorus', 'everywhere', 'forgotten', 'located', 'night', 'reproducing', 'rigors', 'state', 'toward']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nWoman, cities, Perhaps",
+      "expected_answer": "cities, Woman, Perhaps",
+      "model_answer": "cities,Woman,Perhaps",
+      "score": 0.01,
+      "metadata": "{'original_words': ['Woman', 'cities', 'Perhaps'], 'transformed_words': ['Woman', 'cities', 'Perhaps'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['cities', 'Woman', 'Perhaps']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nhygiene, sleep, serves, attached",
+      "expected_answer": "sleep, serves, hygiene, attached",
+      "model_answer": "sleep,serves,hygiene,attached",
+      "score": 0.01,
+      "metadata": "{'original_words': ['hygiene', 'sleep', 'serves', 'attached'], 'transformed_words': ['hygiene', 'sleep', 'serves', 'attached'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['sleep', 'serves', 'hygiene', 'attached']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nturning, 799, forgetful, business, days, following, Transform, dead",
+      "expected_answer": "799, Transform, business, days, dead, following, forgetful, turning",
+      "model_answer": "799, Transform, business, days, dead, following, forgetful, turning",
+      "score": 1.0,
+      "metadata": "{'original_words': ['turning', '799', 'forgetful', 'business', 'days', 'following', 'Transform', 'dead'], 'transformed_words': ['turning', '799', 'forgetful', 'business', 'days', 'following', 'Transform', 'dead'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['799', 'Transform', 'business', 'days', 'dead', 'following', 'forgetful', 'turning']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ncontent, mental, organized, interest",
+      "expected_answer": "content, interest, mental, organized",
+      "model_answer": "content, interest, mental, organized",
+      "score": 1.0,
+      "metadata": "{'original_words': ['content', 'mental', 'organized', 'interest'], 'transformed_words': ['content', 'mental', 'organized', 'interest'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['content', 'interest', 'mental', 'organized']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nanswered, transactions, sunk, consequence, solicit, imposed, Russian",
+      "expected_answer": "transactions, sunk, solicit, imposed, consequence, answered, Russian",
+      "model_answer": "transactions, sunk, solicit, imposed, consequence, answered, Russian",
+      "score": 1.0,
+      "metadata": "{'original_words': ['answered', 'transactions', 'sunk', 'consequence', 'solicit', 'imposed', 'Russian'], 'transformed_words': ['answered', 'transactions', 'sunk', 'consequence', 'solicit', 'imposed', 'Russian'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['transactions', 'sunk', 'solicit', 'imposed', 'consequence', 'answered', 'Russian']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nlaw, annihilate, inventions, confirmation",
+      "expected_answer": "annihilate, confirmation, inventions, law",
+      "model_answer": "annihilate,confirmation,inventions,law",
+      "score": 0.01,
+      "metadata": "{'original_words': ['law', 'annihilate', 'inventions', 'confirmation'], 'transformed_words': ['law', 'annihilate', 'inventions', 'confirmation'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['annihilate', 'confirmation', 'inventions', 'law']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nreturn, shows, Here, unutilized, straight, methods, _na\u00efvet\u00e9_, lack, The, facing",
+      "expected_answer": "unutilized, straight, shows, return, methods, lack, facing, _na\u00efvet\u00e9_, The, Here",
+      "model_answer": " unutilized, straight, shows, return, methods, lack, facing, _na\u00efvet\u00e9_, The, Here ",
+      "score": 0.5,
+      "metadata": "{'original_words': ['return', 'shows', 'Here', 'unutilized', 'straight', 'methods', '_na\u00efvet\u00e9_', 'lack', 'The', 'facing'], 'transformed_words': ['return', 'shows', 'Here', 'unutilized', 'straight', 'methods', '_na\u00efvet\u00e9_', 'lack', 'The', 'facing'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['unutilized', 'straight', 'shows', 'return', 'methods', 'lack', 'facing', '_na\u00efvet\u00e9_', 'The', 'Here']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nsorts, photographs, dear, implied, Little, readable, enters, hall",
+      "expected_answer": "sorts, readable, photographs, implied, hall, enters, dear, Little",
+      "model_answer": "sorts,readable,photographs,implied,hall,enters,dear,Little",
+      "score": 0.01,
+      "metadata": "{'original_words': ['sorts', 'photographs', 'dear', 'implied', 'Little', 'readable', 'enters', 'hall'], 'transformed_words': ['sorts', 'photographs', 'dear', 'implied', 'Little', 'readable', 'enters', 'hall'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['sorts', 'readable', 'photographs', 'implied', 'hall', 'enters', 'dear', 'Little']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nlikewise, damaged, estimate, covered, air, houses, subscribe",
+      "expected_answer": "air, covered, damaged, estimate, houses, likewise, subscribe",
+      "model_answer": " air, covered, damaged, estimate, houses, likewise, subscribe ",
+      "score": 0.5,
+      "metadata": "{'original_words': ['likewise', 'damaged', 'estimate', 'covered', 'air', 'houses', 'subscribe'], 'transformed_words': ['likewise', 'damaged', 'estimate', 'covered', 'air', 'houses', 'subscribe'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['air', 'covered', 'damaged', 'estimate', 'houses', 'likewise', 'subscribe']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nWould, incomplete, fibers, remote, February, better",
+      "expected_answer": "remote, incomplete, fibers, better, Would, February",
+      "model_answer": " remote,incomplete,fibers,better,Would,February ",
+      "score": 0.01,
+      "metadata": "{'original_words': ['Would', 'incomplete', 'fibers', 'remote', 'February', 'better'], 'transformed_words': ['Would', 'incomplete', 'fibers', 'remote', 'February', 'better'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['remote', 'incomplete', 'fibers', 'better', 'Would', 'February']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nrevolution, modification, change, etc, existence",
+      "expected_answer": "revolution, modification, existence, etc, change",
+      "model_answer": "revolution,modification,existence,etc,change",
+      "score": 0.01,
+      "metadata": "{'original_words': ['revolution', 'modification', 'change', 'etc', 'existence'], 'transformed_words': ['revolution', 'modification', 'change', 'etc', 'existence'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['revolution', 'modification', 'existence', 'etc', 'change']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\npneumatic, yes, receiving, often, numberless, widest, presume",
+      "expected_answer": "yes, widest, receiving, presume, pneumatic, often, numberless",
+      "model_answer": "yes,widest,receiving,presume,pneumatic,often,numberless",
+      "score": 0.01,
+      "metadata": "{'original_words': ['pneumatic', 'yes', 'receiving', 'often', 'numberless', 'widest', 'presume'], 'transformed_words': ['pneumatic', 'yes', 'receiving', 'often', 'numberless', 'widest', 'presume'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['yes', 'widest', 'receiving', 'presume', 'pneumatic', 'often', 'numberless']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nmap, whom, past, suffice, Avenue, captivated, bleus_, service, 150, lacks",
+      "expected_answer": "whom, suffice, service, past, map, lacks, captivated, bleus_, Avenue, 150",
+      "model_answer": "whom, suffice, service, past, map, lacks, captivated, bleus_, Avenue, 150",
+      "score": 1.0,
+      "metadata": "{'original_words': ['map', 'whom', 'past', 'suffice', 'Avenue', 'captivated', 'bleus_', 'service', '150', 'lacks'], 'transformed_words': ['map', 'whom', 'past', 'suffice', 'Avenue', 'captivated', 'bleus_', 'service', '150', 'lacks'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['whom', 'suffice', 'service', 'past', 'map', 'lacks', 'captivated', 'bleus_', 'Avenue', '150']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nterritory, tried, house, conceived, cities",
+      "expected_answer": "tried, territory, house, conceived, cities",
+      "model_answer": "tried, territory, house, conceived, cities",
+      "score": 1.0,
+      "metadata": "{'original_words': ['territory', 'tried', 'house', 'conceived', 'cities'], 'transformed_words': ['territory', 'tried', 'house', 'conceived', 'cities'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['tried', 'territory', 'house', 'conceived', 'cities']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nsleeps, Union, appreciate, own, Finally, Korum, disclaimers, copies, committee, invention",
+      "expected_answer": "Finally, Korum, Union, appreciate, committee, copies, disclaimers, invention, own, sleeps",
+      "model_answer": "Finally, Korum, Union, appreciate, committee, copies, disclaimers, invention, own, sleeps",
+      "score": 1.0,
+      "metadata": "{'original_words': ['sleeps', 'Union', 'appreciate', 'own', 'Finally', 'Korum', 'disclaimers', 'copies', 'committee', 'invention'], 'transformed_words': ['sleeps', 'Union', 'appreciate', 'own', 'Finally', 'Korum', 'disclaimers', 'copies', 'committee', 'invention'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['Finally', 'Korum', 'Union', 'appreciate', 'committee', 'copies', 'disclaimers', 'invention', 'own', 'sleeps']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nGIVE, ten, 2792, voce_, later, current, small",
+      "expected_answer": "voce_, ten, small, later, current, GIVE, 2792",
+      "model_answer": "voce_,ten,small,later,current,GIVE,2792",
+      "score": 0.01,
+      "metadata": "{'original_words': ['GIVE', 'ten', '2792', 'voce_', 'later', 'current', 'small'], 'transformed_words': ['GIVE', 'ten', '2792', 'voce_', 'later', 'current', 'small'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['voce_', 'ten', 'small', 'later', 'current', 'GIVE', '2792']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\naccumulators, leave, count, downloading, solicitation, middle",
+      "expected_answer": "accumulators, count, downloading, leave, middle, solicitation",
+      "model_answer": "accumulators, count, downloading, leave, middle, solicitation",
+      "score": 1.0,
+      "metadata": "{'original_words': ['accumulators', 'leave', 'count', 'downloading', 'solicitation', 'middle'], 'transformed_words': ['accumulators', 'leave', 'count', 'downloading', 'solicitation', 'middle'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['accumulators', 'count', 'downloading', 'leave', 'middle', 'solicitation']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nlaid, Additional, REMEDIES",
+      "expected_answer": "laid, REMEDIES, Additional",
+      "model_answer": " laid, REMEDIES, Additional ",
+      "score": 0.5,
+      "metadata": "{'original_words': ['laid', 'Additional', 'REMEDIES'], 'transformed_words': ['laid', 'Additional', 'REMEDIES'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['laid', 'REMEDIES', 'Additional']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ncopies, wrought, able, gutenberg, maintaining",
+      "expected_answer": "wrought, maintaining, gutenberg, copies, able",
+      "model_answer": "wrought, maintaining, gutenberg, copies, able",
+      "score": 1.0,
+      "metadata": "{'original_words': ['copies', 'wrought', 'able', 'gutenberg', 'maintaining'], 'transformed_words': ['copies', 'wrought', 'able', 'gutenberg', 'maintaining'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['wrought', 'maintaining', 'gutenberg', 'copies', 'able']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ncopying, luminous, consume, America, week, 642, meanderings, source, ate",
+      "expected_answer": "642, America, ate, consume, copying, luminous, meanderings, source, week",
+      "model_answer": "642, America, ate, consume, copying, luminous, meanderings, source, week",
+      "score": 1.0,
+      "metadata": "{'original_words': ['copying', 'luminous', 'consume', 'America', 'week', '642', 'meanderings', 'source', 'ate'], 'transformed_words': ['copying', 'luminous', 'consume', 'America', 'week', '642', 'meanderings', 'source', 'ate'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['642', 'America', 'ate', 'consume', 'copying', 'luminous', 'meanderings', 'source', 'week']}"
+    },
+    {
+      "question": "Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nfind, based, mere, PLEASE",
+      "expected_answer": "PLEASE, based, find, mere",
+      "model_answer": "PLEASE,based,find,mere",
+      "score": 0.01,
+      "metadata": "{'original_words': ['find', 'based', 'mere', 'PLEASE'], 'transformed_words': ['find', 'based', 'mere', 'PLEASE'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['PLEASE', 'based', 'find', 'mere']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\nWashington, support, inventors, must, settled, intellectual",
+      "expected_answer": "support, settled, must, inventors, intellectual, Washington",
+      "model_answer": "support, settled, must, inventors, intellectual, Washington",
+      "score": 1.0,
+      "metadata": "{'original_words': ['Washington', 'support', 'inventors', 'must', 'settled', 'intellectual'], 'transformed_words': ['Washington', 'support', 'inventors', 'must', 'settled', 'intellectual'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['support', 'settled', 'must', 'inventors', 'intellectual', 'Washington']}"
+    },
+    {
+      "question": "Sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list:\ncomes, center, principles, skies",
+      "expected_answer": "skies, principles, comes, center",
+      "model_answer": "skies,principles,comes,center",
+      "score": 0.01,
+      "metadata": "{'original_words': ['comes', 'center', 'principles', 'skies'], 'transformed_words': ['comes', 'center', 'principles', 'skies'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['skies', 'principles', 'comes', 'center']}"
+    }
+  ]
+}

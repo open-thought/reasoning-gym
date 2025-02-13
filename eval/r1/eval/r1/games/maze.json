@@ -1,0 +1,369 @@
+{
+  "dataset_name": "maze",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.7202,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T23:39:23.484016",
+  "config": {
+    "min_dist": 5,
+    "max_dist": 10,
+    "min_grid_size": 5,
+    "max_grid_size": 10,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Navigate from '3' (start) to 'z' (goal):\n\n```\n>>>>>>>>>\n>eeee>e>>\n>ee>>>>>>\n>eeeeee>>\n>e>ee>>e>\n>>ez>3e>>\n>eee>e>e>\n>eeeee>e>\n>>>>>>>>>\n```\nLegend: '>' = Wall, 'e' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'grid_size': 9, 'grid': ['>>>>>>>>>', '>eeee>e>>', '>ee>>>>>>', '>eeeeee>>', '>e>ee>>e>', '>>ez>3e>>', '>eee>e>e>', '>eeeee>e>', '>>>>>>>>>'], 'shortest_path_length': 6, 'start': '3', 'goal': 'z', 'wall': '>', 'path': 'e'}"
+    },
+    {
+      "question": "Navigate from '`' (start) to 'i' (goal):\n\n```\n4444444\n4AAAAi4\n4A4A4A4\n4A4AA44\n44AAAA4\n44A`444\n4444444\n```\nLegend: '4' = Wall, 'A' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "6",
+      "score": 1.0,
+      "metadata": "{'grid_size': 7, 'grid': ['4444444', '4AAAAi4', '4A4A4A4', '4A4AA44', '44AAAA4', '44A`444', '4444444'], 'shortest_path_length': 6, 'start': '`', 'goal': 'i', 'wall': '4', 'path': 'A'}"
+    },
+    {
+      "question": "Navigate from '(' (start) to '`' (goal):\n\n```\nQQQQQQQ\nQQ%%%%Q\nQQ`%Q%Q\nQ%%Q%%Q\nQ%%%Q%Q\nQ%QQ%(Q\nQQQQQQQ\n```\nLegend: 'Q' = Wall, '%' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "8",
+      "model_answer": "8",
+      "score": 1.0,
+      "metadata": "{'grid_size': 7, 'grid': ['QQQQQQQ', 'QQ%%%%Q', 'QQ`%Q%Q', 'Q%%Q%%Q', 'Q%%%Q%Q', 'Q%QQ%(Q', 'QQQQQQQ'], 'shortest_path_length': 8, 'start': '(', 'goal': '`', 'wall': 'Q', 'path': '%'}"
+    },
+    {
+      "question": "Navigate from '!' (start) to 'w' (goal):\n\n```\nyyyyyyyyy\nyyRRRRyyy\nyRRyyRyyy\nyRRRRRRRy\nyR!yyRRyy\nyyRyyRRRy\nyyyyRRRyy\nyRRRwRRRy\nyyyyyyyyy\n```\nLegend: 'y' = Wall, 'R' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "9",
+      "model_answer": "9",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['yyyyyyyyy', 'yyRRRRyyy', 'yRRyyRyyy', 'yRRRRRRRy', 'yR!yyRRyy', 'yyRyyRRRy', 'yyyyRRRyy', 'yRRRwRRRy', 'yyyyyyyyy'], 'shortest_path_length': 9, 'start': '!', 'goal': 'w', 'wall': 'y', 'path': 'R'}"
+    },
+    {
+      "question": "Navigate from '5' (start) to '.' (goal):\n\n```\n999999999\n999PP9PP9\n9999PPP99\n9P9PPP999\n9PPPP9P59\n9PPPPPPP9\n9PPP.9P99\n9P9PPPP99\n999999999\n```\nLegend: '9' = Wall, 'P' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\nThe minimum number of steps required to reach the goal is \\boxed{5}.\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 9, 'grid': ['999999999', '999PP9PP9', '9999PPP99', '9P9PPP999', '9PPPP9P59', '9PPPPPPP9', '9PPP.9P99', '9P9PPPP99', '999999999'], 'shortest_path_length': 5, 'start': '5', 'goal': '.', 'wall': '9', 'path': 'P'}"
+    },
+    {
+      "question": "Navigate from 'T' (start) to ')' (goal):\n\n```\nJJJJJJJJ\nJ8888J8J\nJJ8JJJ8J\nJJ88888J\nJ88J8)8J\nJ8JJJ88J\nJT8J8J8J\nJJJJJJJJ\n```\nLegend: 'J' = Wall, '8' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "8",
+      "model_answer": "8",
+      "score": 1.0,
+      "metadata": "{'grid_size': 8, 'grid': ['JJJJJJJJ', 'J8888J8J', 'JJ8JJJ8J', 'JJ88888J', 'J88J8)8J', 'J8JJJ88J', 'JT8J8J8J', 'JJJJJJJJ'], 'shortest_path_length': 8, 'start': 'T', 'goal': ')', 'wall': 'J', 'path': '8'}"
+    },
+    {
+      "question": "Navigate from 'g' (start) to '*' (goal):\n\n```\n)))))))))\n))EEEg)E)\n)EEEEEEE)\n))*)EE)E)\n)EEEEEE))\n)E)EEEEE)\n))EEE)E))\n))EE))E))\n)))))))))\n```\nLegend: ')' = Wall, 'E' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\n5",
+      "score": 0.5,
+      "metadata": "{'grid_size': 9, 'grid': [')))))))))', '))EEEg)E)', ')EEEEEEE)', '))*)EE)E)', ')EEEEEE))', ')E)EEEEE)', '))EEE)E))', '))EE))E))', ')))))))))'], 'shortest_path_length': 5, 'start': 'g', 'goal': '*', 'wall': ')', 'path': 'E'}"
+    },
+    {
+      "question": "Navigate from 'Q' (start) to 'e' (goal):\n\n```\n8888888\n88III88\n8Q8II88\n8IIIII8\n8II8II8\n88IeI88\n8888888\n```\nLegend: '8' = Wall, 'I' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 7, 'grid': ['8888888', '88III88', '8Q8II88', '8IIIII8', '8II8II8', '88IeI88', '8888888'], 'shortest_path_length': 5, 'start': 'Q', 'goal': 'e', 'wall': '8', 'path': 'I'}"
+    },
+    {
+      "question": "Navigate from 'K' (start) to '>' (goal):\n\n```\n\"\"\"\"\"\"\n\"K\"yy\"\n\"yy\"y\"\n\"yyy>\"\n\"\"\"\"y\"\n\"\"\"\"\"\"\n```\nLegend: '\"' = Wall, 'y' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 6, 'grid': ['\"\"\"\"\"\"', '\"K\"yy\"', '\"yy\"y\"', '\"yyy>\"', '\"\"\"\"y\"', '\"\"\"\"\"\"'], 'shortest_path_length': 5, 'start': 'K', 'goal': '>', 'wall': '\"', 'path': 'y'}"
+    },
+    {
+      "question": "Navigate from ')' (start) to 'k' (goal):\n\n```\nvvvvvvvvv\nvv#vvvvvv\nv###vvvvv\nv####)#vv\nv#v##v##v\nv##v#v##v\nv###vk#vv\nv###v##vv\nvvvvvvvvv\n```\nLegend: 'v' = Wall, '#' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\n5",
+      "score": 0.5,
+      "metadata": "{'grid_size': 9, 'grid': ['vvvvvvvvv', 'vv#vvvvvv', 'v###vvvvv', 'v####)#vv', 'v#v##v##v', 'v##v#v##v', 'v###vk#vv', 'v###v##vv', 'vvvvvvvvv'], 'shortest_path_length': 5, 'start': ')', 'goal': 'k', 'wall': 'v', 'path': '#'}"
+    },
+    {
+      "question": "Navigate from '}' (start) to '$' (goal):\n\n```\nyyyyyyyy\nyy666yyy\nyyy666}y\ny666666y\ny666666y\nyy6666yy\ny66y6$yy\nyyyyyyyy\n```\nLegend: 'y' = Wall, '6' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\n5",
+      "score": 0.5,
+      "metadata": "{'grid_size': 8, 'grid': ['yyyyyyyy', 'yy666yyy', 'yyy666}y', 'y666666y', 'y666666y', 'yy6666yy', 'y66y6$yy', 'yyyyyyyy'], 'shortest_path_length': 5, 'start': '}', 'goal': '$', 'wall': 'y', 'path': '6'}"
+    },
+    {
+      "question": "Navigate from 'W' (start) to '#' (goal):\n\n```\n;;;;;;;;;\n;;rrrr;;;\n;rrrrrrW;\n;;rrrrrr;\n;rrrrr;;;\n;rr;#rrr;\n;rr;rr;;;\n;r;rr;rr;\n;;;;;;;;;\n```\nLegend: ';' = Wall, 'r' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "\nThe minimum number of steps required to reach the goal is \\boxed{6}.\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 9, 'grid': [';;;;;;;;;', ';;rrrr;;;', ';rrrrrrW;', ';;rrrrrr;', ';rrrrr;;;', ';rr;#rrr;', ';rr;rr;;;', ';r;rr;rr;', ';;;;;;;;;'], 'shortest_path_length': 6, 'start': 'W', 'goal': '#', 'wall': ';', 'path': 'r'}"
+    },
+    {
+      "question": "Navigate from '*' (start) to 'C' (goal):\n\n```\nhhhhhhhh\nhhUUUhhh\nhhUUUh*h\nhUUUUUUh\nhUhhUUUh\nhCUhUhhh\nhUhUUUUh\nhhhhhhhh\n```\nLegend: 'h' = Wall, 'U' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "8",
+      "model_answer": "\n8",
+      "score": 0.5,
+      "metadata": "{'grid_size': 8, 'grid': ['hhhhhhhh', 'hhUUUhhh', 'hhUUUh*h', 'hUUUUUUh', 'hUhhUUUh', 'hCUhUhhh', 'hUhUUUUh', 'hhhhhhhh'], 'shortest_path_length': 8, 'start': '*', 'goal': 'C', 'wall': 'h', 'path': 'U'}"
+    },
+    {
+      "question": "Navigate from 'j' (start) to 'C' (goal):\n\n```\nbbbbbbbbb\nbpppppppb\nbpbjppbpb\nbpppbpbpb\nbpbpbpppb\nbbbpppppb\nbpbbCbbbb\nbpppbpppb\nbbbbbbbbb\n```\nLegend: 'b' = Wall, 'p' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "6",
+      "score": 0.01,
+      "metadata": "{'grid_size': 9, 'grid': ['bbbbbbbbb', 'bpppppppb', 'bpbjppbpb', 'bpppbpbpb', 'bpbpbpppb', 'bbbpppppb', 'bpbbCbbbb', 'bpppbpppb', 'bbbbbbbbb'], 'shortest_path_length': 5, 'start': 'j', 'goal': 'C', 'wall': 'b', 'path': 'p'}"
+    },
+    {
+      "question": "Navigate from 'Y' (start) to '@' (goal):\n\n```\n*********\n*11**111*\n*@111111*\n*1*11111*\n*11***11*\n*11*1111*\n**11Y111*\n*1111111*\n*********\n```\nLegend: '*' = Wall, '1' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "7",
+      "model_answer": "7",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['*********', '*11**111*', '*@111111*', '*1*11111*', '*11***11*', '*11*1111*', '**11Y111*', '*1111111*', '*********'], 'shortest_path_length': 7, 'start': 'Y', 'goal': '@', 'wall': '*', 'path': '1'}"
+    },
+    {
+      "question": "Navigate from '.' (start) to ':' (goal):\n\n```\n5555555555\n5LLLLLLL55\n555LLLLLL5\n55LLLLL.L5\n5LL55LLLL5\n5LL5LLLLL5\n55L5LLLL55\n5LLL:L5LL5\n5L55LLLLL5\n5555555555\n```\nLegend: '5' = Wall, 'L' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "7",
+      "model_answer": "\nThe minimum number of steps required to reach the goal is \\boxed{7}.\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 10, 'grid': ['5555555555', '5LLLLLLL55', '555LLLLLL5', '55LLLLL.L5', '5LL55LLLL5', '5LL5LLLLL5', '55L5LLLL55', '5LLL:L5LL5', '5L55LLLLL5', '5555555555'], 'shortest_path_length': 7, 'start': '.', 'goal': ':', 'wall': '5', 'path': 'L'}"
+    },
+    {
+      "question": "Navigate from 'q' (start) to '?' (goal):\n\n```\n------\n-pqpp-\n----p-\n--?pp-\n-pppp-\n------\n```\nLegend: '-' = Wall, 'p' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "\n6",
+      "score": 0.5,
+      "metadata": "{'grid_size': 6, 'grid': ['------', '-pqpp-', '----p-', '--?pp-', '-pppp-', '------'], 'shortest_path_length': 6, 'start': 'q', 'goal': '?', 'wall': '-', 'path': 'p'}"
+    },
+    {
+      "question": "Navigate from '@' (start) to 'W' (goal):\n\n```\nssssssssss\nsaaaWsaaas\nssassssaas\nssaaaassss\nsaaaaassss\nsaaaaa@aas\nsasaaasass\nsaaaaaaaas\nsaaasaasss\nssssssssss\n```\nLegend: 's' = Wall, 'a' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "10",
+      "model_answer": "\n10",
+      "score": 0.5,
+      "metadata": "{'grid_size': 10, 'grid': ['ssssssssss', 'saaaWsaaas', 'ssassssaas', 'ssaaaassss', 'saaaaassss', 'saaaaa@aas', 'sasaaasass', 'saaaaaaaas', 'saaasaasss', 'ssssssssss'], 'shortest_path_length': 10, 'start': '@', 'goal': 'W', 'wall': 's', 'path': 'a'}"
+    },
+    {
+      "question": "Navigate from ',' (start) to 'j' (goal):\n\n```\nDDDDDDDDDD\nDDDAADAAAD\nDDAjAADDDD\nDADDADADAD\nDAAAAAAADD\nDAAAADAAAD\nDDADAADAAD\nDAAAADAAAD\nDAD,DDAAAD\nDDDDDDDDDD\n```\nLegend: 'D' = Wall, 'A' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "8",
+      "model_answer": "8",
+      "score": 1.0,
+      "metadata": "{'grid_size': 10, 'grid': ['DDDDDDDDDD', 'DDDAADAAAD', 'DDAjAADDDD', 'DADDADADAD', 'DAAAAAAADD', 'DAAAADAAAD', 'DDADAADAAD', 'DAAAADAAAD', 'DAD,DDAAAD', 'DDDDDDDDDD'], 'shortest_path_length': 8, 'start': ',', 'goal': 'j', 'wall': 'D', 'path': 'A'}"
+    },
+    {
+      "question": "Navigate from '*' (start) to 'r' (goal):\n\n```\n\"\"\"\"\"\"\"\"\"\n\"n\"\"nnnn\"\n\"nnnn*nn\"\n\"rnnnnnn\"\n\"\"nnn\"n\"\"\n\"\"\"nn\"\"\"\"\n\"nn\"nn\"n\"\n\"nnnnnnn\"\n\"\"\"\"\"\"\"\"\"\n```\nLegend: '\"' = Wall, 'n' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['\"\"\"\"\"\"\"\"\"', '\"n\"\"nnnn\"', '\"nnnn*nn\"', '\"rnnnnnn\"', '\"\"nnn\"n\"\"', '\"\"\"nn\"\"\"\"', '\"nn\"nn\"n\"', '\"nnnnnnn\"', '\"\"\"\"\"\"\"\"\"'], 'shortest_path_length': 5, 'start': '*', 'goal': 'r', 'wall': '\"', 'path': 'n'}"
+    },
+    {
+      "question": "Navigate from '8' (start) to 'u' (goal):\n\n```\n,,,,,,,,\n,mmmmmm,\n,m,mmm,,\n,,um,mm,\n,mm,,m,,\n,m,mmmm,\n,mm8mmm,\n,,,,,,,,\n```\nLegend: ',' = Wall, 'm' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "6",
+      "score": 1.0,
+      "metadata": "{'grid_size': 8, 'grid': [',,,,,,,,', ',mmmmmm,', ',m,mmm,,', ',,um,mm,', ',mm,,m,,', ',m,mmmm,', ',mm8mmm,', ',,,,,,,,'], 'shortest_path_length': 6, 'start': '8', 'goal': 'u', 'wall': ',', 'path': 'm'}"
+    },
+    {
+      "question": "Navigate from 'w' (start) to 'Z' (goal):\n\n```\nUUUUUU\nUBUUUU\nUBBBBU\nUwUBUU\nUBUZBU\nUUUUUU\n```\nLegend: 'U' = Wall, 'B' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 6, 'grid': ['UUUUUU', 'UBUUUU', 'UBBBBU', 'UwUBUU', 'UBUZBU', 'UUUUUU'], 'shortest_path_length': 5, 'start': 'w', 'goal': 'Z', 'wall': 'U', 'path': 'B'}"
+    },
+    {
+      "question": "Navigate from '=' (start) to ';' (goal):\n\n```\nYYYYYYYY\nYffffYfY\nYYfYYf;Y\nYfffYYfY\nYfYffffY\nYfYffffY\nYYf=fffY\nYYYYYYYY\n```\nLegend: 'Y' = Wall, 'f' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "7",
+      "model_answer": "7",
+      "score": 1.0,
+      "metadata": "{'grid_size': 8, 'grid': ['YYYYYYYY', 'YffffYfY', 'YYfYYf;Y', 'YfffYYfY', 'YfYffffY', 'YfYffffY', 'YYf=fffY', 'YYYYYYYY'], 'shortest_path_length': 7, 'start': '=', 'goal': ';', 'wall': 'Y', 'path': 'f'}"
+    },
+    {
+      "question": "Navigate from '$' (start) to 's' (goal):\n\n```\nRRRRRRRR\nRAARRAAR\nRRsAAAAR\nRARAAAAR\nRAAARRAR\nR$AAARAR\nRARARARR\nRRRRRRRR\n```\nLegend: 'R' = Wall, 'A' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "\n6",
+      "score": 0.5,
+      "metadata": "{'grid_size': 8, 'grid': ['RRRRRRRR', 'RAARRAAR', 'RRsAAAAR', 'RARAAAAR', 'RAAARRAR', 'R$AAARAR', 'RARARARR', 'RRRRRRRR'], 'shortest_path_length': 6, 'start': '$', 'goal': 's', 'wall': 'R', 'path': 'A'}"
+    },
+    {
+      "question": "Navigate from 'T' (start) to 'v' (goal):\n\n```\n999999999\n9DDv9D9D9\n9D9DDD9D9\n999DDDDD9\n99999D999\n99DDDDDD9\n9DTD9DD99\n999DD9D99\n999999999\n```\nLegend: '9' = Wall, 'D' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "10",
+      "model_answer": "10",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['999999999', '9DDv9D9D9', '9D9DDD9D9', '999DDDDD9', '99999D999', '99DDDDDD9', '9DTD9DD99', '999DD9D99', '999999999'], 'shortest_path_length': 10, 'start': 'T', 'goal': 'v', 'wall': '9', 'path': 'D'}"
+    },
+    {
+      "question": "Navigate from 'Q' (start) to 'X' (goal):\n\n```\n999999999\n9eee9e9e9\n99Xeeeee9\n9eee9ee99\n9e9ee9ee9\n9ee99eee9\n9eeee9ee9\n9eeQ9e999\n999999999\n```\nLegend: '9' = Wall, 'e' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "8",
+      "model_answer": "8",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['999999999', '9eee9e9e9', '99Xeeeee9', '9eee9ee99', '9e9ee9ee9', '9ee99eee9', '9eeee9ee9', '9eeQ9e999', '999999999'], 'shortest_path_length': 8, 'start': 'Q', 'goal': 'X', 'wall': '9', 'path': 'e'}"
+    },
+    {
+      "question": "Navigate from '#' (start) to 'e' (goal):\n\n```\nXXXXXXXX\nXXX___eX\nX_X_XX_X\nX____XXX\nX_X__#_X\nXX_X___X\nX___X_XX\nXXXXXXXX\n```\nLegend: 'X' = Wall, '_' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "8",
+      "model_answer": "\n8",
+      "score": 0.5,
+      "metadata": "{'grid_size': 8, 'grid': ['XXXXXXXX', 'XXX___eX', 'X_X_XX_X', 'X____XXX', 'X_X__#_X', 'XX_X___X', 'X___X_XX', 'XXXXXXXX'], 'shortest_path_length': 8, 'start': '#', 'goal': 'e', 'wall': 'X', 'path': '_'}"
+    },
+    {
+      "question": "Navigate from 'c' (start) to 'l' (goal):\n\n```\n^^^^^^^^\n^4^44c4^\n^44^4^4^\n^4^^4^4^\n^44l4^^^\n^4^44^^^\n^4^^44^^\n^^^^^^^^\n```\nLegend: '^' = Wall, '4' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 8, 'grid': ['^^^^^^^^', '^4^44c4^', '^44^4^4^', '^4^^4^4^', '^44l4^^^', '^4^44^^^', '^4^^44^^', '^^^^^^^^'], 'shortest_path_length': 5, 'start': 'c', 'goal': 'l', 'wall': '^', 'path': '4'}"
+    },
+    {
+      "question": "Navigate from '`' (start) to 'W' (goal):\n\n```\nfffffff\nfBBWBff\nfBBffBf\nfBBBfBf\nf`BfBff\nfBfBfBf\nfffffff\n```\nLegend: 'f' = Wall, 'B' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\nThe minimum number of steps required to reach the goal W from the start ` is \\boxed{5}.\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 7, 'grid': ['fffffff', 'fBBWBff', 'fBBffBf', 'fBBBfBf', 'f`BfBff', 'fBfBfBf', 'fffffff'], 'shortest_path_length': 5, 'start': '`', 'goal': 'W', 'wall': 'f', 'path': 'B'}"
+    },
+    {
+      "question": "Navigate from '<' (start) to '1' (goal):\n\n```\nFFFFFFFFFF\nF$$F$$F$$F\nFF$$$$$F$F\nFF$$F$$$FF\nF$$$FF$$FF\nF$$F$F$$<F\nF$F$$FF$$F\nF$$$F1$$$F\nFF$$F$FF$F\nFFFFFFFFFF\n```\nLegend: 'F' = Wall, '$' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\nThe minimum number of steps required to reach the goal is <answer>5",
+      "score": 0.5,
+      "metadata": "{'grid_size': 10, 'grid': ['FFFFFFFFFF', 'F$$F$$F$$F', 'FF$$$$$F$F', 'FF$$F$$$FF', 'F$$$FF$$FF', 'F$$F$F$$<F', 'F$F$$FF$$F', 'F$$$F1$$$F', 'FF$$F$FF$F', 'FFFFFFFFFF'], 'shortest_path_length': 5, 'start': '<', 'goal': '1', 'wall': 'F', 'path': '$'}"
+    },
+    {
+      "question": "Navigate from 'n' (start) to 'I' (goal):\n\n```\n999999999\n99//////9\n9/9////99\n9/9/99//9\n9/9///9/9\n9//////99\n9n9///I/9\n9/99///99\n999999999\n```\nLegend: '9' = Wall, '/' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "7",
+      "model_answer": "7",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['999999999', '99//////9', '9/9////99', '9/9/99//9', '9/9///9/9', '9//////99', '9n9///I/9', '9/99///99', '999999999'], 'shortest_path_length': 7, 'start': 'n', 'goal': 'I', 'wall': '9', 'path': '/'}"
+    },
+    {
+      "question": "Navigate from '#' (start) to 'Z' (goal):\n\n```\nzzzzzz\nzffffz\nz#fzZz\nzfffzz\nzffzzz\nzzzzzz\n```\nLegend: 'z' = Wall, 'f' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 6, 'grid': ['zzzzzz', 'zffffz', 'z#fzZz', 'zfffzz', 'zffzzz', 'zzzzzz'], 'shortest_path_length': 5, 'start': '#', 'goal': 'Z', 'wall': 'z', 'path': 'f'}"
+    },
+    {
+      "question": "Navigate from 'e' (start) to 'E' (goal):\n\n```\n;;;;;;;;;;\n;;;$$;$$$;\n;;$$$$;$$;\n;$$$$$$$$;\n;$;E;$$;;;\n;$$;;$$$$;\n;$$;$$;$;;\n;$$;$;;$$;\n;;$$$;$e$;\n;;;;;;;;;;\n```\nLegend: ';' = Wall, '$' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "10",
+      "model_answer": "10",
+      "score": 1.0,
+      "metadata": "{'grid_size': 10, 'grid': [';;;;;;;;;;', ';;;$$;$$$;', ';;$$$$;$$;', ';$$$$$$$$;', ';$;E;$$;;;', ';$$;;$$$$;', ';$$;$$;$;;', ';$$;$;;$$;', ';;$$$;$e$;', ';;;;;;;;;;'], 'shortest_path_length': 10, 'start': 'e', 'goal': 'E', 'wall': ';', 'path': '$'}"
+    },
+    {
+      "question": "Navigate from 'T' (start) to 'W' (goal):\n\n```\nVVVVVVV\nV--W--V\nV-V---V\nV--V-VV\nVV-T--V\nV-V---V\nVVVVVVV\n```\nLegend: 'V' = Wall, '-' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\nThe minimum number of steps required to reach the goal is \\boxed{5}.\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 7, 'grid': ['VVVVVVV', 'V--W--V', 'V-V---V', 'V--V-VV', 'VV-T--V', 'V-V---V', 'VVVVVVV'], 'shortest_path_length': 5, 'start': 'T', 'goal': 'W', 'wall': 'V', 'path': '-'}"
+    },
+    {
+      "question": "Navigate from 'N' (start) to 'p' (goal):\n\n```\nLLLLLLLL\nLXXLLXXL\nLXXXXXXL\nLLXXLLXL\nLXXLXLNL\nLXpXXLXL\nLXXLXLXL\nLLLLLLLL\n```\nLegend: 'L' = Wall, 'X' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "9",
+      "model_answer": "9",
+      "score": 1.0,
+      "metadata": "{'grid_size': 8, 'grid': ['LLLLLLLL', 'LXXLLXXL', 'LXXXXXXL', 'LLXXLLXL', 'LXXLXLNL', 'LXpXXLXL', 'LXXLXLXL', 'LLLLLLLL'], 'shortest_path_length': 9, 'start': 'N', 'goal': 'p', 'wall': 'L', 'path': 'X'}"
+    },
+    {
+      "question": "Navigate from 'p' (start) to 'u' (goal):\n\n```\nwwwwwww\nwwpwwww\nwwFFFww\nwwFwFuw\nwFFwFww\nwwFFFFw\nwwwwwww\n```\nLegend: 'w' = Wall, 'F' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 7, 'grid': ['wwwwwww', 'wwpwwww', 'wwFFFww', 'wwFwFuw', 'wFFwFww', 'wwFFFFw', 'wwwwwww'], 'shortest_path_length': 5, 'start': 'p', 'goal': 'u', 'wall': 'w', 'path': 'F'}"
+    },
+    {
+      "question": "Navigate from 'C' (start) to '\\' (goal):\n\n```\nooooooooo\noccCcocco\noocccccoo\noococccoo\no\\ccoocco\noocccooco\nocoocccco\noccccccco\nooooooooo\n```\nLegend: 'o' = Wall, 'c' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\n5",
+      "score": 0.5,
+      "metadata": "{'grid_size': 9, 'grid': ['ooooooooo', 'occCcocco', 'oocccccoo', 'oococccoo', 'o\\\\ccoocco', 'oocccooco', 'ocoocccco', 'occccccco', 'ooooooooo'], 'shortest_path_length': 5, 'start': 'C', 'goal': '\\\\', 'wall': 'o', 'path': 'c'}"
+    },
+    {
+      "question": "Navigate from 'I' (start) to '/' (goal):\n\n```\niiiiii\ni/iUUi\niUUiii\niUUUIi\niUUiUi\niiiiii\n```\nLegend: 'i' = Wall, 'U' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 6, 'grid': ['iiiiii', 'i/iUUi', 'iUUiii', 'iUUUIi', 'iUUiUi', 'iiiiii'], 'shortest_path_length': 5, 'start': 'I', 'goal': '/', 'wall': 'i', 'path': 'U'}"
+    },
+    {
+      "question": "Navigate from '(' (start) to '{' (goal):\n\n```\nyyyyyy\nyyyy(y\ny{yOOy\nyOOOOy\nyOOOOy\nyyyyyy\n```\nLegend: 'y' = Wall, 'O' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "\nThe minimum number of steps required to navigate from '(' (1,4) to '{' (2,1) is **6**. Here's the path:\n\n1. (1,4) \u2192 (2,4)  \n2. (2,4) \u2192 (3,4)  \n3. (3,4) \u2192 (3,3)  \n4. (3,3) \u2192 (3,2)  \n5. (3,2) \u2192 (3,1)  \n6. (3,1) \u2192 (2,1)  \n\nEach step moves through passages ('O') or the start/goal, avoiding walls ('y'). This path represents the shortest feasible route given the maze constraints.\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 6, 'grid': ['yyyyyy', 'yyyy(y', 'y{yOOy', 'yOOOOy', 'yOOOOy', 'yyyyyy'], 'shortest_path_length': 6, 'start': '(', 'goal': '{', 'wall': 'y', 'path': 'O'}"
+    },
+    {
+      "question": "Navigate from 'H' (start) to '*' (goal):\n\n```\n#########\n#W#WW#W##\n#*WWWWWW#\n#W###WW##\n#W#WWW###\n##HW#W#W#\n#WWWW##W#\n#WWW#W#W#\n#########\n```\nLegend: '#' = Wall, 'W' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "10",
+      "model_answer": "10",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['#########', '#W#WW#W##', '#*WWWWWW#', '#W###WW##', '#W#WWW###', '##HW#W#W#', '#WWWW##W#', '#WWW#W#W#', '#########'], 'shortest_path_length': 10, 'start': 'H', 'goal': '*', 'wall': '#', 'path': 'W'}"
+    },
+    {
+      "question": "Navigate from '#' (start) to 'B' (goal):\n\n```\niiiiiii\ni!i!iii\niiii!#i\nii!!i!i\niB!!!!i\ni!!i!ii\niiiiiii\n```\nLegend: 'i' = Wall, '!' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "6",
+      "score": 1.0,
+      "metadata": "{'grid_size': 7, 'grid': ['iiiiiii', 'i!i!iii', 'iiii!#i', 'ii!!i!i', 'iB!!!!i', 'i!!i!ii', 'iiiiiii'], 'shortest_path_length': 6, 'start': '#', 'goal': 'B', 'wall': 'i', 'path': '!'}"
+    },
+    {
+      "question": "Navigate from 'b' (start) to 'g' (goal):\n\n```\n\"\"\"\"\"\"\"\"\n\"W\"WbW\"\"\n\"WWWW\"\"\"\n\"\"\"\"WW\"\"\n\"WW\"W\"W\"\n\"\"\"\"Wg\"\"\n\"WWWWWW\"\n\"\"\"\"\"\"\"\"\n```\nLegend: '\"' = Wall, 'W' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'grid_size': 8, 'grid': ['\"\"\"\"\"\"\"\"', '\"W\"WbW\"\"', '\"WWWW\"\"\"', '\"\"\"\"WW\"\"', '\"WW\"W\"W\"', '\"\"\"\"Wg\"\"', '\"WWWWWW\"', '\"\"\"\"\"\"\"\"'], 'shortest_path_length': 5, 'start': 'b', 'goal': 'g', 'wall': '\"', 'path': 'W'}"
+    },
+    {
+      "question": "Navigate from '4' (start) to '!' (goal):\n\n```\n~~~~~~~~~~\n~~A~AAAAA~\n~AAAAA~AA~\n~A~~~A~AA~\n~AAAAAAA~~\n~~AA~~4~A~\n~~A~AAA~A~\n~!AAAAA~A~\n~~AAA~~~A~\n~~~~~~~~~~\n```\nLegend: '~' = Wall, 'A' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "7",
+      "model_answer": "7",
+      "score": 1.0,
+      "metadata": "{'grid_size': 10, 'grid': ['~~~~~~~~~~', '~~A~AAAAA~', '~AAAAA~AA~', '~A~~~A~AA~', '~AAAAAAA~~', '~~AA~~4~A~', '~~A~AAA~A~', '~!AAAAA~A~', '~~AAA~~~A~', '~~~~~~~~~~'], 'shortest_path_length': 7, 'start': '4', 'goal': '!', 'wall': '~', 'path': 'A'}"
+    },
+    {
+      "question": "Navigate from ';' (start) to 'd' (goal):\n\n```\nppppppppp\np``p`p``p\np`p`p`p`p\npp`pp```p\npp`p````p\np```p`;pp\np````p``p\np``d```pp\nppppppppp\n```\nLegend: 'p' = Wall, '`' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'grid_size': 9, 'grid': ['ppppppppp', 'p``p`p``p', 'p`p`p`p`p', 'pp`pp```p', 'pp`p````p', 'p```p`;pp', 'p````p``p', 'p``d```pp', 'ppppppppp'], 'shortest_path_length': 5, 'start': ';', 'goal': 'd', 'wall': 'p', 'path': '`'}"
+    },
+    {
+      "question": "Navigate from 'E' (start) to '1' (goal):\n\n```\n333333333\n3****3**3\n333*333*3\n3**3*33*3\n313E****3\n3*3*3***3\n3****33*3\n3****3**3\n333333333\n```\nLegend: '3' = Wall, '*' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "6",
+      "score": 1.0,
+      "metadata": "{'grid_size': 9, 'grid': ['333333333', '3****3**3', '333*333*3', '3**3*33*3', '313E****3', '3*3*3***3', '3****33*3', '3****3**3', '333333333'], 'shortest_path_length': 6, 'start': 'E', 'goal': '1', 'wall': '3', 'path': '*'}"
+    },
+    {
+      "question": "Navigate from '(' (start) to 'd' (goal):\n\n```\niiiiiiiii\nioooooi(i\niooiioioi\nioooooooi\niooioiioi\nioooooioi\nioioioidi\nioiooiooi\niiiiiiiii\n```\nLegend: 'i' = Wall, 'o' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "\n\\boxed{5}\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 9, 'grid': ['iiiiiiiii', 'ioooooi(i', 'iooiioioi', 'ioooooooi', 'iooioiioi', 'ioooooioi', 'ioioioidi', 'ioiooiooi', 'iiiiiiiii'], 'shortest_path_length': 5, 'start': '(', 'goal': 'd', 'wall': 'i', 'path': 'o'}"
+    },
+    {
+      "question": "Navigate from 'G' (start) to 'n' (goal):\n\n```\nOOOOOOOOOO\nOoOooooOoO\nOooooooOoO\nOoOoooooOO\nOoooOOooGO\nOonoOOoOoO\nOooooooOOO\nOooooooOOO\nOooooooooO\nOOOOOOOOOO\n```\nLegend: 'O' = Wall, 'o' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "9",
+      "model_answer": "\n9",
+      "score": 0.5,
+      "metadata": "{'grid_size': 10, 'grid': ['OOOOOOOOOO', 'OoOooooOoO', 'OooooooOoO', 'OoOoooooOO', 'OoooOOooGO', 'OonoOOoOoO', 'OooooooOOO', 'OooooooOOO', 'OooooooooO', 'OOOOOOOOOO'], 'shortest_path_length': 9, 'start': 'G', 'goal': 'n', 'wall': 'O', 'path': 'o'}"
+    },
+    {
+      "question": "Navigate from '{' (start) to 'x' (goal):\n\n```\naaaaaaaaaa\na:x:a:a::a\na::::::{aa\na::::::aaa\na:a:a::::a\na::::::a:a\na::::a:a:a\na::aaaa::a\naa:aa::::a\naaaaaaaaaa\n```\nLegend: 'a' = Wall, ':' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "6",
+      "model_answer": "\n6",
+      "score": 0.5,
+      "metadata": "{'grid_size': 10, 'grid': ['aaaaaaaaaa', 'a:x:a:a::a', 'a::::::{aa', 'a::::::aaa', 'a:a:a::::a', 'a::::::a:a', 'a::::a:a:a', 'a::aaaa::a', 'aa:aa::::a', 'aaaaaaaaaa'], 'shortest_path_length': 6, 'start': '{', 'goal': 'x', 'wall': 'a', 'path': ':'}"
+    },
+    {
+      "question": "Navigate from 'b' (start) to 'Z' (goal):\n\n```\nqqqqqqq\nqZ||||q\nqq|||bq\nqq||q|q\nq|||||q\nqq||q|q\nqqqqqqq\n```\nLegend: 'q' = Wall, '|' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'grid_size': 7, 'grid': ['qqqqqqq', 'qZ||||q', 'qq|||bq', 'qq||q|q', 'q|||||q', 'qq||q|q', 'qqqqqqq'], 'shortest_path_length': 5, 'start': 'b', 'goal': 'Z', 'wall': 'q', 'path': '|'}"
+    },
+    {
+      "question": "Navigate from 'm' (start) to '^' (goal):\n\n```\naaaaaaaaaa\na.aaa.a..a\na..a.aa.aa\na.m..a.aaa\naa.....aaa\na...a....a\naa..a.aa.a\na^a..aaa.a\na....aaa.a\naaaaaaaaaa\n```\nLegend: 'a' = Wall, '.' = Passage\n\nWhat is the minimum number of steps to reach the goal?",
+      "expected_answer": "9",
+      "model_answer": "\nThe minimum number of steps required to reach the goal is \\boxed{9}.\n",
+      "score": 0.5,
+      "metadata": "{'grid_size': 10, 'grid': ['aaaaaaaaaa', 'a.aaa.a..a', 'a..a.aa.aa', 'a.m..a.aaa', 'aa.....aaa', 'a...a....a', 'aa..a.aa.a', 'a^a..aaa.a', 'a....aaa.a', 'aaaaaaaaaa'], 'shortest_path_length': 9, 'start': 'm', 'goal': '^', 'wall': 'a', 'path': '.'}"
+    }
+  ]
+}

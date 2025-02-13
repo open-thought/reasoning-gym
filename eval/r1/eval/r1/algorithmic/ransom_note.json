@@ -1,0 +1,368 @@
+{
+  "dataset_name": "ransom_note",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.91,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T15:56:12.987597",
+  "config": {
+    "max_note_length": 10,
+    "max_magazine_length": 30,
+    "p_solvable": 0.5,
+    "size": 50,
+    "seed": 42
+  },
+  "results": [
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: z\nMagazine: byyfdueqv\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'z', 'magazine': 'byyfdueqv', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: fuh\nMagazine: fjftwemgkwdgtbhukhtqsikxy\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'fuh', 'magazine': 'fjftwemgkwdgtbhukhtqsikxy', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: kgsbcklla\nMagazine: lfyimnacccculsgbvaryskbggkk\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'kgsbcklla', 'magazine': 'lfyimnacccculsgbvaryskbggkk', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: anrbpneb\nMagazine: aknpbjbnera\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'anrbpneb', 'magazine': 'aknpbjbnera', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: ivqdmli\nMagazine: jogwdielgpshiqoihlmeutzwd\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'ivqdmli', 'magazine': 'jogwdielgpshiqoihlmeutzwd', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: hgmrixp\nMagazine: iptgkbhpwjemdxrbuzj\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'hgmrixp', 'magazine': 'iptgkbhpwjemdxrbuzj', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: cxx\nMagazine: nbjgacxdktzf\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'cxx', 'magazine': 'nbjgacxdktzf', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: dmryjxk\nMagazine: dkgvzxqflzmjxdqpyydbmzirltha\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'dmryjxk', 'magazine': 'dkgvzxqflzmjxdqpyydbmzirltha', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: fvcle\nMagazine: clxnrfwnnrvrktloenlvfnctqruxf\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'fvcle', 'magazine': 'clxnrfwnnrvrktloenlvfnctqruxf', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: sxglxhxpl\nMagazine: mulcxxikprgvbxhbglspgpfxed\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'sxglxhxpl', 'magazine': 'mulcxxikprgvbxhbglspgpfxed', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: z\nMagazine: xawvhxlncpnwdlqah\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'z', 'magazine': 'xawvhxlncpnwdlqah', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: hmec\nMagazine: qwdndxtlyyklhhqdhhmylexnym\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'hmec', 'magazine': 'qwdndxtlyyklhhqdhhmylexnym', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: hxa\nMagazine: rhkoqhiyeuyappitkc\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'hxa', 'magazine': 'rhkoqhiyeuyappitkc', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: nzaq\nMagazine: uxnzezmvgypqasvxwdngradgzfl\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'nzaq', 'magazine': 'uxnzezmvgypqasvxwdngradgzfl', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: vxweyacmb\nMagazine: qbzxrlcbpscvmawy\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'vxweyacmb', 'magazine': 'qbzxrlcbpscvmawy', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: rbgwtamevl\nMagazine: tewarmbvlg\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'rbgwtamevl', 'magazine': 'tewarmbvlg', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: vzdo\nMagazine: ovopsxcaiz\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'vzdo', 'magazine': 'ovopsxcaiz', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: qctbabbu\nMagazine: kbabbcrzuqysxijmegksuat\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'qctbabbu', 'magazine': 'kbabbcrzuqysxijmegksuat', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: jnhjedplrq\nMagazine: hjlqddrgjqlepvn\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'jnhjedplrq', 'magazine': 'hjlqddrgjqlepvn', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: crjeaobrj\nMagazine: vboerjacrrgrhjmbsncf\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'crjeaobrj', 'magazine': 'vboerjacrrgrhjmbsncf', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: hln\nMagazine: vkkdzlkpknsw\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'hln', 'magazine': 'vkkdzlkpknsw', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: pnuge\nMagazine: lgrauconduubtuappqntenntdvlz\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'pnuge', 'magazine': 'lgrauconduubtuappqntenntdvlz', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: xupocvjgbj\nMagazine: ycqpuncjgwvvbojx\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'xupocvjgbj', 'magazine': 'ycqpuncjgwvvbojx', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: lhmhm\nMagazine: lvhmorvwchnlpxxthme\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'lhmhm', 'magazine': 'lvhmorvwchnlpxxthme', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: xjhljpa\nMagazine: sajelpjzxh\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'xjhljpa', 'magazine': 'sajelpjzxh', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: tpewhwt\nMagazine: saeuwowpvdhdstt\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'tpewhwt', 'magazine': 'saeuwowpvdhdstt', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: ulewkiptz\nMagazine: leltjcwnhvibvvujkyp\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'ulewkiptz', 'magazine': 'leltjcwnhvibvvujkyp', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: js\nMagazine: jlux\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'js', 'magazine': 'jlux', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: hhcrq\nMagazine: ccqrfqfh\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'hhcrq', 'magazine': 'ccqrfqfh', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: mnbpyopjoq\nMagazine: mpnbqoytjpo\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'mnbpyopjoq', 'magazine': 'mpnbqoytjpo', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: fxcfczatzs\nMagazine: zblfslcqfchzcvjxqrcthbnyjgaac\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'fxcfczatzs', 'magazine': 'zblfslcqfchzcvjxqrcthbnyjgaac', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: heniiages\nMagazine: wwxfoibibswhkwxygneeamhep\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'heniiages', 'magazine': 'wwxfoibibswhkwxygneeamhep', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: fakjskrok\nMagazine: tgjtaoxkmkmdwnrkhxortsq\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'fakjskrok', 'magazine': 'tgjtaoxkmkmdwnrkhxortsq', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: uhdzyum\nMagazine: ydyuuffhkrcupzzumunepc\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'uhdzyum', 'magazine': 'ydyuuffhkrcupzzumunepc', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: oaadawl\nMagazine: wardxailanbajurewlldo\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'oaadawl', 'magazine': 'wardxailanbajurewlldo', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: elkoao\nMagazine: fnovovezkqkwmwlptonobud\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'elkoao', 'magazine': 'fnovovezkqkwmwlptonobud', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: ua\nMagazine: polpiagnzqyjkwafvzahzyagd\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'ua', 'magazine': 'polpiagnzqyjkwafvzahzyagd', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: lscltz\nMagazine: wtczfkbzqsleefnclcosa\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'lscltz', 'magazine': 'wtczfkbzqsleefnclcosa', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: fcxfgbwxf\nMagazine: lsfwbiglgbxhqmdcftftx\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'fcxfgbwxf', 'magazine': 'lsfwbiglgbxhqmdcftftx', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: ergxqbsx\nMagazine: slqsjekgxeytcsbqfxuods\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse\n",
+      "score": 0.5,
+      "metadata": "{'ransom_note': 'ergxqbsx', 'magazine': 'slqsjekgxeytcsbqfxuods', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: ssmujjpa\nMagazine: jjudmysipeswa\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'ssmujjpa', 'magazine': 'jjudmysipeswa', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: onodqdgv\nMagazine: avoqddwqndngo\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'onodqdgv', 'magazine': 'avoqddwqndngo', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: e\nMagazine: q\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'e', 'magazine': 'q', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: olfyhylrik\nMagazine: tikrtlhuixiolykyxlyhfw\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'olfyhylrik', 'magazine': 'tikrtlhuixiolykyxlyhfw', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: x\nMagazine: pwjlhzsvkyyawejnrbbkgpysvij\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'x', 'magazine': 'pwjlhzsvkyyawejnrbbkgpysvij', 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: pykx\nMagazine: xrgbcxkkcpvyfp\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'pykx', 'magazine': 'xrgbcxkkcpvyfp', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: vsrb\nMagazine: bhtukyrsrhlcrwvsqqbc\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'vsrb', 'magazine': 'bhtukyrsrhlcrwvsqqbc', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: qnpfwarqoc\nMagazine: rilqahwtqhpfiqbcnnos\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'qnpfwarqoc', 'magazine': 'rilqahwtqhpfiqbcnnos', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: eu\nMagazine: fiaxhjuqzipdupefvane\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'eu', 'magazine': 'fiaxhjuqzipdupefvane', 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.\n\nEach letter in the magazine string can only be used once in your ransom note.\n\nRansom note: suu\nMagazine: ulzjspfjhhouhht\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'ransom_note': 'suu', 'magazine': 'ulzjspfjhhouhht', 'solution': True, 'solvable': True}"
+    }
+  ]
+}

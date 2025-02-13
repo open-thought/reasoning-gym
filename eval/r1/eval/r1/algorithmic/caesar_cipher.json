@@ -1,0 +1,370 @@
+{
+  "dataset_name": "caesar_cipher",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.542,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T15:17:30.319743",
+  "config": {
+    "delimiter": ".",
+    "min_words": 3,
+    "max_words": 20,
+    "min_rotation": 1,
+    "max_rotation": 25,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Decrypt this Caesar cipher text: JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP",
+      "expected_answer": "IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO",
+      "model_answer": "IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO",
+      "score": 1.0,
+      "metadata": "{'rotation': 1, 'cipher_text': 'JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP', 'clear_text': 'IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW",
+      "expected_answer": "FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM",
+      "model_answer": "\nDecrypted text: FRITZ NAPOLEON TNITH BOUGHT IT FOR A NERE AND ORIGINATED TELEPHONIC JOURNALITN  \n(Note: The Caesar cipher shift is 10. Some parts may contain errors or typos in the original cipher text.)\n",
+      "score": 0.01,
+      "metadata": "{'rotation': 10, 'cipher_text': 'PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW', 'clear_text': 'FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU",
+      "expected_answer": "IF YOUR STOMACH IS OUT OF IT MUST BE MENDED",
+      "model_answer": "IF YOUR STOMACH IS OUT OF IT MUST BE MENDED",
+      "score": 1.0,
+      "metadata": "{'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU', 'clear_text': 'IF YOUR STOMACH IS OUT OF IT MUST BE MENDED'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: WG DFCUFSGG SJSFMKVSFS SLQSDH AIHHSFSR AF",
+      "expected_answer": "IS PROGRESS EVERYWHERE EXCEPT MUTTERED MR",
+      "model_answer": "The decrypted text is: IT IS TOO LATE TO PREPARE FOR TOMORROW",
+      "score": 0.01,
+      "metadata": "{'rotation': 14, 'cipher_text': 'WG DFCUFSGG SJSFMKVSFS SLQSDH AIHHSFSR AF', 'clear_text': 'IS PROGRESS EVERYWHERE EXCEPT MUTTERED MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: FUR VF URE URNQ FHAX VA GUR CVYYBJF",
+      "expected_answer": "SHE IS HER HEAD SUNK IN THE PILLOWS",
+      "model_answer": "SHE IS HER HEAD SUNK IN THE PILLOWS",
+      "score": 1.0,
+      "metadata": "{'rotation': 13, 'cipher_text': 'FUR VF URE URNQ FHAX VA GUR CVYYBJF', 'clear_text': 'SHE IS HER HEAD SUNK IN THE PILLOWS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: KLV VSHFLDO SURMHFW KDG WR GR ZLWK WKH FLWB RI DV HYHUBERGB VRPH ILIWHHQ PLOHV LQODQG",
+      "expected_answer": "HIS SPECIAL PROJECT HAD TO DO WITH THE CITY OF AS EVERYBODY SOME FIFTEEN MILES INLAND",
+      "model_answer": "\nThe decrypted text using a Caesar cipher with a shift of 3 is:\n\n**HIS SPECIAL PROJECT HAD TO DO WITH THE CITY OF AS EVERYBODY SOME FIFTEEN MILES INLAND**\n\n(Note: The phrase \"CITY OF AS\" may contain a typo or require contextual interpretation, but the rest of the decryption is accurate.)  \n",
+      "score": 0.5,
+      "metadata": "{'rotation': 3, 'cipher_text': 'KLV VSHFLDO SURMHFW KDG WR GR ZLWK WKH FLWB RI DV HYHUBERGB VRPH ILIWHHQ PLOHV LQODQG', 'clear_text': 'HIS SPECIAL PROJECT HAD TO DO WITH THE CITY OF AS EVERYBODY SOME FIFTEEN MILES INLAND'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: ESP NZAJCTRSE WLHD ZQ ESP AWLNP HSPCP JZF LCP WZNLEPO LWDZ RZGPCY HSLE JZF NLY OZ HTES ESTD HZCV",
+      "expected_answer": "THE COPYRIGHT LAWS OF THE PLACE WHERE YOU ARE LOCATED ALSO GOVERN WHAT YOU CAN DO WITH THIS WORK",
+      "model_answer": "\nTHE COPYRIGHT LAWS OF THE PLACE WHERE YOU ARE LOCATED ALSO GOVERN WHAT YOU CAN DO WITH THIS WORK\n",
+      "score": 0.5,
+      "metadata": "{'rotation': 11, 'cipher_text': 'ESP NZAJCTRSE WLHD ZQ ESP AWLNP HSPCP JZF LCP WZNLEPO LWDZ RZGPCY HSLE JZF NLY OZ HTES ESTD HZCV', 'clear_text': 'THE COPYRIGHT LAWS OF THE PLACE WHERE YOU ARE LOCATED ALSO GOVERN WHAT YOU CAN DO WITH THIS WORK'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: UZODQPUNXQ FTAGST UF UZ MXX FTQ FQZ KQMDE EUZOQ FTQUD FTUE UE FTQ RUDEF FUYQ FTMF YDE",
+      "expected_answer": "INCREDIBLE THOUGH IT IN ALL THE TEN YEARS SINCE THEIR THIS IS THE FIRST TIME THAT MRS",
+      "model_answer": "The decrypted text using a Caesar cipher with a shift of 12 (or shifting back 14 positions) is: \n\n**\"INCREDIBLE THOUGH IT IN ALL THE TEN YEARS SINCE THEIR THIS IS THE FIRST TIME THAT MRS\"**\n\nThe message appears to be part of a longer text, possibly with missing punctuation or context, but the decryption process correctly reveals the intended words using a shift of 12.",
+      "score": 0.5,
+      "metadata": "{'rotation': 12, 'cipher_text': 'UZODQPUNXQ FTAGST UF UZ MXX FTQ FQZ KQMDE EUZOQ FTQUD FTUE UE FTQ RUDEF FUYQ FTMF YDE', 'clear_text': 'INCREDIBLE THOUGH IT IN ALL THE TEN YEARS SINCE THEIR THIS IS THE FIRST TIME THAT MRS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: QXF UXWP QJB QN KNNW MA",
+      "expected_answer": "HOW LONG HAS HE BEEN DR",
+      "model_answer": "HOW LONG HAS HE BEEN DR",
+      "score": 1.0,
+      "metadata": "{'rotation': 9, 'cipher_text': 'QXF UXWP QJB QN KNNW MA', 'clear_text': 'HOW LONG HAS HE BEEN DR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: RE ZEUVGVEUVEK XFMVIEDVEK",
+      "expected_answer": "AN INDEPENDENT GOVERNMENT",
+      "model_answer": "AN INDEPENDENT GOVERNMENT",
+      "score": 1.0,
+      "metadata": "{'rotation': 17, 'cipher_text': 'RE ZEUVGVEUVEK XFMVIEDVEK', 'clear_text': 'AN INDEPENDENT GOVERNMENT'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: KV KU FGNKIJVHWN VJWU VQ VCMG DTGCMHCUV YKVJ QPG YJQ KU OKNGU QT UQ CYCA",
+      "expected_answer": "IT IS DELIGHTFUL THUS TO TAKE BREAKFAST WITH ONE WHO IS MILES OR SO AWAY",
+      "model_answer": "IT IS DELIGHTFUL TO TAKE BREAKFAST WITH ONE WHO IS MILES OR SO AWAY",
+      "score": 0.01,
+      "metadata": "{'rotation': 2, 'cipher_text': 'KV KU FGNKIJVHWN VJWU VQ VCMG DTGCMHCUV YKVJ QPG YJQ KU OKNGU QT UQ CYCA', 'clear_text': 'IT IS DELIGHTFUL THUS TO TAKE BREAKFAST WITH ONE WHO IS MILES OR SO AWAY'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: MVY MVYAF OL WYVKBJLK HUK KPZAYPIBALK WYVQLJA LIVVRZ DPAO VUSF H SVVZL ULADVYR VM CVSBUALLY ZBWWVYA",
+      "expected_answer": "FOR FORTY HE PRODUCED AND DISTRIBUTED PROJECT EBOOKS WITH ONLY A LOOSE NETWORK OF VOLUNTEER SUPPORT",
+      "model_answer": "For forty he produced and distributed project ebooks with only a loose network of volunteer support",
+      "score": 0.01,
+      "metadata": "{'rotation': 7, 'cipher_text': 'MVY MVYAF OL WYVKBJLK HUK KPZAYPIBALK WYVQLJA LIVVRZ DPAO VUSF H SVVZL ULADVYR VM CVSBUALLY ZBWWVYA', 'clear_text': 'FOR FORTY HE PRODUCED AND DISTRIBUTED PROJECT EBOOKS WITH ONLY A LOOSE NETWORK OF VOLUNTEER SUPPORT'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: LWPI DU PHZTS BG",
+      "expected_answer": "WHAT OF ASKED MR",
+      "model_answer": "The decrypted text is \"WHAT OF ASKED MR\". Although it doesn't form a coherent sentence, the correct Caesar cipher shift is 15. Each letter in the ciphertext shifted back by 15 positions results in: \nLWPI \u2192 WHAT\nDU \u2192 OF\nPHZTS \u2192 ASKED\nBG \u2192 MR",
+      "score": 0.5,
+      "metadata": "{'rotation': 15, 'cipher_text': 'LWPI DU PHZTS BG', 'clear_text': 'WHAT OF ASKED MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: MPYZA OL LUALYZ AOL OHSS VM AOL H CHZA HWHYATLUA JYVDULK DPAO HU LUVYTVBZ AYHUZWHYLUA JBWVSH",
+      "expected_answer": "FIRST HE ENTERS THE HALL OF THE A VAST APARTMENT CROWNED WITH AN ENORMOUS TRANSPARENT CUPOLA",
+      "model_answer": "FIRST HE ENTERS THE HALL OF THE VAST APARTMENT CROWDED WITH AN ENORMOUS TRANSPARENT CUPOLA",
+      "score": 0.01,
+      "metadata": "{'rotation': 7, 'cipher_text': 'MPYZA OL LUALYZ AOL OHSS VM AOL H CHZA HWHYATLUA JYVDULK DPAO HU LUVYTVBZ AYHUZWHYLUA JBWVSH', 'clear_text': 'FIRST HE ENTERS THE HALL OF THE A VAST APARTMENT CROWNED WITH AN ENORMOUS TRANSPARENT CUPOLA'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: BOE BOZ BEEJUJPOBM UFSNT JNQPTFE CZ UIF DPQZSJHIU IPMEFS",
+      "expected_answer": "AND ANY ADDITIONAL TERMS IMPOSED BY THE COPYRIGHT HOLDER",
+      "model_answer": "AND ANY ADDITIONAL TERMS IMPOSED BY THE COPYRIGHT HOLDER",
+      "score": 1.0,
+      "metadata": "{'rotation': 1, 'cipher_text': 'BOE BOZ BEEJUJPOBM UFSNT JNQPTFE CZ UIF DPQZSJHIU IPMEFS', 'clear_text': 'AND ANY ADDITIONAL TERMS IMPOSED BY THE COPYRIGHT HOLDER'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: DQOWAZ GB FTQ ZGYNQD AR EOUQZFUEFE MZP MDFUEFE FTMF TQ AR UZHQZFADE FTMF TQ TME GZPQD TUE BMK",
+      "expected_answer": "RECKON UP THE NUMBER OF SCIENTISTS AND ARTISTS THAT HE OF INVENTORS THAT HE HAS UNDER HIS PAY",
+      "model_answer": "The decrypted message using a Caesar cipher shift of 12 is: **\"RECKON UP THE NUMBER OF SCIENTISTS AND ARTISTS THAT HE HAS UNDER HIS PAY\"**",
+      "score": 0.01,
+      "metadata": "{'rotation': 12, 'cipher_text': 'DQOWAZ GB FTQ ZGYNQD AR EOUQZFUEFE MZP MDFUEFE FTMF TQ AR UZHQZFADE FTMF TQ TME GZPQD TUE BMK', 'clear_text': 'RECKON UP THE NUMBER OF SCIENTISTS AND ARTISTS THAT HE OF INVENTORS THAT HE HAS UNDER HIS PAY'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: PM AOL ZLJVUK JVWF PZ HSZV FVB THF KLTHUK H YLMBUK PU DYPAPUN DPAOVBA MBYAOLY VWWVYABUPAPLZ AV MPE AOL WYVISLT",
+      "expected_answer": "IF THE SECOND COPY IS ALSO YOU MAY DEMAND A REFUND IN WRITING WITHOUT FURTHER OPPORTUNITIES TO FIX THE PROBLEM",
+      "model_answer": "\nIF THE SECOND COPY IS ALSO YOU MAY DEMAND A REFUND IN WRITING WITHOUT FURTHER OPPORTUNITIES TO FIX THE PROBLEM\n",
+      "score": 0.5,
+      "metadata": "{'rotation': 7, 'cipher_text': 'PM AOL ZLJVUK JVWF PZ HSZV FVB THF KLTHUK H YLMBUK PU DYPAPUN DPAOVBA MBYAOLY VWWVYABUPAPLZ AV MPE AOL WYVISLT', 'clear_text': 'IF THE SECOND COPY IS ALSO YOU MAY DEMAND A REFUND IN WRITING WITHOUT FURTHER OPPORTUNITIES TO FIX THE PROBLEM'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: DW UHJXODU LQWHUYDOV WKHB DUH HYHU DGGUHVVLQJ WR WKH DPHULFDQ JRYHUQPHQW YDLQ FRPSODLQWV",
+      "expected_answer": "AT REGULAR INTERVALS THEY ARE EVER ADDRESSING TO THE AMERICAN GOVERNMENT VAIN COMPLAINTS",
+      "model_answer": "\nThe decrypted text using a Caesar cipher with a shift of 3 (letters shifted backward by 3 positions) is:\n\n**\"AT REGULAR INTERVALS THEY ARE EVER ADDRESSING TO THE AMERICAN GOVERNMENT VAIN COMPLAINTS\"**\n\n(Note: The phrase \"TO THE\" might be more naturally written as \"THE\" in standard English, but the decrypted text follows the cipher directly.)\n",
+      "score": 0.5,
+      "metadata": "{'rotation': 3, 'cipher_text': 'DW UHJXODU LQWHUYDOV WKHB DUH HYHU DGGUHVVLQJ WR WKH DPHULFDQ JRYHUQPHQW YDLQ FRPSODLQWV', 'clear_text': 'AT REGULAR INTERVALS THEY ARE EVER ADDRESSING TO THE AMERICAN GOVERNMENT VAIN COMPLAINTS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: DKUO WO DY WI KMMEWEVKDYB GYBUC KD XSKQKBK",
+      "expected_answer": "TAKE ME TO MY ACCUMULATOR WORKS AT NIAGARA",
+      "model_answer": "The decrypted Caesar cipher with a shift of 10 is: \"TAKE ME TO MY ACCUMULATOR WORKS AT NIAGARA\"",
+      "score": 0.5,
+      "metadata": "{'rotation': 10, 'cipher_text': 'DKUO WO DY WI KMMEWEVKDYB GYBUC KD XSKQKBK', 'clear_text': 'TAKE ME TO MY ACCUMULATOR WORKS AT NIAGARA'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: KDIRGOSY KBKXE UTK VXKYKTZ",
+      "expected_answer": "EXCLAIMS EVERY ONE PRESENT",
+      "model_answer": "The decrypted Caesar cipher text with a shift of 6 is: **EXCLAIMS EVERY ONE PRESENT**",
+      "score": 0.5,
+      "metadata": "{'rotation': 6, 'cipher_text': 'KDIRGOSY KBKXE UTK VXKYKTZ', 'clear_text': 'EXCLAIMS EVERY ONE PRESENT'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: IUVEXOMNZ RGC OT IXKGZOTM ZNK VXUPKIZ IURRKIZOUT",
+      "expected_answer": "COPYRIGHT LAW IN CREATING THE PROJECT COLLECTION",
+      "model_answer": "Decrypted text with Caesar cipher shift 6: \"COPYRIGHT LAW IN CREATING THE PROJECT COLLECTION\"",
+      "score": 0.5,
+      "metadata": "{'rotation': 6, 'cipher_text': 'IUVEXOMNZ RGC OT IXKGZOTM ZNK VXUPKIZ IURRKIZOUT', 'clear_text': 'COPYRIGHT LAW IN CREATING THE PROJECT COLLECTION'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: HBXIW PH WT HTKTGTS RDBBJCXRPIXDC LXIW EPGXH",
+      "expected_answer": "SMITH AS HE SEVERED COMMUNICATION WITH PARIS",
+      "model_answer": "SMITH AS HE SEVERED COMMUNICATION WITH PARIS",
+      "score": 1.0,
+      "metadata": "{'rotation': 15, 'cipher_text': 'HBXIW PH WT HTKTGTS RDBBJCXRPIXDC LXIW EPGXH', 'clear_text': 'SMITH AS HE SEVERED COMMUNICATION WITH PARIS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: IWGSVXIH FC E RYQIVSYW GSQTERC SJ QIR SJ WGMIRGI",
+      "expected_answer": "ESCORTED BY A NUMEROUS COMPANY OF MEN OF SCIENCE",
+      "model_answer": "Escorted by a numerous company of men of science",
+      "score": 0.01,
+      "metadata": "{'rotation': 4, 'cipher_text': 'IWGSVXIH FC E RYQIVSYW GSQTERC SJ QIR SJ WGMIRGI', 'clear_text': 'ESCORTED BY A NUMEROUS COMPANY OF MEN OF SCIENCE'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: DRO CKSN WB",
+      "expected_answer": "THE SAID MR",
+      "model_answer": "THE SAID MR",
+      "score": 1.0,
+      "metadata": "{'rotation': 10, 'cipher_text': 'DRO CKSN WB', 'clear_text': 'THE SAID MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: CWSDR NYOC SC DY MYXXOMD RSC DRO GSBOC YP GRSMR MYWWEXSMKDO GSDR RSC ZKBSC WKXCSYX",
+      "expected_answer": "SMITH DOES IS TO CONNECT HIS THE WIRES OF WHICH COMMUNICATE WITH HIS PARIS MANSION",
+      "model_answer": "\nThe decrypted text using a Caesar cipher with a shift of 10 is:\n\nSMITH DOES IS TO CONNECT HIS THE WIRES OF WHICH COMMUNICATE WITH HIS PARIS MANSION\n\nHowever, there might be a typo in the original cipher. A more coherent version could be:\n\nSMITH DOES IT TO CONNECT THE WIRES OF WHICH COMMUNICATE WITH HIS PARIS MANSION\n\n",
+      "score": 0.5,
+      "metadata": "{'rotation': 10, 'cipher_text': 'CWSDR NYOC SC DY MYXXOMD RSC DRO GSBOC YP GRSMR MYWWEXSMKDO GSDR RSC ZKBSC WKXCSYX', 'clear_text': 'SMITH DOES IS TO CONNECT HIS THE WIRES OF WHICH COMMUNICATE WITH HIS PARIS MANSION'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: E ZEPYEFPI MRZIRXMSR ERH QV",
+      "expected_answer": "A VALUABLE INVENTION AND MR",
+      "model_answer": "A VALUABLE INVENTION AND MR",
+      "score": 1.0,
+      "metadata": "{'rotation': 4, 'cipher_text': 'E ZEPYEFPI MRZIRXMSR ERH QV', 'clear_text': 'A VALUABLE INVENTION AND MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: FK QTL ELROP JO",
+      "expected_answer": "IN TWO HOURS MR",
+      "model_answer": "IN TWO HOURS MR",
+      "score": 1.0,
+      "metadata": "{'rotation': 23, 'cipher_text': 'FK QTL ELROP JO', 'clear_text': 'IN TWO HOURS MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: JVMXD RETSPISR WQMXL FSYKLX MX JSV E QIVI ERH SVMKMREXIH XIPITLSRMG NSYVREPMWQ",
+      "expected_answer": "FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM",
+      "model_answer": "\nDecrypted text with Caesar cipher shift of 4:\nFIFTY NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM\n\n(Note: The first word \"JVMXD\" decrypts to \"FIFTY\" if there's a possible ciphertext typo, as the correct shift yields meaningful subsequent words like \"NAPOLEON\", \"SMITH\", \"BOUGHT\", \"JOURNALISM\", etc.)\n",
+      "score": 0.01,
+      "metadata": "{'rotation': 4, 'cipher_text': 'JVMXD RETSPISR WQMXL FSYKLX MX JSV E QIVI ERH SVMKMREXIH XIPITLSRMG NSYVREPMWQ', 'clear_text': 'FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: CWSDR MYXDSXEOC RSC BYEXN KXN OXDOBC DRO RKVV",
+      "expected_answer": "SMITH CONTINUES HIS ROUND AND ENTERS THE HALL",
+      "model_answer": "SMITH CONTINUES HIS ROUND AND ENTERS THE HALL",
+      "score": 1.0,
+      "metadata": "{'rotation': 10, 'cipher_text': 'CWSDR MYXDSXEOC RSC BYEXN KXN OXDOBC DRO RKVV', 'clear_text': 'SMITH CONTINUES HIS ROUND AND ENTERS THE HALL'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: KF KYZJ NFIB DI",
+      "expected_answer": "TO THIS WORK MR",
+      "model_answer": "Decrypted text: TO THIS WORK MR\n\n(Note: The decryption uses a Caesar cipher with a shift of 17 (or equivalently, shifting each letter forward by 9). The result \"TO THIS WORK MR\" is obtained, where \"MR\" might be an abbreviation or a typo in the original ciphertext.)",
+      "score": 0.5,
+      "metadata": "{'rotation': 17, 'cipher_text': 'KF KYZJ NFIB DI', 'clear_text': 'TO THIS WORK MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: NBY BYLY CM UHINBYL IZ NBY ALYUN NLCOGJBM IZ MWCYHWY CH IOL NCGY",
+      "expected_answer": "THE HERE IS ANOTHER OF THE GREAT TRIUMPHS OF SCIENCE IN OUR TIME",
+      "model_answer": "THE HERE IS ANOTHER OF THE GREAT TRIUMPHS OF SCIENCE IN OUR TIME",
+      "score": 1.0,
+      "metadata": "{'rotation': 20, 'cipher_text': 'NBY BYLY CM UHINBYL IZ NBY ALYUN NLCOGJBM IZ MWCYHWY CH IOL NCGY', 'clear_text': 'THE HERE IS ANOTHER OF THE GREAT TRIUMPHS OF SCIENCE IN OUR TIME'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: LI AEW NYWX JMRMWLMRK XLI HIWWIVX ALIR QVW",
+      "expected_answer": "HE WAS JUST FINISHING THE DESSERT WHEN MRS",
+      "model_answer": "HE WAS JUST FINISHING THE DESSERT WHEN MRS",
+      "score": 1.0,
+      "metadata": "{'rotation': 4, 'cipher_text': 'LI AEW NYWX JMRMWLMRK XLI HIWWIVX ALIR QVW', 'clear_text': 'HE WAS JUST FINISHING THE DESSERT WHEN MRS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: UFERKZFEJ RIV RTTVGKVU ZE R ELDSVI FW FKYVI NRPJ ZETCLUZEX FECZEV GRPDVEKJ REU TIVUZK TRIU UFERKZFEJ",
+      "expected_answer": "DONATIONS ARE ACCEPTED IN A NUMBER OF OTHER WAYS INCLUDING ONLINE PAYMENTS AND CREDIT CARD DONATIONS",
+      "model_answer": "DONATIONS ARE ACCEPTED IN A NUMBER OF OTHER WAYS INCLUDING ONLINE PAYMENTS AND CREDIT CARD DONATIONS",
+      "score": 1.0,
+      "metadata": "{'rotation': 17, 'cipher_text': 'UFERKZFEJ RIV RTTVGKVU ZE R ELDSVI FW FKYVI NRPJ ZETCLUZEX FECZEV GRPDVEKJ REU TIVUZK TRIU UFERKZFEJ', 'clear_text': 'DONATIONS ARE ACCEPTED IN A NUMBER OF OTHER WAYS INCLUDING ONLINE PAYMENTS AND CREDIT CARD DONATIONS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: BM BL MAX WTR YHK MAX KXMNKG MH EBYX HY MAX YTFHNL WK",
+      "expected_answer": "IT IS THE DAY FOR THE RETURN TO LIFE OF THE FAMOUS DR",
+      "model_answer": "The decrypted text is: \"IT IS THE DAY FOR THE RETURN TO LIFE OF THE FAMOUS DR\". The Caesar cipher shift used is 7.",
+      "score": 0.5,
+      "metadata": "{'rotation': 19, 'cipher_text': 'BM BL MAX WTR YHK MAX KXMNKG MH EBYX HY MAX YTFHNL WK', 'clear_text': 'IT IS THE DAY FOR THE RETURN TO LIFE OF THE FAMOUS DR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: IWT UDJGIW PCCDJCRTS IWT TPGAN HDAJIXDC DU P LTXVWIN HRXTCIXUXR EGDQATB",
+      "expected_answer": "THE FOURTH ANNOUNCED THE EARLY SOLUTION OF A WEIGHTY SCIENTIFIC PROBLEM",
+      "model_answer": "The decrypted text using a Caesar cipher with a shift of 11 is: \"THE FOURTH ANNOUNCED THE EARLY SOLUTION OF A WEIGHTY SCIENTIFIC PROBLEM\"",
+      "score": 0.5,
+      "metadata": "{'rotation': 15, 'cipher_text': 'IWT UDJGIW PCCDJCRTS IWT TPGAN HDAJIXDC DU P LTXVWIN HRXTCIXUXR EGDQATB', 'clear_text': 'THE FOURTH ANNOUNCED THE EARLY SOLUTION OF A WEIGHTY SCIENTIFIC PROBLEM'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: HSPCP ESP MPO DEZZO TY ESP XZCYTYR L ELMWP LWW DACPLO NZXPD FA ESCZFRS ESP QWZZC",
+      "expected_answer": "WHERE THE BED STOOD IN THE MORNING A TABLE ALL SPREAD COMES UP THROUGH THE FLOOR",
+      "model_answer": "The decrypted text using a Caesar cipher shift of 11 (or shift 15 backwards) is: \"WHERE THE BED STOOD IN THE MORNING A TABLE ALL SPREAD COMES UP THROUGH THE FLOOR\"",
+      "score": 0.5,
+      "metadata": "{'rotation': 11, 'cipher_text': 'HSPCP ESP MPO DEZZO TY ESP XZCYTYR L ELMWP LWW DACPLO NZXPD FA ESCZFRS ESP QWZZC', 'clear_text': 'WHERE THE BED STOOD IN THE MORNING A TABLE ALL SPREAD COMES UP THROUGH THE FLOOR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: WQMXL TEWWIH MRXS XLI RIBX ER IRSVQSYW KEPPIVC YTAEVH SJ JIIX MR HIZSXIH XS EXQSWTLIVMG EHZIVXMWMRK",
+      "expected_answer": "SMITH PASSED INTO THE NEXT AN ENORMOUS GALLERY UPWARD OF FEET IN DEVOTED TO ATMOSPHERIC ADVERTISING",
+      "model_answer": "\nSmith passed into the next an enormous gallery upward of feet in devoted to atmospheric advertising\n\nHowever, upon reviewing, spaces might need adjustment for clarity. Properly spaced and punctuated, it could read:\n\nSMITH PASSED INTO THE NEXT AN ENORMOUS GALLERY UPWARD OF FEET IN DEVOTED TO ATMOSPHERIC ADVERTISING\n\nAlternatively, considering possible typos or formatting:\n\n**Smith passed into the next, an enormous gallery upward of feet, devoted to atmospheric advertising.**\n\nThe decrypted text uses a Caesar cipher with a right shift of 4 (decrypted by shifting left by 4). \n",
+      "score": 0.5,
+      "metadata": "{'rotation': 4, 'cipher_text': 'WQMXL TEWWIH MRXS XLI RIBX ER IRSVQSYW KEPPIVC YTAEVH SJ JIIX MR HIZSXIH XS EXQSWTLIVMG EHZIVXMWMRK', 'clear_text': 'SMITH PASSED INTO THE NEXT AN ENORMOUS GALLERY UPWARD OF FEET IN DEVOTED TO ATMOSPHERIC ADVERTISING'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: LXIW IWTXG WTPSH QTCI SDLC DKTG IWTXG TATRIGXR IWXGIN HRXTCIXUXR BTC LTGT PQHDGQTS XC IGPCHRTCSTCIPA RPARJAPIXDCH",
+      "expected_answer": "WITH THEIR HEADS BENT DOWN OVER THEIR ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS",
+      "model_answer": "\nThe decrypted text using a Caesar cipher shift of 11 (or shift 15 backwards) is:\n\nWITH THERE HEADS BENT DOWN OVER THERE ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS\n\nThe plaintext reads:  \n\"With their heads bent down over there, electric thirty scientific men were absorbed in transcendental calculations.\"\n\nThis text appears to describe a group of scientists deeply engaged in complex theoretical work.  \n",
+      "score": 0.01,
+      "metadata": "{'rotation': 15, 'cipher_text': 'LXIW IWTXG WTPSH QTCI SDLC DKTG IWTXG TATRIGXR IWXGIN HRXTCIXUXR BTC LTGT PQHDGQTS XC IGPCHRTCSTCIPA RPARJAPIXDCH', 'clear_text': 'WITH THEIR HEADS BENT DOWN OVER THEIR ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: VF CEBTERFF RIRELJURER RKPRCG ZHGGRERQ ZE",
+      "expected_answer": "IS PROGRESS EVERYWHERE EXCEPT MUTTERED MR",
+      "model_answer": "IS PROGRESS EVERYWHERE EXCEPT MUTTERED MR",
+      "score": 1.0,
+      "metadata": "{'rotation': 13, 'cipher_text': 'VF CEBTERFF RIRELJURER RKPRCG ZHGGRERQ ZE', 'clear_text': 'IS PROGRESS EVERYWHERE EXCEPT MUTTERED MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: HBXIW ID SG",
+      "expected_answer": "SMITH TO DR",
+      "model_answer": "SMITH TO DR",
+      "score": 1.0,
+      "metadata": "{'rotation': 15, 'cipher_text': 'HBXIW ID SG', 'clear_text': 'SMITH TO DR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: VHSG SGDHQ GDZCR ADMS CNVM NUDQ SGDHQ DKDBSQHB SGHQSX RBHDMSHEHB LDM VDQD ZARNQADC HM SQZMRBDMCDMSZK BZKBTKZSHNMR",
+      "expected_answer": "WITH THEIR HEADS BENT DOWN OVER THEIR ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'rotation': 25, 'cipher_text': 'VHSG SGDHQ GDZCR ADMS CNVM NUDQ SGDHQ DKDBSQHB SGHQSX RBHDMSHEHB LDM VDQD ZARNQADC HM SQZMRBDMCDMSZK BZKBTKZSHNMR', 'clear_text': 'WITH THEIR HEADS BENT DOWN OVER THEIR ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: WDL ADCV WPH WT QTTC SG",
+      "expected_answer": "HOW LONG HAS HE BEEN DR",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'rotation': 15, 'cipher_text': 'WDL ADCV WPH WT QTTC SG', 'clear_text': 'HOW LONG HAS HE BEEN DR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: VGDQD GZUD XNT ZRJDC LQ",
+      "expected_answer": "WHERE HAVE YOU ASKED MR",
+      "model_answer": "NEVER MIND THE PROBLEM IT",
+      "score": 0.01,
+      "metadata": "{'rotation': 25, 'cipher_text': 'VGDQD GZUD XNT ZRJDC LQ', 'clear_text': 'WHERE HAVE YOU ASKED MR'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: X AFPZRPPFLK TXP DLFKD LK TEBK EB BKQBOBA",
+      "expected_answer": "A DISCUSSION WAS GOING ON WHEN HE ENTERED",
+      "model_answer": "A DISCUSSION WAS GOING ON WHEN HE ENTERED",
+      "score": 1.0,
+      "metadata": "{'rotation': 23, 'cipher_text': 'X AFPZRPPFLK TXP DLFKD LK TEBK EB BKQBOBA', 'clear_text': 'A DISCUSSION WAS GOING ON WHEN HE ENTERED'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: SDD LZWKW OGFVWJK ZSNW TWWF OJGMYZL TQ LZW SUUMEMDSLGJ SFV LZW LJSFKXGJEWJ",
+      "expected_answer": "ALL THESE WONDERS HAVE BEEN WROUGHT BY THE ACCUMULATOR AND THE TRANSFORMER",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'rotation': 18, 'cipher_text': 'SDD LZWKW OGFVWJK ZSNW TWWF OJGMYZL TQ LZW SUUMEMDSLGJ SFV LZW LJSFKXGJEWJ', 'clear_text': 'ALL THESE WONDERS HAVE BEEN WROUGHT BY THE ACCUMULATOR AND THE TRANSFORMER'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: UGRF RFCGP FCYBQ ZCLR BMUL MTCP RFCGP CJCARPGA RFGPRW QAGCLRGDGA KCL UCPC YZQMPZCB GL RPYLQACLBCLRYJ AYJASJYRGMLQ",
+      "expected_answer": "WITH THEIR HEADS BENT DOWN OVER THEIR ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS",
+      "model_answer": "\nThe decrypted text using a Caesar cipher shift of +2 (or shift of -2 for decryption) is:\n\n**WITH THEIR HEADS BENT DOWN OVER THEIR ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS**\n\n",
+      "score": 0.5,
+      "metadata": "{'rotation': 24, 'cipher_text': 'UGRF RFCGP FCYBQ ZCLR BMUL MTCP RFCGP CJCARPGA RFGPRW QAGCLRGDGA KCL UCPC YZQMPZCB GL RPYLQACLBCLRYJ AYJASJYRGMLQ', 'clear_text': 'WITH THEIR HEADS BENT DOWN OVER THEIR ELECTRIC THIRTY SCIENTIFIC MEN WERE ABSORBED IN TRANSCENDENTAL CALCULATIONS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: PU JVUZLXBLUJL VM AOL CPIYHAPVUZ AOL HPY ILJHTL SBTPUVBZ",
+      "expected_answer": "IN CONSEQUENCE OF THE VIBRATIONS THE AIR BECAME LUMINOUS",
+      "model_answer": "The decrypted text is: IN CONSEQUENCE OF THE VIBRATIONS THE AIR BECAME LUMINOUS",
+      "score": 0.5,
+      "metadata": "{'rotation': 7, 'cipher_text': 'PU JVUZLXBLUJL VM AOL CPIYHAPVUZ AOL HPY ILJHTL SBTPUVBZ', 'clear_text': 'IN CONSEQUENCE OF THE VIBRATIONS THE AIR BECAME LUMINOUS'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: RGD HR CQDZLHMF CQDZLHMF",
+      "expected_answer": "SHE IS DREAMING DREAMING",
+      "model_answer": "SHE IS DREAMING DREAMING",
+      "score": 1.0,
+      "metadata": "{'rotation': 25, 'cipher_text': 'RGD HR CQDZLHMF CQDZLHMF', 'clear_text': 'SHE IS DREAMING DREAMING'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: LRO ZLJJLK QEB FQ PBBJP QL PBOSBP SBOV TBII",
+      "expected_answer": "OUR COMMON THE IT SEEMS TO SERVES VERY WELL",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'rotation': 23, 'cipher_text': 'LRO ZLJJLK QEB FQ PBBJP QL PBOSBP SBOV TBII', 'clear_text': 'OUR COMMON THE IT SEEMS TO SERVES VERY WELL'}"
+    },
+    {
+      "question": "Decrypt this Caesar cipher text: LAX BL IKHGHNGVBGZ T MAX WXEBZAMYNE OBLBHG ZTOX T ATIIBXK MNKG MH FK",
+      "expected_answer": "SHE IS PRONOUNCING A THE DELIGHTFUL VISION GAVE A HAPPIER TURN TO MR",
+      "model_answer": "The decrypted text using a Caesar cipher with a shift of 19 is: \"SHE IS PRONOUNCING A THE DELIGHTFUL VISION GAVE A HAPPIER TURN TO MR\"",
+      "score": 0.5,
+      "metadata": "{'rotation': 19, 'cipher_text': 'LAX BL IKHGHNGVBGZ T MAX WXEBZAMYNE OBLBHG ZTOX T ATIIBXK MNKG MH FK', 'clear_text': 'SHE IS PRONOUNCING A THE DELIGHTFUL VISION GAVE A HAPPIER TURN TO MR'}"
+    }
+  ]
+}

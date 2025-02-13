@@ -1,0 +1,370 @@
+{
+  "dataset_name": "propositional_logic",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.029200000000000007,
+  "total_examples": 50,
+  "timestamp": "2025-02-11T10:07:36.501032",
+  "config": {
+    "min_vars": 2,
+    "max_vars": 4,
+    "min_statements": 2,
+    "max_statements": 4,
+    "max_complexity": 3,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Given:\n1. R\n2. Q\nWhat can we conclude?",
+      "expected_answer": "(P \u2228 Q)",
+      "model_answer": "We can conclude R \u2227 Q (R and Q).",
+      "score": 0.01,
+      "metadata": "{'premises': ['R', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((Q \u2192 P) \u2228 (Q \u2192 P))\n2. ((Q \u2194 Q) \u2192 (P \u2192 P))\n3. P\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 P)",
+      "model_answer": "\nFrom the given premises, we can conclude **P**. \n\n1. ((Q \u2192 P) \u2228 (Q \u2192 P)) simplifies to (Q \u2192 P) (since disjoining a statement with itself is redundant). However, since premise 3 states \\( P \\), \\( Q \\rightarrow P \\) is always true (as \\( P \\) is true, irrespective of \\( Q \\)).  \n2. ((Q \u2194 Q) \u2192 (P \u2192 P)) is a tautology (both \\( Q \\leftrightarrow Q \\) and \\( P \\rightarrow P \\) are always true), providing no new information.  \n3. \\( P \\) is explicitly given as true.  \n\nThus, the conclusion directly supported by the premises is \\( \\boxed{P} \\).  \n",
+      "score": 0.5,
+      "metadata": "{'premises': ['((Q \u2192 P) \u2228 (Q \u2192 P))', '((Q \u2194 Q) \u2192 (P \u2192 P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((Q \u2228 P) \u2227 \u00acP)\n2. P\n3. ((P \u2227 R) \u2227 \u00acR)\n4. ((Q \u2194 R) \u2192 \u00acQ)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2227 Q)",
+      "model_answer": "From the given premises, we can conclude **any statement** due to logical inconsistency (contradictions) in the premises. Specifically:\n\n1. Premises 1 (**\u00acP**) and 2 (**P**) directly contradict each other.\n2. Premise 3 asserts **R** and **\u00acR**, another contradiction.\n\nIn classical logic, a contradiction implies all statements are true (principle of explosion). Thus, the premises are inconsistent, and any conclusion is derivable.",
+      "score": 0.01,
+      "metadata": "{'premises': ['((Q \u2228 P) \u2227 \u00acP)', 'P', '((P \u2227 R) \u2227 \u00acR)', '((Q \u2194 R) \u2192 \u00acQ)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. \u00acP\n2. \u00acP\n3. Q\nWhat can we conclude?",
+      "expected_answer": "(Q \u2228 R)",
+      "model_answer": " We can conclude \u00acP \u2227 Q (the conjunction of \u00acP and Q). The duplicate \u00acP does not affect the conclusion; combining the distinct premises \u00acP and Q using conjunction introduction gives \u00acP \u2227 Q. ",
+      "score": 0.01,
+      "metadata": "{'premises': ['\u00acP', '\u00acP', 'Q'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. P\n2. ((P \u2228 P) \u2194 (Q \u2227 P))\n3. P\nWhat can we conclude?",
+      "expected_answer": "(Q \u2194 Q)",
+      "model_answer": "We can conclude \\( Q \\).",
+      "score": 0.01,
+      "metadata": "{'premises': ['P', '((P \u2228 P) \u2194 (Q \u2227 P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (Q \u2194 R)\n2. \u00acR\nWhat can we conclude?",
+      "expected_answer": "(Q \u2192 R)",
+      "model_answer": "From the premises (Q \u2194 R) and \u00acR, we can conclude \u00acQ. ",
+      "score": 0.01,
+      "metadata": "{'premises': ['(Q \u2194 R)', '\u00acR'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. R\n2. ((Q \u2192 Q) \u2228 (S \u2227 Q))\n3. Q\nWhat can we conclude?",
+      "expected_answer": "(S \u2228 Q)",
+      "model_answer": "\nFrom the given premises, we can conclusively state the following:\n\n1. **R** (directly from premise 1).\n2. **Q** (directly from premise 3).\n3. **R \u2227 Q** (by combining premises 1 and 3 using conjunction introduction).\n\nPremise 2, ((Q \u2192 Q) \u2228 (S \u2227 Q)), is a tautology since (Q \u2192 Q) is always true. Thus, it does not provide new information. No conclusions can be drawn about **S**, as the truth value of S remains undetermined.\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['R', '((Q \u2192 Q) \u2228 (S \u2227 Q))', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (Q \u2227 P)\n2. (\u00acP \u2227 (P \u2192 P))\n3. \u00ac(Q \u2194 Q)\nWhat can we conclude?",
+      "expected_answer": "(P \u2227 P)",
+      "model_answer": "\nFrom the given premises, we can conclude a contradiction (i.e., the premises are inconsistent). Here's the breakdown:\n\n1. **Premise 1**: \\( Q \\land P \\) \u21d2 Both \\( Q \\) and \\( P \\) are **true**.\n2. **Premise 2**: \\( \\neg P \\land (P \\to P) \\) \u21d2 \\(\\neg P\\) is asserted (since \\( P \\to P \\) is always true). Thus, \\( P \\) is **false**.\n3. **Premise 3**: \\( \\neg(Q \\leftrightarrow Q) \\) \u21d2 \\(\\neg \\text{True}\\), which simplifies to **False** (a contradiction).\n\n- Premises 1 and 2 directly contradict each other (\\( P \\) is both true and false).\n- Premise 3 is inherently a contradiction regardless of \\( Q \\).\n\nSince the premises are inconsistent, classical logic allows **any conclusion** to follow from a contradiction (ex falso quodlibet). However, the primary takeaway is that the premises are **mutually contradictory** and cannot all hold true simultaneously.\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(Q \u2227 P)', '(\u00acP \u2227 (P \u2192 P))', '\u00ac(Q \u2194 Q)'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (R \u2228 Q)\n2. (R \u2227 Q)\n3. R\nWhat can we conclude?",
+      "expected_answer": "(P \u2194 P)",
+      "model_answer": "From the given premises, we can conclude <bold>Q</bold>. This is because premise 2, (R \u2227 Q), asserts that both R and Q are true. Using conjunction elimination (simplification), we can directly derive Q.",
+      "score": 0.01,
+      "metadata": "{'premises': ['(R \u2228 Q)', '(R \u2227 Q)', 'R'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((P \u2228 Q) \u2228 (Q \u2192 Q))\n2. \u00ac(Q \u2192 Q)\n3. ((P \u2227 Q) \u2227 (Q \u2227 P))\n4. (Q \u2194 Q)\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 P)",
+      "model_answer": "From the given premises, we can conclude **any proposition** due to logical inconsistency. Premise 2, \u00ac(Q \u2192 Q), is a contradiction (equivalent to Q \u2227 \u00acQ), and the presence of a contradiction in the premises (\"explosion principle\") allows any conclusion to follow. While premise 3 directly states (P \u2227 Q), the inconsistency renders the entire set of premises unviable for coherent deduction. Thus, any statement can be derived.",
+      "score": 0.01,
+      "metadata": "{'premises': ['((P \u2228 Q) \u2228 (Q \u2192 Q))', '\u00ac(Q \u2192 Q)', '((P \u2227 Q) \u2227 (Q \u2227 P))', '(Q \u2194 Q)'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((Q \u2192 Q) \u2194 (P \u2227 P))\n2. (Q \u2228 Q)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2192 P)",
+      "model_answer": "\nWe can conclude both \\( P \\) and \\( Q \\). Here's the reasoning:\n\n1. **Simplify the first premise** \\((Q \\to Q) \\leftrightarrow (P \\land P)\\):\n   - \\( Q \\to Q \\) is a tautology (always true).\n   - \\( P \\land P \\) simplifies to \\( P \\).\n   - The premise becomes \\( \\text{True} \\leftrightarrow P \\), which holds if and only if \\( P \\) is true.\n\n2. **Simplify the second premise** \\( Q \\lor Q \\):\n   - \\( Q \\lor Q \\) simplifies to \\( Q \\).\n   - Thus, \\( Q \\) must be true.\n\n**Conclusion**: Both \\( P \\) and \\( Q \\) are true. Represented as \\( P \\land Q \\).\n\n\\boxed{P \\land Q}\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['((Q \u2192 Q) \u2194 (P \u2227 P))', '(Q \u2228 Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (S \u2194 R)\n2. ((P \u2227 Q) \u2192 \u00acQ)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2194 Q)",
+      "model_answer": "\nFrom the given premises:\n\n1. \\( S \\leftrightarrow R \\)  \n2. \\( (P \\land Q) \\to \\neg Q \\)  \n\nWe conclude:  \n- \\( S \\leftrightarrow R \\) (directly from premise 1).  \n- \\( \\neg (P \\land Q) \\) (from premise 2, since \\( (P \\land Q) \\to \\neg Q \\) implies \\( P \\) and \\( Q \\) cannot both be true).  \n\nThus, the conclusions are \\( \\boxed{S \\leftrightarrow R} \\) and \\( \\boxed{\\neg (P \\land Q)} \\).  \n\nAlternatively, \\( \\neg (P \\land Q) \\) can also be expressed as \\( \\neg P \\lor \\neg Q \\) or \\( P \\to \\neg Q \\).  \n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(S \u2194 R)', '((P \u2227 Q) \u2192 \u00acQ)'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. \u00ac(Q \u2192 Q)\n2. Q\n3. (Q \u2194 P)\nWhat can we conclude?",
+      "expected_answer": "(P \u2228 Q)",
+      "model_answer": "From the given premises, we can conclude **P** (due to premise 2: Q and premise 3: Q \u2194 P) and **inconsistency** (since premise 1: \u00ac(Q \u2192 Q) is a contradiction). However, the key logical conclusion is \\boxed{P}.",
+      "score": 0.01,
+      "metadata": "{'premises': ['\u00ac(Q \u2192 Q)', 'Q', '(Q \u2194 P)'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. Q\n2. P\nWhat can we conclude?",
+      "expected_answer": "(Q \u2194 Q)",
+      "model_answer": "From premises Q and P, we can conclude \\( P \\land Q \\) (P and Q) using the rule of conjunction introduction.",
+      "score": 0.01,
+      "metadata": "{'premises': ['Q', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (R \u2194 S)\n2. ((R \u2227 P) \u2228 \u00acR)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2194 Q)",
+      "model_answer": "S \u2192 P",
+      "score": 0.01,
+      "metadata": "{'premises': ['(R \u2194 S)', '((R \u2227 P) \u2228 \u00acR)'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((P \u2227 Q) \u2194 (Q \u2192 Q))\n2. ((P \u2227 Q) \u2192 (Q \u2192 P))\n3. ((Q \u2192 P) \u2194 (P \u2194 P))\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 Q)",
+      "model_answer": "\nWe can conclude that both \\( P \\) and \\( Q \\) are true. Here's the reasoning:\n\n1. **First Statement Analysis**:  \n   \\( (P \\land Q) \\leftrightarrow (Q \\to Q) \\).  \n   - \\( Q \\to Q \\) is a tautology (always true).  \n   - For the biconditional to hold, \\( P \\land Q \\) must also be a tautology.  \n   - Hence, \\( P \\land Q \\) must be true, so **\\( P \\) and \\( Q \\) are both true**.\n\n2. **Second Statement Validation**:  \n   \\( (P \\land Q) \\to (Q \\to P) \\).  \n   - If \\( P \\land Q \\) is true, \\( Q \\to P \\) is trivially true because \\( Q \\) and \\( P \\) are already true.  \n   - This statement is a tautology and is satisfied when \\( P \\) and \\( Q \\) are true.\n\n3. **Third Statement Verification**:  \n   \\( (Q \\to P) \\leftrightarrow (P \\leftrightarrow P) \\).  \n   - \\( P \\leftrightarrow P \\) is a tautology (always true).  \n   - Since \\( Q \\to P \\) must be equivalent to this tautology, \\( Q \\to P \\) must also be a tautology.  \n   - Given \\( Q \\) is true (from Step 1), \\( P \\) must also be true for \\( Q \\to P \\) to hold. This aligns with Step 1.\n\n**Conclusion**: Both \\( P \\) and \\( Q \\) are true.  \n",
+      "score": 0.01,
+      "metadata": "{'premises': ['((P \u2227 Q) \u2194 (Q \u2192 Q))', '((P \u2227 Q) \u2192 (Q \u2192 P))', '((Q \u2192 P) \u2194 (P \u2194 P))'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. Q\n2. Q\nWhat can we conclude?",
+      "expected_answer": "(P \u2194 P)",
+      "model_answer": "The conclusion we can draw is **Q**. Since both premises are Q and there's no additional or contradictory information, Q follows from the premises through reiteration (Q therefore Q).",
+      "score": 0.01,
+      "metadata": "{'premises': ['Q', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((P \u2227 Q) \u2192 (P \u2227 Q))\n2. (Q \u2192 P)\nWhat can we conclude?",
+      "expected_answer": "(P \u2194 P)",
+      "model_answer": "\nFrom the premises, we can conclude that \\( Q \\) is logically equivalent to \\( P \\land Q \\). This is derived as follows:\n\n1. **Premise 2** states \\( Q \\rightarrow P \\). If \\( Q \\) is true, then \\( P \\) must also be true.\n2. Using \\( Q \\rightarrow P \\), if \\( Q \\) holds (assumption), \\( P \\) follows (by Modus Ponens). Thus, \\( Q \\) implies \\( P \\land Q \\), i.e., \\( Q \\rightarrow (P \\land Q) \\).\n3. The implication \\( (P \\land Q) \\rightarrow Q \\) is inherently true (conjunction elimination).\n4. Combining these results, \\( Q \\leftrightarrow (P \\land Q) \\). \n\n**Conclusion:** \\( Q \\leftrightarrow (P \\land Q) \\).\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['((P \u2227 Q) \u2192 (P \u2227 Q))', '(Q \u2192 P)'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (\u00acP \u2228 (Q \u2192 Q))\n2. P\n3. ((Q \u2228 P) \u2228 (R \u2228 P))\nWhat can we conclude?",
+      "expected_answer": "(R \u2192 P)",
+      "model_answer": " We can conclude \\( P \\). ",
+      "score": 0.01,
+      "metadata": "{'premises': ['(\u00acP \u2228 (Q \u2192 Q))', 'P', '((Q \u2228 P) \u2228 (R \u2228 P))'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (\u00acQ \u2228 \u00acR)\n2. Q\nWhat can we conclude?",
+      "expected_answer": "(Q \u2227 Q)",
+      "model_answer": "We can conclude \u00acR. Using disjunctive syllogism: Since (\u00acQ \u2228 \u00acR) is true and Q (which is equivalent to \u00ac\u00acQ) is true, \u00acR must follow.",
+      "score": 0.01,
+      "metadata": "{'premises': ['(\u00acQ \u2228 \u00acR)', 'Q'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. Q\n2. \u00acR\nWhat can we conclude?",
+      "expected_answer": "(Q \u2228 Q)",
+      "model_answer": "From the premises Q and \u00acR, we can conclude Q \u2227 \u00acR (the conjunction of Q and \u00acR). This is directly derived through the application of **conjunction introduction**, which states that if individual propositions are true, their conjunction is also true.",
+      "score": 0.01,
+      "metadata": "{'premises': ['Q', '\u00acR'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. \u00acQ\n2. ((R \u2192 P) \u2227 (R \u2227 P))\n3. (R \u2227 Q)\nWhat can we conclude?",
+      "expected_answer": "(P \u2194 P)",
+      "model_answer": "From the premises, we can conclude a contradiction (\u22a5) because premises 1 (\u00acQ) and 3 (R \u2227 Q) conflict: premise 3 asserts Q is true, while premise 1 asserts Q is false. This inconsistency invalidates the set of premises.",
+      "score": 0.01,
+      "metadata": "{'premises': ['\u00acQ', '((R \u2192 P) \u2227 (R \u2227 P))', '(R \u2227 Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((R \u2192 R) \u2194 (P \u2227 Q))\n2. ((P \u2228 Q) \u2228 (P \u2192 R))\nWhat can we conclude?",
+      "expected_answer": "(P \u2227 Q)",
+      "model_answer": "\nFrom the premises, we can conclude that **P \u2227 Q** must be true. Here's the breakdown:\n\n1. **Simplification of Premise 1**:  \n   - \\((R \\to R)\\) is a tautology (always true).  \n   - The biconditional \\((R \\to R) \\leftrightarrow (P \\land Q)\\) simplifies to \\(\\top \\leftrightarrow (P \\land Q)\\), which is logically equivalent to \\(P \\land Q\\).  \n   - Thus, \\(P \\land Q\\) must **hold** (both \\(P\\) and \\(Q\\) are true).\n\n3. **Analysis of Premise 2**:  \n   - Since \\(P\\) and \\(Q\\) are true (from Step 1), \\((P \\lor Q)\\) is already true.  \n   - The disjunction \\((P \\lor Q) \\lor (P \\to R)\\) becomes \\(\\top \\lor (P \\to R)\\), which is always true regardless of \\(R\\).  \n   - This premise provides **no additional information** about \\(R\\).\n\n**Conclusion**:  \nThe premises definitively prove \\(P \\land Q\\), but they do not constrain the truth value of \\(R\\). Therefore, **\\(P\\) and \\(Q\\) must both be true**.\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['((R \u2192 R) \u2194 (P \u2227 Q))', '((P \u2228 Q) \u2228 (P \u2192 R))'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (P \u2194 Q)\n2. (Q \u2194 R)\n3. (P \u2192 P)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2194 Q)",
+      "model_answer": "\nFrom the premises, we can conclude that **P \u2194 R**, since the biconditional (\u2194) is transitive. Here's the reasoning:\n\n1. **P \u2194 Q** (Premise 1) means P and Q are logically equivalent.\n2. **Q \u2194 R** (Premise 2) means Q and R are logically equivalent.\n3. By the transitivity of the biconditional, if P \u2194 Q and Q \u2194 R, then **P \u2194 R** follows.\n\nThe third premise, **P \u2192 P**, is a tautology and does not affect the conclusion.\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(P \u2194 Q)', '(Q \u2194 R)', '(P \u2192 P)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (Q \u2228 Q)\n2. (P \u2194 Q)\n3. Q\nWhat can we conclude?",
+      "expected_answer": "(P \u2194 P)",
+      "model_answer": "\nFrom the premises given, we can conclude <strong>P</strong>. \n\nHere's the step-by-step reasoning:\n1. Premise 3 directly states \\( Q \\).\n2. Premise 2 (\\( P \\leftrightarrow Q \\)) asserts that \\( P \\) and \\( Q \\) are logically equivalent. Since \\( Q \\) is true, \\( P \\) must also be true (from the definition of the biconditional).\n3. Premise 1 (\\( Q \\lor Q \\)) simplifies to \\( Q \\), which is redundant because premise 3 already confirms \\( Q \\).\n\nThus, combining \\( Q \\) (premise 3) with \\( P \\leftrightarrow Q \\), we conclude \\( P \\).\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(Q \u2228 Q)', '(P \u2194 Q)', 'Q'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (Q \u2192 Q)\n2. ((Q \u2192 P) \u2192 (P \u2227 Q))\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 Q)",
+      "model_answer": "We can conclude that \\( Q \\) is true. Therefore, the conclusion is \\boxed{Q}.",
+      "score": 0.01,
+      "metadata": "{'premises': ['(Q \u2192 Q)', '((Q \u2192 P) \u2192 (P \u2227 Q))'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((Q \u2227 S) \u2194 (R \u2192 R))\n2. (R \u2194 Q)\n3. ((S \u2227 P) \u2227 \u00acP)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2227 Q)",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'premises': ['((Q \u2227 S) \u2194 (R \u2192 R))', '(R \u2194 Q)', '((S \u2227 P) \u2227 \u00acP)'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. Q\n2. R\nWhat can we conclude?",
+      "expected_answer": "(S \u2192 S)",
+      "model_answer": "We can conclude that both Q and R are true, i.e., \\( Q \\land R \\).",
+      "score": 0.01,
+      "metadata": "{'premises': ['Q', 'R'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((P \u2192 Q) \u2192 (P \u2227 P))\n2. ((P \u2192 Q) \u2192 (Q \u2227 Q))\n3. (P \u2192 P)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2228 P)",
+      "model_answer": "\nWe can conclude that \\( P \\) is true. \n\n**Conclusion:** \\( P \\)\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['((P \u2192 Q) \u2192 (P \u2227 P))', '((P \u2192 Q) \u2192 (Q \u2227 Q))', '(P \u2192 P)'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (\u00acP \u2227 (Q \u2228 P))\n2. R\n3. R\n4. R\nWhat can we conclude?",
+      "expected_answer": "(R \u2227 R)",
+      "model_answer": "\nFrom the premises, we can conclude:\n- \u00acP (not P)\n- Q\n- R\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(\u00acP \u2227 (Q \u2228 P))', 'R', 'R', 'R'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (\u00acQ \u2228 \u00acP)\n2. \u00ac(Q \u2228 P)\n3. ((Q \u2228 P) \u2227 (P \u2192 Q))\n4. Q\nWhat can we conclude?",
+      "expected_answer": "(Q \u2227 Q)",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'premises': ['(\u00acQ \u2228 \u00acP)', '\u00ac(Q \u2228 P)', '((Q \u2228 P) \u2227 (P \u2192 Q))', 'Q'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. ((P \u2194 Q) \u2192 \u00acR)\n2. Q\nWhat can we conclude?",
+      "expected_answer": "(R \u2192 R)",
+      "model_answer": "We can conclude \\( \\neg P \\lor \\neg R \\). \n\n**Step-by-Step Explanation:**\n\n1. **Given Premises:**\n   - \\( (P \\leftrightarrow Q) \\rightarrow \\neg R \\) (Premise 1)\n   - \\( Q \\) (Premise 2)\n\n2. **Simplify \\( P \\leftrightarrow Q \\) using \\( Q \\):**  \n   Since \\( Q \\) is true (Premise 2), \\( P \\leftrightarrow Q \\) simplifies to \\( P \\leftrightarrow \\top \\) (where \\( \\top \\) denotes \"true\"). This is logically equivalent to \\( P \\). Thus, Premise 1 becomes:  \n   \\( P \\rightarrow \\neg R \\).\n\n3. **Derive the Conclusion:**  \n   The implication \\( P \\rightarrow \\neg R \\) is logically equivalent to \\( \\neg P \\lor \\neg R \\).  \n   Therefore, from Premises 1 and 2, we conclude \\( \\neg P \\lor \\neg R \\).  \n\nThis means either \\( P \\) is false, \\( R \\) is false, or both. **We cannot definitively conclude \\( \\neg R \\) alone unless \\( P \\) is also known to be true.**",
+      "score": 0.01,
+      "metadata": "{'premises': ['((P \u2194 Q) \u2192 \u00acR)', 'Q'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. R\n2. R\n3. Q\n4. (S \u2227 S)\nWhat can we conclude?",
+      "expected_answer": "(R \u2194 S)",
+      "model_answer": "From the given premises, we can conclude:\n- R, Q, and S individually (since R appears twice, Q once, and (S \u2227 S) simplifies to S via the idempotent law).\n- Combined conclusions like R \u2227 Q, R \u2227 S, Q \u2227 S, or R \u2227 Q \u2227 S using conjunction introduction.\n\nThe key takeaway is that all three statements R, Q, and S are valid conclusions (with S derived from simplifying (S \u2227 S)).",
+      "score": 0.01,
+      "metadata": "{'premises': ['R', 'R', 'Q', '(S \u2227 S)'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (P \u2192 R)\n2. (\u00acP \u2192 \u00acP)\n3. \u00acQ\n4. \u00ac(R \u2194 Q)\nWhat can we conclude?",
+      "expected_answer": "\u00acQ",
+      "model_answer": "\nFrom the premises, we can conclude \\( R \\).\n\n1. From premise 3 (\\( \\neg Q \\)), \\( Q \\) is **false**.\n2. Premise 4 (\\( \\neg(R \\leftrightarrow Q) \\)) means \\( R \\) and \\( Q \\) have **different truth values**. Since \\( Q \\) is false, \\( R \\) must be **true** for \\( R \\leftrightarrow Q \\) to be false.\n3. Premise 1 (\\( P \\to R \\)) is already satisfied because \\( R \\) is true (an implication holds if the consequent is true).\n\nThus, the definite conclusion is \\( R \\).\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(P \u2192 R)', '(\u00acP \u2192 \u00acP)', '\u00acQ', '\u00ac(R \u2194 Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 2}"
+    },
+    {
+      "question": "Given:\n1. (Q \u2228 P)\n2. (Q \u2228 Q)\n3. (P \u2192 P)\nWhat can we conclude?",
+      "expected_answer": "(Q \u2228 R)",
+      "model_answer": "We can conclude Q. This is because premise 2 simplifies to Q through idempotency (Q \u2228 Q \u2261 Q), and premise 3 is a tautology (always true) and does not affect the conclusion. Premise 1 is redundant once Q is established as true.",
+      "score": 0.01,
+      "metadata": "{'premises': ['(Q \u2228 P)', '(Q \u2228 Q)', '(P \u2192 P)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. P\n2. P\n3. (R \u2192 R)\nWhat can we conclude?",
+      "expected_answer": "(P \u2228 R)",
+      "model_answer": "From the given premises, we can conclude:\n\n1. **P** (reiterated from premises 1 and 2).\n2. **(R \u2192 R)** (a tautology and premise 3).\n\nNo further logical implications are derivable, as the premises are independent and do not interact to produce new conclusions.",
+      "score": 0.01,
+      "metadata": "{'premises': ['P', 'P', '(R \u2192 R)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. \u00acQ\n2. P\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 P)",
+      "model_answer": "\nFrom premises \u00acQ and P, we can conclude P \u2227 \u00acQ (P and not Q).\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['\u00acQ', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (P \u2194 P)\n2. Q\n3. P\nWhat can we conclude?",
+      "expected_answer": "(P \u2228 Q)",
+      "model_answer": "\nFrom the given premises, we can conclude:\n\n1. \\( P \\) (from premise 3).\n2. \\( Q \\) (from premise 2).\n3. Their conjunction: \\( P \\land Q \\).\n\nThe first premise \\( P \\leftrightarrow P \\) is a tautology and does not provide new information. Since \\( P \\) and \\( Q \\) are asserted as true individually, they can be combined into \\( P \\land Q \\).\n\n**Answer:** \\( P \\land Q \\)\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(P \u2194 P)', 'Q', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (\u00acQ \u2192 (Q \u2194 Q))\n2. R\n3. (R \u2228 P)\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 P)",
+      "model_answer": "R",
+      "score": 0.01,
+      "metadata": "{'premises': ['(\u00acQ \u2192 (Q \u2194 Q))', 'R', '(R \u2228 P)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (S \u2194 S)\n2. Q\n3. S\nWhat can we conclude?",
+      "expected_answer": "(R \u2228 Q)",
+      "model_answer": "From the premises given, we can conclude \\( Q \\land S \\). \n\n**Explanation:**\n1. **Premise 2 (Q)** and **Premise 3 (S)** are both directly asserted.\n2. **Premise 1 (\\( S \\leftrightarrow S \\))** is a tautology (always true) and does not provide new information beyond confirming \\( S \\).\n3. By conjunction introduction, we combine \\( Q \\) and \\( S \\) to conclude \\( Q \\land S \\).",
+      "score": 0.01,
+      "metadata": "{'premises': ['(S \u2194 S)', 'Q', 'S'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. \u00ac(P \u2228 Q)\n2. P\n3. (P \u2192 P)\nWhat can we conclude?",
+      "expected_answer": "\u00acP",
+      "model_answer": "From the premises \u00ac(P \u2228 Q) and P, we can conclude a **contradiction**. Specifically:\n1. \u00ac(P \u2228 Q) (Premise 1) is equivalent to \u00acP \u2227 \u00acQ (by De Morgan\u2019s law).\n2. From \u00acP \u2227 \u00acQ, we infer \u00acP (simplification).\n3. Premise 2 directly states P.\n4. Combining \u00acP (from step 2) and P (from step 3) gives the contradiction **P \u2227 \u00acP**.\n5. Premise 3 (P \u2192 P) is a tautology and does not affect the contradiction.\n\nThus, the premises are **inconsistent**, leading to the conclusion of a contradiction.",
+      "score": 0.5,
+      "metadata": "{'premises': ['\u00ac(P \u2228 Q)', 'P', '(P \u2192 P)'], 'variables': ['P', 'Q'], 'complexity': 2}"
+    },
+    {
+      "question": "Given:\n1. P\n2. (P \u2227 R)\n3. P\nWhat can we conclude?",
+      "expected_answer": "(Q \u2228 P)",
+      "model_answer": "We can conclude R by applying the conjunction elimination rule to premise 2 (P \u2227 R). Additionally, P is stated redundantly in premises 1 and 3. So the new conclusion is R.",
+      "score": 0.01,
+      "metadata": "{'premises': ['P', '(P \u2227 R)', 'P'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. S\n2. R\n3. S\nWhat can we conclude?",
+      "expected_answer": "(R \u2194 S)",
+      "model_answer": " From the premises S, R, and S, we can conclude \\( S \\land R \\) (S and R), as the conjunction of the distinct propositions S and R follows from their individual assertions. The repetition of S does not affect the conclusion in classical logic. ",
+      "score": 0.01,
+      "metadata": "{'premises': ['S', 'R', 'S'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (\u00acP \u2227 (Q \u2228 Q))\n2. ((P \u2192 Q) \u2228 (Q \u2194 P))\n3. P\n4. (Q \u2192 Q)\nWhat can we conclude?",
+      "expected_answer": "(P \u2228 P)",
+      "model_answer": "\nFrom the given premises, we can conclude \\( Q \\). Here's the reasoning:\n\n1. **Premise 3**: \\( P \\) is true.  \n2. **Premise 2**: Substitute \\( P = \\text{True} \\) into \\( (P \\to Q) \\lor (Q \\leftrightarrow P) \\):  \n   - \\( P \\to Q \\) simplifies to \\( Q \\) (since \\( \\text{True} \\to Q \\) is equivalent to \\( Q \\)).  \n   - \\( Q \\leftrightarrow P \\) simplifies to \\( Q \\) (since \\( Q \\leftrightarrow \\text{True} \\) is equivalent to \\( Q \\)).  \n   - The premise becomes \\( Q \\lor Q \\), which simplifies to \\( Q \\).  \n3. Thus, **Premise 2 forces \\( Q \\) to be true** (given \\( P \\)).  \n\nAddressing contradictions:  \n- Premise 1 (\\( \\lnot P \\land (Q \\lor Q) \\), which simplifies to \\( \\lnot P \\land Q \\)) conflicts with Premise 3 (\\( P \\)), making the set of premises inconsistent. However, classical logic allows deriving \\( Q \\) directly from Premise 2 (using \\( P \\)), bypassing the contradiction.  \n- Premise 4 (\\( Q \\to Q \\)) is a tautology and does not affect the conclusion.  \n\n**Final Conclusion**: \\( Q \\).\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(\u00acP \u2227 (Q \u2228 Q))', '((P \u2192 Q) \u2228 (Q \u2194 P))', 'P', '(Q \u2192 Q)'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (P \u2227 Q)\n2. ((P \u2227 Q) \u2192 (P \u2192 P))\n3. Q\n4. P\nWhat can we conclude?",
+      "expected_answer": "(Q \u2192 P)",
+      "model_answer": "\nFrom the given premises, we can conclude \\( P \\to P \\) (which is a tautology). \n\n**Steps:**\n1. From premise 1 (\\( P \\land Q \\)), we know \\( P \\) and \\( Q \\) are true (via conjunction elimination).\n2. Premise 2 (\\( (P \\land Q) \\to (P \\to P) \\)) states that \\( P \\land Q \\) implies \\( P \\to P \\).\n3. Using **modus ponens** on premises 1 and 2, we derive \\( P \\to P \\).\n\nAlthough premises 3 (\\( Q \\)) and 4 (\\( P \\)) are restatements from premise 1, the key conclusion here is \\( P \\to P \\), derived via the implication in premise 2.\n\n**Final Answer:** \\( P \\to P \\)\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(P \u2227 Q)', '((P \u2227 Q) \u2192 (P \u2192 P))', 'Q', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. P\n2. \u00acQ\n3. (\u00acP \u2227 \u00acQ)\n4. Q\nWhat can we conclude?",
+      "expected_answer": "(P \u2194 P)",
+      "model_answer": "\nThe premises are contradictory, so we can conclude a contradiction (often symbolized as \u22a5). Specifically, premises 1 (P) and 3 (\u00acP \u2227 \u00acQ) imply \u00acP, contradicting P. Additionally, premises 2 (\u00acQ) and 4 (Q) directly contradict each other. Thus, the conclusions include logical inconsistencies like \\( P \\land \\neg P \\) or \\( Q \\land \\neg Q \\).\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['P', '\u00acQ', '(\u00acP \u2227 \u00acQ)', 'Q'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. (R \u2228 P)\n2. (\u00acR \u2227 (P \u2192 P))\nWhat can we conclude?",
+      "expected_answer": "(P \u2228 Q)",
+      "model_answer": "\nThe conclusion is \\( P \\). \n\n**Step-by-Step Explanation:**\n1. From premise 2, \\( \\neg R \\land (P \\to P) \\), recognize that \\( P \\to P \\) is a tautology (always true). \n2. Simplify premise 2 to \\( \\neg R \\). \n3. Combining premise 1 (\\( R \\lor P \\)) and premise 2 (\\( \\neg R \\)) via **disjunctive syllogism**, conclude \\( P \\). \n",
+      "score": 0.01,
+      "metadata": "{'premises': ['(R \u2228 P)', '(\u00acR \u2227 (P \u2192 P))'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. \u00ac(Q \u2228 P)\n2. Q\n3. (Q \u2228 Q)\n4. P\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 P)",
+      "model_answer": "From the given premises:\n\n1. \u00ac(Q \u2228 P) implies both \u00acQ and \u00acP (via De Morgan's Law).\n2. Q directly asserts Q.\n3. (Q \u2228 Q) simplifies to Q (tautology).\n4. P directly asserts P.\n\nPremises 1 and 2 contradict each other (\u00acQ vs. Q), and premises 1 and 4 also contradict (\u00acP vs. P). Therefore, the premises are **logically inconsistent**. In classical logic, a contradiction allows any conclusion (ex contradictione quodlibet), but the only valid meta-conclusion here is that the premises form an **inconsistent set**.",
+      "score": 0.01,
+      "metadata": "{'premises': ['\u00ac(Q \u2228 P)', 'Q', '(Q \u2228 Q)', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. Q\n2. ((Q \u2194 Q) \u2194 (Q \u2192 Q))\n3. \u00acQ\n4. P\nWhat can we conclude?",
+      "expected_answer": "(Q \u2227 Q)",
+      "model_answer": "\nFrom the given premises, we can conclude **any statement** due to the contradiction between premises 1 (Q) and 3 (\u00acQ). In classical logic, a contradiction (Q \u2227 \u00acQ) allows deriving any proposition (ex contradictione quodlibet). Thus, we can directly conclude:\n\n- P (from premise 4).\n- Q and \u00acQ (from premises 1 and 3).\n- The tautology ((Q \u2194 Q) \u2194 (Q \u2192 Q)) (from premise 2).\n- Any other arbitrary statement due to the inconsistency introduced by Q and \u00acQ. \u26a0\ufe0f\n\n",
+      "score": 0.01,
+      "metadata": "{'premises': ['Q', '((Q \u2194 Q) \u2194 (Q \u2192 Q))', '\u00acQ', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    },
+    {
+      "question": "Given:\n1. P\n2. (Q \u2192 Q)\n3. \u00acP\n4. Q\nWhat can we conclude?",
+      "expected_answer": "(P \u2192 P)",
+      "model_answer": "Any proposition can be concluded (due to the contradiction in premises 1 and 3). However, since \\( Q \\) is explicitly stated in premise 4, the direct conclusion is \\(\\boxed{Q}\\).",
+      "score": 0.01,
+      "metadata": "{'premises': ['P', '(Q \u2192 Q)', '\u00acP', 'Q'], 'variables': ['P', 'Q'], 'complexity': 3}"
+    }
+  ]
+}

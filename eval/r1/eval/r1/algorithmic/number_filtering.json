@@ -1,0 +1,371 @@
+{
+  "dataset_name": "number_filtering",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.98,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T15:39:07.736509",
+  "config": {
+    "min_numbers": 3,
+    "max_numbers": 10,
+    "min_decimals": 0,
+    "max_decimals": 4,
+    "min_value": -100.0,
+    "max_value": 100.0,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Keep all numbers larger than -90 in this list: ['-95.00', '-51.0', '47.2942', '-82.612']\nReturn the new list in the same format.",
+      "expected_answer": "['-51.0', '47.2942', '-82.612']",
+      "model_answer": "['-51.0', '47.2942', '-82.612']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-95.00', '-51.0', '47.2942', '-82.612'], 'filter_value': '-90', 'operation': 'keep_larger', 'result': ['-51.0', '47.2942', '-82.612']}"
+    },
+    {
+      "question": "Remove all numbers larger than 18.236 in this list: ['-42.8', '91.88', '34']\nReturn the new list in the same format.",
+      "expected_answer": "['-42.8']",
+      "model_answer": "['-42.8']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-42.8', '91.88', '34'], 'filter_value': '18.236', 'operation': 'remove_larger', 'result': ['-42.8']}"
+    },
+    {
+      "question": "Keep all numbers larger than 19.8962 in this list: ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34']\nReturn the new list in the same format.",
+      "expected_answer": "['37.76', '38.702']",
+      "model_answer": "['37.76', '38.702']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34'], 'filter_value': '19.8962', 'operation': 'keep_larger', 'result': ['37.76', '38.702']}"
+    },
+    {
+      "question": "Remove all numbers larger than -73.8 in this list: ['-16.46', '-83.62', '-95.681', '-97.79', '61.53', '71', '80']\nReturn the new list in the same format.",
+      "expected_answer": "['-83.62', '-95.681', '-97.79']",
+      "model_answer": "['-83.62', '-95.681', '-97.79']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-16.46', '-83.62', '-95.681', '-97.79', '61.53', '71', '80'], 'filter_value': '-73.8', 'operation': 'remove_larger', 'result': ['-83.62', '-95.681', '-97.79']}"
+    },
+    {
+      "question": "Keep all numbers larger than -18.58 in this list: ['-20.0011', '17.4', '26.9', '17']\nReturn the new list in the same format.",
+      "expected_answer": "['17.4', '26.9', '17']",
+      "model_answer": "['17.4', '26.9', '17']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-20.0011', '17.4', '26.9', '17'], 'filter_value': '-18.58', 'operation': 'keep_larger', 'result': ['17.4', '26.9', '17']}"
+    },
+    {
+      "question": "Keep all numbers smaller than 76.26 in this list: ['-87.4950', '-9.27', '-48.514', '-22', '59', '91', '-47.239', '45']\nReturn the new list in the same format.",
+      "expected_answer": "['-87.4950', '-9.27', '-48.514', '-22', '59', '-47.239', '45']",
+      "model_answer": "['-87.4950', '-9.27', '-48.514', '-22', '59', '-47.239', '45']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-87.4950', '-9.27', '-48.514', '-22', '59', '91', '-47.239', '45'], 'filter_value': '76.26', 'operation': 'keep_smaller', 'result': ['-87.4950', '-9.27', '-48.514', '-22', '59', '-47.239', '45']}"
+    },
+    {
+      "question": "Keep all numbers larger than -71.248 in this list: ['-73.6217', '-39.5500', '-61.456', '-67', '-1.4', '-56.3901', '11.3127', '-69.0']\nReturn the new list in the same format.",
+      "expected_answer": "['-39.5500', '-61.456', '-67', '-1.4', '-56.3901', '11.3127', '-69.0']",
+      "model_answer": "['-39.5500', '-61.456', '-67', '-1.4', '-56.3901', '11.3127', '-69.0']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-73.6217', '-39.5500', '-61.456', '-67', '-1.4', '-56.3901', '11.3127', '-69.0'], 'filter_value': '-71.248', 'operation': 'keep_larger', 'result': ['-39.5500', '-61.456', '-67', '-1.4', '-56.3901', '11.3127', '-69.0']}"
+    },
+    {
+      "question": "Remove all numbers larger than -24 in this list: ['-31', '-35.3010', '2', '35.97']\nReturn the new list in the same format.",
+      "expected_answer": "['-31', '-35.3010']",
+      "model_answer": "['-31', '-35.3010']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-31', '-35.3010', '2', '35.97'], 'filter_value': '-24', 'operation': 'remove_larger', 'result': ['-31', '-35.3010']}"
+    },
+    {
+      "question": "Keep all numbers smaller than 93.8156 in this list: ['71.14', '27.5', '38.51', '-82.96', '-55.1214', '-83.0', '-31', '95.94', '-56', '94.48']\nReturn the new list in the same format.",
+      "expected_answer": "['71.14', '27.5', '38.51', '-82.96', '-55.1214', '-83.0', '-31', '-56']",
+      "model_answer": "['71.14', '27.5', '38.51', '-82.96', '-55.1214', '-83.0', '-31', '-56']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['71.14', '27.5', '38.51', '-82.96', '-55.1214', '-83.0', '-31', '95.94', '-56', '94.48'], 'filter_value': '93.8156', 'operation': 'keep_smaller', 'result': ['71.14', '27.5', '38.51', '-82.96', '-55.1214', '-83.0', '-31', '-56']}"
+    },
+    {
+      "question": "Remove all numbers smaller than 12.43 in this list: ['67.6981', '-67.6', '66.52', '85.271', '9.658', '46.2944']\nReturn the new list in the same format.",
+      "expected_answer": "['67.6981', '66.52', '85.271', '46.2944']",
+      "model_answer": "['67.6981', '66.52', '85.271', '46.2944']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['67.6981', '-67.6', '66.52', '85.271', '9.658', '46.2944'], 'filter_value': '12.43', 'operation': 'remove_smaller', 'result': ['67.6981', '66.52', '85.271', '46.2944']}"
+    },
+    {
+      "question": "Keep all numbers larger than -23.4 in this list: ['-89.0955', '-3.23', '-18.6', '-68.170', '66.11', '-12', '-93.161']\nReturn the new list in the same format.",
+      "expected_answer": "['-3.23', '-18.6', '66.11', '-12']",
+      "model_answer": "['-3.23', '-18.6', '66.11', '-12']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-89.0955', '-3.23', '-18.6', '-68.170', '66.11', '-12', '-93.161'], 'filter_value': '-23.4', 'operation': 'keep_larger', 'result': ['-3.23', '-18.6', '66.11', '-12']}"
+    },
+    {
+      "question": "Keep all numbers larger than 74 in this list: ['-8.703', '87.3963', '-27.859', '46', '82.26', '49.36']\nReturn the new list in the same format.",
+      "expected_answer": "['87.3963', '82.26']",
+      "model_answer": "['87.3963', '82.26']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-8.703', '87.3963', '-27.859', '46', '82.26', '49.36'], 'filter_value': '74', 'operation': 'keep_larger', 'result': ['87.3963', '82.26']}"
+    },
+    {
+      "question": "Remove all numbers smaller than 45 in this list: ['-12.21', '-3.396', '-23.922', '-33.986', '75.3']\nReturn the new list in the same format.",
+      "expected_answer": "['75.3']",
+      "model_answer": "['75.3']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-12.21', '-3.396', '-23.922', '-33.986', '75.3'], 'filter_value': '45', 'operation': 'remove_smaller', 'result': ['75.3']}"
+    },
+    {
+      "question": "Remove all numbers smaller than 83.518 in this list: ['97.6', '-70.01', '68.2', '-39.61']\nReturn the new list in the same format.",
+      "expected_answer": "['97.6']",
+      "model_answer": "['97.6']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['97.6', '-70.01', '68.2', '-39.61'], 'filter_value': '83.518', 'operation': 'remove_smaller', 'result': ['97.6']}"
+    },
+    {
+      "question": "Keep all numbers smaller than 57 in this list: ['-5.2656', '-39.7718', '97.721']\nReturn the new list in the same format.",
+      "expected_answer": "['-5.2656', '-39.7718']",
+      "model_answer": "['-5.2656', '-39.7718']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-5.2656', '-39.7718', '97.721'], 'filter_value': '57', 'operation': 'keep_smaller', 'result': ['-5.2656', '-39.7718']}"
+    },
+    {
+      "question": "Keep all numbers smaller than -75.911 in this list: ['-26.4496', '-96.1378', '-35.756']\nReturn the new list in the same format.",
+      "expected_answer": "['-96.1378']",
+      "model_answer": "['-96.1378']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-26.4496', '-96.1378', '-35.756'], 'filter_value': '-75.911', 'operation': 'keep_smaller', 'result': ['-96.1378']}"
+    },
+    {
+      "question": "Remove all numbers larger than -72.395 in this list: ['-58.9', '-91.759', '-18.92', '61.08', '93.3462', '-16.1939']\nReturn the new list in the same format.",
+      "expected_answer": "['-91.759']",
+      "model_answer": "['-91.759']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-58.9', '-91.759', '-18.92', '61.08', '93.3462', '-16.1939'], 'filter_value': '-72.395', 'operation': 'remove_larger', 'result': ['-91.759']}"
+    },
+    {
+      "question": "Keep all numbers larger than 4.68 in this list: ['-83.078', '-95.45', '42.8746', '-97.885', '-24.3476', '-40.5']\nReturn the new list in the same format.",
+      "expected_answer": "['42.8746']",
+      "model_answer": "['42.8746']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-83.078', '-95.45', '42.8746', '-97.885', '-24.3476', '-40.5'], 'filter_value': '4.68', 'operation': 'keep_larger', 'result': ['42.8746']}"
+    },
+    {
+      "question": "Keep all numbers smaller than -30 in this list: ['-43.3', '-46.876', '-6.56', '95', '58', '33.2', '-69']\nReturn the new list in the same format.",
+      "expected_answer": "['-43.3', '-46.876', '-69']",
+      "model_answer": "['-43.3', '-46.876', '-69']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-43.3', '-46.876', '-6.56', '95', '58', '33.2', '-69'], 'filter_value': '-30', 'operation': 'keep_smaller', 'result': ['-43.3', '-46.876', '-69']}"
+    },
+    {
+      "question": "Remove all numbers smaller than -72.485 in this list: ['-63.7', '61.95', '-41', '-2.77', '-86.975', '-34.0', '-33', '79', '26.96', '-94.7']\nReturn the new list in the same format.",
+      "expected_answer": "['-63.7', '61.95', '-41', '-2.77', '-34.0', '-33', '79', '26.96']",
+      "model_answer": "['-63.7', '61.95', '-41', '-2.77', '-34.0', '-33', '79', '26.96']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-63.7', '61.95', '-41', '-2.77', '-86.975', '-34.0', '-33', '79', '26.96', '-94.7'], 'filter_value': '-72.485', 'operation': 'remove_smaller', 'result': ['-63.7', '61.95', '-41', '-2.77', '-34.0', '-33', '79', '26.96']}"
+    },
+    {
+      "question": "Keep all numbers larger than 77.1 in this list: ['-87.0', '78.49', '79.55', '-65.8', '-67.69']\nReturn the new list in the same format.",
+      "expected_answer": "['78.49', '79.55']",
+      "model_answer": "['78.49', '79.55']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-87.0', '78.49', '79.55', '-65.8', '-67.69'], 'filter_value': '77.1', 'operation': 'keep_larger', 'result': ['78.49', '79.55']}"
+    },
+    {
+      "question": "Remove all numbers smaller than 42.7 in this list: ['-11.15', '-3', '-23', '-84.9', '-41.85', '68.5067', '-88.0', '-34.37', '20', '94.5472']\nReturn the new list in the same format.",
+      "expected_answer": "['68.5067', '94.5472']",
+      "model_answer": "['68.5067', '94.5472']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-11.15', '-3', '-23', '-84.9', '-41.85', '68.5067', '-88.0', '-34.37', '20', '94.5472'], 'filter_value': '42.7', 'operation': 'remove_smaller', 'result': ['68.5067', '94.5472']}"
+    },
+    {
+      "question": "Keep all numbers larger than 77.03 in this list: ['-75.0298', '-19', '-59.30', '40.8', '39.7', '-84.038', '-12', '-83', '85.5', '-79']\nReturn the new list in the same format.",
+      "expected_answer": "['85.5']",
+      "model_answer": "['85.5']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-75.0298', '-19', '-59.30', '40.8', '39.7', '-84.038', '-12', '-83', '85.5', '-79'], 'filter_value': '77.03', 'operation': 'keep_larger', 'result': ['85.5']}"
+    },
+    {
+      "question": "Keep all numbers larger than -14.5 in this list: ['-42.2311', '68.942', '-8.309', '10.25', '65.178', '80', '77.083', '-47.192', '25']\nReturn the new list in the same format.",
+      "expected_answer": "['68.942', '-8.309', '10.25', '65.178', '80', '77.083', '25']",
+      "model_answer": "['68.942', '-8.309', '10.25', '65.178', '80', '77.083', '25']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-42.2311', '68.942', '-8.309', '10.25', '65.178', '80', '77.083', '-47.192', '25'], 'filter_value': '-14.5', 'operation': 'keep_larger', 'result': ['68.942', '-8.309', '10.25', '65.178', '80', '77.083', '25']}"
+    },
+    {
+      "question": "Keep all numbers larger than -55.4733 in this list: ['-37.6', '57.39', '-48.7824', '-80.962']\nReturn the new list in the same format.",
+      "expected_answer": "['-37.6', '57.39', '-48.7824']",
+      "model_answer": "['-37.6', '57.39', '-48.7824']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-37.6', '57.39', '-48.7824', '-80.962'], 'filter_value': '-55.4733', 'operation': 'keep_larger', 'result': ['-37.6', '57.39', '-48.7824']}"
+    },
+    {
+      "question": "Keep all numbers larger than -29.2 in this list: ['-76.781', '94.419', '-46.6300', '-14.1067']\nReturn the new list in the same format.",
+      "expected_answer": "['94.419', '-14.1067']",
+      "model_answer": "['94.419', '-14.1067']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-76.781', '94.419', '-46.6300', '-14.1067'], 'filter_value': '-29.2', 'operation': 'keep_larger', 'result': ['94.419', '-14.1067']}"
+    },
+    {
+      "question": "Remove all numbers larger than -59.4 in this list: ['88.1608', '-77.8045', '-51.327', '-46.90', '-12.3748', '-27.7493', '30', '-91.643', '-78.79', '-88.9049']\nReturn the new list in the same format.",
+      "expected_answer": "['-77.8045', '-91.643', '-78.79', '-88.9049']",
+      "model_answer": "['-77.8045', '-91.643', '-78.79', '-88.9049']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['88.1608', '-77.8045', '-51.327', '-46.90', '-12.3748', '-27.7493', '30', '-91.643', '-78.79', '-88.9049'], 'filter_value': '-59.4', 'operation': 'remove_larger', 'result': ['-77.8045', '-91.643', '-78.79', '-88.9049']}"
+    },
+    {
+      "question": "Remove all numbers smaller than -64.994 in this list: ['-80.8', '-86.66', '-34.3928']\nReturn the new list in the same format.",
+      "expected_answer": "['-34.3928']",
+      "model_answer": "['-34.3928']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-80.8', '-86.66', '-34.3928'], 'filter_value': '-64.994', 'operation': 'remove_smaller', 'result': ['-34.3928']}"
+    },
+    {
+      "question": "Keep all numbers smaller than -10.831 in this list: ['-41.184', '-9.99', '99.0', '63.9635']\nReturn the new list in the same format.",
+      "expected_answer": "['-41.184']",
+      "model_answer": "['-41.184']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-41.184', '-9.99', '99.0', '63.9635'], 'filter_value': '-10.831', 'operation': 'keep_smaller', 'result': ['-41.184']}"
+    },
+    {
+      "question": "Keep all numbers larger than 34.39 in this list: ['2', '-47.0', '64.4', '-47.3', '2.4465', '-61', '62.5076', '-26.866']\nReturn the new list in the same format.",
+      "expected_answer": "['64.4', '62.5076']",
+      "model_answer": "['64.4', '62.5076']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['2', '-47.0', '64.4', '-47.3', '2.4465', '-61', '62.5076', '-26.866'], 'filter_value': '34.39', 'operation': 'keep_larger', 'result': ['64.4', '62.5076']}"
+    },
+    {
+      "question": "Remove all numbers larger than -19.90 in this list: ['56.4', '-31.2032', '23.96', '47.9205']\nReturn the new list in the same format.",
+      "expected_answer": "['-31.2032']",
+      "model_answer": "['-31.2032']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['56.4', '-31.2032', '23.96', '47.9205'], 'filter_value': '-19.90', 'operation': 'remove_larger', 'result': ['-31.2032']}"
+    },
+    {
+      "question": "Remove all numbers smaller than -40.2034 in this list: ['-75.558', '12.830', '-40', '-2.5532', '0.101', '-77.92', '-18']\nReturn the new list in the same format.",
+      "expected_answer": "['12.830', '-40', '-2.5532', '0.101', '-18']",
+      "model_answer": "['12.830', '-40', '-2.5532', '0.101', '-18']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-75.558', '12.830', '-40', '-2.5532', '0.101', '-77.92', '-18'], 'filter_value': '-40.2034', 'operation': 'remove_smaller', 'result': ['12.830', '-40', '-2.5532', '0.101', '-18']}"
+    },
+    {
+      "question": "Remove all numbers larger than 50.936 in this list: ['-36.15', '-63.6', '-29.718', '60.3380']\nReturn the new list in the same format.",
+      "expected_answer": "['-36.15', '-63.6', '-29.718']",
+      "model_answer": "['-36.15', '-63.6', '-29.718']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-36.15', '-63.6', '-29.718', '60.3380'], 'filter_value': '50.936', 'operation': 'remove_larger', 'result': ['-36.15', '-63.6', '-29.718']}"
+    },
+    {
+      "question": "Keep all numbers larger than 9.691 in this list: ['16.960', '-91.6731', '34.691', '81.95', '-79.99', '85.38', '-45.08', '21.333', '-46', '-24.3579']\nReturn the new list in the same format.",
+      "expected_answer": "['16.960', '34.691', '81.95', '85.38', '21.333']",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'original_numbers': ['16.960', '-91.6731', '34.691', '81.95', '-79.99', '85.38', '-45.08', '21.333', '-46', '-24.3579'], 'filter_value': '9.691', 'operation': 'keep_larger', 'result': ['16.960', '34.691', '81.95', '85.38', '21.333']}"
+    },
+    {
+      "question": "Keep all numbers smaller than -37.8206 in this list: ['-7.348', '-59.99', '-89.4', '-43.674', '-2', '-33.07', '-54.5153', '-87.918']\nReturn the new list in the same format.",
+      "expected_answer": "['-59.99', '-89.4', '-43.674', '-54.5153', '-87.918']",
+      "model_answer": "['-59.99', '-89.4', '-43.674', '-54.5153', '-87.918']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-7.348', '-59.99', '-89.4', '-43.674', '-2', '-33.07', '-54.5153', '-87.918'], 'filter_value': '-37.8206', 'operation': 'keep_smaller', 'result': ['-59.99', '-89.4', '-43.674', '-54.5153', '-87.918']}"
+    },
+    {
+      "question": "Keep all numbers smaller than -65.1 in this list: ['-34.8', '-61', '-41.5350', '99.9', '-70.9057', '-99.51', '-94.330']\nReturn the new list in the same format.",
+      "expected_answer": "['-70.9057', '-99.51', '-94.330']",
+      "model_answer": "['-70.9057', '-99.51', '-94.330']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-34.8', '-61', '-41.5350', '99.9', '-70.9057', '-99.51', '-94.330'], 'filter_value': '-65.1', 'operation': 'keep_smaller', 'result': ['-70.9057', '-99.51', '-94.330']}"
+    },
+    {
+      "question": "Remove all numbers larger than -79.2 in this list: ['-80.80', '49', '31.103', '54.4', '84.485', '-24.2341']\nReturn the new list in the same format.",
+      "expected_answer": "['-80.80']",
+      "model_answer": "['-80.80']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-80.80', '49', '31.103', '54.4', '84.485', '-24.2341'], 'filter_value': '-79.2', 'operation': 'remove_larger', 'result': ['-80.80']}"
+    },
+    {
+      "question": "Keep all numbers smaller than 41.193 in this list: ['-12.4993', '-67.4', '44.744', '-69.00', '-94']\nReturn the new list in the same format.",
+      "expected_answer": "['-12.4993', '-67.4', '-69.00', '-94']",
+      "model_answer": "['-12.4993', '-67.4', '-69.00', '-94']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-12.4993', '-67.4', '44.744', '-69.00', '-94'], 'filter_value': '41.193', 'operation': 'keep_smaller', 'result': ['-12.4993', '-67.4', '-69.00', '-94']}"
+    },
+    {
+      "question": "Keep all numbers smaller than 9.3 in this list: ['-21.212', '-26.1843', '-20', '10.018', '85.7081', '-89.1', '-66.0982']\nReturn the new list in the same format.",
+      "expected_answer": "['-21.212', '-26.1843', '-20', '-89.1', '-66.0982']",
+      "model_answer": "['-21.212', '-26.1843', '-20', '-89.1', '-66.0982']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-21.212', '-26.1843', '-20', '10.018', '85.7081', '-89.1', '-66.0982'], 'filter_value': '9.3', 'operation': 'keep_smaller', 'result': ['-21.212', '-26.1843', '-20', '-89.1', '-66.0982']}"
+    },
+    {
+      "question": "Remove all numbers larger than 68.24 in this list: ['-32.3824', '-23', '-68.118', '34.5673', '-99.71', '-42.26', '-55.7', '20.7', '2.79', '75.0443']\nReturn the new list in the same format.",
+      "expected_answer": "['-32.3824', '-23', '-68.118', '34.5673', '-99.71', '-42.26', '-55.7', '20.7', '2.79']",
+      "model_answer": "['-32.3824', '-23', '-68.118', '34.5673', '-99.71', '-42.26', '-55.7', '20.7', '2.79']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['-32.3824', '-23', '-68.118', '34.5673', '-99.71', '-42.26', '-55.7', '20.7', '2.79', '75.0443'], 'filter_value': '68.24', 'operation': 'remove_larger', 'result': ['-32.3824', '-23', '-68.118', '34.5673', '-99.71', '-42.26', '-55.7', '20.7', '2.79']}"
+    },
+    {
+      "question": "Keep all numbers smaller than 37.6 in this list: ['53.8791', '-41.6', '58.03', '-69', '-13.3034']\nReturn the new list in the same format.",
+      "expected_answer": "['-41.6', '-69', '-13.3034']",
+      "model_answer": "['-41.6', '-69', '-13.3034']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['53.8791', '-41.6', '58.03', '-69', '-13.3034'], 'filter_value': '37.6', 'operation': 'keep_smaller', 'result': ['-41.6', '-69', '-13.3034']}"
+    },
+    {
+      "question": "Remove all numbers smaller than -89.886 in this list: ['68.759', '-82.261', '-93.1', '-62.16', '-83', '-17.87', '-39.7', '-4.9', '64.3', '-91']\nReturn the new list in the same format.",
+      "expected_answer": "['68.759', '-82.261', '-62.16', '-83', '-17.87', '-39.7', '-4.9', '64.3']",
+      "model_answer": "['68.759', '-82.261', '-62.16', '-83', '-17.87', '-39.7', '-4.9', '64.3']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['68.759', '-82.261', '-93.1', '-62.16', '-83', '-17.87', '-39.7', '-4.9', '64.3', '-91'], 'filter_value': '-89.886', 'operation': 'remove_smaller', 'result': ['68.759', '-82.261', '-62.16', '-83', '-17.87', '-39.7', '-4.9', '64.3']}"
+    },
+    {
+      "question": "Remove all numbers smaller than 93.34 in this list: ['83', '-2.1732', '98.69', '66.622', '-0.2551', '50.86', '21.7205']\nReturn the new list in the same format.",
+      "expected_answer": "['98.69']",
+      "model_answer": "['98.69']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['83', '-2.1732', '98.69', '66.622', '-0.2551', '50.86', '21.7205'], 'filter_value': '93.34', 'operation': 'remove_smaller', 'result': ['98.69']}"
+    },
+    {
+      "question": "Keep all numbers smaller than 1.924 in this list: ['40', '-35.8', '-55.50', '16.444', '7.2762', '-55.0834']\nReturn the new list in the same format.",
+      "expected_answer": "['-35.8', '-55.50', '-55.0834']",
+      "model_answer": "['-35.8', '-55.50', '-55.0834']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['40', '-35.8', '-55.50', '16.444', '7.2762', '-55.0834'], 'filter_value': '1.924', 'operation': 'keep_smaller', 'result': ['-35.8', '-55.50', '-55.0834']}"
+    },
+    {
+      "question": "Keep all numbers larger than 42.255 in this list: ['11.24', '49', '41.54']\nReturn the new list in the same format.",
+      "expected_answer": "['49']",
+      "model_answer": "['49']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['11.24', '49', '41.54'], 'filter_value': '42.255', 'operation': 'keep_larger', 'result': ['49']}"
+    },
+    {
+      "question": "Keep all numbers smaller than -36 in this list: ['47.5830', '-79.56', '28.94', '76', '79']\nReturn the new list in the same format.",
+      "expected_answer": "['-79.56']",
+      "model_answer": "['-79.56']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['47.5830', '-79.56', '28.94', '76', '79'], 'filter_value': '-36', 'operation': 'keep_smaller', 'result': ['-79.56']}"
+    },
+    {
+      "question": "Keep all numbers larger than -52.89 in this list: ['94.74', '80', '5', '70.496', '-73', '37.6622', '-65.336', '-35.264', '-72.1']\nReturn the new list in the same format.",
+      "expected_answer": "['94.74', '80', '5', '70.496', '37.6622', '-35.264']",
+      "model_answer": "['94.74', '80', '5', '70.496', '37.6622', '-35.264']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['94.74', '80', '5', '70.496', '-73', '37.6622', '-65.336', '-35.264', '-72.1'], 'filter_value': '-52.89', 'operation': 'keep_larger', 'result': ['94.74', '80', '5', '70.496', '37.6622', '-35.264']}"
+    },
+    {
+      "question": "Keep all numbers larger than -34.37 in this list: ['53.57', '-72', '-70.085', '-33.1']\nReturn the new list in the same format.",
+      "expected_answer": "['53.57', '-33.1']",
+      "model_answer": "['53.57', '-33.1']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['53.57', '-72', '-70.085', '-33.1'], 'filter_value': '-34.37', 'operation': 'keep_larger', 'result': ['53.57', '-33.1']}"
+    },
+    {
+      "question": "Keep all numbers larger than -0.9340 in this list: ['42.719', '31.8960', '-38.04', '60.9952', '77.67', '-47.05']\nReturn the new list in the same format.",
+      "expected_answer": "['42.719', '31.8960', '60.9952', '77.67']",
+      "model_answer": "['42.719', '31.8960', '60.9952', '77.67']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['42.719', '31.8960', '-38.04', '60.9952', '77.67', '-47.05'], 'filter_value': '-0.9340', 'operation': 'keep_larger', 'result': ['42.719', '31.8960', '60.9952', '77.67']}"
+    },
+    {
+      "question": "Remove all numbers smaller than 1.9946 in this list: ['18.1', '-19.550', '68.866', '-6.91']\nReturn the new list in the same format.",
+      "expected_answer": "['18.1', '68.866']",
+      "model_answer": "['18.1', '68.866']",
+      "score": 1.0,
+      "metadata": "{'original_numbers': ['18.1', '-19.550', '68.866', '-6.91'], 'filter_value': '1.9946', 'operation': 'remove_smaller', 'result': ['18.1', '68.866']}"
+    }
+  ]
+}

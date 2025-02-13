@@ -1,0 +1,367 @@
+{
+  "dataset_name": "letter_counting",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.9702000000000001,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T15:24:37.603638",
+  "config": {
+    "min_words": 5,
+    "max_words": 15,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "How many times does the letter \"a\" appear in the text: \"bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed\"?",
+      "expected_answer": "6",
+      "model_answer": "6",
+      "score": 1.0,
+      "metadata": "{'span_length': 15, 'target_letter': 'a', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed']}"
+    },
+    {
+      "question": "How many times does the letter \"w\" appear in the text: \"it into a watering place\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 5, 'target_letter': 'w', 'span': ['it', 'into', 'a', 'watering', 'place']}"
+    },
+    {
+      "question": "How many times does the letter \"t\" appear in the text: \"readable form accessible by the widest array of equipment including outdated\"?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}"
+    },
+    {
+      "question": "How many times does the letter \"n\" appear in the text: \"does not contain a notice indicating that it is\"?",
+      "expected_answer": "6",
+      "model_answer": "6",
+      "score": 1.0,
+      "metadata": "{'span_length': 9, 'target_letter': 'n', 'span': ['does', 'not', 'contain', 'a', 'notice', 'indicating', 'that', 'it', 'is']}"
+    },
+    {
+      "question": "How many times does the letter \"a\" appear in the text: \"keeping this work in the same\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 'a', 'span': ['keeping', 'this', 'work', 'in', 'the', 'same']}"
+    },
+    {
+      "question": "How many times does the letter \"r\" appear in the text: \"years ago its subscription list contained but a few hundred\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 10, 'target_letter': 'r', 'span': ['years', 'ago', 'its', 'subscription', 'list', 'contained', 'but', 'a', 'few', 'hundred']}"
+    },
+    {
+      "question": "How many times does the letter \"e\" appear in the text: \"me As in the morning the table rose out of the floor Again\"?",
+      "expected_answer": "6",
+      "model_answer": "6",
+      "score": 1.0,
+      "metadata": "{'span_length': 13, 'target_letter': 'e', 'span': ['me', 'As', 'in', 'the', 'morning', 'the', 'table', 'rose', 'out', 'of', 'the', 'floor', 'Again']}"
+    },
+    {
+      "question": "How many times does the letter \"t\" appear in the text: \"said Faithburn was dead quite certainly\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 't', 'span': ['said', 'Faithburn', 'was', 'dead', 'quite', 'certainly']}"
+    },
+    {
+      "question": "How many times does the letter \"n\" appear in the text: \"these eight had only impracticable schemes to propose In fact one of\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 12, 'target_letter': 'n', 'span': ['these', 'eight', 'had', 'only', 'impracticable', 'schemes', 'to', 'propose', 'In', 'fact', 'one', 'of']}"
+    },
+    {
+      "question": "How many times does the letter \"g\" appear in the text: \"computers including obsolete old middle aged and new\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 8, 'target_letter': 'g', 'span': ['computers', 'including', 'obsolete', 'old', 'middle', 'aged', 'and', 'new']}"
+    },
+    {
+      "question": "How many times does the letter \"y\" appear in the text: \"to life to day what would he think were\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 9, 'target_letter': 'y', 'span': ['to', 'life', 'to', 'day', 'what', 'would', 'he', 'think', 'were']}"
+    },
+    {
+      "question": "How many times does the letter \"s\" appear in the text: \"Though by a just turn about of things here below Great Britain has become\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 14, 'target_letter': 's', 'span': ['Though', 'by', 'a', 'just', 'turn', 'about', 'of', 'things', 'here', 'below', 'Great', 'Britain', 'has', 'become']}"
+    },
+    {
+      "question": "How many times does the letter \"o\" appear in the text: \"obtaining a copy upon request of the\"?",
+      "expected_answer": "4",
+      "model_answer": "4",
+      "score": 1.0,
+      "metadata": "{'span_length': 7, 'target_letter': 'o', 'span': ['obtaining', 'a', 'copy', 'upon', 'request', 'of', 'the']}"
+    },
+    {
+      "question": "How many times does the letter \"g\" appear in the text: \"Madrid but also against the kingdom\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 'g', 'span': ['Madrid', 'but', 'also', 'against', 'the', 'kingdom']}"
+    },
+    {
+      "question": "How many times does the letter \"u\" appear in the text: \"the work of Jules son Michel Verne In any event many of the\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 13, 'target_letter': 'u', 'span': ['the', 'work', 'of', 'Jules', 'son', 'Michel', 'Verne', 'In', 'any', 'event', 'many', 'of', 'the']}"
+    },
+    {
+      "question": "How many times does the letter \"r\" appear in the text: \"trademark license is very easy\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 5, 'target_letter': 'r', 'span': ['trademark', 'license', 'is', 'very', 'easy']}"
+    },
+    {
+      "question": "How many times does the letter \"h\" appear in the text: \"France means to be the trusty defender Well said exclaimed Mr Smith How is\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 14, 'target_letter': 'h', 'span': ['France', 'means', 'to', 'be', 'the', 'trusty', 'defender', 'Well', 'said', 'exclaimed', 'Mr', 'Smith', 'How', 'is']}"
+    },
+    {
+      "question": "How many times does the letter \"t\" appear in the text: \"him thanks to the progress of hygiene which\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 8, 'target_letter': 't', 'span': ['him', 'thanks', 'to', 'the', 'progress', 'of', 'hygiene', 'which']}"
+    },
+    {
+      "question": "How many times does the letter \"n\" appear in the text: \"idea of removing an entire city all at once\"?",
+      "expected_answer": "4",
+      "model_answer": "4",
+      "score": 1.0,
+      "metadata": "{'span_length': 9, 'target_letter': 'n', 'span': ['idea', 'of', 'removing', 'an', 'entire', 'city', 'all', 'at', 'once']}"
+    },
+    {
+      "question": "How many times does the letter \"u\" appear in the text: \"simply pointed to the sky which was of a pure blue Yes\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 12, 'target_letter': 'u', 'span': ['simply', 'pointed', 'to', 'the', 'sky', 'which', 'was', 'of', 'a', 'pure', 'blue', 'Yes']}"
+    },
+    {
+      "question": "How many times does the letter \"c\" appear in the text: \"the curiosity of the public with regard to these astronomical questions That news must\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 14, 'target_letter': 'c', 'span': ['the', 'curiosity', 'of', 'the', 'public', 'with', 'regard', 'to', 'these', 'astronomical', 'questions', 'That', 'news', 'must']}"
+    },
+    {
+      "question": "How many times does the letter \"k\" appear in the text: \"electronic works provided that You pay a royalty fee of 20 of\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 12, 'target_letter': 'k', 'span': ['electronic', 'works', 'provided', 'that', 'You', 'pay', 'a', 'royalty', 'fee', 'of', '20', 'of']}"
+    },
+    {
+      "question": "How many times does the letter \"t\" appear in the text: \"are far more complex than all that In real life every act\"?",
+      "expected_answer": "4",
+      "model_answer": "4",
+      "score": 1.0,
+      "metadata": "{'span_length': 12, 'target_letter': 't', 'span': ['are', 'far', 'more', 'complex', 'than', 'all', 'that', 'In', 'real', 'life', 'every', 'act']}"
+    },
+    {
+      "question": "How many times does the letter \"i\" appear in the text: \"are able to make all the seasons the same I propose\"?",
+      "expected_answer": "1",
+      "model_answer": "0",
+      "score": 0.01,
+      "metadata": "{'span_length': 11, 'target_letter': 'i', 'span': ['are', 'able', 'to', 'make', 'all', 'the', 'seasons', 'the', 'same', 'I', 'propose']}"
+    },
+    {
+      "question": "How many times does the letter \"o\" appear in the text: \"Good Let me see your tongue\"?",
+      "expected_answer": "4",
+      "model_answer": "4",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 'o', 'span': ['Good', 'Let', 'me', 'see', 'your', 'tongue']}"
+    },
+    {
+      "question": "How many times does the letter \"u\" appear in the text: \"waiting his turn Capital Capital my\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 'u', 'span': ['waiting', 'his', 'turn', 'Capital', 'Capital', 'my']}"
+    },
+    {
+      "question": "How many times does the letter \"f\" appear in the text: \"the Mission of Project Gutenberg Project Gutenberg is synonymous with the free\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 12, 'target_letter': 'f', 'span': ['the', 'Mission', 'of', 'Project', 'Gutenberg', 'Project', 'Gutenberg', 'is', 'synonymous', 'with', 'the', 'free']}"
+    },
+    {
+      "question": "How many times does the letter \"d\" appear in the text: \"inventors its brightest star being our great Joseph Jackson To Jackson we are indebted for\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 15, 'target_letter': 'd', 'span': ['inventors', 'its', 'brightest', 'star', 'being', 'our', 'great', 'Joseph', 'Jackson', 'To', 'Jackson', 'we', 'are', 'indebted', 'for']}"
+    },
+    {
+      "question": "How many times does the letter \"s\" appear in the text: \"a weighty scientific problem Every one\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 's', 'span': ['a', 'weighty', 'scientific', 'problem', 'Every', 'one']}"
+    },
+    {
+      "question": "How many times does the letter \"3\" appear in the text: \"can help see Sections 3 and 4 and the Foundation\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 10, 'target_letter': '3', 'span': ['can', 'help', 'see', 'Sections', '3', 'and', '4', 'and', 'the', 'Foundation']}"
+    },
+    {
+      "question": "How many times does the letter \"n\" appear in the text: \"to go to work in earnest\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 'n', 'span': ['to', 'go', 'to', 'work', 'in', 'earnest']}"
+    },
+    {
+      "question": "How many times does the letter \"n\" appear in the text: \"you run straight on to the end because you\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 9, 'target_letter': 'n', 'span': ['you', 'run', 'straight', 'on', 'to', 'the', 'end', 'because', 'you']}"
+    },
+    {
+      "question": "How many times does the letter \"5\" appear in the text: \"City UT 84116 801 596 1887 Email contact links and up to date contact\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 14, 'target_letter': '5', 'span': ['City', 'UT', '84116', '801', '596', '1887', 'Email', 'contact', 'links', 'and', 'up', 'to', 'date', 'contact']}"
+    },
+    {
+      "question": "How many times does the letter \"r\" appear in the text: \"the official version posted on the official Project Gutenberg website www gutenberg\"?",
+      "expected_answer": "4",
+      "model_answer": "4",
+      "score": 1.0,
+      "metadata": "{'span_length': 12, 'target_letter': 'r', 'span': ['the', 'official', 'version', 'posted', 'on', 'the', 'official', 'Project', 'Gutenberg', 'website', 'www', 'gutenberg']}"
+    },
+    {
+      "question": "How many times does the letter \"o\" appear in the text: \"the Foundation as set forth in Section 3 below 1\"?",
+      "expected_answer": "5",
+      "model_answer": "5",
+      "score": 1.0,
+      "metadata": "{'span_length': 10, 'target_letter': 'o', 'span': ['the', 'Foundation', 'as', 'set', 'forth', 'in', 'Section', '3', 'below', '1']}"
+    },
+    {
+      "question": "How many times does the letter \"i\" appear in the text: \"of the famous Dr Faithburn You did not think\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 9, 'target_letter': 'i', 'span': ['of', 'the', 'famous', 'Dr', 'Faithburn', 'You', 'did', 'not', 'think']}"
+    },
+    {
+      "question": "How many times does the letter \"l\" appear in the text: \"present year 2889 This morning Mr Fritz Napoleon\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 8, 'target_letter': 'l', 'span': ['present', 'year', '2889', 'This', 'morning', 'Mr', 'Fritz', 'Napoleon']}"
+    },
+    {
+      "question": "How many times does the letter \"i\" appear in the text: \"at no additional cost fee or expense\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 7, 'target_letter': 'i', 'span': ['at', 'no', 'additional', 'cost', 'fee', 'or', 'expense']}"
+    },
+    {
+      "question": "How many times does the letter \"o\" appear in the text: \"law in the United States and you are located\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 9, 'target_letter': 'o', 'span': ['law', 'in', 'the', 'United', 'States', 'and', 'you', 'are', 'located']}"
+    },
+    {
+      "question": "How many times does the letter \"g\" appear in the text: \"of receipt that s he does not agree to the terms of the\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 13, 'target_letter': 'g', 'span': ['of', 'receipt', 'that', 's', 'he', 'does', 'not', 'agree', 'to', 'the', 'terms', 'of', 'the']}"
+    },
+    {
+      "question": "How many times does the letter \"n\" appear in the text: \"allow disclaimers of certain implied warranties or\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 7, 'target_letter': 'n', 'span': ['allow', 'disclaimers', 'of', 'certain', 'implied', 'warranties', 'or']}"
+    },
+    {
+      "question": "How many times does the letter \"a\" appear in the text: \"Project Gutenberg works 1 E 9 If you wish to charge a\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 12, 'target_letter': 'a', 'span': ['Project', 'Gutenberg', 'works', '1', 'E', '9', 'If', 'you', 'wish', 'to', 'charge', 'a']}"
+    },
+    {
+      "question": "How many times does the letter \"u\" appear in the text: \"inventors its brightest star being our great Joseph Jackson\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 9, 'target_letter': 'u', 'span': ['inventors', 'its', 'brightest', 'star', 'being', 'our', 'great', 'Joseph', 'Jackson']}"
+    },
+    {
+      "question": "How many times does the letter \"o\" appear in the text: \"preceding night is still abed though it is\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 8, 'target_letter': 'o', 'span': ['preceding', 'night', 'is', 'still', 'abed', 'though', 'it', 'is']}"
+    },
+    {
+      "question": "How many times does the letter \"a\" appear in the text: \"was made with Paris Smith\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 5, 'target_letter': 'a', 'span': ['was', 'made', 'with', 'Paris', 'Smith']}"
+    },
+    {
+      "question": "How many times does the letter \"w\" appear in the text: \"he passes to the reception chamber where\"?",
+      "expected_answer": "1",
+      "model_answer": "1",
+      "score": 1.0,
+      "metadata": "{'span_length': 7, 'target_letter': 'w', 'span': ['he', 'passes', 'to', 'the', 'reception', 'chamber', 'where']}"
+    },
+    {
+      "question": "How many times does the letter \"o\" appear in the text: \"chamber where the ambassadors accredited to the American government are awaiting\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 11, 'target_letter': 'o', 'span': ['chamber', 'where', 'the', 'ambassadors', 'accredited', 'to', 'the', 'American', 'government', 'are', 'awaiting']}"
+    },
+    {
+      "question": "How many times does the letter \"i\" appear in the text: \"His visit to the works took\"?",
+      "expected_answer": "3",
+      "model_answer": "3",
+      "score": 1.0,
+      "metadata": "{'span_length': 6, 'target_letter': 'i', 'span': ['His', 'visit', 'to', 'the', 'works', 'took']}"
+    },
+    {
+      "question": "How many times does the letter \"u\" appear in the text: \"to estimate the amount of labor he undergoes\"?",
+      "expected_answer": "2",
+      "model_answer": "2",
+      "score": 1.0,
+      "metadata": "{'span_length': 8, 'target_letter': 'u', 'span': ['to', 'estimate', 'the', 'amount', 'of', 'labor', 'he', 'undergoes']}"
+    },
+    {
+      "question": "How many times does the letter \"t\" appear in the text: \"the reporters of this straightway You\"?",
+      "expected_answer": "5",
+      "model_answer": "The letter \"t\" appears 5 times in the text.",
+      "score": 0.5,
+      "metadata": "{'span_length': 6, 'target_letter': 't', 'span': ['the', 'reporters', 'of', 'this', 'straightway', 'You']}"
+    }
+  ]
+}

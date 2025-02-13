@@ -1,0 +1,372 @@
+{
+  "dataset_name": "letter_jumble",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.12839999999999985,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T15:40:03.291600",
+  "config": {
+    "min_word_len": 1,
+    "max_word_len": 64,
+    "min_words": 3,
+    "max_words": 20,
+    "min_corruption_level": 0.1,
+    "max_corruption_level": 0.9,
+    "consecutive_words": true,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Unscramble these words: ew hsall eb ebla ot puodrce",
+      "expected_answer": "we shall be able to produce",
+      "model_answer": "We shall be able to produce",
+      "score": 0.01,
+      "metadata": "{'num_words': 6, 'corruption_level': 0.12000860417813355, 'scrambled_words': ['ew', 'hsall', 'eb', 'ebla', 'ot', 'puodrce'], 'original_words': ['we', 'shall', 'be', 'able', 'to', 'produce']}"
+    },
+    {
+      "question": "Unscramble these words: ni oiurnalmsj Well Cahs",
+      "expected_answer": "in journalism Well Cash",
+      "model_answer": "The unscrambled words are: **in journalism Well Cash**",
+      "score": 0.5,
+      "metadata": "{'num_words': 4, 'corruption_level': 0.3288673442377109, 'scrambled_words': ['ni', 'oiurnalmsj', 'Well', 'Cahs'], 'original_words': ['in', 'journalism', 'Well', 'Cash']}"
+    },
+    {
+      "question": "Unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks ot oyu rheet si a gain fo sucrbbisesr rM",
+      "expected_answer": "dear Archibald keep on Since yesterday thanks to you there is a gain of subscribers Mr",
+      "model_answer": "\nDear Archibald,  \nKeep on. Since yesterday, thanks to you there is a gain of subscribers. Mr.  \n\n**Explanation:**  \n- \"dear rchAdbali\" \u2192 \"Dear Archibald\"  \n- \"keep no\" \u2192 \"keep on\"  \n- \"nSice\" \u2192 \"Since\"  \n- \"yrstyedae\" \u2192 \"yesterday\"  \n- \"atnhks\" \u2192 \"thanks\"  \n- \"ot oyu\" \u2192 \"to you\"  \n- \"rheet si\" \u2192 \"there is\"  \n- \"a gain fo\" \u2192 \"a gain of\"  \n- \"sucrbbisesr\" \u2192 \"subscribers\"  \n- \"rM\" \u2192 \"Mr.\"  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_words': ['dear', 'rchAdbali', 'keep', 'no', 'nSice', 'yrstyedae', 'atnhks', 'ot', 'oyu', 'rheet', 'si', 'a', 'gain', 'fo', 'sucrbbisesr', 'rM'], 'original_words': ['dear', 'Archibald', 'keep', 'on', 'Since', 'yesterday', 'thanks', 'to', 'you', 'there', 'is', 'a', 'gain', 'of', 'subscribers', 'Mr']}"
+    },
+    {
+      "question": "Unscramble these words: asdenutrnds ohw a amn stduetai sa mSiht si msut eb tesbe",
+      "expected_answer": "understands how a man situated as Smith is must be beset",
+      "model_answer": "\nunderstands how a man situated as Smith is must be beset\n",
+      "score": 0.5,
+      "metadata": "{'num_words': 11, 'corruption_level': 0.4341529517652285, 'scrambled_words': ['asdenutrnds', 'ohw', 'a', 'amn', 'stduetai', 'sa', 'mSiht', 'si', 'msut', 'eb', 'tesbe'], 'original_words': ['understands', 'how', 'a', 'man', 'situated', 'as', 'Smith', 'is', 'must', 'be', 'beset']}"
+    },
+    {
+      "question": "Unscramble these words: ni eht nognimr a atelb",
+      "expected_answer": "in the morning a table",
+      "model_answer": "In the morning a table",
+      "score": 0.01,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.41999551677681035, 'scrambled_words': ['ni', 'eht', 'nognimr', 'a', 'atelb'], 'original_words': ['in', 'the', 'morning', 'a', 'table']}"
+    },
+    {
+      "question": "Unscramble these words: electconir wokr ro proug fo sorkw no tifferend temrs htan aer est rofth ni",
+      "expected_answer": "electronic work or group of works on different terms than are set forth in",
+      "model_answer": "The unscrambled sentence is: \"Electronic work or group of works on different terms than are set forth in.\"",
+      "score": 0.01,
+      "metadata": "{'num_words': 14, 'corruption_level': 0.15002014297357943, 'scrambled_words': ['electconir', 'wokr', 'ro', 'proug', 'fo', 'sorkw', 'no', 'tifferend', 'temrs', 'htan', 'aer', 'est', 'rofth', 'ni'], 'original_words': ['electronic', 'work', 'or', 'group', 'of', 'works', 'on', 'different', 'terms', 'than', 'are', 'set', 'forth', 'in']}"
+    },
+    {
+      "question": "Unscramble these words: na eontnsixe craih nheT nouchigt a kbon eh hbtalsiseed tomumnicacion whti teh Clnrtae Concert Hall nhcwee ruo grtaeest sned tuo",
+      "expected_answer": "an extension chair Then touching a knob he established communication with the Central Concert Hall whence our greatest send out",
+      "model_answer": "\nThe unscrambled sentence is:  \n**\"Then touching a knob he established communication with the Central Concert Hall whence our greatest send out an nonexistent chair.\"**  \n\nBreaking down the solution:  \n- **na** \u2192 an  \n- **eontnsixe** \u2192 nonexistent  \n- **craih** \u2192 chair  \n- **nheT** \u2192 Then  \n- **nouchigt** \u2192 touching  \n- **kbon** \u2192 knob  \n- **eh** \u2192 he  \n- **hbtalsiseed** \u2192 established  \n- **tomumnicacion** \u2192 communication  \n- **whti** \u2192 with  \n- **teh** \u2192 the  \n- **Clnrtae Concert Hall** \u2192 Central Concert Hall  \n- **nhcwee** \u2192 whence  \n- **ruo** \u2192 our  \n- **grtaeest** \u2192 greatest  \n- **sned** \u2192 send  \n- **tuo** \u2192 out  \n\nThe sentence rearranges to:  \n**\"Then touching a knob he established communication with the Central Concert Hall whence our greatest send out an nonexistent chair.\"**  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 20, 'corruption_level': 0.3523628898375718, 'scrambled_words': ['na', 'eontnsixe', 'craih', 'nheT', 'nouchigt', 'a', 'kbon', 'eh', 'hbtalsiseed', 'tomumnicacion', 'whti', 'teh', 'Clnrtae', 'Concert', 'Hall', 'nhcwee', 'ruo', 'grtaeest', 'sned', 'tuo'], 'original_words': ['an', 'extension', 'chair', 'Then', 'touching', 'a', 'knob', 'he', 'established', 'communication', 'with', 'the', 'Central', 'Concert', 'Hall', 'whence', 'our', 'greatest', 'send', 'out']}"
+    },
+    {
+      "question": "Unscramble these words: fo noircalustji wrok wsa onw",
+      "expected_answer": "of journalistic work was now",
+      "model_answer": "of journalistic work was now",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.37546391137387036, 'scrambled_words': ['fo', 'noircalustji', 'wrok', 'wsa', 'onw'], 'original_words': ['of', 'journalistic', 'work', 'was', 'now']}"
+    },
+    {
+      "question": "Unscramble these words: yma seu hist koeoB orf elyanr any ppuoers chus sa oitrcean fo evrtaiidve roswk retsorp psmoenrracfe dan erchrase",
+      "expected_answer": "may use this eBook for nearly any purpose such as creation of derivative works reports performances and research",
+      "model_answer": "May use this eBook for nearly any purpose such as creation of derivative works reports performances and research.",
+      "score": 0.01,
+      "metadata": "{'num_words': 18, 'corruption_level': 0.7845563069949968, 'scrambled_words': ['yma', 'seu', 'hist', 'koeoB', 'orf', 'elyanr', 'any', 'ppuoers', 'chus', 'sa', 'oitrcean', 'fo', 'evrtaiidve', 'roswk', 'retsorp', 'psmoenrracfe', 'dan', 'erchrase'], 'original_words': ['may', 'use', 'this', 'eBook', 'for', 'nearly', 'any', 'purpose', 'such', 'as', 'creation', 'of', 'derivative', 'works', 'reports', 'performances', 'and', 'research']}"
+    },
+    {
+      "question": "Unscramble these words: tkhin thne reeakdrm rM hSimt lsuyngim that fi one docul",
+      "expected_answer": "think then remarked Mr Smith musingly that if one could",
+      "model_answer": "\nUnscrambled words: think then remarked Mr. Smith musingly that if one could\n\nThe sentence formed is: \"Think then remarked Mr. Smith musingly that if one could.\"  \n(Note: While the words are correctly unscrambled, the sentence structure may require reordering for clarity, e.g., \"Mr. Smith musingly remarked that if one could think, then...\")\n",
+      "score": 0.01,
+      "metadata": "{'num_words': 10, 'corruption_level': 0.7707922786605893, 'scrambled_words': ['tkhin', 'thne', 'reeakdrm', 'rM', 'hSimt', 'lsuyngim', 'that', 'fi', 'one', 'docul'], 'original_words': ['think', 'then', 'remarked', 'Mr', 'Smith', 'musingly', 'that', 'if', 'one', 'could']}"
+    },
+    {
+      "question": "Unscramble these words: regulitang iharitces dna charitable donatnois ni all ttases fo eht Utined",
+      "expected_answer": "regulating charities and charitable donations in all states of the United",
+      "model_answer": "Regulating charities and charitable donations in all states of the United",
+      "score": 0.01,
+      "metadata": "{'num_words': 11, 'corruption_level': 0.14361812400836593, 'scrambled_words': ['regulitang', 'iharitces', 'dna', 'charitable', 'donatnois', 'ni', 'all', 'ttases', 'fo', 'eht', 'Utined'], 'original_words': ['regulating', 'charities', 'and', 'charitable', 'donations', 'in', 'all', 'states', 'of', 'the', 'United']}"
+    },
+    {
+      "question": "Unscramble these words: tohfr ni thsi mganreeet volitaes teh lwa fo hte",
+      "expected_answer": "forth in this agreement violates the law of the",
+      "model_answer": "Froth in this agreement violates the law of the",
+      "score": 0.01,
+      "metadata": "{'num_words': 9, 'corruption_level': 0.4651897758368476, 'scrambled_words': ['tohfr', 'ni', 'thsi', 'mganreeet', 'volitaes', 'teh', 'lwa', 'fo', 'hte'], 'original_words': ['forth', 'in', 'this', 'agreement', 'violates', 'the', 'law', 'of', 'the']}"
+    },
+    {
+      "question": "Unscramble these words: Faithnubr saw fdfconei adn ldia ni a",
+      "expected_answer": "Faithburn was coffined and laid in a",
+      "model_answer": "Fahrenheit saw coffined and laid in a",
+      "score": 0.01,
+      "metadata": "{'num_words': 7, 'corruption_level': 0.45115014050048674, 'scrambled_words': ['Faithnubr', 'saw', 'fdfconei', 'adn', 'ldia', 'ni', 'a'], 'original_words': ['Faithburn', 'was', 'coffined', 'and', 'laid', 'in', 'a']}"
+    },
+    {
+      "question": "Unscramble these words: etxenivse ni eth wdrol cegishtrnt",
+      "expected_answer": "extensive in the world stretching",
+      "model_answer": "Extensive in the world stretching",
+      "score": 0.01,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.8903065618910405, 'scrambled_words': ['etxenivse', 'ni', 'eth', 'wdrol', 'cegishtrnt'], 'original_words': ['extensive', 'in', 'the', 'world', 'stretching']}"
+    },
+    {
+      "question": "Unscramble these words: ogr denato ceStion reneGal Infomration Atoub erojPct eutGnberg electronci wkros orPfessor Mhciael S aHrt saw eht ortginaior fo eht Ptojecr",
+      "expected_answer": "org donate Section General Information About Project Gutenberg electronic works Professor Michael S Hart was the originator of the Project",
+      "model_answer": "The unscrambled sentence is: \"Professor Michael S. Hart was the originator of the Project Gutenberg electronic works. General Information About the Project: Donate org.\" \n\nKey components:\n- **Project Gutenberg**: A digital library founded by Michael S. Hart.\n- **Michael S. Hart**: Recognized as the founder.\n- **Electronic works**: Refers to the digital books provided by the project.\n- **General Information / About**: Sections describing the project's mission.\n- **Donate org**: Likely referencing the website (gutenberg.org) for donations.",
+      "score": 0.01,
+      "metadata": "{'num_words': 20, 'corruption_level': 0.10919710084004333, 'scrambled_words': ['ogr', 'denato', 'ceStion', 'reneGal', 'Infomration', 'Atoub', 'erojPct', 'eutGnberg', 'electronci', 'wkros', 'orPfessor', 'Mhciael', 'S', 'aHrt', 'saw', 'eht', 'ortginaior', 'fo', 'eht', 'Ptojecr'], 'original_words': ['org', 'donate', 'Section', 'General', 'Information', 'About', 'Project', 'Gutenberg', 'electronic', 'works', 'Professor', 'Michael', 'S', 'Hart', 'was', 'the', 'originator', 'of', 'the', 'Project']}"
+    },
+    {
+      "question": "Unscramble these words: wuold btu piceutr ot",
+      "expected_answer": "would but picture to",
+      "model_answer": "Would but picture to",
+      "score": 0.01,
+      "metadata": "{'num_words': 4, 'corruption_level': 0.39420177095941566, 'scrambled_words': ['wuold', 'btu', 'piceutr', 'ot'], 'original_words': ['would', 'but', 'picture', 'to']}"
+    },
+    {
+      "question": "Unscramble these words: hcolera teh yewlol feevr ttah eht rllbigeeents migth spdear",
+      "expected_answer": "cholera the yellow fever that the belligerents might spread",
+      "model_answer": "Cholera, the yellow fever that the belligerents might spread.",
+      "score": 0.01,
+      "metadata": "{'num_words': 9, 'corruption_level': 0.26457919918486406, 'scrambled_words': ['hcolera', 'teh', 'yewlol', 'feevr', 'ttah', 'eht', 'rllbigeeents', 'migth', 'spdear'], 'original_words': ['cholera', 'the', 'yellow', 'fever', 'that', 'the', 'belligerents', 'might', 'spread']}"
+    },
+    {
+      "question": "Unscramble these words: eDfects suhc sa btu nto ldmitei ot itcomplene iuaccnrate ro",
+      "expected_answer": "Defects such as but not limited to incomplete inaccurate or",
+      "model_answer": "\nDefects such as but not limited to incomplete inaccurate or\n",
+      "score": 0.5,
+      "metadata": "{'num_words': 10, 'corruption_level': 0.16768744547748737, 'scrambled_words': ['eDfects', 'suhc', 'sa', 'btu', 'nto', 'ldmitei', 'ot', 'itcomplene', 'iuaccnrate', 'ro'], 'original_words': ['Defects', 'such', 'as', 'but', 'not', 'limited', 'to', 'incomplete', 'inaccurate', 'or']}"
+    },
+    {
+      "question": "Unscramble these words: borke ni rM mSith ntruing ot a sdcone ncseitist tpOilac cniesce defcetive",
+      "expected_answer": "broke in Mr Smith turning to a second scientist Optical science defective",
+      "model_answer": "\nUnscrambled sentence: **Broke in Mr. Smith turning to a second scientist Political Science defective.**\n\nExplanation of key unscrambled words:\n- **borke** \u2192 Broke  \n- **rM mSith** \u2192 Mr. Smith  \n- **ntruing** \u2192 turning  \n- **sdcone** \u2192 second  \n- **ncseitist** \u2192 scientist  \n- **tpOilac** \u2192 Political  \n- **cniesce** \u2192 Science  \n- **defcetive** \u2192 defective  \n\nThe sentence may imply a scenario where Mr. Smith, involved in political science, encountered a defective situation or theory. Some terms (e.g., \"Political Science\") are split across scrambled words but form a coherent phrase when rearranged.",
+      "score": 0.01,
+      "metadata": "{'num_words': 12, 'corruption_level': 0.3267366860983245, 'scrambled_words': ['borke', 'ni', 'rM', 'mSith', 'ntruing', 'ot', 'a', 'sdcone', 'ncseitist', 'tpOilac', 'cniesce', 'defcetive'], 'original_words': ['broke', 'in', 'Mr', 'Smith', 'turning', 'to', 'a', 'second', 'scientist', 'Optical', 'science', 'defective']}"
+    },
+    {
+      "question": "Unscramble these words: taht I uowld od inythang os pnratuiotic eW ta eomh tnihk taht yuor pelpoe muts won eb setad",
+      "expected_answer": "that I would do anything so unpatriotic We at home think that your people must now be sated",
+      "model_answer": "\nThat I would do anything so unpatriotic. We at home think that your people must now be sated.  \n**Unscrambled Sentence:**  \n\"That I would do anything so unpatriotic. We at home think that your people must now be sated.\"  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 18, 'corruption_level': 0.24536415074283913, 'scrambled_words': ['taht', 'I', 'uowld', 'od', 'inythang', 'os', 'pnratuiotic', 'eW', 'ta', 'eomh', 'tnihk', 'taht', 'yuor', 'pelpoe', 'muts', 'won', 'eb', 'setad'], 'original_words': ['that', 'I', 'would', 'do', 'anything', 'so', 'unpatriotic', 'We', 'at', 'home', 'think', 'that', 'your', 'people', 'must', 'now', 'be', 'sated']}"
+    },
+    {
+      "question": "Unscramble these words: dhsi Fro lkie lla aewlthy oflk ni uor",
+      "expected_answer": "dish For like all wealthy folk in our",
+      "model_answer": "Dish for all wealthy folk like in our",
+      "score": 0.01,
+      "metadata": "{'num_words': 8, 'corruption_level': 0.15212342125552247, 'scrambled_words': ['dhsi', 'Fro', 'lkie', 'lla', 'aewlthy', 'oflk', 'ni', 'uor'], 'original_words': ['dish', 'For', 'like', 'all', 'wealthy', 'folk', 'in', 'our']}"
+    },
+    {
+      "question": "Unscramble these words: ym omclrucatau wrsko ta aNagria Fro rM htimS ahs boiatend a lease fo hte arget sflla fo",
+      "expected_answer": "my accumulator works at Niagara For Mr Smith has obtained a lease of the great falls of",
+      "model_answer": "My accumulator works at Niagara for Mr. Smith has obtained a lease of the great falls of",
+      "score": 0.01,
+      "metadata": "{'num_words': 17, 'corruption_level': 0.45538336809926316, 'scrambled_words': ['ym', 'omclrucatau', 'wrsko', 'ta', 'aNagria', 'Fro', 'rM', 'htimS', 'ahs', 'boiatend', 'a', 'lease', 'fo', 'hte', 'arget', 'sflla', 'fo'], 'original_words': ['my', 'accumulator', 'works', 'at', 'Niagara', 'For', 'Mr', 'Smith', 'has', 'obtained', 'a', 'lease', 'of', 'the', 'great', 'falls', 'of']}"
+    },
+    {
+      "question": "Unscramble these words: lulf Prcjeot Guetnberg eicLnse tusm rppeaa yeominrntlp wreneveh yna pocy fo a trojecP Gutenbreg wkro yna wkro no",
+      "expected_answer": "full Project Gutenberg License must appear prominently whenever any copy of a Project Gutenberg work any work on",
+      "model_answer": "\nfull Project Gutenberg License must appear prominently whenever any copy of a Project Gutenberg work or any work on\n",
+      "score": 0.01,
+      "metadata": "{'num_words': 18, 'corruption_level': 0.19988079446684745, 'scrambled_words': ['lulf', 'Prcjeot', 'Guetnberg', 'eicLnse', 'tusm', 'rppeaa', 'yeominrntlp', 'wreneveh', 'yna', 'pocy', 'fo', 'a', 'trojecP', 'Gutenbreg', 'wkro', 'yna', 'wkro', 'no'], 'original_words': ['full', 'Project', 'Gutenberg', 'License', 'must', 'appear', 'prominently', 'whenever', 'any', 'copy', 'of', 'a', 'Project', 'Gutenberg', 'work', 'any', 'work', 'on']}"
+    },
+    {
+      "question": "Unscramble these words: fsee ot mete nad eekp pu wtih shete risueremqnte eW od nto sclioti donotiasn ni iocaltons",
+      "expected_answer": "fees to meet and keep up with these requirements We do not solicit donations in locations",
+      "model_answer": "\nUnscrambled words form two sentences:\n**Fees to meet and keep up with these requirements. We do not solicit donations in locations.**\n\nExplanation:\n- \"fsee\" \u2192 fees  \n- \"ot\" \u2192 to  \n- \"mete\" \u2192 meet  \n- \"nad\" \u2192 and  \n- \"eekp\" \u2192 keep  \n- \"pu\" \u2192 up  \n- \"wtih\" \u2192 with  \n- \"shete\" \u2192 these  \n- \"risueremqnte\" \u2192 requirements (adjusted for likely typo in scrambling)  \n- \"eW\" \u2192 We  \n- \"od\" \u2192 do  \n- \"nto\" \u2192 not  \n- \"sclioti\" \u2192 solicit  \n- \"donotiasn\" \u2192 donations  \n- \"ni\" \u2192 in  \n- \"iocaltons\" \u2192 locations  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 16, 'corruption_level': 0.33107557468235593, 'scrambled_words': ['fsee', 'ot', 'mete', 'nad', 'eekp', 'pu', 'wtih', 'shete', 'risueremqnte', 'eW', 'od', 'nto', 'sclioti', 'donotiasn', 'ni', 'iocaltons'], 'original_words': ['fees', 'to', 'meet', 'and', 'keep', 'up', 'with', 'these', 'requirements', 'We', 'do', 'not', 'solicit', 'donations', 'in', 'locations']}"
+    },
+    {
+      "question": "Unscramble these words: whti a miosnwe Wrehe haev",
+      "expected_answer": "with a winsome Where have",
+      "model_answer": "The unscrambled sentence is: \"With a someone where have\". However, this doesn't form a coherent sentence. A more likely intended phrase, considering possible typos, is **\"Where have we a mission with...\"**, but the exact scramble for \"mission\" isn't present. The closest valid unscrambling of the given letters is:\n\n**\"With someone where have\"** (assuming \"miosnwe\" is a typo for \"someone\"). \n\nAlternatively, rearranging all words into a question: **\"Where have we a mission?\"** (though \"mission\" isn't directly scrambled here). \n\nThe most accurate unscrambling based strictly on the letters provided is:\n\n**\"With a someone where have\"**",
+      "score": 0.01,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.34958915969483706, 'scrambled_words': ['whti', 'a', 'miosnwe', 'Wrehe', 'haev'], 'original_words': ['with', 'a', 'winsome', 'Where', 'have']}"
+    },
+    {
+      "question": "Unscramble these words: cypo ti giev ti away",
+      "expected_answer": "copy it give it away",
+      "model_answer": "Copy it, give it away.",
+      "score": 0.01,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.19287465671301326, 'scrambled_words': ['cypo', 'ti', 'giev', 'ti', 'away'], 'original_words': ['copy', 'it', 'give', 'it', 'away']}"
+    },
+    {
+      "question": "Unscramble these words: ePctrjo gbeunteGr Lieratry hAvcrie ndotnaFiou heT Pjtoecr rGtegenbu rLieyrta Acrhive Fndtoiuaon si a nno ritofp c eicuotnlaad",
+      "expected_answer": "Project Gutenberg Literary Archive Foundation The Project Gutenberg Literary Archive Foundation is a non profit c educational",
+      "model_answer": "\nThe unscrambled phrase is: \"Project Gutenberg Literary Archive Foundation The Project Gutenberg Literary Archive Foundation is a non-profit educational corporation.\"\n\nExplanation:\n1. **ePctrjo** \u2192 Project\n2. **gbeunteGr** \u2192 Gutenberg\n3. **Lieratry** \u2192 Literary\n4. **hAvcrie** \u2192 Archive\n5. **ndotnaFiou** \u2192 Foundation\n6. **heT** \u2192 The\n7. **Pjtoecr** \u2192 Project\n8. **rGtegenbu** \u2192 Gutenberg\n9. **rLieyrta** \u2192 Literary\n10. **Acrhive** \u2192 Archive\n11. **Fndtoiuaon** \u2192 Foundation\n12. **si** \u2192 is\n13. **a** \u2192 a\n14. **nno** \u2192 non\n15. **ritofp** \u2192 profit\n16. **c** \u2192 corporation (abbreviated as \"corp.\")\n17. **eicuotnlaad** \u2192 educational\n\nThe sentence reads:  \n**\"The Project Gutenberg Literary Archive Foundation is a non-profit corporation educational organization.\"** Slight reordering for clarity:  \n**\"The Project Gutenberg Literary Archive Foundation is a non-profit educational corporation.\"**  \n(This matches the real-world entity, which provides free eBooks as a non-profit initiative.)\n",
+      "score": 0.01,
+      "metadata": "{'num_words': 17, 'corruption_level': 0.8526431065177724, 'scrambled_words': ['ePctrjo', 'gbeunteGr', 'Lieratry', 'hAvcrie', 'ndotnaFiou', 'heT', 'Pjtoecr', 'rGtegenbu', 'rLieyrta', 'Acrhive', 'Fndtoiuaon', 'si', 'a', 'nno', 'ritofp', 'c', 'eicuotnlaad'], 'original_words': ['Project', 'Gutenberg', 'Literary', 'Archive', 'Foundation', 'The', 'Project', 'Gutenberg', 'Literary', 'Archive', 'Foundation', 'is', 'a', 'non', 'profit', 'c', 'educational']}"
+    },
+    {
+      "question": "Unscramble these words: definytiveli settdel Ttah greta",
+      "expected_answer": "definitively settled That great",
+      "model_answer": "definitively settled that great",
+      "score": 0.01,
+      "metadata": "{'num_words': 4, 'corruption_level': 0.17666984678144335, 'scrambled_words': ['definytiveli', 'settdel', 'Ttah', 'greta'], 'original_words': ['definitively', 'settled', 'That', 'great']}"
+    },
+    {
+      "question": "Unscramble these words: ntcoain Dtfeecs scuh sa ubt ton",
+      "expected_answer": "contain Defects such as but not",
+      "model_answer": "Contain Defects such as but not",
+      "score": 0.01,
+      "metadata": "{'num_words': 6, 'corruption_level': 0.3352632326069428, 'scrambled_words': ['ntcoain', 'Dtfeecs', 'scuh', 'sa', 'ubt', 'ton'], 'original_words': ['contain', 'Defects', 'such', 'as', 'but', 'not']}"
+    },
+    {
+      "question": "Unscramble these words: Verne ordRatce s neot eht Year saw frits upblidhes ni teh rbFyuare p",
+      "expected_answer": "Verne Redactor s note the Year was first published in the February p",
+      "model_answer": "Jules Verne's short story \"The Year 2889\" was first published in February.",
+      "score": 0.01,
+      "metadata": "{'num_words': 13, 'corruption_level': 0.5067691720725863, 'scrambled_words': ['Verne', 'ordRatce', 's', 'neot', 'eht', 'Year', 'saw', 'frits', 'upblidhes', 'ni', 'teh', 'rbFyuare', 'p'], 'original_words': ['Verne', 'Redactor', 's', 'note', 'the', 'Year', 'was', 'first', 'published', 'in', 'the', 'February', 'p']}"
+    },
+    {
+      "question": "Unscramble these words: peasss ot the ipcetnoer cebahrm",
+      "expected_answer": "passes to the reception chamber",
+      "model_answer": "Passes to the reception chamber",
+      "score": 0.01,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.7257673895022984, 'scrambled_words': ['peasss', 'ot', 'the', 'ipcetnoer', 'cebahrm'], 'original_words': ['passes', 'to', 'the', 'reception', 'chamber']}"
+    },
+    {
+      "question": "Unscramble these words: IIPLMED INCLNDIUG TUB NTO LIMIDET OT AWRRANTIES FO NERCHAMTABILTIY RO FITENSS",
+      "expected_answer": "IMPLIED INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY OR FITNESS",
+      "model_answer": "IMPLIED INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY OR FITNESS",
+      "score": 1.0,
+      "metadata": "{'num_words': 11, 'corruption_level': 0.19776838721120615, 'scrambled_words': ['IIPLMED', 'INCLNDIUG', 'TUB', 'NTO', 'LIMIDET', 'OT', 'AWRRANTIES', 'FO', 'NERCHAMTABILTIY', 'RO', 'FITENSS'], 'original_words': ['IMPLIED', 'INCLUDING', 'BUT', 'NOT', 'LIMITED', 'TO', 'WARRANTIES', 'OF', 'MERCHANTABILITY', 'OR', 'FITNESS']}"
+    },
+    {
+      "question": "Unscramble these words: yb iosnelptCro emti ouy neam sYe oodG yb tneh rfo a tetlli hielw idas rM mtSih sa eh ervdees",
+      "expected_answer": "by Centropolis time you mean Yes Good by then for a little while said Mr Smith as he severed",
+      "model_answer": "\nBy inspection time you mean Yes Good by then for a little while said Mr Smith as he deserves\n\n**Unscrambled Sentence:**  \n\"By inspection time you mean Yes Good by then for a little while said Mr. Smith as he deserves.\"\n\n**Step-by-Step Breakdown:**  \n1. **yb** \u2192 by  \n2. **iosnelptCro** \u2192 inspection (letters: C, e, i, n, s, p, o, r, t, o)  \n3. **emti** \u2192 time  \n4. **ouy** \u2192 you  \n5. **neam** \u2192 mean  \n6. **sYe** \u2192 Yes  \n7. **oodG** \u2192 Good  \n8. **yb** \u2192 by  \n9. **tneh** \u2192 then  \n10. **rfo** \u2192 for  \n11. **a** \u2192 a  \n12. **tetlli** \u2192 little  \n13. **hielw** \u2192 while  \n14. **idas** \u2192 said  \n15. **rM** \u2192 Mr.  \n16. **mtSih** \u2192 Smith  \n17. **sa** \u2192 as  \n18. **eh** \u2192 he  \n19. **ervdees** \u2192 deserves  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 19, 'corruption_level': 0.7938086874104189, 'scrambled_words': ['yb', 'iosnelptCro', 'emti', 'ouy', 'neam', 'sYe', 'oodG', 'yb', 'tneh', 'rfo', 'a', 'tetlli', 'hielw', 'idas', 'rM', 'mtSih', 'sa', 'eh', 'ervdees'], 'original_words': ['by', 'Centropolis', 'time', 'you', 'mean', 'Yes', 'Good', 'by', 'then', 'for', 'a', 'little', 'while', 'said', 'Mr', 'Smith', 'as', 'he', 'severed']}"
+    },
+    {
+      "question": "Unscramble these words: rotfh ni tish egerenatm uoy mtus nboati msrpsoeiin ni wigtnir ormf teh ePjorct nureetGgb Leritary hrAcevi aoundonFti",
+      "expected_answer": "forth in this agreement you must obtain permission in writing from the Project Gutenberg Literary Archive Foundation",
+      "model_answer": "\nIn this agreement you must obtain permission in writing from the Project Gutenberg Literary Archive Foundation.\n\nUnscrambled words breakdown:\n- rotfh \u2192 forth \u2192 *However, contextually \"In this...\" fits better, suggesting possible scramble error. The corrected main sentence is above.*\n- ni \u2192 in  \n- tish \u2192 this  \n- egerenatm \u2192 agreement  \n- uoy \u2192 you  \n- mtus \u2192 must  \n- nboati \u2192 obtain  \n- msrpsoeiin \u2192 permission  \n- ni \u2192 in  \n- wigtnir \u2192 writing  \n- ormf \u2192 from  \n- teh \u2192 the  \n- ePjorct \u2192 Project  \n- nureetGgb \u2192 Gutenberg  \n- Leritary \u2192 Literary  \n- hrAcevi \u2192 Archive  \n- aoundonFti \u2192 Foundation  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 17, 'corruption_level': 0.5678386773861621, 'scrambled_words': ['rotfh', 'ni', 'tish', 'egerenatm', 'uoy', 'mtus', 'nboati', 'msrpsoeiin', 'ni', 'wigtnir', 'ormf', 'teh', 'ePjorct', 'nureetGgb', 'Leritary', 'hrAcevi', 'aoundonFti'], 'original_words': ['forth', 'in', 'this', 'agreement', 'you', 'must', 'obtain', 'permission', 'in', 'writing', 'from', 'the', 'Project', 'Gutenberg', 'Literary', 'Archive', 'Foundation']}"
+    },
+    {
+      "question": "Unscramble these words: tinUed Sattes nad oyu rae dotecal ni teh dniUet States ew od ton cmali",
+      "expected_answer": "United States and you are located in the United States we do not claim",
+      "model_answer": "\nUnited States and you are located in the United States we do not claim\n",
+      "score": 0.5,
+      "metadata": "{'num_words': 14, 'corruption_level': 0.4706062194716062, 'scrambled_words': ['tinUed', 'Sattes', 'nad', 'oyu', 'rae', 'dotecal', 'ni', 'teh', 'dniUet', 'States', 'ew', 'od', 'ton', 'cmali'], 'original_words': ['United', 'States', 'and', 'you', 'are', 'located', 'in', 'the', 'United', 'States', 'we', 'do', 'not', 'claim']}"
+    },
+    {
+      "question": "Unscramble these words: osrts fo deshsi sa a idrvea astorsnemt si aswyal ni rsaeinesd",
+      "expected_answer": "sorts of dishes as a varied assortment is always in readiness",
+      "model_answer": "Sorts of dishes as a varied assortment is always in readiness.",
+      "score": 0.01,
+      "metadata": "{'num_words': 11, 'corruption_level': 0.36072491525002914, 'scrambled_words': ['osrts', 'fo', 'deshsi', 'sa', 'a', 'idrvea', 'astorsnemt', 'si', 'aswyal', 'ni', 'rsaeinesd'], 'original_words': ['sorts', 'of', 'dishes', 'as', 'a', 'varied', 'assortment', 'is', 'always', 'in', 'readiness']}"
+    },
+    {
+      "question": "Unscramble these words: grastn ot calrels enO realidy undersnatds woh a nam",
+      "expected_answer": "grants to callers One readily understands how a man",
+      "model_answer": "\ngrants to recalls One readily understands how a man\n",
+      "score": 0.01,
+      "metadata": "{'num_words': 9, 'corruption_level': 0.176818354727107, 'scrambled_words': ['grastn', 'ot', 'calrels', 'enO', 'realidy', 'undersnatds', 'woh', 'a', 'nam'], 'original_words': ['grants', 'to', 'callers', 'One', 'readily', 'understands', 'how', 'a', 'man']}"
+    },
+    {
+      "question": "Unscramble these words: omon ouabt eacf hA teher s oimenshtg",
+      "expected_answer": "moon about face Ah there s something",
+      "model_answer": "The unscrambled words form the sentence: \"Moon about face. Ah, there's something!\" \n\n- **omon**: Moon  \n- **ouabt**: about  \n- **eacf**: face  \n- **hA**: Ah  \n- **teher**: there  \n- **s**: 's (contraction of \"there is\")  \n- **oimenshtg**: something  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 7, 'corruption_level': 0.4500026008457616, 'scrambled_words': ['omon', 'ouabt', 'eacf', 'hA', 'teher', 's', 'oimenshtg'], 'original_words': ['moon', 'about', 'face', 'Ah', 'there', 's', 'something']}"
+    },
+    {
+      "question": "Unscramble these words: wlil eb eknild ot eht rPojtce Guerngetb Lsceine fro lal osrkw",
+      "expected_answer": "will be linked to the Project Gutenberg License for all works",
+      "model_answer": "Will be linked to the Project Gutenberg License for all works",
+      "score": 0.01,
+      "metadata": "{'num_words': 11, 'corruption_level': 0.4151524635667001, 'scrambled_words': ['wlil', 'eb', 'eknild', 'ot', 'eht', 'rPojtce', 'Guerngetb', 'Lsceine', 'fro', 'lal', 'osrkw'], 'original_words': ['will', 'be', 'linked', 'to', 'the', 'Project', 'Gutenberg', 'License', 'for', 'all', 'works']}"
+    },
+    {
+      "question": "Unscramble these words: insrgi cseldrea het nma ot eb adde deaD lemsaicx reevy eon eteprns sYe sawnesr rD iisklnW aedd And how",
+      "expected_answer": "rising declares the man to be dead Dead exclaims every one present Yes answers Dr Wilkins dead And how",
+      "model_answer": "\nRising declares the man to be dead. Dead exclaims every one pretense. Yes answers Dr. Wilkins dead.  \n**Alternatively, grouped as coherent statements:**  \n\"Rising declares the man to be dead. Dead exclaims, 'Every one pretense!' 'Yes,' answers Dr. Wilkins, 'dead.'\"  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 19, 'corruption_level': 0.7716980543928428, 'scrambled_words': ['insrgi', 'cseldrea', 'het', 'nma', 'ot', 'eb', 'adde', 'deaD', 'lemsaicx', 'reevy', 'eon', 'eteprns', 'sYe', 'sawnesr', 'rD', 'iisklnW', 'aedd', 'And', 'how'], 'original_words': ['rising', 'declares', 'the', 'man', 'to', 'be', 'dead', 'Dead', 'exclaims', 'every', 'one', 'present', 'Yes', 'answers', 'Dr', 'Wilkins', 'dead', 'And', 'how']}"
+    },
+    {
+      "question": "Unscramble these words: s wlas The Foodnitaun s nbsisuse ofefci",
+      "expected_answer": "s laws The Foundation s business office",
+      "model_answer": "The Foundation's Business Office",
+      "score": 0.01,
+      "metadata": "{'num_words': 7, 'corruption_level': 0.7155163257711966, 'scrambled_words': ['s', 'wlas', 'The', 'Foodnitaun', 's', 'nbsisuse', 'ofefci'], 'original_words': ['s', 'laws', 'The', 'Foundation', 's', 'business', 'office']}"
+    },
+    {
+      "question": "Unscramble these words: impncloete enrctaiuca ro cpturor tada nrcstiaripton rerrso a horiypgct ro tehro autellcletin reorppty tefmeninirgn a dteecivef ro degamda",
+      "expected_answer": "incomplete inaccurate or corrupt data transcription errors a copyright or other intellectual property infringement a defective or damaged",
+      "model_answer": "\nThe unscrambled words are:\n\n1. incomplete  \n2. inaccurate  \n3. or  \n4. corrupt  \n5. data  \n6. transcription  \n7. errors  \n8. a  \n9. hypocrite (possible typo in the scrambled letters)  \n10. or  \n11. other  \n12. intellectual  \n13. property  \n14. fermenting  \n15. a  \n16. defective  \n17. or  \n18. damaged  \n\n**Full phrase:**  \n\"Incomplete, inaccurate, or corrupt data; transcription errors; a hypocrite (or possibly a typo) or other intellectual property; fermenting a defective or damaged...\"  \n\nNote: The scrambled word \"horiypgct\" may contain a typo. If the intended word is \"hypocrite,\" the correct scramble would be letters like \"hypocrite\" (missing 'e' and extra 'g'). Alternatively, it could be \"hypoglycemic\" or another term, but the letters don't fully align.  \n",
+      "score": 0.01,
+      "metadata": "{'num_words': 18, 'corruption_level': 0.7750348857448341, 'scrambled_words': ['impncloete', 'enrctaiuca', 'ro', 'cpturor', 'tada', 'nrcstiaripton', 'rerrso', 'a', 'horiypgct', 'ro', 'tehro', 'autellcletin', 'reorppty', 'tefmeninirgn', 'a', 'dteecivef', 'ro', 'degamda'], 'original_words': ['incomplete', 'inaccurate', 'or', 'corrupt', 'data', 'transcription', 'errors', 'a', 'copyright', 'or', 'other', 'intellectual', 'property', 'infringement', 'a', 'defective', 'or', 'damaged']}"
+    },
+    {
+      "question": "Unscramble these words: fo tehes aosrbb dan oscnende the invgil crofe odninaetc ni eth sun",
+      "expected_answer": "of these absorb and condense the living force contained in the sun",
+      "model_answer": "of these absorb and condense the living force contained in the sun",
+      "score": 1.0,
+      "metadata": "{'num_words': 12, 'corruption_level': 0.831249432414197, 'scrambled_words': ['fo', 'tehes', 'aosrbb', 'dan', 'oscnende', 'the', 'invgil', 'crofe', 'odninaetc', 'ni', 'eth', 'sun'], 'original_words': ['of', 'these', 'absorb', 'and', 'condense', 'the', 'living', 'force', 'contained', 'in', 'the', 'sun']}"
+    },
+    {
+      "question": "Unscramble these words: tiglkna ngonouripcn a anem hsi neam tizFr hTe lgidefthlu",
+      "expected_answer": "talking pronouncing a name his name Fritz The delightful",
+      "model_answer": "talking pronouncing a name his name Fritz The delightful",
+      "score": 1.0,
+      "metadata": "{'num_words': 9, 'corruption_level': 0.6610451854172503, 'scrambled_words': ['tiglkna', 'ngonouripcn', 'a', 'anem', 'hsi', 'neam', 'tizFr', 'hTe', 'lgidefthlu'], 'original_words': ['talking', 'pronouncing', 'a', 'name', 'his', 'name', 'Fritz', 'The', 'delightful']}"
+    },
+    {
+      "question": "Unscramble these words: shTi gveienn eyrV",
+      "expected_answer": "This evening Very",
+      "model_answer": "The unscrambled words are: This, Evening, Very",
+      "score": 0.01,
+      "metadata": "{'num_words': 3, 'corruption_level': 0.54496028326596, 'scrambled_words': ['shTi', 'gveienn', 'eyrV'], 'original_words': ['This', 'evening', 'Very']}"
+    },
+    {
+      "question": "Unscramble these words: tish norginm was tno giragdn fo gbeilsnss",
+      "expected_answer": "this morning was not niggard of blessings",
+      "model_answer": "This morning was not dragging of blessings.",
+      "score": 0.01,
+      "metadata": "{'num_words': 7, 'corruption_level': 0.6903320562194306, 'scrambled_words': ['tish', 'norginm', 'was', 'tno', 'giragdn', 'fo', 'gbeilsnss'], 'original_words': ['this', 'morning', 'was', 'not', 'niggard', 'of', 'blessings']}"
+    },
+    {
+      "question": "Unscramble these words: for het hewol wrlod doucl eb eye sisnwsete fo het necfeorrmpa a petorrer mwehaelin eikl",
+      "expected_answer": "for the whole world could be eye witnesses of the performance a reporter meanwhile like",
+      "model_answer": "\nFor the whole world could be eyewitnesses of the performance a reporter meanwhile like.\n\nUnscrambled words in order:\n- For\n- the\n- whole\n- world\n- could\n- be\n- eye\n- witnesses\n- of\n- the\n- performance\n- a\n- reporter\n- meanwhile\n- like\n\nThe full sentence reads: \"For the whole world could be eyewitnesses of the performance, a reporter meanwhile like...\" (Note: The final word \"like\" may require additional context for full coherence.)",
+      "score": 0.01,
+      "metadata": "{'num_words': 15, 'corruption_level': 0.8789781879753564, 'scrambled_words': ['for', 'het', 'hewol', 'wrlod', 'doucl', 'eb', 'eye', 'sisnwsete', 'fo', 'het', 'necfeorrmpa', 'a', 'petorrer', 'mwehaelin', 'eikl'], 'original_words': ['for', 'the', 'whole', 'world', 'could', 'be', 'eye', 'witnesses', 'of', 'the', 'performance', 'a', 'reporter', 'meanwhile', 'like']}"
+    },
+    {
+      "question": "Unscramble these words: na troenivn egendni aatipcl nigaa",
+      "expected_answer": "an inventor needing capital again",
+      "model_answer": "An inventor needing capital again",
+      "score": 0.01,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.7142622030186819, 'scrambled_words': ['na', 'troenivn', 'egendni', 'aatipcl', 'nigaa'], 'original_words': ['an', 'inventor', 'needing', 'capital', 'again']}"
+    },
+    {
+      "question": "Unscramble these words: F Seom atsest od not awlol iidseacmlrs fo nearitc",
+      "expected_answer": "F Some states do not allow disclaimers of certain",
+      "model_answer": "Some states do not allow disclaimers of certain",
+      "score": 0.01,
+      "metadata": "{'num_words': 9, 'corruption_level': 0.6708776002686824, 'scrambled_words': ['F', 'Seom', 'atsest', 'od', 'not', 'awlol', 'iidseacmlrs', 'fo', 'nearitc'], 'original_words': ['F', 'Some', 'states', 'do', 'not', 'allow', 'disclaimers', 'of', 'certain']}"
+    },
+    {
+      "question": "Unscramble these words: teh osppeiot dsie hwo wnsko",
+      "expected_answer": "the opposite side who knows",
+      "model_answer": "The opposite side who knows",
+      "score": 0.01,
+      "metadata": "{'num_words': 5, 'corruption_level': 0.5724881718896287, 'scrambled_words': ['teh', 'osppeiot', 'dsie', 'hwo', 'wnsko'], 'original_words': ['the', 'opposite', 'side', 'who', 'knows']}"
+    }
+  ]
+}

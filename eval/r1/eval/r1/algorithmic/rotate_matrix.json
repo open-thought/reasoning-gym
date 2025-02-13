@@ -1,0 +1,367 @@
+{
+  "dataset_name": "rotate_matrix",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.4412,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T16:04:39.126558",
+  "config": {
+    "max_n": 10,
+    "max_rotations": 4,
+    "size": 50,
+    "seed": 42
+  },
+  "results": [
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n3 1\n2 0\n",
+      "expected_answer": "2 3\n0 1",
+      "model_answer": "\n2 3\n0 1\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[3, 1], [2, 0]], 'num_rotations': 1, 'solution': [[2, 3], [0, 1]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n0\n",
+      "expected_answer": "0",
+      "model_answer": "\n0",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0]], 'num_rotations': 2, 'solution': [[0]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n28 17 38 29 8 15 26\n35 13 37 39 27 40 20\n4 30 23 16 3 5 48\n9 25 2 46 47 21 22\n31 12 41 43 19 32 10\n6 0 36 45 42 1 18\n14 24 11 7 44 34 33\n",
+      "expected_answer": "33 34 44 7 11 24 14\n18 1 42 45 36 0 6\n10 32 19 43 41 12 31\n22 21 47 46 2 25 9\n48 5 3 16 23 30 4\n20 40 27 39 37 13 35\n26 15 8 29 38 17 28",
+      "model_answer": "\n33 34 44 7 11 24 14\n18 1 42 45 36 0 6\n10 32 19 43 41 12 31\n22 21 47 46 2 25 9\n48 5 3 16 23 30 4\n20 40 27 39 37 13 35\n26 15 8 29 38 17 28\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[28, 17, 38, 29, 8, 15, 26], [35, 13, 37, 39, 27, 40, 20], [4, 30, 23, 16, 3, 5, 48], [9, 25, 2, 46, 47, 21, 22], [31, 12, 41, 43, 19, 32, 10], [6, 0, 36, 45, 42, 1, 18], [14, 24, 11, 7, 44, 34, 33]], 'num_rotations': 2, 'solution': [[33, 34, 44, 7, 11, 24, 14], [18, 1, 42, 45, 36, 0, 6], [10, 32, 19, 43, 41, 12, 31], [22, 21, 47, 46, 2, 25, 9], [48, 5, 3, 16, 23, 30, 4], [20, 40, 27, 39, 37, 13, 35], [26, 15, 8, 29, 38, 17, 28]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n20 3 6 19 22\n5 7 17 11 16\n24 14 12 4 1\n18 23 21 0 10\n9 2 8 15 13\n",
+      "expected_answer": "20 3 6 19 22\n5 7 17 11 16\n24 14 12 4 1\n18 23 21 0 10\n9 2 8 15 13",
+      "model_answer": "\n20 3 6 19 22\n5 7 17 11 16\n24 14 12 4 1\n18 23 21 0 10\n9 2 8 15 13\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[20, 3, 6, 19, 22], [5, 7, 17, 11, 16], [24, 14, 12, 4, 1], [18, 23, 21, 0, 10], [9, 2, 8, 15, 13]], 'num_rotations': 0, 'solution': [[20, 3, 6, 19, 22], [5, 7, 17, 11, 16], [24, 14, 12, 4, 1], [18, 23, 21, 0, 10], [9, 2, 8, 15, 13]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 360 degrees clockwise:\n1 2\n0 3\n",
+      "expected_answer": "1 2\n0 3",
+      "model_answer": "\n1 2\n0 3\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[1, 2], [0, 3]], 'num_rotations': 4, 'solution': [[1, 2], [0, 3]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 360 degrees clockwise:\n14 24 11 2 35 30\n26 7 5 18 34 28\n23 6 9 10 20 17\n15 8 22 3 0 32\n13 25 1 19 33 12\n31 16 21 29 27 4\n",
+      "expected_answer": "14 24 11 2 35 30\n26 7 5 18 34 28\n23 6 9 10 20 17\n15 8 22 3 0 32\n13 25 1 19 33 12\n31 16 21 29 27 4",
+      "model_answer": "\n14 24 11 2 35 30\n26 7 5 18 34 28\n23 6 9 10 20 17\n15 8 22 3 0 32\n13 25 1 19 33 12\n31 16 21 29 27 4\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[14, 24, 11, 2, 35, 30], [26, 7, 5, 18, 34, 28], [23, 6, 9, 10, 20, 17], [15, 8, 22, 3, 0, 32], [13, 25, 1, 19, 33, 12], [31, 16, 21, 29, 27, 4]], 'num_rotations': 4, 'solution': [[14, 24, 11, 2, 35, 30], [26, 7, 5, 18, 34, 28], [23, 6, 9, 10, 20, 17], [15, 8, 22, 3, 0, 32], [13, 25, 1, 19, 33, 12], [31, 16, 21, 29, 27, 4]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n37 2 14 75 20 74 29 42 32\n62 5 30 61 45 33 56 23 54\n58 7 46 77 39 47 26 50 76\n9 52 34 80 73 25 12 11 59\n22 53 49 36 0 41 79 17 15\n6 48 51 72 18 35 44 3 57\n10 43 31 8 69 67 4 1 70\n60 78 66 65 27 28 63 13 19\n21 55 24 64 38 68 71 16 40\n",
+      "expected_answer": "21 60 10 6 22 9 58 62 37\n55 78 43 48 53 52 7 5 2\n24 66 31 51 49 34 46 30 14\n64 65 8 72 36 80 77 61 75\n38 27 69 18 0 73 39 45 20\n68 28 67 35 41 25 47 33 74\n71 63 4 44 79 12 26 56 29\n16 13 1 3 17 11 50 23 42\n40 19 70 57 15 59 76 54 32",
+      "model_answer": "\n21 60 10 6 22 9 58 62 37\n55 78 43 48 53 52 7 5 2\n24 66 31 51 49 34 46 30 14\n64 65 8 72 36 80 77 61 75\n38 27 69 18 0 73 39 45 20\n68 28 67 35 41 25 47 33 74\n71 63 4 44 79 12 26 56 29\n16 13 1 3 17 11 50 23 42\n40 19 70 57 15 59 76 54 32\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[37, 2, 14, 75, 20, 74, 29, 42, 32], [62, 5, 30, 61, 45, 33, 56, 23, 54], [58, 7, 46, 77, 39, 47, 26, 50, 76], [9, 52, 34, 80, 73, 25, 12, 11, 59], [22, 53, 49, 36, 0, 41, 79, 17, 15], [6, 48, 51, 72, 18, 35, 44, 3, 57], [10, 43, 31, 8, 69, 67, 4, 1, 70], [60, 78, 66, 65, 27, 28, 63, 13, 19], [21, 55, 24, 64, 38, 68, 71, 16, 40]], 'num_rotations': 1, 'solution': [[21, 60, 10, 6, 22, 9, 58, 62, 37], [55, 78, 43, 48, 53, 52, 7, 5, 2], [24, 66, 31, 51, 49, 34, 46, 30, 14], [64, 65, 8, 72, 36, 80, 77, 61, 75], [38, 27, 69, 18, 0, 73, 39, 45, 20], [68, 28, 67, 35, 41, 25, 47, 33, 74], [71, 63, 4, 44, 79, 12, 26, 56, 29], [16, 13, 1, 3, 17, 11, 50, 23, 42], [40, 19, 70, 57, 15, 59, 76, 54, 32]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n3 0\n1 2\n",
+      "expected_answer": "2 1\n0 3",
+      "model_answer": "\n2 1\n0 3\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[3, 0], [1, 2]], 'num_rotations': 2, 'solution': [[2, 1], [0, 3]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n32 36 2 16 41 59 19 17\n7 53 50 1 11 47 60 33\n28 24 26 56 62 18 29 31\n45 3 58 13 25 8 10 42\n0 37 39 61 48 27 38 55\n4 12 51 52 46 6 22 9\n54 35 43 14 20 63 5 21\n49 30 44 15 57 40 23 34\n",
+      "expected_answer": "32 36 2 16 41 59 19 17\n7 53 50 1 11 47 60 33\n28 24 26 56 62 18 29 31\n45 3 58 13 25 8 10 42\n0 37 39 61 48 27 38 55\n4 12 51 52 46 6 22 9\n54 35 43 14 20 63 5 21\n49 30 44 15 57 40 23 34",
+      "model_answer": "\n32 36 2 16 41 59 19 17\n7 53 50 1 11 47 60 33\n28 24 26 56 62 18 29 31\n45 3 58 13 25 8 10 42\n0 37 39 61 48 27 38 55\n4 12 51 52 46 6 22 9\n54 35 43 14 20 63 5 21\n49 30 44 15 57 40 23 34\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[32, 36, 2, 16, 41, 59, 19, 17], [7, 53, 50, 1, 11, 47, 60, 33], [28, 24, 26, 56, 62, 18, 29, 31], [45, 3, 58, 13, 25, 8, 10, 42], [0, 37, 39, 61, 48, 27, 38, 55], [4, 12, 51, 52, 46, 6, 22, 9], [54, 35, 43, 14, 20, 63, 5, 21], [49, 30, 44, 15, 57, 40, 23, 34]], 'num_rotations': 0, 'solution': [[32, 36, 2, 16, 41, 59, 19, 17], [7, 53, 50, 1, 11, 47, 60, 33], [28, 24, 26, 56, 62, 18, 29, 31], [45, 3, 58, 13, 25, 8, 10, 42], [0, 37, 39, 61, 48, 27, 38, 55], [4, 12, 51, 52, 46, 6, 22, 9], [54, 35, 43, 14, 20, 63, 5, 21], [49, 30, 44, 15, 57, 40, 23, 34]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n0 1 12 2\n10 9 15 7\n11 6 4 8\n14 13 3 5\n",
+      "expected_answer": "2 7 8 5\n12 15 4 3\n1 9 6 13\n0 10 11 14",
+      "model_answer": "\n2 7 8 5\n12 15 4 3\n1 9 6 13\n0 10 11 14\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0, 1, 12, 2], [10, 9, 15, 7], [11, 6, 4, 8], [14, 13, 3, 5]], 'num_rotations': 3, 'solution': [[2, 7, 8, 5], [12, 15, 4, 3], [1, 9, 6, 13], [0, 10, 11, 14]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n17 14 20 12 18\n8 3 6 9 0\n10 7 22 2 21\n19 5 4 24 13\n11 15 16 23 1\n",
+      "expected_answer": "18 0 21 13 1\n12 9 2 24 23\n20 6 22 4 16\n14 3 7 5 15\n17 8 10 19 11",
+      "model_answer": "\n18 0 21 13 1\n12 9 2 24 23\n20 6 22 4 16\n14 3 7 5 15\n17 8 10 19 11\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[17, 14, 20, 12, 18], [8, 3, 6, 9, 0], [10, 7, 22, 2, 21], [19, 5, 4, 24, 13], [11, 15, 16, 23, 1]], 'num_rotations': 3, 'solution': [[18, 0, 21, 13, 1], [12, 9, 2, 24, 23], [20, 6, 22, 4, 16], [14, 3, 7, 5, 15], [17, 8, 10, 19, 11]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n8 0 89 18 39 50 45 12 77 13\n57 72 55 93 1 32 34 99 81 85\n23 59 69 36 54 83 31 38 10 75\n74 71 47 26 24 60 95 76 20 67\n78 53 79 82 43 2 5 94 70 37\n22 14 30 73 41 62 90 48 9 63\n68 15 28 49 52 11 19 35 42 84\n51 65 40 97 87 17 86 80 25 56\n29 92 6 88 7 33 16 44 21 4\n3 98 46 66 96 61 91 64 58 27\n",
+      "expected_answer": "27 58 64 91 61 96 66 46 98 3\n4 21 44 16 33 7 88 6 92 29\n56 25 80 86 17 87 97 40 65 51\n84 42 35 19 11 52 49 28 15 68\n63 9 48 90 62 41 73 30 14 22\n37 70 94 5 2 43 82 79 53 78\n67 20 76 95 60 24 26 47 71 74\n75 10 38 31 83 54 36 69 59 23\n85 81 99 34 32 1 93 55 72 57\n13 77 12 45 50 39 18 89 0 8",
+      "model_answer": "\n27 58 64 91 61 96 66 46 98 3\n4 21 44 16 33 7 88 6 92 29\n56 25 80 86 17 87 97 40 65 51\n84 42 35 19 11 52 49 28 15 68\n63 9 48 90 62 41 73 30 14 22\n37 70 94 5 2 43 82 79 53 78\n67 20 76 95 60 24 26 47 71 74\n75 10 38 31 83 54 36 69 59 23\n85 81 99 34 32 1 93 55 72 57\n13 77 12 45 50 39 18 89 0 8\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[8, 0, 89, 18, 39, 50, 45, 12, 77, 13], [57, 72, 55, 93, 1, 32, 34, 99, 81, 85], [23, 59, 69, 36, 54, 83, 31, 38, 10, 75], [74, 71, 47, 26, 24, 60, 95, 76, 20, 67], [78, 53, 79, 82, 43, 2, 5, 94, 70, 37], [22, 14, 30, 73, 41, 62, 90, 48, 9, 63], [68, 15, 28, 49, 52, 11, 19, 35, 42, 84], [51, 65, 40, 97, 87, 17, 86, 80, 25, 56], [29, 92, 6, 88, 7, 33, 16, 44, 21, 4], [3, 98, 46, 66, 96, 61, 91, 64, 58, 27]], 'num_rotations': 2, 'solution': [[27, 58, 64, 91, 61, 96, 66, 46, 98, 3], [4, 21, 44, 16, 33, 7, 88, 6, 92, 29], [56, 25, 80, 86, 17, 87, 97, 40, 65, 51], [84, 42, 35, 19, 11, 52, 49, 28, 15, 68], [63, 9, 48, 90, 62, 41, 73, 30, 14, 22], [37, 70, 94, 5, 2, 43, 82, 79, 53, 78], [67, 20, 76, 95, 60, 24, 26, 47, 71, 74], [75, 10, 38, 31, 83, 54, 36, 69, 59, 23], [85, 81, 99, 34, 32, 1, 93, 55, 72, 57], [13, 77, 12, 45, 50, 39, 18, 89, 0, 8]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 360 degrees clockwise:\n0 2 8\n1 5 6\n3 4 7\n",
+      "expected_answer": "0 2 8\n1 5 6\n3 4 7",
+      "model_answer": "\n0 2 8\n1 5 6\n3 4 7\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0, 2, 8], [1, 5, 6], [3, 4, 7]], 'num_rotations': 4, 'solution': [[0, 2, 8], [1, 5, 6], [3, 4, 7]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n2 3\n0 1\n",
+      "expected_answer": "2 3\n0 1",
+      "model_answer": "\n2 3\n0 1\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[2, 3], [0, 1]], 'num_rotations': 0, 'solution': [[2, 3], [0, 1]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n62 63 46 61 79 44 25 5 76\n36 20 78 10 7 37 14 54 22\n74 77 75 56 19 3 64 16 30\n21 18 27 41 34 67 0 23 31\n51 72 40 52 48 33 50 4 42\n71 58 45 55 28 13 35 73 39\n65 11 15 57 24 9 59 80 70\n49 17 6 68 2 26 32 43 8\n47 12 29 53 69 38 66 60 1\n",
+      "expected_answer": "1 60 66 38 69 53 29 12 47\n8 43 32 26 2 68 6 17 49\n70 80 59 9 24 57 15 11 65\n39 73 35 13 28 55 45 58 71\n42 4 50 33 48 52 40 72 51\n31 23 0 67 34 41 27 18 21\n30 16 64 3 19 56 75 77 74\n22 54 14 37 7 10 78 20 36\n76 5 25 44 79 61 46 63 62",
+      "model_answer": "\n1 60 66 38 69 53 29 12 47\n8 43 32 26 2 68 6 17 49\n70 80 59 9 24 57 15 11 65\n39 73 35 13 28 55 45 58 71\n42 4 50 33 48 52 40 72 51\n31 23 0 67 34 41 27 18 21\n30 16 64 3 19 56 75 77 74\n22 54 14 37 7 10 78 20 36\n76 5 25 44 79 61 46 63 62\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[62, 63, 46, 61, 79, 44, 25, 5, 76], [36, 20, 78, 10, 7, 37, 14, 54, 22], [74, 77, 75, 56, 19, 3, 64, 16, 30], [21, 18, 27, 41, 34, 67, 0, 23, 31], [51, 72, 40, 52, 48, 33, 50, 4, 42], [71, 58, 45, 55, 28, 13, 35, 73, 39], [65, 11, 15, 57, 24, 9, 59, 80, 70], [49, 17, 6, 68, 2, 26, 32, 43, 8], [47, 12, 29, 53, 69, 38, 66, 60, 1]], 'num_rotations': 2, 'solution': [[1, 60, 66, 38, 69, 53, 29, 12, 47], [8, 43, 32, 26, 2, 68, 6, 17, 49], [70, 80, 59, 9, 24, 57, 15, 11, 65], [39, 73, 35, 13, 28, 55, 45, 58, 71], [42, 4, 50, 33, 48, 52, 40, 72, 51], [31, 23, 0, 67, 34, 41, 27, 18, 21], [30, 16, 64, 3, 19, 56, 75, 77, 74], [22, 54, 14, 37, 7, 10, 78, 20, 36], [76, 5, 25, 44, 79, 61, 46, 63, 62]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n0\n",
+      "expected_answer": "0",
+      "model_answer": "\n0\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0]], 'num_rotations': 2, 'solution': [[0]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n34 64 73 59 63 93 88 3 0 76\n50 40 69 79 11 35 20 98 86 77\n15 67 97 2 84 44 91 72 19 90\n56 29 96 80 18 85 95 65 21 41\n75 66 42 32 30 6 52 61 49 16\n81 14 46 54 55 8 28 71 10 68\n58 43 83 31 22 39 37 23 4 38\n17 12 7 47 48 70 87 9 60 27\n62 1 13 74 89 53 78 92 33 36\n45 51 57 24 5 99 82 94 26 25\n",
+      "expected_answer": "34 64 73 59 63 93 88 3 0 76\n50 40 69 79 11 35 20 98 86 77\n15 67 97 2 84 44 91 72 19 90\n56 29 96 80 18 85 95 65 21 41\n75 66 42 32 30 6 52 61 49 16\n81 14 46 54 55 8 28 71 10 68\n58 43 83 31 22 39 37 23 4 38\n17 12 7 47 48 70 87 9 60 27\n62 1 13 74 89 53 78 92 33 36\n45 51 57 24 5 99 82 94 26 25",
+      "model_answer": "\n34 64 73 59 63 93 88 3 0 76\n50 40 69 79 11 35 20 98 86 77\n15 67 97 2 84 44 91 72 19 90\n56 29 96 80 18 85 95 65 21 41\n75 66 42 32 30 6 52 61 49 16\n81 14 46 54 55 8 28 71 10 68\n58 43 83 31 22 39 37 23 4 38\n17 12 7 47 48 70 87 9 60 27\n62 1 13 74 89 53 78 92 33 36\n45 51 57 24 5 99 82 94 26 25\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[34, 64, 73, 59, 63, 93, 88, 3, 0, 76], [50, 40, 69, 79, 11, 35, 20, 98, 86, 77], [15, 67, 97, 2, 84, 44, 91, 72, 19, 90], [56, 29, 96, 80, 18, 85, 95, 65, 21, 41], [75, 66, 42, 32, 30, 6, 52, 61, 49, 16], [81, 14, 46, 54, 55, 8, 28, 71, 10, 68], [58, 43, 83, 31, 22, 39, 37, 23, 4, 38], [17, 12, 7, 47, 48, 70, 87, 9, 60, 27], [62, 1, 13, 74, 89, 53, 78, 92, 33, 36], [45, 51, 57, 24, 5, 99, 82, 94, 26, 25]], 'num_rotations': 0, 'solution': [[34, 64, 73, 59, 63, 93, 88, 3, 0, 76], [50, 40, 69, 79, 11, 35, 20, 98, 86, 77], [15, 67, 97, 2, 84, 44, 91, 72, 19, 90], [56, 29, 96, 80, 18, 85, 95, 65, 21, 41], [75, 66, 42, 32, 30, 6, 52, 61, 49, 16], [81, 14, 46, 54, 55, 8, 28, 71, 10, 68], [58, 43, 83, 31, 22, 39, 37, 23, 4, 38], [17, 12, 7, 47, 48, 70, 87, 9, 60, 27], [62, 1, 13, 74, 89, 53, 78, 92, 33, 36], [45, 51, 57, 24, 5, 99, 82, 94, 26, 25]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n12 1 13 9\n5 3 6 8\n11 4 15 0\n7 10 14 2\n",
+      "expected_answer": "7 11 5 12\n10 4 3 1\n14 15 6 13\n2 0 8 9",
+      "model_answer": "\n7 11 5 12\n10 4 3 1\n14 15 6 13\n2 0 8 9\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[12, 1, 13, 9], [5, 3, 6, 8], [11, 4, 15, 0], [7, 10, 14, 2]], 'num_rotations': 1, 'solution': [[7, 11, 5, 12], [10, 4, 3, 1], [14, 15, 6, 13], [2, 0, 8, 9]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 360 degrees clockwise:\n11 20 23 22 16\n5 21 24 3 0\n6 12 19 13 17\n2 1 10 14 15\n7 8 4 18 9\n",
+      "expected_answer": "11 20 23 22 16\n5 21 24 3 0\n6 12 19 13 17\n2 1 10 14 15\n7 8 4 18 9",
+      "model_answer": "\n11 20 23 22 16\n5 21 24 3 0\n6 12 19 13 17\n2 1 10 14 15\n7 8 4 18 9\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[11, 20, 23, 22, 16], [5, 21, 24, 3, 0], [6, 12, 19, 13, 17], [2, 1, 10, 14, 15], [7, 8, 4, 18, 9]], 'num_rotations': 4, 'solution': [[11, 20, 23, 22, 16], [5, 21, 24, 3, 0], [6, 12, 19, 13, 17], [2, 1, 10, 14, 15], [7, 8, 4, 18, 9]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n37 24 15 3 26 47 62 6\n12 17 16 38 50 42 2 49\n7 52 61 34 33 43 30 56\n39 19 28 14 45 36 63 41\n57 48 8 9 27 53 54 11\n5 32 0 40 46 10 21 29\n25 4 55 22 31 1 44 60\n59 18 20 58 51 13 35 23\n",
+      "expected_answer": "6 49 56 41 11 29 60 23\n62 2 30 63 54 21 44 35\n47 42 43 36 53 10 1 13\n26 50 33 45 27 46 31 51\n3 38 34 14 9 40 22 58\n15 16 61 28 8 0 55 20\n24 17 52 19 48 32 4 18\n37 12 7 39 57 5 25 59",
+      "model_answer": "\n59 25 5 57 39 7 12 37 \n18 4 32 48 19 52 17 24 \n20 55 0 8 28 61 16 15 \n58 22 40 9 14 34 38 3 \n51 31 46 27 45 33 50 26 \n13 1 10 53 36 43 42 47 \n35 44 21 54 63 30 2 62 \n23 60 29 11 41 56 49 6 \n",
+      "score": 0.01,
+      "metadata": "{'matrix': [[37, 24, 15, 3, 26, 47, 62, 6], [12, 17, 16, 38, 50, 42, 2, 49], [7, 52, 61, 34, 33, 43, 30, 56], [39, 19, 28, 14, 45, 36, 63, 41], [57, 48, 8, 9, 27, 53, 54, 11], [5, 32, 0, 40, 46, 10, 21, 29], [25, 4, 55, 22, 31, 1, 44, 60], [59, 18, 20, 58, 51, 13, 35, 23]], 'num_rotations': 3, 'solution': [[6, 49, 56, 41, 11, 29, 60, 23], [62, 2, 30, 63, 54, 21, 44, 35], [47, 42, 43, 36, 53, 10, 1, 13], [26, 50, 33, 45, 27, 46, 31, 51], [3, 38, 34, 14, 9, 40, 22, 58], [15, 16, 61, 28, 8, 0, 55, 20], [24, 17, 52, 19, 48, 32, 4, 18], [37, 12, 7, 39, 57, 5, 25, 59]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n87 4 52 61 13 32 35 72 73 76\n29 26 5 42 91 7 47 14 24 83\n70 16 97 53 93 67 56 34 48 99\n62 25 71 94 74 40 51 19 31 28\n90 6 98 58 9 88 54 37 49 36\n64 80 86 11 12 17 63 44 84 77\n38 18 55 68 1 96 46 78 95 50\n79 57 69 41 10 27 89 75 43 2\n66 82 60 3 15 92 81 33 0 20\n23 65 21 45 85 39 59 30 8 22\n",
+      "expected_answer": "76 83 99 28 36 77 50 2 20 22\n73 24 48 31 49 84 95 43 0 8\n72 14 34 19 37 44 78 75 33 30\n35 47 56 51 54 63 46 89 81 59\n32 7 67 40 88 17 96 27 92 39\n13 91 93 74 9 12 1 10 15 85\n61 42 53 94 58 11 68 41 3 45\n52 5 97 71 98 86 55 69 60 21\n4 26 16 25 6 80 18 57 82 65\n87 29 70 62 90 64 38 79 66 23",
+      "model_answer": "\n76 73 72 35 32 13 61 52 4 87\n83 24 14 47 7 91 42 5 26 29\n99 48 34 56 67 93 53 97 16 70\n28 31 19 51 40 74 94 71 25 62\n36 49 37 54 88 9 58 98 6 90\n77 84 44 63 17 12 11 86 80 64\n50 95 78 46 96 1 68 55 18 38\n2 43 75 89 27 10 41 69 57 79\n20 0 33 81 92 15 3 60 82 66\n22 8 30 59 39 85 45 21 65 23\n\nAfter rotating 270 degrees clockwise, the matrix becomes:\n\n76 83 99 28 36 77 50 2 20 22\n73 24 48 31 49 84 95 43 0 8\n72 14 34 19 37 44 78 75 33 30\n35 47 56 51 54 63 46 89 81 59\n32 7 67 40 88 17 96 27 92 39\n13 91 93 74 9 12 1 10 15 85\n61 42 53 94 58 11 68 41 3 45\n52 5 97 71 98 86 55 69 60 21\n4 26 16 25 6 80 18 57 82 65\n87 29 70 62 90 64 38 79 66 23\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[87, 4, 52, 61, 13, 32, 35, 72, 73, 76], [29, 26, 5, 42, 91, 7, 47, 14, 24, 83], [70, 16, 97, 53, 93, 67, 56, 34, 48, 99], [62, 25, 71, 94, 74, 40, 51, 19, 31, 28], [90, 6, 98, 58, 9, 88, 54, 37, 49, 36], [64, 80, 86, 11, 12, 17, 63, 44, 84, 77], [38, 18, 55, 68, 1, 96, 46, 78, 95, 50], [79, 57, 69, 41, 10, 27, 89, 75, 43, 2], [66, 82, 60, 3, 15, 92, 81, 33, 0, 20], [23, 65, 21, 45, 85, 39, 59, 30, 8, 22]], 'num_rotations': 3, 'solution': [[76, 83, 99, 28, 36, 77, 50, 2, 20, 22], [73, 24, 48, 31, 49, 84, 95, 43, 0, 8], [72, 14, 34, 19, 37, 44, 78, 75, 33, 30], [35, 47, 56, 51, 54, 63, 46, 89, 81, 59], [32, 7, 67, 40, 88, 17, 96, 27, 92, 39], [13, 91, 93, 74, 9, 12, 1, 10, 15, 85], [61, 42, 53, 94, 58, 11, 68, 41, 3, 45], [52, 5, 97, 71, 98, 86, 55, 69, 60, 21], [4, 26, 16, 25, 6, 80, 18, 57, 82, 65], [87, 29, 70, 62, 90, 64, 38, 79, 66, 23]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 360 degrees clockwise:\n7 41 54 29 48 9 36 25\n28 11 61 13 60 31 38 34\n50 20 53 49 0 32 55 46\n35 26 37 44 6 22 45 23\n33 27 43 10 2 1 17 15\n21 8 51 14 3 39 19 40\n52 62 12 57 4 63 47 24\n5 42 30 16 58 59 18 56\n",
+      "expected_answer": "7 41 54 29 48 9 36 25\n28 11 61 13 60 31 38 34\n50 20 53 49 0 32 55 46\n35 26 37 44 6 22 45 23\n33 27 43 10 2 1 17 15\n21 8 51 14 3 39 19 40\n52 62 12 57 4 63 47 24\n5 42 30 16 58 59 18 56",
+      "model_answer": "\n7 41 54 29 48 9 36 25\n28 11 61 13 60 31 38 34\n50 20 53 49 0 32 55 46\n35 26 37 44 6 22 45 23\n33 27 43 10 2 1 17 15\n21 8 51 14 3 39 19 40\n52 62 12 57 4 63 47 24\n5 42 30 16 58 59 18 56\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[7, 41, 54, 29, 48, 9, 36, 25], [28, 11, 61, 13, 60, 31, 38, 34], [50, 20, 53, 49, 0, 32, 55, 46], [35, 26, 37, 44, 6, 22, 45, 23], [33, 27, 43, 10, 2, 1, 17, 15], [21, 8, 51, 14, 3, 39, 19, 40], [52, 62, 12, 57, 4, 63, 47, 24], [5, 42, 30, 16, 58, 59, 18, 56]], 'num_rotations': 4, 'solution': [[7, 41, 54, 29, 48, 9, 36, 25], [28, 11, 61, 13, 60, 31, 38, 34], [50, 20, 53, 49, 0, 32, 55, 46], [35, 26, 37, 44, 6, 22, 45, 23], [33, 27, 43, 10, 2, 1, 17, 15], [21, 8, 51, 14, 3, 39, 19, 40], [52, 62, 12, 57, 4, 63, 47, 24], [5, 42, 30, 16, 58, 59, 18, 56]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n21 52 22 27 29 18 47 10\n20 7 3 61 57 30 8 63\n19 23 33 36 55 54 37 46\n35 31 32 24 38 50 59 42\n14 16 2 6 11 4 0 60\n53 56 49 28 26 5 9 41\n44 12 48 62 51 45 17 13\n1 43 58 34 25 39 40 15\n",
+      "expected_answer": "21 52 22 27 29 18 47 10\n20 7 3 61 57 30 8 63\n19 23 33 36 55 54 37 46\n35 31 32 24 38 50 59 42\n14 16 2 6 11 4 0 60\n53 56 49 28 26 5 9 41\n44 12 48 62 51 45 17 13\n1 43 58 34 25 39 40 15",
+      "model_answer": "\n21 52 22 27 29 18 47 10\n20 7 3 61 57 30 8 63\n19 23 33 36 55 54 37 46\n35 31 32 24 38 50 59 42\n14 16 2 6 11 4 0 60\n53 56 49 28 26 5 9 41\n44 12 48 62 51 45 17 13\n1 43 58 34 25 39 40 15\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[21, 52, 22, 27, 29, 18, 47, 10], [20, 7, 3, 61, 57, 30, 8, 63], [19, 23, 33, 36, 55, 54, 37, 46], [35, 31, 32, 24, 38, 50, 59, 42], [14, 16, 2, 6, 11, 4, 0, 60], [53, 56, 49, 28, 26, 5, 9, 41], [44, 12, 48, 62, 51, 45, 17, 13], [1, 43, 58, 34, 25, 39, 40, 15]], 'num_rotations': 0, 'solution': [[21, 52, 22, 27, 29, 18, 47, 10], [20, 7, 3, 61, 57, 30, 8, 63], [19, 23, 33, 36, 55, 54, 37, 46], [35, 31, 32, 24, 38, 50, 59, 42], [14, 16, 2, 6, 11, 4, 0, 60], [53, 56, 49, 28, 26, 5, 9, 41], [44, 12, 48, 62, 51, 45, 17, 13], [1, 43, 58, 34, 25, 39, 40, 15]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n31 24 46 2 38 41 25\n0 9 15 6 20 10 13\n37 7 17 47 11 34 26\n39 36 23 42 5 3 8\n1 22 19 30 12 16 43\n40 4 45 27 21 35 44\n33 29 28 14 32 48 18\n",
+      "expected_answer": "18 48 32 14 28 29 33\n44 35 21 27 45 4 40\n43 16 12 30 19 22 1\n8 3 5 42 23 36 39\n26 34 11 47 17 7 37\n13 10 20 6 15 9 0\n25 41 38 2 46 24 31",
+      "model_answer": "\n18 48 32 14 28 29 33\n44 35 21 27 45 4 40\n43 16 12 30 19 22 1\n8 3 5 42 23 36 39\n26 34 11 47 17 7 37\n13 10 20 6 15 9 0\n25 41 38 2 46 24 31\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[31, 24, 46, 2, 38, 41, 25], [0, 9, 15, 6, 20, 10, 13], [37, 7, 17, 47, 11, 34, 26], [39, 36, 23, 42, 5, 3, 8], [1, 22, 19, 30, 12, 16, 43], [40, 4, 45, 27, 21, 35, 44], [33, 29, 28, 14, 32, 48, 18]], 'num_rotations': 2, 'solution': [[18, 48, 32, 14, 28, 29, 33], [44, 35, 21, 27, 45, 4, 40], [43, 16, 12, 30, 19, 22, 1], [8, 3, 5, 42, 23, 36, 39], [26, 34, 11, 47, 17, 7, 37], [13, 10, 20, 6, 15, 9, 0], [25, 41, 38, 2, 46, 24, 31]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n3 0\n1 2\n",
+      "expected_answer": "0 2\n3 1",
+      "model_answer": "\n0 2\n3 1\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[3, 0], [1, 2]], 'num_rotations': 3, 'solution': [[0, 2], [3, 1]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n3 2\n1 0\n",
+      "expected_answer": "2 0\n3 1",
+      "model_answer": "\n2 0\n3 1\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[3, 2], [1, 0]], 'num_rotations': 3, 'solution': [[2, 0], [3, 1]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n49 24 45 63 39 13 8 29\n60 1 31 9 42 56 50 40\n25 61 19 26 32 20 18 44\n54 47 22 4 57 48 17 52\n59 33 0 36 12 11 62 5\n3 53 6 58 34 2 7 41\n51 10 23 35 28 21 43 55\n46 16 30 27 15 37 38 14\n",
+      "expected_answer": "29 40 44 52 5 41 55 14\n8 50 18 17 62 7 43 38\n13 56 20 48 11 2 21 37\n39 42 32 57 12 34 28 15\n63 9 26 4 36 58 35 27\n45 31 19 22 0 6 23 30\n24 1 61 47 33 53 10 16\n49 60 25 54 59 3 51 46",
+      "model_answer": "\n14 55 41 5 52 44 40 29\n38 43 7 62 17 18 50 8\n37 21 2 11 48 20 56 13\n15 28 34 12 57 32 42 39\n27 35 58 36 4 26 9 63\n30 23 6 0 22 19 31 45\n16 10 53 33 47 61 1 24\n46 51 3 59 54 25 60 49\n",
+      "score": 0.01,
+      "metadata": "{'matrix': [[49, 24, 45, 63, 39, 13, 8, 29], [60, 1, 31, 9, 42, 56, 50, 40], [25, 61, 19, 26, 32, 20, 18, 44], [54, 47, 22, 4, 57, 48, 17, 52], [59, 33, 0, 36, 12, 11, 62, 5], [3, 53, 6, 58, 34, 2, 7, 41], [51, 10, 23, 35, 28, 21, 43, 55], [46, 16, 30, 27, 15, 37, 38, 14]], 'num_rotations': 3, 'solution': [[29, 40, 44, 52, 5, 41, 55, 14], [8, 50, 18, 17, 62, 7, 43, 38], [13, 56, 20, 48, 11, 2, 21, 37], [39, 42, 32, 57, 12, 34, 28, 15], [63, 9, 26, 4, 36, 58, 35, 27], [45, 31, 19, 22, 0, 6, 23, 30], [24, 1, 61, 47, 33, 53, 10, 16], [49, 60, 25, 54, 59, 3, 51, 46]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n0\n",
+      "expected_answer": "0",
+      "model_answer": "\n0\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0]], 'num_rotations': 0, 'solution': [[0]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n0 1\n3 2\n",
+      "expected_answer": "1 2\n0 3",
+      "model_answer": "\n1 2\n0 3\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0, 1], [3, 2]], 'num_rotations': 3, 'solution': [[1, 2], [0, 3]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n15 18 17 31 25 30\n7 29 3 13 10 24\n22 35 21 26 5 20\n4 14 11 23 34 27\n28 19 1 33 6 2\n8 12 9 16 0 32\n",
+      "expected_answer": "8 28 4 22 7 15\n12 19 14 35 29 18\n9 1 11 21 3 17\n16 33 23 26 13 31\n0 6 34 5 10 25\n32 2 27 20 24 30",
+      "model_answer": "\n8 28 4 22 7 15  \n12 19 14 35 29 18  \n9 1 11 21 3 17  \n16 33 23 26 13 31  \n0 6 34 5 10 25  \n32 2 27 20 24 30  \n",
+      "score": 0.01,
+      "metadata": "{'matrix': [[15, 18, 17, 31, 25, 30], [7, 29, 3, 13, 10, 24], [22, 35, 21, 26, 5, 20], [4, 14, 11, 23, 34, 27], [28, 19, 1, 33, 6, 2], [8, 12, 9, 16, 0, 32]], 'num_rotations': 1, 'solution': [[8, 28, 4, 22, 7, 15], [12, 19, 14, 35, 29, 18], [9, 1, 11, 21, 3, 17], [16, 33, 23, 26, 13, 31], [0, 6, 34, 5, 10, 25], [32, 2, 27, 20, 24, 30]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n0 2\n3 1\n",
+      "expected_answer": "1 3\n2 0",
+      "model_answer": "\n1 3\n2 0\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0, 2], [3, 1]], 'num_rotations': 2, 'solution': [[1, 3], [2, 0]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n20 10 13 17 23\n21 11 6 4 0\n1 7 24 19 8\n12 22 2 9 14\n5 18 15 16 3\n",
+      "expected_answer": "23 0 8 14 3\n17 4 19 9 16\n13 6 24 2 15\n10 11 7 22 18\n20 21 1 12 5",
+      "model_answer": "\nThe matrix rotated by 270 degrees clockwise is:\n\n23 0 8 14 3  \n17 4 19 9 16  \n13 6 24 2 15  \n10 11 7 22 18  \n20 21 1 12 5  \n",
+      "score": 0.01,
+      "metadata": "{'matrix': [[20, 10, 13, 17, 23], [21, 11, 6, 4, 0], [1, 7, 24, 19, 8], [12, 22, 2, 9, 14], [5, 18, 15, 16, 3]], 'num_rotations': 3, 'solution': [[23, 0, 8, 14, 3], [17, 4, 19, 9, 16], [13, 6, 24, 2, 15], [10, 11, 7, 22, 18], [20, 21, 1, 12, 5]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n89 43 62 18 81 41 4 13 60 83\n63 51 91 71 26 74 84 37 47 78\n48 94 77 52 17 22 66 33 68 85\n70 12 50 72 8 73 28 3 46 98\n86 95 24 49 76 82 11 38 10 69\n9 75 45 31 36 59 88 6 54 92\n61 1 2 42 93 7 20 25 80 55\n32 34 30 53 19 90 29 16 5 99\n0 79 64 87 97 21 57 35 67 58\n56 96 44 27 23 39 15 40 14 65\n",
+      "expected_answer": "65 14 40 15 39 23 27 44 96 56\n58 67 35 57 21 97 87 64 79 0\n99 5 16 29 90 19 53 30 34 32\n55 80 25 20 7 93 42 2 1 61\n92 54 6 88 59 36 31 45 75 9\n69 10 38 11 82 76 49 24 95 86\n98 46 3 28 73 8 72 50 12 70\n85 68 33 66 22 17 52 77 94 48\n78 47 37 84 74 26 71 91 51 63\n83 60 13 4 41 81 18 62 43 89",
+      "model_answer": "\n65 14 40 15 39 23 27 44 96 56\n58 67 35 57 21 97 87 64 79 0\n99 5 16 29 90 19 53 30 34 32\n55 80 25 20 7 93 42 2 1 61\n92 54 6 88 59 36 31 45 75 9\n69 10 38 11 82 76 49 24 95 86\n98 46 3 28 73 8 72 50 12 70\n85 68 33 66 22 17 52 77 94 48\n78 47 37 84 74 26 71 91 51 63\n83 60 13 4 41 81 18 62 43 89\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[89, 43, 62, 18, 81, 41, 4, 13, 60, 83], [63, 51, 91, 71, 26, 74, 84, 37, 47, 78], [48, 94, 77, 52, 17, 22, 66, 33, 68, 85], [70, 12, 50, 72, 8, 73, 28, 3, 46, 98], [86, 95, 24, 49, 76, 82, 11, 38, 10, 69], [9, 75, 45, 31, 36, 59, 88, 6, 54, 92], [61, 1, 2, 42, 93, 7, 20, 25, 80, 55], [32, 34, 30, 53, 19, 90, 29, 16, 5, 99], [0, 79, 64, 87, 97, 21, 57, 35, 67, 58], [56, 96, 44, 27, 23, 39, 15, 40, 14, 65]], 'num_rotations': 2, 'solution': [[65, 14, 40, 15, 39, 23, 27, 44, 96, 56], [58, 67, 35, 57, 21, 97, 87, 64, 79, 0], [99, 5, 16, 29, 90, 19, 53, 30, 34, 32], [55, 80, 25, 20, 7, 93, 42, 2, 1, 61], [92, 54, 6, 88, 59, 36, 31, 45, 75, 9], [69, 10, 38, 11, 82, 76, 49, 24, 95, 86], [98, 46, 3, 28, 73, 8, 72, 50, 12, 70], [85, 68, 33, 66, 22, 17, 52, 77, 94, 48], [78, 47, 37, 84, 74, 26, 71, 91, 51, 63], [83, 60, 13, 4, 41, 81, 18, 62, 43, 89]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n7 13 11 21 18 23 45 37\n35 33 58 56 40 41 3 10\n39 47 61 36 25 27 0 14\n60 19 15 9 4 28 59 8\n12 62 34 24 1 26 48 52\n38 50 63 31 17 16 5 20\n51 6 22 44 53 57 30 42\n54 43 32 49 46 2 29 55\n",
+      "expected_answer": "54 51 38 12 60 39 35 7\n43 6 50 62 19 47 33 13\n32 22 63 34 15 61 58 11\n49 44 31 24 9 36 56 21\n46 53 17 1 4 25 40 18\n2 57 16 26 28 27 41 23\n29 30 5 48 59 0 3 45\n55 42 20 52 8 14 10 37",
+      "model_answer": "\n54 51 38 12 60 39 35 7\n43 6 50 62 19 47 33 13\n32 22 63 34 15 61 58 11\n49 44 31 24 9 36 56 21\n46 53 17 1 4 25 40 18\n2 57 16 26 28 27 41 23\n29 30 5 48 59 0 3 45\n55 42 20 52 8 14 10 37\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[7, 13, 11, 21, 18, 23, 45, 37], [35, 33, 58, 56, 40, 41, 3, 10], [39, 47, 61, 36, 25, 27, 0, 14], [60, 19, 15, 9, 4, 28, 59, 8], [12, 62, 34, 24, 1, 26, 48, 52], [38, 50, 63, 31, 17, 16, 5, 20], [51, 6, 22, 44, 53, 57, 30, 42], [54, 43, 32, 49, 46, 2, 29, 55]], 'num_rotations': 1, 'solution': [[54, 51, 38, 12, 60, 39, 35, 7], [43, 6, 50, 62, 19, 47, 33, 13], [32, 22, 63, 34, 15, 61, 58, 11], [49, 44, 31, 24, 9, 36, 56, 21], [46, 53, 17, 1, 4, 25, 40, 18], [2, 57, 16, 26, 28, 27, 41, 23], [29, 30, 5, 48, 59, 0, 3, 45], [55, 42, 20, 52, 8, 14, 10, 37]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n4 21 8 16 11 25\n23 18 5 31 30 33\n32 6 17 0 1 20\n22 35 10 2 28 15\n14 34 27 9 7 26\n13 3 19 12 24 29\n",
+      "expected_answer": "4 21 8 16 11 25\n23 18 5 31 30 33\n32 6 17 0 1 20\n22 35 10 2 28 15\n14 34 27 9 7 26\n13 3 19 12 24 29",
+      "model_answer": "\n4 21 8 16 11 25\n23 18 5 31 30 33\n32 6 17 0 1 20\n22 35 10 2 28 15\n14 34 27 9 7 26\n13 3 19 12 24 29\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[4, 21, 8, 16, 11, 25], [23, 18, 5, 31, 30, 33], [32, 6, 17, 0, 1, 20], [22, 35, 10, 2, 28, 15], [14, 34, 27, 9, 7, 26], [13, 3, 19, 12, 24, 29]], 'num_rotations': 0, 'solution': [[4, 21, 8, 16, 11, 25], [23, 18, 5, 31, 30, 33], [32, 6, 17, 0, 1, 20], [22, 35, 10, 2, 28, 15], [14, 34, 27, 9, 7, 26], [13, 3, 19, 12, 24, 29]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n2 5 11 20 19\n21 1 16 12 18\n0 14 13 24 8\n4 22 17 15 9\n3 23 7 6 10\n",
+      "expected_answer": "10 6 7 23 3\n9 15 17 22 4\n8 24 13 14 0\n18 12 16 1 21\n19 20 11 5 2",
+      "model_answer": "\n10 6 7 23 3  \n9 15 17 22 4  \n8 24 13 14 0  \n18 12 16 1 21  \n19 20 11 5 2  \n",
+      "score": 0.01,
+      "metadata": "{'matrix': [[2, 5, 11, 20, 19], [21, 1, 16, 12, 18], [0, 14, 13, 24, 8], [4, 22, 17, 15, 9], [3, 23, 7, 6, 10]], 'num_rotations': 2, 'solution': [[10, 6, 7, 23, 3], [9, 15, 17, 22, 4], [8, 24, 13, 14, 0], [18, 12, 16, 1, 21], [19, 20, 11, 5, 2]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n8 9 12 15\n1 5 7 13\n2 0 6 14\n11 10 4 3\n",
+      "expected_answer": "11 2 1 8\n10 0 5 9\n4 6 7 12\n3 14 13 15",
+      "model_answer": "\n11 2 1 8\n10 0 5 9\n4 6 7 12\n3 14 13 15\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[8, 9, 12, 15], [1, 5, 7, 13], [2, 0, 6, 14], [11, 10, 4, 3]], 'num_rotations': 1, 'solution': [[11, 2, 1, 8], [10, 0, 5, 9], [4, 6, 7, 12], [3, 14, 13, 15]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n0 3 2\n6 8 1\n4 5 7\n",
+      "expected_answer": "4 6 0\n5 8 3\n7 1 2",
+      "model_answer": "\n4 6 0\n5 8 3\n7 1 2\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0, 3, 2], [6, 8, 1], [4, 5, 7]], 'num_rotations': 1, 'solution': [[4, 6, 0], [5, 8, 3], [7, 1, 2]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 360 degrees clockwise:\n2 14 7 10 5\n4 1 16 21 15\n9 3 6 18 8\n0 19 24 23 20\n11 13 22 17 12\n",
+      "expected_answer": "2 14 7 10 5\n4 1 16 21 15\n9 3 6 18 8\n0 19 24 23 20\n11 13 22 17 12",
+      "model_answer": "\n2 14 7 10 5\n4 1 16 21 15\n9 3 6 18 8\n0 19 24 23 20\n11 13 22 17 12\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[2, 14, 7, 10, 5], [4, 1, 16, 21, 15], [9, 3, 6, 18, 8], [0, 19, 24, 23, 20], [11, 13, 22, 17, 12]], 'num_rotations': 4, 'solution': [[2, 14, 7, 10, 5], [4, 1, 16, 21, 15], [9, 3, 6, 18, 8], [0, 19, 24, 23, 20], [11, 13, 22, 17, 12]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n30 59 38 33 4 23 77 64 62\n52 50 74 79 73 70 42 12 29\n25 47 34 53 75 60 7 5 26\n8 31 63 51 69 3 10 6 78\n17 65 18 22 27 80 1 46 44\n15 66 41 14 24 55 21 67 76\n54 11 35 37 56 72 48 32 13\n9 16 39 28 45 36 40 0 57\n19 20 2 61 49 68 71 43 58\n",
+      "expected_answer": "58 43 71 68 49 61 2 20 19\n57 0 40 36 45 28 39 16 9\n13 32 48 72 56 37 35 11 54\n76 67 21 55 24 14 41 66 15\n44 46 1 80 27 22 18 65 17\n78 6 10 3 69 51 63 31 8\n26 5 7 60 75 53 34 47 25\n29 12 42 70 73 79 74 50 52\n62 64 77 23 4 33 38 59 30",
+      "model_answer": "\n58 43 71 68 49 61 2 20 19\n57 0 40 36 45 28 39 16 9\n13 32 48 72 56 37 35 11 54\n76 67 21 55 24 14 41 66 15\n44 46 1 80 27 22 18 65 17\n78 6 10 3 69 51 63 31 8\n26 5 7 60 75 53 34 47 25\n29 12 42 70 73 79 74 50 52\n62 64 77 23 4 33 38 59 30\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[30, 59, 38, 33, 4, 23, 77, 64, 62], [52, 50, 74, 79, 73, 70, 42, 12, 29], [25, 47, 34, 53, 75, 60, 7, 5, 26], [8, 31, 63, 51, 69, 3, 10, 6, 78], [17, 65, 18, 22, 27, 80, 1, 46, 44], [15, 66, 41, 14, 24, 55, 21, 67, 76], [54, 11, 35, 37, 56, 72, 48, 32, 13], [9, 16, 39, 28, 45, 36, 40, 0, 57], [19, 20, 2, 61, 49, 68, 71, 43, 58]], 'num_rotations': 2, 'solution': [[58, 43, 71, 68, 49, 61, 2, 20, 19], [57, 0, 40, 36, 45, 28, 39, 16, 9], [13, 32, 48, 72, 56, 37, 35, 11, 54], [76, 67, 21, 55, 24, 14, 41, 66, 15], [44, 46, 1, 80, 27, 22, 18, 65, 17], [78, 6, 10, 3, 69, 51, 63, 31, 8], [26, 5, 7, 60, 75, 53, 34, 47, 25], [29, 12, 42, 70, 73, 79, 74, 50, 52], [62, 64, 77, 23, 4, 33, 38, 59, 30]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n8 3 0\n2 5 1\n6 4 7\n",
+      "expected_answer": "0 1 7\n3 5 4\n8 2 6",
+      "model_answer": "\n0 1 7\n3 5 4\n8 2 6\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[8, 3, 0], [2, 5, 1], [6, 4, 7]], 'num_rotations': 3, 'solution': [[0, 1, 7], [3, 5, 4], [8, 2, 6]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n33 39 61 6 36 57 45 37\n15 49 21 50 51 34 18 0\n23 52 17 16 32 56 46 4\n7 31 43 47 27 25 42 44\n20 54 60 48 29 38 1 59\n10 28 14 40 30 55 35 53\n22 9 26 63 62 19 11 12\n13 41 3 2 24 8 5 58\n",
+      "expected_answer": "58 5 8 24 2 3 41 13\n12 11 19 62 63 26 9 22\n53 35 55 30 40 14 28 10\n59 1 38 29 48 60 54 20\n44 42 25 27 47 43 31 7\n4 46 56 32 16 17 52 23\n0 18 34 51 50 21 49 15\n37 45 57 36 6 61 39 33",
+      "model_answer": "\n58 5 8 24 2 3 41 13\n12 11 19 62 63 26 9 22\n53 35 55 30 40 14 28 10\n59 1 38 29 48 60 54 20\n44 42 25 27 47 43 31 7\n4 46 56 32 16 17 52 23\n0 18 34 51 50 21 49 15\n37 45 57 36 6 61 39 33\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[33, 39, 61, 6, 36, 57, 45, 37], [15, 49, 21, 50, 51, 34, 18, 0], [23, 52, 17, 16, 32, 56, 46, 4], [7, 31, 43, 47, 27, 25, 42, 44], [20, 54, 60, 48, 29, 38, 1, 59], [10, 28, 14, 40, 30, 55, 35, 53], [22, 9, 26, 63, 62, 19, 11, 12], [13, 41, 3, 2, 24, 8, 5, 58]], 'num_rotations': 2, 'solution': [[58, 5, 8, 24, 2, 3, 41, 13], [12, 11, 19, 62, 63, 26, 9, 22], [53, 35, 55, 30, 40, 14, 28, 10], [59, 1, 38, 29, 48, 60, 54, 20], [44, 42, 25, 27, 47, 43, 31, 7], [4, 46, 56, 32, 16, 17, 52, 23], [0, 18, 34, 51, 50, 21, 49, 15], [37, 45, 57, 36, 6, 61, 39, 33]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n17 3 21 23 19\n13 5 18 7 12\n4 20 8 2 9\n11 22 14 6 10\n16 0 15 1 24\n",
+      "expected_answer": "17 3 21 23 19\n13 5 18 7 12\n4 20 8 2 9\n11 22 14 6 10\n16 0 15 1 24",
+      "model_answer": "\nTo rotate a square matrix clockwise by a given number of degrees, follow these steps:\n\n1. **Determine the number of 90-degree rotations needed**: Since rotations are multiples of 90 degrees, calculate `n_rotations = (degrees // 90) % 4`. This accounts for full rotations (e.g., 360 degrees = 0 rotations).\n\n2. **Perform each 90-degree rotation**:\n   - **Transpose the matrix**: Swap elements across the diagonal.\n   - **Reverse each row**: Reverse the elements in every row of the transposed matrix.\n\n3. **Output the rotated matrix** after applying the rotations.\n\n### Example Code:\n```python\nimport sys\n\n# Read the first line to get the rotation degrees\nfirst_line = sys.stdin.readline().strip()\ndegrees = int(first_line.split()[5])\n\n# Read the matrix\nmatrix = []\nfor line in sys.stdin:\n    line = line.strip()\n    if line:\n        row = list(map(int, line.split()))\n        matrix.append(row)\n\nn = len(matrix)\nn_rotations = (degrees // 90) % 4\n\nfor _ in range(n_rotations):\n    # Transpose the matrix\n    for i in range(n):\n        for j in range(i + 1, n):\n            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]\n    # Reverse each row\n    for row in matrix:\n        row.reverse()\n\n# Print the result\nfor row in matrix:\n    print(' '.join(map(str, row)))\n```\n\n### Explanation:\n- **Transposing** swaps rows and columns (e.g., element at `[i][j]` moves to `[j][i]`).\n- **Reversing rows** completes the 90-degree rotation. Repeating this process for `n_rotations` achieves the desired rotation (e.g., 180 degrees = 2 rotations, 270 degrees = 3 rotations).\n- **0 degrees** leaves the matrix unchanged as `n_rotations` becomes 0.\n\nThis method efficiently handles all valid rotations (0\u00b0, 90\u00b0, 180\u00b0, 270\u00b0) for any square matrix.\n",
+      "score": 0.01,
+      "metadata": "{'matrix': [[17, 3, 21, 23, 19], [13, 5, 18, 7, 12], [4, 20, 8, 2, 9], [11, 22, 14, 6, 10], [16, 0, 15, 1, 24]], 'num_rotations': 0, 'solution': [[17, 3, 21, 23, 19], [13, 5, 18, 7, 12], [4, 20, 8, 2, 9], [11, 22, 14, 6, 10], [16, 0, 15, 1, 24]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n0 10 2 8\n1 11 4 6\n12 9 14 7\n13 15 5 3\n",
+      "expected_answer": "0 10 2 8\n1 11 4 6\n12 9 14 7\n13 15 5 3",
+      "model_answer": "\n0 10 2 8\n1 11 4 6\n12 9 14 7\n13 15 5 3\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0, 10, 2, 8], [1, 11, 4, 6], [12, 9, 14, 7], [13, 15, 5, 3]], 'num_rotations': 0, 'solution': [[0, 10, 2, 8], [1, 11, 4, 6], [12, 9, 14, 7], [13, 15, 5, 3]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 360 degrees clockwise:\n0\n",
+      "expected_answer": "0",
+      "model_answer": "\n0\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[0]], 'num_rotations': 4, 'solution': [[0]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 180 degrees clockwise:\n7 0 8\n5 4 6\n2 1 3\n",
+      "expected_answer": "3 1 2\n6 4 5\n8 0 7",
+      "model_answer": "\n3 1 2\n6 4 5\n8 0 7\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[7, 0, 8], [5, 4, 6], [2, 1, 3]], 'num_rotations': 2, 'solution': [[3, 1, 2], [6, 4, 5], [8, 0, 7]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 90 degrees clockwise:\n2 18 45 24 31 15 23\n35 25 13 32 16 17 36\n48 41 19 42 34 22 6\n43 37 30 1 10 38 3\n5 9 4 27 20 26 28\n46 39 7 14 8 29 47\n44 33 0 40 11 21 12\n",
+      "expected_answer": "44 46 5 43 48 35 2\n33 39 9 37 41 25 18\n0 7 4 30 19 13 45\n40 14 27 1 42 32 24\n11 8 20 10 34 16 31\n21 29 26 38 22 17 15\n12 47 28 3 6 36 23",
+      "model_answer": "\n44 46 5 43 48 35 2\n33 39 9 37 41 25 18\n0 7 4 30 19 13 45\n40 14 27 1 42 32 24\n11 8 20 10 34 16 31\n21 29 26 38 22 17 15\n12 47 28 3 6 36 23\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[2, 18, 45, 24, 31, 15, 23], [35, 25, 13, 32, 16, 17, 36], [48, 41, 19, 42, 34, 22, 6], [43, 37, 30, 1, 10, 38, 3], [5, 9, 4, 27, 20, 26, 28], [46, 39, 7, 14, 8, 29, 47], [44, 33, 0, 40, 11, 21, 12]], 'num_rotations': 1, 'solution': [[44, 46, 5, 43, 48, 35, 2], [33, 39, 9, 37, 41, 25, 18], [0, 7, 4, 30, 19, 13, 45], [40, 14, 27, 1, 42, 32, 24], [11, 8, 20, 10, 34, 16, 31], [21, 29, 26, 38, 22, 17, 15], [12, 47, 28, 3, 6, 36, 23]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n3 1\n0 2\n",
+      "expected_answer": "3 1\n0 2",
+      "model_answer": "\n3 1\n0 2\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[3, 1], [0, 2]], 'num_rotations': 0, 'solution': [[3, 1], [0, 2]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 0 degrees clockwise:\n1 11 0 8\n6 3 15 13\n14 5 4 12\n9 10 7 2\n",
+      "expected_answer": "1 11 0 8\n6 3 15 13\n14 5 4 12\n9 10 7 2",
+      "model_answer": "\n1 11 0 8\n6 3 15 13\n14 5 4 12\n9 10 7 2\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[1, 11, 0, 8], [6, 3, 15, 13], [14, 5, 4, 12], [9, 10, 7, 2]], 'num_rotations': 0, 'solution': [[1, 11, 0, 8], [6, 3, 15, 13], [14, 5, 4, 12], [9, 10, 7, 2]]}"
+    },
+    {
+      "question": "Given a square matrix, your job is to rotate it clockwise.\n\nExample:\n\nInput: Rotate the matrix below by 90 degrees clockwise:\n1 2 3\n4 5 6\n7 8 9\n\nOutput:\n7 4 1\n8 5 2\n9 6 3\n\nRotate the matrix below by 270 degrees clockwise:\n3 0\n2 1\n",
+      "expected_answer": "0 1\n3 2",
+      "model_answer": "\n0 1\n3 2\n",
+      "score": 0.5,
+      "metadata": "{'matrix': [[3, 0], [2, 1]], 'num_rotations': 3, 'solution': [[0, 1], [3, 2]]}"
+    }
+  ]
+}

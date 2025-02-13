@@ -1,0 +1,371 @@
+{
+  "dataset_name": "number_sorting",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.010000000000000004,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T15:41:15.522204",
+  "config": {
+    "min_numbers": 3,
+    "max_numbers": 10,
+    "min_decimals": 0,
+    "max_decimals": 2,
+    "min_value": -100.0,
+    "max_value": 100.0,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Sort these numbers in ascending order: 48, -51, -72, -80",
+      "expected_answer": "['-80', '-72', '-51', '48']",
+      "model_answer": "-80, -72, -51, 48",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['48', '-51', '-72', '-80'], 'direction': 'ascending', 'sorted_numbers': ['-80', '-72', '-51', '48']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 39.2, -71.2, -7.5",
+      "expected_answer": "['-71.2', '-7.5', '39.2']",
+      "model_answer": "-71.2, -7.5, 39.2",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['39.2', '-71.2', '-7.5'], 'direction': 'ascending', 'sorted_numbers': ['-71.2', '-7.5', '39.2']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 8.39, 72.41, -64.67, -54.97, -94.18, -76.67, -98.24, -68.66, 2.74",
+      "expected_answer": "['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']",
+      "model_answer": "72.41, 8.39, 2.74, -54.97, -64.67, -68.66, -76.67, -94.18, -98.24",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['8.39', '72.41', '-64.67', '-54.97', '-94.18', '-76.67', '-98.24', '-68.66', '2.74'], 'direction': 'descending', 'sorted_numbers': ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -2.4, -83.6, -32.3, -85.5, -97.8, -43.2, -76.5",
+      "expected_answer": "['-2.4', '-32.3', '-43.2', '-76.5', '-83.6', '-85.5', '-97.8']",
+      "model_answer": "-2.4, -32.3, -43.2, -76.5, -83.6, -85.5, -97.8",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-2.4', '-83.6', '-32.3', '-85.5', '-97.8', '-43.2', '-76.5'], 'direction': 'descending', 'sorted_numbers': ['-2.4', '-32.3', '-43.2', '-76.5', '-83.6', '-85.5', '-97.8']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -92.0, 17.4, 77.5, 26.9",
+      "expected_answer": "['-92.0', '17.4', '26.9', '77.5']",
+      "model_answer": "-92.0, 17.4, 26.9, 77.5",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-92.0', '17.4', '77.5', '26.9'], 'direction': 'ascending', 'sorted_numbers': ['-92.0', '17.4', '26.9', '77.5']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -14, -9, -31, 2, -22, -92, -16, -95",
+      "expected_answer": "['-95', '-92', '-31', '-22', '-16', '-14', '-9', '2']",
+      "model_answer": "\n-95, -92, -31, -22, -16, -14, -9, 2\n",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-14', '-9', '-31', '2', '-22', '-92', '-16', '-95'], 'direction': 'ascending', 'sorted_numbers': ['-95', '-92', '-31', '-22', '-16', '-14', '-9', '2']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 11, 7, 59, 1, 43, -13, -69, 61",
+      "expected_answer": "['-69', '-13', '1', '7', '11', '43', '59', '61']",
+      "model_answer": "-69, -13, 1, 7, 11, 43, 59, 61",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['11', '7', '59', '1', '43', '-13', '-69', '61'], 'direction': 'ascending', 'sorted_numbers': ['-69', '-13', '1', '7', '11', '43', '59', '61']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -17.4, -77.9, 50.4, 2.3",
+      "expected_answer": "['-77.9', '-17.4', '2.3', '50.4']",
+      "model_answer": "-77.9, -17.4, 2.3, 50.4",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-17.4', '-77.9', '50.4', '2.3'], 'direction': 'ascending', 'sorted_numbers': ['-77.9', '-17.4', '2.3', '50.4']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -27.2, 78.2, 38.5, 53.4, -34.0, 7.7, -55.1, 11.3, 86.1, -30.6",
+      "expected_answer": "['-55.1', '-34.0', '-30.6', '-27.2', '7.7', '11.3', '38.5', '53.4', '78.2', '86.1']",
+      "model_answer": "-55.1, -34.0, -30.6, -27.2, 7.7, 11.3, 38.5, 53.4, 78.2, 86.1",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-27.2', '78.2', '38.5', '53.4', '-34.0', '7.7', '-55.1', '11.3', '86.1', '-30.6'], 'direction': 'ascending', 'sorted_numbers': ['-55.1', '-34.0', '-30.6', '-27.2', '7.7', '11.3', '38.5', '53.4', '78.2', '86.1']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 10.46, -50.78, 98.72, 66.52, -48.83, 73.45",
+      "expected_answer": "['98.72', '73.45', '66.52', '10.46', '-48.83', '-50.78']",
+      "model_answer": "98.72, 73.45, 66.52, 10.46, -48.83, -50.78",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['10.46', '-50.78', '98.72', '66.52', '-48.83', '73.45'], 'direction': 'descending', 'sorted_numbers': ['98.72', '73.45', '66.52', '10.46', '-48.83', '-50.78']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 76, 3, 71, -26, -93, -72, 96",
+      "expected_answer": "['96', '76', '71', '3', '-26', '-72', '-93']",
+      "model_answer": "96, 76, 71, 3, -26, -72, -93",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['76', '3', '71', '-26', '-93', '-72', '96'], 'direction': 'descending', 'sorted_numbers': ['96', '76', '71', '3', '-26', '-72', '-93']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 0.4, -3.5, 43.6, -27.9, -9.1, -93.8",
+      "expected_answer": "['-93.8', '-27.9', '-9.1', '-3.5', '0.4', '43.6']",
+      "model_answer": "-93.8, -27.9, -9.1, -3.5, 0.4, 43.6",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['0.4', '-3.5', '43.6', '-27.9', '-9.1', '-93.8'], 'direction': 'ascending', 'sorted_numbers': ['-93.8', '-27.9', '-9.1', '-3.5', '0.4', '43.6']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 11.2, -3.4, 91.8, -23.9, -10.7",
+      "expected_answer": "['91.8', '11.2', '-3.4', '-10.7', '-23.9']",
+      "model_answer": "91.8, 11.2, -3.4, -10.7, -23.9",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['11.2', '-3.4', '91.8', '-23.9', '-10.7'], 'direction': 'descending', 'sorted_numbers': ['91.8', '11.2', '-3.4', '-10.7', '-23.9']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -70, 48, 68, 49",
+      "expected_answer": "['68', '49', '48', '-70']",
+      "model_answer": "68, 49, 48, -70",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-70', '48', '68', '49'], 'direction': 'descending', 'sorted_numbers': ['68', '49', '48', '-70']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 30.6, -39.8, 8.5",
+      "expected_answer": "['30.6', '8.5', '-39.8']",
+      "model_answer": "30.6, 8.5, -39.8",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['30.6', '-39.8', '8.5'], 'direction': 'descending', 'sorted_numbers': ['30.6', '8.5', '-39.8']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 17.9, -96.1, 2.8",
+      "expected_answer": "['17.9', '2.8', '-96.1']",
+      "model_answer": "17.9, 2.8, -96.1",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['17.9', '-96.1', '2.8'], 'direction': 'descending', 'sorted_numbers': ['17.9', '2.8', '-96.1']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 48, 96, -60, -62, -19, 89",
+      "expected_answer": "['96', '89', '48', '-19', '-60', '-62']",
+      "model_answer": "96, 89, 48, -19, -60, -62",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['48', '96', '-60', '-62', '-19', '89'], 'direction': 'descending', 'sorted_numbers': ['96', '89', '48', '-19', '-60', '-62']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 87, 89, -95, 69, 43, 36",
+      "expected_answer": "['-95', '36', '43', '69', '87', '89']",
+      "model_answer": "-95, 36, 43, 69, 87, 89",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['87', '89', '-95', '69', '43', '36'], 'direction': 'ascending', 'sorted_numbers': ['-95', '36', '43', '69', '87', '89']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 15.6, -46.9, 61.6, -6.6, -33.5, 79.4, 58.5",
+      "expected_answer": "['-46.9', '-33.5', '-6.6', '15.6', '58.5', '61.6', '79.4']",
+      "model_answer": "-46.9, -33.5, -6.6, 15.6, 58.5, 61.6, 79.4",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['15.6', '-46.9', '61.6', '-6.6', '-33.5', '79.4', '58.5'], 'direction': 'ascending', 'sorted_numbers': ['-46.9', '-33.5', '-6.6', '15.6', '58.5', '61.6', '79.4']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 11, 62, -36, -36, 39, -3, -28, -19, -34, -66",
+      "expected_answer": "['-66', '-36', '-36', '-34', '-28', '-19', '-3', '11', '39', '62']",
+      "model_answer": "-66, -36, -36, -34, -28, -19, -3, 11, 39, 62",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['11', '62', '-36', '-36', '39', '-3', '-28', '-19', '-34', '-66'], 'direction': 'ascending', 'sorted_numbers': ['-66', '-36', '-36', '-34', '-28', '-19', '-3', '11', '39', '62']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 94, -52, -7, 80, -29",
+      "expected_answer": "['-52', '-29', '-7', '80', '94']",
+      "model_answer": "-52, -29, -7, 80, 94",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['94', '-52', '-7', '80', '-29'], 'direction': 'ascending', 'sorted_numbers': ['-52', '-29', '-7', '80', '94']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -41.2, 81.9, -3.1, -82.6, 50.0, -84.9, -59.5, -85.2, 25.6, 68.5",
+      "expected_answer": "['-85.2', '-84.9', '-82.6', '-59.5', '-41.2', '-3.1', '25.6', '50.0', '68.5', '81.9']",
+      "model_answer": "-85.2, -84.9, -82.6, -59.5, -41.2, -3.1, 25.6, 50.0, 68.5, 81.9",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-41.2', '81.9', '-3.1', '-82.6', '50.0', '-84.9', '-59.5', '-85.2', '25.6', '68.5'], 'direction': 'ascending', 'sorted_numbers': ['-85.2', '-84.9', '-82.6', '-59.5', '-41.2', '-3.1', '25.6', '50.0', '68.5', '81.9']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 26, -19, 84, -97, 98, 41, 61, 61, -60, 64",
+      "expected_answer": "['-97', '-60', '-19', '26', '41', '61', '61', '64', '84', '98']",
+      "model_answer": "-97, -60, -19, 26, 41, 61, 61, 64, 84, 98",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['26', '-19', '84', '-97', '98', '41', '61', '61', '-60', '64'], 'direction': 'ascending', 'sorted_numbers': ['-97', '-60', '-19', '26', '41', '61', '61', '64', '84', '98']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -42.5, 68.9, -11.2, 5.7, 10.3, -32.2, 27.9, 80.0, -85.6",
+      "expected_answer": "['80.0', '68.9', '27.9', '10.3', '5.7', '-11.2', '-32.2', '-42.5', '-85.6']",
+      "model_answer": "80.0, 68.9, 27.9, 10.3, 5.7, -11.2, -32.2, -42.5, -85.6",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-42.5', '68.9', '-11.2', '5.7', '10.3', '-32.2', '27.9', '80.0', '-85.6'], 'direction': 'descending', 'sorted_numbers': ['80.0', '68.9', '27.9', '10.3', '5.7', '-11.2', '-32.2', '-42.5', '-85.6']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -13.1, -50.8, -10.9, -48.8",
+      "expected_answer": "['-50.8', '-48.8', '-13.1', '-10.9']",
+      "model_answer": "-50.8, -48.8, -13.1, -10.9",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-13.1', '-50.8', '-10.9', '-48.8'], 'direction': 'ascending', 'sorted_numbers': ['-50.8', '-48.8', '-13.1', '-10.9']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 53, 94, -17, 89",
+      "expected_answer": "['94', '89', '53', '-17']",
+      "model_answer": "94, 89, 53, -17",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['53', '94', '-17', '89'], 'direction': 'descending', 'sorted_numbers': ['94', '89', '53', '-17']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 49.48, 81.63, -77.80, 15.95, -13.63, -46.90, 72.08, -34.12, 94.73, -27.75",
+      "expected_answer": "['-77.80', '-46.90', '-34.12', '-27.75', '-13.63', '15.95', '49.48', '72.08', '81.63', '94.73']",
+      "model_answer": "\n-77.80, -46.90, -34.12, -27.75, -13.63, 15.95, 49.48, 72.08, 81.63, 94.73\n",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['49.48', '81.63', '-77.80', '15.95', '-13.63', '-46.90', '72.08', '-34.12', '94.73', '-27.75'], 'direction': 'ascending', 'sorted_numbers': ['-77.80', '-46.90', '-34.12', '-27.75', '-13.63', '15.95', '49.48', '72.08', '81.63', '94.73']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 60, -87, -31",
+      "expected_answer": "['60', '-31', '-87']",
+      "model_answer": "60, -31, -87",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['60', '-87', '-31'], 'direction': 'descending', 'sorted_numbers': ['60', '-31', '-87']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 40.6, -10.0, -35.6, -78.6",
+      "expected_answer": "['-78.6', '-35.6', '-10.0', '40.6']",
+      "model_answer": "-78.6, -35.6, -10.0, 40.6",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['40.6', '-10.0', '-35.6', '-78.6'], 'direction': 'ascending', 'sorted_numbers': ['-78.6', '-35.6', '-10.0', '40.6']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 24.01, -98.30, 96.57, 64.43, 99.80, -47.33, -60.10, -89.05",
+      "expected_answer": "['-98.30', '-89.05', '-60.10', '-47.33', '24.01', '64.43', '96.57', '99.80']",
+      "model_answer": "-98.30, -89.05, -60.10, -47.33, 24.01, 64.43, 96.57, 99.80",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['24.01', '-98.30', '96.57', '64.43', '99.80', '-47.33', '-60.10', '-89.05'], 'direction': 'ascending', 'sorted_numbers': ['-98.30', '-89.05', '-60.10', '-47.33', '24.01', '64.43', '96.57', '99.80']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 47.67, -62.75, 39.78, 23.96",
+      "expected_answer": "['47.67', '39.78', '23.96', '-62.75']",
+      "model_answer": "47.67, 39.78, 23.96, -62.75",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['47.67', '-62.75', '39.78', '23.96'], 'direction': 'descending', 'sorted_numbers': ['47.67', '39.78', '23.96', '-62.75']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 0, 13, -8, 17, -3, 4, -60",
+      "expected_answer": "['-60', '-8', '-3', '0', '4', '13', '17']",
+      "model_answer": "-60, -8, -3, 0, 4, 13, 17",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['0', '13', '-8', '17', '-3', '4', '-60'], 'direction': 'ascending', 'sorted_numbers': ['-60', '-8', '-3', '0', '4', '13', '17']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -75.9, -38.2, 75.1, 86.7",
+      "expected_answer": "['86.7', '75.1', '-38.2', '-75.9']",
+      "model_answer": "86.7, 75.1, -38.2, -75.9",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-75.9', '-38.2', '75.1', '86.7'], 'direction': 'descending', 'sorted_numbers': ['86.7', '75.1', '-38.2', '-75.9']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -12.68, -91.67, 53.53, 34.69, 34.17, -5.47, 34.55, 76.50, 38.40, -30.87",
+      "expected_answer": "['76.50', '53.53', '38.40', '34.69', '34.55', '34.17', '-5.47', '-12.68', '-30.87', '-91.67']",
+      "model_answer": "76.50, 53.53, 38.40, 34.69, 34.55, 34.17, -5.47, -12.68, -30.87, -91.67",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-12.68', '-91.67', '53.53', '34.69', '34.17', '-5.47', '34.55', '76.50', '38.40', '-30.87'], 'direction': 'descending', 'sorted_numbers': ['76.50', '53.53', '38.40', '34.69', '34.55', '34.17', '-5.47', '-12.68', '-30.87', '-91.67']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 90.0, -60.0, -40.6, -16.4, -52.5, -39.7, 68.2, -2.1",
+      "expected_answer": "['-60.0', '-52.5', '-40.6', '-39.7', '-16.4', '-2.1', '68.2', '90.0']",
+      "model_answer": "-60.0, -52.5, -40.6, -39.7, -16.4, -2.1, 68.2, 90.0",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['90.0', '-60.0', '-40.6', '-16.4', '-52.5', '-39.7', '68.2', '-2.1'], 'direction': 'ascending', 'sorted_numbers': ['-60.0', '-52.5', '-40.6', '-39.7', '-16.4', '-2.1', '68.2', '90.0']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -60.5, -61.4, 87.9, -41.5, 90.6, 99.9, -52.4",
+      "expected_answer": "['-61.4', '-60.5', '-52.4', '-41.5', '87.9', '90.6', '99.9']",
+      "model_answer": "-61.4, -60.5, -52.4, -41.5, 87.9, 90.6, 99.9",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-60.5', '-61.4', '87.9', '-41.5', '90.6', '99.9', '-52.4'], 'direction': 'ascending', 'sorted_numbers': ['-61.4', '-60.5', '-52.4', '-41.5', '87.9', '90.6', '99.9']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -40, 33, 74, 49, 80, 31",
+      "expected_answer": "['80', '74', '49', '33', '31', '-40']",
+      "model_answer": "\n80, 74, 49, 33, 31, -40\n",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-40', '33', '74', '49', '80', '31'], 'direction': 'descending', 'sorted_numbers': ['80', '74', '49', '33', '31', '-40']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -30.1, -67.4, -50.8, 38.5, -69.0",
+      "expected_answer": "['38.5', '-30.1', '-50.8', '-67.4', '-69.0']",
+      "model_answer": "\nDescending order from largest to smallest:  \n38.5, -30.1, -50.8, -67.4, -69.0\n",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-30.1', '-67.4', '-50.8', '38.5', '-69.0'], 'direction': 'descending', 'sorted_numbers': ['38.5', '-30.1', '-50.8', '-67.4', '-69.0']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 8.4, 41.6, 91.7, -26.2, 6.6, -25.1, 10.0",
+      "expected_answer": "['91.7', '41.6', '10.0', '8.4', '6.6', '-25.1', '-26.2']",
+      "model_answer": "91.7, 41.6, 10.0, 8.4, 6.6, -25.1, -26.2",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['8.4', '41.6', '91.7', '-26.2', '6.6', '-25.1', '10.0'], 'direction': 'descending', 'sorted_numbers': ['91.7', '41.6', '10.0', '8.4', '6.6', '-25.1', '-26.2']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 11.6, -23.2, 66.9, -68.1, -9.9, 52.6, 21.2, 81.2, -42.3, -28.4",
+      "expected_answer": "['81.2', '66.9', '52.6', '21.2', '11.6', '-9.9', '-23.2', '-28.4', '-42.3', '-68.1']",
+      "model_answer": "81.2, 66.9, 52.6, 21.2, 11.6, -9.9, -23.2, -28.4, -42.3, -68.1",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['11.6', '-23.2', '66.9', '-68.1', '-9.9', '52.6', '21.2', '81.2', '-42.3', '-28.4'], 'direction': 'descending', 'sorted_numbers': ['81.2', '66.9', '52.6', '21.2', '11.6', '-9.9', '-23.2', '-28.4', '-42.3', '-68.1']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 96.7, -41.6, 64.9, -64.1, -66.6",
+      "expected_answer": "['96.7', '64.9', '-41.6', '-64.1', '-66.6']",
+      "model_answer": "96.7, 64.9, -41.6, -64.1, -66.6",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['96.7', '-41.6', '64.9', '-64.1', '-66.6'], 'direction': 'descending', 'sorted_numbers': ['96.7', '64.9', '-41.6', '-64.1', '-66.6']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -82.3, -24.3, -90.2, 30.0, -62.2, -38.2, 63.7, -89.1, -69.3, -39.7",
+      "expected_answer": "['-90.2', '-89.1', '-82.3', '-69.3', '-62.2', '-39.7', '-38.2', '-24.3', '30.0', '63.7']",
+      "model_answer": "\nThe numbers sorted in ascending order are: \n-90.2, -89.1, -82.3, -69.3, -62.2, -39.7, -38.2, -24.3, 30.0, 63.7\n",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-82.3', '-24.3', '-90.2', '30.0', '-62.2', '-38.2', '63.7', '-89.1', '-69.3', '-39.7'], 'direction': 'ascending', 'sorted_numbers': ['-90.2', '-89.1', '-82.3', '-69.3', '-62.2', '-39.7', '-38.2', '-24.3', '30.0', '63.7']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -2, 4, 32, 67, -8, 71, 51",
+      "expected_answer": "['71', '67', '51', '32', '4', '-2', '-8']",
+      "model_answer": "71, 67, 51, 32, 4, -2, -8",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-2', '4', '32', '67', '-8', '71', '51'], 'direction': 'descending', 'sorted_numbers': ['71', '67', '51', '32', '4', '-2', '-8']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 23.01, -78.58, 81.04, -61.58, -7.76, 54.25",
+      "expected_answer": "['81.04', '54.25', '23.01', '-7.76', '-61.58', '-78.58']",
+      "model_answer": "\n81.04, 54.25, 23.01, -7.76, -61.58, -78.58\n",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['23.01', '-78.58', '81.04', '-61.58', '-7.76', '54.25'], 'direction': 'descending', 'sorted_numbers': ['81.04', '54.25', '23.01', '-7.76', '-61.58', '-78.58']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: 67.55, -36.50, -97.60",
+      "expected_answer": "['-97.60', '-36.50', '67.55']",
+      "model_answer": "-97.60, -36.50, 67.55",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['67.55', '-36.50', '-97.60'], 'direction': 'ascending', 'sorted_numbers': ['-97.60', '-36.50', '67.55']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -62.16, 67.82, 8.11, -43.83, -32.91",
+      "expected_answer": "['67.82', '8.11', '-32.91', '-43.83', '-62.16']",
+      "model_answer": "67.82, 8.11, -32.91, -43.83, -62.16",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-62.16', '67.82', '8.11', '-43.83', '-32.91'], 'direction': 'descending', 'sorted_numbers': ['67.82', '8.11', '-32.91', '-43.83', '-62.16']}"
+    },
+    {
+      "question": "Sort these numbers in ascending order: -33, -63, -97, 54, -98, -32, -7, -55, 90",
+      "expected_answer": "['-98', '-97', '-63', '-55', '-33', '-32', '-7', '54', '90']",
+      "model_answer": "-98, -97, -63, -55, -33, -32, -7, 54, 90",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-33', '-63', '-97', '54', '-98', '-32', '-7', '-55', '90'], 'direction': 'ascending', 'sorted_numbers': ['-98', '-97', '-63', '-55', '-33', '-32', '-7', '54', '90']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: 40.65, -48.24, -31.14, -87.06",
+      "expected_answer": "['40.65', '-31.14', '-48.24', '-87.06']",
+      "model_answer": "\nThe numbers sorted in descending order are: 40.65, -31.14, -48.24, -87.06\n",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['40.65', '-48.24', '-31.14', '-87.06'], 'direction': 'descending', 'sorted_numbers': ['40.65', '-31.14', '-48.24', '-87.06']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -81.46, 31.90, 17.23, 26.88, -29.03, -9.75",
+      "expected_answer": "['31.90', '26.88', '17.23', '-9.75', '-29.03', '-81.46']",
+      "model_answer": "31.90, 26.88, 17.23, -9.75, -29.03, -81.46",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-81.46', '31.90', '17.23', '26.88', '-29.03', '-9.75'], 'direction': 'descending', 'sorted_numbers': ['31.90', '26.88', '17.23', '-9.75', '-29.03', '-81.46']}"
+    },
+    {
+      "question": "Sort these numbers in descending order: -65.53, 36.76, -67.73, 89.84",
+      "expected_answer": "['89.84', '36.76', '-65.53', '-67.73']",
+      "model_answer": "89.84, 36.76, -65.53, -67.73",
+      "score": 0.01,
+      "metadata": "{'original_numbers': ['-65.53', '36.76', '-67.73', '89.84'], 'direction': 'descending', 'sorted_numbers': ['89.84', '36.76', '-65.53', '-67.73']}"
+    }
+  ]
+}

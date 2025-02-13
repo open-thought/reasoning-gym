@@ -1,0 +1,369 @@
+{
+  "dataset_name": "base_conversion",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.79,
+  "total_examples": 50,
+  "timestamp": "2025-02-11T09:11:11.641280",
+  "config": {
+    "min_base": 2,
+    "max_base": 16,
+    "min_value": 0,
+    "max_value": 1000,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Convert the base-3 number 220020 to binary",
+      "expected_answer": "1010001110",
+      "model_answer": "\nThe base-3 number 220020 converted to binary is \\boxed{1010001110}.\n",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '220020', 'target_repr': '1010001110'}"
+    },
+    {
+      "question": "Convert the base-6 number 103 to base-13 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "30",
+      "model_answer": "30",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '103', 'target_repr': '30'}"
+    },
+    {
+      "question": "Convert the base-10 number 418 to base-13 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "262",
+      "model_answer": "262",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '418', 'target_repr': '262'}"
+    },
+    {
+      "question": "Convert the base-8 number 426 to base-9",
+      "expected_answer": "338",
+      "model_answer": "338",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 278, 'source_base': 8, 'target_base': 9, 'source_repr': '426', 'target_repr': '338'}"
+    },
+    {
+      "question": "Convert the base-3 number 1020200 to base-8",
+      "expected_answer": "1615",
+      "model_answer": "1615",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 909, 'source_base': 3, 'target_base': 8, 'source_repr': '1020200', 'target_repr': '1615'}"
+    },
+    {
+      "question": "Convert the base-3 number 111100 to base-8",
+      "expected_answer": "550",
+      "model_answer": "550",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 360, 'source_base': 3, 'target_base': 8, 'source_repr': '111100', 'target_repr': '550'}"
+    },
+    {
+      "question": "Convert the base-7 number 1431 to base-4",
+      "expected_answer": "20301",
+      "model_answer": "203014",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 561, 'source_base': 7, 'target_base': 4, 'source_repr': '1431', 'target_repr': '20301'}"
+    },
+    {
+      "question": "Convert the base-7 number 125 to base-8",
+      "expected_answer": "104",
+      "model_answer": "\nThe base-7 number 125 converted to base-8 is \\boxed{104}.\n",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 68, 'source_base': 7, 'target_base': 8, 'source_repr': '125', 'target_repr': '104'}"
+    },
+    {
+      "question": "Convert the base-15 number 23e to base-6",
+      "expected_answer": "2205",
+      "model_answer": "22056",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 509, 'source_base': 15, 'target_base': 6, 'source_repr': '23e', 'target_repr': '2205'}"
+    },
+    {
+      "question": "Convert the base-15 number 119 to base-10",
+      "expected_answer": "249",
+      "model_answer": "249",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 249, 'source_base': 15, 'target_base': 10, 'source_repr': '119', 'target_repr': '249'}"
+    },
+    {
+      "question": "Convert the binary number 100010010 to hexadecimal (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "112",
+      "model_answer": "112",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 274, 'source_base': 2, 'target_base': 16, 'source_repr': '100010010', 'target_repr': '112'}"
+    },
+    {
+      "question": "Convert the base-15 number 2c1 to hexadecimal (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "277",
+      "model_answer": "2c1 base 15 converts to hexadecimal as \\boxed{277}",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 631, 'source_base': 15, 'target_base': 16, 'source_repr': '2c1', 'target_repr': '277'}"
+    },
+    {
+      "question": "Convert the base-4 number 32213 to base-9",
+      "expected_answer": "1248",
+      "model_answer": "32213 (base 4) converted to base 9 is \\boxed{1248}",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 935, 'source_base': 4, 'target_base': 9, 'source_repr': '32213', 'target_repr': '1248'}"
+    },
+    {
+      "question": "Convert the base-5 number 332 to base-4",
+      "expected_answer": "1130",
+      "model_answer": "1130",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 92, 'source_base': 5, 'target_base': 4, 'source_repr': '332', 'target_repr': '1130'}"
+    },
+    {
+      "question": "Convert the base-15 number 45e to base-10",
+      "expected_answer": "989",
+      "model_answer": "989",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 989, 'source_base': 15, 'target_base': 10, 'source_repr': '45e', 'target_repr': '989'}"
+    },
+    {
+      "question": "Convert the base-7 number 61 to base-11 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "3a",
+      "model_answer": "3a",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 43, 'source_base': 7, 'target_base': 11, 'source_repr': '61', 'target_repr': '3a'}"
+    },
+    {
+      "question": "Convert the base-5 number 4334 to base-13 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "369",
+      "model_answer": "369",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 594, 'source_base': 5, 'target_base': 13, 'source_repr': '4334', 'target_repr': '369'}"
+    },
+    {
+      "question": "Convert the base-3 number 22111 to hexadecimal (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "e5",
+      "model_answer": "e5",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 229, 'source_base': 3, 'target_base': 16, 'source_repr': '22111', 'target_repr': 'e5'}"
+    },
+    {
+      "question": "Convert the base-6 number 1243 to base-11 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "267",
+      "model_answer": "267",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 315, 'source_base': 6, 'target_base': 11, 'source_repr': '1243', 'target_repr': '267'}"
+    },
+    {
+      "question": "Convert the base-4 number 13322 to base-10",
+      "expected_answer": "506",
+      "model_answer": "\nThe base-4 number \\(13322_4\\) converted to base-10 is \\boxed{506}.\n",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 506, 'source_base': 4, 'target_base': 10, 'source_repr': '13322', 'target_repr': '506'}"
+    },
+    {
+      "question": "Convert the base-11 number 794 to base-4",
+      "expected_answer": "32312",
+      "model_answer": "32312",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 950, 'source_base': 11, 'target_base': 4, 'source_repr': '794', 'target_repr': '32312'}"
+    },
+    {
+      "question": "Convert the base-9 number 555 to base-6",
+      "expected_answer": "2035",
+      "model_answer": "2035",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 455, 'source_base': 9, 'target_base': 6, 'source_repr': '555', 'target_repr': '2035'}"
+    },
+    {
+      "question": "Convert the base-3 number 200001 to base-12 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "347",
+      "model_answer": "347",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 487, 'source_base': 3, 'target_base': 12, 'source_repr': '200001', 'target_repr': '347'}"
+    },
+    {
+      "question": "Convert the base-6 number 1544 to base-10",
+      "expected_answer": "424",
+      "model_answer": "\n424\n",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 424, 'source_base': 6, 'target_base': 10, 'source_repr': '1544', 'target_repr': '424'}"
+    },
+    {
+      "question": "Convert the base-6 number 200 to base-8",
+      "expected_answer": "110",
+      "model_answer": "110",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 72, 'source_base': 6, 'target_base': 8, 'source_repr': '200', 'target_repr': '110'}"
+    },
+    {
+      "question": "Convert the base-3 number 2211 to base-14 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "56",
+      "model_answer": "56",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 76, 'source_base': 3, 'target_base': 14, 'source_repr': '2211', 'target_repr': '56'}"
+    },
+    {
+      "question": "Convert the base-9 number 1033 to base-13 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "465",
+      "model_answer": "465",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 759, 'source_base': 9, 'target_base': 13, 'source_repr': '1033', 'target_repr': '465'}"
+    },
+    {
+      "question": "Convert the binary number 1010111100 to base-3",
+      "expected_answer": "221221",
+      "model_answer": "221221",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 700, 'source_base': 2, 'target_base': 3, 'source_repr': '1010111100', 'target_repr': '221221'}"
+    },
+    {
+      "question": "Convert the base-3 number 1021111 to base-6",
+      "expected_answer": "4151",
+      "model_answer": "4151",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 931, 'source_base': 3, 'target_base': 6, 'source_repr': '1021111', 'target_repr': '4151'}"
+    },
+    {
+      "question": "Convert the base-10 number 331 to base-11 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "281",
+      "model_answer": "281",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 331, 'source_base': 10, 'target_base': 11, 'source_repr': '331', 'target_repr': '281'}"
+    },
+    {
+      "question": "Convert the base-14 number 55 to base-11 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "69",
+      "model_answer": "69",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 75, 'source_base': 14, 'target_base': 11, 'source_repr': '55', 'target_repr': '69'}"
+    },
+    {
+      "question": "Convert the base-3 number 101121 to base-10",
+      "expected_answer": "286",
+      "model_answer": "286",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 286, 'source_base': 3, 'target_base': 10, 'source_repr': '101121', 'target_repr': '286'}"
+    },
+    {
+      "question": "Convert the base-11 number 730 to base-10",
+      "expected_answer": "880",
+      "model_answer": "880",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 880, 'source_base': 11, 'target_base': 10, 'source_repr': '730', 'target_repr': '880'}"
+    },
+    {
+      "question": "Convert the base-11 number 38a to base-8",
+      "expected_answer": "715",
+      "model_answer": "7158",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 461, 'source_base': 11, 'target_base': 8, 'source_repr': '38a', 'target_repr': '715'}"
+    },
+    {
+      "question": "Convert the base-9 number 461 to base-8",
+      "expected_answer": "573",
+      "model_answer": "573",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 379, 'source_base': 9, 'target_base': 8, 'source_repr': '461', 'target_repr': '573'}"
+    },
+    {
+      "question": "Convert the base-6 number 3442 to base-7",
+      "expected_answer": "2246",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'decimal_value': 818, 'source_base': 6, 'target_base': 7, 'source_repr': '3442', 'target_repr': '2246'}"
+    },
+    {
+      "question": "Convert the base-5 number 11314 to base-3",
+      "expected_answer": "1010220",
+      "model_answer": "10102203",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 834, 'source_base': 5, 'target_base': 3, 'source_repr': '11314', 'target_repr': '1010220'}"
+    },
+    {
+      "question": "Convert the base-9 number 174 to base-7",
+      "expected_answer": "301",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'decimal_value': 148, 'source_base': 9, 'target_base': 7, 'source_repr': '174', 'target_repr': '301'}"
+    },
+    {
+      "question": "Convert the base-8 number 426 to base-10",
+      "expected_answer": "278",
+      "model_answer": "\n278\n",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 278, 'source_base': 8, 'target_base': 10, 'source_repr': '426', 'target_repr': '278'}"
+    },
+    {
+      "question": "Convert the base-15 number 248 to base-9",
+      "expected_answer": "635",
+      "model_answer": "635",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 518, 'source_base': 15, 'target_base': 9, 'source_repr': '248', 'target_repr': '635'}"
+    },
+    {
+      "question": "Convert the base-14 number a8 to base-9",
+      "expected_answer": "174",
+      "model_answer": "174 (base 9)",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 148, 'source_base': 14, 'target_base': 9, 'source_repr': 'a8', 'target_repr': '174'}"
+    },
+    {
+      "question": "Convert the base-15 number 23d to base-9",
+      "expected_answer": "624",
+      "model_answer": "6249",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 508, 'source_base': 15, 'target_base': 9, 'source_repr': '23d', 'target_repr': '624'}"
+    },
+    {
+      "question": "Convert the base-6 number 3245 to hexadecimal (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "2ed",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'decimal_value': 749, 'source_base': 6, 'target_base': 16, 'source_repr': '3245', 'target_repr': '2ed'}"
+    },
+    {
+      "question": "Convert the base-13 number 129 to base-11 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "176",
+      "model_answer": "176",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 204, 'source_base': 13, 'target_base': 11, 'source_repr': '129', 'target_repr': '176'}"
+    },
+    {
+      "question": "Convert the base-14 number 41c to binary",
+      "expected_answer": "1100101010",
+      "model_answer": "1100101010",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 810, 'source_base': 14, 'target_base': 2, 'source_repr': '41c', 'target_repr': '1100101010'}"
+    },
+    {
+      "question": "Convert the base-13 number b6 to base-5",
+      "expected_answer": "1044",
+      "model_answer": "1044",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 149, 'source_base': 13, 'target_base': 5, 'source_repr': 'b6', 'target_repr': '1044'}"
+    },
+    {
+      "question": "Convert the base-5 number 3112 to base-7",
+      "expected_answer": "1121",
+      "model_answer": "3112 (base 5) converted to base 7 is \\boxed{1121}_7",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 407, 'source_base': 5, 'target_base': 7, 'source_repr': '3112', 'target_repr': '1121'}"
+    },
+    {
+      "question": "Convert the base-14 number 5d to base-11 (use lowercase letters a-z for digits above 9)",
+      "expected_answer": "76",
+      "model_answer": "76",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 83, 'source_base': 14, 'target_base': 11, 'source_repr': '5d', 'target_repr': '76'}"
+    },
+    {
+      "question": "Convert the base-13 number 130 to base-3",
+      "expected_answer": "21201",
+      "model_answer": "21201",
+      "score": 1.0,
+      "metadata": "{'decimal_value': 208, 'source_base': 13, 'target_base': 3, 'source_repr': '130', 'target_repr': '21201'}"
+    },
+    {
+      "question": "Convert the base-11 number 78 to base-4",
+      "expected_answer": "1111",
+      "model_answer": " 1111 ",
+      "score": 0.5,
+      "metadata": "{'decimal_value': 85, 'source_base': 11, 'target_base': 4, 'source_repr': '78', 'target_repr': '1111'}"
+    }
+  ]
+}

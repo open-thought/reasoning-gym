@@ -1,0 +1,397 @@
+{
+  "dataset_name": "intermediate_integration",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.010000000000000004,
+  "total_examples": 50,
+  "timestamp": "2025-02-11T08:54:26.190576",
+  "config": {
+    "problem_types": [
+      "substitution",
+      "by_parts"
+    ],
+    "substitution_types": [
+      "linear",
+      "trigonometric",
+      "exponential",
+      "radical"
+    ],
+    "by_parts_types": [
+      "polynomial_exp_trig",
+      "log_inverse_trig",
+      "cyclic",
+      "repeated_parts"
+    ],
+    "seed": 42,
+    "size": 50,
+    "linear_lower_bound": 1,
+    "linear_upper_bound": 10,
+    "min_linear_degree": 2,
+    "max_linear_degree": 4,
+    "outer_constant_min": 1,
+    "outer_constant_max": 3,
+    "min_poly_degree": 1,
+    "max_poly_degree": 3,
+    "symbols": [
+      "x",
+      "X"
+    ],
+    "operators": [
+      "+",
+      "-"
+    ]
+  },
+  "results": [
+    {
+      "question": "Find the indefinite integral: \u222b -3*exp(3*x + 9) dx",
+      "expected_answer": "-exp(3*x + 9) + C",
+      "model_answer": "\nThe indefinite integral of \\(-3 e^{3x + 9}\\) with respect to \\(x\\) is:\n\n\\[\n\\int -3 e^{3x + 9} \\, dx = -e^{3x + 9} + C\n\\]\n\n**Steps:**\n1. **Substitute \\( u = 3x + 9 \\)**:\n   - \\( du = 3 \\, dx \\Rightarrow dx = \\frac{du}{3} \\)\n2. **Rewrite the integral**:\n   \\[\n   \\int -3 e^{u} \\cdot \\frac{du}{3} = -\\int e^{u} \\, du\n   \\]\n3. **Integrate**:\n   \\[\n   -\\int e^{u} \\, du = -e^{u} + C\n   \\]\n4. **Substitute back \\( u = 3x + 9 \\)**:\n   \\[\n   -e^{3x + 9} + C\n   \\]\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-3*exp(3*x + 9)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': -exp(3*x + 9)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -6*sin(2*X + 10)*cos(2*X + 10)**4 dx",
+      "expected_answer": "3*cos(2*X + 10)**5/5 + C",
+      "model_answer": "\nThe indefinite integral is \n\n\\boxed{\\frac{3}{5} \\cos^{5}(2X + 10) + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-6*sin(2*X + 10)*cos(2*X + 10)**4', 'problem_type': 'substitution', 'variable': 'X', 'type': 'trigonometric', 'expected_answer_expression': 3*cos(2*X + 10)**5/5}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b 2*asin(x) dx",
+      "expected_answer": "2*Integral(asin(x), x) + C",
+      "model_answer": "\nThe indefinite integral of \\( 2\\arcsin(x) \\) with respect to \\( x \\) is:\n\n\\[\n2x\\arcsin(x) + 2\\sqrt{1 - x^2} + C\n\\]\n\n**Steps:**\n\n1. **Integration by Parts:**\n   - Let \\( u = \\arcsin(x) \\) and \\( dv = dx \\).\n   - Then, \\( du = \\frac{1}{\\sqrt{1 - x^2}}dx \\) and \\( v = x \\).\n   - Apply the formula \\( \\int u\\,dv = uv - \\int v\\,du \\):\n     \\[\n     \\int \\arcsin(x)dx = x\\arcsin(x) - \\int \\frac{x}{\\sqrt{1 - x^2}}dx\n     \\]\n\n2. **Substitute for the Second Integral:**\n   - Let \\( t = 1 - x^2 \\), so \\( dt = -2xdx \\) or \\( -\\frac{dt}{2} = xdx \\).\n   - Substitute into the integral:\n     \\[\n     \\int \\frac{x}{\\sqrt{1 - x^2}}dx = -\\frac{1}{2} \\int t^{-1/2}dt = -t^{1/2} + C = -\\sqrt{1 - x^2} + C\n     \\]\n\n3. **Combine Results:**\n   - Substitute back into the integration by parts:\n     \\[\n     \\int \\arcsin(x)dx = x\\arcsin(x) + \\sqrt{1 - x^2} + C\n     \\]\n   - Multiply by 2 for the original problem:\n     \\[\n     \\int 2\\arcsin(x)dx = 2x\\arcsin(x) + 2\\sqrt{1 - x^2} + C\n     \\]\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': 2*Integral(asin(x), x)}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -2*X**3*sin(X) dx",
+      "expected_answer": "2*X**3*cos(X) - 6*X**2*sin(X) - 12*X*cos(X) + 12*sin(X) + C",
+      "model_answer": "\nThe indefinite integral is:\n\\[\n2X^3 \\cos X - 6X^2 \\sin X - 12X \\cos X + 12 \\sin X + C\n\\]\nwhere \\( C \\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-2*X**3*sin(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'repeated_parts', 'expected_answer_expression': 2*X**3*cos(X) - 6*X**2*sin(X) - 12*X*cos(X) + 12*sin(X)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 3*(10*X + 10)**4 dx",
+      "expected_answer": "6000*X**5 + 30000*X**4 + 60000*X**3 + 60000*X**2 + 30000*X + C",
+      "model_answer": "\nThe indefinite integral is:\n\n\\[\n\\frac{3(10X + 10)^5}{50} + C\n\\]\n\n**Step-by-Step Explanation:**\n\n1. **Factor out the constant:**  \n   \\[\n   \u222b 3(10X + 10)^4 \\, dX = 3 \u222b (10X + 10)^4 \\, dX\n   \\]\n\n2. **Substitution:**  \n   Let \\( u = 10X + 10 \\). Then, \\( \\frac{du}{dX} = 10 \\) \u21d2 \\( dX = \\frac{du}{10} \\).\n\n3. **Rewrite the integral in terms of \\( u \\):**  \n   \\[\n   3 \u222b u^4 \\cdot \\frac{du}{10} = \\frac{3}{10} \u222b u^4 \\, du\n   \\]\n\n4. **Integrate \\( u^4 \\):**  \n   \\[\n   \\frac{3}{10} \\cdot \\frac{u^5}{5} + C = \\frac{3u^5}{50} + C\n   \\]\n\n5. **Substitute back \\( u = 10X + 10 \\):**  \n   \\[\n   \\frac{3(10X + 10)^5}{50} + C\n   \\]\n\n**Verification via Differentiation:**  \nDerivative of the result:  \n\\[\n\\frac{d}{dX} \\left( \\frac{3(10X + 10)^5}{50} \\right) = \\frac{3 \\cdot 5(10X + 10)^4 \\cdot 10}{50} = 3(10X + 10)^4\n\\]  \nMatches the original integrand.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '3*(10*X + 10)**4', 'problem_type': 'substitution', 'variable': 'X', 'type': 'linear', 'expected_answer_expression': 6000*X**5 + 30000*X**4 + 60000*X**3 + 60000*X**2 + 30000*X}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -2*x**3*exp(x) dx",
+      "expected_answer": "(-2*x**3 + 6*x**2 - 12*x + 12)*exp(x) + C",
+      "model_answer": "\nThe indefinite integral is:\n\n\\boxed{-2x^3 e^x + 6x^2 e^x - 12x e^x + 12 e^x + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-2*x**3*exp(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'repeated_parts', 'expected_answer_expression': (-2*x**3 + 6*x**2 - 12*x + 12)*exp(x)}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -sin(x)*cos(x) dx",
+      "expected_answer": "-sin(x)**2/2 + C",
+      "model_answer": "\nThe indefinite integral of \\(-\\sin(x)\\cos(x)\\) with respect to \\(x\\) is:\n\n\\[\n\\boxed{ -\\frac{1}{2} \\sin^2(x) + C }\n\\]\n\n**Alternative Forms:**  \nUsing trigonometric identities, the result can also be expressed as:\n\\[\n\\frac{1}{2} \\cos^2(x) + C \\quad \\text{or} \\quad \\frac{1}{4} \\cos(2x) + C,\n\\]\nwhere \\(C\\) is the constant of integration. All forms are equivalent up to the constant \\(C\\) due to the identity \\(\\sin^2(x) + \\cos^2(x) = 1\\).\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-sin(x)*cos(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'cyclic', 'expected_answer_expression': -sin(x)**2/2}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -18*sqrt(6*X + 1) dx",
+      "expected_answer": "-2*(6*X + 1)**(3/2) + C",
+      "model_answer": "\nThe indefinite integral of \\( \\int -18\\sqrt{6X + 1} \\, dX \\) is:  \n\\[\n-2(6X + 1)^{\\frac{3}{2}} + C  \n\\]  \nwhere \\( C \\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-18*sqrt(6*X + 1)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'radical', 'expected_answer_expression': -2*(6*X + 1)**(3/2)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -sin(X)*cos(X) dx",
+      "expected_answer": "-sin(X)**2/2 + C",
+      "model_answer": "\nThe antiderivative of \\( -\\sin(x)\\cos(x) \\, dx \\) is \\(\\boxed{-\\frac{1}{2} \\sin^2(x) + C}\\).  \n**Alternative valid forms**:  \n\\(\\boxed{\\frac{1}{2} \\cos^2(x) + C}\\) or \\(\\boxed{\\frac{1}{4} \\cos(2x) + C}\\) (where \\(C\\) is the constant of integration). These differ by constants and are all correct.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-sin(X)*cos(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'cyclic', 'expected_answer_expression': -sin(X)**2/2}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -21*sin(7*x + 9)**3*cos(7*x + 9) dx",
+      "expected_answer": "-3*sin(7*x + 9)**4/4 + C",
+      "model_answer": "\nThe antiderivative is \n\n\\[\n-\\frac{3}{4} \\sin^4(7x + 9) + C\n\\]\n\nwhere \\( C \\) is the constant of integration. \n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-21*sin(7*x + 9)**3*cos(7*x + 9)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'trigonometric', 'expected_answer_expression': -3*sin(7*x + 9)**4/4}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b x**3*cos(x) dx",
+      "expected_answer": "x**3*sin(x) + 3*x**2*cos(x) - 6*x*sin(x) - 6*cos(x) + C",
+      "model_answer": "\nThe indefinite integral of \\( x^3 \\cos(x) \\, dx \\) is:\n\n\\[\nx^3 \\sin(x) + 3x^2 \\cos(x) - 6x \\sin(x) - 6 \\cos(x) + C\n\\]\n\nwhere \\( C \\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': 'x**3*cos(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'repeated_parts', 'expected_answer_expression': x**3*sin(x) + 3*x**2*cos(x) - 6*x*sin(x) - 6*cos(x)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 8*sqrt(1 - 8*X) dx",
+      "expected_answer": "-2*(1 - 8*X)**(3/2)/3 + C",
+      "model_answer": "\nThe indefinite integral of \\( 8\\sqrt{1 - 8x} \\, dx \\) is:\n\n\\[\n-\\frac{2}{3}(1 - 8x)^{3/2} + C\n\\]\n\n**Step-by-Step Explanation:**\n\n1. **Substitution:**  \n   Let \\( u = 1 - 8x \\). Then, \\( \\frac{du}{dx} = -8 \\) \u21d2 \\( du = -8 \\, dx \\) \u21d2 \\( dx = -\\frac{du}{8} \\).\n\n2. **Rewrite the integral:**  \n   Substitute \\( u \\) and \\( dx \\):  \n   \\[\n   \\int 8\\sqrt{1 - 8x} \\, dx = \\int 8\\sqrt{u} \\left(-\\frac{du}{8}\\right) = -\\int \\sqrt{u} \\, du\n   \\]\n\n3. **Integrate:**  \n   \\[\n   -\\int u^{1/2} \\, du = -\\left( \\frac{u^{3/2}}{3/2} \\right) + C = -\\frac{2}{3}u^{3/2} + C\n   \\]\n\n4. **Back-substitute \\( u = 1 - 8x \\):**  \n   \\[\n   -\\frac{2}{3}(1 - 8x)^{3/2} + C\n   \\]\n\n**Verification via Differentiation:**  \nDifferentiate \\( -\\frac{2}{3}(1 - 8x)^{3/2} \\):\n\\[\n\\frac{d}{dx} \\left[ -\\frac{2}{3}(1 - 8x)^{3/2} \\right] = -\\frac{2}{3} \\cdot \\frac{3}{2}(1 - 8x)^{1/2} \\cdot (-8) = 8(1 - 8x)^{1/2},\n\\]\nwhich matches the original integrand.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '8*sqrt(1 - 8*X)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'radical', 'expected_answer_expression': -2*(1 - 8*X)**(3/2)/3}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b (42*X - 24)*exp(-7*X**2 + 8*X - 10) dx",
+      "expected_answer": "-3*exp(-7*X**2 + 8*X - 10) + C",
+      "model_answer": "\nThe indefinite integral is:\n\n\\boxed{ -3 \\, e^{ -7X^2 + 8X - 10 } + C }\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '(42*X - 24)*exp(-7*X**2 + 8*X - 10)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'exponential', 'expected_answer_expression': -3*exp(-7*X**2 + 8*X - 10)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 9*sin(3*x - 2)*cos(3*x - 2)**3 dx",
+      "expected_answer": "-3*cos(3*x - 2)**4/4 + C",
+      "model_answer": "\nThe indefinite integral is:\n\n\\\\boxed{-\\\\dfrac{3}{4} \\\\cos^4(3x - 2) + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '9*sin(3*x - 2)*cos(3*x - 2)**3', 'problem_type': 'substitution', 'variable': 'x', 'type': 'trigonometric', 'expected_answer_expression': -3*cos(3*x - 2)**4/4}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b (30 - 12*X)*exp(2*X**2 - 10*X + 6) dx",
+      "expected_answer": "-3*exp(2*X**2 - 10*X + 6) + C",
+      "model_answer": "\nThe indefinite integral is:\n\n\\[\n-3e^{2X^2 - 10X + 6} + C\n\\]\n\n**Steps:**\n\n1. **Substitution:** Let \\( u = 2X^2 - 10X + 6 \\). Then \\( \\frac{du}{dX} = 4X - 10 \\).\n2. **Rewrite the Integrand:** Notice that \\( 30 - 12X = -3(4X - 10) \\), which matches the derivative \\( \\frac{du}{dX} \\).\n3. **Integrate:**  \n   \\[\n   \\int (30 - 12X)e^{2X^2 - 10X + 6} \\, dX = -3 \\int (4X - 10)e^{u} \\, dX = -3 \\int e^u \\, du = -3e^u + C\n   \\]\n4. **Substitute Back:** Replace \\( u \\) with \\( 2X^2 - 10X + 6 \\).\n\n**Final Answer:**  \n\\(\\boxed{-3e^{2X^2 - 10X + 6} + C}\\)\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '(30 - 12*X)*exp(2*X**2 - 10*X + 6)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'exponential', 'expected_answer_expression': -3*exp(2*X**2 - 10*X + 6)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -2*(4*X - 9)**3 dx",
+      "expected_answer": "-32*X**4 + 288*X**3 - 972*X**2 + 1458*X + C",
+      "model_answer": "\nThe indefinite integral of \u222b -2(4X - 9)^3 dX is \n\\[\n\\boxed{-\\frac{1}{8}(4X - 9)^4 + C}\n\\]\nwhere \\( C \\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-2*(4*X - 9)**3', 'problem_type': 'substitution', 'variable': 'X', 'type': 'linear', 'expected_answer_expression': -32*X**4 + 288*X**3 - 972*X**2 + 1458*X}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -16*sin(8*x - 6)**3*cos(8*x - 6) dx",
+      "expected_answer": "-sin(8*x - 6)**4/2 + C",
+      "model_answer": "\nThe indefinite integral evaluates to \\( -\\frac{1}{2} \\sin^4(8x - 6) + C \\), where \\( C \\) is the constant of integration. \n\n**Step-by-Step Explanation:**\n\n1. **Substitution**: Let \\( u = \\sin(8x - 6) \\). Then, the derivative \\( \\frac{du}{dx} = 8\\cos(8x - 6) \\), so \\( \\cos(8x - 6) \\, dx = \\frac{du}{8} \\).\n\n2. **Rewrite the Integral**:\n   \\[\n   \\int -16 \\sin^3(8x - 6) \\cos(8x - 6) \\, dx = -16 \\int u^3 \\cdot \\frac{du}{8}\n   \\]\n   Simplify constants:\n   \\[\n   -16 \\cdot \\frac{1}{8} \\int u^3 \\, du = -2 \\int u^3 \\, du\n   \\]\n\n3. **Integrate**:\n   \\[\n   -2 \\cdot \\frac{u^4}{4} + C = -\\frac{u^4}{2} + C\n   \\]\n\n4. **Substitute Back**:\n   \\[\n   -\\frac{1}{2} \\sin^4(8x - 6) + C\n   \\]\n\n**Verification via Differentiation**:\nThe derivative of \\( -\\frac{1}{2} \\sin^4(8x - 6) \\) is:\n\\[\n-\\frac{1}{2} \\cdot 4 \\sin^3(8x - 6) \\cdot \\cos(8x - 6) \\cdot 8 = -16 \\sin^3(8x - 6)\\cos(8x - 6),\n\\]\nwhich matches the original integrand. \n\n**Answer:** \\( \\boxed{ -\\frac{1}{2} \\sin^4(8x - 6) + C } \\)\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-16*sin(8*x - 6)**3*cos(8*x - 6)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'trigonometric', 'expected_answer_expression': -sin(8*x - 6)**4/2}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b 9*sqrt(3*x - 1) dx",
+      "expected_answer": "2*(3*x - 1)**(3/2) + C",
+      "model_answer": "\nThe antiderivative is \\( 2(3x - 1)^{3/2} + C \\). \n\n**Step-by-Step Explanation:**\n\n1. **Let \\( u = 3x - 1 \\).**  \n   Then, \\( \\frac{du}{dx} = 3 \\) \u2192 \\( du = 3 dx \\) \u2192 \\( dx = \\frac{du}{3} \\).\n\n2. **Substitute into the integral:**  \n   \\[\n   \\int 9\\sqrt{3x - 1} \\, dx = \\int 9\\sqrt{u} \\cdot \\frac{du}{3} = 3 \\int u^{1/2} \\, du\n   \\]\n\n3. **Integrate \\( u^{1/2} \\):**  \n   \\[\n   3 \\cdot \\frac{u^{3/2}}{3/2} + C = 3 \\cdot \\frac{2}{3} u^{3/2} + C = 2u^{3/2} + C\n   \\]\n\n4. **Replace \\( u \\) with \\( 3x - 1 \\):**  \n   \\[\n   2(3x - 1)^{3/2} + C\n   \\]\n\n5. **Verification (Optional):**  \n   Differentiating \\( 2(3x - 1)^{3/2} \\):  \n   \\[\n   \\frac{d}{dx}\\left[2(3x - 1)^{3/2}\\right] = 2 \\cdot \\frac{3}{2}(3x - 1)^{1/2} \\cdot 3 = 9(3x - 1)^{1/2}\n   \\]  \n   This matches the original integrand.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '9*sqrt(3*x - 1)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'radical', 'expected_answer_expression': 2*(3*x - 1)**(3/2)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -2*asin(X) dx",
+      "expected_answer": "-2*Integral(asin(X), X) + C",
+      "model_answer": "\nThe antiderivative of \\-2 \\arcsin(x) is:\n\n\\[\n-2x \\arcsin(x) - 2\\sqrt{1 - x^2} + C\n\\]\n\n**Step-by-Step Explanation:**\n\n1. **Factor out constants:**\n   \\[\n   \\int -2 \\arcsin(x) \\, dx = -2 \\int \\arcsin(x) \\, dx\n   \\]\n\n2. **Apply integration by parts to \\(\\int \\arcsin(x) \\, dx\\):**\n   - Let \\( u = \\arcsin(x) \\) \u21d2 \\( du = \\frac{1}{\\sqrt{1 - x^2}} \\, dx \\)\n   - Let \\( dv = dx \\) \u21d2 \\( v = x \\)\n   \n   Integration by parts formula:\n   \\[\n   \\int u \\, dv = uv - \\int v \\, du\n   \\]\n   \n   Substituting:\n   \\[\n   \\int \\arcsin(x) \\, dx = x \\arcsin(x) - \\int \\frac{x}{\\sqrt{1 - x^2}} \\, dx\n   \\]\n\n3. **Solve the remaining integral \\(\\int \\frac{x}{\\sqrt{1 - x^2}} \\, dx\\):**  \n   - Use substitution \\( t = 1 - x^2 \\), \\( dt = -2x \\, dx \\) \u21d2 \\( -\\frac{1}{2} dt = x \\, dx \\).\n   - Substitute:\n     \\[\n     \\int \\frac{x}{\\sqrt{1 - x^2}} \\, dx = -\\frac{1}{2} \\int \\frac{1}{\\sqrt{t}} \\, dt = -\\sqrt{t} + C\n     \\]\n   - Substitute back \\( t = 1 - x^2 \\):\n     \\[\n     -\\sqrt{1 - x^2} + C\n     \\]\n\n4. **Combine results:**\n   \\[\n   \\int \\arcsin(x) \\, dx = x \\arcsin(x) + \\sqrt{1 - x^2} + C\n   \\]\n\n5. **Multiply by \\(-2\\):**\n   \\[\n   -2 \\left( x \\arcsin(x) + \\sqrt{1 - x^2} \\right) + C = -2x \\arcsin(x) - 2\\sqrt{1 - x^2} + C\n   \\]\n\n**Final Answer:**\n\\[\n\\boxed{ -2x \\arcsin(x) - 2\\sqrt{1 - x^2} + C }\n\\]\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-2*asin(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'log_inverse_trig', 'expected_answer_expression': -2*Integral(asin(X), X)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b 2*asin(2*x) dx",
+      "expected_answer": "2*Integral(asin(2*x), x) + C",
+      "model_answer": "\nThe antiderivative of \u222b2 arcsin(2x) dx is:\n\n\\boxed{2x \\arcsin(2x) + \\sqrt{1 - 4x^2} + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '2*asin(2*x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': 2*Integral(asin(2*x), x)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -6*sin(6*x - 9)*cos(6*x - 9)**2 dx",
+      "expected_answer": "cos(6*x - 9)**3/3 + C",
+      "model_answer": "\nThe antiderivative is \\(\\boxed{\\frac{1}{3} \\cos^3(6x - 9) + C}\\).\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-6*sin(6*x - 9)*cos(6*x - 9)**2', 'problem_type': 'substitution', 'variable': 'x', 'type': 'trigonometric', 'expected_answer_expression': cos(6*x - 9)**3/3}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b 2*exp(X)*cos(X) dx",
+      "expected_answer": "exp(X)*sin(X) + exp(X)*cos(X) + C",
+      "model_answer": "\nThe antiderivative of \\( \\int 2e^x \\cos(x) \\, dx \\) is:\n\n\\[\ne^x (\\sin x + \\cos x) + C\n\\]\n\n**Explanation:**\n\n1. **Integration by parts twice:**  \n   Start with \\( \\int e^x \\cos(x) \\, dx \\).  \n   First integration by parts (\\( u = e^x \\), \\( dv = \\cos(x) dx \\)) yields:\n   \\[\n   e^x \\sin x - \\int e^x \\sin x \\, dx\n   \\]\n   Second integration by parts on \\( \\int e^x \\sin x \\, dx \\) (\\( u = e^x \\), \\( dv = \\sin x dx \\)) gives:\n   \\[\n   -e^x \\cos x + \\int e^x \\cos x \\, dx\n   \\]\n\n2. **Solve for the original integral:**  \n   Let \\( I = \\int e^x \\cos(x) \\, dx \\). Substituting back:\n   \\[\n   I = e^x \\sin x + e^x \\cos x - I\n   \\]\n   \\[\n   2I = e^x (\\sin x + \\cos x) \\quad \\Rightarrow \\quad I = \\frac{e^x (\\sin x + \\cos x)}{2}\n   \\]\n\n3. **Multiply by 2 and simplify:**  \n   The original problem has a factor of 2:\n   \\[\n   2I = e^x (\\sin x + \\cos x) + C\n   \\]\n   \nFinal result: \\( e^x (\\sin x + \\cos x) + C \\).\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '2*exp(X)*cos(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'cyclic', 'expected_answer_expression': exp(X)*sin(X) + exp(X)*cos(X)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 2*x**3*sin(x) dx",
+      "expected_answer": "-2*x**3*cos(x) + 6*x**2*sin(x) + 12*x*cos(x) - 12*sin(x) + C",
+      "model_answer": "\nThe indefinite integral \u222b2x3 sin(x) dx is given by:\n\n\\boxed{-2x^3 \\cos(x) + 6x^2 \\sin(x) + 12x \\cos(x) - 12 \\sin(x) + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '2*x**3*sin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'repeated_parts', 'expected_answer_expression': -2*x**3*cos(x) + 6*x**2*sin(x) + 12*x*cos(x) - 12*sin(x)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -sin(X)*cos(X) dx",
+      "expected_answer": "-sin(X)**2/2 + C",
+      "model_answer": "\nThe antiderivative of \\( \\int -\\sin(x) \\cos(x) \\, dx \\) is \\( \\boxed{-\\frac{1}{2} \\sin^2(x) + C} \\), where \\( C \\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-sin(X)*cos(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'cyclic', 'expected_answer_expression': -sin(X)**2/2}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 24*sqrt(8*X - 5) dx",
+      "expected_answer": "2*(8*X - 5)**(3/2) + C",
+      "model_answer": "\nThe indefinite integral of \\( 24\\sqrt{8X - 5} \\, dX \\) is\n\n\\[\n2(8X - 5)^{3/2} + C\n\\]\n\n**Step-by-Step Explanation:**\n\n1. **Substitution:**  \n   Let \\( u = 8X - 5 \\). Then, \\( \\frac{du}{dX} = 8 \\) \u2192 \\( dX = \\frac{du}{8} \\).\n\n2. **Rewrite the Integral:**  \n   \\[\n   \\int 24\\sqrt{8X - 5} \\, dX = \\int 24\\sqrt{u} \\cdot \\frac{du}{8} = 3\\int u^{1/2} \\, du\n   \\]\n\n3. **Integrate:**  \n   \\[\n   3 \\cdot \\frac{u^{3/2}}{3/2} = 2u^{3/2}\n   \\]\n\n4. **Back-Substitute:**  \n   Replace \\( u \\) with \\( 8X - 5 \\):  \n   \\[\n   2(8X - 5)^{3/2} + C\n   \\]\n   \n5. **Verification:**  \n   Differentiate the result to confirm it matches the original integrand.  \n   \\textit{Derivative:} \\( 2 \\cdot \\frac{3}{2}(8X - 5)^{1/2} \\cdot 8 = 24\\sqrt{8X - 5} \\). \u2705\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '24*sqrt(8*X - 5)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'radical', 'expected_answer_expression': 2*(8*X - 5)**(3/2)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 14*sqrt(-7*x - 10) dx",
+      "expected_answer": "-4*(-7*x - 10)**(3/2)/3 + C",
+      "model_answer": "\nThe indefinite integral of \\( 14\\sqrt{-7x - 10} \\) with respect to \\( x \\) is:\n\n\\[\n-\\frac{4}{3}(-7x - 10)^{3/2} + C\n\\]\n\n**Steps:**\n\n1. **Substitute** \\( u = -7x - 10 \\), hence \\( du = -7 dx \\) or \\( dx = -\\frac{du}{7} \\).\n2. **Rewrite the integral**:\n   \\[\n   \\int 14\\sqrt{u} \\cdot \\left(-\\frac{du}{7}\\right) = -2 \\int \\sqrt{u} \\, du\n   \\]\n3. **Integrate** \\( \\sqrt{u} \\):\n   \\[\n   -2 \\cdot \\frac{2}{3}u^{3/2} + C = -\\frac{4}{3}u^{3/2} + C\n   \\]\n4. **Substitute back** \\( u = -7x - 10 \\):\n   \\[\n   -\\frac{4}{3}(-7x - 10)^{3/2} + C\n   \\]\n\n**Verification** by differentiation confirms the result matches the original integrand.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '14*sqrt(-7*x - 10)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'radical', 'expected_answer_expression': -4*(-7*x - 10)**(3/2)/3}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -2*asin(2*x) dx",
+      "expected_answer": "-2*Integral(asin(2*x), x) + C",
+      "model_answer": "\nThe antiderivative of \u222b\\-2\\*arcsin(2x) dx is:\n\n\\[\n-2x \\arcsin(2x) - \\sqrt{1 - 4x^2} + C\n\\]\n\n**Step-by-Step Explanation:**\n\n1. **Integration by Parts:**\n   - Let \\( u = \\arcsin(2x) \\) and \\( dv = -2 \\, dx \\).\n   - Compute \\( du = \\frac{2}{\\sqrt{1 - (2x)^2}} dx = \\frac{2}{\\sqrt{1 - 4x^2}} dx \\).\n   - Integrate \\( dv \\): \\( v = \\int -2 \\, dx = -2x \\).\n\n2. **Apply Integration by Parts:**\n   \\[\n   \\int -2 \\arcsin(2x) dx = uv - \\int v \\, du = -2x \\arcsin(2x) - \\int \\frac{-4x}{\\sqrt{1 - 4x^2}} dx\n   \\]\n\n3. **Simplify Remaining Integral:**\n   - Simplify \\( \\int \\frac{4x}{\\sqrt{1 - 4x^2}} dx \\):\n     - Substitute \\( u_1 = 1 - 4x^2 \\), \\( du_1 = -8x dx \\Rightarrow x dx = -\\frac{du_1}{8} \\).\n     - Substitute into the integral:\n       \\[\n       4 \\int \\frac{x}{\\sqrt{u_1}} \\cdot dx = -\\frac{4}{8} \\int u_1^{-1/2} du_1 = -\\frac{1}{2} \\cdot 2u_1^{1/2} + C = -\\sqrt{1 - 4x^2} + C\n       \\]\n\n4. **Combine Results:**\n   \\[\n   \\int -2 \\arcsin(2x) dx = -2x \\arcsin(2x) - \\sqrt{1 - 4x^2} + C\n   \\]\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-2*asin(2*x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': -2*Integral(asin(2*x), x)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 18*sin(6*x + 8)**4*cos(6*x + 8) dx",
+      "expected_answer": "3*sin(6*x + 8)**5/5 + C",
+      "model_answer": "\nThe indefinite integral is \n\n\\boxed{\\frac{3}{5} \\sin^5(6x + 8) + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '18*sin(6*x + 8)**4*cos(6*x + 8)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'trigonometric', 'expected_answer_expression': 3*sin(6*x + 8)**5/5}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -3*sqrt(-3*X - 2) dx",
+      "expected_answer": "2*(-3*X - 2)**(3/2)/3 + C",
+      "model_answer": "\nThe indefinite integral is evaluated as follows:\n\nLet \\( u = -3X - 2 \\). Then, \\( du = -3 \\, dX \\), which implies \\( dX = -\\frac{du}{3} \\). Substituting into the integral:\n\n\\[\n\\begin{align*}\n\\int -3 \\sqrt{-3X - 2} \\, dX &= -3 \\int \\sqrt{u} \\left( -\\frac{du}{3} \\right) \\\\\n&= \\int \\sqrt{u} \\, du \\\\\n&= \\frac{2}{3} u^{3/2} + C \\\\\n&= \\frac{2}{3} (-3X - 2)^{3/2} + C.\n\\end{align*}\n\\]\n\nFinal answer:  \n\\boxed{\\frac{2}{3} (-3X - 2)^{3/2} + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-3*sqrt(-3*X - 2)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'radical', 'expected_answer_expression': 2*(-3*X - 2)**(3/2)/3}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -exp(x)*sin(x) dx",
+      "expected_answer": "-exp(x)*sin(x)/2 + exp(x)*cos(x)/2 + C",
+      "model_answer": "\nThe indefinite integral is \\boxed{\\frac{e^x (\\cos(x) - \\sin(x))}{2} + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-exp(x)*sin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'cyclic', 'expected_answer_expression': -exp(x)*sin(x)/2 + exp(x)*cos(x)/2}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b (6 - 20*x)*exp(-10*x**2 + 6*x + 7) dx",
+      "expected_answer": "exp(-10*x**2 + 6*x + 7) + C",
+      "model_answer": "\nThe indefinite integral is:\n\n- e^{-10x2 + 6x + 7} + C\n\n**Step-by-Step Explanation:**\n\n1. **Identify the Substitution:**\n   Let \\( u = -10x^2 + 6x + 7 \\).\n\n2. **Compute the Differential \\( du \\):**\n   \\[\n   \\frac{du}{dx} = -20x + 6 \\quad \\Rightarrow \\quad du = (-20x + 6)\\,dx\n   \\]\n\n3. **Express the Integral in Terms of \\( u \\):**\n   Notice that the integrand \\( (6 - 20x) \\) can be rewritten as \\( -(-20x + 6) = -\\frac{du}{dx} \\). Substitute:\n   \\[\n   \\int (6 - 20x) e^{-10x^2 + 6x + 7}\\,dx = -\\int e^{u} \\, du\n   \\]\n\n4. **Integrate:**\n   \\[\n   -\\int e^{u} \\, du = -e^{u} + C\n   \\]\n\n5. **Substitute Back \\( u = -10x^2 + 6x + 7 \\):**\n   \\[\n   -e^{-10x^2 + 6x + 7} + C\n   \\]\n\n**Final Answer:**\n\\[\n\\boxed{ -e^{-10x^2 + 6x + 7} + C }\n\\]\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '(6 - 20*x)*exp(-10*x**2 + 6*x + 7)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': exp(-10*x**2 + 6*x + 7)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b 2*x**3*cos(x) dx",
+      "expected_answer": "2*x**3*sin(x) + 6*x**2*cos(x) - 12*x*sin(x) - 12*cos(x) + C",
+      "model_answer": "\nThe antiderivative of \\( \\int 2x^3 \\cos(x) \\, dx \\) is \n\\[\n2x^3 \\sin(x) + 6x^2 \\cos(x) - 12x \\sin(x) - 12 \\cos(x) + C\n\\]\nwhere \\( C \\) is the constant of integration. \n\n**Steps:**\n1. Apply integration by parts three times, each time reducing the power of \\( x \\).\n2. Combine the resulting terms and simplify.\n3. Verify by differentiation to ensure the result is correct.\n\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '2*x**3*cos(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'repeated_parts', 'expected_answer_expression': 2*x**3*sin(x) + 6*x**2*cos(x) - 12*x*sin(x) - 12*cos(x)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -(5*X + 3)**3 dx",
+      "expected_answer": "-125*X**4/4 - 75*X**3 - 135*X**2/2 - 27*X + C",
+      "model_answer": "\nThe antiderivative of \\(-(5X + 3)^3\\) with respect to \\(X\\) is:\n\n\\[\n\\frac{-(5X + 3)^4}{20} + C\n\\]\n\nwhere \\(C\\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-(5*X + 3)**3', 'problem_type': 'substitution', 'variable': 'X', 'type': 'linear', 'expected_answer_expression': -125*X**4/4 - 75*X**3 - 135*X**2/2 - 27*X}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -3*X**3*exp(X) dx",
+      "expected_answer": "(-3*X**3 + 9*X**2 - 18*X + 18)*exp(X) + C",
+      "model_answer": "\nThe indefinite integral of \u222b -3X3e\u2061X dX is:\n\n\\boxed{ -3X^3 e^X + 9X^2 e^X - 18X e^X + 18 e^X + C }\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-3*X**3*exp(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'repeated_parts', 'expected_answer_expression': (-3*X**3 + 9*X**2 - 18*X + 18)*exp(X)}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -X**3*cos(X) dx",
+      "expected_answer": "-X**3*sin(X) - 3*X**2*cos(X) + 6*X*sin(X) + 6*cos(X) + C",
+      "model_answer": "\nThe indefinite integral of \u222b -X3 cos(X) dx is:\n\n\\begin{equation*}\n-X^3 \\sin(X) - 3X^2 \\cos(X) + 6X \\sin(X) + 6\\cos(X) + C\n\\end{equation*}\n\nwhere \\( C \\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-X**3*cos(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'repeated_parts', 'expected_answer_expression': -X**3*sin(X) - 3*X**2*cos(X) + 6*X*sin(X) + 6*cos(X)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -log(X) dx",
+      "expected_answer": "-X*log(X) + X + C",
+      "model_answer": "\nThe antiderivative of \\( -\\ln(x) \\) with respect to \\( x \\) is:\n\n\\[\n\\int -\\ln(x) \\, dx = x(1 - \\ln(x)) + C\n\\]\n\n**Steps:**\n1. Use integration by parts: Let \\( u = \\ln(x) \\) and \\( dv = dx \\).\n2. Compute \\( du = \\frac{1}{x} dx \\) and \\( v = x \\).\n3. Apply integration by parts formula:\n   \\[\n   \\int \\ln(x) \\, dx = x\\ln(x) - \\int x \\cdot \\frac{1}{x} dx = x\\ln(x) - x + C.\n   \\]\n4. Multiply by \\(-1\\) to account for the original negative sign:\n   \\[\n   \\int -\\ln(x) \\, dx = -x\\ln(x) + x + C = x(1 - \\ln(x)) + C.\n   \\]\n\n*Note: If \\( \\log(x) \\) denotes base-10 logarithm, replace \\( \\ln(x) \\) with \\( \\frac{\\ln(x)}{\\ln(10)} \\), leading to a constant factor adjustment (e.g., \\( \\frac{1}{\\ln(10)} \\)).*\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-log(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'log_inverse_trig', 'expected_answer_expression': -X*log(X) + X}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b (14 - 4*x)*exp(-x**2 + 7*x + 8) dx",
+      "expected_answer": "2*exp(-x**2 + 7*x + 8) + C",
+      "model_answer": "\nThe indefinite integral is \\boxed{2e^{-x^2 + 7x + 8} + C}.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '(14 - 4*x)*exp(-x**2 + 7*x + 8)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': 2*exp(-x**2 + 7*x + 8)}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -4*exp(4*X - 3) dx",
+      "expected_answer": "-exp(4*X - 3) + C",
+      "model_answer": "\nThe indefinite integral is:\n\\[\n-e^{4X - 3} + C\n\\]\nwhere \\( C \\) is the constant of integration. Alternatively, written as:\n\\[\n\\boxed{ -e^{4x - 3} + C }\n\\]\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-4*exp(4*X - 3)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'exponential', 'expected_answer_expression': -exp(4*X - 3)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b -3*X**3*cos(X) dx",
+      "expected_answer": "-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C",
+      "model_answer": "\nThe antiderivative of \u222b -3X3 cos(X) dx is:\n\n-3X3 sin(X) + 18X sin(X) -9X2 cos(X) + 18 cos(X) + C\n\nThis can be simplified and factored as:\n\n[\u22123X3 + 18X] sin(X) + [\u22129X2 + 18] cos(X) + C\n\nWhere C is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-3*X**3*cos(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'repeated_parts', 'expected_answer_expression': -3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X)}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b X**3*sin(X) dx",
+      "expected_answer": "-X**3*cos(X) + 3*X**2*sin(X) + 6*X*cos(X) - 6*sin(X) + C",
+      "model_answer": "\nThe antiderivative of \u222bx3 sin(x) dx is:\n\n(-x3 + 6x) cos(x) + (3x2 - 6) sin(x) + C\n\n**Simplified Form:**\n(-x3 + 6x)cos(x) + 3(x2 - 2)sin(x) + C\n\n",
+      "score": 0.01,
+      "metadata": "{'integrand': 'X**3*sin(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'repeated_parts', 'expected_answer_expression': -X**3*cos(X) + 3*X**2*sin(X) + 6*X*cos(X) - 6*sin(X)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -10*exp(5*X + 1) dx",
+      "expected_answer": "-2*exp(5*X + 1) + C",
+      "model_answer": "\nThe indefinite integral is:\n\\[\n-2e^{5X + 1} + C\n\\]\nwhere \\( C \\) is the constant of integration.\n\n**Step-by-Step Explanation:**\n\n1. **Identify the integral:**\n   \\[\n   \\int -10 e^{5X + 1} \\, dX\n   \\]\n\n2. **Factor out constants:**\n   \\[\n   -10 \\int e^{5X + 1} \\, dX\n   \\]\n\n3. **Use substitution:**\n   - Let \\( u = 5X + 1 \\)\n   - Then \\( \\frac{du}{dX} = 5 \\) \u21d2 \\( dX = \\frac{du}{5} \\)\n\n4. **Rewrite the integral:**\n   \\[\n   -10 \\int e^{u} \\cdot \\frac{du}{5} = -10 \\cdot \\frac{1}{5} \\int e^{u} \\, du = -2 \\int e^{u} \\, du\n   \\]\n\n5. **Integrate \\( e^{u} \\):**\n   \\[\n   -2 e^{u} + C\n   \\]\n\n6. **Substitute back \\( u = 5X + 1 \\):**\n   \\[\n   -2 e^{5X + 1} + C\n   \\]\n\n**Final Answer:**\n\\[\n\\boxed{-2e^{5X + 1} + C}\n\\]\n\n**Verification (by differentiation):**\nDifferentiate \\( -2e^{5X + 1} \\):\n\\[\n\\frac{d}{dX}\\left(-2e^{5X + 1}\\right) = -2 \\cdot 5e^{5X + 1} = -10e^{5X + 1}\n\\]\nThis matches the original integrand, confirming the correctness of the solution.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-10*exp(5*X + 1)', 'problem_type': 'substitution', 'variable': 'X', 'type': 'exponential', 'expected_answer_expression': -2*exp(5*X + 1)}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b X*sin(X) dx",
+      "expected_answer": "Integral(X*sin(X), X) + C",
+      "model_answer": "\nThe indefinite integral of \\( X \\sin(X) \\, dx \\) is:\n\n\\[\n\\int X \\sin(X) \\, dx = -X \\cos(X) + \\sin(X) + C\n\\]\n\n**Steps:**\n1. Apply **integration by parts** with \\( u = X \\) and \\( dv = \\sin(X) \\, dx \\).\n2. Compute \\( du = dx \\) and \\( v = -\\cos(X) \\).\n3. Substitute into the integration-by-parts formula:\n   \\[\n   \\int u \\, dv = uv - \\int v \\, du\n   \\]\n   \\[\n   = -X \\cos(X) + \\int \\cos(X) \\, dx\n   \\]\n4. Integrate \\( \\cos(X) \\):\n   \\[\n   \\int \\cos(X) \\, dx = \\sin(X) + C\n   \\]\n5. Combine results:\n   \\[\n   -X \\cos(X) + \\sin(X) + C\n   \\]\n",
+      "score": 0.01,
+      "metadata": "{'integrand': 'X*sin(X)', 'problem_type': 'by_parts', 'variable': 'X', 'type': 'polynomial_exp_trig', 'expected_answer_expression': Integral(X*sin(X), X)}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -3*x**3*exp(x) dx",
+      "expected_answer": "(-3*x**3 + 9*x**2 - 18*x + 18)*exp(x) + C",
+      "model_answer": "\nThe indefinite integral is \n\n\\-3e^x (x3 - 3x2 + 6x - 6) + C\n\nor equivalently,\n\n-3x3 e^x + 9x2 e^x - 18x e^x + 18e^x + C\n\nwhere \\( C \\) is the constant of integration.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-3*x**3*exp(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'repeated_parts', 'expected_answer_expression': (-3*x**3 + 9*x**2 - 18*x + 18)*exp(x)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -8*exp(8*x - 10) dx",
+      "expected_answer": "-exp(8*x - 10) + C",
+      "model_answer": "\nThe indefinite integral of \\(-8 e^{8x - 10}\\) with respect to \\(x\\) is:\n\n\\[\n\\int -8 e^{8x - 10} \\, dx = -e^{8x - 10} + C\n\\]\n\n**Steps:**\n\n1. **Recognize the integral form:** The integrand is \\(-8 e^{8x - 10}\\). The integral of \\(e^{ax + b}\\) is \\(\\frac{1}{a}e^{ax + b} + C\\).\n2. **Factor out constants:** \\(\\int -8 e^{8x - 10} \\, dx = -8 \\int e^{8x - 10} \\, dx\\).\n3. **Integrate:** \\(\\int e^{8x - 10} \\, dx = \\frac{1}{8}e^{8x - 10} + C_1\\).\n4. **Combine terms:** Multiply by \\(-8\\) to get \\(-8 \\cdot \\frac{1}{8}e^{8x - 10} = -e^{8x - 10}\\).\n5. **Add constant of integration:** Final result is \\(-e^{8x - 10} + C\\).\n\n**Verification via differentiation:**\n\\[\n\\frac{d}{dx}\\left(-e^{8x - 10}\\right) = -e^{8x - 10} \\cdot 8 = -8e^{8x - 10},\n\\]\nwhich matches the original integrand.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-8*exp(8*x - 10)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': -exp(8*x - 10)}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 2*(2*X - 9)**4 dx",
+      "expected_answer": "32*X**5/5 - 144*X**4 + 1296*X**3 - 5832*X**2 + 13122*X + C",
+      "model_answer": "\nThe indefinite integral of \u222b2(2x - 9)4 dx is:\n\n\\boxed{\\dfrac{(2x - 9)^5}{5} + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '2*(2*X - 9)**4', 'problem_type': 'substitution', 'variable': 'X', 'type': 'linear', 'expected_answer_expression': 32*X**5/5 - 144*X**4 + 1296*X**3 - 5832*X**2 + 13122*X}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b -(5*x - 6)**4 dx",
+      "expected_answer": "-125*x**5 + 750*x**4 - 1800*x**3 + 2160*x**2 - 1296*x + C",
+      "model_answer": "\nThe indefinite integral of \u222b -(5*x - 6)^4 dx is:\n\n\\boxed{ -\\dfrac{(5x - 6)^5}{25} + C }\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-(5*x - 6)**4', 'problem_type': 'substitution', 'variable': 'x', 'type': 'linear', 'expected_answer_expression': -125*x**5 + 750*x**4 - 1800*x**3 + 2160*x**2 - 1296*x}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b 3*exp(x)*sin(x) dx",
+      "expected_answer": "3*exp(x)*sin(x)/2 - 3*exp(x)*cos(x)/2 + C",
+      "model_answer": "\nThe indefinite integral is:\n\n\\boxed{\\frac{3}{2} e^x (\\sin(x) - \\cos(x)) + C}\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '3*exp(x)*sin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'cyclic', 'expected_answer_expression': 3*exp(x)*sin(x)/2 - 3*exp(x)*cos(x)/2}"
+    },
+    {
+      "question": "Find the indefinite integral: \u222b 6*sin(3*X - 6)*cos(3*X - 6)**2 dx",
+      "expected_answer": "-2*cos(3*X - 6)**3/3 + C",
+      "model_answer": "\nThe indefinite integral is \\[\n-\\frac{2}{3} \\cos^3(3X - 6) + C\n\\]\nwhere \\( C \\) is the constant of integration. \n\n**Step-by-Step Explanation:**\n\n1. **Substitution:** Let \\( u = \\cos(3X - 6) \\). Then, \\( du = -3 \\sin(3X - 6) \\, dX \\), so \\( \\sin(3X - 6) \\, dX = -\\frac{1}{3} du \\).\n\n2. **Rewrite the Integral:**\n\\[\n\\int 6 \\sin(3X - 6) \\cos^2(3X - 6) \\, dX = 6 \\int \\cos^2(3X - 6) \\cdot \\sin(3X - 6) \\, dX\n\\]\nSubstitute \\( u \\) and \\( du \\):\n\\[\n6 \\int u^2 \\left(-\\frac{1}{3} du\\right) = -2 \\int u^2 \\, du\n\\]\n\n3. **Integrate:**\n\\[\n-2 \\int u^2 \\, du = -2 \\left(\\frac{u^3}{3}\\right) + C = -\\frac{2}{3} u^3 + C\n\\]\n\n4. **Back-Substitute \\( u = \\cos(3X - 6) \\):**\n\\[\n-\\frac{2}{3} \\cos^3(3X - 6) + C\n\\]\n\n**Verification via Differentiation:**\n\\[\n\\frac{d}{dX} \\left(-\\frac{2}{3} \\cos^3(3X - 6)\\right) = -2 \\cos^2(3X - 6) \\cdot (-\\sin(3X - 6)) \\cdot 3 = 6 \\sin(3X - 6) \\cos^2(3X - 6)\n\\]\nWhich matches the original integrand, confirming the solution is correct.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '6*sin(3*X - 6)*cos(3*X - 6)**2', 'problem_type': 'substitution', 'variable': 'X', 'type': 'trigonometric', 'expected_answer_expression': -2*cos(3*X - 6)**3/3}"
+    },
+    {
+      "question": "Calculate the antiderivative: \u222b 12*sqrt(-6*x - 10) dx",
+      "expected_answer": "-4*(-6*x - 10)**(3/2)/3 + C",
+      "model_answer": "\nThe antiderivative is \\boxed{-\\dfrac{4}{3} (-6x - 10)^{3/2} + C}.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '12*sqrt(-6*x - 10)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'radical', 'expected_answer_expression': -4*(-6*x - 10)**(3/2)/3}"
+    },
+    {
+      "question": "Evaluate the indefinite integral: \u222b -8*sin(8*x + 8)*cos(8*x + 8)**3 dx",
+      "expected_answer": "cos(8*x + 8)**4/4 + C",
+      "model_answer": "\nThe indefinite integral of \\( \\int -8 \\sin(8x + 8) \\cos^3(8x + 8) \\, dx \\) is:\n\n\\[\n\\boxed{\\frac{1}{4} \\cos^4(8x + 8) + C}\n\\]\n\n**Explanation:**\n\n1. **Substitution:** Let \\( u = \\cos(8x + 8) \\). Then \\( du = -8 \\sin(8x + 8) \\, dx \\), which implies \\( \\sin(8x + 8) \\, dx = -\\frac{du}{8} \\).\n\n2. **Rewrite the Integral:**\n   \\[\n   \\int -8 \\sin(8x + 8) \\cos^3(8x + 8) \\, dx = \\int -8 \\cdot \\left(-\\frac{du}{8}\\right) \\cdot u^3 = \\int u^3 \\, du\n   \\]\n\n3. **Integrate:**\n   \\[\n   \\int u^3 \\, du = \\frac{u^4}{4} + C\n   \\]\n\n4. **Substitute Back:** Replace \\( u \\) with \\( \\cos(8x + 8) \\):\n   \\[\n   \\frac{1}{4} \\cos^4(8x + 8) + C\n   \\]\n\nThis result is confirmed by differentiating the answer, which matches the original integrand.\n",
+      "score": 0.01,
+      "metadata": "{'integrand': '-8*sin(8*x + 8)*cos(8*x + 8)**3', 'problem_type': 'substitution', 'variable': 'x', 'type': 'trigonometric', 'expected_answer_expression': cos(8*x + 8)**4/4}"
+    }
+  ]
+}

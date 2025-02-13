@@ -1,0 +1,367 @@
+{
+  "dataset_name": "word_sequence_reversal",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.97,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T17:54:18.601521",
+  "config": {
+    "min_words": 3,
+    "max_words": 8,
+    "seed": 42,
+    "size": 50
+  },
+  "results": [
+    {
+      "question": "Reverse this list of words: bed, if, problem, but, Well, an, transmission, nutritive",
+      "expected_answer": "nutritive, transmission, an, Well, but, problem, if, bed",
+      "model_answer": "nutritive, transmission, an, Well, but, problem, if, bed",
+      "score": 1.0,
+      "metadata": "{'num_words': 8, 'words': ['bed', 'if', 'problem', 'but', 'Well', 'an', 'transmission', 'nutritive']}"
+    },
+    {
+      "question": "Reverse this list of words: it, pleasure, Gutenberg",
+      "expected_answer": "Gutenberg, pleasure, it",
+      "model_answer": "Gutenberg, pleasure, it",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['it', 'pleasure', 'Gutenberg']}"
+    },
+    {
+      "question": "Reverse this list of words: readable, to, he, that, to, possession",
+      "expected_answer": "possession, to, that, he, to, readable",
+      "model_answer": "possession, to, that, he, to, readable",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'possession']}"
+    },
+    {
+      "question": "Reverse this list of words: does, IS, by, in, should",
+      "expected_answer": "should, in, by, IS, does",
+      "model_answer": "should, in, by, IS, does",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['does', 'IS', 'by', 'in', 'should']}"
+    },
+    {
+      "question": "Reverse this list of words: keeping, others, the",
+      "expected_answer": "the, others, keeping",
+      "model_answer": "the, others, keeping",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['keeping', 'others', 'the']}"
+    },
+    {
+      "question": "Reverse this list of words: years, Project, not, another, ages",
+      "expected_answer": "ages, another, not, Project, years",
+      "model_answer": "ages, another, not, Project, years",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['years', 'Project', 'not', 'another', 'ages']}"
+    },
+    {
+      "question": "Reverse this list of words: me, you, of, being, the, map, a",
+      "expected_answer": "a, map, the, being, of, you, me",
+      "model_answer": "a, map, the, being, of, you, me",
+      "score": 1.0,
+      "metadata": "{'num_words': 7, 'words': ['me', 'you', 'of', 'being', 'the', 'map', 'a']}"
+    },
+    {
+      "question": "Reverse this list of words: said, give, And",
+      "expected_answer": "And, give, said",
+      "model_answer": "And, give, said",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['said', 'give', 'And']}"
+    },
+    {
+      "question": "Reverse this list of words: these, electronic, kitchen, costs, upward, all",
+      "expected_answer": "all, upward, costs, kitchen, electronic, these",
+      "model_answer": "all, upward, costs, kitchen, electronic, these",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['these', 'electronic', 'kitchen', 'costs', 'upward', 'all']}"
+    },
+    {
+      "question": "Reverse this list of words: computers, That, race, his",
+      "expected_answer": "his, race, That, computers",
+      "model_answer": "his, race, That, computers",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['computers', 'That', 'race', 'his']}"
+    },
+    {
+      "question": "Reverse this list of words: to, number, it, Redistribution, than",
+      "expected_answer": "than, Redistribution, it, number, to",
+      "model_answer": "than, Redistribution, it, number, to",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['to', 'number', 'it', 'Redistribution', 'than']}"
+    },
+    {
+      "question": "Reverse this list of words: Though, provide, widest, a, equipment, copyright, user",
+      "expected_answer": "user, copyright, equipment, a, widest, provide, Though",
+      "model_answer": " user, copyright, equipment, a, widest, provide, Though ",
+      "score": 0.5,
+      "metadata": "{'num_words': 7, 'words': ['Though', 'provide', 'widest', 'a', 'equipment', 'copyright', 'user']}"
+    },
+    {
+      "question": "Reverse this list of words: obtaining, having, of, 3",
+      "expected_answer": "3, of, having, obtaining",
+      "model_answer": "3, of, having, obtaining",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['obtaining', 'having', 'of', '3']}"
+    },
+    {
+      "question": "Reverse this list of words: Madrid, Smith, it",
+      "expected_answer": "it, Smith, Madrid",
+      "model_answer": "it, Smith, Madrid",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['Madrid', 'Smith', 'it']}"
+    },
+    {
+      "question": "Reverse this list of words: the, THAT, requirements, condition, phrase, the, to",
+      "expected_answer": "to, the, phrase, condition, requirements, THAT, the",
+      "model_answer": "to, the, phrase, condition, requirements, THAT, the",
+      "score": 1.0,
+      "metadata": "{'num_words': 7, 'words': ['the', 'THAT', 'requirements', 'condition', 'phrase', 'the', 'to']}"
+    },
+    {
+      "question": "Reverse this list of words: trademark, in, ask",
+      "expected_answer": "ask, in, trademark",
+      "model_answer": "ask, in, trademark",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['trademark', 'in', 'ask']}"
+    },
+    {
+      "question": "Reverse this list of words: France, True, and, invented, I, to, work",
+      "expected_answer": "work, to, I, invented, and, True, France",
+      "model_answer": "work, to, I, invented, and, True, France",
+      "score": 1.0,
+      "metadata": "{'num_words': 7, 'words': ['France', 'True', 'and', 'invented', 'I', 'to', 'work']}"
+    },
+    {
+      "question": "Reverse this list of words: him, of, time, during",
+      "expected_answer": "during, time, of, him",
+      "model_answer": "during, time, of, him",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['him', 'of', 'time', 'during']}"
+    },
+    {
+      "question": "Reverse this list of words: idea, you, to, Nothing, electronically",
+      "expected_answer": "electronically, Nothing, to, you, idea",
+      "model_answer": "electronically, Nothing, to, you, idea",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['idea', 'you', 'to', 'Nothing', 'electronically']}"
+    },
+    {
+      "question": "Reverse this list of words: simply, has, Yes, them, coming, years",
+      "expected_answer": "years, coming, them, Yes, has, simply",
+      "model_answer": "years, coming, them, Yes, has, simply",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['simply', 'has', 'Yes', 'them', 'coming', 'years']}"
+    },
+    {
+      "question": "Reverse this list of words: the, the, have, do, opening, history, 294",
+      "expected_answer": "294, history, opening, do, have, the, the",
+      "model_answer": "294, history, opening, do, have, the, the",
+      "score": 1.0,
+      "metadata": "{'num_words': 7, 'words': ['the', 'the', 'have', 'do', 'opening', 'history', '294']}"
+    },
+    {
+      "question": "Reverse this list of words: electronic, a, you, you, is, this",
+      "expected_answer": "this, is, you, you, a, electronic",
+      "model_answer": " this, is, you, you, a, electronic ",
+      "score": 0.5,
+      "metadata": "{'num_words': 6, 'words': ['electronic', 'a', 'you', 'you', 'is', 'this']}"
+    },
+    {
+      "question": "Reverse this list of words: are, of, loose, comprehend, one, nasal",
+      "expected_answer": "nasal, one, comprehend, loose, of, are",
+      "model_answer": "nasal, one, comprehend, loose, of, are",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['are', 'of', 'loose', 'comprehend', 'one', 'nasal']}"
+    },
+    {
+      "question": "Reverse this list of words: are, are, state, that, or, reported",
+      "expected_answer": "reported, or, that, state, are, are",
+      "model_answer": "reported, or, that, state, are, are",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['are', 'are', 'state', 'that', 'or', 'reported']}"
+    },
+    {
+      "question": "Reverse this list of words: Good, any, Mr",
+      "expected_answer": "Mr, any, Good",
+      "model_answer": "Mr, any, Good",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['Good', 'any', 'Mr']}"
+    },
+    {
+      "question": "Reverse this list of words: waiting, or, inaccurate",
+      "expected_answer": "inaccurate, or, waiting",
+      "model_answer": "inaccurate, or, waiting",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['waiting', 'or', 'inaccurate']}"
+    },
+    {
+      "question": "Reverse this list of words: electronic, the, light, network, sentence, codes, were, having",
+      "expected_answer": "having, were, codes, sentence, network, light, the, electronic",
+      "model_answer": "having, were, codes, sentence, network, light, the, electronic",
+      "score": 1.0,
+      "metadata": "{'num_words': 8, 'words': ['electronic', 'the', 'light', 'network', 'sentence', 'codes', 'were', 'having']}"
+    },
+    {
+      "question": "Reverse this list of words: inventors, 25th, no, interesting, certainly, I, at, copyright",
+      "expected_answer": "copyright, at, I, certainly, interesting, no, 25th, inventors",
+      "model_answer": "copyright, at, I, certainly, interesting, no, 25th, inventors",
+      "score": 1.0,
+      "metadata": "{'num_words': 8, 'words': ['inventors', '25th', 'no', 'interesting', 'certainly', 'I', 'at', 'copyright']}"
+    },
+    {
+      "question": "Reverse this list of words: a, terms, marked",
+      "expected_answer": "marked, terms, a",
+      "model_answer": "marked, terms, a",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['a', 'terms', 'marked']}"
+    },
+    {
+      "question": "Reverse this list of words: can, IN, Smith, and, extensive",
+      "expected_answer": "extensive, and, Smith, IN, can",
+      "model_answer": "extensive, and, Smith, IN, can",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['can', 'IN', 'Smith', 'and', 'extensive']}"
+    },
+    {
+      "question": "Reverse this list of words: to, case, way",
+      "expected_answer": "way, case, to",
+      "model_answer": "way, case, to",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['to', 'case', 'way']}"
+    },
+    {
+      "question": "Reverse this list of words: you, of, to, what, Gutenberg",
+      "expected_answer": "Gutenberg, what, to, of, you",
+      "model_answer": "Gutenberg, what, to, of, you",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['you', 'of', 'to', 'what', 'Gutenberg']}"
+    },
+    {
+      "question": "Reverse this list of words: City, writers, alone, am, was, to, below",
+      "expected_answer": "below, to, was, am, alone, writers, City",
+      "model_answer": "below, to, was, am, alone, writers, City",
+      "score": 1.0,
+      "metadata": "{'num_words': 7, 'words': ['City', 'writers', 'alone', 'am', 'was', 'to', 'below']}"
+    },
+    {
+      "question": "Reverse this list of words: the, must, still, laws, agreement, scientific",
+      "expected_answer": "scientific, agreement, laws, still, must, the",
+      "model_answer": "scientific, agreement, laws, still, must, the",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['the', 'must', 'still', 'laws', 'agreement', 'scientific']}"
+    },
+    {
+      "question": "Reverse this list of words: the, follow, Celestial, again, of",
+      "expected_answer": "of, again, Celestial, follow, the",
+      "model_answer": "of, again, Celestial, follow, the",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['the', 'follow', 'Celestial', 'again', 'of']}"
+    },
+    {
+      "question": "Reverse this list of words: of, to, Progress, North, recount",
+      "expected_answer": "recount, North, Progress, to, of",
+      "model_answer": "recount, North, Progress, to, of",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['of', 'to', 'Progress', 'North', 'recount']}"
+    },
+    {
+      "question": "Reverse this list of words: present, he, For, of",
+      "expected_answer": "of, For, he, present",
+      "model_answer": "of, For, he, present",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['present', 'he', 'For', 'of']}"
+    },
+    {
+      "question": "Reverse this list of words: at, into, least, as",
+      "expected_answer": "as, least, into, at",
+      "model_answer": "as, least, into, at",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['at', 'into', 'least', 'as']}"
+    },
+    {
+      "question": "Reverse this list of words: law, subscribe, with, performances, may",
+      "expected_answer": "may, performances, with, subscribe, law",
+      "model_answer": "may, performances, with, subscribe, law",
+      "score": 1.0,
+      "metadata": "{'num_words': 5, 'words': ['law', 'subscribe', 'with', 'performances', 'may']}"
+    },
+    {
+      "question": "Reverse this list of words: of, telephone, donation, forth, receiving, fairer, the",
+      "expected_answer": "the, fairer, receiving, forth, donation, telephone, of",
+      "model_answer": "the, fairer, receiving, forth, donation, telephone, of",
+      "score": 1.0,
+      "metadata": "{'num_words': 7, 'words': ['of', 'telephone', 'donation', 'forth', 'receiving', 'fairer', 'the']}"
+    },
+    {
+      "question": "Reverse this list of words: allow, goals, think, Mr",
+      "expected_answer": "Mr, think, goals, allow",
+      "model_answer": "Mr, think, goals, allow",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['allow', 'goals', 'think', 'Mr']}"
+    },
+    {
+      "question": "Reverse this list of words: Project, freed, must, accept, ago, them",
+      "expected_answer": "them, ago, accept, must, freed, Project",
+      "model_answer": "them, ago, accept, must, freed, Project",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['Project', 'freed', 'must', 'accept', 'ago', 'them']}"
+    },
+    {
+      "question": "Reverse this list of words: an, inventors, MERCHANTABILITY, located, with, pleased, of, If",
+      "expected_answer": "If, of, pleased, with, located, MERCHANTABILITY, inventors, an",
+      "model_answer": "If, of, pleased, with, located, MERCHANTABILITY, inventors, an",
+      "score": 1.0,
+      "metadata": "{'num_words': 8, 'words': ['an', 'inventors', 'MERCHANTABILITY', 'located', 'with', 'pleased', 'of', 'If']}"
+    },
+    {
+      "question": "Reverse this list of words: preceding, you, was, what",
+      "expected_answer": "what, was, you, preceding",
+      "model_answer": "what, was, you, preceding",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['preceding', 'you', 'was', 'what']}"
+    },
+    {
+      "question": "Reverse this list of words: was, any, copies",
+      "expected_answer": "copies, any, was",
+      "model_answer": " copies, any, was ",
+      "score": 0.5,
+      "metadata": "{'num_words': 3, 'words': ['was', 'any', 'copies']}"
+    },
+    {
+      "question": "Reverse this list of words: he, including, science, advanced",
+      "expected_answer": "advanced, science, including, he",
+      "model_answer": "advanced, science, including, he",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['he', 'including', 'science', 'advanced']}"
+    },
+    {
+      "question": "Reverse this list of words: chamber, in, the, with, org, GUTENBERG",
+      "expected_answer": "GUTENBERG, org, with, the, in, chamber",
+      "model_answer": "GUTENBERG, org, with, the, in, chamber",
+      "score": 1.0,
+      "metadata": "{'num_words': 6, 'words': ['chamber', 'in', 'the', 'with', 'org', 'GUTENBERG']}"
+    },
+    {
+      "question": "Reverse this list of words: His, narrative, reporter",
+      "expected_answer": "reporter, narrative, His",
+      "model_answer": "reporter, narrative, His",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['His', 'narrative', 'reporter']}"
+    },
+    {
+      "question": "Reverse this list of words: to, a, a, the",
+      "expected_answer": "the, a, a, to",
+      "model_answer": "the, a, a, to",
+      "score": 1.0,
+      "metadata": "{'num_words': 4, 'words': ['to', 'a', 'a', 'the']}"
+    },
+    {
+      "question": "Reverse this list of words: the, telescopes, you",
+      "expected_answer": "you, telescopes, the",
+      "model_answer": "you, telescopes, the",
+      "score": 1.0,
+      "metadata": "{'num_words': 3, 'words': ['the', 'telescopes', 'you']}"
+    }
+  ]
+}

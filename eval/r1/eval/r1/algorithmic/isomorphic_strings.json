@@ -1,0 +1,367 @@
+{
+  "dataset_name": "isomorphic_strings",
+  "model": "deepseek/deepseek-r1",
+  "size": 50,
+  "provider": "Nebius",
+  "average_score": 0.89,
+  "total_examples": 50,
+  "timestamp": "2025-02-12T15:21:33.956956",
+  "config": {
+    "max_string_length": 10,
+    "p_solvable": 0.5,
+    "size": 50,
+    "seed": 42
+  },
+  "results": [
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nzz qm\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['zz', 'qm'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nhuj lgb\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'words': ['huj', 'lgb'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\ncslbkbksy baomfmfac\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['cslbkbksy', 'baomfmfac'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\npabekjaz elbwakln\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['pabekjaz', 'elbwakln'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nbdivqxbj huqvzhbg\n",
+      "expected_answer": "False",
+      "model_answer": null,
+      "score": 0.0,
+      "metadata": "{'words': ['bdivqxbj', 'huqvzhbg'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nxipgtju xouahvb\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['xipgtju', 'xouahvb'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nxxax fftg\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['xxax', 'fftg'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nkymuyzq ouheulr\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'words': ['kymuyzq', 'ouheulr'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nflenr cgouq\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['flenr', 'cgouq'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nxlxpxhxmr nmnxnjngz\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['xlxpxhxmr', 'nmnxnjngz'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nzz tl\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['zz', 'tl'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nmhccm itiil\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['mhccm', 'itiil'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nhahe vixp\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['hahe', 'vixp'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nqaza geke\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['qaza', 'geke'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nbvawlfnvpw ivrjbgwvyw\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['bvawlfnvpw', 'ivrjbgwvyw'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nl t\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'words': ['l', 't'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nzoooh choha\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['zoooh', 'choha'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nbabubeej dgdcdaar\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['babubeej', 'dgdcdaar'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\npjh qtl\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['pjh', 'qtl'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\norrjbfnhs jssgtpxwh\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['orrjbfnhs', 'jssgtpxwh'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nnnhu qvoa\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse\n",
+      "score": 0.5,
+      "metadata": "{'words': ['nnhu', 'qvoa'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\npugnu iejbe\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['pugnu', 'iejbe'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nxbpjjyc zkyffqj\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['xbpjjyc', 'zkyffqj'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nmhmhx qiqil\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['mhmhx', 'qiqil'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nlhpksmj jsutidk\n",
+      "expected_answer": "True",
+      "model_answer": "\nTrue\n",
+      "score": 0.5,
+      "metadata": "{'words': ['lhpksmj', 'jsutidk'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nhpwtoda actmynd\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['hpwtoda', 'actmynd'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nkiwprvxsvd rqtyibpcko\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['kiwprvxsvd', 'rqtyibpcko'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\njnn nco\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse",
+      "score": 0.5,
+      "metadata": "{'words': ['jnn', 'nco'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nchrquh xdbyfg\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['chrquh', 'xdbyfg'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\np d\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['p', 'd'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nfxf frf\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['fxf', 'frf'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nesangmhbw uxctrkqfl\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['esangmhbw', 'uxctrkqfl'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nkkjsfhmhss ooskbupusk\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse\n",
+      "score": 0.5,
+      "metadata": "{'words': ['kkjsfhmhss', 'ooskbupusk'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nhzmuuuc hjftttp\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['hzmuuuc', 'hjftttp'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nodlaena sxovqav\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['odlaena', 'sxovqav'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nooketqq qqormzw\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['ooketqq', 'qqormzw'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nazz zmh\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse\n",
+      "score": 0.5,
+      "metadata": "{'words': ['azz', 'zmh'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\ntlzenb nmydxs\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['tlzenb', 'nmydxs'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\ncfxfbyldl alxlciyhy\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['cfxfbyldl', 'alxlciyhy'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nrxseshyba vpownjghm\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['rxseshyba', 'vpownjghm'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nmjjspywi snngkhra\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['mjjspywi', 'snngkhra'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nngdosndw dhfmpdfk\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['ngdosndw', 'dhfmpdfk'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nee wq\n",
+      "expected_answer": "False",
+      "model_answer": "False",
+      "score": 1.0,
+      "metadata": "{'words': ['ee', 'wq'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nrl ki\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['rl', 'ki'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nxx jo\n",
+      "expected_answer": "False",
+      "model_answer": "\nFalse",
+      "score": 0.5,
+      "metadata": "{'words': ['xx', 'jo'], 'solution': False, 'solvable': False}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nxprx bjzb\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['xprx', 'bjzb'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nrvmb nwyp\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['rvmb', 'nwyp'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nqnwoc ldpoj\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['qnwoc', 'ldpoj'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nei zu\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['ei', 'zu'], 'solution': True, 'solvable': True}"
+    },
+    {
+      "question": "Two strings are isomorphic if the characters in one string can be replaced to get the second string.\n\nAll occurrences of a character must be replaced with another character while preserving the order of characters.\n\nNo two characters may map to the same character, but a character may map to itself.\n\nExample 1:\nInput: egg add\nOutput: True\nExplanation: The strings s and t can be made identical by:\n    - Mapping 'e' to 'a'.\n    - Mapping 'g' to 'd'.\n\nExample 2:\nInput: foo bar\nOutput: False\nExplanation:\n    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.\n\nReturn True if the following two strings are isomorphic, or False otherwise:\nush zpj\n",
+      "expected_answer": "True",
+      "model_answer": "True",
+      "score": 1.0,
+      "metadata": "{'words': ['ush', 'zpj'], 'solution': True, 'solvable': True}"
+    }
+  ]
+}
