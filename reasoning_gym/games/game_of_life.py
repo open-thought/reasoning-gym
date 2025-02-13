@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
 import cellpylib as cpl
 
@@ -12,8 +12,8 @@ from ..factory import ProceduralDataset, register_dataset
 class GameOfLifeConfig:
     """Configuration for sudoku puzzle generation"""
 
-    grid_size_x: int = 20
-    grid_size_y: int = 20
+    grid_size_x: int = 10
+    grid_size_y: int = 10
     filled_cells: int = 100  # actually a max
     simulation_steps: int = 1
     seed: Optional[int] = None
@@ -60,10 +60,15 @@ class GameOfLifeDataset(ProceduralDataset):
 
         # Simulate the result to get the answer
         evolved = cpl.evolve2d(
-            board, timesteps=self.config.simulation_steps + 1, apply_rule=cpl.game_of_life_rule, memoize="recursive"
+            board,
+            timesteps=self.config.simulation_steps + 1,
+            apply_rule=cpl.game_of_life_rule,
+            memoize="recursive",
         )
 
-        board_str = str(board[0])
+        rows = [json.dumps(board[0, i].tolist(), separators=(",", ":")) for i in range(board.shape[1])]
+        board_str = "[" + ", \n ".join(rows) + "]"
+
         final_step = evolved[-1]
         final_step_list = final_step.tolist()
         result_str = json.dumps(final_step_list, separators=(",", ":"))
