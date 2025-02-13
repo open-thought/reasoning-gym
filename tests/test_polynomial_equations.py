@@ -144,7 +144,6 @@ def test_polynomial_perfect_score():
     """Test that scoring an item's own answer gives a perfect score"""
     cfg = PolynomialEquationsConfig(seed=42, size=10)
     ds = PolynomialEquationsDataset(cfg)
-    
+
     for item in ds:
-        score = ds.score_answer(item["answer"], item)
-        assert score == pytest.approx(1.0, rel=1e-6)
+        assert ds.score_answer(item["answer"], item) == 1.0
