@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from enum import StrEnum
 from random import Random
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
@@ -104,6 +104,28 @@ class WordSortingDataset(ProceduralDataset):
                 "sorted_words": answer,
             },
         }
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        """Determine if the solution provided solves this task.
+
+        The function awards 1.0 for a correct answer.
+
+        Args:
+            answer (Optional[str]): The user's answer.
+            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+
+        Returns:
+            float: The computed score between 0.0 and 1.0.
+        """
+
+        if answer == None:
+            return 0.0
+
+        s_answer = answer.strip().replace(" ", "")
+        if not s_answer == entry["answer"].strip().replace(" ", ""):
+            return 0.01
+        else:
+            return 1.0
 
 
 register_dataset("word_sorting", WordSortingDataset, WordSortingConfig)
