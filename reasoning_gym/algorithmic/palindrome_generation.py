@@ -53,7 +53,7 @@ class PalindromeDataset(ProceduralDataset):
         palindrome = self._assemble_palindrome(letters)
 
         question_str = (
-            "Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.\n\n"
+            "Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward. If there are multiple answers, only respond with one of them.\n\n"
             "For example, if the letters are: a, a, b — a valid palindrome is: aba.\n\n"
             f"Your letters: {', '.join(scrambled_letters)}\n\n"
             "What palindrome can you form from these letters?"
