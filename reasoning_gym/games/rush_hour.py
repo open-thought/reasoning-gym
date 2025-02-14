@@ -145,13 +145,14 @@ class Board:
         # The position of piecs are stored as bits,
         # it is compaired with the barrier (row/column) to confim the move being made is valid.
         # Example format:
-        #                 1000001000000000000 Piece Mask
-        #           1000000000000000000000000 Move Mask
+        #                  1000001000000000000 Piece Mask
+        #            1000000000000000000000000 Move Mask
         # 111000111100111101001111011111011110 Puzzle Board
         #
         boardMask = self.mask()
+        # validate input before using index
         i = ord(target) - ord("A")
-        if i < 0 or i > 13:
+        if i < 0 or i > len(self._pieces):
             return
 
         piece = self._pieces[i]
