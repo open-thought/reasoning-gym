@@ -78,17 +78,17 @@ class BasicArithmeticDataset(ProceduralDataset):
                 - metadata: dict with generation parameters
         """
         # Create deterministic RNG from base seed and idx
-        item_rng = Random(self.seed + idx)
+        rng = Random(self.seed + idx)
 
-        num_terms = item_rng.randint(self.config.min_terms, self.config.max_terms)
-        num_digits = item_rng.randint(self.config.min_digits, self.config.max_digits)
+        num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
+        num_digits = rng.randint(self.config.min_digits, self.config.max_digits)
 
         if self.config.allow_parentheses:
-            expression, result = self._generate_complex_task(item_rng, num_terms, num_digits)
+            expression, result = self._generate_complex_task(rng, num_terms, num_digits)
         else:
-            expression, result = self._generate_simple_task(item_rng, num_terms, num_digits)
+            expression, result = self._generate_simple_task(rng, num_terms, num_digits)
 
-        question = self._format_question(item_rng, expression)
+        question = self._format_question(rng, expression)
 
         return {
             "question": question,

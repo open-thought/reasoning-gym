@@ -7,46 +7,40 @@ from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
-class ChainSumConfig:
-    """Configuration for chain sum task generation"""
+class ProductsConfig:
+    """Configuration for products task generation"""
 
     min_terms: int = 2
-    max_terms: int = 6
+    max_terms: int = 2
     min_digits: int = 1
-    max_digits: int = 4
-    allow_negation: bool = False
+    max_digits: int = 5
     seed: Optional[int] = None
     size: int = 500
 
     def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.size > 0, "size must be positive"
-        """Validate configuration parameters"""
         assert self.min_terms > 0, "min_terms must be positive"
         assert self.max_terms >= self.min_terms, "max_terms must be >= min_terms"
         assert self.min_digits > 0, "min_digits must be positive"
         assert self.max_digits >= self.min_digits, "max_digits must be >= min_digits"
 
-        # Validate digit ranges make sense
-        if self.min_digits > 1:
-            assert 10 ** (self.min_digits - 1) >= 1, "min_digits would result in invalid number range"
 
+class ProductsDataset(ProceduralDataset):
+    """Generates multiplication tasks with configurable number of terms"""
 
-class ChainSumDataset(ProceduralDataset):
-    """Generates simple arithmetic tasks using only + and - operators"""
-
-    def __init__(self, config: ChainSumConfig):
+    def __init__(self, config: ProductsConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
-        """Generate a single chain sum task
+        """Generate a single multiplication task
 
         Args:
             idx: Index of the item to generate
 
         Returns:
             dict with keys:
-                - question: str, the formatted arithmetic expression
+                - question: str, the formatted multiplication expression
                 - answer: str, the ground truth result
                 - metadata: dict with generation parameters
         """
@@ -75,7 +69,7 @@ class ChainSumDataset(ProceduralDataset):
         }
 
     def _generate_task(self, rng: random.Random, num_terms: int, min_value: int, max_value: int) -> tuple[str, int]:
-        """Generate a chain sum task
+        """Generate a multiplication task
 
         Args:
             rng: Random number generator
@@ -86,36 +80,26 @@ class ChainSumDataset(ProceduralDataset):
         Returns:
             Tuple of (expression string, result integer)
         """
-        if self.config.allow_negation:
-            # Allow both positive and negative numbers in the range
-            constants = [rng.randint(-max_value, max_value) for _ in range(num_terms)]
-        else:
-            # Only positive numbers
-            constants = [rng.randint(min_value, max_value) for _ in range(num_terms)]
-        operators = [rng.choice(["+", "-"]) for _ in range(num_terms - 1)]
+        # Generate random numbers within the specified range
+        constants = [rng.randint(min_value, max_value) for _ in range(num_terms)]
 
         # Build expression and compute result
         expression_parts = []
         result = constants[0]
 
         expression_parts.append(str(constants[0]))
-        for i, op in enumerate(operators):
-            c = constants[i + 1]
-            expression_parts.append(op)
-            expression_parts.append(str(c))
-
-            if op == "+":
-                result += c
-            else:  # op == "-"
-                result -= c
+        for i in range(1, len(constants)):
+            expression_parts.append("*")
+            expression_parts.append(str(constants[i]))
+            result *= constants[i]
 
         expression = " ".join(expression_parts)
         return expression, result
 
 
-class ChainSumCurriculum(BaseCurriculum):
+class ProductsCurriculum(BaseCurriculum):
     def __init__(self):
-        super().__init__(ChainSumCurriculum.__name__, ChainSumConfig)
+        super().__init__(ProductsCurriculum.__name__, ProductsConfig)
 
         # Define attributes
         self._define_attributes(
@@ -131,7 +115,7 @@ class ChainSumCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="num_digits",
-                levels=[1, 2, 4, 10],
+                levels=[1, 2, 3, 4],
                 default_level=0,  # Start with 1-digit numbers
                 description="Number of digits in each operand",
                 attr_type=AttributeType.APPEND,
@@ -143,4 +127,4 @@ class ChainSumCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("chain_sum", ChainSumDataset, ChainSumConfig)
+register_dataset("products", ProductsDataset, ProductsConfig)
