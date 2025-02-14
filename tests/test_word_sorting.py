@@ -100,6 +100,11 @@ def test_word_sorting_dataset_items():
         else:
             assert sorted_words == sorted(sorted_words, reverse=True)
 
+        # Test the scoring
+        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
+        assert dataset.score_answer(answer="gibberish", entry=item) == 0.01
+        assert dataset.score_answer(answer=None, entry=item) == 0.0
+
 
 def test_word_sorting_dataset_iteration():
     """Test that iteration respects dataset size"""

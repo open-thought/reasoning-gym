@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Optional
+from typing import Dict, Optional
 
 from reasoning_gym.data import read_data_file
 
@@ -98,6 +98,28 @@ class LetterJumbleDataset(ProceduralDataset):
                 "original_words": selected_words,
             },
         }
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        """Determine if the solution provided solves this task.
+
+        The function awards 1.0 for a correct answer.
+
+        Args:
+            answer (Optional[str]): The user's answer.
+            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+
+        Returns:
+            float: The computed score between 0.0 and 1.0.
+        """
+
+        if answer == None:
+            return 0.0
+
+        s_answer = answer.strip().lower()
+        if not s_answer == entry["answer"].strip().lower():
+            return 0.01
+        else:
+            return 1.0
 
 
 register_dataset("letter_jumble", LetterJumbleDataset, LetterJumbleConfig)

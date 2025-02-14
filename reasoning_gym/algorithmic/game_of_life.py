@@ -67,7 +67,7 @@ class GameOfLifeDataset(ProceduralDataset):
         )
 
         rows = [json.dumps(board[0, i].tolist(), separators=(",", ":")) for i in range(board.shape[1])]
-        board_str = "[" + ", \n ".join(rows) + "]"
+        board_str = "[" + ",\n ".join(rows) + "]"
 
         final_step = evolved[-1]
         final_step_list = final_step.tolist()
