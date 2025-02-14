@@ -102,9 +102,12 @@ In solving the equations, please abide by the following instruction:
             if len(real_solutions) > 0:
                 real_solutions.sort()
                 break
-            
+
         answer_str = ", ".join(str(x) for x in real_solutions)
-        question = rng.choice(self._prompt_templates).format(variable=variable, polynomial_expanded=polynomial_expanded) + self.added_instruction
+        question = (
+            rng.choice(self._prompt_templates).format(variable=variable, polynomial_expanded=polynomial_expanded)
+            + self.added_instruction
+        )
 
         return {
             "question": question,
