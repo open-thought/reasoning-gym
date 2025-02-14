@@ -112,7 +112,7 @@ class RansomNoteDataset(ProceduralDataset):
             return 0.0
 
         s_answer = answer.strip()
-        if not s_answer == str(entry['answer']):
+        if not s_answer == str(entry["answer"]):
             return 0.01
         else:
             return 1.0
