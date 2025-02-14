@@ -11,6 +11,7 @@ from .base_conversion import BaseConversionConfig, BaseConversionDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesDataset
+from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
@@ -39,6 +40,8 @@ __all__ = [
     "BaseConversionDataset",
     "CaesarCipherConfig",
     "CaesarCipherDataset",
+    "GameOfLifeConfig",
+    "GameOfLifeDataset",
     "LetterCountingConfig",
     "LetterCountingDataset",
     "LetterJumbleConfig",

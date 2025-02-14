@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.games.game_of_life import GameOfLifeConfig, GameOfLifeDataset
+from reasoning_gym.algorithmic.game_of_life import GameOfLifeConfig, GameOfLifeDataset
 
 
 def test_game_of_life():
