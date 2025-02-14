@@ -58,6 +58,7 @@ This gallery shows examples from all available datasets using their default conf
 - [rectangle_count](#rectangle_count)
 - [rotate_matrix](#rotate_matrix)
 - [rubiks_cube](#rubiks_cube)
+- [rush_hour](#rush_hour)
 - [self_reference](#self_reference)
 - [sentence_reordering](#sentence_reordering)
 - [simple_equations](#simple_equations)
@@ -68,6 +69,7 @@ This gallery shows examples from all available datasets using their default conf
 - [spiral_matrix](#spiral_matrix)
 - [string_insertion](#string_insertion)
 - [string_manipulation](#string_manipulation)
+- [string_splitting](#string_splitting)
 - [string_synthesis](#string_synthesis)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
@@ -2660,7 +2662,7 @@ size = 50
 Example tasks:
 ````
 Example 1:
-Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.
+Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward. If there are multiple answers, only respond with one of them.
 
 For example, if the letters are: a, a, b — a valid palindrome is: aba.
 
@@ -2671,7 +2673,7 @@ Answer: ahha
 Metadata: {'letters': ['h', 'a', 'h', 'a'], 'generated_palindrome': 'ahha'}
 
 Example 2:
-Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.
+Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward. If there are multiple answers, only respond with one of them.
 
 For example, if the letters are: a, a, b — a valid palindrome is: aba.
 
@@ -2682,7 +2684,7 @@ Answer: hyh
 Metadata: {'letters': ['h', 'y', 'h'], 'generated_palindrome': 'hyh'}
 
 Example 3:
-Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.
+Question: Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward. If there are multiple answers, only respond with one of them.
 
 For example, if the letters are: a, a, b — a valid palindrome is: aba.
 
@@ -3883,6 +3885,69 @@ Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'ex
 
 ````
 
+### rush_hour
+Generates Rush Hour puzzle configurations from pre-computed database
+
+Default configuration:
+```python
+min_moves = 1
+max_moves = 50
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Move the red car (AA) to the exit on the right.
+Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'
+where the letter is the vehicle and +/- number is spaces to move right/left or down/up.
+
+Board:
+.xBBCC
+..x.K.
+G.AAK.
+G.IJDD
+H.IJ..
+HEEFFF
+
+Answer: None
+Metadata: {'board_config': 'oxCCDDooxoMoIoAAMoIoKLFFJoKLooJGGHHH', 'min_moves': 10}
+
+Example 2:
+Question: Move the red car (AA) to the exit on the right.
+Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'
+where the letter is the vehicle and +/- number is spaces to move right/left or down/up.
+
+Board:
+EBBCCC
+E....H
+F.xAAH
+F.G...
+..GDDD
+......
+
+Answer: None
+Metadata: {'board_config': 'FCCDDDFooooIGoxAAIGoHoooooHEEEoooooo', 'min_moves': 6}
+
+Example 3:
+Question: Move the red car (AA) to the exit on the right.
+Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'
+where the letter is the vehicle and +/- number is spaces to move right/left or down/up.
+
+Board:
+GBBIJK
+G..IJK
+AAHI..
+..HCCC
+..xDD.
+EEEFF.
+
+Answer: None
+Metadata: {'board_config': 'HBBJKLHooJKLAAIJooooICCCooxEEoFFFGGo', 'min_moves': 30}
+
+````
+
 ### self_reference
 Generates self-referential puzzles
 
@@ -4492,6 +4557,115 @@ cccaababaaacaaaccb
 
 Answer: bbababcaaaccbc
 Metadata: {'string': 'cccaababaaacaaaccb', 'solution': 'bbababcaaaccbc', 'states': ['cccaababaaacaaaccb', 'cccaababaacaaaccb', 'cccaababacaaaccb', 'cccaababcaaaccb', 'caababcaaaccb', 'bbababcaaaccbc'], 'selected_rules': ["If the string contains 'acb', replace the first occurrence with its reverse ('bca').", 'If the string length is greater than 15, remove the middle character.', "If the string starts with 'ac', replace the first two characters with 'zz'.", "If the string ends with 'ba', replace it with 'ab'.", "If the string starts with 'cc', remove the first two characters.", "If the string suffix is 'ac', replace it with 'cb'.", "If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.", "If the string prefix is 'cb', replace it with 'aa' and delete the last character."]}
+
+````
+
+### string_splitting
+Generates String Splitting exercises with configurable difficulty
+
+Default configuration:
+```python
+min_initial_machines = 0
+max_initial_machines = 5
+max_iterations = 1000
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: There is a dismantling engineer who has old machines A, B, and C.
+He discovered that he can obtain a batch of new parts X, Y, Z through the following rules:
+1. One unit of machine A can be dismanteled into two units of part X and one unit of part Y.
+2. Two units of machine B can be dismanteled into one unit of part X.
+3. Two units of machine C can be dismanteled into one unit of part Y.
+4. One unit of machine B and one unit of machine C can be combined into one unit of machine A.
+5. One unit of part X and one unit of part Y can be combined into one unit of part Z.
+
+Given a certain number of initial machines, your job is to continuously cycle through the rules 1-5 above, exausting one rule at a time, until no more rules can be applied, or until a state (counts of each machine and part type) is repeated.
+After you make use of a rule, you should update the counts of each machine and part type accordingly, and then restart the process from rule 1.
+
+The output should be the count of each machine and part type after the rules have been exhaustively applied in the following order: A B C X Y Z.
+For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
+
+Example:
+- Input: You have 2 machines A, 0 machines B, and 1 machine C.
+- Output: 0 0 1 2 0 2
+- Explanation
+    0. Initial state: 2 0 1 0 0 0
+    1. We can apply rule 1 and trade 1 machine A for 2 part X and 1 part Y: 1 0 1 2 1 0
+    2. Starting over, we can apply rule 1 again: 0 0 1 4 2 0
+    3. In the next iteration, we can apply rule 5 and trade 1 part X and 1 part Y for 1 part Z: 0 0 1 3 1 1
+    4. In the next iteration, we can apply rule 5 again: 0 0 1 2 0 2
+    5. We can't apply any more rules, so the final answer is 0 0 1 2 0 2
+
+Now, you have 5 machine A, 0 machine B, and 0 machine C. Provide the count of each machine and part type after applying the above rules.
+
+Answer: 0 0 0 5 0 5
+Metadata: {'states': [[5, 0, 0, 0, 0, 0], [4, 0, 0, 2, 1, 0], [3, 0, 0, 4, 2, 0], [2, 0, 0, 6, 3, 0], [1, 0, 0, 8, 4, 0], [0, 0, 0, 10, 5, 0], [0, 0, 0, 9, 4, 1], [0, 0, 0, 8, 3, 2], [0, 0, 0, 7, 2, 3], [0, 0, 0, 6, 1, 4], [0, 0, 0, 5, 0, 5]], 'solution': [0, 0, 0, 5, 0, 5]}
+
+Example 2:
+Question: There is a dismantling engineer who has old machines A, B, and C.
+He discovered that he can obtain a batch of new parts X, Y, Z through the following rules:
+1. One unit of machine A can be dismanteled into two units of part X and one unit of part Y.
+2. Two units of machine B can be dismanteled into one unit of part X.
+3. Two units of machine C can be dismanteled into one unit of part Y.
+4. One unit of machine B and one unit of machine C can be combined into one unit of machine A.
+5. One unit of part X and one unit of part Y can be combined into one unit of part Z.
+
+Given a certain number of initial machines, your job is to continuously cycle through the rules 1-5 above, exausting one rule at a time, until no more rules can be applied, or until a state (counts of each machine and part type) is repeated.
+After you make use of a rule, you should update the counts of each machine and part type accordingly, and then restart the process from rule 1.
+
+The output should be the count of each machine and part type after the rules have been exhaustively applied in the following order: A B C X Y Z.
+For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
+
+Example:
+- Input: You have 2 machines A, 0 machines B, and 1 machine C.
+- Output: 0 0 1 2 0 2
+- Explanation
+    0. Initial state: 2 0 1 0 0 0
+    1. We can apply rule 1 and trade 1 machine A for 2 part X and 1 part Y: 1 0 1 2 1 0
+    2. Starting over, we can apply rule 1 again: 0 0 1 4 2 0
+    3. In the next iteration, we can apply rule 5 and trade 1 part X and 1 part Y for 1 part Z: 0 0 1 3 1 1
+    4. In the next iteration, we can apply rule 5 again: 0 0 1 2 0 2
+    5. We can't apply any more rules, so the final answer is 0 0 1 2 0 2
+
+Now, you have 0 machine A, 2 machine B, and 5 machine C. Provide the count of each machine and part type after applying the above rules.
+
+Answer: 0 0 1 0 1 1
+Metadata: {'states': [[0, 2, 5, 0, 0, 0], [0, 0, 5, 1, 0, 0], [0, 0, 3, 1, 1, 0], [0, 0, 1, 1, 2, 0], [0, 0, 1, 0, 1, 1]], 'solution': [0, 0, 1, 0, 1, 1]}
+
+Example 3:
+Question: There is a dismantling engineer who has old machines A, B, and C.
+He discovered that he can obtain a batch of new parts X, Y, Z through the following rules:
+1. One unit of machine A can be dismanteled into two units of part X and one unit of part Y.
+2. Two units of machine B can be dismanteled into one unit of part X.
+3. Two units of machine C can be dismanteled into one unit of part Y.
+4. One unit of machine B and one unit of machine C can be combined into one unit of machine A.
+5. One unit of part X and one unit of part Y can be combined into one unit of part Z.
+
+Given a certain number of initial machines, your job is to continuously cycle through the rules 1-5 above, exausting one rule at a time, until no more rules can be applied, or until a state (counts of each machine and part type) is repeated.
+After you make use of a rule, you should update the counts of each machine and part type accordingly, and then restart the process from rule 1.
+
+The output should be the count of each machine and part type after the rules have been exhaustively applied in the following order: A B C X Y Z.
+For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
+
+Example:
+- Input: You have 2 machines A, 0 machines B, and 1 machine C.
+- Output: 0 0 1 2 0 2
+- Explanation
+    0. Initial state: 2 0 1 0 0 0
+    1. We can apply rule 1 and trade 1 machine A for 2 part X and 1 part Y: 1 0 1 2 1 0
+    2. Starting over, we can apply rule 1 again: 0 0 1 4 2 0
+    3. In the next iteration, we can apply rule 5 and trade 1 part X and 1 part Y for 1 part Z: 0 0 1 3 1 1
+    4. In the next iteration, we can apply rule 5 again: 0 0 1 2 0 2
+    5. We can't apply any more rules, so the final answer is 0 0 1 2 0 2
+
+Now, you have 3 machine A, 4 machine B, and 4 machine C. Provide the count of each machine and part type after applying the above rules.
+
+Answer: 0 0 0 3 0 5
+Metadata: {'states': [[3, 4, 4, 0, 0, 0], [2, 4, 4, 2, 1, 0], [1, 4, 4, 4, 2, 0], [0, 4, 4, 6, 3, 0], [0, 2, 4, 7, 3, 0], [0, 0, 4, 8, 3, 0], [0, 0, 2, 8, 4, 0], [0, 0, 0, 8, 5, 0], [0, 0, 0, 7, 4, 1], [0, 0, 0, 6, 3, 2], [0, 0, 0, 5, 2, 3], [0, 0, 0, 4, 1, 4], [0, 0, 0, 3, 0, 5]], 'solution': [0, 0, 0, 3, 0, 5]}
 
 ````
 
