@@ -1,6 +1,65 @@
 import pytest
 
-from reasoning_gym.games.rush_hour import Board
+from reasoning_gym.games.rush_hour import Board, RushHourConfig, RushHourDataset
+
+
+def test_rush_hour_config_validation():
+    """Test that invalid configs raise appropriate errors"""
+    with pytest.raises(AssertionError):
+        config = RushHourConfig(min_moves=0)
+        config.validate()
+
+    with pytest.raises(AssertionError):
+        config = RushHourConfig(min_moves=3, max_moves=2)
+        config.validate()
+
+    with pytest.raises(AssertionError):
+        config = RushHourConfig(size=0)
+        config.validate()
+
+
+def test_rush_hour_deterministic():
+    """Test that dataset generates same items with same seed"""
+    config = RushHourConfig(seed=42, size=10, min_moves=1, max_moves=50)
+    dataset1 = RushHourDataset(config)
+    dataset2 = RushHourDataset(config)
+
+    for i in range(len(dataset1)):
+        assert dataset1[i]["metadata"] == dataset2[i]["metadata"]
+
+
+def test_rush_hour_items():
+    """Test basic properties of generated items"""
+    config = RushHourConfig(min_moves=1, max_moves=10, size=10, seed=42)
+    dataset = RushHourDataset(config)
+
+    for i in range(len(dataset)):
+        item = dataset[i]
+        assert isinstance(item, dict)
+        assert "question" in item
+        assert "answer" in item
+        assert "metadata" in item
+
+        # Verify metadata contains required fields
+        assert "board_config" in item["metadata"]
+        assert "min_moves" in item["metadata"]
+
+        # Verify min_moves is within configured range
+        assert config.min_moves <= item["metadata"]["min_moves"] <= config.max_moves
+
+        # Verify board_config is valid length
+        assert len(item["metadata"]["board_config"]) == 36  # 6x6 board
+
+
+def test_rush_hour_move_filtering():
+    """Test that puzzles are filtered by move count"""
+    config = RushHourConfig(min_moves=5, max_moves=10, size=10, seed=42)
+    dataset = RushHourDataset(config)
+
+    for i in range(len(dataset)):
+        item = dataset[i]
+        moves = item["metadata"]["min_moves"]
+        assert 5 <= moves <= 10, f"Puzzle with {moves} moves outside configured range 5-10"
 
 
 def test_perform_moves():
