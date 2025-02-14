@@ -1,10 +1,3 @@
-# TODO
-# DONE string of board state
-# DONE display board
-# DONE board bounds checking
-# DONE LLM input
-# wire up gym to reasoning-gym, so an LLM can call and display the board?
-
 import re
 
 TEST_STRING = "BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN"
@@ -23,7 +16,6 @@ BoardSize2 = BoardSize * BoardSize
 Target = PrimaryRow * BoardSize + BoardSize - PrimarySize
 H = 1  # horizontal stride
 V = BoardSize  # vertical stride
-DoWalls = MinPieceSize == 1
 
 
 # board boundary limits
@@ -251,32 +243,3 @@ class Board:
                 p += stride
         return "".join(s)
 
-
-if __name__ == "__main__":
-    # See it in action
-    b = Board(TEST_STRING)
-    print("-= Board String =-")
-    print(b)
-
-    print("\n" + "-= Board 2D =-")
-    print("{}".format(b.board_str()))
-
-    print("Number of Pieces")
-    print(len(b._pieces))
-
-    print("\n" + "Lets move some pieces to test")
-    b.move("B", 1)
-    b.move("F", 1)
-    b.move("F", 1)
-    b.move("G", 1)
-    b.move("G", 1)
-    # moves that should not update the board
-    b.move("G", 1)
-    b.move("J", -1)
-    b.move("K", 1)
-
-    print("\n" + "-= Updated Board2D =-")
-    print("{}".format(b.board_str()))
-
-    print("Solved the board?")
-    print(b.solved)
