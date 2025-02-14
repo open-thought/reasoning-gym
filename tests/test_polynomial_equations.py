@@ -112,7 +112,7 @@ def test_polynomial_solutions_evaluation():
             evaluated_value = poly_expr.subs(x, solution)
 
             # Ensure the evaluated value is close to zero (numerical stability threshold)
-            assert abs(evaluated_value) < 1e-6, (
+            assert abs(evaluated_value) < 1e-5, (
                 f"Solution {solution} does not satisfy the polynomial {poly_str}. "
                 f"Evaluated value: {evaluated_value}"
             )
@@ -138,3 +138,12 @@ def test_polynomial_solutions_score_answer(oracle_answer, predicted_answer, expe
 
     actual_reward = ds.score_answer(predicted_answer, {"answer": oracle_answer})
     assert actual_reward == pytest.approx(expected_reward, rel=1e-3)  # Fuzzy comparison for floats
+
+
+def test_polynomial_perfect_score():
+    """Test that scoring an item's own answer gives a perfect score"""
+    cfg = PolynomialEquationsConfig(seed=42, size=10)
+    ds = PolynomialEquationsDataset(cfg)
+
+    for item in ds:
+        assert ds.score_answer(item["answer"], item) == 1.0

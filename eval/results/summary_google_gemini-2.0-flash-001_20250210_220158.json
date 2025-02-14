@@ -1,0 +1,61 @@
+[
+  {
+    "dataset_name": "letter_counting",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.1766,
+    "total_examples": 50,
+    "timestamp": "2025-02-10T22:00:57.977510",
+    "config": {
+      "min_words": 5,
+      "max_words": 15,
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "propositional_logic",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.059000000000000004,
+    "total_examples": 50,
+    "timestamp": "2025-02-10T22:01:17.805230",
+    "config": {
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "leg_counting",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.402,
+    "total_examples": 50,
+    "timestamp": "2025-02-10T22:01:22.652618",
+    "config": {
+      "min_animals": 3,
+      "max_animals": 8,
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "group_anagrams",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.0,
+    "total_examples": 50,
+    "timestamp": "2025-02-10T22:01:57.094468",
+    "config": {
+      "size": 50,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "spell_backward",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.4512,
+    "total_examples": 50,
+    "timestamp": "2025-02-10T22:01:58.325957",
+    "config": {
+      "size": 50,
+      "seed": 42
+    }
+  }
+]

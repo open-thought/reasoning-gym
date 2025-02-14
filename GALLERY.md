@@ -2,6 +2,7 @@
 This gallery shows examples from all available datasets using their default configurations.
 
 ## Available Datasets
+- [ab](#ab)
 - [advanced_geometry](#advanced_geometry)
 - [aiw](#aiw)
 - [arc_1d](#arc_1d)
@@ -16,13 +17,16 @@ This gallery shows examples from all available datasets using their default conf
 - [color_cube_rotation](#color_cube_rotation)
 - [complex_arithmetic](#complex_arithmetic)
 - [count_bits](#count_bits)
+- [count_primes](#count_primes)
 - [countdown](#countdown)
 - [course_schedule](#course_schedule)
+- [dice](#dice)
 - [family_relationships](#family_relationships)
 - [figlet_font](#figlet_font)
 - [fraction_simplification](#fraction_simplification)
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
+- [graph_color](#graph_color)
 - [group_anagrams](#group_anagrams)
 - [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
@@ -43,12 +47,15 @@ This gallery shows examples from all available datasets using their default conf
 - [palindrome](#palindrome)
 - [polynomial_equations](#polynomial_equations)
 - [polynomial_multiplication](#polynomial_multiplication)
+- [pool_matrix](#pool_matrix)
 - [power_function](#power_function)
 - [prime_factorization](#prime_factorization)
+- [products](#products)
 - [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
 - [ransom_note](#ransom_note)
 - [rearc](#rearc)
+- [rectangle_count](#rectangle_count)
 - [rotate_matrix](#rotate_matrix)
 - [rubiks_cube](#rubiks_cube)
 - [self_reference](#self_reference)
@@ -59,6 +66,9 @@ This gallery shows examples from all available datasets using their default conf
 - [sokoban](#sokoban)
 - [spell_backward](#spell_backward)
 - [spiral_matrix](#spiral_matrix)
+- [string_insertion](#string_insertion)
+- [string_manipulation](#string_manipulation)
+- [string_synthesis](#string_synthesis)
 - [sudoku](#sudoku)
 - [syllogism](#syllogism)
 - [time_intervals](#time_intervals)
@@ -70,6 +80,131 @@ This gallery shows examples from all available datasets using their default conf
 - [zebra_puzzles](#zebra_puzzles)
 
 ## Dataset Examples
+### ab
+Generates A::B tasks, as described by @VictorTaelin [here](https://x.com/VictorTaelin/status/1776096481704804789)
+
+Default configuration:
+```python
+seed = 42
+size = 500
+length = 10
+```
+
+Example tasks:
+````
+Example 1:
+Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
+
+An A::B program is a sequence of tokens. Example:
+
+    B# A# #B #A B#
+
+To *compute* a program, we must rewrite neighbor tokens, using the rules:
+
+    A# #A ... becomes ... nothing
+    A# #B ... becomes ... #B A#
+    B# #A ... becomes ... #A B#
+    B# #B ... becomes ... nothing
+
+In other words, whenever two neighbor tokens have their '#' facing each-other,
+they must be rewritten according to the corresponding rule. For example, the
+first example shown here is computed as:
+
+    B# A# #B #A B# =
+    B# #B A# #A B# =
+    A# #A B# =
+    B#
+
+The steps were:
+1. We replaced `A# #B` by `#B A#`.
+2. We replaced `B# #B` by nothing.
+3. We replaced `A# #A` by nothing.
+The final result was just `B#`.
+
+Now, consider the following program:
+
+A# A# #A B# B# B# A# A# #B A#
+
+Return the final state of the program.
+
+Answer: A# B# B# A# A# A#
+
+Example 2:
+Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
+
+An A::B program is a sequence of tokens. Example:
+
+    B# A# #B #A B#
+
+To *compute* a program, we must rewrite neighbor tokens, using the rules:
+
+    A# #A ... becomes ... nothing
+    A# #B ... becomes ... #B A#
+    B# #A ... becomes ... #A B#
+    B# #B ... becomes ... nothing
+
+In other words, whenever two neighbor tokens have their '#' facing each-other,
+they must be rewritten according to the corresponding rule. For example, the
+first example shown here is computed as:
+
+    B# A# #B #A B# =
+    B# #B A# #A B# =
+    A# #A B# =
+    B#
+
+The steps were:
+1. We replaced `A# #B` by `#B A#`.
+2. We replaced `B# #B` by nothing.
+3. We replaced `A# #A` by nothing.
+The final result was just `B#`.
+
+Now, consider the following program:
+
+A# #A B# #B #A A# #B #B A# #B
+
+Return the final state of the program.
+
+Answer: #A #B #B #B A# A#
+
+Example 3:
+Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
+
+An A::B program is a sequence of tokens. Example:
+
+    B# A# #B #A B#
+
+To *compute* a program, we must rewrite neighbor tokens, using the rules:
+
+    A# #A ... becomes ... nothing
+    A# #B ... becomes ... #B A#
+    B# #A ... becomes ... #A B#
+    B# #B ... becomes ... nothing
+
+In other words, whenever two neighbor tokens have their '#' facing each-other,
+they must be rewritten according to the corresponding rule. For example, the
+first example shown here is computed as:
+
+    B# A# #B #A B# =
+    B# #B A# #A B# =
+    A# #A B# =
+    B#
+
+The steps were:
+1. We replaced `A# #B` by `#B A#`.
+2. We replaced `B# #B` by nothing.
+3. We replaced `A# #A` by nothing.
+The final result was just `B#`.
+
+Now, consider the following program:
+
+#B A# B# #B B# #A A# B# A# A#
+
+Return the final state of the program.
+
+Answer: #B B# A# B# A# A#
+
+````
+
 ### advanced_geometry
 A dataset for advanced geometry tasks using coordinate geometry.
 
@@ -1073,6 +1208,35 @@ Metadata: {'number': 877324117, 'solution': 16, 'binary': '110100010010101110011
 
 ````
 
+### count_primes
+Generates Count Primes exercises with configurable difficulty
+
+Default configuration:
+```python
+max_n = 10000
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Count how many prime numbers there are between 1825 and 2029 (inclusive) ?
+Answer: 27
+Metadata: {'start': 1825, 'end': 2029, 'primes': [False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True], 'solution': 27}
+
+Example 2:
+Question: Count how many prime numbers there are between 632 and 5319 (inclusive) ?
+Answer: 589
+Metadata: {'start': 632, 'end': 5319, 'primes': [False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False], 'solution': 589}
+
+Example 3:
+Question: Count how many prime numbers there are between 6694 and 8824 (inclusive) ?
+Answer: 236
+Metadata: {'start': 6694, 'end': 8824, 'primes': [False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False], 'solution': 236}
+
+````
+
 ### countdown
 Generates Countdown Number Game tasks
 
@@ -1160,6 +1324,33 @@ Return True if you can finish all courses considering the prerequisites, or Fals
 
 Answer: True
 Metadata: {'courses': [2, 1, 4, 0, 3], 'prerequisites': [], 'solution': True, 'solvable': True}
+
+````
+
+### dice
+Generates Dice-based puzzles with configurable parameters
+
+Default configuration:
+```python
+num_dice = 4
+max_dice_size = 20
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: I have these dice: 1d20, 1d10, 1d5, 1d2. What are the odds of rolling 18 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
+Answer: 13/20
+
+Example 2:
+Question: I have these dice: 1d20, 1d11, 1d6, 1d3. What are the odds of rolling 23 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
+Answer: 19/40
+
+Example 3:
+Question: I have these dice: 1d20, 1d19, 1d18, 1d15. What are the odds of rolling 48 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
+Answer: 9677/51300
 
 ````
 
@@ -1303,8 +1494,8 @@ Generates Game of Life games with configurable parameters
 
 Default configuration:
 ```python
-grid_size_x = 20
-grid_size_y = 20
+grid_size_x = 10
+grid_size_y = 10
 filled_cells = 100
 simulation_steps = 1
 seed = 42
@@ -1314,139 +1505,52 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: What will this Game of Life board look like after 1 steps of simulation?
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
-[[0 0 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0]
- [0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 1 0]
- [1 0 0 0 0 0 0 1 0 0 0 1 1 0 0 0 0 1 0 0]
- [0 0 0 0 1 1 1 0 0 0 0 1 0 0 0 0 1 0 0 0]
- [0 0 0 0 0 0 0 0 1 0 0 1 0 1 1 0 0 1 0 0]
- [0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 1 0]
- [1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0]
- [1 1 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
- [0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 1 0 0 1]
- [1 1 0 1 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 1 1]
- [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1]
- [0 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1]
- [0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 1 1 0]
- [1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0]
- [1 0 0 1 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 1]
- [0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 0 0]
- [0 0 0 0 0 1 1 0 0 0 1 0 0 0 0 0 0 0 0 0]]
-Answer: [[0 0 1 1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0]
- [0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 1 1 0]
- [0 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 1 1 0]
- [0 0 0 0 0 1 1 1 0 0 1 1 0 1 0 0 1 1 0 0]
- [0 0 0 0 0 1 1 1 0 0 0 0 1 0 0 0 1 1 1 0]
- [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1]
- [1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0]
- [0 0 0 0 0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 1]
- [1 1 1 0 0 0 1 0 1 0 0 0 1 0 0 0 0 0 1 0]
- [0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 1 1]
- [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1]
- [1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 1]
- [1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1]
- [1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0]
- [1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1]
- [0 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 0 0 0 0]
- [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]
-Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulation_steps': 1}
+[[0,1,0,1,1,0,0,0,1,0],
+ [1,0,0,1,0,1,1,1,1,1],
+ [0,0,1,1,1,1,1,1,1,0],
+ [1,1,1,1,0,0,0,0,1,1],
+ [1,1,1,1,0,0,1,0,1,1],
+ [1,1,0,1,1,0,1,1,0,1],
+ [1,0,0,1,1,0,0,0,0,1],
+ [1,1,1,0,0,1,1,0,1,1],
+ [1,1,1,1,1,0,0,1,0,1],
+ [0,1,1,1,0,1,1,0,1,0]].
+Answer: [[0,1,0,0,0,0,0,0,0,0],[1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,0,0,0],[0,0,0,0,0,0,1,1,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,0,1,0]]
+Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 2:
-Question: What will this Game of Life board look like after 1 steps of simulation?
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
-[[1 0 0 1 0 1 1 0 0 0 1 0 0 0 0 0 1 0 0 0]
- [0 0 1 1 1 1 0 0 0 1 0 0 0 0 0 1 0 0 1 0]
- [0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 1 1 0 0 0]
- [0 0 0 0 1 0 0 1 0 0 0 0 1 0 0 0 0 1 1 1]
- [0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
- [0 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0]
- [1 1 0 0 0 0 1 0 0 1 0 1 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
- [0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0]
- [0 1 0 0 1 0 0 1 0 0 1 0 0 0 0 0 1 0 0 0]
- [0 0 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1]
- [0 0 1 1 1 1 0 0 1 0 0 1 1 0 0 0 0 0 0 1]
- [0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 1]
- [0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1 0 1 1]
- [0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1]
- [0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0]
- [0 0 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1]
- [0 1 0 0 1 1 0 0 1 0 0 1 0 0 0 0 0 0 0 0]
- [0 0 1 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0]]
-Answer: [[0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 1]
- [0 0 1 1 0 1 1 0 0 1 1 0 0 0 0 1 0 1 0 0]
- [0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 1 1 0 0 1]
- [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1]
- [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1]
- [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
- [1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0]
- [0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [1 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0]
- [1 0 1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 0 1]
- [1 0 1 1 0 1 0 0 0 1 1 0 0 0 0 0 0 1 0 0]
- [1 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0]
- [0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 1 1]
- [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0]
- [0 1 1 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]]
-Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulation_steps': 1}
+[[1,1,1,1,1,1,0,1,1,1],
+ [0,0,1,1,1,1,1,1,1,1],
+ [0,1,0,0,0,0,0,1,1,1],
+ [1,0,0,1,1,1,1,0,0,1],
+ [0,1,0,1,1,0,0,1,1,0],
+ [1,1,1,1,0,1,1,0,1,1],
+ [0,1,1,0,1,1,1,0,0,1],
+ [0,0,1,0,1,1,0,0,1,1],
+ [0,1,1,0,1,0,1,0,1,1],
+ [1,1,1,0,1,1,1,0,0,1]].
+Answer: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0],[0,1,0,1,0,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
+Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 3:
-Question: What will this Game of Life board look like after 1 steps of simulation?
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
-[[0 0 1 1 0 0 0 1 0 0 1 0 0 1 0 0 0 0 1 1]
- [0 0 0 0 0 0 0 0 1 1 1 1 0 1 0 0 0 0 0 1]
- [0 0 0 1 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 0]
- [0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 0 0 1 0]
- [0 0 1 0 1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 1 1 0 1 0 0 0 0 0 1 0 0 0 1 0 0 0]
- [0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0]
- [0 1 0 0 0 0 0 1 0 1 0 0 0 0 0 1 0 1 0 1]
- [0 0 1 0 0 1 0 0 0 0 1 0 0 0 0 0 0 1 0 0]
- [1 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1]
- [0 0 0 1 0 0 0 0 1 0 1 1 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 0]
- [0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0]
- [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
- [0 0 1 0 0 0 0 0 1 0 0 1 1 0 0 0 0 0 1 0]
- [0 0 1 1 1 0 0 0 1 1 0 0 0 0 0 1 0 0 0 0]
- [0 0 1 1 0 0 1 0 1 0 0 1 0 0 1 0 0 0 0 0]
- [1 0 0 1 1 0 1 0 0 1 0 0 0 0 0 1 1 0 0 0]
- [0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0]
- [0 1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0]]
-Answer: [[1 0 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 1]
- [0 0 1 1 0 0 0 1 0 0 0 1 1 0 0 0 0 0 1 1]
- [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 1 1 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0]
- [0 0 0 0 1 1 1 1 1 0 0 1 1 0 0 0 0 0 0 0]
- [0 0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 1 0 0 0]
- [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 1 0]
- [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1]
- [0 1 1 1 0 0 0 0 0 1 1 0 0 0 0 0 0 0 1 0]
- [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 1]
- [0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0]
- [0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 0 1 0 0]
- [0 0 1 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0]
- [0 1 0 0 1 0 0 0 1 1 1 1 1 0 0 0 0 0 0 0]
- [0 1 0 0 0 0 0 0 1 0 1 0 0 0 1 0 1 0 0 0]
- [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0]
- [0 0 1 0 0 0 0 0 0 0 1 1 0 0 0 0 1 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0]]
-Metadata: {'grid_size_x': 20, 'grid_size_y': 20, 'filled_cells': 100, 'simulation_steps': 1}
+[[0,1,0,1,1,1,1,0,0,1],
+ [0,1,0,0,1,1,1,0,1,1],
+ [0,1,1,1,1,0,1,0,1,0],
+ [1,0,0,1,1,0,1,1,1,1],
+ [1,1,1,0,0,1,1,0,1,1],
+ [0,1,0,0,1,1,0,1,0,1],
+ [0,1,1,0,0,0,1,0,1,1],
+ [0,1,1,0,1,1,1,1,0,1],
+ [1,1,1,1,1,1,0,1,1,0],
+ [1,1,1,0,0,1,1,0,1,0]].
+Answer: [[0,0,0,1,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,1,1],[0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0],[0,0,0,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,0]]
+Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 ````
 
@@ -1479,6 +1583,58 @@ Example 3:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 297, 30
 Answer: 3
 Metadata: {'numbers': [297, 30], 'result': 3}
+
+````
+
+### graph_color
+Generates graph coloring problems with configurable parameters
+
+Default configuration:
+```python
+num_colors = 4
+num_vertices = 10
+edge_probability = 0.4
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
+
+Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Edges: [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)]
+Possible colors: [1, 2, 3, 4]
+
+Return your solution as a JSON map of verteces to colors. (For example: {0: 1, 1: 2, 2: 3})
+
+Answer: None
+Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 1, 8: 3, 9: 4}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
+
+Example 2:
+Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
+
+Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Edges: [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)]
+Possible colors: [1, 2, 3, 4]
+
+Return your solution as a JSON map of verteces to colors. (For example: {0: 1, 1: 2, 2: 3})
+
+Answer: None
+Metadata: {'possible_answer': {0: 1, 1: 2, 2: 1, 3: 3, 4: 2, 5: 2, 6: 1, 7: 2, 8: 1, 9: 3}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
+
+Example 3:
+Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
+
+Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Edges: [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)]
+Possible colors: [1, 2, 3, 4]
+
+Return your solution as a JSON map of verteces to colors. (For example: {0: 1, 1: 2, 2: 3})
+
+Answer: None
+Metadata: {'possible_answer': {0: 1, 1: 1, 2: 1, 3: 1, 4: 2, 5: 3, 6: 3, 7: 3, 8: 4, 9: 2}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
 
 ````
 
@@ -1605,16 +1761,28 @@ Example tasks:
 ````
 Example 1:
 Question: Find the indefinite integral: ∫ -3*exp(3*x + 9) dx
+In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+
 Answer: -exp(3*x + 9) + C
 Metadata: {'integrand': '-3*exp(3*x + 9)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': -exp(3*x + 9)}
 
 Example 2:
 Question: Evaluate the indefinite integral: ∫ -6*sin(2*X + 10)*cos(2*X + 10)**4 dx
+In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+
 Answer: 3*cos(2*X + 10)**5/5 + C
 Metadata: {'integrand': '-6*sin(2*X + 10)*cos(2*X + 10)**4', 'problem_type': 'substitution', 'variable': 'X', 'type': 'trigonometric', 'expected_answer_expression': 3*cos(2*X + 10)**5/5}
 
 Example 3:
 Question: Find the indefinite integral: ∫ 2*asin(x) dx
+In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+
 Answer: 2*Integral(asin(x), x) + C
 Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': 2*Integral(asin(x), x)}
 
@@ -2451,16 +2619,28 @@ Example tasks:
 ````
 Example 1:
 Question: Sort these numbers in ascending order: 48, -51, -72, -80
+Please follow the instruction below:
+## 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
+## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
+
 Answer: ['-80', '-72', '-51', '48']
 Metadata: {'original_numbers': ['48', '-51', '-72', '-80'], 'direction': 'ascending', 'sorted_numbers': ['-80', '-72', '-51', '48']}
 
 Example 2:
 Question: Sort these numbers in ascending order: 39.2, -71.2, -7.5
+Please follow the instruction below:
+## 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
+## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
+
 Answer: ['-71.2', '-7.5', '39.2']
 Metadata: {'original_numbers': ['39.2', '-71.2', '-7.5'], 'direction': 'ascending', 'sorted_numbers': ['-71.2', '-7.5', '39.2']}
 
 Example 3:
 Question: Sort these numbers in descending order: 8.39, 72.41, -64.67, -54.97, -94.18, -76.67, -98.24, -68.66, 2.74
+Please follow the instruction below:
+## 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
+## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
+
 Answer: ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']
 Metadata: {'original_numbers': ['8.39', '72.41', '-64.67', '-54.97', '-94.18', '-76.67', '-98.24', '-68.66', '2.74'], 'direction': 'descending', 'sorted_numbers': ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']}
 
@@ -2536,19 +2716,40 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Find the real value(s) of u in the equation: -127*u = 0
-Answer: [0.0]
-Metadata: {'polynomial_expr': '-127*u', 'variable': 'u', 'degree': 1, 'real_solutions': [0.0]}
+Question: Find the real value(s) of w in the equation: -127*w = 0
+In solving the equations, please abide by the following instruction:
+## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
+## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
+## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
+## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
+## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+
+Answer: 0.0
+Metadata: {'polynomial_expr': '-127*w', 'variable': 'w', 'degree': 1, 'real_solutions': [0.0]}
 
 Example 2:
-Question: Determine the real value(s) of b tha satisfies: 86*b**2 - 2*b - 13 = 0
-Answer: [-0.3773425275273891, 0.4005983414808775]
-Metadata: {'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773425275273891, 0.4005983414808775]}
+Question: Determine the real value(s) of b that satisfies: 86*b**2 - 2*b - 13 = 0
+In solving the equations, please abide by the following instruction:
+## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
+## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
+## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
+## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
+## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+
+Answer: -0.3773, 0.4006
+Metadata: {'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773, 0.4006]}
 
 Example 3:
-Question: Determine the real value(s) of n tha satisfies: 71*n**3 - 2*n - 29 = 0
-Answer: [0.7546129960163634]
-Metadata: {'polynomial_expr': '71*n**3 - 2*n - 29', 'variable': 'n', 'degree': 3, 'real_solutions': [0.7546129960163634]}
+Question: Determine the real value(s) of p that satisfies: 71*p**3 - 2*p - 29 = 0
+In solving the equations, please abide by the following instruction:
+## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
+## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
+## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
+## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
+## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+
+Answer: 0.7546
+Metadata: {'polynomial_expr': '71*p**3 - 2*p - 29', 'variable': 'p', 'degree': 3, 'real_solutions': [0.7546]}
 
 ````
 
@@ -2577,18 +2778,150 @@ Example tasks:
 ````
 Example 1:
 Question: Calculate the following: (65*x - 72)*(105*x - 125)
+In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
+
 Answer: 6825*x**2 - 15685*x + 9000
 Metadata: {'polynomial_expr': '(65*x - 72)*(105*x - 125)', 'single_variable': True, 'result': '6825*x**2 - 15685*x + 9000'}
 
 Example 2:
 Question: Calculate the following: (-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)
+In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
+
 Answer: -774*x**4 - 2390*x**3 + 173*x**2 + 364*x
 Metadata: {'polynomial_expr': '(-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)', 'single_variable': True, 'result': '-774*x**4 - 2390*x**3 + 173*x**2 + 364*x'}
 
 Example 3:
 Question: Calculate the following: (43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)
+In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
+
 Answer: -19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x
 Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': True, 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
+
+````
+
+### pool_matrix
+Generates Pool Matrix exercises with configurable difficulty
+
+Default configuration:
+```python
+min_rows = 2
+min_cols = 2
+max_rows = 10
+max_cols = 10
+max_pool_size = 3
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Your job is to perform max/average pooling on the given matrix.
+The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
+
+Example 1:
+- Input: Perform max pooling on the following matrix with a kernel size of 2:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+- Output:
+6 8
+14 16
+
+Example 2:
+- Input: Perform average pooling on the following matrix with a kernel size of 2:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+- Output:
+3.5 5.5
+11.5 13.5
+
+Perform max pooling on the following matrix with a kernel size of 3:
+6 3
+7 4
+6 9
+
+Answer: 9
+Metadata: {'matrix': [[6, 3], [7, 4], [6, 9]], 'pool_type': 'max', 'pool_size': 3, 'solution': [[9]]}
+
+Example 2:
+Question: Your job is to perform max/average pooling on the given matrix.
+The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
+
+Example 1:
+- Input: Perform max pooling on the following matrix with a kernel size of 2:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+- Output:
+6 8
+14 16
+
+Example 2:
+- Input: Perform average pooling on the following matrix with a kernel size of 2:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+- Output:
+3.5 5.5
+11.5 13.5
+
+Perform average pooling on the following matrix with a kernel size of 3:
+4 0 1 5 0 3
+1 2 7 0 3 2
+
+Answer: 2.5 2.17
+Metadata: {'matrix': [[4, 0, 1, 5, 0, 3], [1, 2, 7, 0, 3, 2]], 'pool_type': 'average', 'pool_size': 3, 'solution': [[2.5, 2.1666666666666665]]}
+
+Example 3:
+Question: Your job is to perform max/average pooling on the given matrix.
+The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
+
+Example 1:
+- Input: Perform max pooling on the following matrix with a kernel size of 2:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+- Output:
+6 8
+14 16
+
+Example 2:
+- Input: Perform average pooling on the following matrix with a kernel size of 2:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 16
+- Output:
+3.5 5.5
+11.5 13.5
+
+Perform average pooling on the following matrix with a kernel size of 3:
+4 3 1 3 0 4 3 8 7 7
+6 9 3 7 3 3 6 5 4 5
+9 1 8 7 4 5 3 0 4 9
+2 8 8 6 2 0 3 4 8 3
+2 2 1 2 2 9 8 1 8 9
+4 2 4 6 7 5 5 6 2 5
+1 8 9 1 8 0 9 3 5 9
+5 0 8 0 4 2 9 7 6 6
+
+Answer: 4.89 4.0 4.44 7.0
+3.67 4.33 5.0 5.67
+5.17 2.5 6.5 7.5
+Metadata: {'matrix': [[4, 3, 1, 3, 0, 4, 3, 8, 7, 7], [6, 9, 3, 7, 3, 3, 6, 5, 4, 5], [9, 1, 8, 7, 4, 5, 3, 0, 4, 9], [2, 8, 8, 6, 2, 0, 3, 4, 8, 3], [2, 2, 1, 2, 2, 9, 8, 1, 8, 9], [4, 2, 4, 6, 7, 5, 5, 6, 2, 5], [1, 8, 9, 1, 8, 0, 9, 3, 5, 9], [5, 0, 8, 0, 4, 2, 9, 7, 6, 6]], 'pool_type': 'average', 'pool_size': 3, 'solution': [[4.888888888888889, 4.0, 4.444444444444445, 7.0], [3.6666666666666665, 4.333333333333333, 5.0, 5.666666666666667], [5.166666666666667, 2.5, 6.5, 7.5]]}
 
 ````
 
@@ -2651,6 +2984,38 @@ Example 3:
 Question: Find the prime factorization of 420. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
 Answer: 2 × 2 × 3 × 5 × 7
 Metadata: {'number': 420, 'factors': [2, 2, 3, 5, 7]}
+
+````
+
+### products
+Generates multiplication tasks with configurable number of terms
+
+Default configuration:
+```python
+min_terms = 2
+max_terms = 2
+min_digits = 1
+max_digits = 5
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: 4 * 3 =
+Answer: 12
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 1}, 'expression': '4 * 3'}
+
+Example 2:
+Question: 812 * 880 =
+Answer: 714560
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812 * 880'}
+
+Example 3:
+Question: 81037 * 25290 =
+Answer: 2049425730
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 5}, 'expression': '81037 * 25290'}
 
 ````
 
@@ -3082,6 +3447,280 @@ Metadata: {'input': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'output': ((1, 1, 1, 1, 
 
 ````
 
+### rectangle_count
+Generates [RectangleCount Puzzles](https://en.wikipedia.org/wiki/RectangleCount_Puzzle) with configurable parameters
+
+Default configuration:
+```python
+max_rectangles = 10
+width = 80
+height = 80
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+
+                                                                                 
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                 ##################################################             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 #                                                #             
+                 ##################################################             
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+   ######################################                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   #                                    #                                       
+   ######################################                                       
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+
+Answer: 2
+
+Example 2:
+Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+
+                                                                                 
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                    ############                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    #          #                                
+                                    ############                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+
+Answer: 1
+
+Example 3:
+Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+
+                                                                                 
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                         #########################              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       ############   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                    #####█#######################██#########█#  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #    #                       ##         ##  
+                                    #####█#######################██#########█#  
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #                       ##         #   
+                                         #      ##########       ##         #   
+                                         #      #        #       ############   
+                                         #      #        #       #              
+                                         #      ##########       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #                       #              
+                                         #########################              
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+            #######################                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #                     #                                             
+            #               ######█###                                          
+            #               #     #  #                                          
+            #               ######█###                                          
+            #                     #   ###########################               
+            #                     #   #                         #               
+            #                     #   #                         #               
+            #######################   ###########################               
+                                                                                
+
+Answer: 7
+
+````
+
 ### rotate_matrix
 Generates Rotate Matrix exercises with configurable difficulty
 
@@ -3415,16 +4054,28 @@ Example tasks:
 ````
 Example 1:
 Question: Find the indefinite integral: ∫ 70*x**6 + 12*x**2/5 dx
+In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+
 Answer: 10*x**7 + 4*x**3/5 + C
 Metadata: {'integrand': '70*x**6 + 12*x**2/5', 'variable': 'x', 'expected_answer_expression': 10*x**7 + 4*x**3/5}
 
 Example 2:
 Question: Find the indefinite integral: ∫ 49*x**6/10 + 48*x**5 - 4*x - 10/9 dx
+In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+
 Answer: 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9 + C
 Metadata: {'integrand': '49*x**6/10 + 48*x**5 - 4*x - 10/9', 'variable': 'x', 'expected_answer_expression': 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9}
 
 Example 3:
 Question: Find the indefinite integral: ∫ -28*X**3 + 8*X dx
+In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+
 Answer: -7*X**4 + 4*X**2 + C
 Metadata: {'integrand': '-28*X**3 + 8*X', 'variable': 'X', 'expected_answer_expression': -7*X**4 + 4*X**2}
 
@@ -3635,6 +4286,321 @@ Metadata: {'matrix': [[6, 4, 1, 8, 2, 6, 2], [9, 5, 1, 3, 4, 8, 0], [1, 2, 1, 4,
 
 ````
 
+### string_insertion
+Generates String Insertion exercises with configurable difficulty
+
+Default configuration:
+```python
+min_string_length = 5
+max_string_length = 20
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
+1. If there is a substring ABCD in the string, insert the character A after the substring.
+2. If there is a substring BCDE in the string, insert the character B after the substring.
+3. If there is a substring CDEA in the string, insert the character C after the substring.
+4. If there is a substring DEAB in the string, insert the character D after the substring.
+5. If there is a substring EABC in the string, insert the character E after the substring.
+
+Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
+
+Example
+- Input: DDABCDEEDEAB
+- Output: DDABCDAEEDEABD
+- Explanation:
+    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
+    - First, we insert A after ABCD.
+    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
+    - Lastly, we insert D after DEAB.
+
+Given the following string, provide the answer after inserting the characters according to the pattern: ['A', 'C', 'B', 'B', 'B', 'A', 'E', 'A']
+
+Answer: ACBBBAEA
+Metadata: {'string': ['A', 'C', 'B', 'B', 'B', 'A', 'E', 'A'], 'solution': 'ACBBBAEA'}
+
+Example 2:
+Question: Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
+1. If there is a substring ABCD in the string, insert the character A after the substring.
+2. If there is a substring BCDE in the string, insert the character B after the substring.
+3. If there is a substring CDEA in the string, insert the character C after the substring.
+4. If there is a substring DEAB in the string, insert the character D after the substring.
+5. If there is a substring EABC in the string, insert the character E after the substring.
+
+Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
+
+Example
+- Input: DDABCDEEDEAB
+- Output: DDABCDAEEDEABD
+- Explanation:
+    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
+    - First, we insert A after ABCD.
+    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
+    - Lastly, we insert D after DEAB.
+
+Given the following string, provide the answer after inserting the characters according to the pattern: ['C', 'B', 'D', 'C', 'A', 'D']
+
+Answer: CBDCAD
+Metadata: {'string': ['C', 'B', 'D', 'C', 'A', 'D'], 'solution': 'CBDCAD'}
+
+Example 3:
+Question: Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
+1. If there is a substring ABCD in the string, insert the character A after the substring.
+2. If there is a substring BCDE in the string, insert the character B after the substring.
+3. If there is a substring CDEA in the string, insert the character C after the substring.
+4. If there is a substring DEAB in the string, insert the character D after the substring.
+5. If there is a substring EABC in the string, insert the character E after the substring.
+
+Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
+
+Example
+- Input: DDABCDEEDEAB
+- Output: DDABCDAEEDEABD
+- Explanation:
+    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
+    - First, we insert A after ABCD.
+    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
+    - Lastly, we insert D after DEAB.
+
+Given the following string, provide the answer after inserting the characters according to the pattern: ['E', 'E', 'A', 'B', 'D', 'B', 'C', 'A', 'B', 'A', 'E', 'A', 'A', 'B', 'E', 'C', 'D', 'E']
+
+Answer: EEABDBCABAEAABECDE
+Metadata: {'string': ['E', 'E', 'A', 'B', 'D', 'B', 'C', 'A', 'B', 'A', 'E', 'A', 'A', 'B', 'E', 'C', 'D', 'E'], 'solution': 'EEABDBCABAEAABECDE'}
+
+````
+
+### string_manipulation
+Generates String Insertion exercises with configurable difficulty
+
+Default configuration:
+```python
+min_string_length = 5
+max_string_length = 20
+min_num_rules = 3
+max_num_rules = 8
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Your job is to repeatedly transform a string according to a set of rules until no further transformations can be performed, or a state is repeated.
+
+Evaluate the following rules in order, and apply the first applicable rule to the string:
+1. If the string contains an even number of 'b's (and at least one 'b'), append 'ab' at the end.
+2. If the string prefix is 'bc', delete the first two characters and append 'aa' to the end.
+3. If the string ends with 'ca', remove the last character.
+4. If the string suffix is 'ac', replace it with 'cb'.
+5. If the string prefix is 'ab', replace it with 'ca'.
+6. If the string contains 'ca' (not at the start), remove the first occurrence found after the first character.
+7. If the string suffix is 'bb', delete the last two characters.
+8. If the string starts with 'ac', replace the first two characters with 'zz'.
+
+Once you have applied a rule, repeat the process with the new string until no further transformations can be performed (i.e. the string doesn't change), or a state is repeated.
+If a state is repeated, the process is terminated, and the repeated state is discarded (i.e. is not considered as the final answer) and the state before the repeated state is considered as the final answer.
+
+Example:
+- Input:
+    - String: abbac
+    - Rules:
+        1. If the string prefix is 'ab', replace it with 'ca'.
+        2. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
+        3. If the string ends with 'aa', replace it with 'cc'.
+- Output: bbbacc
+- Explanation:
+    - In the first iteration, rule 1 is applied to the string abbac, resulting in cabac
+    - In the second interation, rule 1 doesn't apply, but rule 2 is applied to the string cabac, resulting in bbbacc
+    - In the third iteration, none of the rules (1, 2, 3) apply, so the process is terminated, and the final answer is bbbacc
+
+Transform the following string according to the above list of rules:
+acbaaaca
+
+Answer: zzbaacbab
+Metadata: {'string': 'acbaaaca', 'solution': 'zzbaacbab', 'states': ['acbaaaca', 'acbaaac', 'acbaacb', 'acbaacbab', 'zzbaacbab'], 'selected_rules': ["If the string contains an even number of 'b's (and at least one 'b'), append 'ab' at the end.", "If the string prefix is 'bc', delete the first two characters and append 'aa' to the end.", "If the string ends with 'ca', remove the last character.", "If the string suffix is 'ac', replace it with 'cb'.", "If the string prefix is 'ab', replace it with 'ca'.", "If the string contains 'ca' (not at the start), remove the first occurrence found after the first character.", "If the string suffix is 'bb', delete the last two characters.", "If the string starts with 'ac', replace the first two characters with 'zz'."]}
+
+Example 2:
+Question: Your job is to repeatedly transform a string according to a set of rules until no further transformations can be performed, or a state is repeated.
+
+Evaluate the following rules in order, and apply the first applicable rule to the string:
+1. If the string suffix is 'bb', delete the last two characters.
+2. If the string starts with 'bb', remove the second character.
+3. If the string ends with 'aa', replace it with 'cc'.
+4. If the string prefix is 'ab', replace it with 'ca'.
+5. If the string ends with 'ca', remove the last character.
+6. If the string contains 'bca', delete the first occurrence entirely.
+7. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
+8. If the string length is greater than 15, remove the middle character.
+
+Once you have applied a rule, repeat the process with the new string until no further transformations can be performed (i.e. the string doesn't change), or a state is repeated.
+If a state is repeated, the process is terminated, and the repeated state is discarded (i.e. is not considered as the final answer) and the state before the repeated state is considered as the final answer.
+
+Example:
+- Input:
+    - String: abbac
+    - Rules:
+        1. If the string prefix is 'ab', replace it with 'ca'.
+        2. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
+        3. If the string ends with 'aa', replace it with 'cc'.
+- Output: bbbacc
+- Explanation:
+    - In the first iteration, rule 1 is applied to the string abbac, resulting in cabac
+    - In the second interation, rule 1 doesn't apply, but rule 2 is applied to the string cabac, resulting in bbbacc
+    - In the third iteration, none of the rules (1, 2, 3) apply, so the process is terminated, and the final answer is bbbacc
+
+Transform the following string according to the above list of rules:
+bcabbc
+
+Answer: bc
+Metadata: {'string': 'bcabbc', 'solution': 'bc', 'states': ['bcabbc', 'bbc', 'bc'], 'selected_rules': ["If the string suffix is 'bb', delete the last two characters.", "If the string starts with 'bb', remove the second character.", "If the string ends with 'aa', replace it with 'cc'.", "If the string prefix is 'ab', replace it with 'ca'.", "If the string ends with 'ca', remove the last character.", "If the string contains 'bca', delete the first occurrence entirely.", "If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.", 'If the string length is greater than 15, remove the middle character.']}
+
+Example 3:
+Question: Your job is to repeatedly transform a string according to a set of rules until no further transformations can be performed, or a state is repeated.
+
+Evaluate the following rules in order, and apply the first applicable rule to the string:
+1. If the string contains 'acb', replace the first occurrence with its reverse ('bca').
+2. If the string length is greater than 15, remove the middle character.
+3. If the string starts with 'ac', replace the first two characters with 'zz'.
+4. If the string ends with 'ba', replace it with 'ab'.
+5. If the string starts with 'cc', remove the first two characters.
+6. If the string suffix is 'ac', replace it with 'cb'.
+7. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
+8. If the string prefix is 'cb', replace it with 'aa' and delete the last character.
+
+Once you have applied a rule, repeat the process with the new string until no further transformations can be performed (i.e. the string doesn't change), or a state is repeated.
+If a state is repeated, the process is terminated, and the repeated state is discarded (i.e. is not considered as the final answer) and the state before the repeated state is considered as the final answer.
+
+Example:
+- Input:
+    - String: abbac
+    - Rules:
+        1. If the string prefix is 'ab', replace it with 'ca'.
+        2. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
+        3. If the string ends with 'aa', replace it with 'cc'.
+- Output: bbbacc
+- Explanation:
+    - In the first iteration, rule 1 is applied to the string abbac, resulting in cabac
+    - In the second interation, rule 1 doesn't apply, but rule 2 is applied to the string cabac, resulting in bbbacc
+    - In the third iteration, none of the rules (1, 2, 3) apply, so the process is terminated, and the final answer is bbbacc
+
+Transform the following string according to the above list of rules:
+cccaababaaacaaaccb
+
+Answer: bbababcaaaccbc
+Metadata: {'string': 'cccaababaaacaaaccb', 'solution': 'bbababcaaaccbc', 'states': ['cccaababaaacaaaccb', 'cccaababaacaaaccb', 'cccaababacaaaccb', 'cccaababcaaaccb', 'caababcaaaccb', 'bbababcaaaccbc'], 'selected_rules': ["If the string contains 'acb', replace the first occurrence with its reverse ('bca').", 'If the string length is greater than 15, remove the middle character.', "If the string starts with 'ac', replace the first two characters with 'zz'.", "If the string ends with 'ba', replace it with 'ab'.", "If the string starts with 'cc', remove the first two characters.", "If the string suffix is 'ac', replace it with 'cb'.", "If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.", "If the string prefix is 'cb', replace it with 'aa' and delete the last character."]}
+
+````
+
+### string_synthesis
+Generates String Synthesis exercises with configurable difficulty
+
+Default configuration:
+```python
+min_initial_blocks = 0
+max_initial_blocks = 5
+max_iterations = 1000
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: There are nine different blocks [A] [B] [C] {A} {B} {C} (A) (B) (C)
+1. One [A], one [B], and one [C] can be combined to form one {A}.
+2. One [A] and one [B] can be combined to form one {C}.
+3. One [B] and one [C] can be combined to form one {B}.
+4. Two [C] can be combined to form one {C}.
+5. One {A} and one {C} can be combined to form one (A) and one (B).
+6. Two {B} can be combined to form one (C).
+
+Given a certain number of initial blocks, your job is to cycle through the rules 1-6 above, synthesizing new blocks until no more rules can be applied, or until a state (counts of each block type) is repeated.
+In the case a state is repeated the answer is the state before the repetition!
+
+The output should be the count of each block type after the rules have been applied in the order they are listed above.
+For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
+
+Example:
+- Input: You have 2 [A], 3 [B], and 3 [C].
+- Output: 0 0 0 2 1 0 0 0 0
+- Explanation:
+    0. Initial state: 2 3 3 0 0 0 0 0 0
+    1. We can apply Rule 1 and obtain 1 {A}. New state: 1 2 2 1 0 0 0 0 0
+    2. We can apply Rule 1 again and obtain 1 {A}. New state 0 1 1 2 0 0 0 0 0
+    3. We can apply Rule 3 and obtain 1 {B}. New state 0 0 0 2 1 0 0 0 0
+    4. No more rules can be applied. The answer is 0 0 0 2 1 0 0 0 0
+
+Now, you have 5 [A], 0 [B], and 0 [C] blocks. Provide the count of each block type after applying the above rules.
+
+Answer: 5 0 0 0 0 0 0 0 0
+Metadata: {'states': [[5, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': [5, 0, 0, 0, 0, 0, 0, 0, 0]}
+
+Example 2:
+Question: There are nine different blocks [A] [B] [C] {A} {B} {C} (A) (B) (C)
+1. One [A], one [B], and one [C] can be combined to form one {A}.
+2. One [A] and one [B] can be combined to form one {C}.
+3. One [B] and one [C] can be combined to form one {B}.
+4. Two [C] can be combined to form one {C}.
+5. One {A} and one {C} can be combined to form one (A) and one (B).
+6. Two {B} can be combined to form one (C).
+
+Given a certain number of initial blocks, your job is to cycle through the rules 1-6 above, synthesizing new blocks until no more rules can be applied, or until a state (counts of each block type) is repeated.
+In the case a state is repeated the answer is the state before the repetition!
+
+The output should be the count of each block type after the rules have been applied in the order they are listed above.
+For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
+
+Example:
+- Input: You have 2 [A], 3 [B], and 3 [C].
+- Output: 0 0 0 2 1 0 0 0 0
+- Explanation:
+    0. Initial state: 2 3 3 0 0 0 0 0 0
+    1. We can apply Rule 1 and obtain 1 {A}. New state: 1 2 2 1 0 0 0 0 0
+    2. We can apply Rule 1 again and obtain 1 {A}. New state 0 1 1 2 0 0 0 0 0
+    3. We can apply Rule 3 and obtain 1 {B}. New state 0 0 0 2 1 0 0 0 0
+    4. No more rules can be applied. The answer is 0 0 0 2 1 0 0 0 0
+
+Now, you have 0 [A], 2 [B], and 5 [C] blocks. Provide the count of each block type after applying the above rules.
+
+Answer: 0 0 1 0 0 1 0 0 1
+Metadata: {'states': [[0, 2, 5, 0, 0, 0, 0, 0, 0], [0, 1, 4, 0, 1, 0, 0, 0, 0], [0, 0, 3, 0, 2, 0, 0, 0, 0], [0, 0, 1, 0, 2, 1, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 1]], 'solution': [0, 0, 1, 0, 0, 1, 0, 0, 1]}
+
+Example 3:
+Question: There are nine different blocks [A] [B] [C] {A} {B} {C} (A) (B) (C)
+1. One [A], one [B], and one [C] can be combined to form one {A}.
+2. One [A] and one [B] can be combined to form one {C}.
+3. One [B] and one [C] can be combined to form one {B}.
+4. Two [C] can be combined to form one {C}.
+5. One {A} and one {C} can be combined to form one (A) and one (B).
+6. Two {B} can be combined to form one (C).
+
+Given a certain number of initial blocks, your job is to cycle through the rules 1-6 above, synthesizing new blocks until no more rules can be applied, or until a state (counts of each block type) is repeated.
+In the case a state is repeated the answer is the state before the repetition!
+
+The output should be the count of each block type after the rules have been applied in the order they are listed above.
+For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
+
+Example:
+- Input: You have 2 [A], 3 [B], and 3 [C].
+- Output: 0 0 0 2 1 0 0 0 0
+- Explanation:
+    0. Initial state: 2 3 3 0 0 0 0 0 0
+    1. We can apply Rule 1 and obtain 1 {A}. New state: 1 2 2 1 0 0 0 0 0
+    2. We can apply Rule 1 again and obtain 1 {A}. New state 0 1 1 2 0 0 0 0 0
+    3. We can apply Rule 3 and obtain 1 {B}. New state 0 0 0 2 1 0 0 0 0
+    4. No more rules can be applied. The answer is 0 0 0 2 1 0 0 0 0
+
+Now, you have 3 [A], 4 [B], and 4 [C] blocks. Provide the count of each block type after applying the above rules.
+
+Answer: 0 0 0 3 1 0 0 0 0
+Metadata: {'states': [[3, 4, 4, 0, 0, 0, 0, 0, 0], [2, 3, 3, 1, 0, 0, 0, 0, 0], [1, 2, 2, 2, 0, 0, 0, 0, 0], [0, 1, 1, 3, 0, 0, 0, 0, 0], [0, 0, 0, 3, 1, 0, 0, 0, 0]], 'solution': [0, 0, 0, 3, 1, 0, 0, 0, 0]}
+
+````
+
 ### sudoku
 Generates sudoku puzzles with configurable difficulty
 
@@ -3794,7 +4760,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 10, 9, 44), 'end_time': datetime.datetime(2025, 2, 10, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 14, 9, 44), 'end_time': datetime.datetime(2025, 2, 14, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
