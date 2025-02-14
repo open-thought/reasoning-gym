@@ -62,7 +62,8 @@ class PolynomialEquationsDataset(ProceduralDataset):
             "Determine the real value(s) of {variable} that satisfies: {polynomial_expanded} = 0",
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
-        self.added_instruction = """In solving the equations, please abide by the following instruction:
+        self.added_instruction = """
+In solving the equations, please abide by the following instruction:
 ## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
 ## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
 ## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".

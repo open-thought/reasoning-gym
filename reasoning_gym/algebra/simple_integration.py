@@ -42,11 +42,10 @@ class SimpleIntegrationDataset(ProceduralDataset):
             "Evaluate the indefinite integral: ∫ {integrand} dx",
         ]
         self.added_instruction = """
-            \n\n
-            In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-            ## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-            ## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
-        """
+In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+"""
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _generate_coefficient(self, rng: random.Random) -> Fraction:

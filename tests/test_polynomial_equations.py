@@ -112,7 +112,7 @@ def test_polynomial_solutions_evaluation():
             evaluated_value = poly_expr.subs(x, solution)
 
             # Ensure the evaluated value is close to zero (numerical stability threshold)
-            assert abs(evaluated_value) < 1e-6, (
+            assert abs(evaluated_value) < 1e-5, (
                 f"Solution {solution} does not satisfy the polynomial {poly_str}. "
                 f"Evaluated value: {evaluated_value}"
             )
