@@ -194,15 +194,14 @@ class GraphColorDataset(ProceduralDataset):
             solution = greedy_graph_coloring(puzzle)
 
         edges = str(puzzle["edges"])
-        question = f"""
-Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
+        question = f"""Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
 
 Vertices: {puzzle["vertices"]}
 Edges: {edges}
 Possible colors: {puzzle["color_options"]}
 
 Return your solution as a JSON map of verteces to colors. (For example: {{0: 1, 1: 2, 2: 3}})
-        """
+"""
 
         return {
             "question": question,

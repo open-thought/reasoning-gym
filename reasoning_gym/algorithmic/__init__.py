@@ -27,6 +27,7 @@ from .rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
+from .string_insertion import StringInsertionConfig, StringInsertionDataset
 from .string_manipulation import StringManipulationConfig, StringManipulationDataset
 from .string_synthesis import StringSynthesisConfig, StringSynthesisDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
