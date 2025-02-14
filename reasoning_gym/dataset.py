@@ -56,6 +56,8 @@ class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
         oracle_answer = entry["answer"]
         reward = 0.0
         if answer is not None:
+            if oracle_answer.strip() == oracle_answer:
+                answer = answer.strip()
             if answer == oracle_answer:
                 reward = 1.0
             elif oracle_answer in answer:
