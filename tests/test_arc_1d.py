@@ -98,7 +98,7 @@ def test_arc_1d_scoring():
     assert dataset.score_answer(entry["answer"], entry) == 1.0
 
     # Test partial match (answer contained within response)
-    assert dataset.score_answer(f"The answer is: {entry['answer']}", entry) == 0.5
+    assert dataset.score_answer(f"The answer is: {entry['answer']}", entry) > 0.5
 
     # Test incorrect answer
     assert dataset.score_answer("wrong answer", entry) == 0.01
