@@ -1,6 +1,26 @@
 import re
+from dataclasses import dataclass
+from typing import List, Optional, Tuple
+import random
+
+from ..data import read_data_file
+from ..factory import ProceduralDataset, register_dataset
 
 TEST_STRING = "BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN"
+
+@dataclass
+class RushHourConfig:
+    """Configuration for Rush Hour puzzle generation"""
+    min_moves: int = 1
+    max_moves: int = 50
+    seed: Optional[int] = None 
+    size: int = 500
+
+    def validate(self) -> None:
+        """Validate configuration parameters"""
+        assert self.min_moves > 0, "min_moves must be positive"
+        assert self.max_moves >= self.min_moves, "max_moves must be >= min_moves"
+        assert self.size > 0, "size must be positive"
 
 
 BoardSize = 6
@@ -73,6 +93,70 @@ class Piece:
             self.mask <<= d
         else:
             self.mask >>= -d
+
+
+class RushHourDataset(ProceduralDataset):
+    """Generates Rush Hour puzzle configurations from pre-computed database"""
+
+    def __init__(self, config: RushHourConfig):
+        super().__init__(config=config, seed=config.seed, size=config.size)
+        
+        # Load and filter puzzles from data file
+        self.puzzles: List[Tuple[str, int]] = []  # (board_config, min_moves)
+        
+        data = read_data_file("rush_18k.txt")
+        for line in data.splitlines():
+            if not line.strip():
+                continue
+            parts = line.split()
+            if len(parts) >= 2:
+                min_moves = int(parts[0])
+                board_config = parts[1]
+                
+                if config.min_moves <= min_moves <= config.max_moves:
+                    self.puzzles.append((board_config, min_moves))
+        
+        if not self.puzzles:
+            raise ValueError(
+                f"No puzzles found with moves between {config.min_moves} and {config.max_moves}"
+            )
+
+    def __getitem__(self, idx: int) -> dict:
+        """Generate a single Rush Hour puzzle
+        
+        Args:
+            idx: Index of the item to generate
+            
+        Returns:
+            dict with keys:
+                - question: str, the formatted board with instructions
+                - answer: str, example solution (empty as multiple solutions exist)
+                - metadata: dict with board config and min moves
+        """
+        # Create deterministic RNG from base seed and idx
+        rng = random.Random(self.seed + idx)
+        
+        # Randomly select a puzzle meeting our criteria
+        board_config, min_moves = rng.choice(self.puzzles)
+        
+        # Create board and get string representation
+        board = Board(board_config)
+        board_display = board.board_str()
+        
+        instructions = (
+            "Move the red car (AA) to the exit on the right.\n"
+            "Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'\n"
+            "where the letter is the vehicle and +/- number is spaces to move right/left or down/up."
+        )
+        
+        return {
+            "question": f"{instructions}\n\nBoard:\n{board_display}",
+            "answer": "",  # Multiple valid solutions exist
+            "metadata": {
+                "board_config": board_config,
+                "min_moves": min_moves,
+            },
+        }
 
 
 class Board:
@@ -242,4 +326,8 @@ class Board:
                 s[p] = c
                 p += stride
         return "".join(s)
+
+
+# Register the dataset
+register_dataset("rush_hour", RushHourDataset, RushHourConfig)
 
