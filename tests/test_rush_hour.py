@@ -62,6 +62,24 @@ def test_rush_hour_move_filtering():
         assert 5 <= moves <= 10, f"Puzzle with {moves} moves outside configured range 5-10"
 
 
+def test_score_answer():
+    """Test that score_answer correctly validates solutions"""
+    config = RushHourConfig(min_moves=1, max_moves=50, size=10, seed=42)
+    dataset = RushHourDataset(config)
+
+    # Get a puzzle
+    puzzle = dataset[0]
+
+    # Test invalid answers
+    assert dataset.score_answer(None, puzzle) == 0.0
+    assert dataset.score_answer("", puzzle) == 0.0
+    assert dataset.score_answer("invalid", puzzle) == 0.0
+    assert dataset.score_answer("A+1 B-2 INVALID", puzzle) == 0.0
+
+    # Test incomplete solution
+    assert dataset.score_answer("A+1 B-2", puzzle) == 0.0
+
+
 def test_perform_moves():
     b = Board("GBBoLoGHIoLMGHIAAMCCCKoMooJKDDEEJFFo")
     assert not b.solved

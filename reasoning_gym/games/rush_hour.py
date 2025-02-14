@@ -156,6 +156,33 @@ class RushHourDataset(ProceduralDataset):
             },
         }
 
+    def score_answer(self, answer: Optional[str], entry: dict) -> float:
+        """Score a Rush Hour solution by simulating the moves.
+
+        Args:
+            answer: String of moves in format "F+1 K+1 M-1 C+3 H+2 ..."
+            entry: The problem entry containing board configuration
+
+        Returns:
+            1.0 if solution reaches goal state, 0.0 otherwise
+        """
+        if not answer:
+            return 0.0
+
+        try:
+            # Create board from config
+            board = Board(entry["metadata"]["board_config"])
+
+            # Perform the moves
+            board.perform_moves(answer)
+
+            # Check if solved
+            return 1.0 if board.solved else 0.0
+
+        except (ValueError, IndexError, AttributeError) as e:
+            # Handle malformed input gracefully
+            return 0.0
+
 
 class Board:
     def __init__(self, desc: str):
