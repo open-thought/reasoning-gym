@@ -45,6 +45,3 @@ htmlcov/
 # Jupyter Notebook
 .ipynb_checkpoints/
 .virtual_documents/
-
-# Pre-commit config
-.pre-commit-config.yaml
