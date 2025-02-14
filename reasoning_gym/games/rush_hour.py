@@ -3,7 +3,7 @@ import re
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
-from ..data import read_data_file
+from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -104,17 +104,19 @@ class RushHourDataset(ProceduralDataset):
         # Load and filter puzzles from data file
         self.puzzles: List[Tuple[str, int]] = []  # (board_config, min_moves)
 
-        data = read_data_file("rush_18k.txt")
-        for line in data.splitlines():
-            if not line.strip():
-                continue
-            parts = line.split()
-            if len(parts) >= 2:
-                min_moves = int(parts[0])
-                board_config = parts[1]
+        data_path = get_data_file_path("rush_18k.txt")
+        with data_path.open() as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split()
+                if len(parts) >= 2:
+                    min_moves = int(parts[0])
+                    board_config = parts[1]
 
-                if config.min_moves <= min_moves <= config.max_moves:
-                    self.puzzles.append((board_config, min_moves))
+                    if config.min_moves <= min_moves <= config.max_moves:
+                        self.puzzles.append((board_config, min_moves))
 
         if not self.puzzles:
             raise ValueError(f"No puzzles found with moves between {config.min_moves} and {config.max_moves}")
