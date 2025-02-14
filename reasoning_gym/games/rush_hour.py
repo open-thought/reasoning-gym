@@ -1,3 +1,8 @@
+"""
+https://www.michaelfogleman.com/rush/
+
+"""
+
 import random
 import re
 from dataclasses import dataclass
@@ -23,28 +28,26 @@ class RushHourConfig:
         assert self.size > 0, "size must be positive"
 
 
-BoardSize = 6
-PrimaryRow = 2
-PrimarySize = 2
-MinPieceSize = 2
-MaxPieceSize = 3
-MinWalls = 0
-MaxWalls = 0
+BOARD_SIZE = 6
+PRIMARY_ROW = 2
+PRIMARY_SIZE = 2
+MIN_PIECE_SIZE = 2
+MAX_PIECE_SIZE = 3
 
 
-BoardSize2 = BoardSize * BoardSize
-Target = PrimaryRow * BoardSize + BoardSize - PrimarySize
+BOARD_TOTAL_CELLS = BOARD_SIZE * BOARD_SIZE
+TARGET = PRIMARY_ROW * BOARD_SIZE + BOARD_SIZE - PRIMARY_SIZE
 H = 1  # horizontal stride
-V = BoardSize  # vertical stride
+V = BOARD_SIZE  # vertical stride
 
 
 # board boundary limits
 def create_row_masks() -> list[int]:
     row_masks: list[int] = []
-    for y in range(BoardSize):
+    for y in range(BOARD_SIZE):
         mask = 0
-        for x in range(BoardSize):
-            i = y * BoardSize + x
+        for x in range(BOARD_SIZE):
+            i = y * BOARD_SIZE + x
             mask |= 1 << i
         row_masks.append(mask)
     return row_masks
@@ -52,10 +55,10 @@ def create_row_masks() -> list[int]:
 
 def create_column_masks() -> list[int]:
     column_masks: list[int] = []
-    for x in range(BoardSize):
+    for x in range(BOARD_SIZE):
         mask = 0
-        for y in range(BoardSize):
-            i = y * BoardSize + x
+        for y in range(BOARD_SIZE):
+            i = y * BOARD_SIZE + x
             mask |= 1 << i
         column_masks.append(mask)
     return column_masks
@@ -192,27 +195,31 @@ class Board:
         self._vert_mask = 0
         self._pieces: list[Piece] = []
 
-        if len(desc) != BoardSize2:
+        if len(desc) != BOARD_TOTAL_CELLS:
             raise ValueError("board string is wrong length")
 
         positions: dict[str, int] = {}
+        walls: list[int] = []
         for i, label in enumerate(desc):
-            if label == "x" or label == "o":
+            if label == "o":
+                continue
+            if label == "x":
+                walls.append(i)
                 continue
             if label not in positions:
                 positions[label] = []
             positions[label].append(i)
 
-        labels = []
+        labels: list[str] = []
         for pair in positions:
             labels.append(pair[0])
         labels.sort()
 
         for label in labels:
             ps = positions[label]
-            if len(ps) < MinPieceSize:
+            if len(ps) < MIN_PIECE_SIZE:
                 raise ValueError("piece size < MinPieceSize")
-            if len(ps) > MaxPieceSize:
+            if len(ps) > MAX_PIECE_SIZE:
                 raise ValueError("piece size > MaxPieceSize")
             stride = ps[1] - ps[0]
             if stride != H and stride != V:
@@ -221,6 +228,9 @@ class Board:
                 if ps[i] - ps[i - 1] != stride:
                     raise ValueError("invalid piece shape")
             self.add_piece(Piece(ps[0], len(ps), stride))
+
+        for wall_pos in walls:
+            self.add_piece(Piece(wall_pos, 1, 1))
 
     def add_piece(self, piece) -> None:
         self._pieces.append(piece)
@@ -235,6 +245,7 @@ class Board:
     # DoMove has no bounds checking
     def _do_move(self, i: int, steps: int) -> None:
         piece = self._pieces[i]
+        assert not piece.fixed, "Cannot move wall"
         if piece.stride == H:
             # Clears the current position from the horizontal mask
             self._horz_mask &= ~piece.mask
@@ -295,9 +306,6 @@ class Board:
                 if ((piece.mask & BOTTOM_ROW) == 0) and dir > 0:
                     mask = (piece.mask << V) & ~piece.mask
                     if (boardMask & mask) == 0:
-                        # print("{0:36b}".format(piece.Mask))
-                        # print("{0:36b}".format(mask))
-                        # print("{0:36b}".format(boardMask))
                         self._do_move(i, 1)
                         continue
 
@@ -318,14 +326,16 @@ class Board:
         move_ops = [(chars, int(num) if sign == "+" else -int(num)) for chars, sign, num in matches]
 
         for target, dir in move_ops:
+            print(target, dir)
             self.move(target, dir)
+            print(self.board_str())
 
     @property
     def solved(self) -> bool:
-        return self._pieces[0].position == Target
+        return self._pieces[0].position == TARGET
 
     def __str__(self) -> str:
-        s = ["."] * (BoardSize * (BoardSize + 1))
+        s = ["."] * (BOARD_SIZE * (BOARD_SIZE + 1))
         for i in range(len(self._pieces)):
             piece = self._pieces[i]
             c = "x" if piece.fixed else chr(ord("A") + i)
@@ -336,9 +346,9 @@ class Board:
         return "".join(s)
 
     def board_str(self) -> str:
-        s = ["."] * (BoardSize * (BoardSize + 1))
-        for y in range(BoardSize):
-            p = y * (BoardSize + 1) + BoardSize
+        s = ["."] * (BOARD_SIZE * (BOARD_SIZE + 1))
+        for y in range(BOARD_SIZE):
+            p = y * (BOARD_SIZE + 1) + BOARD_SIZE
             s[p] = "\n"
         for i in range(len(self._pieces)):
             piece = self._pieces[i]
@@ -346,9 +356,9 @@ class Board:
             stride = piece.stride
             if stride == V:
                 stride += 1
-            y = piece.position // BoardSize
-            x = piece.position % BoardSize
-            p = y * (BoardSize + 1) + x
+            y = piece.position // BOARD_SIZE
+            x = piece.position % BOARD_SIZE
+            p = y * (BOARD_SIZE + 1) + x
             for i in range(piece.size):
                 s[p] = c
                 p += stride
