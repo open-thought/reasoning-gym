@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from reasoning_gym.arithmetic.chain_sum import ChainSum, ChainSumConfig
+from reasoning_gym.arithmetic.chain_sum import ChainSumConfig, ChainSumDataset
 from reasoning_gym.arithmetic.leg_counting import LegCountingConfig
 from reasoning_gym.coaching import Coach, GroupedScores
 from reasoning_gym.composite import CompositeConfig, CompositeDataset, DatasetSpec
@@ -14,7 +14,7 @@ from reasoning_gym.composite import CompositeConfig, CompositeDataset, DatasetSp
 def test_coach_with_chain_sum():
     # Create a small ChainSum dataset
     config = ChainSumConfig(min_terms=2, max_terms=3, min_digits=1, max_digits=2, size=10, seed=42)
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
     coach = Coach(dataset)
 
     # Simulate an agent working on tasks
@@ -208,7 +208,7 @@ def test_coach_score_logging(tmp_path):
 
     # Create dataset and coach with logging
     config = ChainSumConfig(min_terms=2, max_terms=3, min_digits=1, max_digits=2, size=10, seed=42)
-    dataset = ChainSum(config)
+    dataset = ChainSumDataset(config)
     coach = Coach(dataset, score_log=log_file)
 
     # Score a few answers

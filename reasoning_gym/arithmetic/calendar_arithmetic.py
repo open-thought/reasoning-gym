@@ -122,9 +122,9 @@ class CalendarArithmeticDataset(ProceduralDataset):
         self.tasks = [self.task_handlers[task] for task in self.config.tasks]
 
     def __getitem__(self, idx: int) -> dict:
-        item_rng = random.Random(self.seed + idx)
-        task = item_rng.choice(self.tasks)
-        question, answer, metadata = task(item_rng)
+        rng = random.Random(self.seed + idx)
+        task = rng.choice(self.tasks)
+        question, answer, metadata = task(rng)
         return {
             "question": question,
             "answer": str(answer),
