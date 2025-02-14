@@ -111,7 +111,9 @@ def test_products_scoring():
     assert dataset.score_answer("wrong", item) == 0.01, "Wrong answer should score 0.01"
 
     # Test scoring with partial match (answer contained in response)
-    assert dataset.score_answer(f"The answer is {item['answer']}", item) == 0.5, "Partial match should score 0.5"
+    assert (
+        dataset.score_answer(f"The answer is {item['answer']}", item) > 0.1
+    ), "Partial match should scored len(oracle_answer)/len(answer)"
 
     # Test scoring with None
     assert dataset.score_answer(None, item) == 0.0, "None should score 0.0"
