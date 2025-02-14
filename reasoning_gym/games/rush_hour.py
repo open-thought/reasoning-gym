@@ -5,6 +5,8 @@
 # DONE LLM input
 # wire up gym to reasoning-gym, so an LLM can call and display the board?
 
+import re
+
 TEST_STRING = "BBoKMxDDDKMoIAALooIoJLEEooJFFNoGGoxN"
 
 
@@ -128,7 +130,7 @@ class Board:
         return self._horz_mask | self._vert_mask
 
     # DoMove has no bounds checking
-    def do_move(self, i: int, steps: int) -> None:
+    def _do_move(self, i: int, steps: int) -> None:
         piece = self._pieces[i]
         if piece.stride == H:
             # Clears the current position from the horizontal mask
@@ -141,7 +143,7 @@ class Board:
             piece.move(steps)
             self._vert_mask |= piece.mask
 
-    def moves(self, target: str = "A", dir: str = "up") -> None:
+    def move(self, target: str, dir: int) -> None:
         # The position of piecs are stored as bits,
         # it is compaired with the barrier (row/column) to confim the move being made is valid.
         # Example format:
@@ -156,45 +158,64 @@ class Board:
             return
 
         piece = self._pieces[i]
-        # boards incress difficulty by having unmovable blocks
+        # boards increase difficulty by having unmovable blocks
         if piece.fixed:
             return
-        if piece.stride == H:
-            # reverse / left (negative steps)
-            if ((piece.mask & LEFT_COLUMN) == 0) and dir.lower() == "left":
-                mask = (piece.mask >> H) & ~piece.mask
-                # check pieces are intersected on a position
-                if (boardMask & mask) == 0:
-                    self.do_move(i, -1)
-                    return
 
-            # forward / right (positive steps)
-            if ((piece.mask & RIGHT_COLUMN) == 0) and dir.lower() == "right":
-                mask = (piece.mask << H) & ~piece.mask
-                if (boardMask & mask) == 0:
-                    self.do_move(i, 1)
-                    return
+        for _step in range(abs(dir)):
+            if piece.stride == H:
+                # reverse / left (negative steps)
+                if ((piece.mask & LEFT_COLUMN) == 0) and dir < 0:
+                    mask = (piece.mask >> H) & ~piece.mask
+                    # check pieces are intersected on a position
+                    if (boardMask & mask) == 0:
+                        self._do_move(i, -1)
+                        continue
 
-            # print("NOOP")
-        else:
-            # reverse / up (negative steps)
-            if ((piece.mask & TOP_ROW) == 0) and dir.lower() == "up":
-                mask = (piece.mask >> V) & ~piece.mask
-                if (boardMask & mask) == 0:
-                    self.do_move(i, -1)
-                    return
+                # forward / right (positive steps)
+                if ((piece.mask & RIGHT_COLUMN) == 0) and dir > 0:
+                    mask = (piece.mask << H) & ~piece.mask
+                    if (boardMask & mask) == 0:
+                        self._do_move(i, 1)
+                        continue
 
-            # forward / down (positive steps)
-            if ((piece.mask & BOTTOM_ROW) == 0) and dir.lower() == "down":
-                mask = (piece.mask << V) & ~piece.mask
-                if (boardMask & mask) == 0:
-                    # print("{0:36b}".format(piece.Mask))
-                    # print("{0:36b}".format(mask))
-                    # print("{0:36b}".format(boardMask))
-                    self.do_move(i, 1)
-                    return
+                # print("NOOP", target, dir)
+            else:
+                # reverse / up (negative steps)
+                if ((piece.mask & TOP_ROW) == 0) and dir < 0:
+                    mask = (piece.mask >> V) & ~piece.mask
+                    if (boardMask & mask) == 0:
+                        self._do_move(i, -1)
+                        continue
 
-            # print("NOOP")
+                # forward / down (positive steps)
+                if ((piece.mask & BOTTOM_ROW) == 0) and dir > 0:
+                    mask = (piece.mask << V) & ~piece.mask
+                    if (boardMask & mask) == 0:
+                        # print("{0:36b}".format(piece.Mask))
+                        # print("{0:36b}".format(mask))
+                        # print("{0:36b}".format(boardMask))
+                        self._do_move(i, 1)
+                        continue
+
+                # print("NOOP", target, dir)
+
+    def perform_moves(self, ops: str) -> None:
+        # This pattern matches:
+        # - One or more letters (captured in group 1)
+        # - A plus or minus sign (captured in group 2)
+        # - One or more digits (captured in group 3)
+        pattern = r"([A-Z]+)([+-])(\d+)"
+
+        # Find all matches in the string
+        matches = re.findall(pattern, ops)
+
+        # Convert matches to list of tuples (character, number)
+        # The number is converted to positive or negative based on the sign
+        move_ops = [(chars, int(num) if sign == "+" else -int(num)) for chars, sign, num in matches]
+
+        for target, dir in move_ops:
+            self.move(target, dir)
 
     @property
     def solved(self) -> bool:
@@ -244,15 +265,15 @@ if __name__ == "__main__":
     print(len(b._pieces))
 
     print("\n" + "Lets move some pieces to test")
-    b.moves("B", "RIGHT")
-    b.moves("F", "right")
-    b.moves("F", "RIGHT")
-    b.moves("G", "down")
-    b.moves("G", "DOWN")
+    b.move("B", 1)
+    b.move("F", 1)
+    b.move("F", 1)
+    b.move("G", 1)
+    b.move("G", 1)
     # moves that should not update the board
-    b.moves("G", "down")
-    b.moves("J", "left")
-    b.moves("K", "right")
+    b.move("G", 1)
+    b.move("J", -1)
+    b.move("K", 1)
 
     print("\n" + "-= Updated Board2D =-")
     print("{}".format(b.board_str()))
