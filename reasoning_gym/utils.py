@@ -17,7 +17,7 @@ Once you have thought about the reasoning process, provide the answer in the fol
 
 
 def extract_answer(completion: str, tag_name: str = "answer") -> Optional[str]:
-    regex = f"<{tag_name}>(.*?)</{tag_name}>"
+    regex = f"<{tag_name}>\\s?(.*?)\\s?</{tag_name}>"
     matches = list(
         re.finditer(
             regex,
