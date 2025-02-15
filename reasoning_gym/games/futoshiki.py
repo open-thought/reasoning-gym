@@ -64,8 +64,16 @@ class FutoshikiDataset(ProceduralDataset):
         puzzle_str = self._puzzle_to_string(puzzle, constraints)
         solution_str = self._puzzle_to_string(solution, constraints)
 
+        question = (
+            f"Solve the following {self.config.board_size}x{self.config.board_size} Futoshiki puzzle:\n\n"
+            f"{puzzle_str}\n\n"
+            "Ensure your answer follows the same format as the puzzle above, just replace blanks (_) with the correct value for the cell.\n"
+            "Use < and > for horizontal constraints. Use \u2227 and \u2228 for vertical constraints.\n"
+            f"Remember, in Futoshiki each row and column must contain each number from 1 to {self.config.board_size} exactly once."
+        )
+
         return {
-            "question": f"Solve the following Futoshiki puzzle:\n{puzzle_str}",
+            "question": question,
             "answer": solution_str,
             "metadata": {
                 "puzzle": puzzle,
