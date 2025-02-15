@@ -14,14 +14,29 @@ from ..factory import ProceduralDataset, register_dataset
 MIN_BOARD_SIZE = 4
 MAX_BOARD_SIZE = 12
 
-QUESTION_TEMPLATE = """Solve this N Queens puzzle:
-{puzzle}
-
-The board size is {n}x{n} and your job is to place {num_removed} queen(s) on the board such that no two queens attack each other.
+QUESTION_TEMPLATE = """Your job is to complete an n x n chess board with n Queens in total, such that no two attack each other.
 
 No two queens attack each other if they are not in the same row, column, or diagonal.
 
-Place a queen by replacing an underscore (_) with a Q.
+You can place a queen by replacing an underscore (_) with a Q.
+
+Example:
+- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
+_ Q _ _
+_ _ _ _
+_ _ _ _
+_ _ Q _
+- Output:
+_ Q _ _
+_ _ _ Q
+Q _ _ _
+_ _ Q _
+- Explanation
+    - None of the queens attack each other vertically, horizontally, or diagonally.
+    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+
+Given the below board of size {n} x {n} your job is to place {num_removed} queen(s) on the board such that no two queens attack each other.
+{puzzle}
 """
 
 
