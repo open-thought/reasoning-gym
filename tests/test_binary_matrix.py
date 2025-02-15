@@ -106,3 +106,18 @@ def test_binary_matrix_answer():
     # Empty matrix
     matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     assert dataset._get_distances(matrix) == [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+    # String representation of answer
+    answer = "0 0 0\n0 1 0\n1 2 1"
+    entry = {"answer": "0 0 0\n0 1 0\n1 2 1"}
+    assert dataset.score_answer(answer, entry) == 1.0
+
+    # Answer is a python list (partially correct answer)
+    answer = "[[0, 0, 0], [0, 1, 0], [1, 2, 1]]"
+    entry = {"answer": "0 0 0\n0 1 0\n1 2 1"}
+    assert dataset.score_answer(answer, entry) == 0.5
+
+    # Answer is null
+    answer = None
+    entry = {"answer": "0 0 0\n0 1 0\n1 2 1"}
+    assert dataset.score_answer(answer, entry) == 0.0

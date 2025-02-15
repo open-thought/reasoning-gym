@@ -115,22 +115,18 @@ class BinaryMatrixDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["answer"]
-        reward = 0.0
         if answer is not None:
             if answer == oracle_answer:
-                reward = 1.0
+                return 1.0
             else:
                 try:
                     # check if answer is python list of lists
                     answer = self._matrix_to_str(eval(answer))
                     if answer == oracle_answer:
-                        reward = 0.5
-                    else:
-                        reward = 0.01
+                        return 0.5
                 except Exception as e:
-                    reward = 0.01
-
-        return reward
+                    return 0.01
+        return 0.0
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single Binary Matrix question"""
