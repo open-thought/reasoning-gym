@@ -16,6 +16,14 @@ def test_binary_matrix_config_validation():
         config.validate()
 
     with pytest.raises(AssertionError):
+        config = BinaryMatrixConfig(min_n=-1)  # Negative not allowed
+        config.validate()
+
+    with pytest.raises(AssertionError):
+        config = BinaryMatrixConfig(min_n=0)  # Zero not allowed
+        config.validate()
+
+    with pytest.raises(AssertionError):
         config = BinaryMatrixConfig(p_zero=0)  # <= 0 not allowed
         config.validate()
 
