@@ -24,6 +24,7 @@ This gallery shows examples from all available datasets using their default conf
 - [family_relationships](#family_relationships)
 - [figlet_font](#figlet_font)
 - [fraction_simplification](#fraction_simplification)
+- [futoshiki](#futoshiki)
 - [game_of_life](#game_of_life)
 - [gcd](#gcd)
 - [graph_color](#graph_color)
@@ -897,6 +898,7 @@ Generates Binary Matrix exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_n = 3
 max_n = 10
 p_zero = 0.25
 size = 500
@@ -906,81 +908,108 @@ seed = 42
 Example tasks:
 ````
 Example 1:
-Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
 Example:
-
-Input: Find the distance to the nearest 0 for each cell in the matrix below:
+- Input: Find the distance to the nearest 0 for each cell in the matrix below:
 0 0 0
 0 1 0
 1 1 1
-
-Output:
+- Output:
 0 0 0
 0 1 0
 1 2 1
+- Explanation
+    - Each cell with a 0 has a distance of 0 to itself.
+    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
+    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
+    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
+    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
+    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
-0 0
-1 0
+1 1 0 1
+0 0 0 0
+1 1 1 0
+1 0 1 0
 
-Answer: 0 0
-1 0
-Metadata: {'matrix': [[0, 0], [1, 0]], 'solution': [[0, 0], [1, 0]]}
+Answer: 1 1 0 1
+0 0 0 0
+1 1 1 0
+1 0 1 0
+Metadata: {'matrix': [[1, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 1, 0]], 'solution': [[1, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 1, 0]]}
 
 Example 2:
-Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
 Example:
-
-Input: Find the distance to the nearest 0 for each cell in the matrix below:
+- Input: Find the distance to the nearest 0 for each cell in the matrix below:
 0 0 0
 0 1 0
 1 1 1
-
-Output:
+- Output:
 0 0 0
 0 1 0
 1 2 1
+- Explanation
+    - Each cell with a 0 has a distance of 0 to itself.
+    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
+    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
+    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
+    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
+    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
-0
+1 0 1
+1 1 1
+1 0 1
 
-Answer: 0
-Metadata: {'matrix': [[0]], 'solution': [[0]]}
+Answer: 1 0 1
+2 1 2
+1 0 1
+Metadata: {'matrix': [[1, 0, 1], [1, 1, 1], [1, 0, 1]], 'solution': [[1, 0, 1], [2, 1, 2], [1, 0, 1]]}
 
 Example 3:
-Question: Given a square matrix, your job is to find the taxicab distance of the nearest 0 for each cell.
+Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
 Example:
-
-Input: Find the distance to the nearest 0 for each cell in the matrix below:
+- Input: Find the distance to the nearest 0 for each cell in the matrix below:
 0 0 0
 0 1 0
 1 1 1
-
-Output:
+- Output:
 0 0 0
 0 1 0
 1 2 1
+- Explanation
+    - Each cell with a 0 has a distance of 0 to itself.
+    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
+    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
+    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
+    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
+    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
-1 0 1 1 0 1 1
-1 0 1 1 1 1 1
-1 1 1 1 0 1 1
-1 1 1 1 0 0 1
-0 1 1 1 1 1 0
-1 0 1 1 1 1 0
-1 1 1 1 1 1 1
+0 1 1 1 1 1 1 0 1
+1 1 0 1 0 1 0 1 1
+1 0 1 1 0 1 0 1 0
+1 1 1 1 1 1 1 0 1
+1 1 1 1 0 1 1 0 1
+1 1 1 1 1 1 1 1 1
+0 1 1 1 1 0 1 1 0
+1 1 1 1 1 1 1 1 1
+0 0 1 1 1 1 1 1 1
 
-Answer: 1 0 1 1 0 1 2
-1 0 1 2 1 2 3
-2 1 2 1 0 1 2
-1 2 2 1 0 0 1
-0 1 2 2 1 1 0
-1 0 1 2 2 1 0
-2 1 2 3 3 2 1
-Metadata: {'matrix': [[1, 0, 1, 1, 0, 1, 1], [1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 0, 0, 1], [0, 1, 1, 1, 1, 1, 0], [1, 0, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1]], 'solution': [[1, 0, 1, 1, 0, 1, 2], [1, 0, 1, 2, 1, 2, 3], [2, 1, 2, 1, 0, 1, 2], [1, 2, 2, 1, 0, 0, 1], [0, 1, 2, 2, 1, 1, 0], [1, 0, 1, 2, 2, 1, 0], [2, 1, 2, 3, 3, 2, 1]]}
+Answer: 0 1 1 2 1 2 1 0 1
+1 1 0 1 0 1 0 1 1
+1 0 1 1 0 1 0 1 0
+2 1 2 2 1 2 1 0 1
+2 2 2 1 0 1 1 0 1
+1 2 3 2 1 1 2 1 1
+0 1 2 2 1 0 1 1 0
+1 1 2 3 2 1 2 2 1
+0 0 1 2 3 2 3 3 2
+Metadata: {'matrix': [[0, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [1, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 0, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 0, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 1, 1, 1, 1, 1, 1, 1]], 'solution': [[0, 1, 1, 2, 1, 2, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [2, 1, 2, 2, 1, 2, 1, 0, 1], [2, 2, 2, 1, 0, 1, 1, 0, 1], [1, 2, 3, 2, 1, 1, 2, 1, 1], [0, 1, 2, 2, 1, 0, 1, 1, 0], [1, 1, 2, 3, 2, 1, 2, 2, 1], [0, 0, 1, 2, 3, 2, 3, 3, 2]]}
 
 ````
 
@@ -1488,6 +1517,90 @@ Example 3:
 Question: Simplify the fraction 29330/37310 to its lowest terms
 Answer: 419/533
 Metadata: {'numerator': 29330, 'denominator': 37310, 'simplified_numerator': 419, 'simplified_denominator': 533, 'reduction_factor': 70, 'style': 'plain'}
+
+````
+
+### futoshiki
+Generates Futoshiki puzzles with configurable board size and difficulty
+
+Default configuration:
+```python
+board_size = 4
+difficulty = 1
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Solve the following 4x4 Futoshiki puzzle:
+
+_ > _   _   _
+             
+4   _   _   _
+             
+_   1   3   _
+             
+1 < _   _   _
+
+Ensure your answer follows the same format as the puzzle above, just replace blanks (_) with the correct value for the cell.
+Use < and > for horizontal constraints. Use ∧ and ∨ for vertical constraints.
+Remember, in Futoshiki each row and column must contain each number from 1 to 4 exactly once.
+Answer: 3 > 2   4   1
+             
+4   3   1   2
+             
+2   1   3   4
+             
+1 < 4   2   3
+Metadata: {'puzzle': [[0, 0, 0, 0], [4, 0, 0, 0], [0, 1, 3, 0], [1, 0, 0, 0]], 'constraints': {((0, 0), (0, 1)): '>', ((3, 0), (3, 1)): '<'}, 'solution': [[3, 2, 4, 1], [4, 3, 1, 2], [2, 1, 3, 4], [1, 4, 2, 3]], 'board_size': 4, 'difficulty': 1}
+
+Example 2:
+Question: Solve the following 4x4 Futoshiki puzzle:
+
+_   _   _   _
+            ∧
+_   _   _   _
+             
+_   _   3   4
+    ∧       ∨
+_   2   _ < _
+
+Ensure your answer follows the same format as the puzzle above, just replace blanks (_) with the correct value for the cell.
+Use < and > for horizontal constraints. Use ∧ and ∨ for vertical constraints.
+Remember, in Futoshiki each row and column must contain each number from 1 to 4 exactly once.
+Answer: 3   4   2   1
+            ∧
+1   3   4   2
+             
+2   1   3   4
+    ∧       ∨
+4   2   1 < 3
+Metadata: {'puzzle': [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 3, 4], [0, 2, 0, 0]], 'constraints': {((0, 3), (1, 3)): '<', ((2, 1), (3, 1)): '<', ((2, 3), (3, 3)): '>', ((3, 2), (3, 3)): '<'}, 'solution': [[3, 4, 2, 1], [1, 3, 4, 2], [2, 1, 3, 4], [4, 2, 1, 3]], 'board_size': 4, 'difficulty': 1}
+
+Example 3:
+Question: Solve the following 4x4 Futoshiki puzzle:
+
+_   _   _   _
+             
+_   4   _   2
+             
+_   _   _   _
+            ∧
+1   _   4   _
+
+Ensure your answer follows the same format as the puzzle above, just replace blanks (_) with the correct value for the cell.
+Use < and > for horizontal constraints. Use ∧ and ∨ for vertical constraints.
+Remember, in Futoshiki each row and column must contain each number from 1 to 4 exactly once.
+Answer: 2   1   3   4
+             
+3   4   1   2
+             
+4   3   2   1
+            ∧
+1   2   4   3
+Metadata: {'puzzle': [[0, 0, 0, 0], [0, 4, 0, 2], [0, 0, 0, 0], [1, 0, 4, 0]], 'constraints': {((2, 3), (3, 3)): '<'}, 'solution': [[2, 1, 3, 4], [3, 4, 1, 2], [4, 3, 2, 1], [1, 2, 4, 3]], 'board_size': 4, 'difficulty': 1}
 
 ````
 
@@ -2450,7 +2563,28 @@ seed = 42
 Example tasks:
 ````
 Example 1:
-Question: Solve this N Queens puzzle:
+Question: Your job is to complete an n x n chess board with n Queens in total, such that no two attack each other.
+
+No two queens attack each other if they are not in the same row, column, or diagonal.
+
+You can place a queen by replacing an underscore (_) with a Q.
+
+Example:
+- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
+_ Q _ _
+_ _ _ _
+_ _ _ _
+_ _ Q _
+- Output:
+_ Q _ _
+_ _ _ Q
+Q _ _ _
+_ _ Q _
+- Explanation
+    - None of the queens attack each other vertically, horizontally, or diagonally.
+    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+
+Given the below board of size 8 x 8 your job is to place 1 queen(s) on the board such that no two queens attack each other.
 _ _ _ _ _ _ Q _
 _ Q _ _ _ _ _ _
 _ _ _ Q _ _ _ _
@@ -2459,12 +2593,6 @@ _ _ _ _ _ _ _ Q
 _ _ _ _ Q _ _ _
 _ _ Q _ _ _ _ _
 _ _ _ _ _ Q _ _
-
-The board size is 8x8 and your job is to place 1 queen(s) on the board such that no two queens attack each other.
-
-No two queens attack each other if they are not in the same row, column, or diagonal.
-
-Place a queen by replacing an underscore (_) with a Q.
 
 Answer: _ _ _ _ _ _ Q _
 _ Q _ _ _ _ _ _
@@ -2477,7 +2605,28 @@ _ _ _ _ _ Q _ _
 Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], 'solutions': [[['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']]], 'num_removed': 1, 'valid_answers': ['_ _ _ _ _ _ Q _\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _']}
 
 Example 2:
-Question: Solve this N Queens puzzle:
+Question: Your job is to complete an n x n chess board with n Queens in total, such that no two attack each other.
+
+No two queens attack each other if they are not in the same row, column, or diagonal.
+
+You can place a queen by replacing an underscore (_) with a Q.
+
+Example:
+- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
+_ Q _ _
+_ _ _ _
+_ _ _ _
+_ _ Q _
+- Output:
+_ Q _ _
+_ _ _ Q
+Q _ _ _
+_ _ Q _
+- Explanation
+    - None of the queens attack each other vertically, horizontally, or diagonally.
+    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+
+Given the below board of size 8 x 8 your job is to place 3 queen(s) on the board such that no two queens attack each other.
 _ Q _ _ _ _ _ _
 _ _ _ _ _ _ _ _
 _ _ _ _ _ Q _ _
@@ -2486,12 +2635,6 @@ _ _ _ _ _ _ _ _
 _ _ _ _ _ _ _ _
 _ _ _ _ _ _ Q _
 _ _ _ _ Q _ _ _
-
-The board size is 8x8 and your job is to place 3 queen(s) on the board such that no two queens attack each other.
-
-No two queens attack each other if they are not in the same row, column, or diagonal.
-
-Place a queen by replacing an underscore (_) with a Q.
 
 Answer: _ Q _ _ _ _ _ _
 _ _ _ Q _ _ _ _
@@ -2504,7 +2647,28 @@ _ _ _ _ Q _ _ _
 Metadata: {'puzzle': [['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']], 'solutions': [[['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']]], 'num_removed': 3, 'valid_answers': ['_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\n_ _ _ _ _ Q _ _\n_ _ _ _ _ _ _ Q\n_ _ Q _ _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ _ _ Q _ _ _']}
 
 Example 3:
-Question: Solve this N Queens puzzle:
+Question: Your job is to complete an n x n chess board with n Queens in total, such that no two attack each other.
+
+No two queens attack each other if they are not in the same row, column, or diagonal.
+
+You can place a queen by replacing an underscore (_) with a Q.
+
+Example:
+- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
+_ Q _ _
+_ _ _ _
+_ _ _ _
+_ _ Q _
+- Output:
+_ Q _ _
+_ _ _ Q
+Q _ _ _
+_ _ Q _
+- Explanation
+    - None of the queens attack each other vertically, horizontally, or diagonally.
+    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+
+Given the below board of size 8 x 8 your job is to place 5 queen(s) on the board such that no two queens attack each other.
 _ _ _ _ _ _ _ _
 _ Q _ _ _ _ _ _
 _ _ _ _ _ _ _ _
@@ -2513,12 +2677,6 @@ _ _ _ _ _ _ _ _
 _ _ _ _ _ _ _ _
 _ _ _ _ _ _ _ _
 _ _ _ _ _ Q _ _
-
-The board size is 8x8 and your job is to place 5 queen(s) on the board such that no two queens attack each other.
-
-No two queens attack each other if they are not in the same row, column, or diagonal.
-
-Place a queen by replacing an underscore (_) with a Q.
 
 Answer: _ _ _ _ Q _ _ _
 _ Q _ _ _ _ _ _
@@ -2943,19 +3101,70 @@ seed = 42
 Example tasks:
 ````
 Example 1:
-Question: Compute 278.8535969157674^-8
-Answer: 2.735205704728613e-20
-Metadata: {'base': 278.8535969157674, 'exponent': -8, 'solution': 2.735205704728613e-20}
+Question: Your task is to compute an exponentiation of a number.
+
+Example:
+- Input: Compute 2^3
+- Output: 8
+- Explanation:
+    - 2^3 = 2 * 2 * 2 = 8
+    - Therefore, the final answer is 8
+
+Example:
+- Input: Compute 412.5^3
+- Output: 70189453.125
+- Explanation:
+    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
+    - Therefore, the final answer is 70189453.125
+
+Compute 278.8536^-8
+
+Answer: 2.7352054627088526e-20
+Metadata: {'base': 278.8536, 'exponent': -8, 'solution': 2.7352054627088526e-20}
 
 Example 2:
-Question: Compute -922.8963213252399^-4
-Answer: 1.3784415023500506e-12
-Metadata: {'base': -922.8963213252399, 'exponent': -4, 'solution': 1.3784415023500506e-12}
+Question: Your task is to compute an exponentiation of a number.
+
+Example:
+- Input: Compute 2^3
+- Output: 8
+- Explanation:
+    - 2^3 = 2 * 2 * 2 = 8
+    - Therefore, the final answer is 8
+
+Example:
+- Input: Compute 412.5^3
+- Output: 70189453.125
+- Explanation:
+    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
+    - Therefore, the final answer is 70189453.125
+
+Compute -922.8963^-4
+
+Answer: 1.3784416297559e-12
+Metadata: {'base': -922.8963, 'exponent': -4, 'solution': 1.3784416297559e-12}
 
 Example 3:
-Question: Compute -182.9282414910125^-5
-Answer: -4.881982323540115e-12
-Metadata: {'base': -182.9282414910125, 'exponent': -5, 'solution': -4.881982323540115e-12}
+Question: Your task is to compute an exponentiation of a number.
+
+Example:
+- Input: Compute 2^3
+- Output: 8
+- Explanation:
+    - 2^3 = 2 * 2 * 2 = 8
+    - Therefore, the final answer is 8
+
+Example:
+- Input: Compute 412.5^3
+- Output: 70189453.125
+- Explanation:
+    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
+    - Therefore, the final answer is 70189453.125
+
+Compute -182.9282^-5
+
+Answer: -4.881987860097121e-12
+Metadata: {'base': -182.9282, 'exponent': -5, 'solution': -4.881987860097121e-12}
 
 ````
 
@@ -4382,11 +4591,12 @@ Example
     - First, we insert A after ABCD.
     - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
     - Lastly, we insert D after DEAB.
+    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
 
-Given the following string, provide the answer after inserting the characters according to the pattern: ['A', 'C', 'B', 'B', 'B', 'A', 'E', 'A']
+Given the following string, provide the answer after inserting the characters according to the pattern: ACBBBAEA
 
 Answer: ACBBBAEA
-Metadata: {'string': ['A', 'C', 'B', 'B', 'B', 'A', 'E', 'A'], 'solution': 'ACBBBAEA'}
+Metadata: {'string': 'ACBBBAEA', 'solution': 'ACBBBAEA'}
 
 Example 2:
 Question: Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
@@ -4406,11 +4616,12 @@ Example
     - First, we insert A after ABCD.
     - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
     - Lastly, we insert D after DEAB.
+    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
 
-Given the following string, provide the answer after inserting the characters according to the pattern: ['C', 'B', 'D', 'C', 'A', 'D']
+Given the following string, provide the answer after inserting the characters according to the pattern: CBDCAD
 
 Answer: CBDCAD
-Metadata: {'string': ['C', 'B', 'D', 'C', 'A', 'D'], 'solution': 'CBDCAD'}
+Metadata: {'string': 'CBDCAD', 'solution': 'CBDCAD'}
 
 Example 3:
 Question: Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
@@ -4430,11 +4641,12 @@ Example
     - First, we insert A after ABCD.
     - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
     - Lastly, we insert D after DEAB.
+    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
 
-Given the following string, provide the answer after inserting the characters according to the pattern: ['E', 'E', 'A', 'B', 'D', 'B', 'C', 'A', 'B', 'A', 'E', 'A', 'A', 'B', 'E', 'C', 'D', 'E']
+Given the following string, provide the answer after inserting the characters according to the pattern: EEABDBCABAEAABECDE
 
 Answer: EEABDBCABAEAABECDE
-Metadata: {'string': ['E', 'E', 'A', 'B', 'D', 'B', 'C', 'A', 'B', 'A', 'E', 'A', 'A', 'B', 'E', 'C', 'D', 'E'], 'solution': 'EEABDBCABAEAABECDE'}
+Metadata: {'string': 'EEABDBCABAEAABECDE', 'solution': 'EEABDBCABAEAABECDE'}
 
 ````
 
@@ -4934,7 +5146,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 14, 9, 44), 'end_time': datetime.datetime(2025, 2, 14, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 15, 9, 44), 'end_time': datetime.datetime(2025, 2, 15, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
