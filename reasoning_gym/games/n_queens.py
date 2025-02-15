@@ -152,13 +152,16 @@ class NQueensDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
         valid_solutions = entry["metadata"]["valid_answers"]
-        reward = 0.0
         if answer is not None:
             if answer in valid_solutions:
-                reward = 1.0
-            else:
-                reward = 0.01
-        return reward
+                return 1.0
+            try:
+                answer = self._board_to_string(eval(answer))
+                if answer in valid_solutions:
+                    return 0.5
+            except Exception as e:
+                return 0.01
+        return 0.0
 
 
 register_dataset("n_queens", NQueensDataset, NQueensConfig)
