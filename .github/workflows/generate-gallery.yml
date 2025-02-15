@@ -1,0 +1,45 @@
+name: Update GALLERY.md
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]  # Trigger only when the PR is closed
+
+permissions:
+  contents: write
+
+jobs:
+  update-gallery:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true  # Ensure it was merged, not just closed
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -e .
+
+      - name: Run gallery script
+        run: |
+          python scripts/generate_gallery.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add GALLERY.md
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Update GALLERY.md [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
