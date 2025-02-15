@@ -34,8 +34,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add GALLERY.md
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Update GALLERY.md [skip ci]"
