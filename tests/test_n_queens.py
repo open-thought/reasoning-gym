@@ -122,6 +122,11 @@ def test_nqueens_score_answer():
         # Test None answer gets score 0.0
         assert dataset.score_answer(None, item) == 0.0
 
+    # Test python list representation of board (partial solution)
+    answer = "[['_', 'Q', '_', '_'], ['_', '_', '_', 'Q'], ['Q', '_', '_', '_'], ['_', '_', 'Q', '_']]"
+    entry = {"metadata": {"valid_answers": {"_ Q _ _\n_ _ _ Q\nQ _ _ _\n_ _ Q _"}}}
+    assert dataset.score_answer(answer, entry) == 0.5
+
 
 def is_valid_solution(board: list[list[str]]) -> bool:
     """Helper function to verify N Queens solution validity"""
