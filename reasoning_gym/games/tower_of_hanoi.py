@@ -8,6 +8,22 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
+QUESTION_TEMPLATE = """Solve the Tower of Hanoi problem with {num_disks} disks and {num_pegs} pegs.\n
+                 Move all disks from {start_peg} to {target_peg} following the rules:\n
+                 - Only one disk can be moved at a time.\n
+                 - A larger disk cannot be placed on top of a smaller disk.\n
+                 - All disks must be on a peg at all times.\n
+                 Example:\n
+                 Move disk 1 from Peg 1 to Peg 3\n
+                 Move disk 2 from Peg 1 to Peg 2\n
+                 Move disk 1 from Peg 3 to Peg 2\n
+                 \n
+                 Provide the sequence of moves.\n
+                 Formatting guidelines: \n
+                 Each instruction should be placed on a single line. \n
+                 Each line should be formatted as 'Move disk X from Peg Y to Peg Z' \n
+                 Do not include any other text or formatting. \n"""
+
 
 @dataclass
 class HanoiConfig:
@@ -245,22 +261,13 @@ class HanoiDataset(ProceduralDataset):
         # Peg labels
         peg_labels = {peg: f"Peg {peg}" for peg in pegs}
 
-        question_str = (
-            f"Solve the Tower of Hanoi problem with {num_disks} disks and {num_pegs} pegs.\n"
-            f"Move all disks from {peg_labels[start_peg]} to {peg_labels[target_peg]} following the rules:\n"
-            "- Only one disk can be moved at a time.\n"
-            "- A larger disk cannot be placed on top of a smaller disk.\n"
-            "- All disks must be on a peg at all times.\n"
-            "Example:\n"
-            "Move disk 1 from Peg 1 to Peg 3\n"
-            "Move disk 2 from Peg 1 to Peg 2\n"
-            "Move disk 1 from Peg 3 to Peg 2\n"
-            "\n"
-            "Provide the sequence of moves."
-        )
-
         result = {
-            "question": question_str,
+            "question": QUESTION_TEMPLATE.format(
+                num_disks=num_disks,
+                num_pegs=num_pegs,
+                start_peg=peg_labels[start_peg],
+                target_peg=peg_labels[target_peg],
+            ),
             "answer": solution,
             "metadata": {
                 "num_disks": num_disks,
@@ -359,7 +366,7 @@ class HanoiDataset(ProceduralDataset):
             tuple: (disk, from_peg, to_peg)
         """
         pattern = r"Move disk (\d+) from Peg (\d+) to Peg (\d+)"
-        match = re.match(pattern, move)
+        match = re.search(pattern, move)
         if not match:
             raise ValueError(f"Unexpected move format: '{move}'")
 
