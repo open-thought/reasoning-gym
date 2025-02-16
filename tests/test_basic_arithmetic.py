@@ -68,7 +68,7 @@ def test_arithmetic_dataset_format_styles():
 
     config.format_style = "natural"
     dataset = BasicArithmeticDataset(config)
-    assert all("=" not in item["question"] for item in dataset)
+    assert all("=" in item["question"] for item in dataset)
 
 
 def test_arithmetic_dataset_iteration():

@@ -223,12 +223,15 @@ class BasicArithmeticDataset(ProceduralDataset):
         return expression, result
 
     def _format_question(self, rng: Random, expression: str) -> str:
-        """Format the expression according to config style"""
+        """Format the expression with clear answer positioning"""
+        answer_instruction = "Put your final answer after '=' without additional text."
+
         if self.config.format_style == "simple":
-            return f"{expression} ="
+            return f"{answer_instruction} Calculate {expression} ="
         else:
-            templates = ["What is {0}?", "Calculate {0}", "Solve {0}", "Evaluate the expression: {0}"]
-            return rng.choice(templates).format(expression)
+            templates = ["What is {0} =", "Solve {0}=", "Compute {0} =", "Evaluate: {0} ="]
+            template = rng.choice(templates).format(expression)
+            return f"{answer_instruction} {template}"
 
 
 # Register the dataset
