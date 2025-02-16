@@ -8,7 +8,6 @@ from typing import Dict, List, Optional, Set, Tuple
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
-
 QUESTION_TEMPLATE = """Transform the word ladder '{start}' to '{end}' by changing one letter at a time.
                        Provide your answer as a comma-separated sequence of uppercase letters without spaces.
                        Each step must be a valid English word."""
