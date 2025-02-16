@@ -50,7 +50,7 @@ class SpellBackwardDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
-        reward = 0
+        reward = 0.0
         expected_answer = entry["answer"]
         if answer is not None:
             try:
