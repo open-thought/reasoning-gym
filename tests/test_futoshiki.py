@@ -162,15 +162,27 @@ def test_futoshiki_answer_scoring():
     config = FutoshikiConfig(board_size=4, difficulty=0, size=5, seed=42)
     dataset = FutoshikiDataset(config)
 
-    item = dataset[0]
+    for item in dataset:
+        # Correct answer should score 1.0
+        assert dataset.score_answer(item["answer"], item) == 1.0
 
-    # Correct answer should score 1.0
-    assert dataset.score_answer(item["answer"], item) == 1.0
+        # Wrong answer should score lower
+        wrong_answer = item["answer"].replace("1", "2")
+        assert dataset.score_answer(wrong_answer, item) < 1.0
 
-    # Wrong answer should score lower
-    wrong_answer = item["answer"].replace("1", "2")
-    assert dataset.score_answer(wrong_answer, item) < 1.0
+        # None or empty answer should score 0.0
+        assert dataset.score_answer(None, item) == 0.0
+        assert dataset.score_answer("", item) == 0.0
 
-    # None or empty answer should score 0.0
-    assert dataset.score_answer(None, item) == 0.0
-    assert dataset.score_answer("", item) == 0.01
+        answer = item["answer"]
+        white_space_mismatch = answer.replace("   ", " ")
+        assert dataset.score_answer(white_space_mismatch, item) == 0.9
+
+        anwser_with_additional_text = "This is an anwser " + answer + "\nwith surrounding text."
+        assert 0 < dataset.score_answer(anwser_with_additional_text, item) < 0.9
+
+        partially_correct = anwser_with_additional_text.replace("1", "2")
+        assert dataset.score_answer(partially_correct, item) > 0.1
+
+        bad_answer = "\n".join(anwser_with_additional_text.split("\n")[::-1])
+        assert dataset.score_answer(bad_answer, item) < 0.1
