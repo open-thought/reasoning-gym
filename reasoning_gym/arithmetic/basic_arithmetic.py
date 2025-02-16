@@ -227,15 +227,16 @@ class BasicArithmeticDataset(ProceduralDataset):
         answer_instruction = "Put your final answer after '=' without additional text."
         
         if self.config.format_style == "simple":
-            return f"Calculate {expression} ="
+            return f"{answer_instruction} Calculate {expression} ="
         else:
             templates = [
-                "What is {0}? =",
-                "Solve {0} and write answer after =",
+                "What is {0} =",
+                "Solve {0}=",
                 "Compute {0} =",
                 "Evaluate: {0} ="
             ]
-            return rng.choice(templates).format(expression) + f" {answer_instruction}"
+            template = rng.choice(templates).format(expression)
+            return f"{answer_instruction} {template}"
 
 
 # Register the dataset
