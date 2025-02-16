@@ -116,3 +116,35 @@ def test_word_sorting_dataset_iteration():
 
     # Test multiple iterations yield same items
     assert items == list(dataset)
+
+
+def test_word_sorting_scoring():
+    """Test scoring function"""
+    config = WordSortingConfig(size=1, seed=42)
+    dataset = WordSortingDataset(config)
+
+    item = {
+        "metadata": {
+            "sorted_words": ["apple", "banana", "cherry"],
+        }
+    }
+
+    # Correct answer
+    answer = "apple, banana, cherry"
+    assert dataset.score_answer(answer, item) == 1.0
+
+    # Correct answer, with incorrect spaces
+    answer = "apple,banana,        cherry"
+    assert dataset.score_answer(answer, item) == 1.0
+
+    # All words present, but not sorted
+    answer = "banana, cherry, apple"
+    assert dataset.score_answer(answer, item) == 0.2
+
+    # Garbage
+    answer = "gibberish"
+    assert dataset.score_answer(answer, item) == 0.01
+
+    # Empty answer
+    answer = None
+    assert dataset.score_answer(answer, item) == 0.0
