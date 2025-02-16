@@ -95,7 +95,8 @@ class MazeDataset(ProceduralDataset):
                     + "\n```"
                     + "\nLegend: "
                     + f"'{self.wall_char}' = Wall, '{self.path_char}' = Passage\n\n"
-                    + "What is the minimum number of steps to reach the goal?"
+                    + "What is the minimum number of steps to reach the goal?\n"
+                    + "Give only the number of steps as your final answer, no other text or formatting."
                 )
 
                 return {
