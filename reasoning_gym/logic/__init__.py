@@ -21,6 +21,7 @@ __all__ = [
     "ZebraConfig",
     "ZebraDataset",
     "SelfReference",
+    "SelfReferenceConfig",
     "SelfReferenceDataset",
     "CircuitLogicConfig",
     "CircuitLogicDataset",
