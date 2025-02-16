@@ -28,11 +28,13 @@ Answer (one possible solution):
 B=7, A=8, S=2, E=9, L=1, G=1, M=0
 Summation: 7829 + 7811 = 15640 (the puzzle might produce a different arrangement, but the principle is the same)."""
 
+
 @dataclass
 class CryptarithmConfig:
     """Configuration for Cryptarithm dataset generation."""
-    min_words: int = 2   # Minimum number of addends
-    max_words: int = 3   # Maximum number of addends
+
+    min_words: int = 2  # Minimum number of addends
+    max_words: int = 3  # Maximum number of addends
     allow_leading_zero: bool = False
     seed: Optional[int] = None
     size: int = 20  # Number of puzzle instances to generate
@@ -40,9 +42,9 @@ class CryptarithmConfig:
 
     def validate(self):
         """Validate configuration parameters."""
-        assert 2 <= self.min_words <= self.max_words, \
-            "min_words must be <= max_words, both >= 2."
+        assert 2 <= self.min_words <= self.max_words, "min_words must be <= max_words, both >= 2."
         assert self.size > 0, "Dataset size must be positive."
+
 
 class CryptarithmDataset(ProceduralDataset):
     """
@@ -54,6 +56,7 @@ class CryptarithmDataset(ProceduralDataset):
 
     This approach guarantees sum correctness and avoids repeated failures.
     """
+
     def __init__(self, config: CryptarithmConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -63,7 +66,7 @@ class CryptarithmDataset(ProceduralDataset):
 
     def _create_single_puzzle(self, rng: Random) -> dict:
         """
-        Creates one puzzle with N addends (2..3) plus a result.  
+        Creates one puzzle with N addends (2..3) plus a result.
         Ensures total distinct digits <= 10.
         """
         # 1) Pick how many addends
@@ -80,7 +83,7 @@ class CryptarithmDataset(ProceduralDataset):
             else:
                 # leading digit is from 1..9, rest are from 0..9
                 # e.g. random integer in [10^(length-1), 10^length - 1]
-                num = rng.randint(10**(length - 1), 10**length - 1)
+                num = rng.randint(10 ** (length - 1), 10**length - 1)
             words_numbers.append(num)
 
         # 3) Compute the sum
@@ -89,6 +92,7 @@ class CryptarithmDataset(ProceduralDataset):
 
         # 4) Gather all digits from the addends and the sum
         digits_in_use = set()
+
         def collect_digits(num: int):
             return set(str(num))
 
@@ -111,8 +115,8 @@ class CryptarithmDataset(ProceduralDataset):
         #    Then the solver has to figure it out. They don't see the digits, only letters.
 
         digits_in_use_list = sorted(list(digits_in_use))  # e.g. ['0', '1', '3', '9']
-        rng.shuffle(digits_in_use_list)                   # shuffle so mapping is random
-        letters_pool = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
+        rng.shuffle(digits_in_use_list)  # shuffle so mapping is random
+        letters_pool = [chr(i) for i in range(ord("A"), ord("Z") + 1)]
         rng.shuffle(letters_pool)
         chosen_letters = letters_pool[: len(digits_in_use_list)]
 
@@ -124,8 +128,8 @@ class CryptarithmDataset(ProceduralDataset):
         # If leading-zero is not allowed, we must ensure that the first digit of each addend and the sum
         # does not map to the letter that is assigned to digit '0'. If we see a conflict, we can just re-pick
         # or we can try to swap letters. The simplest is to re-pick for demonstration.
-        if not self.config.allow_leading_zero and '0' in digit_to_letter:
-            zero_letter = digit_to_letter['0']
+        if not self.config.allow_leading_zero and "0" in digit_to_letter:
+            zero_letter = digit_to_letter["0"]
             # Check the first digit of each addend and of the sum
             for wn in words_numbers:
                 first_digit = str(wn)[0]
@@ -170,14 +174,14 @@ class CryptarithmDataset(ProceduralDataset):
             f"{puzzle_text}\n\n"
             "Each letter stands for a unique digit (0-9). "
             + (
-                "Leading letters may be zero.\n" 
+                "Leading letters may be zero.\n"
                 if self.config.allow_leading_zero
                 else "No leading letter can be zero.\n"
             )
             + "Provide a mapping from letters to digits that satisfies the equation.\n"
         )
         if self.config.include_example:
-            question_str += "Here's an example:\n"+EXAMPLE_CASE
+            question_str += "Here's an example:\n" + EXAMPLE_CASE
 
         # 8) Create a human-readable answer, e.g. "A=1,B=0,C=9,..."
         sorted_letter_keys = sorted(letter_to_digit.keys())
@@ -197,5 +201,6 @@ class CryptarithmDataset(ProceduralDataset):
                 "letter_to_digit": letter_to_digit,
             },
         }
+
 
 register_dataset("cryptarithm", CryptarithmDataset, CryptarithmConfig)
