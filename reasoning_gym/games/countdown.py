@@ -8,8 +8,7 @@ from sympy.parsing.sympy_parser import parse_expr
 
 from ..factory import ProceduralDataset, register_dataset
 
-QUESTION_FORMAT_TEMPLATE = """
-{question}
+QUESTION_FORMAT_TEMPLATE = """{question}
 Final answer format instructions:
 1. Provide your solution as a arithmetic expression (no '=' sign).
 2. Do not include the target number in the expression.

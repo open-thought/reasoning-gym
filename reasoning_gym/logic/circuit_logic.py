@@ -322,7 +322,7 @@ class CircuitLogicDataset(ProceduralDataset):
             out_y += 1
             breakx -= 1
 
-        ascii_diagram = "\n".join("".join(row) for row in matrix)
+        ascii_diagram = "\n".join("".join(row).rstrip() for row in matrix)
 
         assignments = {}
         for inp in inputs_list:

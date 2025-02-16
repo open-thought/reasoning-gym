@@ -8,8 +8,7 @@ from typing import Any, Dict, Optional, Sequence, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
-QUESTION_TEMPLATE = """Simplify the fraction {question_fraction} to its lowest terms. Give only the simplified fraction
-                       as your final answer."""
+QUESTION_TEMPLATE = "Simplify the fraction {question_fraction} to its lowest terms. Give only the simplified fraction as your final answer."
 
 
 @dataclass
