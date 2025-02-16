@@ -88,10 +88,10 @@ class CircuitLogicDataset(ProceduralDataset):
            "metadata": {
                "diagram": <ASCII circuit diagram>,
                "expression": <str>,
+               "term_strings": <list of term_strings>,
                "assignments": <dict of input->0/1>,
                "final_gate": <str>,
                "inputs": <list of input names>,
-               "legend": <str with gate legend>
            }
        }
     """
