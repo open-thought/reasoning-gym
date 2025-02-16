@@ -36,9 +36,9 @@ class CryptarithmConfig:
     min_words: int = 2  # Minimum number of addends
     max_words: int = 3  # Maximum number of addends
     allow_leading_zero: bool = False
+    include_example: bool = True
     seed: Optional[int] = None
-    size: int = 20  # Number of puzzle instances to generate
-    include_example: bool = False
+    size: int = 500  # Number of puzzle instances to generate
 
     def validate(self):
         """Validate configuration parameters."""
