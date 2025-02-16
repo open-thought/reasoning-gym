@@ -37,6 +37,7 @@ def test_getitem(dataset, config):
     assert "metadata" in item
     assert item["metadata"]["word_count"] >= config.min_words_in_sentence
     assert item["metadata"]["word_count"] <= config.max_words_in_sentence
+    assert len(item['answer'].split()) == item['metadata']['word_count']
 
 
 def test_key_error_in_getitem(dataset):
