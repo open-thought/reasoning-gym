@@ -57,7 +57,7 @@ class ProductsDataset(ProceduralDataset):
         expression, result = self._generate_task(rng, num_terms, min_value, max_value)
 
         return {
-            "question": f"{expression} =",
+            "question": f"Solve the following multiplication: {expression}. Give only the result as your final answer.",
             "answer": str(result),
             "metadata": {
                 "difficulty": {
