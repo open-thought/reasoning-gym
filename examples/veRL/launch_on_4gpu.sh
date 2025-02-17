@@ -6,4 +6,4 @@ export ROLLOUT_TP_SIZE=2
 export EXPERIMENT_NAME=chain_sum_llama
 export VLLM_ATTENTION_BACKEND=XFORMERS
 
-bash ./train.sh
+bash ./train_grpo.sh
