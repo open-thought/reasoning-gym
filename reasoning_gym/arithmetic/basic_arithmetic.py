@@ -65,7 +65,7 @@ class BasicArithmeticDataset(ProceduralDataset):
     def __init__(self, config: BasicArithmeticDatasetConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
         self.added_instruction = (
-            "Ensure to report the answer as an integer. Please do not add commas to the integer answers reported."
+            " Ensure to report the answer as an integer. Do not add commas to the integer answers reported."
         )
 
     def __getitem__(self, idx: int) -> dict[str, Any]:
@@ -226,15 +226,14 @@ class BasicArithmeticDataset(ProceduralDataset):
         return expression, result
 
     def _format_question(self, rng: Random, expression: str) -> str:
-        """Format the expression with clear answer positioning"""
-        # answer_instruction = "Put your final answer after '=' without additional text."
+        """Format the the question with the arithmetic expression"""
 
         if self.config.format_style == "simple":
-            return f"Calculate {expression}. "
+            return f"Calculate {expression}."
         else:
-            templates = ["What is {0}. ", "Solve {0}. ", "Compute {0}. ", "Evaluate: {0}. "]
-            template = rng.choice(templates).format(expression)
-            return f"{template}"
+            templates = ["What is {0}?", "Solve {0}.", "Compute {0}.", "Evaluate: {0}."]
+            template = rng.choice(templates)
+            return template.format(expression)
 
 
 # Register the dataset
