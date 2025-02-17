@@ -4,6 +4,42 @@ from typing import Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
+QUESTION_TEMPLATE = """Your task is to count how many rectangles are present in an ASCII grid.
+
+Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
+
+Example:
+- Input: How many rectangles are in the grid below?
+
+              ####
+              #  #
+              ####
+
+
+
+
+
+
+
+
+
+
+ #########
+ #       █##
+ #       █ #
+ ########█ #
+         # #
+         ###
+- Output: 3
+- Explanation:
+    - The first rectangle is the 3x4 rectangle in the top right.
+    - The other two rectangles are overlapping in the bottom left corner.
+    - Therefore, the final answer is 3.
+
+Now, it's your turn. How many rectangles do you see in the grid below?
+{puzzle}
+"""
+
 
 def draw_rectangles_with_overlap(n, width, height, rng):
     # Create a grid that holds a count of how many times a cell is drawn.
@@ -103,12 +139,10 @@ class RectangleCountDataset(ProceduralDataset):
         target = rng.randint(1, self.config.max_rectangles)
         puzzle, answer = draw_rectangles_with_overlap(target, self.config.width, self.config.height, rng)
 
-        puzz = f"How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. \n\n {puzzle}"
-
         return {
-            "question": puzz,
+            "question": QUESTION_TEMPLATE.format(puzzle=puzzle),
             "answer": str(answer),
-            "metadata": {},
+            "metadata": {"puzzle": puzzle, "solution": answer},
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
