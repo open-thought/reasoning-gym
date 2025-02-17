@@ -11,11 +11,7 @@ from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
-QUESTION_TEMPLATE = """Please use python code to count how many prime numbers there are between {start} and {end} (inclusive) ?
-Please follow the instruction below:
-# 1. Create and run the python code to return the count of the prime numbers.
-# 2. Make sure to only report the count of the prime numbers as answer.
-"""
+QUESTION_TEMPLATE = """Count how many prime numbers there are between {start} and {end} (inclusive) ?"""
 
 
 @dataclass
