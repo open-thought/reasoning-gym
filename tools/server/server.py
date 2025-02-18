@@ -100,3 +100,6 @@ def create_app(config: ServerConfig) -> FastAPI:
             raise HTTPException(status_code=400, detail=str(e))
 
     return app
+
+# Create the app instance with default config
+app = create_app(ServerConfig())
