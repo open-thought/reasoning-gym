@@ -116,10 +116,12 @@ class CompositeDataset(ProceduralDataset):
 
         dataset = self.datasets[dataset_name]
 
-        # Create new config with updates
-        new_config = dataset.config.__class__(**vars(dataset.config))
-        for key, value in config_updates.items():
-            setattr(new_config, key, value)
+        # Get current config as dict and update it
+        current_config = vars(dataset.config)
+        current_config.update(config_updates)
+
+        # Create new config instance with updated values
+        new_config = dataset.config.__class__(**current_config)
 
         # Validate new config
         new_config.validate()
