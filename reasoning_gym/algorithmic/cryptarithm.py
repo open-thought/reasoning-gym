@@ -262,7 +262,7 @@ class CryptarithmDataset(ProceduralDataset):
 
         # case 3 : partial score for the number of correct mapping answer
         total_correct, total = 0, 0
-        for alphabet, number in correct_mapping:
+        for alphabet, number in correct_mapping.items():
             total += 1
             if alphabet in predict_mapping:
                 if predict_mapping[alphabet] == number:
