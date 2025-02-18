@@ -5,7 +5,12 @@ from fastapi import FastAPI, HTTPException
 from .config import ServerConfig
 from .middleware import APIKeyMiddleware
 from .registry import ExperimentRegistry
-from .models import ExperimentCreate, ExperimentResponse, ExperimentList
+from .models import (
+    ExperimentCreate,
+    ExperimentResponse,
+    ExperimentList,
+    DatasetConfigUpdate
+)
 from reasoning_gym.composite import CompositeConfig, DatasetSpec
 
 
