@@ -2,6 +2,7 @@
 
 import pytest
 from reasoning_gym.composite import CompositeConfig
+from reasoning_gym.arithmetic.chain_sum import ChainSumConfig
 from ..registry import ExperimentRegistry
 
 
@@ -20,8 +21,17 @@ def test_experiment_management():
     for name in registry.list_experiments():
         registry.remove_experiment(name)
     
-    # Test registration
-    config = CompositeConfig(size=10, seed=42)
+    # Test registration with chain_sum dataset
+    config = CompositeConfig(
+        size=10, 
+        seed=42,
+        datasets={
+            "chain_sum": {
+                "config": ChainSumConfig(size=10, seed=42),
+                "weight": 1.0
+            }
+        }
+    )
     registry.register_experiment("test_exp", config)
     
     # Test listing
