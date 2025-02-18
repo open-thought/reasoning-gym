@@ -302,9 +302,9 @@ def edit_config(
             console.print(f"[red]Dataset {dataset} not found in experiment[/]")
             raise typer.Exit(1)
         current_config = exp_config["datasets"][dataset]["config"]
-    
-    console.print(f"\nCurrent configuration for [cyan]{dataset}[/]:")
-    console.print(Syntax(yaml.dump(current_config), "yaml"))
+
+        console.print(f"\nCurrent configuration for [cyan]{dataset}[/]:")
+        console.print(Syntax(yaml.dump(current_config), "yaml"))
     
     # Interactive editing
     new_config = {}
