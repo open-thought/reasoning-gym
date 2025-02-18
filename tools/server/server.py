@@ -89,9 +89,10 @@ def create_app(config: ServerConfig) -> FastAPI:
         # Convert internal config to API response format
         datasets = {}
         for ds_spec in experiment.config.datasets:
+            dataset = experiment.datasets[ds_spec.name]
             datasets[ds_spec.name] = {
                 "weight": ds_spec.weight,
-                "config": ds_spec.config
+                "config": vars(dataset.config)  # Get current config from dataset instance
             }
             
         return ExperimentResponse(
