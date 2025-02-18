@@ -1,5 +1,6 @@
 """Mini Sudoku (4x4) puzzle generator"""
 
+import copy
 from dataclasses import dataclass
 from random import Random
 from typing import Any, List, Optional, Tuple
@@ -111,14 +112,45 @@ class MiniSudokuDataset(ProceduralDataset):
 
         raise RuntimeError("Failed to generate valid mini sudoku board")
 
+    def _count_solutions(self, board: List[List[int]], limit: int = 2) -> int:
+        """Count the number of solutions for a given board"""
+
+        def _count_solutions_helper(board: List[List[int]]) -> int:
+            empty = self._find_empty(board)
+            if not empty:
+                return 1
+
+            row, col = empty
+            count = 0
+            for num in range(1, 5):
+                if self._is_valid(board, row, col, num):
+                    board[row][col] = num
+                    count += _count_solutions_helper(board)
+                    if count >= limit:
+                        return count
+                    board[row][col] = 0
+            return count
+
+        return _count_solutions_helper(board)
+
     def _create_puzzle(self, solved_board: List[List[int]], num_empty: int, rng: Random) -> List[List[int]]:
         """Create puzzle by removing numbers from solved board"""
         puzzle = [row[:] for row in solved_board]
         cells = [(i, j) for i in range(4) for j in range(4)]
         rng.shuffle(cells)
+        num_removed = 0
 
-        for i, j in cells[:num_empty]:
+        for i, j in cells:
+            saved = puzzle[i][j]
             puzzle[i][j] = 0
+            puzzle_copy = copy.deepcopy(puzzle)
+            # Check if removing this clue breaks uniqueness
+            if self._count_solutions(puzzle_copy) > 1:
+                puzzle[i][j] = saved
+            else:
+                num_removed += 1
+                if num_removed == num_empty:
+                    break
 
         return puzzle
 
