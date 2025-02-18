@@ -3,14 +3,18 @@
 import copy
 from dataclasses import dataclass
 from random import Random
-from typing import Any, List, Optional, Tuple
+from typing import Any, List, Optional, Set, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
 class SudokuConfig:
-    """Configuration for sudoku puzzle generation"""
+    """
+    Configuration for sudoku puzzle generation
+    Puzzle generation can be slow for puzzles with a high (~60+) number of empty cells
+    This is because it's much harder to generate puzzles with a unique solution when there are very few clues
+    """
 
     min_empty: int = 30  # Minimum number of empty cells
     max_empty: int = 50  # Maximum number of empty cells
@@ -62,6 +66,21 @@ class SudokuDataset(ProceduralDataset):
                     return False
         return True
 
+    def _get_possible_values(self, board: List[List[int]], row: int, col: int) -> Set[int]:
+        """Get all possible values for a cell."""
+        row_values = set(board[row])
+        col_values = set(board[i][col] for i in range(9))
+
+        # Get filled values in the current 3x3 subgrid
+        box_row, box_col = 3 * (row // 3), 3 * (col // 3)
+        box_values = set()
+        for i in range(box_row, box_row + 3):
+            for j in range(box_col, box_col + 3):
+                box_values.add(board[i][j])
+
+        used_values = row_values | col_values | box_values
+        return set(range(1, 10)) - used_values
+
     def _solve(self, board: List[List[int]]) -> bool:
         """Solve sudoku using backtracking"""
         empty = self._find_empty(board)
@@ -69,7 +88,7 @@ class SudokuDataset(ProceduralDataset):
             return True
 
         row, col = empty
-        for num in range(1, 10):
+        for num in self._get_possible_values(board, row, col):
             if self._is_valid(board, row, col, num):
                 board[row][col] = num
                 if self._solve(board):
@@ -106,20 +125,37 @@ class SudokuDataset(ProceduralDataset):
     def _count_solutions(self, board: List[List[int]], limit: int = 2) -> int:
         """Count the number of solutions for a given board"""
 
+        def _get_min_possibilities_cell(board: List[List[int]]) -> Optional[Tuple[int, int, Set[int]]]:
+            min_possibilities = 10
+            min_cell = None
+            min_values = None
+
+            for i in range(9):
+                for j in range(9):
+                    if board[i][j] == 0:
+                        possible = self._get_possible_values(board, i, j)
+                        if len(possible) < min_possibilities:
+                            min_possibilities = len(possible)
+                            min_cell = (i, j)
+                            min_values = possible
+                            if min_possibilities == 1:
+                                return (*min_cell, min_values)
+
+            return (*min_cell, min_values) if min_cell else None
+
         def _count_solutions_helper(board: List[List[int]]) -> int:
-            empty = self._find_empty(board)
-            if not empty:
+            cell_info = _get_min_possibilities_cell(board)
+            if not cell_info:
                 return 1
 
-            row, col = empty
+            row, col, possible_values = cell_info
             count = 0
-            for num in range(1, 10):
-                if self._is_valid(board, row, col, num):
-                    board[row][col] = num
-                    count += _count_solutions_helper(board)
-                    if count >= limit:
-                        return count
-                    board[row][col] = 0
+            for num in possible_values:
+                board[row][col] = num
+                count += _count_solutions_helper(board)
+                if count >= limit:
+                    return count
+                board[row][col] = 0
             return count
 
         return _count_solutions_helper(board)
