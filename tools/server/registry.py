@@ -13,7 +13,7 @@ class ExperimentRegistry:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance._experiments: Dict[str, CompositeDataset] = {}
+            cls._instance._experiments = {}
         return cls._instance
 
     def register_experiment(self, name: str, config: CompositeConfig) -> None:
