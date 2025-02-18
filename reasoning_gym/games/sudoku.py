@@ -88,11 +88,10 @@ class SudokuDataset(ProceduralDataset):
 
         row, col = empty
         for num in self._get_possible_values(board, row, col):
-            if self._is_valid(board, row, col, num):
-                board[row][col] = num
-                if self._solve(board):
-                    return True
-                board[row][col] = 0
+            board[row][col] = num
+            if self._solve(board):
+                return True
+            board[row][col] = 0
         return False
 
     def _find_empty(self, board: List[List[int]]) -> Optional[Tuple[int, int]]:
