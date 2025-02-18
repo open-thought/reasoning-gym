@@ -21,9 +21,9 @@ class MiniSudokuConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        # More than 12 empty cells tends to result in multiple solutions
+        # More than 12 empty cells is incompatible with a unique solution
         assert 0 <= self.min_empty <= 12, "min_empty must be between 0 and 12"
-        assert self.min_empty <= self.max_empty <= 16, "max_empty must be between min_empty and 16"
+        assert self.min_empty <= self.max_empty <= 12, "max_empty must be between min_empty and 12"
 
 
 class MiniSudokuDataset(ProceduralDataset):
