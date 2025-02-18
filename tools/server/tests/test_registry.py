@@ -1,7 +1,7 @@
 """Tests for experiment registry."""
 
 import pytest
-from reasoning_gym.composite import CompositeConfig
+from reasoning_gym.composite import CompositeConfig, DatasetSpec
 from reasoning_gym.arithmetic.chain_sum import ChainSumConfig
 from ..registry import ExperimentRegistry
 
@@ -22,15 +22,16 @@ def test_experiment_management():
         registry.remove_experiment(name)
     
     # Test registration with chain_sum dataset
+    chain_sum_spec = DatasetSpec(
+        name="chain_sum",
+        weight=1.0,
+        config=vars(ChainSumConfig(size=10, seed=42))
+    )
+    
     config = CompositeConfig(
-        size=10, 
+        size=10,
         seed=42,
-        datasets={
-            "chain_sum": {
-                "config": ChainSumConfig(size=10, seed=42),
-                "weight": 1.0
-            }
-        }
+        datasets=[chain_sum_spec]
     )
     registry.register_experiment("test_exp", config)
     
