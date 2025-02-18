@@ -12,7 +12,9 @@ from ..factory import ProceduralDataset, register_dataset
 class MiniSudokuConfig:
     """Configuration for 4x4 sudoku puzzle generation"""
 
-    min_empty: int = 8  # Minimum number of empty cells
+    min_empty: int = (
+        8  # Minimum number of empty cells. Occasionally this can be violated, if removing more cells would break the puzzle's uniqueness.
+    )
     max_empty: int = 12  # Maximum number of empty cells
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
@@ -168,6 +170,9 @@ class MiniSudokuDataset(ProceduralDataset):
         # Create puzzle by removing numbers
         num_empty = rng.randint(self.config.min_empty, self.config.max_empty)
         puzzle = self._create_puzzle(solved_board, num_empty, rng)
+
+        # Update the num_empty to be used in the metadata if we couldn't remove as many as we wanted
+        num_empty = sum(1 for row in puzzle for x in row if x == 0)
 
         # Format as strings
         puzzle_str = self._board_to_string(puzzle)
