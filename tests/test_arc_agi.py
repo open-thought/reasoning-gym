@@ -137,3 +137,32 @@ def test_arc_agi_dataset_modes():
     both_ds = ArcAgiDataset(both_config)
     assert len(both_ds._task_ids) > len(train_ds._task_ids)
     assert len(both_ds._task_ids) > len(eval_ds._task_ids)
+
+
+def test_arc_agi_shuffled_order():
+    config_unshuffled = ArcAgiConfig(
+        shuffle_example_order=False,
+        use_train=True,
+        use_eval=False,
+        rotations=[],
+        mirrors=[],
+        use_color_permutation=False,
+        size=3,
+        seed=42,
+    )
+    config_shuffled = ArcAgiConfig(
+        shuffle_example_order=True,
+        use_train=True,
+        use_eval=False,
+        rotations=[],
+        mirrors=[],
+        use_color_permutation=False,
+        size=3,
+        seed=42,
+    )
+    unshuffled = ArcAgiDataset(config_unshuffled)
+    shuffled = ArcAgiDataset(config_shuffled)
+
+    for a, b in zip(shuffled, unshuffled):
+        assert a["question"] != b["question"]
+        assert a["answer"] == b["answer"]

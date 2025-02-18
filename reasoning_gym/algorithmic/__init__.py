@@ -11,6 +11,7 @@ from .base_conversion import BaseConversionConfig, BaseConversionDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesDataset
+from .cryptarithm import CryptarithmConfig, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
@@ -21,6 +22,7 @@ from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
+from .palindrome_partitioning import PalindromePartitioningConfig, PalindromePartitioningDataset
 from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
@@ -42,6 +44,8 @@ __all__ = [
     "BaseConversionDataset",
     "CaesarCipherConfig",
     "CaesarCipherDataset",
+    "CryptarithmConfig",
+    "CryptarithmDataset",
     "GameOfLifeConfig",
     "GameOfLifeDataset",
     "LetterCountingConfig",
@@ -65,6 +69,8 @@ __all__ = [
     "PalindromeDataset",
     "GroupAnagramsConfig",
     "GroupAnagramsDataset",
+    "PalindromePartitioningConfig",
+    "PalindromePartitioningDataset",
     "SpiralMatrixConfig",
     "SpiralMatrixDataset",
     "RansomNoteConfig",

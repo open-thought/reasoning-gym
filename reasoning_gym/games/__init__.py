@@ -7,6 +7,7 @@ Game tasks for training reasoning capabilities:
 """
 
 from .countdown import CountdownConfig, CountdownDataset
+from .futoshiki import FutoshikiConfig, FutoshikiDataset
 from .knight_swap import KnightSwapConfig, KnightSwapDataset
 from .maze import MazeConfig, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset
@@ -20,6 +21,8 @@ from .tsumego import TsumegoConfig, TsumegoDataset
 __all__ = [
     "CountdownConfig",
     "CountdownDataset",
+    "FutoshikiConfig",
+    "FutoshikiDataset",
     "MiniSudokuConfig",
     "MiniSudokuDataset",
     "SudokuConfig",

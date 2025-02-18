@@ -187,7 +187,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
                 num_female_colleagues_bob_circle=num_female_colleagues_bob_circle,
             )
 
-        return {"question": question, "answer": answer, "metadata": {"task_type": task_type.value}}
+        return {"question": question, "answer": str(answer), "metadata": {"task_type": task_type.value}}
 
     def __getitem__(self, idx: int) -> dict:
         rng = Random(self.seed + idx)

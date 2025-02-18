@@ -57,7 +57,7 @@ class GCDDataset(ProceduralDataset):
         numbers_str = ", ".join(str(n) for n in numbers)
 
         return {
-            "question": f"Find the Greatest Common Divisor (GCD) of these numbers: {numbers_str}",
+            "question": f"Find the Greatest Common Divisor (GCD) of these numbers: {numbers_str}. Give only the GCD as your final answer.",
             "answer": str(result),
             "metadata": {"numbers": numbers, "result": result},
         }

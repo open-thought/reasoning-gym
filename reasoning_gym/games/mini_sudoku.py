@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional, Tuple
+from typing import Any, List, Optional, Tuple
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -141,11 +141,55 @@ class MiniSudokuDataset(ProceduralDataset):
         puzzle_str = self._board_to_string(puzzle)
         solution_str = self._board_to_string(solved_board)
 
+        question = (
+            "In 4x4 Mini Sudoku:\n"
+            "- Each row must contain each number from 1-4 exactly once\n"
+            "- Each column must contain each number 1-4 exactly once\n"
+            "- Each 2x2 subgrid must contain each number 1-4 exactly once\n"
+            f"Solve this 4x4 Mini Sudoku puzzle:\n{puzzle_str}\n"
+            "Format your response as the puzzle above, with spaces separating each number within a row, and newlines separating rows.\n"
+        )
+
         return {
-            "question": f"Solve this 4x4 Mini Sudoku puzzle:\n{puzzle_str}",
+            "question": question,
             "answer": solution_str,
             "metadata": {"puzzle": puzzle, "solution": solved_board, "num_empty": num_empty},
         }
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        if not answer:
+            return 0.0
+
+        oracle_answer = entry["answer"]
+        metadata = entry["metadata"]
+        solution: list[list[int]] = metadata["solution"]
+        board_size: int = len(solution[0])
+
+        # 1. match answer without trailing whitespaces
+        answer_stripped = "\n".join(l.rstrip() for l in answer.split("\n"))
+        oracle_answer_stripped = "\n".join(l.rstrip() for l in oracle_answer.split("\n"))
+
+        if answer_stripped == oracle_answer_stripped:
+            reward = 1.0
+        else:
+            # 2. accept answers with correct numeric sequence (ignoring non-numeric characters)
+            row = 0
+            num_matching = 0
+            for ln in answer.split("\n"):
+                numbers = [int(c) for c in ln if c.isnumeric()]
+                if len(numbers) != board_size:
+                    continue  # ignore lines without numbers
+                for a, b in zip(solution[row], numbers):
+                    if a == b:
+                        num_matching += 1
+                row += 1
+
+            reward = num_matching / (board_size * board_size)
+            reward *= 0.9  # penalty for not using standard format
+
+        if len(answer) > len(oracle_answer):
+            reward *= len(oracle_answer) / len(answer)  # penalty for additional length
+        return reward
 
 
 register_dataset("mini_sudoku", MiniSudokuDataset, MiniSudokuConfig)

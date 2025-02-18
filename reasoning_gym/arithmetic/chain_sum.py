@@ -63,7 +63,7 @@ class ChainSumDataset(ProceduralDataset):
         expression, result = self._generate_task(rng, num_terms, min_value, max_value)
 
         return {
-            "question": f"{expression} =",
+            "question": f"State the final answer to the following arithmetic problem: {expression} =",
             "answer": str(result),
             "metadata": {
                 "difficulty": {
