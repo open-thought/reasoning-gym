@@ -102,5 +102,8 @@ def create_app(config: ServerConfig) -> FastAPI:
     return app
 
 
-# Create the app instance with default config
-app = create_app(ServerConfig())
+async def app(scope, receive, send):
+    """ASGI application that lazily creates the FastAPI app."""
+    if not hasattr(app, "server_app"):
+        app.server_app = create_app(ServerConfig())
+    await app.server_app(scope, receive, send)
