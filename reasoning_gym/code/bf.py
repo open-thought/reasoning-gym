@@ -28,7 +28,7 @@ class BFDataset(ProceduralDataset):
 
     def __init__(self, config: BFConfig):
         self._prompt_templates = [
-            "This is a BF (Brainf*ck) computer program. What is the output? \n\n{bf_program}",
+            "This is a BF (Brainf*ck) computer program. What is the output? Reply only with the program output, ex: 42. \n\n{bf_program}",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 

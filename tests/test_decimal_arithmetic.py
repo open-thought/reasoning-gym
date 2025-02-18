@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.arithmetic.decimal_arithmetic import DecimalArithmeticDatasetConfig, DecimalArithmeticDataset
+from reasoning_gym.arithmetic.decimal_arithmetic import DecimalArithmeticDataset, DecimalArithmeticDatasetConfig
 
 
 def test_decimal_arithmetic():
