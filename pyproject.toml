@@ -33,6 +33,11 @@ license-files = ["LICENSE*"]
 
 [project.optional-dependencies]
 test = ["pytest>=7.0.0", "pytest-cov>=4.0.0"]
+server = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "pydantic-settings>=2.1.0",
+]
 
 [project.urls]
 "Homepage" = "https://github.com/open-thought/reasoning-gym"

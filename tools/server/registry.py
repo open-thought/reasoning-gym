@@ -1,0 +1,32 @@
+"""Experiment registry singleton for managing active experiments."""
+
+from typing import Dict, List, Optional
+from reasoning_gym.composite import CompositeDataset, CompositeConfig
+
+
+class ExperimentRegistry:
+    """Singleton registry for managing active experiments."""
+    
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._experiments: Dict[str, CompositeDataset] = {}
+        return cls._instance
+    
+    def register_experiment(self, name: str, config: CompositeConfig) -> None:
+        """Register a new experiment with the given name and configuration."""
+        self._experiments[name] = CompositeDataset(config)
+    
+    def get_experiment(self, name: str) -> Optional[CompositeDataset]:
+        """Get an experiment by name."""
+        return self._experiments.get(name)
+    
+    def list_experiments(self) -> List[str]:
+        """List all registered experiment names."""
+        return list(self._experiments.keys())
+    
+    def remove_experiment(self, name: str) -> bool:
+        """Remove an experiment by name. Returns True if removed, False if not found."""
+        return bool(self._experiments.pop(name, None))
