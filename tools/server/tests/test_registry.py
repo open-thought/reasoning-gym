@@ -3,9 +3,8 @@
 import pytest
 
 from reasoning_gym.arithmetic.chain_sum import ChainSumConfig
+from reasoning_gym.coaching.registry import ExperimentRegistry
 from reasoning_gym.composite import CompositeConfig, DatasetSpec
-
-from ..registry import ExperimentRegistry
 
 
 def test_singleton():
@@ -35,6 +34,9 @@ def test_experiment_management():
     # Test retrieval
     exp = registry.get_experiment("test_exp")
     assert exp is not None
+    assert exp.name == "test_exp"
+    assert isinstance(exp.dataset, CompositeDataset)
+    assert exp.config == config
 
     # Test removal
     assert registry.remove_experiment("test_exp")

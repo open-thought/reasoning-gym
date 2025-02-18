@@ -9,7 +9,7 @@ from reasoning_gym.composite import CompositeConfig, DatasetSpec
 from .config import ServerConfig
 from .middleware import APIKeyMiddleware
 from .models import DatasetConfigUpdate, ExperimentCreate, ExperimentList, ExperimentResponse
-from .registry import ExperimentRegistry
+from reasoning_gym.coaching.registry import ExperimentRegistry
 
 
 def create_app(config: ServerConfig) -> FastAPI:
@@ -74,7 +74,7 @@ def create_app(config: ServerConfig) -> FastAPI:
         # Convert internal config to API response format
         datasets = {}
         for ds_spec in experiment.config.datasets:
-            dataset = experiment.datasets[ds_spec.name]
+            dataset = experiment.dataset.datasets[ds_spec.name]
             datasets[ds_spec.name] = {
                 "weight": ds_spec.weight,
                 "config": vars(dataset.config),  # Get current config from dataset instance
@@ -92,7 +92,7 @@ def create_app(config: ServerConfig) -> FastAPI:
             raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
 
         try:
-            experiment.update_dataset_config(dataset_name, config_update.config)
+            experiment.dataset.update_dataset_config(dataset_name, config_update.config)
             return {"status": "updated"}
         except KeyError:
             raise HTTPException(status_code=404, detail=f"Dataset '{dataset_name}' not found in experiment")
