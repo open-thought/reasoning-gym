@@ -305,42 +305,46 @@ def edit_config(
 
         console.print(f"\nCurrent configuration for [cyan]{dataset}[/]:")
         console.print(Syntax(yaml.dump(current_config), "yaml"))
-    
-    # Interactive editing
-    new_config = {}
-    for key, value in current_config.items():
-        new_value = Prompt.ask(
-            f"{key}",
-            default=str(value),
-            show_default=True
-        )
+
+        # Interactive editing
+        new_config = {}
+        for key, value in current_config.items():
+            new_value = Prompt.ask(
+                f"{key}",
+                default=str(value),
+                show_default=True
+            )
+            
+            # Try to convert to appropriate type
+            try:
+                if isinstance(value, bool):
+                    new_value = new_value.lower() == "true"
+                elif isinstance(value, int):
+                    new_value = int(new_value)
+                elif isinstance(value, float):
+                    new_value = float(new_value)
+            except ValueError:
+                console.print(f"[yellow]Warning: Could not convert {new_value} to {type(value)}[/]")
+            
+            new_config[key] = new_value
         
-        # Try to convert to appropriate type
-        try:
-            if isinstance(value, bool):
-                new_value = new_value.lower() == "true"
-            elif isinstance(value, int):
-                new_value = int(new_value)
-            elif isinstance(value, float):
-                new_value = float(new_value)
-        except ValueError:
-            console.print(f"[yellow]Warning: Could not convert {new_value} to {type(value)}[/]")
+        # Show changes
+        console.print("\nNew configuration:")
+        console.print(Syntax(yaml.dump(new_config), "yaml"))
         
-        new_config[key] = new_value
-    
-    # Show changes
-    console.print("\nNew configuration:")
-    console.print(Syntax(yaml.dump(new_config), "yaml"))
-    
-    if Confirm.ask("Apply these changes?"):
-        try:
-            client.update_dataset_config(experiment, dataset, new_config)
-            console.print("[green]Configuration updated successfully[/]")
-        except Exception as e:
-            console.print(f"[red]Error updating configuration: {e}[/]")
-            raise typer.Exit(1)
-    else:
-        console.print("[yellow]Update cancelled[/]")
+        if Confirm.ask("Apply these changes?"):
+            try:
+                client.update_dataset_config(experiment, dataset, new_config)
+                console.print("[green]Configuration updated successfully[/]")
+            except Exception as e:
+                console.print(f"[red]Error updating configuration: {e}[/]")
+                raise typer.Exit(1)
+        else:
+            console.print("[yellow]Update cancelled[/]")
+            
+    except Exception as e:
+        console.print(f"[red]Error getting experiment configuration: {e}[/]")
+        raise typer.Exit(1)
 
 
 def main():
