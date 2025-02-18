@@ -137,6 +137,20 @@ config_app = typer.Typer(help="Manage configurations")
 app.add_typer(experiments_app, name="experiments")
 app.add_typer(config_app, name="config")
 
+
+@app.command("health")
+def check_health():
+    """Check server connection and health status."""
+    try:
+        if client.check_health():
+            console.print("[green]Server is healthy[/]")
+        else:
+            console.print("[red]Server is not responding correctly[/]")
+            raise typer.Exit(1)
+    except Exception as e:
+        console.print(f"[red]Error connecting to server: {e}[/]")
+        raise typer.Exit(1)
+
 # Initialize client and console
 from .client import RGClient
 

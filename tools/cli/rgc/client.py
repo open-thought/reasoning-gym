@@ -24,6 +24,15 @@ class RGClient:
         """Construct full URL for given path."""
         return f"{self.base_url}/{path.lstrip('/')}"
 
+    def check_health(self) -> bool:
+        """Check server health status."""
+        try:
+            response = httpx.get(self._url("/health"), headers=self.headers)
+            response.raise_for_status()
+            return response.json()["status"] == "healthy"
+        except Exception:
+            return False
+
     def list_experiments(self) -> list[str]:
         """List all registered experiments."""
         response = httpx.get(self._url("/experiments"), headers=self.headers)
