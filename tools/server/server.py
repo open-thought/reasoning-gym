@@ -74,4 +74,48 @@ def create_app(config: ServerConfig) -> FastAPI:
             raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
         return {"status": "deleted"}
     
+    @app.get("/experiments/{name}/composite", response_model=ExperimentResponse)
+    async def get_composite_config(name: str):
+        """Get composite configuration for an experiment."""
+        experiment = registry.get_experiment(name)
+        if not experiment:
+            raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
+            
+        # Convert internal config to API response format
+        datasets = {}
+        for ds_spec in experiment.config.datasets:
+            datasets[ds_spec.name] = {
+                "weight": ds_spec.weight,
+                "config": ds_spec.config
+            }
+            
+        return ExperimentResponse(
+            name=name,
+            size=experiment.config.size,
+            seed=experiment.config.seed,
+            datasets=datasets
+        )
+    
+    @app.post("/experiments/{name}/composite/{dataset_name}")
+    async def update_dataset_config(
+        name: str, 
+        dataset_name: str, 
+        config_update: DatasetConfigUpdate
+    ):
+        """Update configuration for a specific dataset in the composite."""
+        experiment = registry.get_experiment(name)
+        if not experiment:
+            raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
+            
+        try:
+            experiment.update_dataset_config(dataset_name, config_update.config)
+            return {"status": "updated"}
+        except KeyError:
+            raise HTTPException(
+                status_code=404, 
+                detail=f"Dataset '{dataset_name}' not found in experiment"
+            )
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
+    
     return app
