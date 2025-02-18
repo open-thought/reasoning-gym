@@ -8,6 +8,15 @@ from sympy.parsing.sympy_parser import parse_expr
 
 from ..factory import ProceduralDataset, register_dataset
 
+QUESTION_FORMAT_TEMPLATE = """{question}
+Final answer format instructions:
+1. Provide your solution as a arithmetic expression (no '=' sign).
+2. Do not include the target number in the expression.
+3. Use '*' for multiplication.
+4. Use '/' for division.
+5. Do not include any other text or formatting.
+"""
+
 
 @dataclass
 class CountdownConfig:
@@ -67,8 +76,11 @@ class CountdownDataset(ProceduralDataset):
 
         numbers_str = ", ".join(map(str, numbers))
 
+        question = rng.choice(self._prompt_templates)
+        question = question.format(numbers=numbers_str, target=target)
+
         return {
-            "question": rng.choice(self._prompt_templates).format(numbers=numbers_str, target=target),
+            "question": QUESTION_FORMAT_TEMPLATE.format(question=question),
             "answer": expression,
             "metadata": {
                 "numbers": numbers,
@@ -159,9 +171,10 @@ class CountdownDataset(ProceduralDataset):
 
         raise ValueError(f"Failed to generate valid expression after {max_attempts} attempts")
 
-    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
+        metadata = entry["metadata"]
         if answer is not None:
             try:
                 user_answer = int(parse_expr(answer))

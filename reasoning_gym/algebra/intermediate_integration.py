@@ -76,6 +76,11 @@ class IntermediateIntegrationDataset(ProceduralDataset):
             "Calculate the antiderivative: ∫ {integrand} dx",
             "Evaluate the indefinite integral: ∫ {integrand} dx",
         ]
+        self.added_instruction = """
+In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
+## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
+## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+"""
 
     def _get_outer_constant(self, rng: random.Random) -> int:
         """Helper to generate signed outer constant from config"""
@@ -222,9 +227,10 @@ class IntermediateIntegrationDataset(ProceduralDataset):
 
         answer = sympy.integrate(integrand, x)
         answer_str = str(answer) + " + C"
+        question = rng.choice(self.prompt_template).format(integrand=integrand) + self.added_instruction
 
         return {
-            "question": rng.choice(self.prompt_template).format(integrand=integrand),
+            "question": question,
             "answer": answer_str,
             "metadata": {
                 "integrand": str(integrand),
@@ -235,9 +241,10 @@ class IntermediateIntegrationDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
+        metadata = entry["metadata"]
         if answer is not None:
             try:
                 var = metadata["variable"]

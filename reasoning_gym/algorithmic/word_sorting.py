@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from enum import StrEnum
 from random import Random
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
@@ -17,6 +17,23 @@ class TextTransformation(StrEnum):
     UPPERCASE = "uppercase"
     ORIGINAL = "original"
     RANDOMCASE = "randomcase"
+
+
+QUESTION_TEMPLATE = """Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
+
+Example:
+- Input: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: freely, idea, indemnify, last, END, solving
+- Output: END, freely, idea, indemnify, last, solving
+- Explanation:
+    - Uppercase letters come before lowercase letters, hence why "END" comes first.
+    - "freely" comes before "idea" because "f" comes before "i".
+    - "idea" comes before "indemnify" because even though they both start with "i", "d" comes before "n".
+    - "indemnify" comes before "last" because "i" comes before "l".
+    - "last" comes before "solving" because "l" comes before "s".
+    - Finally, the output is provided as a comma separated list of the sorted words.
+
+Now, sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {words}
+"""
 
 
 @dataclass
@@ -94,7 +111,7 @@ class WordSortingDataset(ProceduralDataset):
         answer = asc_words if is_ascending else desc_words
 
         return {
-            "question": f"Sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list:\n{', '.join(transformed_words)}",
+            "question": QUESTION_TEMPLATE.format(direction=direction, words=", ".join(transformed_words)),
             "answer": ", ".join(answer),
             "metadata": {
                 "original_words": original_words,
@@ -104,6 +121,19 @@ class WordSortingDataset(ProceduralDataset):
                 "sorted_words": answer,
             },
         }
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        oracle_answer = entry["metadata"]["sorted_words"]
+        if answer is not None and len(answer) > 0:
+            parsed_answer = [word.strip() for word in re.split(r",\s*", answer)]
+            if parsed_answer == oracle_answer:
+                return 1.0
+            elif sorted(parsed_answer) == oracle_answer:
+                return 0.2
+            else:
+                return 0.01
+
+        return 0.0
 
 
 register_dataset("word_sorting", WordSortingDataset, WordSortingConfig)

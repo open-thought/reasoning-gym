@@ -82,14 +82,14 @@ class TimeIntervalsDataset(ProceduralDataset):
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single time interval calculation task"""
-        item_rng = random.Random(self.seed + idx)
+        rng = random.Random(self.seed + idx)
 
         # Randomly choose task type from config
-        task_type = item_rng.choice(self.config.task_types)
+        task_type = rng.choice(self.config.task_types)
 
-        start_time, end_time, format_str, expected_format = self._generate_times(item_rng, task_type)
+        start_time, end_time, format_str, expected_format = self._generate_times(rng, task_type)
 
-        template = item_rng.choice(self.TEMPLATES)
+        template = rng.choice(self.TEMPLATES)
         question = template.format(start=start_time, end=end_time, format=expected_format)
 
         # Calculate the actual difference

@@ -5,6 +5,23 @@ from typing import Any, Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
+QUESTION_TEMPALTE = """Your task is, given a list of letters, to form a valid palindrome.
+
+A palindrome is a phrase that reads the same forwards and backwards.
+
+If there are multiple possible answers, only respond with one of them. You must use all the letters provided.
+
+Example:
+- Input: Form a valid palindrome using the following letters: a, a, b
+- Output: aba
+- Explanation:
+    - The phrase aba reads the same forwards and backwards.
+    - The output answer is a valid palindrome using all the letters provided.
+    - The answer is a string, rather than a list of characters.
+
+Now, form a valid palindrome using the following letters: {letters}
+"""
+
 
 @dataclass
 class PalindromeConfig:
@@ -51,16 +68,8 @@ class PalindromeDataset(ProceduralDataset):
         letters = self._generate_palindrome_letters(rng, length)
         scrambled_letters = rng.sample(letters, len(letters))  # Scramble the order
         palindrome = self._assemble_palindrome(letters)
-
-        question_str = (
-            "Rearrange these letters to form a palindrome. A palindrome is a word, phrase, or sequence that reads the same forward and backward.\n\n"
-            "For example, if the letters are: a, a, b — a valid palindrome is: aba.\n\n"
-            f"Your letters: {', '.join(scrambled_letters)}\n\n"
-            "What palindrome can you form from these letters?"
-        )
-
         return {
-            "question": question_str,
+            "question": QUESTION_TEMPALTE.format(letters=", ".join(scrambled_letters)),
             "answer": palindrome,
             "metadata": {
                 "letters": scrambled_letters,
@@ -81,7 +90,7 @@ class PalindromeDataset(ProceduralDataset):
         """Return the palindrome string from the letter set."""
         return "".join(letters)
 
-    def score_answer(self, answer: Optional[str], metadata: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Determine if the solution provided is a valid palindrome.
         The answer is expected to be a single string
 
@@ -98,6 +107,7 @@ class PalindromeDataset(ProceduralDataset):
         if answer == "":
             return 0.01
 
+        metadata = entry["metadata"]
         answer = answer.strip().lower()
         expected_letters = metadata["letters"]
 

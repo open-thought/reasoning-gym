@@ -53,13 +53,14 @@ class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
-        oracle_answer = entry["answer"]
+        oracle_answer = entry["answer"].strip()
         reward = 0.0
-        if answer is not None:
+        if answer is not None and len(answer) > 0:
+            answer = answer.strip()
             if answer == oracle_answer:
                 reward = 1.0
             elif oracle_answer in answer:
-                reward = 0.5
+                reward = len(oracle_answer) / len(answer)
             else:
                 reward = 0.01
 

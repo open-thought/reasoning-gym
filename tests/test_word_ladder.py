@@ -355,5 +355,45 @@ def test_word_ladder_edge_cases():
     assert max_length > 3, "No challenging word pairs generated"
 
 
-if __name__ == "__main__":
-    pytest.main([__file__])
+def test_word_ladder_score_answer():
+    """Test the score_answer method"""
+    config = WordLadderConfig(min_word_length=4, max_word_length=4)
+    dataset = WordLadderDataset(config)
+
+    # Create a test entry
+    entry = {
+        "question": "Transform the word ladder 'COLD' to 'WARM' by changing one letter at a time.",
+        "answer": "COLD,CORD,CARD,WARD,WARM",
+        "metadata": {"start_word": "COLD", "end_word": "WARM", "word_length": 4, "chain_length": 5},
+    }
+
+    # Test perfect answer
+    assert dataset.score_answer("COLD,CORD,CARD,WARD,WARM", entry) == 1.0
+
+    # Test None answer
+    assert dataset.score_answer(None, entry) == 0.0
+
+    # Test empty answer
+    assert dataset.score_answer("", entry) == 0.0
+
+    # Test single word answer
+    assert dataset.score_answer("COLD", entry) == 0.0
+
+    # Test wrong start word
+    assert dataset.score_answer("BOLD,CORD,CARD,WARD,WARM", entry) == 0.01
+
+    # Test wrong end word
+    assert dataset.score_answer("COLD,CORD,CARD,WARD,WARP", entry) == 0.01
+
+    # Test wrong word length
+    assert dataset.score_answer("COLD,CORDS,CARDS,WARD,WARM", entry) == 0.01
+
+    # Test invalid transitions (more than one letter change)
+    assert dataset.score_answer("COLD,WARD,WARM", entry) == 0.01
+
+    # Test case insensitivity
+    assert dataset.score_answer("cold,cord,card,ward,warm", entry) == 1.0
+
+    # Test with unknown words (should return partial credit)
+    assert dataset.score_answer("COLD,COXD,CARD,WARD,WARM", entry) < 1.0
+    assert dataset.score_answer("COLD,COXD,CARD,WARD,WARM", entry) > 0.0

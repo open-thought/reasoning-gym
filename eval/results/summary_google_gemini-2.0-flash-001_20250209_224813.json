@@ -1,0 +1,39 @@
+[
+  {
+    "dataset_name": "letter_counting",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.20600000000000002,
+    "total_examples": 10,
+    "timestamp": "2025-02-09T22:47:25.934820",
+    "config": {
+      "min_words": 5,
+      "max_words": 15,
+      "size": 10,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "propositional_logic",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.059,
+    "total_examples": 10,
+    "timestamp": "2025-02-09T22:47:57.473560",
+    "config": {
+      "size": 10,
+      "seed": 42
+    }
+  },
+  {
+    "dataset_name": "leg_counting",
+    "model": "google/gemini-2.0-flash-001",
+    "average_score": 0.40199999999999997,
+    "total_examples": 10,
+    "timestamp": "2025-02-09T22:48:13.546006",
+    "config": {
+      "min_animals": 3,
+      "max_animals": 8,
+      "size": 10,
+      "seed": 42
+    }
+  }
+]

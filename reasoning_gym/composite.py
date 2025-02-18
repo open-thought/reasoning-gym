@@ -100,6 +100,34 @@ class CompositeDataset(ProceduralDataset):
 
         return item
 
+    def update_dataset_config(self, dataset_name: str, config_updates: Dict[str, Any]) -> None:
+        """Update configuration of a specific dataset
+
+        Args:
+            dataset_name: Name of the dataset to update
+            config_updates: Dictionary of configuration parameters to update
+
+        Raises:
+            KeyError: If dataset_name is not found
+            AttributeError: If config parameter doesn't exist
+        """
+        if dataset_name not in self.datasets:
+            raise KeyError(f"Dataset '{dataset_name}' not found")
+
+        dataset = self.datasets[dataset_name]
+
+        # Create new config with updates
+        new_config = dataset.config.__class__(**vars(dataset.config))
+        for key, value in config_updates.items():
+            setattr(new_config, key, value)
+
+        # Validate new config
+        new_config.validate()
+
+        # Create new dataset instance with updated config
+        dataset_cls = dataset.__class__
+        self.datasets[dataset_name] = dataset_cls(new_config)
+
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
         dataset_name = entry["metadata"]["source_dataset"]

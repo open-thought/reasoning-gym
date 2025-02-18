@@ -2,7 +2,6 @@
 
 from importlib import resources
 from pathlib import Path
-from typing import Union
 
 
 def get_data_file_path(filename: str) -> Path:

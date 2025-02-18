@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from random import Random
 from string import Template
 from typing import List, Optional
@@ -7,7 +7,7 @@ from typing import List, Optional
 from ..factory import ProceduralDataset, register_dataset
 
 
-class TaskType(Enum):
+class TaskType(StrEnum):
     """Defines the type of task for the Alice in Wonderland dataset."""
 
     SIBLINGS = "siblings"
@@ -187,7 +187,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
                 num_female_colleagues_bob_circle=num_female_colleagues_bob_circle,
             )
 
-        return {"question": question, "answer": answer, "metadata": {"task_type": task_type.value}}
+        return {"question": question, "answer": str(answer), "metadata": {"task_type": task_type.value}}
 
     def __getitem__(self, idx: int) -> dict:
         rng = Random(self.seed + idx)

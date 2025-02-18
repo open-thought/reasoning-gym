@@ -108,6 +108,11 @@ def test_letter_jumble_dataset_items():
             assert config.min_word_len <= len(word) <= config.max_word_len
             assert word.isalpha()
 
+        # Test the scoring
+        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
+        assert dataset.score_answer(answer="gibberish", entry=item) == 0.01
+        assert dataset.score_answer(answer=None, entry=item) == 0.0
+
 
 def test_letter_jumble_iteration():
     """Test that iteration respects dataset size"""

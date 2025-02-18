@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "reasoning_gym"
-version = "0.1.3"
+version = "0.1.8"
 authors = [
   { name = "Open-Thought community", email = "andreas.koepf@xamla.com" },
 ]
@@ -21,6 +21,7 @@ dependencies = [
   "pytz>=2024.1",
   "tabulate==0.9.0",
   "pyyaml>=6.0.2",
+  "arckit==0.1.0",
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -31,20 +32,20 @@ license = "Apache-2.0"
 license-files = ["LICENSE*"]
 
 [project.optional-dependencies]
-test = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-]
+test = ["pytest>=7.0.0", "pytest-cov>=4.0.0"]
 
 [project.urls]
 "Homepage" = "https://github.com/open-thought/reasoning-gym"
 "Bug Tracker" = "https://github.com/open-thought/reasoning-gym/issues"
 
-[tool.hatch.build.targets.wheel]
-packages = ["reasoning_gym"]
 
 [tool.hatch.build]
-include = ["reasoning_gym/**/*.txt"]
+packages = ["reasoning_gym"]
+include = [
+  "reasoning_gym/**/*.py",
+  "reasoning_gym/**/*.txt",
+  "reasoning_gym/**/levels/*",
+]
 
 [tool.black]
 line-length = 120
@@ -58,6 +59,4 @@ line_length = 120
 
 [tool.pytest.ini_options]
 addopts = "-ra -q"
-testpaths = [
-    "tests",
-]
+testpaths = ["tests"]

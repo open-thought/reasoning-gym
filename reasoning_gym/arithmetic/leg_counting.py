@@ -54,14 +54,29 @@ ANIMALS = {
     "woodlouse": 14,
 }
 
+QUESTION_TEMPLATE = """Your task is to count how many legs there are in total when given a list of animals.
+
+Example:
+- Input: How many legs are there in total if you have 1 duck, 2 deers, 1 spider, 3 cows?
+- Output: 30
+- Explanation:
+    - Ducks have 2 legs each, so 1 duck has 2 legs.
+    - Deers have 4 legs each, so 2 deers have 8 legs.
+    - Spiders have 8 legs each, so 1 spider has 8 legs.
+    - Cows have 4 legs each, so 3 cows have 12 legs.
+    - Therefore, the total number of legs is 2 + 8 + 8 + 12 = 30
+
+Now, how many legs are there in total if you have {animals}?
+"""
+
 
 @dataclass
 class LegCountingConfig:
     """Configuration for leg counting task generation"""
 
-    min_animals: int = 2  # Minimum number of animals in problem
-    max_animals: int = 5  # Maximum number of animals
-    max_instances: int = 3  # Maximum instances of each animal
+    min_animals: int = 3  # Minimum number of animals in problem
+    max_animals: int = 10  # Maximum number of animals
+    max_instances: int = 15  # Maximum instances of each animal
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
@@ -106,12 +121,16 @@ class LegCountingDataset(ProceduralDataset):
         for animal, count in animals.items():
             animal_list.append(f"{count} {animal}{'s' if count > 1 else ''}")
 
-        question = "How many legs are there in total if you have " + ", ".join(animal_list) + "?"
-
         return {
-            "question": question,
+            "question": QUESTION_TEMPLATE.format(animals=", ".join(animal_list)),
             "answer": str(total_legs),
-            "metadata": {"animals": animals, "total_legs": total_legs},
+            "metadata": {
+                "difficulty": {
+                    "num_animals": len(animals),
+                },
+                "animals": animals,
+                "total_legs": total_legs,
+            },
         }
 
 

@@ -58,27 +58,27 @@ class Arc1DDataset(ProceduralDataset):
                 - metadata: dict with generation parameters
         """
         # Create deterministic RNG from base seed and idx
-        item_rng = Random(self.seed + idx)
+        rng = Random(self.seed + idx)
 
         # Select random task
-        task_name = item_rng.choice(self.task_names)
+        task_name = rng.choice(self.task_names)
         task_func, task_kwargs = self.ARC_1D_TASKS[task_name]
 
         # Generate training examples
         train_examples = []
-        size = item_rng.randint(self.config.min_size, self.config.max_size)
+        size = rng.randint(self.config.min_size, self.config.max_size)
 
         for _ in range(self.config.num_train):
             example = None
             while example is None:
-                example = task_func(item_rng, size, **task_kwargs)
+                example = task_func(rng, size, **task_kwargs)
 
             train_examples.append(example)
 
         # Generate test example
         test_example = None
         while test_example is None:
-            test_example = task_func(item_rng, size, **task_kwargs)
+            test_example = task_func(rng, size, **task_kwargs)
 
         # Format question
         question = "Find the common rule that maps an input grid to an output grid, given the examples below.\n\n"
