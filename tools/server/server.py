@@ -101,5 +101,6 @@ def create_app(config: ServerConfig) -> FastAPI:
 
     return app
 
+
 # Create the app instance with default config
 app = create_app(ServerConfig())

@@ -57,9 +57,7 @@ class RGClient:
         response.raise_for_status()
         return response.json()
 
-    def update_dataset_config(
-        self, experiment: str, dataset: str, config: Dict[str, Any]
-    ) -> None:
+    def update_dataset_config(self, experiment: str, dataset: str, config: Dict[str, Any]) -> None:
         """Update dataset configuration."""
         response = httpx.post(
             self._url(f"/experiments/{experiment}/composite/{dataset}"),

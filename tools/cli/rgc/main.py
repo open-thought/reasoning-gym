@@ -159,30 +159,21 @@ def list_experiments():
             try:
                 config = client.get_experiment_config(exp_name)
                 datasets = ", ".join(config["datasets"].keys())
-                table.add_row(
-                    exp_name,
-                    datasets,
-                    str(config["size"]),
-                    str(config["seed"] or "")
-                )
+                table.add_row(exp_name, datasets, str(config["size"]), str(config["seed"] or ""))
             except Exception as e:
                 console.print(f"[yellow]Warning: Could not get config for {exp_name}: {e}[/]")
                 table.add_row(exp_name, "?", "?", "?")
     except Exception as e:
         console.print(f"[red]Error listing experiments: {e}[/]")
         raise typer.Exit(1)
-    
+
     console.print(table)
 
 
 @experiments_app.command("create")
 def create_experiment(
     name: str = typer.Argument(..., help="Name of the experiment"),
-    config_file: Optional[str] = typer.Option(
-        None,
-        "--file", "-f",
-        help="YAML configuration file"
-    ),
+    config_file: Optional[str] = typer.Option(None, "--file", "-f", help="YAML configuration file"),
 ):
     """Create a new experiment."""
     if config_file:
@@ -197,12 +188,12 @@ def create_experiment(
         # Interactive creation
         size = Prompt.ask("Dataset size", default="500")
         seed = Prompt.ask("Random seed (optional)", default="")
-        
+
         datasets = {}
         while Confirm.ask("Add dataset?"):
             ds_name = Prompt.ask("Dataset name")
             weight = float(Prompt.ask("Weight", default="1.0"))
-            
+
             # Get dataset-specific config
             console.print("\nEnter dataset configuration:")
             config = {}
@@ -220,24 +211,16 @@ def create_experiment(
                 except ValueError:
                     pass
                 config[key] = value
-            
-            datasets[ds_name] = {
-                "weight": weight,
-                "config": config
-            }
-        
+
+            datasets[ds_name] = {"weight": weight, "config": config}
+
         # Create experiment config
-        exp_config = {
-            "name": name,
-            "size": int(size),
-            "seed": int(seed) if seed else None,
-            "datasets": datasets
-        }
-        
+        exp_config = {"name": name, "size": int(size), "seed": int(seed) if seed else None, "datasets": datasets}
+
         # Show final config
         console.print("\nFinal configuration:")
         console.print(Syntax(yaml.dump(exp_config), "yaml"))
-        
+
         if Confirm.ask("Create experiment with this configuration?"):
             try:
                 client.create_experiment(name, exp_config)
@@ -253,16 +236,12 @@ def create_experiment(
 @experiments_app.command("delete")
 def delete_experiment(
     name: str = typer.Argument(..., help="Name of the experiment to delete"),
-    force: bool = typer.Option(
-        False,
-        "--force", "-f",
-        help="Force deletion without confirmation"
-    ),
+    force: bool = typer.Option(False, "--force", "-f", help="Force deletion without confirmation"),
 ):
     """Delete an experiment."""
     if not force and not Confirm.ask(f"Delete experiment [cyan]{name}[/]?"):
         raise typer.Exit()
-    
+
     # TODO: Implement actual API call
     console.print(f"[green]Deleted experiment[/] [cyan]{name}[/]")
 
@@ -309,12 +288,8 @@ def edit_config(
         # Interactive editing
         new_config = {}
         for key, value in current_config.items():
-            new_value = Prompt.ask(
-                f"{key}",
-                default=str(value),
-                show_default=True
-            )
-            
+            new_value = Prompt.ask(f"{key}", default=str(value), show_default=True)
+
             # Try to convert to appropriate type
             try:
                 if isinstance(value, bool):
@@ -325,13 +300,13 @@ def edit_config(
                     new_value = float(new_value)
             except ValueError:
                 console.print(f"[yellow]Warning: Could not convert {new_value} to {type(value)}[/]")
-            
+
             new_config[key] = new_value
-        
+
         # Show changes
         console.print("\nNew configuration:")
         console.print(Syntax(yaml.dump(new_config), "yaml"))
-        
+
         if Confirm.ask("Apply these changes?"):
             try:
                 client.update_dataset_config(experiment, dataset, new_config)
@@ -341,7 +316,7 @@ def edit_config(
                 raise typer.Exit(1)
         else:
             console.print("[yellow]Update cancelled[/]")
-            
+
     except Exception as e:
         console.print(f"[red]Error getting experiment configuration: {e}[/]")
         raise typer.Exit(1)
