@@ -175,9 +175,9 @@ class FamilyRelationshipsDataset(ProceduralDataset):
 
     def __init__(self, config: FamilyRelationshipsConfig):
         self._templates = [
-            "What is {person1} to {person2}?",
-            "How is {person1} related to {person2}?",
-            "What relation is {person1} to {person2}?",
+            "What is {person1} to {person2}? Respond only with the word that describes their relationship.",
+            "How is {person1} related to {person2}? Provide the relationship in one word.",
+            "What relation is {person1} to {person2}? Answer with a single word.",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
