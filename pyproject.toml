@@ -54,12 +54,19 @@ cli = [
 
 
 [tool.hatch.build]
-packages = ["reasoning_gym"]
-include = [
-  "reasoning_gym/**/*.py",
-  "reasoning_gym/**/*.txt",
-  "reasoning_gym/**/levels/*",
+packages = [
+    "reasoning_gym",
+    "tools.cli.rgc"
 ]
+include = [
+    "reasoning_gym/**/*.py",
+    "reasoning_gym/**/*.txt",
+    "reasoning_gym/**/levels/*",
+    "tools/cli/rgc/**/*.py"
+]
+
+[project.scripts]
+rgc = "tools.cli.rgc.main:main"
 
 [tool.black]
 line-length = 120
