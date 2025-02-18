@@ -12,8 +12,7 @@ from ..factory import ProceduralDataset, register_dataset
 class SudokuConfig:
     """
     Configuration for sudoku puzzle generation
-    Puzzle generation can be slow for puzzles with a high (~60+) number of empty cells
-    This is because it's much harder to generate puzzles with a unique solution when there are very few clues
+    Puzzle generation can be a bit slower for puzzles with a high (~60+) number of empty cells
     """
 
     min_empty: int = 30  # Minimum number of empty cells
