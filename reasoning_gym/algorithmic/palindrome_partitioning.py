@@ -46,7 +46,9 @@ class PalindromePartitioningConfig:
         assert 1 <= self.min_string_len, "Minimum string length must be at least 1"
         assert self.min_string_len <= self.max_string_len, "Minimum string length must be less than or equal to maximum"
         assert 1 <= self.max_substring_palindome_len, "Maximum substring palindrome length must be at least 1"
-        assert self.max_substring_palindome_len <= self.max_string_len, "Maximum substring palindrome length must be less than or equal to maximum string length"
+        assert (
+            self.max_substring_palindome_len <= self.max_string_len
+        ), "Maximum substring palindrome length must be less than or equal to maximum string length"
 
 
 class PalindromePartitioningDataset(ProceduralDataset):
@@ -119,10 +121,7 @@ class PalindromePartitioningDataset(ProceduralDataset):
         output = ""
 
         while len(output) < size:
-            palindrome_len = rng.randint(
-                1, 
-                min(self.config.max_substring_palindome_len, size - len(output))
-            )
+            palindrome_len = rng.randint(1, min(self.config.max_substring_palindome_len, size - len(output)))
             substring = "".join(self._generate_palindrome_letters(rng, palindrome_len))
             output += substring
 
