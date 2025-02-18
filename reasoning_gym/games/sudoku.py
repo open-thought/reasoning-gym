@@ -124,6 +124,10 @@ class SudokuDataset(ProceduralDataset):
         """Count the number of solutions for a given board"""
 
         def _get_min_possibilities_cell(board: List[List[int]]) -> Optional[Tuple[int, int, Set[int]]]:
+            """
+            Get the cell with the lowest number of possibilities.
+            Returns None if the board is already solved.
+            """
             min_possibilities = 10
             min_cell = None
             min_values = None
