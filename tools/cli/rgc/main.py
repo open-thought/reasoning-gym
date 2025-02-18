@@ -66,8 +66,12 @@ def delete_experiment(
         if not delete:
             raise typer.Abort()
 
-    # TODO: Implement actual deletion
-    console.print(f"[green]Deleted experiment[/] [cyan]{name}[/]")
+    try:
+        client.delete_experiment(name)
+        console.print(f"[green]Deleted experiment[/] [cyan]{name}[/]")
+    except Exception as e:
+        console.print(f"[red]Error deleting experiment: {e}[/]")
+        raise typer.Exit(1)
 
 
 @experiments_app.command("show")
@@ -85,9 +89,12 @@ def show_experiment(
 @config_app.command("get")
 def get_config(experiment: str = typer.Argument(..., help="Name of the experiment")):
     """Get current configuration."""
-    # TODO: Implement actual config retrieval
-    console.print(f"[cyan]Configuration for {experiment}[/]")
-    console.print("[yellow]Not implemented yet[/]")
+    try:
+        config = client.get_experiment_config(experiment)
+        console.print(Syntax(yaml.dump(config), "yaml"))
+    except Exception as e:
+        console.print(f"[red]Error getting configuration: {e}[/]")
+        raise typer.Exit(1)
 
 
 @config_app.command("edit")
@@ -130,17 +137,11 @@ config_app = typer.Typer(help="Manage configurations")
 app.add_typer(experiments_app, name="experiments")
 app.add_typer(config_app, name="config")
 
-# Initialize Rich console
+# Initialize client and console
+from .client import RGClient
+
+client = RGClient()
 console = Console()
-
-# Default server settings
-DEFAULT_SERVER = "http://localhost:8000"
-API_KEY = os.getenv("REASONING_GYM_API_KEY", "default-key")
-
-
-def get_headers():
-    """Get headers for API requests."""
-    return {"X-API-Key": API_KEY}
 
 
 @experiments_app.command("list")
@@ -152,14 +153,24 @@ def list_experiments():
     table.add_column("Size", style="blue")
     table.add_column("Seed", style="green")
 
-    # TODO: Implement actual API call
-    # For now show example data
-    table.add_row(
-        "example-exp",
-        "chain_sum",
-        "500",
-        "42"
-    )
+    try:
+        experiments = client.list_experiments()
+        for exp_name in experiments:
+            try:
+                config = client.get_experiment_config(exp_name)
+                datasets = ", ".join(config["datasets"].keys())
+                table.add_row(
+                    exp_name,
+                    datasets,
+                    str(config["size"]),
+                    str(config["seed"] or "")
+                )
+            except Exception as e:
+                console.print(f"[yellow]Warning: Could not get config for {exp_name}: {e}[/]")
+                table.add_row(exp_name, "?", "?", "?")
+    except Exception as e:
+        console.print(f"[red]Error listing experiments: {e}[/]")
+        raise typer.Exit(1)
     
     console.print(table)
 
@@ -228,8 +239,12 @@ def create_experiment(
         console.print(Syntax(yaml.dump(exp_config), "yaml"))
         
         if Confirm.ask("Create experiment with this configuration?"):
-            # TODO: Implement actual API call
-            console.print(f"[green]Created experiment[/] [cyan]{name}[/]")
+            try:
+                client.create_experiment(name, exp_config)
+                console.print(f"[green]Created experiment[/] [cyan]{name}[/]")
+            except Exception as e:
+                console.print(f"[red]Error creating experiment: {e}[/]")
+                raise typer.Exit(1)
         else:
             console.print("[yellow]Experiment creation cancelled[/]")
             raise typer.Exit()
@@ -257,27 +272,12 @@ def show_experiment(
     name: str = typer.Argument(..., help="Name of the experiment"),
 ):
     """Show experiment details."""
-    # TODO: Implement actual API call
-    # For now show example data
-    example_config = {
-        "name": name,
-        "size": 500,
-        "seed": 42,
-        "datasets": {
-            "chain_sum": {
-                "weight": 1.0,
-                "config": {
-                    "min_terms": 2,
-                    "max_terms": 4,
-                    "min_digits": 1,
-                    "max_digits": 2,
-                    "allow_negation": False
-                }
-            }
-        }
-    }
-    
-    console.print(Syntax(yaml.dump(example_config), "yaml"))
+    try:
+        config = client.get_experiment_config(name)
+        console.print(Syntax(yaml.dump(config), "yaml"))
+    except Exception as e:
+        console.print(f"[red]Error getting experiment config: {e}[/]")
+        raise typer.Exit(1)
 
 
 @config_app.command("get")
@@ -296,14 +296,12 @@ def edit_config(
     dataset: str = typer.Argument(..., help="Name of the dataset to edit"),
 ):
     """Interactive configuration editor."""
-    # TODO: Implement actual API call to get current config
-    current_config = {
-        "min_terms": 2,
-        "max_terms": 4,
-        "min_digits": 1,
-        "max_digits": 2,
-        "allow_negation": False
-    }
+    try:
+        exp_config = client.get_experiment_config(experiment)
+        if dataset not in exp_config["datasets"]:
+            console.print(f"[red]Dataset {dataset} not found in experiment[/]")
+            raise typer.Exit(1)
+        current_config = exp_config["datasets"][dataset]["config"]
     
     console.print(f"\nCurrent configuration for [cyan]{dataset}[/]:")
     console.print(Syntax(yaml.dump(current_config), "yaml"))
@@ -335,8 +333,12 @@ def edit_config(
     console.print(Syntax(yaml.dump(new_config), "yaml"))
     
     if Confirm.ask("Apply these changes?"):
-        # TODO: Implement actual API call
-        console.print("[green]Configuration updated successfully[/]")
+        try:
+            client.update_dataset_config(experiment, dataset, new_config)
+            console.print("[green]Configuration updated successfully[/]")
+        except Exception as e:
+            console.print(f"[red]Error updating configuration: {e}[/]")
+            raise typer.Exit(1)
     else:
         console.print("[yellow]Update cancelled[/]")
 
