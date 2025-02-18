@@ -4,7 +4,7 @@ import pytest
 
 from reasoning_gym.arithmetic.chain_sum import ChainSumConfig
 from reasoning_gym.coaching.registry import ExperimentRegistry
-from reasoning_gym.composite import CompositeConfig, DatasetSpec
+from reasoning_gym.composite import CompositeConfig, CompositeDataset, DatasetSpec
 
 
 def test_singleton():
