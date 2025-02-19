@@ -31,30 +31,85 @@ class ReasoningGymDataset(Dataset):
         max_prompt_length: int = 2048,
         truncation: str = "error",  ##  ['left', 'right', 'error']
         return_raw_chat: bool = False,
+        server_url: str = "http://localhost:8000",
+        api_key: Optional[str] = None,
+        batch_size: int = 32,
     ):
+        from tools.cli.rgc.client import RGClient
+
         self.tokenizer = tokenizer
         self.dataset_name = dataset_name
-        self.data = reasoning_gym.create_dataset(dataset_name, seed=seed, size=size)
         self.developer_prompt = developer_prompt
         self.developer_role = developer_role
         self.max_prompt_length = max_prompt_length
         self.truncation = truncation
         self.return_raw_chat = return_raw_chat
+        self.size = size
+        self.batch_size = batch_size
+        
+        # Initialize client and create experiment if needed
+        self.client = RGClient(base_url=server_url, api_key=api_key)
+        
+        # Check if experiment exists, create if not
+        experiments = self.client.list_experiments()
+        if dataset_name not in experiments:
+            self.client.create_experiment(
+                dataset_name,
+                {
+                    "size": size,
+                    "seed": seed,
+                    "datasets": {
+                        dataset_name: {
+                            "weight": 1.0,
+                            "config": {"seed": seed, "size": size}
+                        }
+                    }
+                }
+            )
+        
+        # Cache for batches
+        self._batch_cache = {}
 
     def __len__(self) -> int:
-        return len(self.data)
+        return self.size
+
+    def _get_batch(self, batch_idx: int) -> List[Dict]:
+        """Fetch or retrieve cached batch"""
+        if batch_idx not in self._batch_cache:
+            base_index = batch_idx * self.batch_size
+            response = self.client.get_batch(
+                self.dataset_name,
+                base_index=base_index,
+                batch_size=self.batch_size
+            )
+            self._batch_cache[batch_idx] = response.entries
+            
+            # Basic cache management - keep only last N batches
+            if len(self._batch_cache) > 10:
+                oldest_batch = min(self._batch_cache.keys())
+                del self._batch_cache[oldest_batch]
+                
+        return self._batch_cache[batch_idx]
 
     def __getitem__(self, index):
-        row_dict = self.data[index].copy()
-        q = row_dict["question"]
+        # Get batch containing this index
+        batch_idx = index // self.batch_size
+        batch = self._get_batch(batch_idx)
+        entry = batch[index % self.batch_size]
 
+        # Format chat/prompt
         chat = []
         if self.developer_prompt is not None:
             chat.append({"role": self.developer_role, "content": self.developer_prompt})
-        chat.append({"role": "user", "content": q})
+        chat.append({"role": "user", "content": entry.question})
 
-        prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+        prompt = self.tokenizer.apply_chat_template(
+            chat, 
+            tokenize=False,
+            add_generation_prompt=True
+        )
 
+        # Tokenize
         input_ids, attention_mask = verl_F.tokenize_and_postprocess_data(
             prompt=prompt,
             tokenizer=self.tokenizer,
@@ -66,18 +121,19 @@ class ReasoningGymDataset(Dataset):
 
         position_ids = compute_position_id_with_mask(attention_mask)
 
-        row_dict["data_source"] = "reasoning_gym/" + self.dataset_name
-        row_dict["input_ids"] = input_ids[0]
-        row_dict["attention_mask"] = attention_mask[0]
-        row_dict["position_ids"] = position_ids[0]
+        row_dict = {
+            "data_source": "reasoning_gym/" + self.dataset_name,
+            "input_ids": input_ids[0],
+            "attention_mask": attention_mask[0],
+            "position_ids": position_ids[0],
+            "entry_id": entry.entry_id,
+            "metadata": entry.metadata,
+            "index": index,
+        }
 
-        # encode prompts without chat template
+        # Add raw chat if requested
         if self.return_raw_chat:
-            row_dict["raw_prompt"] = chat.tolist()
-
-        # add index for each prompt
-        #  index = row_dict.get("extra_info", {}).get("index", 0)
-        row_dict["index"] = index
+            row_dict["raw_prompt"] = chat
 
         return row_dict
 
@@ -163,10 +219,12 @@ class RayPPOTrainerCustom(RayPPOTrainer):
 
     def _compute_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
-        entry = self.train_dataset.data[index]
-        reward = self.train_dataset.data.score_answer(found_answer, entry=entry)
-        # print(f"found answer={found_answer}; reward: {reward};")
-        return reward
+        entry_id = self.train_dataset[index]["entry_id"]
+        scores = self.train_dataset.client.score_outputs(
+            self.train_dataset.dataset_name,
+            [(entry_id, found_answer)]
+        )
+        return scores[entry_id]
 
     def _create_dataloader(self):
         self.train_dataloader = DataLoader(
