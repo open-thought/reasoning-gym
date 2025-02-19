@@ -71,6 +71,149 @@ def test_experiment_endpoints(client):
     assert response.status_code == 404
 
 
+def test_batch_generation_endpoint(client):
+    """Test batch generation endpoint."""
+    headers = {"X-API-Key": "test-key"}
+
+    # Create test experiment
+    create_data = {
+        "name": "test_exp",
+        "size": 10,
+        "seed": 42,
+        "datasets": {
+            "chain_sum": {
+                "weight": 1.0,
+                "config": {
+                    "min_terms": 2,
+                    "max_terms": 4,
+                    "min_digits": 1,
+                    "max_digits": 2,
+                    "allow_negation": False,
+                    "size": 10,
+                    "seed": 42,
+                },
+            }
+        },
+    }
+
+    response = client.post("/experiments", json=create_data, headers=headers)
+    assert response.status_code == 200
+
+    # Test batch generation
+    response = client.get(
+        "/experiments/test_exp/batch",
+        params={"base_index": 0, "batch_size": 2},
+        headers=headers,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    
+    # Verify batch structure
+    assert "entries" in data
+    assert len(data["entries"]) == 2
+    
+    # Verify entry structure
+    entry = data["entries"][0]
+    assert "question" in entry
+    assert "entry_id" in entry
+    assert "metadata" in entry
+    
+    # Test error cases
+    # Non-existent experiment
+    response = client.get(
+        "/experiments/nonexistent/batch",
+        params={"base_index": 0, "batch_size": 2},
+        headers=headers,
+    )
+    assert response.status_code == 404
+    
+    # Invalid parameters
+    response = client.get(
+        "/experiments/test_exp/batch",
+        params={"base_index": -1, "batch_size": 2},
+        headers=headers,
+    )
+    assert response.status_code == 400
+
+
+def test_scoring_endpoint(client):
+    """Test answer scoring endpoint."""
+    headers = {"X-API-Key": "test-key"}
+
+    # Create test experiment
+    create_data = {
+        "name": "test_exp",
+        "size": 10,
+        "seed": 42,
+        "datasets": {
+            "chain_sum": {
+                "weight": 1.0,
+                "config": {
+                    "min_terms": 2,
+                    "max_terms": 4,
+                    "min_digits": 1,
+                    "max_digits": 2,
+                    "allow_negation": False,
+                    "size": 10,
+                    "seed": 42,
+                },
+            }
+        },
+    }
+
+    response = client.post("/experiments", json=create_data, headers=headers)
+    assert response.status_code == 200
+
+    # Get a batch to get valid entry_ids
+    response = client.get(
+        "/experiments/test_exp/batch",
+        params={"base_index": 0, "batch_size": 2},
+        headers=headers,
+    )
+    assert response.status_code == 200
+    batch = response.json()
+    entry_id = batch["entries"][0]["entry_id"]
+
+    # Test scoring with correct answer
+    response = client.post(
+        "/experiments/test_exp/score",
+        json={"scores": [(entry_id, "4")]},  # Assuming 2+2=4 is the first question
+        headers=headers,
+    )
+    assert response.status_code == 200
+    scores = response.json()
+    assert entry_id in scores
+    assert isinstance(scores[entry_id], float)
+    assert 0 <= scores[entry_id] <= 1
+
+    # Test scoring with wrong answer
+    response = client.post(
+        "/experiments/test_exp/score",
+        json={"scores": [(entry_id, "wrong")]},
+        headers=headers,
+    )
+    assert response.status_code == 200
+    scores = response.json()
+    assert scores[entry_id] < 1.0
+
+    # Test error cases
+    # Invalid entry_id format
+    response = client.post(
+        "/experiments/test_exp/score",
+        json={"scores": [("invalid_id", "4")]},
+        headers=headers,
+    )
+    assert response.status_code == 400
+
+    # Non-existent experiment
+    response = client.post(
+        "/experiments/nonexistent/score",
+        json={"scores": [(entry_id, "4")]},
+        headers=headers,
+    )
+    assert response.status_code == 404
+
+
 def test_composite_config_endpoints(client):
     """Test composite configuration endpoints."""
     headers = {"X-API-Key": "test-key"}
