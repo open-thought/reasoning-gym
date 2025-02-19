@@ -57,8 +57,10 @@ class CompositeConfig:
 class CompositeDataset(ProceduralDataset):
     """A dataset that combines multiple datasets with weighted sampling"""
 
-    def __init__(self, config: CompositeConfig):
+    def __init__(self, config: CompositeConfig, version_manager: Optional[DatasetVersionManager] = None):
         super().__init__(config=config, seed=config.seed, size=config.size)
+        self.version_manager = version_manager
+        self.dataset_versions = {}  # dataset_name -> version_id
 
         # Initialize sub-datasets with incremented seeds
         self.datasets = {}
@@ -73,7 +75,14 @@ class CompositeDataset(ProceduralDataset):
             if "size" not in ds_config:
                 ds_config["size"] = self.size
 
-            self.datasets[ds_spec.name] = create_dataset(ds_spec.name, **ds_config)
+            dataset = create_dataset(ds_spec.name, **ds_config)
+            self.datasets[ds_spec.name] = dataset
+            
+            # Register version if tracking enabled
+            if version_manager is not None:
+                version_id = version_manager.register_dataset(ds_spec.name, dataset)
+                self.dataset_versions[ds_spec.name] = version_id
+            
             total_weight += ds_spec.weight
             self.weights.append(ds_spec.weight)
 
@@ -97,6 +106,10 @@ class CompositeDataset(ProceduralDataset):
         # Add source dataset info to metadata
         item["metadata"]["source_dataset"] = dataset_name
         item["metadata"]["source_index"] = idx
+        
+        # Add version info if tracking enabled
+        if self.version_manager is not None:
+            item["metadata"]["version_id"] = self.dataset_versions[dataset_name]
 
         return item
 
@@ -128,7 +141,13 @@ class CompositeDataset(ProceduralDataset):
 
         # Create new dataset instance with updated config
         dataset_cls = dataset.__class__
-        self.datasets[dataset_name] = dataset_cls(new_config)
+        new_dataset = dataset_cls(new_config)
+        self.datasets[dataset_name] = new_dataset
+        
+        # Register new version if tracking enabled
+        if self.version_manager is not None:
+            version_id = self.version_manager.register_dataset(dataset_name, new_dataset)
+            self.dataset_versions[dataset_name] = version_id
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
