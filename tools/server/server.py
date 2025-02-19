@@ -10,7 +10,7 @@ from reasoning_gym.composite import CompositeConfig, DatasetSpec
 
 from .config import ServerConfig
 from .middleware import APIKeyMiddleware
-from .models import (BatchRequest, BatchResponse, DatasetConfigUpdate,
+from .models import (BatchEntry, BatchRequest, BatchResponse, DatasetConfigUpdate,
                     ExperimentCreate, ExperimentList, ExperimentResponse,
                     ScoringRequest)
 
