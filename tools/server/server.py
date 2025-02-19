@@ -1,6 +1,7 @@
 """FastAPI server implementation for Reasoning Gym."""
 
 import logging
+from typing import Dict
 
 from fastapi import FastAPI, HTTPException
 
@@ -9,7 +10,9 @@ from reasoning_gym.composite import CompositeConfig, DatasetSpec
 
 from .config import ServerConfig
 from .middleware import APIKeyMiddleware
-from .models import DatasetConfigUpdate, ExperimentCreate, ExperimentList, ExperimentResponse
+from .models import (BatchRequest, BatchResponse, DatasetConfigUpdate,
+                    ExperimentCreate, ExperimentList, ExperimentResponse,
+                    ScoringRequest)
 
 
 def create_app(config: ServerConfig) -> FastAPI:
@@ -63,6 +66,49 @@ def create_app(config: ServerConfig) -> FastAPI:
         if not registry.remove_experiment(name):
             raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
         return {"status": "deleted"}
+
+    @app.get("/experiments/{name}/batch", response_model=BatchResponse)
+    async def generate_batch(name: str, base_index: int, batch_size: int):
+        """Generate a batch of raw entries"""
+        experiment = registry.get_experiment(name)
+        if not experiment:
+            raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
+
+        try:
+            entries = []
+            for i in range(base_index, base_index + batch_size):
+                entry = experiment.dataset[i]
+                
+                # Create BatchEntry with minimal required data
+                batch_entry = BatchEntry(
+                    question=entry["question"],
+                    entry_id=f"{entry['metadata']['version_id']}.{i}",
+                    metadata=entry["metadata"]
+                )
+                entries.append(batch_entry)
+
+            return BatchResponse(entries=entries)
+
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
+
+    @app.post("/experiments/{name}/score", response_model=Dict[str, float])
+    async def score_outputs(name: str, request: ScoringRequest):
+        """Score extracted answers"""
+        experiment = registry.get_experiment(name)
+        if not experiment:
+            raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
+
+        try:
+            scores = {}
+            for entry_id, answer in request.scores:
+                score = experiment.dataset.score_answer_with_id(answer, entry_id)
+                scores[entry_id] = score
+
+            return scores
+
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
     @app.get("/experiments/{name}/composite", response_model=ExperimentResponse)
     async def get_composite_config(name: str):
