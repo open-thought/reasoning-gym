@@ -75,6 +75,9 @@ class CompositeDataset(ProceduralDataset):
             if "size" not in ds_config:
                 ds_config["size"] = self.size
 
+            if ds_spec.weight < 0:
+                raise ValueError(f"Dataset '{ds_spec.name}' has invalid weight {ds_spec.weight}, must be non-negative")
+
             dataset = create_dataset(ds_spec.name, **ds_config)
             self.datasets[ds_spec.name] = dataset
 
