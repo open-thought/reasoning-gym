@@ -13,6 +13,7 @@ from .gcd import GCDConfig, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
 from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingDataset
+from .number_format import NumberFormatConfig, NumberFormatDataset
 from .power_function import PowerFunctionConfig, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
@@ -47,4 +48,6 @@ __all__ = [
     "CountBitsDataset",
     "DiceConfig",
     "DiceDataset",
+    "NumberFormatConfig",
+    "NumberFormatDataset",
 ]
