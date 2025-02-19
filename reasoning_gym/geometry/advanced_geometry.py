@@ -44,6 +44,7 @@ GEOMETRY_FORMAT_INSTRUCTIONS = "\n".join(
         "1. Give coordinates in the form (x, y)",
         "2. Round decimal answers to 3 decimal places",
         "3. Use the degree symbol ° for angles",
+        "4. Return only th angle, coordinates, or radius as your answer.",
     ]
 )
 
@@ -264,7 +265,7 @@ class AdvancedGeometryDataset(ProceduralDataset):
                 elif metadata["task_type"] == "incircle_radius":
                     if answer == expected_answer:
                         reward = 1.0
-                    elif np.abs(float(answer) - float(metadata["incircle_radius_exact"])) < EPSILON:
+                    elif np.round(float(answer), 2) == np.round(float(metadata["incircle_radius_exact"]), 2):
                         reward = 0.5
                     elif len(answer.strip()) > 0:
                         reward = 0.05
