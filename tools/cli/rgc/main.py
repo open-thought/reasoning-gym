@@ -123,7 +123,7 @@ from rich.prompt import Confirm, Prompt
 from rich.syntax import Syntax
 from rich.table import Table
 
-from reasoning_gym.composite import CompositeConfig, DatasetSpec
+from tools.server.models import DatasetConfigUpdate, ExperimentCreate
 
 # Initialize Typer apps
 app = typer.Typer(
@@ -238,8 +238,9 @@ def create_experiment(
 
         if Confirm.ask("Create experiment with this configuration?"):
             try:
-                client.create_experiment(name, exp_config)
-                console.print(f"[green]Created experiment[/] [cyan]{name}[/]")
+                config = ExperimentCreate(**exp_config)
+                response = client.create_experiment(name, config)
+                console.print(f"[green]Created experiment[/] [cyan]{response.name}[/]")
             except Exception as e:
                 console.print(f"[red]Error creating experiment: {e}[/]")
                 raise typer.Exit(1)
@@ -324,7 +325,8 @@ def edit_config(
 
         if Confirm.ask("Apply these changes?"):
             try:
-                client.update_dataset_config(experiment, dataset, new_config)
+                config_update = DatasetConfigUpdate(config=new_config)
+                client.update_dataset_config(experiment, dataset, config_update)
                 console.print("[green]Configuration updated successfully[/]")
             except Exception as e:
                 console.print(f"[red]Error updating configuration: {e}[/]")
