@@ -185,8 +185,28 @@ class ColorCubeRotationDataset(ProceduralDataset):
 
         # Ask question
         story_parts.append(f"\nWhat is now the color of the {target_side.value} side of the cube?")
+        story_parts.append(f"Provide only the color as your final answer.")
 
         return "\n".join(story_parts)
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        reward = 0.0
+        metadata = entry["metadata"]
+        if answer is not None:
+            try:
+                answer_formatted = answer.lower()
+                solved = answer_formatted == metadata["answer"]
+                if solved:
+                    reward = 1.0
+                elif metadata["answer"] in answer_formatted:
+                    reward = 0.25
+                elif len(answer.strip()) > 0:
+                    reward = 0.05
+                else:
+                    reward = 0.01
+            except:
+                reward = 0.01
+        return reward
 
 
 register_dataset("color_cube_rotation", ColorCubeRotationDataset, ColorCubeRotationConfig)
