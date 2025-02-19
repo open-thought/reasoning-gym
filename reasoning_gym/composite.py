@@ -91,26 +91,9 @@ class CompositeDataset(ProceduralDataset):
                 version_id = version_manager.register_dataset(ds_spec.name, dataset)
                 self.dataset_versions[ds_spec.name] = version_id
 
-            self.weights.append(ds_spec.weight)
-
-        # Normalize weights
-        self._normalize_weights()
+            self.weights.append(ds_spec.weight)  # Store unnormalized weights directly
         self.dataset_names = [ds.name for ds in config.datasets]
 
-    def _normalize_weights(self) -> None:
-        """Normalize dataset weights to sum to 1.0
-        
-        Updates self.weights list based on config weights
-        
-        Raises:
-            ValueError: If total weight is 0
-        """
-        # Get weights from config in dataset order
-        config_weights = [ds_spec.weight for ds_spec in self.config.datasets]
-        total_weight = sum(config_weights)
-        if total_weight <= 0:
-            raise ValueError("Total weight must be greater than 0")
-        self.weights = [w / total_weight for w in config_weights]
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single dataset item by sampling from sub-datasets"""
@@ -186,14 +169,16 @@ class CompositeDataset(ProceduralDataset):
         if weight < 0:
             raise ValueError(f"Weight must be non-negative, got {weight}")
             
-        # Update weight in config
-        for ds_spec in self.config.datasets:
+        # Update weight in both config and weights list
+        for i, ds_spec in enumerate(self.config.datasets):
             if ds_spec.name == dataset_name:
                 ds_spec.weight = weight
+                self.weights[i] = weight
                 break
-        
-        # Rebuild normalized weights
-        self._normalize_weights()
+
+        # Check total weight is not 0
+        if sum(self.weights) <= 0:
+            raise ValueError("Total weight must be greater than 0")
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
@@ -235,8 +220,7 @@ class CompositeDataset(ProceduralDataset):
         # Add to config and update internal state
         self.config.datasets.append(dataset_spec)
         self.dataset_names.append(dataset_spec.name)
-        self.weights.append(0)  # Will be normalized
-        self._normalize_weights()
+        self.weights.append(dataset_spec.weight)  # Use weight directly from spec
 
     def remove_dataset(self, dataset_name: str) -> None:
         """Remove a dataset from the composite
