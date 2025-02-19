@@ -178,11 +178,7 @@ def test_scoring_endpoint(client):
     # Test scoring with correct answer
     response = client.post(
         "/experiments/test_exp/score",
-        json={
-            "answers": [
-                {"entry_id": entry_id, "answer": "4"}  # Assuming 2+2=4 is the first question
-            ]
-        },
+        json={"answers": [{"entry_id": entry_id, "answer": "4"}]},  # Assuming 2+2=4 is the first question
         headers=headers,
     )
     assert response.status_code == 200
@@ -198,11 +194,7 @@ def test_scoring_endpoint(client):
     # Test scoring with wrong answer
     response = client.post(
         "/experiments/test_exp/score",
-        json={
-            "answers": [
-                {"entry_id": entry_id, "answer": "wrong"}
-            ]
-        },
+        json={"answers": [{"entry_id": entry_id, "answer": "wrong"}]},
         headers=headers,
     )
     assert response.status_code == 200
@@ -214,11 +206,7 @@ def test_scoring_endpoint(client):
     # Invalid entry_id format
     response = client.post(
         "/experiments/test_exp/score",
-        json={
-            "answers": [
-                {"entry_id": "invalid_id", "answer": "4"}
-            ]
-        },
+        json={"answers": [{"entry_id": "invalid_id", "answer": "4"}]},
         headers=headers,
     )
     assert response.status_code == 400

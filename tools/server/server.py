@@ -1,7 +1,6 @@
 """FastAPI server implementation for Reasoning Gym."""
 
 import logging
-from typing import Dict
 
 from fastapi import FastAPI, HTTPException
 
