@@ -94,7 +94,6 @@ class CompositeDataset(ProceduralDataset):
             self.weights.append(ds_spec.weight)  # Store unnormalized weights directly
         self.dataset_names = [ds.name for ds in config.datasets]
 
-
     def __getitem__(self, idx: int) -> dict:
         """Generate a single dataset item by sampling from sub-datasets"""
         # Create deterministic RNG for this index
@@ -155,11 +154,11 @@ class CompositeDataset(ProceduralDataset):
 
     def update_dataset_weight(self, dataset_name: str, weight: float) -> None:
         """Update weight for a specific dataset in the configuration
-        
+
         Args:
             dataset_name: Name of the dataset to update
             weight: New weight value
-            
+
         Raises:
             KeyError: If dataset_name not found
             ValueError: If weight is negative
@@ -168,17 +167,13 @@ class CompositeDataset(ProceduralDataset):
             raise KeyError(f"Dataset '{dataset_name}' not found")
         if weight < 0:
             raise ValueError(f"Weight must be non-negative, got {weight}")
-            
+
         # Update weight in both config and weights list
         for i, ds_spec in enumerate(self.config.datasets):
             if ds_spec.name == dataset_name:
                 ds_spec.weight = weight
                 self.weights[i] = weight
                 break
-
-        # Check total weight is not 0
-        if sum(self.weights) <= 0:
-            raise ValueError("Total weight must be greater than 0")
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
@@ -187,36 +182,36 @@ class CompositeDataset(ProceduralDataset):
 
     def add_dataset(self, dataset_spec: DatasetSpec) -> None:
         """Add a new dataset to the composite
-        
+
         Args:
             dataset_spec: Specification for the dataset to add
-            
+
         Raises:
             ValueError: If dataset name already exists
         """
         # Validate spec
         dataset_spec.validate()
-        
+
         # Check for duplicate name
         if dataset_spec.name in self.datasets:
             raise ValueError(f"Dataset '{dataset_spec.name}' already exists in composite")
-            
+
         # Create dataset with derived seed
         ds_config = dataset_spec.config.copy()
         if "seed" not in ds_config:
             ds_config["seed"] = self.seed + len(self.datasets) + 1
         if "size" not in ds_config:
             ds_config["size"] = self.size
-            
+
         # Create and add dataset
         dataset = create_dataset(dataset_spec.name, **ds_config)
         self.datasets[dataset_spec.name] = dataset
-        
+
         # Register version if tracking enabled
         if self.version_manager is not None:
             version_id = self.version_manager.register_dataset(dataset_spec.name, dataset)
             self.dataset_versions[dataset_spec.name] = version_id
-            
+
         # Add to config and update internal state
         self.config.datasets.append(dataset_spec)
         self.dataset_names.append(dataset_spec.name)
@@ -224,33 +219,32 @@ class CompositeDataset(ProceduralDataset):
 
     def remove_dataset(self, dataset_name: str) -> None:
         """Remove a dataset from the composite
-        
+
         Args:
             dataset_name: Name of the dataset to remove
-            
+
         Raises:
             KeyError: If dataset not found
             ValueError: If trying to remove last dataset
         """
         if dataset_name not in self.datasets:
             raise KeyError(f"Dataset '{dataset_name}' not found")
-            
+
         if len(self.datasets) <= 1:
             raise ValueError("Cannot remove last dataset from composite")
-            
+
         # Remove from all internal structures
         del self.datasets[dataset_name]
         if self.version_manager is not None:
             del self.dataset_versions[dataset_name]
-            
+
         # Remove from config
         self.config.datasets = [ds for ds in self.config.datasets if ds.name != dataset_name]
-        
+
         # Update internal state
         idx = self.dataset_names.index(dataset_name)
         self.dataset_names.pop(idx)
         self.weights.pop(idx)
-        self._normalize_weights()
 
     def score_answer_with_id(self, answer: Optional[str], entry_id: str) -> float:
         """Score an answer using an entry_id to lookup the original entry

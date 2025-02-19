@@ -91,14 +91,14 @@ def test_composite_dataset_weights():
     )
 
     dataset = CompositeDataset(config)
-    assert abs(dataset.weights[0] - 0.4) < 1e-6
-    assert abs(dataset.weights[1] - 0.6) < 1e-6
+    assert abs(dataset.weights[0] - 2.0) < 1e-6
+    assert abs(dataset.weights[1] - 3.0) < 1e-6
 
     # Test weight updates
     dataset.update_dataset_weight("chain_sum", 1.0)
     print(dataset.weights)
-    assert abs(dataset.weights[0] - 0.25) < 1e-6
-    assert abs(dataset.weights[1] - 0.75) < 1e-6
+    assert abs(dataset.weights[0] - 1.0) < 1e-6
+    assert abs(dataset.weights[1] - 3.0) < 1e-6
 
     # Test invalid weight
     with pytest.raises(ValueError, match="Weight must be non-negative"):
@@ -110,8 +110,9 @@ def test_composite_dataset_weights():
 
     # Test zero total weight
     dataset.update_dataset_weight("chain_sum", 0.0)
-    with pytest.raises(ValueError, match="Total weight must be greater than 0"):
+    with pytest.raises(ValueError, match="Total of weights must be greater than zero"):
         dataset.update_dataset_weight("products", 0.0)
+        _ = dataset[0]  # access item with all weights 0
 
     # Test duplicate dataset names
     with pytest.raises(ValueError, match="Duplicate dataset names"):
@@ -211,35 +212,36 @@ def test_add_remove_dataset():
             DatasetSpec("chain_sum", 1.0, {"min_terms": 2}),
         ],
     )
-    
+
     dataset = CompositeDataset(config)
-    
+
     # Test adding new dataset
     new_spec = DatasetSpec("products", 2.0, {"min_terms": 2})
     dataset.add_dataset(new_spec)
-    
+
     assert len(dataset.datasets) == 2
     assert "products" in dataset.datasets
     assert len(dataset.config.datasets) == 2
-    
-    # Verify weights were normalized
-    assert abs(dataset.weights[0] - 1/3) < 1e-6  # chain_sum weight
-    assert abs(dataset.weights[1] - 2/3) < 1e-6  # products weight
-    
+
+    assert dataset.dataset_names[0] == "chain_sum"
+    assert dataset.dataset_names[1] == "products"
+    assert abs(dataset.weights[0] - 1.0) < 1e-6  # chain_sum weight
+    assert abs(dataset.weights[1] - 2.0) < 1e-6  # products weight
+
     # Test duplicate name
     with pytest.raises(ValueError, match="already exists"):
         dataset.add_dataset(new_spec)
-    
+
     # Test removing dataset
     dataset.remove_dataset("products")
     assert len(dataset.datasets) == 1
     assert "products" not in dataset.datasets
     assert len(dataset.config.datasets) == 1
-    
+
     # Test removing non-existent dataset
     with pytest.raises(KeyError):
         dataset.remove_dataset("nonexistent")
-    
+
     # Test removing last dataset
     with pytest.raises(ValueError, match="Cannot remove last dataset"):
         dataset.remove_dataset("chain_sum")
