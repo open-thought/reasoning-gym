@@ -44,6 +44,7 @@ class ZebraDataset(ProceduralDataset):
         q = instance["questions"][0]["question"]
         answer = instance["questions"][0]["answer"]
         question = str(puzzle) + "\n" + q
+        question = question + "? Provide only the name of the person as your final answer."
 
         return {
             "question": question,
