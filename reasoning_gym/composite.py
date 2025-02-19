@@ -99,13 +99,17 @@ class CompositeDataset(ProceduralDataset):
     def _normalize_weights(self) -> None:
         """Normalize dataset weights to sum to 1.0
         
+        Updates self.weights list based on config weights
+        
         Raises:
             ValueError: If total weight is 0
         """
-        total_weight = sum(self.weights)
+        # Get weights from config in dataset order
+        config_weights = [ds_spec.weight for ds_spec in self.config.datasets]
+        total_weight = sum(config_weights)
         if total_weight <= 0:
             raise ValueError("Total weight must be greater than 0")
-        self.weights = [w / total_weight for w in self.weights]
+        self.weights = [w / total_weight for w in config_weights]
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single dataset item by sampling from sub-datasets"""
@@ -166,7 +170,7 @@ class CompositeDataset(ProceduralDataset):
             self.dataset_versions[dataset_name] = version_id
 
     def update_dataset_weight(self, dataset_name: str, weight: float) -> None:
-        """Update weight for a specific dataset
+        """Update weight for a specific dataset in the configuration
         
         Args:
             dataset_name: Name of the dataset to update
@@ -181,11 +185,13 @@ class CompositeDataset(ProceduralDataset):
         if weight < 0:
             raise ValueError(f"Weight must be non-negative, got {weight}")
             
-        # Find index of dataset in weights list
-        dataset_idx = self.dataset_names.index(dataset_name)
-        self.weights[dataset_idx] = weight
+        # Update weight in config
+        for ds_spec in self.config.datasets:
+            if ds_spec.name == dataset_name:
+                ds_spec.weight = weight
+                break
         
-        # Normalize weights
+        # Rebuild normalized weights
         self._normalize_weights()
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
