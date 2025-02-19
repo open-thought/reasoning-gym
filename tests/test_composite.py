@@ -4,6 +4,7 @@ import pytest
 import yaml
 
 from reasoning_gym.composite import CompositeConfig, CompositeDataset, DatasetSpec
+from reasoning_gym.version_manager import DatasetVersionManager
 
 
 def create_test_config(tmp_path):
@@ -92,6 +93,45 @@ def test_composite_dataset_weights():
     dataset = CompositeDataset(config)
     assert abs(dataset.weights[0] - 0.4) < 1e-6
     assert abs(dataset.weights[1] - 0.6) < 1e-6
+
+
+def test_score_answer_with_id():
+    """Test scoring answers using entry_id"""
+    # Create composite dataset with version manager
+    version_manager = DatasetVersionManager()
+    config = CompositeConfig(
+        size=10, 
+        seed=42, 
+        datasets=[DatasetSpec("chain_sum", 1.0, {"min_terms": 2, "max_terms": 4})]
+    )
+    dataset = CompositeDataset(config, version_manager=version_manager)
+
+    # Get an entry and its id
+    entry = dataset[0]
+    entry_id = entry["metadata"]["entry_id"]
+
+    # Test successful scoring
+    answer = entry["answer"]
+    score = dataset.score_answer_with_id(answer, entry_id)
+    assert score == 1.0  # Correct answer should get full score
+
+    # Test wrong answer
+    wrong_answer = "wrong"
+    score = dataset.score_answer_with_id(wrong_answer, entry_id)
+    assert score < 1.0  # Wrong answer should get lower score
+
+    # Test invalid entry_id format
+    with pytest.raises(ValueError, match="Invalid entry_id format"):
+        dataset.score_answer_with_id(answer, "invalid")
+
+    # Test non-existent version
+    with pytest.raises(KeyError, match="Version .* not found"):
+        dataset.score_answer_with_id(answer, "999.0")
+
+    # Test without version manager
+    dataset_no_vm = CompositeDataset(config)
+    with pytest.raises(RuntimeError, match="Version manager required"):
+        dataset_no_vm.score_answer_with_id(answer, entry_id)
 
 
 def test_yaml_loading(tmp_path):
