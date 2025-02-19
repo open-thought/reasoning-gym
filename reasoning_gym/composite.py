@@ -111,6 +111,8 @@ class CompositeDataset(ProceduralDataset):
         # Add version info if tracking enabled
         if self.version_manager is not None:
             item["metadata"]["version_id"] = self.dataset_versions[dataset_name]
+            # Add entry_id combining version and index
+            item["metadata"]["entry_id"] = f"{version_id}.{idx}"
 
         return item
 
