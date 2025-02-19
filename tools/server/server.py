@@ -12,7 +12,6 @@ from .config import ServerConfig
 from .middleware import APIKeyMiddleware
 from .models import (
     BatchEntry,
-    BatchRequest,
     BatchResponse,
     DatasetConfigUpdate,
     ExperimentCreate,

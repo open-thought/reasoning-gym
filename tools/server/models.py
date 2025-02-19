@@ -1,6 +1,7 @@
 """Pydantic models for API request/response data."""
 
-from typing import Any, Dict, Optional
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple
 
 from pydantic import BaseModel, Field
 
@@ -35,37 +36,10 @@ class DatasetConfigUpdate(BaseModel):
     config: Dict[str, Any] = Field(..., description="Configuration parameters to update")
 
 
-class BatchRequest(BaseModel):
-    """Request model for generating a batch of examples."""
-
-    experiment_name: str = Field(..., description="Name of the experiment")
-    base_index: int = Field(0, description="Starting index for the batch", ge=0)
-    batch_size: int = Field(..., description="Number of examples to generate", gt=0)
-
-
-class CompletionScore(BaseModel):
-    """Request model for scoring completions."""
-
-    experiment_name: str = Field(..., description="Name of the experiment")
-    completions: list[Dict[str, Any]] = Field(..., description="List of completion results to score")
-
-
 class ErrorResponse(BaseModel):
     """Response model for error conditions."""
 
     detail: str = Field(..., description="Error message")
-
-
-from dataclasses import dataclass
-from typing import Any, Dict, List, Tuple
-
-
-@dataclass
-class BatchRequest:
-    """Request for batch generation"""
-
-    base_index: int
-    batch_size: int
 
 
 @dataclass
