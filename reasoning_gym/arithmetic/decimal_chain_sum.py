@@ -152,3 +152,6 @@ class DecimalChainSumDataset(ProceduralDataset):
             return 1.0 if student_answer == oracle_answer else 0.01
         except (ValueError, TypeError, ArithmeticError):
             return 0.01
+
+
+register_dataset("decimal_chain_sum", DecimalChainSumDataset, DecimalChainSumConfig)
