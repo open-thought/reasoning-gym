@@ -200,6 +200,74 @@ class CompositeDataset(ProceduralDataset):
         dataset_name = entry["metadata"]["source_dataset"]
         return self.datasets[dataset_name].score_answer(answer, entry)
 
+    def add_dataset(self, dataset_spec: DatasetSpec) -> None:
+        """Add a new dataset to the composite
+        
+        Args:
+            dataset_spec: Specification for the dataset to add
+            
+        Raises:
+            ValueError: If dataset name already exists
+        """
+        # Validate spec
+        dataset_spec.validate()
+        
+        # Check for duplicate name
+        if dataset_spec.name in self.datasets:
+            raise ValueError(f"Dataset '{dataset_spec.name}' already exists in composite")
+            
+        # Create dataset with derived seed
+        ds_config = dataset_spec.config.copy()
+        if "seed" not in ds_config:
+            ds_config["seed"] = self.seed + len(self.datasets) + 1
+        if "size" not in ds_config:
+            ds_config["size"] = self.size
+            
+        # Create and add dataset
+        dataset = create_dataset(dataset_spec.name, **ds_config)
+        self.datasets[dataset_spec.name] = dataset
+        
+        # Register version if tracking enabled
+        if self.version_manager is not None:
+            version_id = self.version_manager.register_dataset(dataset_spec.name, dataset)
+            self.dataset_versions[dataset_spec.name] = version_id
+            
+        # Add to config and update internal state
+        self.config.datasets.append(dataset_spec)
+        self.dataset_names.append(dataset_spec.name)
+        self.weights.append(0)  # Will be normalized
+        self._normalize_weights()
+
+    def remove_dataset(self, dataset_name: str) -> None:
+        """Remove a dataset from the composite
+        
+        Args:
+            dataset_name: Name of the dataset to remove
+            
+        Raises:
+            KeyError: If dataset not found
+            ValueError: If trying to remove last dataset
+        """
+        if dataset_name not in self.datasets:
+            raise KeyError(f"Dataset '{dataset_name}' not found")
+            
+        if len(self.datasets) <= 1:
+            raise ValueError("Cannot remove last dataset from composite")
+            
+        # Remove from all internal structures
+        del self.datasets[dataset_name]
+        if self.version_manager is not None:
+            del self.dataset_versions[dataset_name]
+            
+        # Remove from config
+        self.config.datasets = [ds for ds in self.config.datasets if ds.name != dataset_name]
+        
+        # Update internal state
+        idx = self.dataset_names.index(dataset_name)
+        self.dataset_names.pop(idx)
+        self.weights.pop(idx)
+        self._normalize_weights()
+
     def score_answer_with_id(self, answer: Optional[str], entry_id: str) -> float:
         """Score an answer using an entry_id to lookup the original entry
 

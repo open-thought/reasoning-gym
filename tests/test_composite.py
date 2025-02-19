@@ -202,6 +202,49 @@ def test_score_answer_with_id():
         dataset_no_vm.score_answer_with_id(answer, entry_id)
 
 
+def test_add_remove_dataset():
+    """Test adding and removing datasets from composite"""
+    config = CompositeConfig(
+        size=1000,
+        seed=42,
+        datasets=[
+            DatasetSpec("chain_sum", 1.0, {"min_terms": 2}),
+        ],
+    )
+    
+    dataset = CompositeDataset(config)
+    
+    # Test adding new dataset
+    new_spec = DatasetSpec("products", 2.0, {"min_terms": 2})
+    dataset.add_dataset(new_spec)
+    
+    assert len(dataset.datasets) == 2
+    assert "products" in dataset.datasets
+    assert len(dataset.config.datasets) == 2
+    
+    # Verify weights were normalized
+    assert abs(dataset.weights[0] - 1/3) < 1e-6  # chain_sum weight
+    assert abs(dataset.weights[1] - 2/3) < 1e-6  # products weight
+    
+    # Test duplicate name
+    with pytest.raises(ValueError, match="already exists"):
+        dataset.add_dataset(new_spec)
+    
+    # Test removing dataset
+    dataset.remove_dataset("products")
+    assert len(dataset.datasets) == 1
+    assert "products" not in dataset.datasets
+    assert len(dataset.config.datasets) == 1
+    
+    # Test removing non-existent dataset
+    with pytest.raises(KeyError):
+        dataset.remove_dataset("nonexistent")
+    
+    # Test removing last dataset
+    with pytest.raises(ValueError, match="Cannot remove last dataset"):
+        dataset.remove_dataset("chain_sum")
+
+
 def test_yaml_loading(tmp_path):
     """Test loading configuration from YAML"""
     config_path = create_test_config(tmp_path)
