@@ -47,7 +47,7 @@ def test_decimal_chain_sum_items():
 
         # Verify only + and - are used
         expression = item["metadata"]["expression"]
-        assert all(op in ["+", "-", " "] or op.isdigit() for op in expression)
+        assert all(op in ["+", "-", " ", "."] or op.isdigit() for op in expression)
 
         # Check for floating point errors
         numbers = [n for n in expression.split() if any(c.isdigit() for c in n)]
@@ -137,6 +137,7 @@ def test_decimal_chain_sum_negation():
         item = dataset[i]
         expression = item["metadata"]["expression"]
         numbers = [int(n) for n in expression.split() if n.isdigit() or (n.startswith("-") and n[1:].isdigit())]
+        # numbers = [float(n) for n in expression.split() if n.replace(".", "").replace("-", "").isdigit()]
         for num in numbers:
             if num > 0:
                 has_positive = True
