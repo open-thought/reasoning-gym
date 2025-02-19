@@ -48,7 +48,7 @@ class BatchResponse(BaseModel):
     entries: List[BatchEntry] = Field(..., description="List of batch entries")
 
 
-class ScoreItem(BaseModel):
+class AnswerItem(BaseModel):
     """Single score item containing entry_id and answer"""
     entry_id: str = Field(..., description="Entry identifier to score")
     answer: str = Field(..., description="Answer to evaluate")
@@ -56,4 +56,4 @@ class ScoreItem(BaseModel):
 
 class ScoringRequest(BaseModel):
     """Request for scoring model outputs"""
-    scores: List[ScoreItem] = Field(..., description="List of entries to score")
+    answers: List[AnswerItem] = Field(..., description="List of entries to score")

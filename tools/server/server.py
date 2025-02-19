@@ -113,9 +113,9 @@ def create_app(config: ServerConfig) -> FastAPI:
 
         try:
             scores = {}
-            for entry_id, answer in request.scores:
-                score = experiment.dataset.score_answer_with_id(answer, entry_id)
-                scores[entry_id] = score
+            for item in request.answers:
+                score = experiment.dataset.score_answer_with_id(item.answer, item.entry_id)
+                scores[item.entry_id] = score
 
             return scores
 

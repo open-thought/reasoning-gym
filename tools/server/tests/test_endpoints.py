@@ -179,7 +179,7 @@ def test_scoring_endpoint(client):
     response = client.post(
         "/experiments/test_exp/score",
         json={
-            "scores": [
+            "answers": [
                 {"entry_id": entry_id, "answer": "4"}  # Assuming 2+2=4 is the first question
             ]
         },
@@ -195,7 +195,7 @@ def test_scoring_endpoint(client):
     response = client.post(
         "/experiments/test_exp/score",
         json={
-            "scores": [
+            "answers": [
                 {"entry_id": entry_id, "answer": "wrong"}
             ]
         },
@@ -210,7 +210,7 @@ def test_scoring_endpoint(client):
     response = client.post(
         "/experiments/test_exp/score",
         json={
-            "scores": [
+            "answers": [
                 {"entry_id": "invalid_id", "answer": "4"}
             ]
         },
@@ -221,7 +221,7 @@ def test_scoring_endpoint(client):
     # Non-existent experiment
     response = client.post(
         "/experiments/nonexistent/score",
-        json={"scores": [(entry_id, "4")]},
+        json={"answers": [{"entry_id": entry_id, "answer": "4"}]},
         headers=headers,
     )
     assert response.status_code == 404
