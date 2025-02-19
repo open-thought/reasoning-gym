@@ -6,6 +6,7 @@ import yaml
 
 from .dataset import ProceduralDataset
 from .factory import create_dataset, register_dataset
+from .version_manager import DatasetVersionManager
 
 
 @dataclass
