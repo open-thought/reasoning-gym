@@ -18,6 +18,7 @@ from .models import (
     ExperimentList,
     ExperimentResponse,
     ScoringRequest,
+    ScoringResponse,
 )
 
 
