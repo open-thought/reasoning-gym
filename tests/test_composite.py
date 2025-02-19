@@ -94,6 +94,24 @@ def test_composite_dataset_weights():
     assert abs(dataset.weights[0] - 0.4) < 1e-6
     assert abs(dataset.weights[1] - 0.6) < 1e-6
 
+    # Test weight updates
+    dataset.update_dataset_weight("chain_sum", 1.0)
+    assert abs(dataset.weights[0] - 0.5) < 1e-6
+    assert abs(dataset.weights[1] - 0.5) < 1e-6
+
+    # Test invalid weight
+    with pytest.raises(ValueError, match="Weight must be non-negative"):
+        dataset.update_dataset_weight("chain_sum", -1.0)
+
+    # Test invalid dataset name
+    with pytest.raises(KeyError):
+        dataset.update_dataset_weight("invalid_dataset", 1.0)
+
+    # Test zero total weight
+    dataset.update_dataset_weight("chain_sum", 0.0)
+    with pytest.raises(ValueError, match="Total weight must be greater than 0"):
+        dataset.update_dataset_weight(dataset.dataset_names[1], 0.0)
+
 
 def test_version_tracking_with_config_updates():
     """Test that version tracking works correctly when updating dataset configs"""

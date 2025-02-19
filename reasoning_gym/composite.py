@@ -90,8 +90,21 @@ class CompositeDataset(ProceduralDataset):
             self.weights.append(ds_spec.weight)
 
         # Normalize weights
-        self.weights = [w / total_weight for w in self.weights]
+        self._normalize_weights(total_weight)
         self.dataset_names = [ds.name for ds in config.datasets]
+
+    def _normalize_weights(self, total_weight: float) -> None:
+        """Normalize dataset weights to sum to 1.0
+        
+        Args:
+            total_weight: Sum of all weights before normalization
+            
+        Raises:
+            ValueError: If total weight is 0
+        """
+        if total_weight <= 0:
+            raise ValueError("Total weight must be greater than 0")
+        self.weights = [w / total_weight for w in self.weights]
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single dataset item by sampling from sub-datasets"""
@@ -150,6 +163,30 @@ class CompositeDataset(ProceduralDataset):
         if self.version_manager is not None:
             version_id = self.version_manager.register_dataset(dataset_name, new_dataset)
             self.dataset_versions[dataset_name] = version_id
+
+    def update_dataset_weight(self, dataset_name: str, weight: float) -> None:
+        """Update weight for a specific dataset
+        
+        Args:
+            dataset_name: Name of the dataset to update
+            weight: New weight value
+            
+        Raises:
+            KeyError: If dataset_name not found
+            ValueError: If weight is negative
+        """
+        if dataset_name not in self.datasets:
+            raise KeyError(f"Dataset '{dataset_name}' not found")
+        if weight < 0:
+            raise ValueError(f"Weight must be non-negative, got {weight}")
+            
+        # Find index of dataset in weights list
+        dataset_idx = self.dataset_names.index(dataset_name)
+        self.weights[dataset_idx] = weight
+        
+        # Recalculate total and normalize
+        total_weight = sum(self.weights)
+        self._normalize_weights(total_weight)
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
