@@ -1,10 +1,12 @@
 """HTTP client for interacting with the Reasoning Gym server."""
 
 import os
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 import httpx
 from rich.console import Console
+
+from tools.server.models import AnswerItem, BatchResponse, ScoringRequest, ScoringResponse
 
 console = Console()
 
@@ -75,7 +77,7 @@ class RGClient:
         )
         response.raise_for_status()
 
-    def get_batch(self, experiment: str, base_index: int, batch_size: int) -> Dict[str, Any]:
+    def get_batch(self, experiment: str, base_index: int, batch_size: int) -> BatchResponse:
         """Get a batch of entries from an experiment.
 
         Args:
@@ -84,7 +86,7 @@ class RGClient:
             batch_size: Number of entries to retrieve
 
         Returns:
-            Dict containing batch entries with questions and metadata
+            BatchResponse containing entries with questions and metadata
         """
         response = httpx.get(
             self._url(f"/experiments/{experiment}/batch"),
@@ -92,22 +94,23 @@ class RGClient:
             params={"base_index": base_index, "batch_size": batch_size},
         )
         response.raise_for_status()
-        return response.json()
+        return BatchResponse.model_validate(response.json())
 
-    def score_outputs(self, experiment: str, scores: List[Tuple[str, str]]) -> Dict[str, float]:
+    def score_outputs(self, experiment: str, entry_answers: List[AnswerItem]) -> ScoringResponse:
         """Score a batch of answers.
 
         Args:
             experiment: Name of the experiment
-            scores: List of (entry_id, answer) tuples to score
+            entry_answers: List of AnswerItems with entry_ids and answers to score
 
         Returns:
-            Dict mapping entry_ids to scores
+            ScoringResponse containing scores and entry_ids
         """
+        request = ScoringRequest(answers=entry_answers)
         response = httpx.post(
             self._url(f"/experiments/{experiment}/score"),
             headers=self.headers,
-            json={"scores": scores},
+            json=request.model_dump(),
         )
         response.raise_for_status()
-        return response.json()
+        return ScoringResponse.model_validate(response.json())
