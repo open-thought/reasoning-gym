@@ -18,7 +18,7 @@ from verl.utils.model import compute_position_id_with_mask
 import reasoning_gym
 import reasoning_gym.utils
 from reasoning_gym.utils import extract_answer
-from tools.server.models import BatchEntry
+from tools.server.models import AnswerItem, BatchEntry
 
 
 class ReasoningGymDataset(Dataset):
@@ -178,43 +178,48 @@ class RayPPOTrainerCustom(RayPPOTrainer):
     def _score_output(self, data: DataProto, num_examine: int = 0) -> torch.Tensor:
         reward_tensor = torch.zeros_like(data.batch["responses"], dtype=torch.float32)
 
-        num_printed = 0
+        # Prepare batch of answers to score
+        answer_items = []
+        valid_response_lengths = []
+        sequences_strs = []
+
         for i in range(len(data)):
-            data_item = data[i]  # DataProtoItem
+            data_item = data[i]
 
-            prompt_ids = data_item.batch["prompts"]  # tokenized prompts
+            # Get prompt and response
+            prompt_ids = data_item.batch["prompts"]
             prompt_length = prompt_ids.shape[-1]
-
             valid_prompt_length = data_item.batch["attention_mask"][:prompt_length].sum()
             valid_prompt_ids = prompt_ids[-valid_prompt_length:]
 
             response_ids = data_item.batch["responses"]
             valid_response_length = data_item.batch["attention_mask"][prompt_length:].sum()
             valid_response_ids = response_ids[:valid_response_length]
+            valid_response_lengths.append(valid_response_length)
 
-            # decode
+            # Decode full sequence
             sequences = torch.cat((valid_prompt_ids, valid_response_ids))
             sequences_str = self.tokenizer.decode(sequences)
+            sequences_strs.append(sequences_str)
 
+            # Extract answer and prepare scoring item
+            found_answer = extract_answer(sequences_str, tag_name="answer")
             index = data_item.non_tensor_batch["index"]
+            entry_id = self.train_dataset[index]["entry_id"]
 
-            score = self._compute_score(
-                solution_str=sequences_str,
-                index=index,
-            )
+            answer_items.append(AnswerItem(entry_id=entry_id, answer=found_answer))
+
+        # Score all answers in one request
+        response = self.train_dataset.client.score_outputs(self.train_dataset.dataset_name, answer_items)
+
+        # Fill reward tensor
+        for i, (score, valid_response_length) in enumerate(zip(response.scores, valid_response_lengths)):
             reward_tensor[i, valid_response_length - 1] = score
 
-            if num_printed < num_examine:
-                print(f"reward={score}, seq={sequences_str}")
-                num_printed += 1
+            if i < num_examine:
+                print(f"reward={score}, seq={sequences_strs[i]}")
 
         return reward_tensor
-
-    def _compute_score(self, solution_str: str, index: int) -> float:
-        found_answer = extract_answer(solution_str, tag_name="answer")
-        entry_id = self.train_dataset[index]["entry_id"]
-        scores = self.train_dataset.client.score_outputs(self.train_dataset.dataset_name, [(entry_id, found_answer)])
-        return scores[entry_id]
 
     def _create_dataloader(self):
         self.train_dataloader = DataLoader(
