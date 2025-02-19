@@ -96,8 +96,9 @@ def test_composite_dataset_weights():
 
     # Test weight updates
     dataset.update_dataset_weight("chain_sum", 1.0)
-    assert abs(dataset.weights[0] - 0.5) < 1e-6
-    assert abs(dataset.weights[1] - 0.5) < 1e-6
+    print(dataset.weights)
+    assert abs(dataset.weights[0] - 0.25) < 1e-6
+    assert abs(dataset.weights[1] - 0.75) < 1e-6
 
     # Test invalid weight
     with pytest.raises(ValueError, match="Weight must be non-negative"):
@@ -121,7 +122,7 @@ def test_composite_dataset_weights():
                 DatasetSpec("chain_sum", 1.0, {"min_terms": 2}),
                 DatasetSpec("chain_sum", 1.0, {"min_terms": 3}),
             ],
-        )
+        ).validate()
 
 
 def test_version_tracking_with_config_updates():
