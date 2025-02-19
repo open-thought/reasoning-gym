@@ -186,10 +186,14 @@ def test_scoring_endpoint(client):
         headers=headers,
     )
     assert response.status_code == 200
-    scores = response.json()
-    assert entry_id in scores
-    assert isinstance(scores[entry_id], float)
-    assert 0 <= scores[entry_id] <= 1
+    result = response.json()
+    assert "scores" in result
+    assert "entry_ids" in result
+    assert len(result["scores"]) == 1
+    assert len(result["entry_ids"]) == 1
+    assert result["entry_ids"][0] == entry_id
+    assert isinstance(result["scores"][0], float)
+    assert 0 <= result["scores"][0] <= 1
 
     # Test scoring with wrong answer
     response = client.post(
@@ -202,8 +206,9 @@ def test_scoring_endpoint(client):
         headers=headers,
     )
     assert response.status_code == 200
-    scores = response.json()
-    assert scores[entry_id] < 1.0
+    result = response.json()
+    assert result["scores"][0] < 1.0
+    assert result["entry_ids"][0] == entry_id
 
     # Test error cases
     # Invalid entry_id format

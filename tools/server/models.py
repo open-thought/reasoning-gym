@@ -57,3 +57,9 @@ class AnswerItem(BaseModel):
 class ScoringRequest(BaseModel):
     """Request for scoring model outputs"""
     answers: List[AnswerItem] = Field(..., description="List of entries to score")
+
+
+class ScoringResponse(BaseModel):
+    """Response containing scores for answers"""
+    scores: List[float] = Field(..., description="List of scores in same order as request")
+    entry_ids: List[str] = Field(..., description="List of entry_ids in same order as request")

@@ -104,7 +104,7 @@ def create_app(config: ServerConfig) -> FastAPI:
         except Exception as e:
             raise HTTPException(status_code=400, detail=str(e))
 
-    @app.post("/experiments/{name}/score", response_model=Dict[str, float])
+    @app.post("/experiments/{name}/score", response_model=ScoringResponse)
     async def score_outputs(name: str, request: ScoringRequest):
         """Score extracted answers"""
         experiment = registry.get_experiment(name)
@@ -112,12 +112,14 @@ def create_app(config: ServerConfig) -> FastAPI:
             raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
 
         try:
-            scores = {}
+            scores = []
+            entry_ids = []
             for item in request.answers:
                 score = experiment.dataset.score_answer_with_id(item.answer, item.entry_id)
-                scores[item.entry_id] = score
+                scores.append(score)
+                entry_ids.append(item.entry_id)
 
-            return scores
+            return ScoringResponse(scores=scores, entry_ids=entry_ids)
 
         except Exception as e:
             raise HTTPException(status_code=400, detail=str(e))
