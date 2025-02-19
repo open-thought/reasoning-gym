@@ -86,7 +86,7 @@ def test_composite_dataset_weights():
         seed=42,
         datasets=[
             DatasetSpec("chain_sum", 2.0, {"min_terms": 2}),
-            DatasetSpec("chain_sum", 3.0, {"min_terms": 3}),
+            DatasetSpec("products", 3.0, {"min_terms": 2}),
         ],
     )
 
@@ -110,7 +110,18 @@ def test_composite_dataset_weights():
     # Test zero total weight
     dataset.update_dataset_weight("chain_sum", 0.0)
     with pytest.raises(ValueError, match="Total weight must be greater than 0"):
-        dataset.update_dataset_weight(dataset.dataset_names[1], 0.0)
+        dataset.update_dataset_weight("products", 0.0)
+
+    # Test duplicate dataset names
+    with pytest.raises(ValueError, match="Duplicate dataset names"):
+        CompositeConfig(
+            size=1000,
+            seed=42,
+            datasets=[
+                DatasetSpec("chain_sum", 1.0, {"min_terms": 2}),
+                DatasetSpec("chain_sum", 1.0, {"min_terms": 3}),
+            ],
+        )
 
 
 def test_version_tracking_with_config_updates():

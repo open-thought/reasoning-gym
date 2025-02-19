@@ -66,6 +66,11 @@ class CompositeDataset(ProceduralDataset):
         # Initialize sub-datasets with incremented seeds
         self.datasets = {}
         self.weights = []
+        
+        # Check for duplicate dataset names
+        dataset_names = [ds.name for ds in config.datasets]
+        if len(dataset_names) != len(set(dataset_names)):
+            raise ValueError("Duplicate dataset names are not allowed in CompositeDataset")
 
         for i, ds_spec in enumerate(config.datasets):
             # Create dataset with derived seed
