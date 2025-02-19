@@ -155,6 +155,41 @@ class CompositeDataset(ProceduralDataset):
         dataset_name = entry["metadata"]["source_dataset"]
         return self.datasets[dataset_name].score_answer(answer, entry)
 
+    def score_answer_with_id(self, answer: Optional[str], entry_id: str) -> float:
+        """Score an answer using an entry_id to lookup the original entry
+        
+        Args:
+            answer: The answer to score
+            entry_id: String in format "version_id.index"
+            
+        Returns:
+            Score between 0 and 1
+            
+        Raises:
+            ValueError: If entry_id format is invalid
+            KeyError: If version not found in version manager
+        """
+        if self.version_manager is None:
+            raise RuntimeError("Version manager required for scoring with entry_id")
+            
+        try:
+            version_id, index = map(int, entry_id.split("."))
+        except ValueError:
+            raise ValueError(f"Invalid entry_id format: {entry_id}, expected 'version_id.index'")
+            
+        # Get dataset from version manager
+        dataset_info = self.version_manager.get_dataset(version_id)
+        if dataset_info is None:
+            raise KeyError(f"Version {version_id} not found in version manager")
+            
+        dataset_name, dataset = dataset_info
+        
+        # Get entry from dataset
+        entry = dataset[index]
+        
+        # Score answer using dataset's scoring function
+        return dataset.score_answer(answer, entry)
+
 
 # Register the dataset
 register_dataset("composite", CompositeDataset, CompositeConfig)
