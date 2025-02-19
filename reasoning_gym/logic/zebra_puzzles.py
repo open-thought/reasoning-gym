@@ -43,7 +43,7 @@ class ZebraDataset(ProceduralDataset):
         instance, puzzle = generate_puzzle(rng, K, M)
         q = instance["questions"][0]["question"]
         answer = instance["questions"][0]["answer"]
-        question = str(puzzle) + "\n" + q
+        question = str(puzzle) + "\n" + q + "\nReply only with your final answer, which should be the name of a person."
 
         return {
             "question": question,
