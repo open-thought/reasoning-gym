@@ -107,17 +107,18 @@ def test_batch_generation_endpoint(client):
     )
     assert response.status_code == 200
     data = response.json()
-    
+    print(data)
+
     # Verify batch structure
     assert "entries" in data
     assert len(data["entries"]) == 2
-    
+
     # Verify entry structure
     entry = data["entries"][0]
     assert "question" in entry
     assert "entry_id" in entry
     assert "metadata" in entry
-    
+
     # Test error cases
     # Non-existent experiment
     response = client.get(
@@ -126,7 +127,7 @@ def test_batch_generation_endpoint(client):
         headers=headers,
     )
     assert response.status_code == 404
-    
+
     # Invalid parameters
     response = client.get(
         "/experiments/test_exp/batch",

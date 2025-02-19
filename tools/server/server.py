@@ -10,9 +10,16 @@ from reasoning_gym.composite import CompositeConfig, DatasetSpec
 
 from .config import ServerConfig
 from .middleware import APIKeyMiddleware
-from .models import (BatchEntry, BatchRequest, BatchResponse, DatasetConfigUpdate,
-                    ExperimentCreate, ExperimentList, ExperimentResponse,
-                    ScoringRequest)
+from .models import (
+    BatchEntry,
+    BatchRequest,
+    BatchResponse,
+    DatasetConfigUpdate,
+    ExperimentCreate,
+    ExperimentList,
+    ExperimentResponse,
+    ScoringRequest,
+)
 
 
 def create_app(config: ServerConfig) -> FastAPI:
@@ -70,6 +77,12 @@ def create_app(config: ServerConfig) -> FastAPI:
     @app.get("/experiments/{name}/batch", response_model=BatchResponse)
     async def generate_batch(name: str, base_index: int, batch_size: int):
         """Generate a batch of raw entries"""
+        # Validate parameters
+        if base_index < 0:
+            raise HTTPException(status_code=400, detail="base_index must be non-negative")
+        if batch_size <= 0:
+            raise HTTPException(status_code=400, detail="batch_size must be positive")
+
         experiment = registry.get_experiment(name)
         if not experiment:
             raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
@@ -78,12 +91,12 @@ def create_app(config: ServerConfig) -> FastAPI:
             entries = []
             for i in range(base_index, base_index + batch_size):
                 entry = experiment.dataset[i]
-                
+
                 # Create BatchEntry with minimal required data
                 batch_entry = BatchEntry(
                     question=entry["question"],
                     entry_id=f"{entry['metadata']['version_id']}.{i}",
-                    metadata=entry["metadata"]
+                    metadata=entry["metadata"],
                 )
                 entries.append(batch_entry)
 

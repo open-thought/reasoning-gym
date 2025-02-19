@@ -46,10 +46,10 @@ class ReasoningGymDataset(Dataset):
         self.return_raw_chat = return_raw_chat
         self.size = size
         self.batch_size = batch_size
-        
+
         # Initialize client and create experiment if needed
         self.client = RGClient(base_url=server_url, api_key=api_key)
-        
+
         # Check if experiment exists, create if not
         experiments = self.client.list_experiments()
         if dataset_name not in experiments:
@@ -58,15 +58,10 @@ class ReasoningGymDataset(Dataset):
                 {
                     "size": size,
                     "seed": seed,
-                    "datasets": {
-                        dataset_name: {
-                            "weight": 1.0,
-                            "config": {"seed": seed, "size": size}
-                        }
-                    }
-                }
+                    "datasets": {dataset_name: {"weight": 1.0, "config": {"seed": seed, "size": size}}},
+                },
             )
-        
+
         # Cache for batches
         self._batch_cache = {}
 
@@ -77,18 +72,14 @@ class ReasoningGymDataset(Dataset):
         """Fetch or retrieve cached batch"""
         if batch_idx not in self._batch_cache:
             base_index = batch_idx * self.batch_size
-            response = self.client.get_batch(
-                self.dataset_name,
-                base_index=base_index,
-                batch_size=self.batch_size
-            )
+            response = self.client.get_batch(self.dataset_name, base_index=base_index, batch_size=self.batch_size)
             self._batch_cache[batch_idx] = response.entries
-            
+
             # Basic cache management - keep only last N batches
             if len(self._batch_cache) > 10:
                 oldest_batch = min(self._batch_cache.keys())
                 del self._batch_cache[oldest_batch]
-                
+
         return self._batch_cache[batch_idx]
 
     def __getitem__(self, index):
@@ -103,11 +94,7 @@ class ReasoningGymDataset(Dataset):
             chat.append({"role": self.developer_role, "content": self.developer_prompt})
         chat.append({"role": "user", "content": entry.question})
 
-        prompt = self.tokenizer.apply_chat_template(
-            chat, 
-            tokenize=False,
-            add_generation_prompt=True
-        )
+        prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
         # Tokenize
         input_ids, attention_mask = verl_F.tokenize_and_postprocess_data(
@@ -220,10 +207,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
     def _compute_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
         entry_id = self.train_dataset[index]["entry_id"]
-        scores = self.train_dataset.client.score_outputs(
-            self.train_dataset.dataset_name,
-            [(entry_id, found_answer)]
-        )
+        scores = self.train_dataset.client.score_outputs(self.train_dataset.dataset_name, [(entry_id, found_answer)])
         return scores[entry_id]
 
     def _create_dataloader(self):

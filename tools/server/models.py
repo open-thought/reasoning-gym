@@ -54,28 +54,38 @@ class ErrorResponse(BaseModel):
     """Response model for error conditions."""
 
     detail: str = Field(..., description="Error message")
+
+
 from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple
+
 
 @dataclass
 class BatchRequest:
     """Request for batch generation"""
+
     base_index: int
     batch_size: int
+
 
 @dataclass
 class BatchEntry:
     """Single entry in a batch"""
+
     question: str
     entry_id: str  # Format: "{version}.{index}"
     metadata: Dict[str, Any]
 
+
 @dataclass
 class BatchResponse:
     """Response containing a batch of entries"""
+
     entries: List[BatchEntry]
+
 
 @dataclass
 class ScoringRequest:
     """Request for scoring model outputs"""
+
     scores: List[Tuple[str, str]]  # List of (entry_id, answer) pairs

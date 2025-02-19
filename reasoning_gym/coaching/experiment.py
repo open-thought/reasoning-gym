@@ -33,10 +33,4 @@ class Experiment:
         version_manager = DatasetVersionManager()
         dataset = CompositeDataset(config, version_manager=version_manager)
         score_board = ScoreBoard()
-        return cls(
-            name=name,
-            dataset=dataset,
-            score_board=score_board,
-            config=config,
-            version_manager=version_manager
-        )
+        return cls(name=name, dataset=dataset, score_board=score_board, config=config, version_manager=version_manager)
