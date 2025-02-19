@@ -69,6 +69,8 @@ class CompositeDataset(ProceduralDataset):
         total_weight = 0.0
 
         for i, ds_spec in enumerate(config.datasets):
+            if ds_spec.weight <= 0:
+                raise ValueError(f"Dataset '{ds_spec.name}' has invalid weight {ds_spec.weight}, must be > 0")
             # Create dataset with derived seed
             ds_config = ds_spec.config.copy()
             if "seed" not in ds_config:
