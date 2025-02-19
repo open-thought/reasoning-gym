@@ -1,7 +1,7 @@
 """HTTP client for interacting with the Reasoning Gym server."""
 
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import httpx
 from rich.console import Console
@@ -74,3 +74,40 @@ class RGClient:
             json={"config": config},
         )
         response.raise_for_status()
+
+    def get_batch(self, experiment: str, base_index: int, batch_size: int) -> Dict[str, Any]:
+        """Get a batch of entries from an experiment.
+        
+        Args:
+            experiment: Name of the experiment
+            base_index: Starting index for the batch
+            batch_size: Number of entries to retrieve
+            
+        Returns:
+            Dict containing batch entries with questions and metadata
+        """
+        response = httpx.get(
+            self._url(f"/experiments/{experiment}/batch"),
+            headers=self.headers,
+            params={"base_index": base_index, "batch_size": batch_size},
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def score_outputs(self, experiment: str, scores: List[Tuple[str, str]]) -> Dict[str, float]:
+        """Score a batch of answers.
+        
+        Args:
+            experiment: Name of the experiment
+            scores: List of (entry_id, answer) tuples to score
+            
+        Returns:
+            Dict mapping entry_ids to scores
+        """
+        response = httpx.post(
+            self._url(f"/experiments/{experiment}/score"),
+            headers=self.headers,
+            json={"scores": scores},
+        )
+        response.raise_for_status()
+        return response.json()
