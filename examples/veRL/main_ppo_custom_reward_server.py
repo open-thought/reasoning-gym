@@ -18,7 +18,7 @@ from verl.utils.model import compute_position_id_with_mask
 import reasoning_gym
 import reasoning_gym.utils
 from reasoning_gym.utils import extract_answer
-from tools.server.models import AnswerItem, BatchEntry
+from tools.server.models import AnswerItem, BatchEntry, ExperimentCreate
 
 
 class ReasoningGymDataset(Dataset):
@@ -54,15 +54,14 @@ class ReasoningGymDataset(Dataset):
 
         # Check if experiment exists, create if not
         experiments = self.client.list_experiments()
-        if dataset_name not in experiments:
-            self.client.create_experiment(
-                dataset_name,
-                {
-                    "size": size,
-                    "seed": seed,
-                    "datasets": {dataset_name: {"weight": 1.0, "config": {"seed": seed, "size": size}}},
-                },
+        if dataset_name not in experiments.experiments:
+            config = ExperimentCreate(
+                name=dataset_name,
+                size=size,
+                seed=seed,
+                datasets={dataset_name: {"weight": 1.0, "config": {"seed": seed, "size": size}}},
             )
+            self.client.create_experiment(dataset_name, config)
 
         # Cache for batches
         self._batch_cache: dict[int, List[BatchEntry]] = {}
