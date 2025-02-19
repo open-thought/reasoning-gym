@@ -1,6 +1,6 @@
 # This example is an adapted version of Bytedance's code:
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
-from typing import Optional
+from typing import Dict, List, Optional
 
 import hydra
 import ray
