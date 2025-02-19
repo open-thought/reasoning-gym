@@ -66,11 +66,8 @@ class CompositeDataset(ProceduralDataset):
         # Initialize sub-datasets with incremented seeds
         self.datasets = {}
         self.weights = []
-        total_weight = 0.0
 
         for i, ds_spec in enumerate(config.datasets):
-            if ds_spec.weight <= 0:
-                raise ValueError(f"Dataset '{ds_spec.name}' has invalid weight {ds_spec.weight}, must be > 0")
             # Create dataset with derived seed
             ds_config = ds_spec.config.copy()
             if "seed" not in ds_config:
@@ -86,22 +83,19 @@ class CompositeDataset(ProceduralDataset):
                 version_id = version_manager.register_dataset(ds_spec.name, dataset)
                 self.dataset_versions[ds_spec.name] = version_id
 
-            total_weight += ds_spec.weight
             self.weights.append(ds_spec.weight)
 
         # Normalize weights
-        self._normalize_weights(total_weight)
+        self._normalize_weights()
         self.dataset_names = [ds.name for ds in config.datasets]
 
-    def _normalize_weights(self, total_weight: float) -> None:
+    def _normalize_weights(self) -> None:
         """Normalize dataset weights to sum to 1.0
         
-        Args:
-            total_weight: Sum of all weights before normalization
-            
         Raises:
             ValueError: If total weight is 0
         """
+        total_weight = sum(self.weights)
         if total_weight <= 0:
             raise ValueError("Total weight must be greater than 0")
         self.weights = [w / total_weight for w in self.weights]
@@ -184,9 +178,8 @@ class CompositeDataset(ProceduralDataset):
         dataset_idx = self.dataset_names.index(dataset_name)
         self.weights[dataset_idx] = weight
         
-        # Recalculate total and normalize
-        total_weight = sum(self.weights)
-        self._normalize_weights(total_weight)
+        # Normalize weights
+        self._normalize_weights()
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
