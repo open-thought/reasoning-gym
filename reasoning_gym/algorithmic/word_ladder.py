@@ -8,6 +8,10 @@ from typing import Dict, List, Optional, Set, Tuple
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
+QUESTION_TEMPLATE = """Transform the word ladder '{start}' to '{end}' by changing one letter at a time.
+Provide your answer as a comma-separated sequence of uppercase letters without spaces.
+Each step must be a valid English word."""
+
 
 @dataclass
 class WordLadderConfig:
@@ -211,7 +215,7 @@ class WordLadderDataset(ProceduralDataset):
             raise IndexError(f"Dataset exhausted at index {idx}. {str(e)}")
 
         return {
-            "question": f"Transform the word ladder '{start}' to '{end}' by changing one letter at a time.",
+            "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": ",".join(path),
             "metadata": {"start_word": start, "end_word": end, "word_length": length, "chain_length": len(path)},
         }
