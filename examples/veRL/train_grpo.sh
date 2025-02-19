@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-python3 -u main_ppo_custom_reward.py \
+python3 -u main_ppo_custom_reward_server.py \
     algorithm.adv_estimator=grpo \
     data.train_files=$DATA_DIR/train.parquet \
     data.val_files=$DATA_DIR/test.parquet \
