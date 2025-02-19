@@ -203,13 +203,20 @@ class RayPPOTrainerCustom(RayPPOTrainer):
 
             # Extract answer and prepare scoring item
             found_answer = extract_answer(sequences_str, tag_name="answer")
+
             index = data_item.non_tensor_batch["index"]
             entry_id = self.train_dataset[index]["entry_id"]
+            # print(
+            #     "found_answer",
+            #     entry_id,
+            #     found_answer,
+            # )
 
             answer_items.append(AnswerItem(entry_id=entry_id, answer=found_answer))
 
         # Score all answers in one request
         response = self.train_dataset.client.score_outputs(self.train_dataset.dataset_name, answer_items)
+        # print("response", response)
 
         # Fill reward tensor
         for i, (score, valid_response_length) in enumerate(zip(response.scores, valid_response_lengths)):
