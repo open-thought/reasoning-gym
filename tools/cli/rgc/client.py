@@ -1,12 +1,21 @@
 """HTTP client for interacting with the Reasoning Gym server."""
 
 import os
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 import httpx
 from rich.console import Console
 
-from tools.server.models import AnswerItem, BatchResponse, ScoringRequest, ScoringResponse
+from tools.server.models import (
+    AnswerItem,
+    BatchResponse,
+    DatasetConfigUpdate,
+    ExperimentCreate,
+    ExperimentList,
+    ExperimentResponse,
+    ScoringRequest,
+    ScoringResponse,
+)
 
 console = Console()
 
@@ -35,21 +44,21 @@ class RGClient:
         except Exception:
             return False
 
-    def list_experiments(self) -> list[str]:
+    def list_experiments(self) -> ExperimentList:
         """List all registered experiments."""
         response = httpx.get(self._url("/experiments"), headers=self.headers)
         response.raise_for_status()
-        return response.json()["experiments"]
+        return ExperimentList.model_validate(response.json())
 
-    def create_experiment(self, name: str, config: Dict[str, Any]) -> Dict[str, Any]:
+    def create_experiment(self, name: str, config: ExperimentCreate) -> ExperimentResponse:
         """Create a new experiment."""
         response = httpx.post(
             self._url("/experiments"),
             headers=self.headers,
-            json={"name": name, **config},
+            json=config.model_dump(),
         )
         response.raise_for_status()
-        return response.json()
+        return ExperimentResponse.model_validate(response.json())
 
     def delete_experiment(self, name: str) -> None:
         """Delete an experiment."""
@@ -59,21 +68,21 @@ class RGClient:
         )
         response.raise_for_status()
 
-    def get_experiment_config(self, name: str) -> Dict[str, Any]:
+    def get_experiment_config(self, name: str) -> ExperimentResponse:
         """Get experiment configuration."""
         response = httpx.get(
             self._url(f"/experiments/{name}/composite"),
             headers=self.headers,
         )
         response.raise_for_status()
-        return response.json()
+        return ExperimentResponse.model_validate(response.json())
 
-    def update_dataset_config(self, experiment: str, dataset: str, config: Dict[str, Any]) -> None:
+    def update_dataset_config(self, experiment: str, dataset: str, config: DatasetConfigUpdate) -> None:
         """Update dataset configuration."""
         response = httpx.post(
             self._url(f"/experiments/{experiment}/composite/{dataset}"),
             headers=self.headers,
-            json={"config": config},
+            json=config.model_dump(),
         )
         response.raise_for_status()
 
