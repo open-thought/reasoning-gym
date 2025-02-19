@@ -27,10 +27,6 @@ class ChainSumConfig:
         assert self.min_digits > 0, "min_digits must be positive"
         assert self.max_digits >= self.min_digits, "max_digits must be >= min_digits"
 
-        # Validate digit ranges make sense
-        if self.min_digits > 1:
-            assert 10 ** (self.min_digits - 1) >= 1, "min_digits would result in invalid number range"
-
 
 class ChainSumDataset(ProceduralDataset):
     """Generates simple arithmetic tasks using only + and - operators"""
