@@ -151,6 +151,7 @@ def check_health():
         console.print(f"[red]Error connecting to server: {e}[/]")
         raise typer.Exit(1)
 
+
 # Initialize client and console
 from .client import RGClient
 

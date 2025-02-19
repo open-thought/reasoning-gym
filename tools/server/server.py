@@ -4,12 +4,12 @@ import logging
 
 from fastapi import FastAPI, HTTPException
 
+from reasoning_gym.coaching.registry import ExperimentRegistry
 from reasoning_gym.composite import CompositeConfig, DatasetSpec
 
 from .config import ServerConfig
 from .middleware import APIKeyMiddleware
 from .models import DatasetConfigUpdate, ExperimentCreate, ExperimentList, ExperimentResponse
-from reasoning_gym.coaching.registry import ExperimentRegistry
 
 
 def create_app(config: ServerConfig) -> FastAPI:

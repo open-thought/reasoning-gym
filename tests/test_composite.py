@@ -95,14 +95,52 @@ def test_composite_dataset_weights():
     assert abs(dataset.weights[1] - 0.6) < 1e-6
 
 
+def test_version_tracking_with_config_updates():
+    """Test that version tracking works correctly when updating dataset configs"""
+    # Create composite dataset with version manager
+    version_manager = DatasetVersionManager()
+    config = CompositeConfig(
+        size=10, seed=42, datasets=[DatasetSpec("chain_sum", 1.0, {"min_terms": 2, "max_terms": 4})]
+    )
+    dataset = CompositeDataset(config, version_manager=version_manager)
+
+    # Get an entry and its id from initial version
+    entry_1 = dataset[0]
+    entry_id_1 = entry_1["metadata"]["entry_id"]
+    answer_1 = entry_1["answer"]
+
+    # Update dataset config
+    dataset.update_dataset_config("chain_sum", {"min_terms": 3, "max_terms": 5})
+
+    # Get new entry after config update
+    entry_2 = dataset[0]
+    entry_id_2 = entry_2["metadata"]["entry_id"]
+    answer_2 = entry_2["answer"]
+
+    # Verify entries have different version IDs
+    version_1 = int(entry_id_1.split(".")[0])
+    version_2 = int(entry_id_2.split(".")[0])
+    assert version_1 != version_2, "New config should create new version"
+
+    # Verify original answer still works with original version
+    score_1 = dataset.score_answer_with_id(answer_1, entry_id_1)
+    assert score_1 == 1.0, "Original answer should still work with original version"
+
+    # Verify new answer works with new version
+    score_2 = dataset.score_answer_with_id(answer_2, entry_id_2)
+    assert score_2 == 1.0, "New answer should work with new version"
+
+    # Verify original answer fails with new version
+    score_3 = dataset.score_answer_with_id(answer_1, entry_id_2)
+    assert score_3 < 1.0, "Original answer should not work with new version"
+
+
 def test_score_answer_with_id():
     """Test scoring answers using entry_id"""
     # Create composite dataset with version manager
     version_manager = DatasetVersionManager()
     config = CompositeConfig(
-        size=10, 
-        seed=42, 
-        datasets=[DatasetSpec("chain_sum", 1.0, {"min_terms": 2, "max_terms": 4})]
+        size=10, seed=42, datasets=[DatasetSpec("chain_sum", 1.0, {"min_terms": 2, "max_terms": 4})]
     )
     dataset = CompositeDataset(config, version_manager=version_manager)
 

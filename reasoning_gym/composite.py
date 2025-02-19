@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from random import Random
 from typing import Any, Dict, List, Optional
 
@@ -78,12 +78,12 @@ class CompositeDataset(ProceduralDataset):
 
             dataset = create_dataset(ds_spec.name, **ds_config)
             self.datasets[ds_spec.name] = dataset
-            
+
             # Register version if tracking enabled
             if version_manager is not None:
                 version_id = version_manager.register_dataset(ds_spec.name, dataset)
                 self.dataset_versions[ds_spec.name] = version_id
-            
+
             total_weight += ds_spec.weight
             self.weights.append(ds_spec.weight)
 
@@ -107,7 +107,7 @@ class CompositeDataset(ProceduralDataset):
         # Add source dataset info to metadata
         item["metadata"]["source_dataset"] = dataset_name
         item["metadata"]["source_index"] = idx
-        
+
         # Add version info if tracking enabled
         if self.version_manager is not None:
             version_id = self.dataset_versions[dataset_name]
@@ -133,12 +133,8 @@ class CompositeDataset(ProceduralDataset):
 
         dataset = self.datasets[dataset_name]
 
-        # Get current config as dict and update it
-        current_config = vars(dataset.config)
-        current_config.update(config_updates)
-
-        # Create new config instance with updated values
-        new_config = dataset.config.__class__(**current_config)
+        # Update the current config
+        new_config = replace(dataset.config, **config_updates)
 
         # Validate new config
         new_config.validate()
@@ -147,7 +143,7 @@ class CompositeDataset(ProceduralDataset):
         dataset_cls = dataset.__class__
         new_dataset = dataset_cls(new_config)
         self.datasets[dataset_name] = new_dataset
-        
+
         # Register new version if tracking enabled
         if self.version_manager is not None:
             version_id = self.version_manager.register_dataset(dataset_name, new_dataset)
@@ -160,36 +156,36 @@ class CompositeDataset(ProceduralDataset):
 
     def score_answer_with_id(self, answer: Optional[str], entry_id: str) -> float:
         """Score an answer using an entry_id to lookup the original entry
-        
+
         Args:
             answer: The answer to score
             entry_id: String in format "version_id.index"
-            
+
         Returns:
             Score between 0 and 1
-            
+
         Raises:
             ValueError: If entry_id format is invalid
             KeyError: If version not found in version manager
         """
         if self.version_manager is None:
             raise RuntimeError("Version manager required for scoring with entry_id")
-            
+
         try:
             version_id, index = map(int, entry_id.split("."))
         except ValueError:
             raise ValueError(f"Invalid entry_id format: {entry_id}, expected 'version_id.index'")
-            
+
         # Get dataset from version manager
         dataset_info = self.version_manager.get_dataset(version_id)
         if dataset_info is None:
             raise KeyError(f"Version {version_id} not found in version manager")
-            
+
         dataset_name, dataset = dataset_info
-        
+
         # Get entry from dataset
         entry = dataset[index]
-        
+
         # Score answer using dataset's scoring function
         return dataset.score_answer(answer, entry)
 
