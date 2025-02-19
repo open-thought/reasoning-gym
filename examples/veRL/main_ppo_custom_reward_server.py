@@ -1,5 +1,6 @@
 # This example is an adapted version of Bytedance's code:
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
+import os
 from typing import Dict, List, Optional
 
 import hydra
@@ -17,6 +18,7 @@ from verl.utils.model import compute_position_id_with_mask
 import reasoning_gym
 import reasoning_gym.utils
 from reasoning_gym.utils import extract_answer
+from tools.server.models import BatchEntry
 
 
 class ReasoningGymDataset(Dataset):
@@ -63,28 +65,29 @@ class ReasoningGymDataset(Dataset):
             )
 
         # Cache for batches
-        self._batch_cache = {}
+        self._batch_cache: dict[int, List[BatchEntry]] = {}
 
     def __len__(self) -> int:
         return self.size
 
-    def _get_batch(self, batch_idx: int) -> List[Dict]:
+    def _get_batch(self, batch_idx: int) -> List[BatchEntry]:
         """Fetch or retrieve cached batch"""
         if batch_idx not in self._batch_cache:
             base_index = batch_idx * self.batch_size
             response = self.client.get_batch(self.dataset_name, base_index=base_index, batch_size=self.batch_size)
             self._batch_cache[batch_idx] = response.entries
 
-            # Basic cache management - keep only last N batches
-            if len(self._batch_cache) > 10:
-                oldest_batch = min(self._batch_cache.keys())
-                del self._batch_cache[oldest_batch]
+            # # Basic cache management - keep only last N batches
+            # if len(self._batch_cache) > 10:
+            #     oldest_batch = min(self._batch_cache.keys())
+            #     del self._batch_cache[oldest_batch]
 
         return self._batch_cache[batch_idx]
 
     def __getitem__(self, index):
         # Get batch containing this index
         batch_idx = index // self.batch_size
+
         batch = self._get_batch(batch_idx)
         entry = batch[index % self.batch_size]
 
@@ -140,12 +143,14 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         self.dataset_size = dataset_size
 
         developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
+        rg_api_key = os.getenv("REASONING_GYM_API_KEY", "your-secret-key")
         self.train_dataset = ReasoningGymDataset(
             tokenizer=tokenizer,
             dataset_name=self.dataset_name,
             seed=1,
             size=self.dataset_size,
             developer_prompt=developer_prompt,
+            api_key=rg_api_key,
         )
 
         self.val_dataset = ReasoningGymDataset(
@@ -154,6 +159,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
             seed=2,
             size=self.dataset_size,
             developer_prompt=developer_prompt,
+            api_key=rg_api_key,
         )
 
         train_reward_fn = lambda data: self._score_output(data, num_examine=0)
@@ -214,7 +220,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         self.train_dataloader = DataLoader(
             dataset=self.train_dataset,
             batch_size=self.config.data.train_batch_size,
-            shuffle=True,
+            shuffle=False,
             drop_last=True,
             collate_fn=collate_fn,
         )
@@ -222,7 +228,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         self.val_dataloader = DataLoader(
             dataset=self.val_dataset,
             batch_size=len(self.val_dataset),
-            shuffle=True,
+            shuffle=False,
             drop_last=True,
             collate_fn=collate_fn,
         )
