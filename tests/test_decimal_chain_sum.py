@@ -136,8 +136,7 @@ def test_decimal_chain_sum_negation():
     for i in range(len(dataset)):
         item = dataset[i]
         expression = item["metadata"]["expression"]
-        numbers = [int(n) for n in expression.split() if n.isdigit() or (n.startswith("-") and n[1:].isdigit())]
-        # numbers = [float(n) for n in expression.split() if n.replace(".", "").replace("-", "").isdigit()]
+        numbers = [float(n) for n in expression.split() if n.replace(".", "").replace("-", "").isdigit()]
         for num in numbers:
             if num > 0:
                 has_positive = True
@@ -216,3 +215,38 @@ def test_decimal_places_generation():
         for num in numbers:
             decimal_part = num.split(".")[-1]
             assert 1 <= len(decimal_part) <= 3, f"Number {num} should have between 1 and 3 decimal places"
+
+
+def test_decimal_precision_scoring():
+    """Test that scoring handles decimal precision correctly"""
+    config = DecimalChainSumConfig(
+        min_terms=2,
+        max_terms=2,
+        min_digits=1,
+        max_digits=2,
+        min_decimal_places=2,
+        max_decimal_places=3,
+        size=1,
+        seed=42,
+    )
+    dataset = DecimalChainSumDataset(config)
+    item = dataset[0]
+
+    # Test exact matches with different representations
+    assert dataset.score_answer("1.200", {"answer": "1.2"}) == 1.0
+    assert dataset.score_answer("1.20", {"answer": "1.200"}) == 1.0
+    assert dataset.score_answer("-0.5", {"answer": "-0.500"}) == 1.0
+
+    # Test floating point precision edge cases
+    assert dataset.score_answer("0.1", {"answer": "0.100"}) == 1.0
+    assert dataset.score_answer("0.3", {"answer": "0.300"}) == 1.0
+
+    # Test incorrect answers
+    assert dataset.score_answer("1.200000001", {"answer": "1.200"}) == 0.01
+    assert dataset.score_answer("1.199999999", {"answer": "1.200"}) == 0.01
+
+    # Test invalid inputs
+    assert dataset.score_answer(None, {"answer": "1.200"}) == 0.0
+    assert dataset.score_answer("", {"answer": "1.200"}) == 0.0
+    assert dataset.score_answer("invalid", {"answer": "1.200"}) == 0.01
+    assert dataset.score_answer("1.2.3", {"answer": "1.200"}) == 0.01
