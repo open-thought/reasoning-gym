@@ -38,6 +38,11 @@ class CompositeConfig:
         assert self.datasets, "Must specify at least one dataset"
         assert len(self.datasets) > 0, "Must specify at least one dataset"
 
+        # Check for duplicate dataset names
+        dataset_names = [ds.name for ds in self.datasets]
+        if len(dataset_names) != len(set(dataset_names)):
+            raise ValueError("Duplicate dataset names are not allowed in CompositeDataset")
+
         # Validate each dataset spec
         for ds in self.datasets:
             ds.validate()
@@ -68,10 +73,6 @@ class CompositeDataset(ProceduralDataset):
         self.weights = []
 
         for i, ds_spec in enumerate(config.datasets):
-            # Check for duplicate dataset names
-            if ds_spec.name in self.datasets:
-                raise ValueError("Duplicate dataset names are not allowed in CompositeDataset")
-
             # Create dataset with derived seed
             ds_config = ds_spec.config.copy()
             if "seed" not in ds_config:
