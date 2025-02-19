@@ -6,6 +6,7 @@ from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConf
 from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 from .chain_sum import ChainSumConfig, ChainSumDataset
 from .count_bits import CountBitsConfig, CountBitsDataset
+from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumDataset
 from .dice import DiceConfig, DiceDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
