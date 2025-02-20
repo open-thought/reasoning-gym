@@ -1,6 +1,6 @@
 import random
 from dataclasses import dataclass
-from typing import Optional
+from typing import Dict, Optional
 
 from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
@@ -107,6 +107,21 @@ class ChainSumDataset(ProceduralDataset):
 
         expression = " ".join(expression_parts)
         return expression, result
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        """Overwrite this method in derived classes if a single oracle answer is not available."""
+        oracle_answer = entry["answer"].strip()
+        reward = 0.0
+        if answer is not None and len(answer) > 0:
+            answer = answer.strip().replace(",", "")
+            if answer == oracle_answer:
+                reward = 1.0
+            elif oracle_answer in answer:
+                reward = len(oracle_answer) / len(answer)
+            else:
+                reward = 0.01
+
+        return reward
 
 
 class ChainSumCurriculum(BaseCurriculum):

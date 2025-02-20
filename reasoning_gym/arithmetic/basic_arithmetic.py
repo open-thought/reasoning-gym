@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Literal, Optional
+from typing import Any, Dict, Literal, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -64,9 +64,6 @@ class BasicArithmeticDataset(ProceduralDataset):
 
     def __init__(self, config: BasicArithmeticDatasetConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
-        self.added_instruction = (
-            " Ensure to report the answer as an integer. Do not add commas to the integer answers reported."
-        )
 
     def __getitem__(self, idx: int) -> dict[str, Any]:
         """Generate a single arithmetic task
@@ -234,6 +231,21 @@ class BasicArithmeticDataset(ProceduralDataset):
             templates = ["What is {0}?", "Solve {0}.", "Compute {0}.", "Evaluate: {0}."]
             template = rng.choice(templates)
             return template.format(expression)
+
+    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+        """Overwrite this method in derived classes if a single oracle answer is not available."""
+        oracle_answer = entry["answer"].strip()
+        reward = 0.0
+        if answer is not None and len(answer) > 0:
+            answer = answer.strip().replace(",", "")
+            if answer == oracle_answer:
+                reward = 1.0
+            elif oracle_answer in answer:
+                reward = len(oracle_answer) / len(answer)
+            else:
+                reward = 0.01
+
+        return reward
 
 
 # Register the dataset
