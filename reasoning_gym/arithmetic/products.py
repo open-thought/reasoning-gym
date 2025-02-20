@@ -14,6 +14,7 @@ class ProductsConfig:
     max_terms: int = 2
     min_digits: int = 1
     max_digits: int = 5
+    allow_negation: bool = False
     seed: Optional[int] = None
     size: int = 500
 
@@ -51,7 +52,10 @@ class ProductsDataset(ProceduralDataset):
         num_digits = rng.randint(self.config.min_digits, self.config.max_digits)
 
         # Calculate value ranges based on number of digits
-        min_value = 0 if num_digits == 1 else 10 ** (num_digits - 1)  # Special case for 1 digit
+        if self.config.allow_negation:
+            min_value = -1 * 10 ** (num_digits) + 1
+        else:
+            min_value = 0 if num_digits == 1 else 10 ** (num_digits - 1)  # Special case for 1 digit
         max_value = (10**num_digits) - 1  # e.g., 999 for 3 digits
 
         expression, result = self._generate_task(rng, num_terms, min_value, max_value)
