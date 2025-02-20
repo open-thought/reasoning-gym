@@ -32,7 +32,7 @@ class GameOfLifeDataset(ProceduralDataset):
 
     def __init__(self, config: GameOfLifeConfig):
         self._prompt_templates = [
-            "What will this Game of Life board look like after {simulation_steps} steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. Let your answer(array of array be on a single line). (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])\n\n{board}."
+            "What will this Game of Life board look like after {simulation_steps} steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])\n\n{board}."
         ]
 
         super().__init__(config=config, seed=config.seed, size=config.size)
