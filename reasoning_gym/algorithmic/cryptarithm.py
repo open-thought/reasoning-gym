@@ -13,37 +13,29 @@ No leading letter can be zero (unless allow_leading_zero=True).
 
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
-EXAMPLE_CASE = """
+EXAMPLE_CASE = """- Input:
   BASE
 + BALL
 ------
  GAMES
 
-* BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
-
-* Units: E + L = S (no carry).
-
-* Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
-
-* Since S = E + 5 and S is one digit, E < 5.
-
-* Hundreds: 2A + 1 = M (with carry).
-
-* Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
-
-* Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
-
-* With E < 5, try E = 3: Then S = 8.
-
-* Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
-
-* Verify: BASE (7483) + BALL (7455) = GAMES (14938).
-
-<answer>B=7, A=4, S=8, E=3, L=5, M=9, G=1</answer>"""
+- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
+- Explanation:
+    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
+    * Units: E + L = S (no carry).
+    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
+    * Since S = E + 5 and S is one digit, E < 5.
+    * Hundreds: 2A + 1 = M (with carry).
+    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
+    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
+    * With E < 5, try E = 3: Then S = 8.
+    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
+    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
+"""
 
 
 @dataclass
@@ -195,10 +187,10 @@ class CryptarithmDataset(ProceduralDataset):
                 if self.config.allow_leading_zero
                 else "No leading letter can be zero.\n"
             )
-            + "Provide a mapping from letters to digits that satisfies the equation in your final answer:\n<answer>\nALPHABET_1=NUMBER_1, ALPHABET_2=NUMBER_2, ...</answer>\n"
+            + 'Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)\n'
         )
         if self.config.include_example:
-            question_str += "Here's an example:\n" + EXAMPLE_CASE
+            question_str += "\nHere's an example:\n" + EXAMPLE_CASE
 
         # 8) Create a human-readable answer, e.g. "A=1,B=0,C=9,..."
         sorted_letter_keys = sorted(letter_to_digit.keys())
@@ -219,7 +211,7 @@ class CryptarithmDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], answer_str: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """Determine if the solution provided solves the Cryptarithm task.
 
         The function awards 1.0 for a correct format and answers for all alphabet pairs.
@@ -232,7 +224,8 @@ class CryptarithmDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
         correct_mapping = {}
-        for pair in answer_str.split(","):
+        correct_answer_str = entry["answer"]  # e.g. "A=1,B=7,..."
+        for pair in correct_answer_str.split(","):
             alphabet, number = pair.split("=")
             correct_mapping[alphabet] = int(number)
 
