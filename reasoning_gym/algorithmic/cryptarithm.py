@@ -236,7 +236,6 @@ class CryptarithmDataset(ProceduralDataset):
             alphabet, number = pair.split("=")
             correct_mapping[alphabet] = int(number)
 
-
         # case 1 : pairs are in a list format and the number of pairs matched up
         if len(answer.split(",")) != len(correct_mapping):
             return 0.1

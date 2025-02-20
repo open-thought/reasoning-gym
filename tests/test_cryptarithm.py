@@ -119,7 +119,6 @@ def test_cryptarithm_score_answer():
     score = dataset.score_answer(answer=correct_answer_str, answer_str=correct_answer_str)
     assert score == 1.0, f"Expected 1.0 for perfectly correct answer, got {score}"
 
-
     # 3) Mismatch number of pairs => score should be 0.1
     # For instance, drop the last pair
     splitted = correct_answer_str.split(",")
