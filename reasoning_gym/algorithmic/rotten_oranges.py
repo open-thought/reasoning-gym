@@ -11,7 +11,7 @@ from typing import Dict, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
-QUESTION_TEMPLATE = """ You are given an n x n grid where each cell can have one of three values:
+QUESTION_TEMPLATE = """You are given an n x n grid where each cell can have one of three values:
 - 0 representing an empty cell
 - 1 representing a fresh orange
 - 2 representing a rotten orange
