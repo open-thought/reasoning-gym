@@ -45,9 +45,11 @@ This gallery shows examples from all available datasets using their default conf
 - [mini_sudoku](#mini_sudoku)
 - [n_queens](#n_queens)
 - [number_filtering](#number_filtering)
+- [number_format](#number_format)
 - [number_sequence](#number_sequence)
 - [number_sorting](#number_sorting)
 - [palindrome](#palindrome)
+- [palindrome_partitioning](#palindrome_partitioning)
 - [polynomial_equations](#polynomial_equations)
 - [polynomial_multiplication](#polynomial_multiplication)
 - [pool_matrix](#pool_matrix)
@@ -808,17 +810,71 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Convert the base-3 number 220020 to binary
+Question: Your task is to convert a number between two different bases.
+
+If the target base is > 10, use lowercase letters a-z for digits above 9.
+
+Example:
+- Input: Convert the base-9 number 440 to base-5
+- Output: 2420
+- Explanation
+    - First, we convert the base-9 number 440 to base-10: 4 * 9**2 + 4 * 9**1 + 0 * 9**0 = 324 + 36 + 0 = 360
+    - Next, we convert the base-10 number 360 to base-5:
+        - 360 // 5 = 72 remainder 0
+        - 72 // 5 = 14 remainder 2
+        - 14 // 5 = 2 remainder 4
+        - 2 // 5 = 0 remainder 2
+    - Reading the remainders in reverse order gives us the base-5 number 2 4 2 0
+    - Hence, the final answer is 2420
+
+Now, convert the base-3 number 220020 to binary
+
 Answer: 1010001110
 Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '220020', 'target_repr': '1010001110'}
 
 Example 2:
-Question: Convert the base-6 number 103 to base-13 (use lowercase letters a-z for digits above 9)
+Question: Your task is to convert a number between two different bases.
+
+If the target base is > 10, use lowercase letters a-z for digits above 9.
+
+Example:
+- Input: Convert the base-9 number 440 to base-5
+- Output: 2420
+- Explanation
+    - First, we convert the base-9 number 440 to base-10: 4 * 9**2 + 4 * 9**1 + 0 * 9**0 = 324 + 36 + 0 = 360
+    - Next, we convert the base-10 number 360 to base-5:
+        - 360 // 5 = 72 remainder 0
+        - 72 // 5 = 14 remainder 2
+        - 14 // 5 = 2 remainder 4
+        - 2 // 5 = 0 remainder 2
+    - Reading the remainders in reverse order gives us the base-5 number 2 4 2 0
+    - Hence, the final answer is 2420
+
+Now, convert the base-6 number 103 to base-13
+
 Answer: 30
 Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '103', 'target_repr': '30'}
 
 Example 3:
-Question: Convert the base-10 number 418 to base-13 (use lowercase letters a-z for digits above 9)
+Question: Your task is to convert a number between two different bases.
+
+If the target base is > 10, use lowercase letters a-z for digits above 9.
+
+Example:
+- Input: Convert the base-9 number 440 to base-5
+- Output: 2420
+- Explanation
+    - First, we convert the base-9 number 440 to base-10: 4 * 9**2 + 4 * 9**1 + 0 * 9**0 = 324 + 36 + 0 = 360
+    - Next, we convert the base-10 number 360 to base-5:
+        - 360 // 5 = 72 remainder 0
+        - 72 // 5 = 14 remainder 2
+        - 14 // 5 = 2 remainder 4
+        - 2 // 5 = 0 remainder 2
+    - Reading the remainders in reverse order gives us the base-5 number 2 4 2 0
+    - Hence, the final answer is 2420
+
+Now, convert the base-10 number 418 to base-13
+
 Answer: 262
 Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '418', 'target_repr': '262'}
 
@@ -845,17 +901,17 @@ whitespace = single
 Example tasks:
 ````
 Example 1:
-Question: Put your final answer after '=' without additional text. Calculate -5 * -6 =
+Question: Calculate -5 * -6. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
 Answer: 30
 Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '-5 * -6'}
 
 Example 2:
-Question: Put your final answer after '=' without additional text. Calculate 965 / 5 =
+Question: Calculate 965 / 5. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
 Answer: 193
 Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '965 / 5'}
 
 Example 3:
-Question: Put your final answer after '=' without additional text. Calculate 0 + -2 + -4 * 0 * 3 =
+Question: Calculate 0 + -2 + -4 * 0 * 3. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
 Answer: -2
 Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
 
@@ -874,23 +930,29 @@ difficulty = 1
 Example tasks:
 ````
 Example 1:
-Question: This is a BF (Brainf*ck) computer program. What is the output? 
+Question: This is a BF (Brainf*ck) computer program. What is the output?
 
 >[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<
+
+Respond only with the exact output of the program.
 Answer: onset
 Metadata: {'bfit_code': '\nint main() {\n    print("onset");\n}\n', 'bf_program': '>[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<'}
 
 Example 2:
-Question: This is a BF (Brainf*ck) computer program. What is the output? 
+Question: Consider the following BF (Brainf*ck) code. What would it output?
 
 >[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<
+
+Provide only the exact output of the code.
 Answer: perch
 Metadata: {'bfit_code': '\nint main() {\n    print("perch");\n}\n', 'bf_program': '>[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<'}
 
 Example 3:
-Question: This is a BF (Brainf*ck) computer program. What is the output? 
+Question: This is a BF (Brainf*ck) computer program. What is the output?
 
 >[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<
+
+Respond only with the exact output of the program.
 Answer: under
 Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program': '>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<'}
 
@@ -1731,21 +1793,21 @@ Example tasks:
 Example 1:
 Question: John is married to Isabella. They have a child called Edward. Edward is married to Victoria.
 
-What is Isabella to Edward?
+What is Isabella to Edward? Respond only with the word that describes their relationship.
 Answer: mother
 Metadata: {'person1': 'Isabella', 'person2': 'Edward', 'relationship': 'mother', 'family_size': 4}
 
 Example 2:
 Question: Henry is married to Karen. They have a child called Sebastian. Sebastian is married to Eleanor.
 
-What relation is Henry to Karen?
+What relation is Henry to Karen? Answer with a single word.
 Answer: husband
 Metadata: {'person1': 'Henry', 'person2': 'Karen', 'relationship': 'husband', 'family_size': 4}
 
 Example 3:
 Question: Liam is married to Nova. They have a child called Noah. Noah is married to Charlotte. They have a child called Patricia. Joseph is married to Lisa. They have a child called Charlotte.
 
-What is Liam to Noah?
+What is Liam to Noah? Respond only with the word that describes their relationship.
 Answer: father
 Metadata: {'person1': 'Liam', 'person2': 'Noah', 'relationship': 'father', 'family_size': 7}
 
@@ -1948,7 +2010,7 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. Let your answer(array of array be on a single line). (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[0,1,0,1,1,0,0,0,1,0],
  [1,0,0,1,0,1,1,1,1,1],
@@ -1964,7 +2026,7 @@ Answer: [[0,1,0,0,0,0,0,0,0,0],[1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,
 Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 2:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. Let your answer(array of array be on a single line). (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[1,1,1,1,1,1,0,1,1,1],
  [0,0,1,1,1,1,1,1,1,1],
@@ -1980,7 +2042,7 @@ Answer: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0],[0,1,
 Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 3:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. Let your answer(array of array be on a single line). (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[0,1,0,1,1,1,1,0,0,1],
  [0,1,0,0,1,1,1,0,1,1],
@@ -2050,7 +2112,7 @@ Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 Edges: [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)]
 Possible colors: [1, 2, 3, 4]
 
-Return your solution as a JSON map of verteces to colors. (For example: {0: 1, 1: 2, 2: 3})
+Return your solution as a JSON map of vertices to colors. (For example: {0: 1, 1: 2, 2: 3})
 
 Answer: None
 Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 1, 8: 3, 9: 4}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
@@ -2062,7 +2124,7 @@ Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 Edges: [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)]
 Possible colors: [1, 2, 3, 4]
 
-Return your solution as a JSON map of verteces to colors. (For example: {0: 1, 1: 2, 2: 3})
+Return your solution as a JSON map of vertices to colors. (For example: {0: 1, 1: 2, 2: 3})
 
 Answer: None
 Metadata: {'possible_answer': {0: 1, 1: 2, 2: 1, 3: 3, 4: 2, 5: 2, 6: 1, 7: 2, 8: 1, 9: 3}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
@@ -2074,7 +2136,7 @@ Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 Edges: [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)]
 Possible colors: [1, 2, 3, 4]
 
-Return your solution as a JSON map of verteces to colors. (For example: {0: 1, 1: 2, 2: 3})
+Return your solution as a JSON map of vertices to colors. (For example: {0: 1, 1: 2, 2: 3})
 
 Answer: None
 Metadata: {'possible_answer': {0: 1, 1: 1, 2: 1, 3: 1, 4: 2, 5: 3, 6: 3, 7: 3, 8: 4, 9: 2}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
@@ -2699,17 +2761,83 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Unscramble these words: ew hsall eb ebla ot puodrce
+Question: Your task is to unsramble words in a sentence.
+
+For each word in a sentence, the letter may have been randomly shuffled. Your task is to unscramble the words.
+
+The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
+
+Example:
+- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
+- Output: meanderings Why any child can do that
+- Explanation
+    - We unscramble each of the words independently.
+    - raendgmeins -> meanderings
+    - yWh -> Why
+    - nya -> any
+    - hilcd -> child
+    - anc -> can
+    - od -> do
+    - hatt -> that
+    - The final answer is: meanderings Why any child can do that
+    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+
+Now, unscramble these words: ew hsall eb ebla ot puodrce
+
 Answer: we shall be able to produce
 Metadata: {'num_words': 6, 'corruption_level': 0.12000860417813355, 'scrambled_words': ['ew', 'hsall', 'eb', 'ebla', 'ot', 'puodrce'], 'original_words': ['we', 'shall', 'be', 'able', 'to', 'produce']}
 
 Example 2:
-Question: Unscramble these words: ni oiurnalmsj Well Cahs
+Question: Your task is to unsramble words in a sentence.
+
+For each word in a sentence, the letter may have been randomly shuffled. Your task is to unscramble the words.
+
+The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
+
+Example:
+- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
+- Output: meanderings Why any child can do that
+- Explanation
+    - We unscramble each of the words independently.
+    - raendgmeins -> meanderings
+    - yWh -> Why
+    - nya -> any
+    - hilcd -> child
+    - anc -> can
+    - od -> do
+    - hatt -> that
+    - The final answer is: meanderings Why any child can do that
+    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+
+Now, unscramble these words: ni oiurnalmsj Well Cahs
+
 Answer: in journalism Well Cash
 Metadata: {'num_words': 4, 'corruption_level': 0.3288673442377109, 'scrambled_words': ['ni', 'oiurnalmsj', 'Well', 'Cahs'], 'original_words': ['in', 'journalism', 'Well', 'Cash']}
 
 Example 3:
-Question: Unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks ot oyu rheet si a gain fo sucrbbisesr rM
+Question: Your task is to unsramble words in a sentence.
+
+For each word in a sentence, the letter may have been randomly shuffled. Your task is to unscramble the words.
+
+The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
+
+Example:
+- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
+- Output: meanderings Why any child can do that
+- Explanation
+    - We unscramble each of the words independently.
+    - raendgmeins -> meanderings
+    - yWh -> Why
+    - nya -> any
+    - hilcd -> child
+    - anc -> can
+    - od -> do
+    - hatt -> that
+    - The final answer is: meanderings Why any child can do that
+    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+
+Now, unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks ot oyu rheet si a gain fo sucrbbisesr rM
+
 Answer: dear Archibald keep on Since yesterday thanks to you there is a gain of subscribers Mr
 Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_words': ['dear', 'rchAdbali', 'keep', 'no', 'nSice', 'yrstyedae', 'atnhks', 'ot', 'oyu', 'rheet', 'si', 'a', 'gain', 'fo', 'sucrbbisesr', 'rM'], 'original_words': ['dear', 'Archibald', 'keep', 'on', 'Since', 'yesterday', 'thanks', 'to', 'you', 'there', 'is', 'a', 'gain', 'of', 'subscribers', 'Mr']}
 
@@ -2881,23 +3009,35 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Solve this 4x4 Mini Sudoku puzzle:
-_ _ _ _
-_ _ _ _
+Question: In 4x4 Mini Sudoku:
+- Each row must contain each number from 1-4 exactly once
+- Each column must contain each number 1-4 exactly once
+- Each 2x2 subgrid must contain each number 1-4 exactly once
+Solve this 4x4 Mini Sudoku puzzle:
+4 _ _ _
+_ 3 _ _
 _ 1 3 _
-_ 4 _ 1
+_ _ _ _
+Format your response as the puzzle above, with spaces separating each number within a row, and newlines separating rows.
+
 Answer: 4 2 1 3
 1 3 4 2
 2 1 3 4
 3 4 2 1
-Metadata: {'puzzle': [[0, 0, 0, 0], [0, 0, 0, 0], [0, 1, 3, 0], [0, 4, 0, 1]], 'solution': [[4, 2, 1, 3], [1, 3, 4, 2], [2, 1, 3, 4], [3, 4, 2, 1]], 'num_empty': 12}
+Metadata: {'puzzle': [[4, 0, 0, 0], [0, 3, 0, 0], [0, 1, 3, 0], [0, 0, 0, 0]], 'solution': [[4, 2, 1, 3], [1, 3, 4, 2], [2, 1, 3, 4], [3, 4, 2, 1]], 'num_empty': 12}
 
 Example 2:
-Question: Solve this 4x4 Mini Sudoku puzzle:
+Question: In 4x4 Mini Sudoku:
+- Each row must contain each number from 1-4 exactly once
+- Each column must contain each number 1-4 exactly once
+- Each 2x2 subgrid must contain each number 1-4 exactly once
+Solve this 4x4 Mini Sudoku puzzle:
 3 _ _ _
 _ _ 4 _
 4 2 _ _
 _ _ _ 4
+Format your response as the puzzle above, with spaces separating each number within a row, and newlines separating rows.
+
 Answer: 3 4 1 2
 2 1 4 3
 4 2 3 1
@@ -2905,16 +3045,22 @@ Answer: 3 4 1 2
 Metadata: {'puzzle': [[3, 0, 0, 0], [0, 0, 4, 0], [4, 2, 0, 0], [0, 0, 0, 4]], 'solution': [[3, 4, 1, 2], [2, 1, 4, 3], [4, 2, 3, 1], [1, 3, 2, 4]], 'num_empty': 11}
 
 Example 3:
-Question: Solve this 4x4 Mini Sudoku puzzle:
+Question: In 4x4 Mini Sudoku:
+- Each row must contain each number from 1-4 exactly once
+- Each column must contain each number 1-4 exactly once
+- Each 2x2 subgrid must contain each number 1-4 exactly once
+Solve this 4x4 Mini Sudoku puzzle:
 _ _ _ _
 1 3 4 _
-3 1 2 4
-4 _ _ _
+3 _ 2 4
+4 _ _ 1
+Format your response as the puzzle above, with spaces separating each number within a row, and newlines separating rows.
+
 Answer: 2 4 1 3
 1 3 4 2
 3 1 2 4
 4 2 3 1
-Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 1, 2, 4], [4, 0, 0, 0]], 'solution': [[2, 4, 1, 3], [1, 3, 4, 2], [3, 1, 2, 4], [4, 2, 3, 1]], 'num_empty': 8}
+Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 0, 2, 4], [4, 0, 0, 1]], 'solution': [[2, 4, 1, 3], [1, 3, 4, 2], [3, 1, 2, 4], [4, 2, 3, 1]], 'num_empty': 8}
 
 ````
 
@@ -3097,6 +3243,68 @@ Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76
 
 ````
 
+### number_format
+Generates Count Bits exercises with configurable difficulty
+
+Default configuration:
+```python
+max_num_candidates = 5
+min_n = 1000
+max_n = 1000000000
+max_delta = 1000
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Your task is to pick the largest/smallest number out of several options.
+
+Example
+- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
+- Output: 8.975554e+05
+- Explanation:
+    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
+    - Therefore, the largest number is 8.975554e+05
+
+Now, pick the largest number of the following candidates: 25011730.212000 25011280.271000
+
+Answer: 25011730.212
+Metadata: {'candidates': [25011730.212, 25011280.271], 'solution': 25011730.212, 'formatted_candidates': ['25011730.212000', '25011280.271000'], 'size': 'largest'}
+
+Example 2:
+Question: Your task is to pick the largest/smallest number out of several options.
+
+Example
+- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
+- Output: 8.975554e+05
+- Explanation:
+    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
+    - Therefore, the largest number is 8.975554e+05
+
+Now, pick the largest number of the following candidates: 286,084,894.213 286,085,419.581
+
+Answer: 286085419.581
+Metadata: {'candidates': [286084894.213, 286085419.581], 'solution': 286085419.581, 'formatted_candidates': ['286,084,894.213', '286,085,419.581'], 'size': 'largest'}
+
+Example 3:
+Question: Your task is to pick the largest/smallest number out of several options.
+
+Example
+- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
+- Output: 8.975554e+05
+- Explanation:
+    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
+    - Therefore, the largest number is 8.975554e+05
+
+Now, pick the largest number of the following candidates: 520020968.942000 520021372.170000 5.200202022530000e+08 520020728.080000 520020548.078000
+
+Answer: 520021372.16999996
+Metadata: {'candidates': [520020968.942, 520021372.16999996, 520020202.25299996, 520020728.08, 520020548.07799995], 'solution': 520021372.16999996, 'formatted_candidates': ['520020968.942000', '520021372.170000', '5.200202022530000e+08', '520020728.080000', '520020548.078000'], 'size': 'largest'}
+
+````
+
 ### number_sequence
 Generates number sequence completion tasks with dynamic pattern generation
 
@@ -3251,6 +3459,82 @@ Metadata: {'letters': ['n', 'j', 'n', 'j', 'd', 'j', 's', 's', 'd'], 'generated_
 
 ````
 
+### palindrome_partitioning
+Generates Palindrome Partitioning exercises with configurable difficulty
+
+Default configuration:
+```python
+min_string_len = 5
+max_string_len = 15
+max_substring_palindome_len = 5
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+- Input: Partition the following string into palindromes: aab
+- Output: [["a","a","b"],["aa","b"]]
+- Explanation:
+    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
+    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
+    - Therefore, the final result is a list of the two palindrome partitions.
+
+Partition the following string into palindromes: agegvckakcgnnrw
+
+Answer: [["a", "g", "e", "g", "v", "c", "k", "a", "k", "c", "g", "n", "n", "r", "w"], ["a", "g", "e", "g", "v", "c", "k", "a", "k", "c", "g", "nn", "r", "w"], ["a", "g", "e", "g", "v", "c", "kak", "c", "g", "n", "n", "r", "w"], ["a", "g", "e", "g", "v", "c", "kak", "c", "g", "nn", "r", "w"], ["a", "g", "e", "g", "v", "ckakc", "g", "n", "n", "r", "w"], ["a", "g", "e", "g", "v", "ckakc", "g", "nn", "r", "w"], ["a", "geg", "v", "c", "k", "a", "k", "c", "g", "n", "n", "r", "w"], ["a", "geg", "v", "c", "k", "a", "k", "c", "g", "nn", "r", "w"], ["a", "geg", "v", "c", "kak", "c", "g", "n", "n", "r", "w"], ["a", "geg", "v", "c", "kak", "c", "g", "nn", "r", "w"], ["a", "geg", "v", "ckakc", "g", "n", "n", "r", "w"], ["a", "geg", "v", "ckakc", "g", "nn", "r", "w"]]
+Metadata: {'string': 'agegvckakcgnnrw', 'solution': [['a', 'g', 'e', 'g', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'nn', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'kak', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'kak', 'c', 'g', 'nn', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'ckakc', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'ckakc', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'c', 'kak', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'c', 'kak', 'c', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'ckakc', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'ckakc', 'g', 'nn', 'r', 'w']]}
+
+Example 2:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+- Input: Partition the following string into palindromes: aab
+- Output: [["a","a","b"],["aa","b"]]
+- Explanation:
+    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
+    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
+    - Therefore, the final result is a list of the two palindrome partitions.
+
+Partition the following string into palindromes: sesjj
+
+Answer: [["s", "e", "s", "j", "j"], ["s", "e", "s", "jj"], ["ses", "j", "j"], ["ses", "jj"]]
+Metadata: {'string': 'sesjj', 'solution': [['s', 'e', 's', 'j', 'j'], ['s', 'e', 's', 'jj'], ['ses', 'j', 'j'], ['ses', 'jj']]}
+
+Example 3:
+Question: Given a string, partition it such that every substring is a palindrome.
+
+A palindrome is a word that reads the same backward as forward.
+
+You may return all possible palindrome partitioning in any order.
+
+Example:
+- Input: Partition the following string into palindromes: aab
+- Output: [["a","a","b"],["aa","b"]]
+- Explanation:
+    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
+    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
+    - Therefore, the final result is a list of the two palindrome partitions.
+
+Partition the following string into palindromes: owfwofaafsd
+
+Answer: [["o", "w", "f", "w", "o", "f", "a", "a", "f", "s", "d"], ["o", "w", "f", "w", "o", "f", "aa", "f", "s", "d"], ["o", "w", "f", "w", "o", "faaf", "s", "d"], ["o", "wfw", "o", "f", "a", "a", "f", "s", "d"], ["o", "wfw", "o", "f", "aa", "f", "s", "d"], ["o", "wfw", "o", "faaf", "s", "d"], ["owfwo", "f", "a", "a", "f", "s", "d"], ["owfwo", "f", "aa", "f", "s", "d"], ["owfwo", "faaf", "s", "d"]]
+Metadata: {'string': 'owfwofaafsd', 'solution': [['o', 'w', 'f', 'w', 'o', 'f', 'a', 'a', 'f', 's', 'd'], ['o', 'w', 'f', 'w', 'o', 'f', 'aa', 'f', 's', 'd'], ['o', 'w', 'f', 'w', 'o', 'faaf', 's', 'd'], ['o', 'wfw', 'o', 'f', 'a', 'a', 'f', 's', 'd'], ['o', 'wfw', 'o', 'f', 'aa', 'f', 's', 'd'], ['o', 'wfw', 'o', 'faaf', 's', 'd'], ['owfwo', 'f', 'a', 'a', 'f', 's', 'd'], ['owfwo', 'f', 'aa', 'f', 's', 'd'], ['owfwo', 'faaf', 's', 'd']]}
+
+````
+
 ### polynomial_equations
 Generates random polynomial equations of degree in [min_degree, max_degree].
     - The polynomial is formed by summing random terms of the form: coeff * x^exponent.
@@ -3321,11 +3605,13 @@ min_terms = 2
 max_terms = 4
 min_value = 1
 max_value = 100
-min_degree = 1
+min_degree = 0
 max_degree = 3
 min_polynomials = 2
 max_polynomials = 3
-single_variable = True
+variables = ('x', 'y', 'z')
+allow_cross_variable_product = False
+allow_multivariate_polynomials = False
 operators = ('+', '-')
 seed = 42
 size = 500
@@ -3334,31 +3620,31 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (65*x - 72)*(105*x - 125)
+Question: Calculate the following: (-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)
 In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
 ## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
 ## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
 
-Answer: 6825*x**2 - 15685*x + 9000
-Metadata: {'polynomial_expr': '(65*x - 72)*(105*x - 125)', 'single_variable': True, 'result': '6825*x**2 - 15685*x + 9000'}
+Answer: 1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z
+Metadata: {'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'result': '1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z', 'variables': [z]}
 
 Example 2:
-Question: Calculate the following: (-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)
+Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
 In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
 ## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
 ## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
 
-Answer: -774*x**4 - 2390*x**3 + 173*x**2 + 364*x
-Metadata: {'polynomial_expr': '(-9*x**2 - 28*x)*(86*x**2 - 2*x - 13)', 'single_variable': True, 'result': '-774*x**4 - 2390*x**3 + 173*x**2 + 364*x'}
+Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416
+Metadata: {'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'result': '-6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416', 'variables': [x]}
 
 Example 3:
-Question: Calculate the following: (43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)
+Question: Calculate the following: (29*y**2 - 49*y)*(21*y**3 + 49)
 In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
 ## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
 ## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
 
-Answer: -19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x
-Metadata: {'polynomial_expr': '(43 - 91*x)*(3*x**2 - 10*x)*(71*x**3 - 2*x - 29)', 'single_variable': True, 'result': '-19383*x**6 + 73769*x**5 - 29984*x**4 + 5839*x**3 - 29271*x**2 + 12470*x'}
+Answer: 609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y
+Metadata: {'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'result': '609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y', 'variables': [y]}
 
 ````
 
@@ -4070,9 +4356,40 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+Question: Your task is to count how many rectangles are present in an ASCII grid.
 
-                                                                                 
+Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
+
+Example:
+- Input: How many rectangles are in the grid below?
+
+              ####
+              #  #
+              ####
+
+
+
+
+
+
+
+
+
+
+ #########
+ #       █##
+ #       █ #
+ ########█ #
+         # #
+         ###
+- Output: 3
+- Explanation:
+    - The first rectangle is the 3x4 rectangle in the top right.
+    - The other two rectangles are overlapping in the bottom left corner.
+    - Therefore, the final answer is 3.
+
+Now, it's your turn. How many rectangles do you see in the grid below?
+                                                                                
                                                                                 
                                                                                 
                                                                                 
@@ -4152,13 +4469,46 @@ Question: How many rectangles do you see? Single rectangles are outlined with a 
                                                                                 
                                                                                 
                                                                                 
+
 
 Answer: 2
+Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                 ##################################################             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 ##################################################             \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n   ######################################                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   ######################################                                       \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n', 'solution': 2}
 
 Example 2:
-Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+Question: Your task is to count how many rectangles are present in an ASCII grid.
 
-                                                                                 
+Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
+
+Example:
+- Input: How many rectangles are in the grid below?
+
+              ####
+              #  #
+              ####
+
+
+
+
+
+
+
+
+
+
+ #########
+ #       █##
+ #       █ #
+ ########█ #
+         # #
+         ###
+- Output: 3
+- Explanation:
+    - The first rectangle is the 3x4 rectangle in the top right.
+    - The other two rectangles are overlapping in the bottom left corner.
+    - Therefore, the final answer is 3.
+
+Now, it's your turn. How many rectangles do you see in the grid below?
+                                                                                
                                                                                 
                                                                                 
                                                                                 
@@ -4238,13 +4588,46 @@ Question: How many rectangles do you see? Single rectangles are outlined with a 
                                                                                 
                                                                                 
                                                                                 
+
 
 Answer: 1
+Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                    ############                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    ############                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n', 'solution': 1}
 
 Example 3:
-Question: How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. 
+Question: Your task is to count how many rectangles are present in an ASCII grid.
 
-                                                                                 
+Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
+
+Example:
+- Input: How many rectangles are in the grid below?
+
+              ####
+              #  #
+              ####
+
+
+
+
+
+
+
+
+
+
+ #########
+ #       █##
+ #       █ #
+ ########█ #
+         # #
+         ###
+- Output: 3
+- Explanation:
+    - The first rectangle is the 3x4 rectangle in the top right.
+    - The other two rectangles are overlapping in the bottom left corner.
+    - Therefore, the final answer is 3.
+
+Now, it's your turn. How many rectangles do you see in the grid below?
+                                                                                
                                                                                 
                                                                                 
                                                                                 
@@ -4325,7 +4708,9 @@ Question: How many rectangles do you see? Single rectangles are outlined with a 
             #######################   ###########################               
                                                                                 
 
+
 Answer: 7
+Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                         #########################              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       ############   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                    #####█#######################██#########█#  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #####█#######################██#########█#  \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #      ##########       ##         #   \n                                         #      #        #       ############   \n                                         #      #        #       #              \n                                         #      ##########       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #########################              \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n            #######################                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #               ######█###                                          \n            #               #     #  #                                          \n            #               ######█###                                          \n            #                     #   ###########################               \n            #                     #   #                         #               \n            #                     #   #                         #               \n            #######################   ###########################               \n                                                                                \n', 'solution': 7}
 
 ````
 
@@ -5417,69 +5802,72 @@ Example tasks:
 ````
 Example 1:
 Question: Solve this Sudoku puzzle:
-4 _ _ _ 5 2 _ 3 _
-_ _ 3 4 6 _ _ _ _
-6 1 2 _ _ 8 4 _ _
-1 _ _ _ _ _ 7 9 5
-3 _ _ 7 1 _ _ 2 6
-7 _ _ 5 _ _ _ _ 3
-2 _ _ _ 7 5 _ _ _
-_ 3 _ _ 4 1 _ _ _
-_ _ _ 2 8 _ _ _ 4
-Answer: 4 7 8 1 5 2 6 3 9
-5 9 3 4 6 7 2 8 1
-6 1 2 3 9 8 4 5 7
-1 2 4 8 3 6 7 9 5
-3 5 9 7 1 4 8 2 6
-7 8 6 5 2 9 1 4 3
-2 4 1 9 7 5 3 6 8
-8 3 5 6 4 1 9 7 2
-9 6 7 2 8 3 5 1 4
-Metadata: {'puzzle': [[4, 0, 0, 0, 5, 2, 0, 3, 0], [0, 0, 3, 4, 6, 0, 0, 0, 0], [6, 1, 2, 0, 0, 8, 4, 0, 0], [1, 0, 0, 0, 0, 0, 7, 9, 5], [3, 0, 0, 7, 1, 0, 0, 2, 6], [7, 0, 0, 5, 0, 0, 0, 0, 3], [2, 0, 0, 0, 7, 5, 0, 0, 0], [0, 3, 0, 0, 4, 1, 0, 0, 0], [0, 0, 0, 2, 8, 0, 0, 0, 4]], 'solution': [[4, 7, 8, 1, 5, 2, 6, 3, 9], [5, 9, 3, 4, 6, 7, 2, 8, 1], [6, 1, 2, 3, 9, 8, 4, 5, 7], [1, 2, 4, 8, 3, 6, 7, 9, 5], [3, 5, 9, 7, 1, 4, 8, 2, 6], [7, 8, 6, 5, 2, 9, 1, 4, 3], [2, 4, 1, 9, 7, 5, 3, 6, 8], [8, 3, 5, 6, 4, 1, 9, 7, 2], [9, 6, 7, 2, 8, 3, 5, 1, 4]], 'num_empty': 48}
+4 _ _ _ 9 2 _ 3 _
+_ _ 3 4 6 _ _ _ 7
+6 1 2 _ _ 7 8 _ _
+2 _ _ _ _ _ 7 9 1
+8 _ _ 7 1 _ _ 5 6
+1 _ _ 5 _ _ _ _ 3
+9 _ 4 _ 7 1 _ _ _
+_ 8 _ _ _ _ _ _ _
+_ _ _ 9 8 _ _ _ 4
+Respond with only your answer, formatted as the puzzle, a 9x9 grid with numbers separated by spaces, and rows separated by newlines.
+Answer: 4 7 8 1 9 2 6 3 5
+5 9 3 4 6 8 1 2 7
+6 1 2 3 5 7 8 4 9
+2 4 5 8 3 6 7 9 1
+8 3 9 7 1 4 2 5 6
+1 6 7 5 2 9 4 8 3
+9 5 4 2 7 1 3 6 8
+3 8 1 6 4 5 9 7 2
+7 2 6 9 8 3 5 1 4
+Metadata: {'puzzle': [[4, 0, 0, 0, 9, 2, 0, 3, 0], [0, 0, 3, 4, 6, 0, 0, 0, 7], [6, 1, 2, 0, 0, 7, 8, 0, 0], [2, 0, 0, 0, 0, 0, 7, 9, 1], [8, 0, 0, 7, 1, 0, 0, 5, 6], [1, 0, 0, 5, 0, 0, 0, 0, 3], [9, 0, 4, 0, 7, 1, 0, 0, 0], [0, 8, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 9, 8, 0, 0, 0, 4]], 'solution': [[4, 7, 8, 1, 9, 2, 6, 3, 5], [5, 9, 3, 4, 6, 8, 1, 2, 7], [6, 1, 2, 3, 5, 7, 8, 4, 9], [2, 4, 5, 8, 3, 6, 7, 9, 1], [8, 3, 9, 7, 1, 4, 2, 5, 6], [1, 6, 7, 5, 2, 9, 4, 8, 3], [9, 5, 4, 2, 7, 1, 3, 6, 8], [3, 8, 1, 6, 4, 5, 9, 7, 2], [7, 2, 6, 9, 8, 3, 5, 1, 4]], 'num_empty': 48}
 
 Example 2:
 Question: Solve this Sudoku puzzle:
 _ _ _ 1 3 2 6 4 5
-_ 4 _ 7 _ _ _ 9 1
-_ _ 1 8 _ 9 _ _ _
-_ 8 9 _ _ _ 7 5 4
+_ 4 _ 8 5 _ _ 9 _
+_ _ 1 9 _ 7 _ _ _
+_ 8 9 6 _ _ 7 5 4
 _ 3 _ 4 _ 1 9 8 _
-4 6 _ 5 9 _ 1 2 3
-5 _ 4 9 1 7 3 _ _
-9 7 6 _ 8 4 5 1 _
+4 6 _ 5 9 _ 2 3 1
+5 _ 4 7 1 9 3 _ _
+9 7 6 _ _ 4 5 1 _
 8 _ 3 _ _ _ 4 7 _
+Respond with only your answer, formatted as the puzzle, a 9x9 grid with numbers separated by spaces, and rows separated by newlines.
 Answer: 7 9 8 1 3 2 6 4 5
-3 4 2 7 5 6 8 9 1
-6 5 1 8 4 9 2 3 7
+3 4 2 8 5 6 1 9 7
+6 5 1 9 4 7 8 2 3
 1 8 9 6 2 3 7 5 4
 2 3 5 4 7 1 9 8 6
-4 6 7 5 9 8 1 2 3
-5 2 4 9 1 7 3 6 8
+4 6 7 5 9 8 2 3 1
+5 2 4 7 1 9 3 6 8
 9 7 6 3 8 4 5 1 2
 8 1 3 2 6 5 4 7 9
-Metadata: {'puzzle': [[0, 0, 0, 1, 3, 2, 6, 4, 5], [0, 4, 0, 7, 0, 0, 0, 9, 1], [0, 0, 1, 8, 0, 9, 0, 0, 0], [0, 8, 9, 0, 0, 0, 7, 5, 4], [0, 3, 0, 4, 0, 1, 9, 8, 0], [4, 6, 0, 5, 9, 0, 1, 2, 3], [5, 0, 4, 9, 1, 7, 3, 0, 0], [9, 7, 6, 0, 8, 4, 5, 1, 0], [8, 0, 3, 0, 0, 0, 4, 7, 0]], 'solution': [[7, 9, 8, 1, 3, 2, 6, 4, 5], [3, 4, 2, 7, 5, 6, 8, 9, 1], [6, 5, 1, 8, 4, 9, 2, 3, 7], [1, 8, 9, 6, 2, 3, 7, 5, 4], [2, 3, 5, 4, 7, 1, 9, 8, 6], [4, 6, 7, 5, 9, 8, 1, 2, 3], [5, 2, 4, 9, 1, 7, 3, 6, 8], [9, 7, 6, 3, 8, 4, 5, 1, 2], [8, 1, 3, 2, 6, 5, 4, 7, 9]], 'num_empty': 34}
+Metadata: {'puzzle': [[0, 0, 0, 1, 3, 2, 6, 4, 5], [0, 4, 0, 8, 5, 0, 0, 9, 0], [0, 0, 1, 9, 0, 7, 0, 0, 0], [0, 8, 9, 6, 0, 0, 7, 5, 4], [0, 3, 0, 4, 0, 1, 9, 8, 0], [4, 6, 0, 5, 9, 0, 2, 3, 1], [5, 0, 4, 7, 1, 9, 3, 0, 0], [9, 7, 6, 0, 0, 4, 5, 1, 0], [8, 0, 3, 0, 0, 0, 4, 7, 0]], 'solution': [[7, 9, 8, 1, 3, 2, 6, 4, 5], [3, 4, 2, 8, 5, 6, 1, 9, 7], [6, 5, 1, 9, 4, 7, 8, 2, 3], [1, 8, 9, 6, 2, 3, 7, 5, 4], [2, 3, 5, 4, 7, 1, 9, 8, 6], [4, 6, 7, 5, 9, 8, 2, 3, 1], [5, 2, 4, 7, 1, 9, 3, 6, 8], [9, 7, 6, 3, 8, 4, 5, 1, 2], [8, 1, 3, 2, 6, 5, 4, 7, 9]], 'num_empty': 34}
 
 Example 3:
 Question: Solve this Sudoku puzzle:
-_ _ 1 2 3 _ _ _ 9
-3 _ _ 1 8 5 6 7 2
-_ _ _ 4 9 6 1 _ _
-1 _ 5 7 _ _ 9 2 _
-_ 4 _ _ 5 9 7 1 6
-9 _ 6 _ 1 _ 4 5 3
-_ _ 3 9 7 _ 2 8 4
-_ _ 2 6 4 _ _ 9 1
-_ 1 _ 5 2 8 3 _ _
-Answer: 5 6 1 2 3 7 8 4 9
-3 9 4 1 8 5 6 7 2
-8 2 7 4 9 6 1 3 5
-1 3 5 7 6 4 9 2 8
-2 4 8 3 5 9 7 1 6
-9 7 6 8 1 2 4 5 3
-6 5 3 9 7 1 2 8 4
-7 8 2 6 4 3 5 9 1
-4 1 9 5 2 8 3 6 7
-Metadata: {'puzzle': [[0, 0, 1, 2, 3, 0, 0, 0, 9], [3, 0, 0, 1, 8, 5, 6, 7, 2], [0, 0, 0, 4, 9, 6, 1, 0, 0], [1, 0, 5, 7, 0, 0, 9, 2, 0], [0, 4, 0, 0, 5, 9, 7, 1, 6], [9, 0, 6, 0, 1, 0, 4, 5, 3], [0, 0, 3, 9, 7, 0, 2, 8, 4], [0, 0, 2, 6, 4, 0, 0, 9, 1], [0, 1, 0, 5, 2, 8, 3, 0, 0]], 'solution': [[5, 6, 1, 2, 3, 7, 8, 4, 9], [3, 9, 4, 1, 8, 5, 6, 7, 2], [8, 2, 7, 4, 9, 6, 1, 3, 5], [1, 3, 5, 7, 6, 4, 9, 2, 8], [2, 4, 8, 3, 5, 9, 7, 1, 6], [9, 7, 6, 8, 1, 2, 4, 5, 3], [6, 5, 3, 9, 7, 1, 2, 8, 4], [7, 8, 2, 6, 4, 3, 5, 9, 1], [4, 1, 9, 5, 2, 8, 3, 6, 7]], 'num_empty': 33}
+_ _ 1 9 2 _ _ _ 3
+3 _ _ 1 7 5 8 2 6
+_ _ _ 4 3 6 1 _ _
+1 _ 5 7 _ _ 9 3 _
+_ 4 _ _ 5 9 7 1 8
+7 _ 9 _ 1 _ 6 4 5
+_ _ 3 5 9 _ 2 8 4
+_ _ 2 6 8 _ _ 9 1
+_ 5 _ 2 4 1 3 _ _
+Respond with only your answer, formatted as the puzzle, a 9x9 grid with numbers separated by spaces, and rows separated by newlines.
+Answer: 5 6 1 9 2 8 4 7 3
+3 9 4 1 7 5 8 2 6
+8 2 7 4 3 6 1 5 9
+1 8 5 7 6 4 9 3 2
+2 4 6 3 5 9 7 1 8
+7 3 9 8 1 2 6 4 5
+6 1 3 5 9 7 2 8 4
+4 7 2 6 8 3 5 9 1
+9 5 8 2 4 1 3 6 7
+Metadata: {'puzzle': [[0, 0, 1, 9, 2, 0, 0, 0, 3], [3, 0, 0, 1, 7, 5, 8, 2, 6], [0, 0, 0, 4, 3, 6, 1, 0, 0], [1, 0, 5, 7, 0, 0, 9, 3, 0], [0, 4, 0, 0, 5, 9, 7, 1, 8], [7, 0, 9, 0, 1, 0, 6, 4, 5], [0, 0, 3, 5, 9, 0, 2, 8, 4], [0, 0, 2, 6, 8, 0, 0, 9, 1], [0, 5, 0, 2, 4, 1, 3, 0, 0]], 'solution': [[5, 6, 1, 9, 2, 8, 4, 7, 3], [3, 9, 4, 1, 7, 5, 8, 2, 6], [8, 2, 7, 4, 3, 6, 1, 5, 9], [1, 8, 5, 7, 6, 4, 9, 3, 2], [2, 4, 6, 3, 5, 9, 7, 1, 8], [7, 3, 9, 8, 1, 2, 6, 4, 5], [6, 1, 3, 5, 9, 7, 2, 8, 4], [4, 7, 2, 6, 8, 3, 5, 9, 1], [9, 5, 8, 2, 4, 1, 3, 6, 7]], 'num_empty': 33}
 
 ````
 
@@ -5561,7 +5949,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 16, 9, 44), 'end_time': datetime.datetime(2025, 2, 16, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 19, 9, 44), 'end_time': datetime.datetime(2025, 2, 19, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -5749,22 +6137,22 @@ Example tasks:
 ````
 Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
-                       Provide your answer as a comma-separated sequence of uppercase letters without spaces.
-                       Each step must be a valid English word.
+Provide your answer as a comma-separated sequence of uppercase letters without spaces.
+Each step must be a valid English word.
 Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
 Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
-                       Provide your answer as a comma-separated sequence of uppercase letters without spaces.
-                       Each step must be a valid English word.
+Provide your answer as a comma-separated sequence of uppercase letters without spaces.
+Each step must be a valid English word.
 Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
 Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10}
 
 Example 3:
 Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
-                       Provide your answer as a comma-separated sequence of uppercase letters without spaces.
-                       Each step must be a valid English word.
+Provide your answer as a comma-separated sequence of uppercase letters without spaces.
+Each step must be a valid English word.
 Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
 

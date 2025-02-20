@@ -73,7 +73,7 @@ class CaesarCipherDataset(ProceduralDataset):
         cipher_text = self._caesar_encrypt(sentence, rotation)
 
         return {
-            "question": f"Decrypt this Caesar cipher text: {cipher_text}",
+            "question": f"Decrypt this Caesar cipher text: {cipher_text}. Provide only the decrypted text as your final answer.",
             "answer": sentence,
             "metadata": {"rotation": rotation, "cipher_text": cipher_text, "clear_text": sentence},
         }
