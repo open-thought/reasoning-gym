@@ -2,7 +2,7 @@ import ast
 from dataclasses import dataclass
 from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import Random
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, List, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -25,9 +25,7 @@ class DecimalArithmeticConfig:
         ), "precision must be 2 or more higher than max_num_decimal_places"
 
 
-def build_grouped_expression(
-    operands: List[str], operators: List[str], rng: Random
-) -> str:
+def build_grouped_expression(operands: List[str], operators: List[str], rng: Random) -> str:
     """
     Recursively build an arithmetic expression string from operands and operators,
     inserting parentheses at random.
@@ -55,7 +53,7 @@ def generate_arithmetic_problem(
     min_num_decimal_places: int,
     max_num_decimal_places: int,
     terms: int = 2,
-    operations: Optional[List[str]] = None
+    operations: Optional[List[str]] = None,
 ) -> str:
     """
     Generates a simple arithmetic problem with decimal numbers (as a string) formatted
@@ -81,7 +79,7 @@ def generate_arithmetic_problem(
         # Choose a random number of decimal places for this term.
         ndp: int = rng.randint(min_num_decimal_places, max_num_decimal_places)
         max_integer_part: int = 10  # Maximum whole number before the decimal
-        max_value: int = max_integer_part * (10 ** ndp)
+        max_value: int = max_integer_part * (10**ndp)
         raw_int: int = rng.randint(1, max_value)
         # Create the Decimal number and quantize it to exactly ndp decimal places.
         num: Decimal = Decimal(raw_int) / (Decimal(10) ** ndp)
