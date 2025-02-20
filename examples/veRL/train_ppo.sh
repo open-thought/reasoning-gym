@@ -25,6 +25,6 @@ trainer.n_gpus_per_node=$N_GPUS \
 trainer.nnodes=1 \
 trainer.save_freq=100 \
 trainer.test_freq=100 \
-trainer.project_name=verl_chain_sum \
+trainer.project_name='verl_chain_sum_ppo' \
 trainer.experiment_name=$EXPERIMENT_NAME \
 trainer.total_epochs=15 2>&1 | tee verl_output.log

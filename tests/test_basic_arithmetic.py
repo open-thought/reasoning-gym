@@ -1,5 +1,3 @@
-from random import Random
-
 import pytest
 
 from reasoning_gym.arithmetic.basic_arithmetic import (
@@ -64,11 +62,19 @@ def test_arithmetic_dataset_format_styles():
         max_digits=2,
     )
     dataset = BasicArithmeticDataset(config)
-    assert all(item["question"].endswith("=") for item in dataset)
+    assert all(item["question"].strip().endswith(".") for item in dataset)
 
-    config.format_style = "natural"
+    config = BasicArithmeticDatasetConfig(
+        size=10,
+        seed=42,
+        format_style="natural",
+        min_terms=2,
+        max_terms=3,  # Keep expressions simple for testing
+        min_digits=1,
+        max_digits=2,
+    )
     dataset = BasicArithmeticDataset(config)
-    assert all("=" in item["question"] for item in dataset)
+    assert all(item["question"].strip().endswith(".") for item in dataset)
 
 
 def test_arithmetic_dataset_iteration():

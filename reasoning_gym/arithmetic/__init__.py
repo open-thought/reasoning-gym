@@ -7,12 +7,15 @@ from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDat
 from .chain_sum import ChainSumConfig, ChainSumDataset
 from .count_bits import CountBitsConfig, CountBitsDataset
 from .decimal_number_comparison import DecimalNumberComparisonConfig, DecimalNumberComparisonDataset
+from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticDataset
+from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumDataset
 from .dice import DiceConfig, DiceDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
 from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingDataset
+from .number_format import NumberFormatConfig, NumberFormatDataset
 from .power_function import PowerFunctionConfig, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
@@ -49,4 +52,10 @@ __all__ = [
     "DiceDataset",
     "DecimalNumberComparisonConfig",
     "DecimalNumberComparisonDataset",
+    "NumberFormatConfig",
+    "NumberFormatDataset",
+    "DecimalArithmeticConfig",
+    "DecimalArithmeticDataset",
+    "DecimalChainSumConfig",
+    "DecimalChainSumDataset",
 ]

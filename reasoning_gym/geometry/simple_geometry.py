@@ -46,15 +46,21 @@ class SimpleGeometryDataset(ProceduralDataset):
             (
                 "Given a convex polygon with {n_sides} sides, its first {n_minus_1} interior angles "
                 "are: {angle_list}. What is the measure of the remaining interior angle (in degrees)?"
+                "Return only the angle as your answer."
+                "Do not give the units in your answer."
             ),
             (
                 "A convex polygon has {n_sides} sides. The measures of "
                 "the first {n_minus_1} interior angles are: {angle_list}. "
                 "Find the measure of the last interior angle."
+                "Return only the angle as your answer."
+                "Do not give the units in your answer."
             ),
             (
                 "Consider a convex {n_sides}-gon whose first {n_minus_1} interior angles "
                 "are: {angle_list}. Determine the measure of the remaining angle."
+                "Return only the angle as your answer."
+                "Do not give the units in your answer."
             ),
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
