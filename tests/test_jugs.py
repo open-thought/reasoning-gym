@@ -18,7 +18,7 @@ def test_jugs():
         assert "metadata" in item
 
         # Test the scoring
-        assert dataset.score_answer(answer=json.dumps(item["metadata"]["possible_answer"]), entry=item) == 1.0
+        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
     config = JugsConfig(seed=42, size=1, num_jugs=3, difficulty=50)
@@ -32,7 +32,7 @@ def test_jugs():
         assert "metadata" in item
 
         # Test the scoring
-        assert dataset.score_answer(answer=json.dumps(item["metadata"]["possible_answer"]), entry=item) == 1.0
+        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
     config = JugsConfig(seed=42, size=1, num_jugs=3, difficulty=99)
@@ -46,5 +46,5 @@ def test_jugs():
         assert "metadata" in item
 
         # Test the scoring
-        assert dataset.score_answer(answer=json.dumps(item["metadata"]["possible_answer"]), entry=item) == 1.0
+        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
