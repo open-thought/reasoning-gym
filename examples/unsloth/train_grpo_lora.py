@@ -116,7 +116,7 @@ def evaluate(model, tokenizer, dataset, *args, **kwargs):
         item = dataset[i]
         prompt = item["prompt"]
         metadata = item["metadata"]
-        inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+        inputs = tokenizer(prompt, return_tensors="pt")["input_ids"].to("cuda")
 
         with torch.no_grad():
             outputs = model.generate(
@@ -165,6 +165,8 @@ def main(args):
     )
 
     train(model, tokenizer, dataset, training_args)
+
+    model = FastLanguageModel.for_inference(model)
 
     eval_dataset = ReasoningGymDataset(
         args.dataset_name,
