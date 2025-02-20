@@ -6,7 +6,7 @@ from reasoning_gym.arithmetic.decimal_number_comparison import (
 
 def test_decimal_number_comparison():
     """Test basic decimal comparison"""
-    config = DecimalNumberComparisonConfig()
+    config = DecimalNumberComparisonConfig(size=10)
     dataset = DecimalNumberComparisonDataset(config)
 
     for item in dataset:
