@@ -225,7 +225,7 @@ class CryptarithmDataset(ProceduralDataset):
         The function awards 1.0 for a correct format and answers for all alphabet pairs.
 
         Args:
-            answer (Optional[str]): The user's answer.
+            answer (Optional[str]): The user's answer already parsed by `extract_answer`
             answer_str (Dict[str, any]): The original dataset answer_str containing the correct answer. ie "A=1,B=3..."
 
         Returns:
@@ -236,22 +236,13 @@ class CryptarithmDataset(ProceduralDataset):
             alphabet, number = pair.split("=")
             correct_mapping[alphabet] = int(number)
 
-        if answer == None or "<answer>" not in answer:
-            return 0.0
-
-        number_mapping_line = ""
-        if "<answer>" in answer:
-            number_mapping_line = answer.split("<answer>")[-1]
-        if "</answer>" not in number_mapping_line:
-            return 0.0
-        number_mapping_line = number_mapping_line.split("</answer>")[0].strip()
 
         # case 1 : pairs are in a list format and the number of pairs matched up
-        if len(number_mapping_line.split(",")) != len(correct_mapping):
+        if len(answer.split(",")) != len(correct_mapping):
             return 0.1
 
         predict_mapping = {}
-        for pair in number_mapping_line.split(","):
+        for pair in answer.split(","):
             try:
                 alphabet, number = pair.strip().split("=")
                 # as the unique alphabet grows we may want this to scale linearly with the number alphabet
