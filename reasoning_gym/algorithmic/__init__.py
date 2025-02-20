@@ -27,6 +27,7 @@ from .palindrome_partitioning import PalindromePartitioningConfig, PalindromePar
 from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
+from .rotten_oranges import RottenOrangesConfig, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
@@ -100,6 +101,8 @@ __all__ = [
     "StringSplittingDataset",
     "StringSynthesisConfig",
     "StringSynthesisDataset",
+    "RottenOrangesConfig",
+    "RottenOrangesDataset",
     "JugsConfig",
     "JugsDataset",
 ]
