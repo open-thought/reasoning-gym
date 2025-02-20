@@ -637,7 +637,9 @@ class FutoshikiDataset(ProceduralDataset):
             row = 0
             num_matching = 0
             for ln in answer.split("\n"):
-                numbers = [int(c) for c in ln if c.isnumeric()]
+                if row >= len(solution):
+                    break
+                numbers = [int(c) for c in ln if c in "123456789"]
                 if len(numbers) != len(solution[0]):
                     continue  # ignore lines without numbers
                 for a, b in zip(solution[row], numbers):
