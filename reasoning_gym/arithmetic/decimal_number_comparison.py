@@ -10,7 +10,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 @dataclass
 class DecimalNumberComparisonConfig:
-    """Configuration for number comparison task generation"""
+    """Configuration for decimal number comparison task generation"""
 
     min_precision: int = 5
     max_precision: int = 20
@@ -30,7 +30,7 @@ class DecimalNumberComparisonConfig:
 
 
 class DecimalNumberComparisonDataset(ProceduralDataset):
-    """Generates sentence reordering tasks from text spans"""
+    """Generates decimal number comparison tasks"""
 
     def __init__(self, config: DecimalNumberComparisonConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -44,10 +44,10 @@ class DecimalNumberComparisonDataset(ProceduralDataset):
         return ">"
 
     def __getitem__(self, idx: int) -> dict:
-        """Generate a single entity-based number comparison task"""
+        """Generates a single decimal number comparison task"""
         rng = Random(self.seed + idx)
 
-        # Randomly choose precision for each decimal (between 1 and 6 decimal places)
+        # Randomly choose precision for each decimal
         precision_1 = rng.randint(self.config.min_precision, self.config.max_precision)
         precision_2 = rng.randint(self.config.min_precision, self.config.max_precision)
 
