@@ -181,6 +181,8 @@ def main(args):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--model-id", type=str, default="Qwen/Qwen2.5-1.5B-Instruct")
