@@ -225,8 +225,8 @@ def generate_jug_solution(jug_capacities: Tuple[int, int, int], target: int) -> 
 class JugsConfig:
     """Configuration for Jugs puzzle generation"""
 
-    num_jugs: int = 3
-    difficulty: int = 10
+    num_jugs: int = 3  # Number of jugs in the puzzle (affects puzzle complexity and solution space)
+    difficulty: int = 10  # Minimum required moves to solve the puzzle. Also affects max jug capacity (3 + difficulty)
     seed: Optional[int] = None
     size: int = 500
 
