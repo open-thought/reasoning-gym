@@ -77,6 +77,37 @@ def test_products_number_ranges():
             assert 0 <= num <= 9, f"Number {num} outside valid range for 1 digit"
 
 
+def test_products_number_ranges_with_negation():
+    """Test that generated numbers respect digit constraints"""
+    # Test 3-digit numbers with negation
+    config = ProductsConfig(
+        min_terms=2,
+        max_terms=2,  # Fix to 2 terms for easier testing
+        min_digits=3,  # Should generate numbers >= -999
+        max_digits=3,  # Should generate numbers <= 999
+        allow_negation=True,
+        size=50,
+        seed=42,
+    )
+    dataset = ProductsDataset(config)
+    for i in range(len(dataset)):
+        item = dataset[i]
+        expression = item["metadata"]["expression"]
+        numbers = [int(n) for n in expression.split() if n.isdigit()]
+        for num in numbers:
+            assert -999 <= num <= 999, f"Number {num} outside valid range for 3 digits"
+
+    # Test 1-digit numbers with negation
+    config = ProductsConfig(min_terms=2, max_terms=2, min_digits=1, max_digits=1, size=50, seed=42)
+    dataset = ProductsDataset(config)
+    for i in range(len(dataset)):
+        item = dataset[i]
+        expression = item["metadata"]["expression"]
+        numbers = [int(n) for n in expression.split() if n.isdigit()]
+        for num in numbers:
+            assert -9 <= num <= 9, f"Number {num} outside valid range for 1 digit"
+
+
 def test_products_iteration():
     """Test that iteration respects dataset size"""
     config = ProductsConfig(min_terms=2, max_terms=2, size=5, seed=42)  # Small size for testing
