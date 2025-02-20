@@ -8,7 +8,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
-class DecimalArithmeticDatasetConfig:
+class DecimalArithmeticConfig:
     """Configuration for decimal arithmetic dataset generation"""
 
     min_num_decimal_places: int = 6
@@ -140,7 +140,7 @@ def _eval_ast(node) -> Decimal:
 class DecimalArithmeticDataset(ProceduralDataset):
     """Dataset that generates basic arithmetic tasks using Decimal arithmetic and proper operator precedence."""
 
-    def __init__(self, config: DecimalArithmeticDatasetConfig):
+    def __init__(self, config: DecimalArithmeticConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict[str, Any]:
@@ -202,4 +202,4 @@ class DecimalArithmeticDataset(ProceduralDataset):
 
 
 # Register the dataset with the factory.
-register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticDatasetConfig)
+register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticConfig)
