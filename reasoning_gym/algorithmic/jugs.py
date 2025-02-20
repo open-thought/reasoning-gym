@@ -258,8 +258,7 @@ class JugsDataset(ProceduralDataset):
         solution = generate_jug_solution(puzzle["jug_capacities"], puzzle["target"])
 
         cap_str = ", ".join(f"{chr(ord('A')+i)}:{cap}" for i, cap in enumerate(puzzle["jug_capacities"]))
-        question = f"""
-You are a police officer. A maniac has planted a bomb next to a public fountain.
+        question = f"""You are a police officer. A maniac has planted a bomb next to a public fountain.
 
 To defuse the bomb, you must solve a puzzle. The puzzle is solved when you fill any of the available jugs with the target amount of water.
 
@@ -276,7 +275,7 @@ And your target is: {puzzle['target']} litres.
 How do you defuse the bomb?
 
 Reply as a JSON-parsable list of moves which result in any of the jugs being filled with the target amount.
-        """
+"""
 
         return {
             "question": question,
@@ -297,12 +296,12 @@ Reply as a JSON-parsable list of moves which result in any of the jugs being fil
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
+        if answer is None:
             return 0.0
 
-        danswer = json.loads(answer)
         try:
-            valid, states = verify_solution(entry["metadata"]["puzzle"], danswer)
+            danswer = json.loads(answer)
+            valid, _ = verify_solution(entry["metadata"]["puzzle"], danswer)
             if not valid:
                 return 0.01
             else:
