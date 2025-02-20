@@ -120,7 +120,7 @@ class RectangleCountConfig:
 
 
 class RectangleCountDataset(ProceduralDataset):
-    """Generates [RectangleCount Puzzles](https://en.wikipedia.org/wiki/RectangleCount_Puzzle) with configurable parameters"""
+    """Generates ASCII rectangle counting puzzles with configurable parameters"""
 
     def __init__(self, config: RectangleCountConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
