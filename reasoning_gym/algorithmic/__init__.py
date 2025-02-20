@@ -16,6 +16,7 @@ from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
+from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixDataset
@@ -102,4 +103,6 @@ __all__ = [
     "StringSynthesisDataset",
     "RottenOrangesConfig",
     "RottenOrangesDataset",
+    "JugsConfig",
+    "JugsDataset",
 ]
