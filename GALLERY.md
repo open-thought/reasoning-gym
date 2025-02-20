@@ -22,6 +22,8 @@ This gallery shows examples from all available datasets using their default conf
 - [countdown](#countdown)
 - [course_schedule](#course_schedule)
 - [cryptarithm](#cryptarithm)
+- [decimal_arithmetic](#decimal_arithmetic)
+- [decimal_chain_sum](#decimal_chain_sum)
 - [dice](#dice)
 - [family_relationships](#family_relationships)
 - [figlet_font](#figlet_font)
@@ -34,6 +36,7 @@ This gallery shows examples from all available datasets using their default conf
 - [gsm_symbolic](#gsm_symbolic)
 - [intermediate_integration](#intermediate_integration)
 - [isomorphic_strings](#isomorphic_strings)
+- [jugs](#jugs)
 - [knight_swap](#knight_swap)
 - [largest_island](#largest_island)
 - [lcm](#lcm)
@@ -44,6 +47,7 @@ This gallery shows examples from all available datasets using their default conf
 - [maze](#maze)
 - [mini_sudoku](#mini_sudoku)
 - [n_queens](#n_queens)
+- [needle_haystack](#needle_haystack)
 - [number_filtering](#number_filtering)
 - [number_format](#number_format)
 - [number_sequence](#number_sequence)
@@ -56,12 +60,12 @@ This gallery shows examples from all available datasets using their default conf
 - [power_function](#power_function)
 - [prime_factorization](#prime_factorization)
 - [products](#products)
-- [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
 - [ransom_note](#ransom_note)
 - [rearc](#rearc)
 - [rectangle_count](#rectangle_count)
 - [rotate_matrix](#rotate_matrix)
+- [rotten_oranges](#rotten_oranges)
 - [rubiks_cube](#rubiks_cube)
 - [rush_hour](#rush_hour)
 - [self_reference](#self_reference)
@@ -227,19 +231,31 @@ task_types = ['orthocenter', 'incircle_radius', 'angle_measure']
 Example tasks:
 ````
 Example 1:
-Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -6), find the measure (in degrees) of angle ABC.
+Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -6), find the measure (in degrees) of angle ABC. For all geometry problems:
+1. Give coordinates in the form (x, y)
+2. Round decimal answers to 3 decimal places
+3. Use the degree symbol ° for angles
+4. Return only th angle, coordinates, or radius as your answer.
 Answer: 17.10°
-Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237}
+Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237, 'task_type': 'angle_measure'}
 
 Example 2:
-Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determine the orthocenter (intersection of altitudes).
+Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determine the orthocenter (intersection of altitudes). For all geometry problems:
+1. Give coordinates in the form (x, y)
+2. Round decimal answers to 3 decimal places
+3. Use the degree symbol ° for angles
+4. Return only th angle, coordinates, or radius as your answer.
 Answer: (0.304, -1.217)
-Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262)}
+Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'ortho': (7/23, -28/23), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262), 'task_type': 'orthocenter'}
 
 Example 3:
-Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3).
+Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3). For all geometry problems:
+1. Give coordinates in the form (x, y)
+2. Round decimal answers to 3 decimal places
+3. Use the degree symbol ° for angles
+4. Return only th angle, coordinates, or radius as your answer.
 Answer: 2.176
-Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009}
+Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009, 'task_type': 'incircle_radius'}
 
 ````
 
@@ -1095,17 +1111,17 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Decrypt this Caesar cipher text: JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP
+Question: Decrypt this Caesar cipher text: JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP. Provide only the decrypted text as your final answer.
 Answer: IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO
 Metadata: {'rotation': 1, 'cipher_text': 'JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP', 'clear_text': 'IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO'}
 
 Example 2:
-Question: Decrypt this Caesar cipher text: PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW
+Question: Decrypt this Caesar cipher text: PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW. Provide only the decrypted text as your final answer.
 Answer: FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM
 Metadata: {'rotation': 10, 'cipher_text': 'PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW', 'clear_text': 'FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM'}
 
 Example 3:
-Question: Decrypt this Caesar cipher text: ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU
+Question: Decrypt this Caesar cipher text: ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU. Provide only the decrypted text as your final answer.
 Answer: IF YOUR STOMACH IS OUT OF IT MUST BE MENDED
 Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU', 'clear_text': 'IF YOUR STOMACH IS OUT OF IT MUST BE MENDED'}
 
@@ -1407,6 +1423,7 @@ Question: A cube has:
 The cube is rotated so that the side which was before at the bottom is now at the top.
 
 What is now the color of the back side of the cube?
+Provide only the color as your final answer.
 Answer: orange
 Metadata: {'initial_state': {'top': 'pink', 'right': 'gray', 'front': 'orange', 'left': 'purple', 'back': 'indigo', 'bottom': 'cyan'}, 'rotations': ['bottom'], 'target_side': 'back', 'num_rotations': 1}
 
@@ -1426,6 +1443,7 @@ Next, the bottom side is rotated to become the top face.
 After that the cube is turned to make the bottom face the top.
 
 What is now the color of the left side of the cube?
+Provide only the color as your final answer.
 Answer: yellow
 Metadata: {'initial_state': {'top': 'gray', 'right': 'brown', 'front': 'silver', 'left': 'red', 'back': 'purple', 'bottom': 'yellow'}, 'rotations': ['left', 'bottom', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
 
@@ -1445,6 +1463,7 @@ Now the cube is rotated to place its back side at the top.
 Now the cube is rotated to place its bottom side at the top.
 
 What is now the color of the left side of the cube?
+Provide only the color as your final answer.
 Answer: gold
 Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
 
@@ -1682,18 +1701,28 @@ Question: Solve this cryptarithm:
   IKIZL
 
 Each letter stands for a unique digit (0-9). No leading letter can be zero.
-Provide a mapping from letters to digits that satisfies the equation.
-Here's an example:
+Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
+Here's an example:
+- Input:
   BASE
 + BALL
 ------
  GAMES
 
-Answer (one possible solution):
+- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
+- Explanation:
+    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
+    * Units: E + L = S (no carry).
+    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
+    * Since S = E + 5 and S is one digit, E < 5.
+    * Hundreds: 2A + 1 = M (with carry).
+    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
+    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
+    * With E < 5, try E = 3: Then S = 8.
+    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
+    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
 
-B=7, A=8, S=2, E=9, L=1, G=1, M=0
-Summation: 7829 + 7811 = 15640 (the puzzle might produce a different arrangement, but the principle is the same).
 Answer: F=3,I=4,K=2,L=9,M=1,O=8,P=0,Z=7
 Metadata: {'letters': ['L', 'O', 'K', 'I', 'P', 'Z', 'M', 'F'], 'word_values': [381, 42098], 'sum_number': 42479, 'words_letters': ['FOM', 'IKPLO'], 'result_letters': 'IKIZL', 'digit_to_letter': {'9': 'L', '8': 'O', '2': 'K', '4': 'I', '0': 'P', '7': 'Z', '1': 'M', '3': 'F'}, 'letter_to_digit': {'L': 9, 'O': 8, 'K': 2, 'I': 4, 'P': 0, 'Z': 7, 'M': 1, 'F': 3}}
 
@@ -1706,18 +1735,28 @@ Question: Solve this cryptarithm:
   JHEDH
 
 Each letter stands for a unique digit (0-9). No leading letter can be zero.
-Provide a mapping from letters to digits that satisfies the equation.
-Here's an example:
+Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
+Here's an example:
+- Input:
   BASE
 + BALL
 ------
  GAMES
 
-Answer (one possible solution):
+- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
+- Explanation:
+    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
+    * Units: E + L = S (no carry).
+    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
+    * Since S = E + 5 and S is one digit, E < 5.
+    * Hundreds: 2A + 1 = M (with carry).
+    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
+    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
+    * With E < 5, try E = 3: Then S = 8.
+    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
+    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
 
-B=7, A=8, S=2, E=9, L=1, G=1, M=0
-Summation: 7829 + 7811 = 15640 (the puzzle might produce a different arrangement, but the principle is the same).
 Answer: D=8,E=9,H=3,I=0,J=7,K=2,O=6,P=5
 Metadata: {'letters': ['O', 'K', 'H', 'P', 'I', 'D', 'E', 'J'], 'word_values': [3358, 70625], 'sum_number': 73983, 'words_letters': ['HHPD', 'JIOKP'], 'result_letters': 'JHEDH', 'digit_to_letter': {'6': 'O', '2': 'K', '3': 'H', '5': 'P', '0': 'I', '8': 'D', '9': 'E', '7': 'J'}, 'letter_to_digit': {'O': 6, 'K': 2, 'H': 3, 'P': 5, 'I': 0, 'D': 8, 'E': 9, 'J': 7}}
 
@@ -1731,20 +1770,97 @@ Question: Solve this cryptarithm:
   XXNXHZ
 
 Each letter stands for a unique digit (0-9). No leading letter can be zero.
-Provide a mapping from letters to digits that satisfies the equation.
-Here's an example:
+Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
+Here's an example:
+- Input:
   BASE
 + BALL
 ------
  GAMES
 
-Answer (one possible solution):
+- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
+- Explanation:
+    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
+    * Units: E + L = S (no carry).
+    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
+    * Since S = E + 5 and S is one digit, E < 5.
+    * Hundreds: 2A + 1 = M (with carry).
+    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
+    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
+    * With E < 5, try E = 3: Then S = 8.
+    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
+    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
 
-B=7, A=8, S=2, E=9, L=1, G=1, M=0
-Summation: 7829 + 7811 = 15640 (the puzzle might produce a different arrangement, but the principle is the same).
 Answer: A=0,G=7,H=9,N=8,P=3,R=2,X=1,Z=5
 Metadata: {'letters': ['Z', 'H', 'N', 'G', 'X', 'A', 'R', 'P'], 'word_values': [25290, 33155, 59750], 'sum_number': 118195, 'words_letters': ['RZRHA', 'PPXZZ', 'ZHGZA'], 'result_letters': 'XXNXHZ', 'digit_to_letter': {'5': 'Z', '9': 'H', '8': 'N', '7': 'G', '1': 'X', '0': 'A', '2': 'R', '3': 'P'}, 'letter_to_digit': {'Z': 5, 'H': 9, 'N': 8, 'G': 7, 'X': 1, 'A': 0, 'R': 2, 'P': 3}}
+
+````
+
+### decimal_arithmetic
+Dataset that generates basic arithmetic tasks using Decimal arithmetic and proper operator precedence.
+
+Default configuration:
+```python
+min_num_decimal_places = 6
+max_num_decimal_places = 6
+precision = 28
+terms = 6
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Please solve this problem to a maximum of 28 significant digits, rounding up from the half. Only reply with the final value.
+(0.419611*3.744855)-(9.149733+0.533225)+3.668137-9.416130 = ?
+Answer: -13.859568648595
+
+Example 2:
+Question: Please solve this problem to a maximum of 28 significant digits, rounding up from the half. Only reply with the final value.
+(4.799697-6.205510+(8.359621+9.674082*6.609140)-1.800269) = ?
+Answer: 69.09090130948
+
+Example 3:
+Question: Please solve this problem to a maximum of 28 significant digits, rounding up from the half. Only reply with the final value.
+((8.724497+6.368109)-0.488171-9.541022+(2.628828*9.915288)) = ?
+Answer: 31.128999722464
+
+````
+
+### decimal_chain_sum
+Generates simple decimal arithmetic tasks using only + and - operators
+
+Default configuration:
+```python
+min_terms = 2
+max_terms = 6
+min_digits = 1
+max_digits = 4
+min_decimal_places = 1
+max_decimal_places = 4
+allow_negation = False
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: State the final answer to the following arithmetic problem: 4.23 + 3.96 =
+Answer: 8.19
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 1}, 'expression': '4.23 + 3.96'}
+
+Example 2:
+Question: State the final answer to the following arithmetic problem: 812.57 - 880.2577 =
+Answer: -67.6877
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812.57 - 880.2577'}
+
+Example 3:
+Question: State the final answer to the following arithmetic problem: 2.75 - 6.5 - 3.7 + 4.7 - 0.98 =
+Answer: -3.73
+Metadata: {'difficulty': {'num_terms': 5, 'num_digits': 1}, 'expression': '2.75 - 6.5 - 3.7 + 4.7 - 0.98'}
 
 ````
 
@@ -2010,7 +2126,7 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. Let your answer(array of array be on a single line). (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[0,1,0,1,1,0,0,0,1,0],
  [1,0,0,1,0,1,1,1,1,1],
@@ -2026,7 +2142,7 @@ Answer: [[0,1,0,0,0,0,0,0,0,0],[1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,
 Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 2:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. Let your answer(array of array be on a single line). (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[1,1,1,1,1,1,0,1,1,1],
  [0,0,1,1,1,1,1,1,1,1],
@@ -2042,7 +2158,7 @@ Answer: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0],[0,1,
 Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 3:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. Let your answer(array of array be on a single line). (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[0,1,0,1,1,1,1,0,0,1],
  [0,1,0,0,1,1,1,0,1,1],
@@ -2383,6 +2499,87 @@ hogtytyof kgqwfwfgh
 
 Answer: True
 Metadata: {'words': ['hogtytyof', 'kgqwfwfgh'], 'solution': True, 'solvable': True}
+
+````
+
+### jugs
+Generates water jug puzzles inspired by [this scene from _Die Hard 3_](https://www.youtube.com/watch?v=6cAbgAaEOVE), with configurable parameters
+
+Default configuration:
+```python
+num_jugs = 3
+difficulty = 10
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are a police officer. A maniac has planted a bomb next to a public fountain.
+
+To defuse the bomb, you must solve a puzzle. The puzzle is solved when you fill any of the available jugs with the target amount of water.
+
+You have three move types: 'fill', 'empty' and 'pour'.
+
+To fill Jug A, you 'fill A'.
+To empty Jug B, you 'empty B'.
+To pour the contents of Jug A into Jug B, you 'pour A->B'.
+All jugs are empty to begin with.
+
+The empty jugs hold this many litres of water: A:13, B:13, C:4
+And your target is: 10 litres.
+
+How do you defuse the bomb?
+
+Reply as a JSON-parsable list of moves which result in any of the jugs being filled with the target amount.
+
+Answer: ["fill A", "pour A->C", "fill B", "empty C", "pour A->C", "empty C", "pour A->C", "empty C", "pour A->C", "pour B->C"]
+Metadata: {'puzzle': {'jug_capacities': [13, 13, 4], 'target': 10, 'min_moves': 10}}
+
+Example 2:
+Question: You are a police officer. A maniac has planted a bomb next to a public fountain.
+
+To defuse the bomb, you must solve a puzzle. The puzzle is solved when you fill any of the available jugs with the target amount of water.
+
+You have three move types: 'fill', 'empty' and 'pour'.
+
+To fill Jug A, you 'fill A'.
+To empty Jug B, you 'empty B'.
+To pour the contents of Jug A into Jug B, you 'pour A->B'.
+All jugs are empty to begin with.
+
+The empty jugs hold this many litres of water: A:7, B:10, C:10
+And your target is: 5 litres.
+
+How do you defuse the bomb?
+
+Reply as a JSON-parsable list of moves which result in any of the jugs being filled with the target amount.
+
+Answer: ["fill A", "pour A->B", "fill A", "pour A->B", "pour A->C", "fill A", "pour A->C", "empty B", "pour A->B", "fill A", "pour A->B", "fill A", "pour A->B"]
+Metadata: {'puzzle': {'jug_capacities': [7, 10, 10], 'target': 5, 'min_moves': 13}}
+
+Example 3:
+Question: You are a police officer. A maniac has planted a bomb next to a public fountain.
+
+To defuse the bomb, you must solve a puzzle. The puzzle is solved when you fill any of the available jugs with the target amount of water.
+
+You have three move types: 'fill', 'empty' and 'pour'.
+
+To fill Jug A, you 'fill A'.
+To empty Jug B, you 'empty B'.
+To pour the contents of Jug A into Jug B, you 'pour A->B'.
+All jugs are empty to begin with.
+
+The empty jugs hold this many litres of water: A:7, B:10, C:7
+And your target is: 2 litres.
+
+How do you defuse the bomb?
+
+Reply as a JSON-parsable list of moves which result in any of the jugs being filled with the target amount.
+
+Answer: ["fill B", "pour B->A", "empty A", "pour B->A", "fill B", "pour B->A", "empty A", "pour B->A", "fill B", "pour B->A", "pour B->C"]
+Metadata: {'puzzle': {'jug_capacities': [7, 10, 7], 'target': 2, 'min_moves': 11}}
 
 ````
 
@@ -3206,6 +3403,38 @@ Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', '_', '_'], ['_', 'Q', '_', 
 
 ````
 
+### needle_haystack
+Generates "Needle in a Haystack tasks
+
+Default configuration:
+```python
+num_statements = 50
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Caolain is neutral toward music. Alexx desires writing novels. Jake bears boxing. Harold gripes about dusting the furniture. Frederick disdains ironing the curtains. Cooper enjoys astronomy hobby. Caiden-Paul applauds all-terrain vehicles. Shayne delights in politics. Bradyn accepts artificial intelligence. Tyrnan supports climbing. Michal yearns for acting. Alvin deifies penguins. Allen relishes sailing. Brooke overlooks archery. Flynn prizes cleaning the patio. Grady can’t bear brewing beer. Rio ridicules acting. Wen is committed to emptying the dishwasher. Alfy execrates weeding the garden. Sweyn deifies bats. Emlyn laments bats. Shayan is passionate about snowboarding. Mehmet idolizes bird photography. Francis pines octopuses. Nikash worships ice skating. Tymom fancies motorcycles. Jaosha rejects balance. Abdur celebrates anime. Darryn bemoans logic. Michee revels in cleaning the ceiling fan. Khaleel worships trains. Jamie rails against the color amber. Daragh exults in astronomy. Finlay scoffs at minibikes. Kenyon desires collecting postcards. Caiden worships cocktails. Brodie reviles writing novels. Linton extols virtual reality. Bryson covets playing volleyball. Kyan begrudges listening to jazz. Kieran-Scott disapproves of collecting postcards. Willum esteems indie films. Isaa is addicted to ballet dancing. Arafat finds pleasure in triathlon. Oluwafemi disapproves of astronomy hobby. Seamas is keen on diving. Cian blasts playing the banjo. Liam-Stephen loathes the color sapphire. Bilal shrugs off playing the accordion. Sol is crazy about hip-hop dancing. 
+Who execrates weeding the garden? Reply only with a name.
+Answer: Alfy
+Metadata: {'question': 'Who execrates weeding the garden? Reply only with a name.'}
+
+Example 2:
+Question: Angus disdains composting. Jazz adores trail running. Craig eschews ballet dancing. Orrin resents wolves. Leigh adores playing ping pong. Bryn spurns washing the dishes. Nyah dotes foxes. Vuyolwethu finds fulfillment in DJing. Rhoridh rails against baking cakes. Yaseen idolizes goats. Ajayraj lusts after visiting theme parks. Rooke damns building model airplanes. Morton approves of bird photography. Tiarnan curses trucks. Lennon endorses deer. Zidane resents turtles. Shergo stomachs curry. Muhammad rejoices in hip-hop dancing. Machlan bears curiosity. Diarmaid fancies ice skating. Asrar is apathetic about peacocks. Callan celebrates listening to jazz. Chukwuemeka glories in cycling. Levon is crazy about cleaning the microwave. Danniel rails against innovation. Bryden regrets luxury sedans. Daumantas enjoys solving crossword puzzles. Rokas finds pleasure in indie films. Reuben blasts cupcakes. Cobain derides listening to classical music. Loukas is keen on resilience. Vincenzo glorifies watering the garden. Riyaj is partial to scooters. Jagat shrugs off playing the harp. Thorben tolerates the color ruby. Dominick is committed to religion. Lex despises parrots. Ayden extols ultimate frisbee. Arlo is fond of listening to jazz. Tjay favors the color plum. Averon yearns surfing. Dylan-Patrick is nuts about dancing. Avi prefers space shuttles. Dedeniseoluwa celebrates playing the banjo. Johnathan finds fulfillment in beatboxing. Jakey is partial to optimism. Berkay approves of rhinos. Ryden is keen on playing water polo. Zhi is crazy about fishing. Caie disdains hip-hop dancing. 
+Who extols ultimate frisbee? Reply only with a name.
+Answer: Ayden
+Metadata: {'question': 'Who extols ultimate frisbee? Reply only with a name.'}
+
+Example 3:
+Question: Marlin pines the color teal. Rufus mocks geocaching. Sharland yearns for the color yellow. Cejay yearns exploring caves. Diarmuid reveres limousines. Lincon exults resilience. Gareth ridicules playing board games. Jerome gripes about off-road vehicles. Aliyaan loves courage. Gabriel worships trucks. Cejay craves triathlon. Taylor-Jay detests off-road vehicles. Abu adores determination. Caedyn spurns pie. Darien is indifferent to resilience. Ronnie scorns all-terrain vehicles. Josan tolerates playing saxophone. Liam scorns playing cricket. Tyson longs for scorpions. Marc-Anthony ignores making coffee. Kayne bears trail running. Kurtis blasts creativity. Beau appreciates racing cars. Kerr laments the color khaki. Jayden-Paul relishes mopping the floor. Zak appreciates metaphysics. Darroch detests beauty. Carlo regrets building model cars. Rogan stomachs listening to folk music. Baley execrates omelettes. Tyler-Jay despises washing the dishes. Bruno fancies popcorn. Jacky puts up with zoology. Kajetan mocks cleaning the oven. Calley desires the color fuchsia. Zishan supports optimism. Jeronimo can’t bear vacuuming the floor. Amolpreet mocks roller skating. Kierin regrets metaphysics. Loudon approves of ducks. Brydon despises camels. Prinay eschews roller skating. Precious reveres coffee. Edison damns playing cricket. Eason yearns ants. Codey lusts after the color ruby. Ian revels in virtual reality. Hashim respects the color blue. Armaan derides performing magic. Arafat revels in canoeing. 
+Who damns playing cricket? Reply only with a name.
+Answer: Edison
+Metadata: {'question': 'Who damns playing cricket? Reply only with a name.'}
+
+````
+
 ### number_filtering
 Generates number filtering tasks
 
@@ -3890,6 +4119,7 @@ min_terms = 2
 max_terms = 2
 min_digits = 1
 max_digits = 5
+allow_negation = False
 seed = 42
 size = 500
 ```
@@ -3910,51 +4140,6 @@ Example 3:
 Question: Solve the following multiplication: 81037 * 25290. Give only the result as your final answer.
 Answer: 2049425730
 Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 5}, 'expression': '81037 * 25290'}
-
-````
-
-### propositional_logic
-Generates propositional logic reasoning tasks
-
-Default configuration:
-```python
-min_vars = 2
-max_vars = 4
-min_statements = 2
-max_statements = 4
-max_complexity = 3
-seed = 42
-size = 500
-```
-
-Example tasks:
-````
-Example 1:
-Question: Given:
-1. R
-2. Q
-What can we conclude?
-Answer: (P ∨ Q)
-Metadata: {'premises': ['R', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3}
-
-Example 2:
-Question: Given:
-1. ((Q → P) ∨ (Q → P))
-2. ((Q ↔ Q) → (P → P))
-3. P
-What can we conclude?
-Answer: (P → P)
-Metadata: {'premises': ['((Q → P) ∨ (Q → P))', '((Q ↔ Q) → (P → P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3}
-
-Example 3:
-Question: Given:
-1. ((Q ∨ P) ∧ ¬P)
-2. P
-3. ((P ∧ R) ∧ ¬R)
-4. ((Q ↔ R) → ¬Q)
-What can we conclude?
-Answer: (Q ∧ Q)
-Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q ↔ R) → ¬Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3}
 
 ````
 
@@ -4342,7 +4527,7 @@ Metadata: {'input': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'output': ((1, 1, 1, 1, 
 ````
 
 ### rectangle_count
-Generates [RectangleCount Puzzles](https://en.wikipedia.org/wiki/RectangleCount_Puzzle) with configurable parameters
+Generates ASCII rectangle counting puzzles with configurable parameters
 
 Default configuration:
 ```python
@@ -4806,6 +4991,156 @@ Metadata: {'matrix': [[28, 17, 38, 29, 8, 15, 26], [35, 13, 37, 39, 27, 40, 20],
 
 ````
 
+### rotten_oranges
+Generates Rotten Oranges exercises with configurable difficulty
+
+Default configuration:
+```python
+min_n = 10
+max_n = 30
+p_oranges = 0.85
+p_rotten = 0.1
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are given an n x n grid where each cell can have one of three values:
+- 0 representing an empty cell
+- 1 representing a fresh orange
+- 2 representing a rotten orange
+
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Your task is determine the minimum number of minutes that must elapse until no cell has a fresh orange.
+If this is impossible, return -1.
+
+Example:
+- Input: Determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
+    2 1 1
+    1 1 0
+    0 1 1
+- Output: 4
+
+Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
+1 1 1 1 2 1 1 1 1 0 1 1 1 1 1 2 1 0 1 1 1 1 1 0 0 1 1 1 1 1
+1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 2 1 0
+1 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 1 1 0 1 1 1 0 1 2 1 1 2 1 1
+1 1 1 1 1 1 0 1 2 1 1 1 1 0 1 0 1 2 1 1 1 0 2 1 1 1 1 1 2 2
+2 1 2 1 2 0 1 1 2 1 1 1 1 1 0 0 1 2 1 1 1 1 1 0 1 1 0 1 1 1
+1 1 0 1 0 1 2 1 0 1 1 1 1 1 1 1 0 0 1 1 1 0 0 1 1 1 1 0 1 1
+1 1 1 1 1 0 1 1 1 1 1 2 0 1 0 1 1 1 1 2 1 1 0 1 1 0 1 1 1 1
+1 1 1 1 1 1 1 1 1 0 1 1 2 0 1 1 1 1 1 1 1 1 0 0 0 1 1 1 0 1
+1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 0 1 0 1 1 0 1 1
+1 1 0 0 1 1 1 0 1 1 1 1 1 1 1 2 0 2 1 1 1 0 1 1 0 1 1 1 1 1
+1 1 1 1 1 1 2 2 1 1 0 1 1 1 0 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 0 1 1 1 1 0 1 1 1 1 1 1 1 2 1 1 2 1 1 1 2 1 1 1 1
+1 1 1 0 1 1 1 1 1 1 1 1 2 1 0 1 1 1 1 1 1 1 1 0 1 1 1 1 0 1
+1 1 2 1 1 1 1 0 1 0 1 1 1 1 1 2 1 1 2 0 2 1 1 1 1 0 2 1 1 1
+1 1 1 0 1 1 1 1 1 2 1 1 2 1 1 0 1 1 1 0 0 1 0 1 1 1 1 1 1 1
+2 0 1 0 0 1 1 2 1 1 1 1 1 1 2 0 1 1 2 2 1 1 1 1 1 1 1 1 0 1
+2 0 0 1 1 1 0 1 1 2 1 1 1 0 1 0 1 1 1 1 1 1 1 1 1 1 1 0 1 1
+0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 0 1 1 1 1 1 0 1 1
+1 1 1 0 1 2 1 0 2 1 0 1 0 1 1 1 1 1 1 0 1 1 1 1 1 1 2 1 1 1
+1 1 2 0 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 2 1 1 1 1 1 0 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1 1 1 2 1 1 1 1 1 1
+1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 0 1 2 1 1 1 1 1 1 2
+0 1 1 1 1 1 1 1 1 2 2 1 1 1 1 0 2 0 1 1 0 1 1 1 1 0 1 1 1 2
+1 1 1 0 0 1 1 0 1 1 2 1 1 1 0 0 1 2 1 1 1 1 1 1 1 0 1 1 1 0
+2 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 0 1 1 1 2 1 2 0 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 0 1 1 2 1 1 1 1 1 1 1 1
+0 1 1 1 1 2 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 0 1 1 2 1 1 0 1 1 1 1 1 0 1 1 1 1 0 1 1 1 1 1 1 1 1 1 0
+1 1 1 1 1 2 1 1 1 1 1 1 1 0 1 1 1 0 1 2 1 1 1 1 1 1 1 1 2 0
+1 1 1 1 1 1 1 1 1 1 1 1 2 0 0 1 0 1 1 1 1 2 1 1 1 1 1 1 1 1
+
+Answer: 6
+Metadata: {'matrix': [[1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 0], [1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 2, 1, 1], [1, 1, 1, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 2, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1, 2, 2], [2, 1, 2, 1, 2, 0, 1, 1, 2, 1, 1, 1, 1, 1, 0, 0, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1], [1, 1, 0, 1, 0, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 0, 1, 0, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1], [1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 0, 2, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1], [1, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0, 2, 1, 1, 1, 1, 0, 2, 1, 1, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1], [2, 0, 1, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1], [2, 0, 0, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 0, 1, 2, 1, 0, 2, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], [1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 2, 1, 1, 1, 1, 1, 1, 2], [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 0, 2, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 2], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 2, 1, 1, 1, 0, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0], [2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 2, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 1, 0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1]], 'solution': 6}
+
+Example 2:
+Question: You are given an n x n grid where each cell can have one of three values:
+- 0 representing an empty cell
+- 1 representing a fresh orange
+- 2 representing a rotten orange
+
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Your task is determine the minimum number of minutes that must elapse until no cell has a fresh orange.
+If this is impossible, return -1.
+
+Example:
+- Input: Determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
+    2 1 1
+    1 1 0
+    0 1 1
+- Output: 4
+
+Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
+1 0 1 1 1 1 0 0 0 2 1
+1 1 1 1 1 2 1 1 0 1 2
+1 1 1 1 1 0 1 2 0 1 0
+1 1 1 1 0 1 1 1 1 1 2
+1 1 1 1 1 2 1 1 0 1 1
+2 1 1 1 1 1 1 1 2 0 1
+1 1 1 1 1 1 1 1 1 1 1
+1 0 1 1 2 1 1 1 0 1 1
+1 1 1 1 1 1 2 1 1 1 1
+0 2 1 1 1 1 0 1 1 1 1
+1 0 1 1 1 1 1 1 0 1 1
+
+Answer: -1
+Metadata: {'matrix': [[1, 0, 1, 1, 1, 1, 0, 0, 0, 2, 1], [1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 2], [1, 1, 1, 1, 1, 0, 1, 2, 0, 1, 0], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2], [1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1], [2, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 1, 1, 2, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1], [0, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1], [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1]], 'solution': -1}
+
+Example 3:
+Question: You are given an n x n grid where each cell can have one of three values:
+- 0 representing an empty cell
+- 1 representing a fresh orange
+- 2 representing a rotten orange
+
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Your task is determine the minimum number of minutes that must elapse until no cell has a fresh orange.
+If this is impossible, return -1.
+
+Example:
+- Input: Determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
+    2 1 1
+    1 1 0
+    0 1 1
+- Output: 4
+
+Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
+1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 0 1 1 1 1 1
+1 0 1 1 1 1 1 1 0 1 1 1 0 1 1 0 2 1 2 1 1 0 0
+1 0 0 0 1 1 1 1 0 1 1 1 1 1 1 1 2 1 1 1 1 0 1
+0 0 2 0 1 1 1 0 1 1 0 2 1 1 2 2 0 1 1 2 1 0 1
+1 1 1 0 1 1 1 1 1 1 0 1 0 1 1 1 1 1 1 0 1 1 1
+1 1 2 1 1 1 1 2 1 1 1 1 1 1 2 2 1 1 1 1 1 0 1
+1 1 1 1 1 2 1 1 2 1 1 1 1 0 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 2 1 1 1 1 1 0 1 1 1 1 0 1 0 1 1
+0 1 1 1 0 0 1 1 1 0 1 1 0 2 1 1 2 1 0 1 2 0 1
+1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 2 1 1 0 1 1 1 1
+1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1
+1 1 1 0 0 1 1 0 1 1 1 1 2 1 1 0 1 0 1 1 1 1 1
+2 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 0 1 0 1 1
+1 1 1 0 0 0 1 2 1 1 1 1 1 2 0 1 1 1 1 1 1 1 0
+1 1 1 1 1 1 1 1 0 1 1 0 1 1 1 1 0 2 1 1 1 1 2
+1 1 1 1 1 1 1 1 1 2 0 1 1 0 2 1 1 1 1 1 1 1 1
+1 1 1 0 1 0 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 1 1
+2 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 1 1 0 1 1 2 1
+1 1 0 1 2 1 1 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 0
+1 1 0 1 1 1 1 2 1 1 1 2 1 1 1 0 1 2 1 1 1 1 1
+1 2 1 1 2 1 0 1 0 1 2 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 0 1 2 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1
+1 1 0 1 1 2 1 1 1 1 1 0 1 1 0 1 1 1 0 1 0 0 1
+
+Answer: 13
+Metadata: {'matrix': [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 1], [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 2, 1, 1, 0, 0], [1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1], [0, 0, 2, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 1, 2, 2, 0, 1, 1, 2, 1, 0, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1], [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1], [0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 1, 2, 1, 0, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1], [2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1], [1, 1, 1, 0, 0, 0, 1, 2, 1, 1, 1, 1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 2, 1, 1, 1, 1, 2], [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1], [2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 2, 1], [1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1], [1, 2, 1, 1, 2, 1, 0, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1]], 'solution': 13}
+
+````
+
 ### rubiks_cube
 Generates RubiksCube tasks
 
@@ -5073,17 +5408,17 @@ size = 100
 Example tasks:
 ````
 Example 1:
-Question: Given a convex polygon with 3 sides, its first 2 interior angles are: 16.0°, 80.0°. What is the measure of the remaining interior angle (in degrees)?
+Question: Given a convex polygon with 3 sides, its first 2 interior angles are: 16.0°, 80.0°. What is the measure of the remaining interior angle (in degrees)?Return only the angle as your answer.Do not give the units in your answer.
 Answer: 84
 Metadata: {'n_sides': 3, 'known_angles': [16.0, 80.0], 'sum_of_known_angles': 96.0, 'missing_angle_raw': 84.0, 'missing_angle_rounded': 84, 'total_interior_sum': 180}
 
 Example 2:
-Question: A convex polygon has 3 sides. The measures of the first 2 interior angles are: 83.0°, 46.0°. Find the measure of the last interior angle.
+Question: A convex polygon has 3 sides. The measures of the first 2 interior angles are: 83.0°, 46.0°. Find the measure of the last interior angle.Return only the angle as your answer.Do not give the units in your answer.
 Answer: 51
 Metadata: {'n_sides': 3, 'known_angles': [83.0, 46.0], 'sum_of_known_angles': 129.0, 'missing_angle_raw': 51.0, 'missing_angle_rounded': 51, 'total_interior_sum': 180}
 
 Example 3:
-Question: Given a convex polygon with 6 sides, its first 5 interior angles are: 143.0°, 148.0°, 39.0°, 55.0°, 107.0°. What is the measure of the remaining interior angle (in degrees)?
+Question: Given a convex polygon with 6 sides, its first 5 interior angles are: 143.0°, 148.0°, 39.0°, 55.0°, 107.0°. What is the measure of the remaining interior angle (in degrees)?Return only the angle as your answer.Do not give the units in your answer.
 Answer: 228
 Metadata: {'n_sides': 6, 'known_angles': [143.0, 148.0, 39.0, 55.0, 107.0], 'sum_of_known_angles': 492.0, 'missing_angle_raw': 228.0, 'missing_angle_rounded': 228, 'total_interior_sum': 720}
 
@@ -5949,7 +6284,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 19, 9, 44), 'end_time': datetime.datetime(2025, 2, 19, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 20, 9, 44), 'end_time': datetime.datetime(2025, 2, 20, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -6293,7 +6628,7 @@ Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 
 8. The one who only drinks water is Carol.
 9. Carol is the person who uses a OnePlus 9.
 
-What is Name of the person who lives in House 1?
+What is Name of the person who lives in House 1?? Provide only the name of the person as your final answer.
 Answer: bob
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
@@ -6316,7 +6651,7 @@ Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 
 10. The British person is directly left of the German.
 11. The person who is the mother of Billy is the person who is a pizza lover.
 
-What is Name of the person who lives in House 1?
+What is Name of the person who lives in House 1?? Provide only the name of the person as your final answer.
 Answer: carol
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
@@ -6337,7 +6672,7 @@ Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 
 8. The Dunhill smoker is Bob.
 9. The person who loves the soup is the person who loves blue.
 
-What is Name of the person who lives in House 1?
+What is Name of the person who lives in House 1?? Provide only the name of the person as your final answer.
 Answer: carol
 Metadata: {'num_people': 4, 'num_characteristics': 4}
 
