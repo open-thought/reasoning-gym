@@ -279,8 +279,8 @@ Reply as a JSON-parsable list of moves which result in any of the jugs being fil
 
         return {
             "question": question,
-            "answer": None,
-            "metadata": {"possible_answer": solution, "puzzle": puzzle},
+            "answer": json.dumps(solution),  # one possible solution
+            "metadata": {"puzzle": puzzle},
         }
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
