@@ -232,9 +232,9 @@ class JugsConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert self.num_jugs > 2, "edge_probability must be gt 2"
-        assert self.difficulty > 0, "edge_probability must be gt 0"
-        assert self.difficulty < 200, "edge_probability must be gt 200"
+        assert self.num_jugs > 2, "num_jugs must be gt 2"
+        assert self.difficulty > 0, "difficulty must be gt 0"
+        assert self.difficulty < 200, "difficulty must be lt 200"
 
 
 class JugsDataset(ProceduralDataset):
