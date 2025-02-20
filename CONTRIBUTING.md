@@ -66,6 +66,25 @@ When creating new datasets, please follow these guidelines:
    - [Create a Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
    - [Request review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review)
    - Do not include changes to `GALLERY.md` (it's updated automatically)
+   - (Optional, but desirable) If you have an OpenRouter API key, please try running DeepSeek R1 against 5-10 samples from your dataset to make sure there are no unexpected issues with your dataset.
+      1. Update the configuration file `eval/r1/yaml/test.yaml` with your dataset:
+         ```yaml
+         # test.yaml
+         model: deepseek/deepseek-r1
+         category: test
+         datasets:
+         - {YOUR_DATASET_NAME}
+         eval_dir: eval/r1
+         dataset_size: 10
+         dataset_seed: 42
+         developer_role: system
+         ```
+      2. Run the evaluation script:
+         ```bash
+         python eval/r1/eval.py --yaml "eval/r1/yaml/test.yaml"
+         ```
+      3. Review the results in `eval/r1/test/{YOUR_DATASET_NAME}.json` and make sure there are no unexpected issues with the dataset generation, model's instruction following, or the scoring function.
+      4. Include the results in your PR description.
 
 5. **Review Process**:
    - Address reviewer feedback promptly
