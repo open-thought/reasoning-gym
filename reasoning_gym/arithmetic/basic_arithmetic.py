@@ -88,7 +88,7 @@ class BasicArithmeticDataset(ProceduralDataset):
         else:
             expression, result = self._generate_simple_task(rng, num_terms, num_digits)
 
-        question = self._format_question(rng, expression) + self.added_instruction
+        question = self._format_question(rng, expression) + "."
 
         return {
             "question": question,
