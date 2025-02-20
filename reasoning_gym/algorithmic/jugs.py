@@ -9,7 +9,7 @@ from typing import Dict, List, Optional, Tuple
 from ..factory import ProceduralDataset, register_dataset
 
 
-def min_moves_n(jug_capacities, target):
+def min_moves_n(jug_capacities: List[int], target: int) -> Optional[int]:
     """
     Compute the minimum number of moves required to have exactly `target` gallons
     in any one jug for a puzzle with multiple jugs.
@@ -73,7 +73,7 @@ def min_moves_n(jug_capacities, target):
     return None
 
 
-def generate_puzzle(rng, num_jugs=3, difficulty=6, max_attempts=10000):
+def generate_puzzle(rng: Random, num_jugs: int = 3, difficulty: int = 6, max_attempts: int = 10000) -> Dict[str, any]:
     """
     Generate a multi-jug water puzzle.
 
