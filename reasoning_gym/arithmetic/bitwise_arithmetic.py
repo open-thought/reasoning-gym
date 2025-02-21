@@ -150,4 +150,4 @@ class BitwiseArithmeticDataset(ProceduralDataset):
 
 
 # Register the dataset with the factory.
-register_dataset("Bitwise_arithmetic", BitwiseArithmeticDataset, BitwiseArithmeticConfig)
+register_dataset("bitwise_arithmetic", BitwiseArithmeticDataset, BitwiseArithmeticConfig)
