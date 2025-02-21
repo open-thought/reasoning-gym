@@ -38,6 +38,7 @@ from .string_synthesis import StringSynthesisConfig, StringSynthesisDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
 from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
 from .word_sorting import TextTransformation, WordSortingConfig, WordSortingDataset
+from .binary_alternation import BinaryAlternationConfig, BinaryAlternationDataset
 
 __all__ = [
     "SpellBackwardConfig",
@@ -105,4 +106,6 @@ __all__ = [
     "RottenOrangesDataset",
     "JugsConfig",
     "JugsDataset",
+    "BinaryAlternationConfig",
+    "BinaryAlternationDataset",
 ]
