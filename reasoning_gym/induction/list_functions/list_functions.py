@@ -19,25 +19,7 @@ class ListFunctionsDatasetConfig:
         assert self.size > 0, "size must be positive"
 
 
-tasks = [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-]
+tasks = list(range(17))
 
 
 class ListFunctionsDataset(ProceduralDataset):
