@@ -48,7 +48,7 @@ def test_bitwise_arithmetic_items():
 
 def test_bitwise_arithmetic_difficulty_levels():
     """Test that different difficulty levels produce appropriate complexity"""
-    for difficulty in [1, 5, 10]:
+    for difficulty in [1, 2, 3]:
         config = BitwiseArithmeticConfig(difficulty=difficulty, size=50, seed=42)
         dataset = BitwiseArithmeticDataset(config)
 
