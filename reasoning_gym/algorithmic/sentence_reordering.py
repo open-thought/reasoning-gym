@@ -22,8 +22,8 @@ class SentenceReorderingConfig:
         """Validate configuration parameters"""
         assert self.min_words_in_sentence > 0, "min_words_in_sentence must be positive"
         assert (
-            self.max_words_in_sentence >= self.min_words_in_sentence
-        ), "max_words_in_sentence must be >= min_words_in_sentence"
+            self.min_words_in_sentence <= self.max_words_in_sentence
+        ), "min_words_in_sentence must be <= max_words_in_sentence"
         assert (
             self.max_words_in_sentence >= self.min_words_in_sentence
         ), "max_words_in_sentence must be >= min_words_in_sentence"
