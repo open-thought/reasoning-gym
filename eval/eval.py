@@ -54,6 +54,7 @@ class AsyncOpenRouterEvaluator:
             "question": entry["question"],
             "expected_answer": entry["answer"],
             "model_answer": answer,
+            "full_model_response": response,
             "score": score,
             "metadata": entry["metadata"],
         }
