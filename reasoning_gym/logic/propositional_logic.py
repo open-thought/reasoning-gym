@@ -311,11 +311,10 @@ class PropositionalLogicDataset(ProceduralDataset):
             answer_expr = Expression.from_string(cleaned_answer)
 
             if self._is_valid_conclusion(premises, answer_expr):
-                return 1.0
-
-            elif self._is_trivial(answer_expr):
-                return 0.25
-
+                if self._is_trivial(answer_expr):
+                    return 0.25
+                else:
+                    return 1.0
             return 0.05
         except (ValueError, KeyError, AttributeError):
             return 0.01
