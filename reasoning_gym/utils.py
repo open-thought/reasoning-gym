@@ -87,7 +87,7 @@ def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_comm
     Args:
         answer: Answer provided by model
         oracle_answer: Correct answer to the question
-        allow_commas: Whether to allow commas in the answer e.g "1,000" = "1000"
+        strip_commas: Whether to remove commas from answers e.g "1,000" = "1000"
 
     Returns:
         Reward value between 0.0 and 1.0
