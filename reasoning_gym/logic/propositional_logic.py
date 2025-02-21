@@ -294,7 +294,7 @@ class PropositionalLogicDataset(ProceduralDataset):
         else:
             return 1 + self._measure_complexity(expression.left) + self._measure_complexity(expression.right)
 
-    def score_answer(self, answer: str | None, entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: str | None, entry: dict[str, Any]) -> float:
         """Robust scoring implementation for propositional logic answers"""
         if not answer:
             return 0.0
