@@ -101,7 +101,7 @@ def verify_solution(problem, user_solution):
 
 
 class BitwiseArithmeticDataset(ProceduralDataset):
-    """Dataset that generates basic tasks using bitwise arithmetic and proper operator precedence."""
+    """Dataset that generates basic tasks using bitwise arithmetic, shift registers and proper operator precedence."""
 
     def __init__(self, config: BitwiseArithmeticConfig) -> None:
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -114,7 +114,7 @@ class BitwiseArithmeticDataset(ProceduralDataset):
             dict: Contains:
               - 'question': The formatted arithmetic expression as a string.
               - 'answer': The computed hexidecimal result.
-              - 'metadata': Additional metadata.
+              - 'metadata': Additional metadata, including just the problem without prompt.
         """
         # Create a deterministic RNG from base seed and index.
         rng: Random = Random(self.seed + idx if self.seed is not None else None)
@@ -129,12 +129,10 @@ class BitwiseArithmeticDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
         """
-        Compares the user's answer (converted to Bitwise) with the correct answer.
-        Instead of requiring exact equality, we allow an error up to one unit in the
-        least significant digit as determined by the level of precision (max_num_Bitwise_places).
+        Compares the user's answer with the correct answer.
 
         Returns:
-            float: 1.0 if the user's answer is within tolerance; otherwise, 0.01.
+            float: 1.0 if the user's answer is correct; otherwise, 0.01 unless no answer is provided, in which case 0.
         """
         if answer is None:
             return 0.0
