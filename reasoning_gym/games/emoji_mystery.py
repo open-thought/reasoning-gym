@@ -119,7 +119,9 @@ _EMOJIS = [
 ]
 
 
-hint_function = """def variance_selector_to_byte(variation_selector):
+hint_function = """
+```python
+def variance_selector_to_byte(variation_selector):
     variation_selector_codepoint = ord(variation_selector)
     if 0xFE00 <= variation_selector_codepoint <= 0xFE0F:
         return variation_selector_codepoint - 0xFE00
@@ -134,12 +136,14 @@ def decode(encoded_sentence):
         byte_val = variance_selector_to_byte(char)
         if byte_val is not None:
             decoded_bytes.append(byte_val)
-    return bytes(decoded_bytes).decode('utf-8')"""
+    return bytes(decoded_bytes).decode('utf-8')
+```
+"""
 
 
 QUESTION_TEMPLATE = "\n".join(
     [
-        "The following emoji is encoded with a sentence",
+        "The following emoji is encoded with a sentence.",
         "Decode the following sentence from the emoji: {sentence}",
         "Here is a hint: {hint_function}",
         "Return the secret sentence as your final answer.",

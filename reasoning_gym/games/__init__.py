@@ -8,7 +8,6 @@ Game tasks for training reasoning capabilities:
 
 from .countdown import CountdownConfig, CountdownDataset
 from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryDataset
-from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .futoshiki import FutoshikiConfig, FutoshikiDataset
 from .knight_swap import KnightSwapConfig, KnightSwapDataset
 from .maze import MazeConfig, MazeDataset
