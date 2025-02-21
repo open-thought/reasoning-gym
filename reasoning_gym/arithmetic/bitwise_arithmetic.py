@@ -9,7 +9,7 @@ from ..factory import ProceduralDataset, register_dataset
 class BitwiseArithmeticConfig:
     """Configuration for Bitwise arithmetic dataset generation"""
 
-    difficulty: int = 2
+    difficulty: int = 2  # Controls expression complexity: 1=simple expressions, 2=nested expressions, 3+=deeper nesting
     seed: Optional[int] = None
     size: int = 500
 
@@ -104,7 +104,26 @@ def verify_solution(problem, user_solution):
 
 
 class BitwiseArithmeticDataset(ProceduralDataset):
-    """Dataset that generates basic tasks using bitwise arithmetic, shift registers and proper operator precedence."""
+    """Dataset that generates tasks testing understanding of bitwise arithmetic operations.
+
+    Generates expressions combining:
+    - Standard arithmetic operators (+, -, *)
+    - Bitwise shift operators (<<, >>)
+    - Multi-byte hexadecimal numbers (e.g. 0x100 to 0xFFFF)
+
+    The difficulty parameter controls expression complexity:
+    - Level 1: Simple expressions like (0x123 + 0x456)
+    - Level 2: Nested expressions with shifts like ((0x123 + 0x456) << 1)
+    - Level 3+: Deeper nesting like ((0x123 + 0x456) << (0x789 >> 1))
+
+    Each task provides:
+    - A question asking to evaluate an expression
+    - The correct answer in hexadecimal format
+    - Metadata including the raw expression
+
+    The dataset verifies answers by evaluating them as Python expressions,
+    supporting both integer and hexadecimal string formats.
+    """
 
     def __init__(self, config: BitwiseArithmeticConfig) -> None:
         super().__init__(config=config, seed=config.seed, size=config.size)
