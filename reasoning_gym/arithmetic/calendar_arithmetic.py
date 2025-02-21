@@ -4,7 +4,7 @@ import random
 from dataclasses import dataclass
 from datetime import date, timedelta
 from enum import Enum, StrEnum, auto
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -51,7 +51,7 @@ class CalendarTask(StrEnum):
 @dataclass
 class CalendarArithmeticConfig:
     year: int = 2022
-    tasks: Optional[List[str]] = None
+    tasks: Optional[list[str]] = None
     offset_upper_bound: int = 100
     leap_year_range: int = 200
     seed: Optional[int] = 42
@@ -131,7 +131,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
             "metadata": metadata,
         }
 
-    def _weekday_offset(self, rng: random.Random) -> Tuple[str, str, dict]:
+    def _weekday_offset(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         Task: Given a starting date and a day offset (which may be positive or negative),
         ask what day of the week it will be.
@@ -170,7 +170,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, target_weekday, metadata
 
-    def _weekday_of_date(self, rng: random.Random) -> Tuple[str, str, dict]:
+    def _weekday_of_date(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: Ask what day of the week a given date was.
         example:
@@ -193,7 +193,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, answer_weekday, metadata
 
-    def _weekday_of_date_from_first_day(self, rng: random.Random) -> Tuple[str, str, dict]:
+    def _weekday_of_date_from_first_day(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: Given an hypothetical weekday for January 1, ask what weekday a later date in the year falls on.
         example:
@@ -235,7 +235,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, answer_weekday, metadata
 
-    def _recurring_event_day(self, rng: random.Random) -> Tuple[str, str, dict]:
+    def _recurring_event_day(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: For a recurring event defined by an ordinal weekday pattern in a month,
         ask on which day of the month the event occurs.
@@ -294,7 +294,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, str(event_day), metadata
 
-    def _count_days(self, rng: random.Random) -> Tuple[str, str, dict]:
+    def _count_days(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: Ask how many times a given weekday occurs in a specified range.
         example:
@@ -334,7 +334,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, str(count), metadata
 
-    def _count_business_days(self, rng: random.Random) -> Tuple[str, str, dict]:
+    def _count_business_days(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: Count the number of business days (Monday-Friday) between two dates.
         example:
@@ -385,7 +385,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, str(count), metadata
 
-    def _is_leap_year(self, rng: random.Random) -> Tuple[str, str, dict]:
+    def _is_leap_year(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: Given a year, determine whether it is a leap year.
         example:
@@ -426,7 +426,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         random_days = rng.randint(0, delta)
         return start_date + timedelta(days=random_days)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         # we suppose the answer is the last occurence of the expected answer type
         if answer is None:
             return 0.0

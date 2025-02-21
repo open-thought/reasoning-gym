@@ -1,7 +1,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional
+from typing import Any, Optional
 
 from magiccube.cube import Cube, CubeMove, CubeMoveType
 from magiccube.solver.basic.basic_solver import BasicSolver
@@ -36,7 +36,7 @@ class RubiksCubeDataset(ProceduralDataset):
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _generate_random_moves(self, rng: Random, cube: Cube, num_steps: int = 50, wide=None) -> List[CubeMove]:
+    def _generate_random_moves(self, rng: Random, cube: Cube, num_steps: int = 50, wide=None) -> list[CubeMove]:
         """Generate a list of random moves (but don't apply them).
         By default scramble only uses wide moves to cubes with size >=4."""
 
@@ -106,7 +106,7 @@ class RubiksCubeDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the cube"""
         reward = 0.0  # default reward
         if answer is not None:

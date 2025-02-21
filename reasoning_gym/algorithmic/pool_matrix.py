@@ -1,9 +1,8 @@
 """Perform average / max pooling on a matrix"""
 
-from copy import deepcopy
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 import numpy as np
 
@@ -95,7 +94,7 @@ class PoolMatrixDataset(ProceduralDataset):
             ]
         )
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score the answer based on the metadata"""
 
         reward = 0.0

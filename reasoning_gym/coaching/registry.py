@@ -1,6 +1,6 @@
 """Registry for managing active experiments."""
 
-from typing import Dict, List, Optional
+from typing import Optional
 
 from ..composite import CompositeConfig
 from .experiment import Experiment
@@ -25,7 +25,7 @@ class ExperimentRegistry:
         """Get an experiment by name."""
         return self._experiments.get(name)
 
-    def list_experiments(self) -> List[str]:
+    def list_experiments(self) -> list[str]:
         """List all registered experiment names."""
         return list(self._experiments.keys())
 

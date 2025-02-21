@@ -3,7 +3,7 @@
 from collections import deque
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Optional
 
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
@@ -82,7 +82,7 @@ class WordLadderDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     @classmethod
-    def _load_words_from_csv(cls, min_length: int = 3, max_length: int = 5) -> Dict[int, Set[str]]:
+    def _load_words_from_csv(cls, min_length: int = 3, max_length: int = 5) -> dict[int, set[str]]:
         """Load words from CSV file organized by length"""
         # Validate length range before processing
         assert 3 <= min_length <= max_length <= 5, "Word length must be between 3 and 5 inclusive"
@@ -117,7 +117,7 @@ class WordLadderDataset(ProceduralDataset):
 
         return word_sets
 
-    def _get_neighbors(self, word: str, word_set: Set[str]) -> Set[str]:
+    def _get_neighbors(self, word: str, word_set: set[str]) -> set[str]:
         """Get neighbors from either precomputed graph or by computing on demand"""
         # Try precomputed graph first
         if len(word) in self.word_graphs and word in self.word_graphs[len(word)]:
@@ -132,7 +132,7 @@ class WordLadderDataset(ProceduralDataset):
                     neighbors.add(neighbor)
         return neighbors
 
-    def _build_word_graph(self, word_length: int) -> Dict[str, Set[str]]:
+    def _build_word_graph(self, word_length: int) -> dict[str, set[str]]:
         """Build graph of word connections for given length, using caching"""
         # Return cached graph if it exists
         if word_length in self.word_graphs:
@@ -156,7 +156,7 @@ class WordLadderDataset(ProceduralDataset):
         self.word_graphs[word_length] = graph
         return self.word_graphs[word_length]
 
-    def _find_path(self, start: str, end: str, word_set: Set[str]) -> Optional[List[str]]:
+    def _find_path(self, start: str, end: str, word_set: set[str]) -> Optional[list[str]]:
         """Simplified path finding using BFS for shortest paths"""
         # Early exit if words are direct neighbors
         if end in self._get_neighbors(start, word_set):
@@ -181,7 +181,7 @@ class WordLadderDataset(ProceduralDataset):
 
         return None
 
-    def _generate_word_pair(self, rng: Random, length: int) -> Tuple[str, str, List[str]]:
+    def _generate_word_pair(self, rng: Random, length: int) -> tuple[str, str, list[str]]:
         """Simplified word pair generation"""
         word_set = self.word_sets[length]
         words_list = sorted(word_set)
@@ -220,7 +220,7 @@ class WordLadderDataset(ProceduralDataset):
             "metadata": {"start_word": start, "end_word": end, "word_length": length, "chain_length": len(path)},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         if answer is None:
             return 0
 

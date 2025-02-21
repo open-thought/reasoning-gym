@@ -4,7 +4,7 @@ import math
 import random
 import re
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -62,23 +62,23 @@ class MoveGenerator:
     It maintains the current state of all pegs to ensure move validity.
     """
 
-    def __init__(self, num_disks: int, pegs: List[int], start: int, target: int):
+    def __init__(self, num_disks: int, pegs: list[int], start: int, target: int):
         self.num_disks = num_disks
         self.pegs = pegs
         self.start = start
         self.target = target
         self.auxiliary_pegs = [peg for peg in pegs if peg not in (start, target)]
-        self.pegs_state: Dict[int, List[int]] = {peg: [] for peg in pegs}
+        self.pegs_state: dict[int, list[int]] = {peg: [] for peg in pegs}
         for disk in range(num_disks, 0, -1):  # Largest disk at the bottom
             self.pegs_state[start].append(disk)
-        self.moves: List[str] = []
-        self.memo: Dict[Tuple[int, int], int] = {}  # Memoization for T(n, k)
+        self.moves: list[str] = []
+        self.memo: dict[tuple[int, int], int] = {}  # Memoization for T(n, k)
 
-    def generate_moves(self) -> List[str]:
+    def generate_moves(self) -> list[str]:
         self.move(n=self.num_disks, source=self.start, target=self.target, auxiliary_pegs=self.auxiliary_pegs)
         return self.moves
 
-    def move(self, n: int, source: int, target: int, auxiliary_pegs: List[int]):
+    def move(self, n: int, source: int, target: int, auxiliary_pegs: list[int]):
         if n == 0:
             return
         if n == 1:
@@ -175,10 +175,10 @@ class HanoiDataset(ProceduralDataset):
         Returns:
             dict with:
             - "question": Text describing the problem setup.
-            - "answer": List of moves to solve the puzzle.
+            - "answer": list of moves to solve the puzzle.
             - "metadata": Configuration and solution details.
             - "initial_state": (Optional) ASCII visualization of the initial pegs.
-            - "states": (Optional) List of ASCII visualizations after each move.
+            - "states": (Optional) list of ASCII visualizations after each move.
         """
         rng = random.Random(self.seed + idx if self.seed is not None else None)
 
@@ -282,11 +282,11 @@ class HanoiDataset(ProceduralDataset):
 
         if self.visualize:
             result["initial_state"] = initial_state_str
-            result["states"] = states  # List of all states including initial and after each move
+            result["states"] = states  # list of all states including initial and after each move
 
         return result
 
-    def _visualize_state(self, pegs_state: Dict[int, List[int]]) -> str:
+    def _visualize_state(self, pegs_state: dict[int, list[int]]) -> str:
         """
         Create an ASCII visualization of the current state of the pegs.
         Adapts to variable number of pegs.
@@ -321,7 +321,7 @@ class HanoiDataset(ProceduralDataset):
 
         return visualization
 
-    def _validate_move(self, pegs_state: Dict[int, List[int]], move: str) -> bool:
+    def _validate_move(self, pegs_state: dict[int, list[int]], move: str) -> bool:
         """
         Validate that a move adheres to the Tower of Hanoi rules.
 
@@ -356,7 +356,7 @@ class HanoiDataset(ProceduralDataset):
             print(f"Error validating move '{move}': {e}")
             return False
 
-    def _parse_move(self, move: str) -> Tuple[int, int, int]:
+    def _parse_move(self, move: str) -> tuple[int, int, int]:
         """
         Parse a move string and extract disk number, from peg, and to peg.
 
@@ -376,7 +376,7 @@ class HanoiDataset(ProceduralDataset):
         to_peg = int(match.group(3))
         return disk, from_peg, to_peg
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
         Score the user's solution for the Tower of Hanoi puzzle.
 

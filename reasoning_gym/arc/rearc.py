@@ -95,7 +95,7 @@ class ReArcDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: str, entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: str, entry: dict[str, Any]) -> float:
         reward = 0.0
         metadata = entry["metadata"]
         if answer is not None:

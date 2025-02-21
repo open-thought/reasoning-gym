@@ -49,7 +49,7 @@ class SpellBackwardDataset(ProceduralDataset):
             "metadata": {"word": word, "word_len": len(word)},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
         expected_answer = entry["answer"]
         if answer is not None:

@@ -6,7 +6,7 @@ https://www.michaelfogleman.com/rush/
 import random
 import re
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from typing import Optional
 
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
@@ -105,7 +105,7 @@ class RushHourDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
         # Load and filter puzzles from data file
-        self.puzzles: List[Tuple[str, int]] = []  # (board_config, min_moves)
+        self.puzzles: list[tuple[str, int]] = []  # (board_config, min_moves)
 
         data_path = get_data_file_path("rush_18k.txt")
         with data_path.open() as f:

@@ -3,7 +3,7 @@
 import copy
 from dataclasses import dataclass
 from random import Random
-from typing import Any, List, Optional, Set, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -47,7 +47,7 @@ class SudokuDataset(ProceduralDataset):
         self._current_idx += 1
         return item
 
-    def _is_valid(self, board: List[List[int]], row: int, col: int, num: int) -> bool:
+    def _is_valid(self, board: list[list[int]], row: int, col: int, num: int) -> bool:
         """Check if number can be placed at position"""
         # Check row
         if num in board[row]:
@@ -65,7 +65,7 @@ class SudokuDataset(ProceduralDataset):
                     return False
         return True
 
-    def _get_possible_values(self, board: List[List[int]], row: int, col: int) -> Set[int]:
+    def _get_possible_values(self, board: list[list[int]], row: int, col: int) -> set[int]:
         """Get all possible values for a cell."""
         row_values = set(board[row])
         col_values = set(board[i][col] for i in range(9))
@@ -80,7 +80,7 @@ class SudokuDataset(ProceduralDataset):
         used_values = row_values | col_values | box_values
         return set(range(1, 10)) - used_values
 
-    def _solve(self, board: List[List[int]]) -> bool:
+    def _solve(self, board: list[list[int]]) -> bool:
         """Solve sudoku using backtracking"""
         empty = self._find_empty(board)
         if not empty:
@@ -94,7 +94,7 @@ class SudokuDataset(ProceduralDataset):
             board[row][col] = 0
         return False
 
-    def _find_empty(self, board: List[List[int]]) -> Optional[Tuple[int, int]]:
+    def _find_empty(self, board: list[list[int]]) -> Optional[tuple[int, int]]:
         """Find an empty cell"""
         for i in range(9):
             for j in range(9):
@@ -102,7 +102,7 @@ class SudokuDataset(ProceduralDataset):
                     return (i, j)
         return None
 
-    def _generate_solved_board(self, rng: Random) -> List[List[int]]:
+    def _generate_solved_board(self, rng: Random) -> list[list[int]]:
         """Generate a complete solved sudoku board"""
         board = [[0] * 9 for _ in range(9)]
 
@@ -120,10 +120,10 @@ class SudokuDataset(ProceduralDataset):
         self._solve(board)
         return board
 
-    def _count_solutions(self, board: List[List[int]], limit: int = 2) -> int:
+    def _count_solutions(self, board: list[list[int]], limit: int = 2) -> int:
         """Count the number of solutions for a given board"""
 
-        def _get_min_possibilities_cell(board: List[List[int]]) -> Optional[Tuple[int, int, Set[int]]]:
+        def _get_min_possibilities_cell(board: list[list[int]]) -> Optional[tuple[int, int, set[int]]]:
             """
             Get the cell with the lowest number of possibilities.
             Returns None if the board is already solved.
@@ -145,7 +145,7 @@ class SudokuDataset(ProceduralDataset):
 
             return (*min_cell, min_values) if min_cell else None
 
-        def _count_solutions_helper(board: List[List[int]]) -> int:
+        def _count_solutions_helper(board: list[list[int]]) -> int:
             cell_info = _get_min_possibilities_cell(board)
             if not cell_info:
                 return 1
@@ -162,7 +162,7 @@ class SudokuDataset(ProceduralDataset):
 
         return _count_solutions_helper(board)
 
-    def _create_puzzle(self, solved_board: List[List[int]], num_empty: int, rng: Random) -> List[List[int]]:
+    def _create_puzzle(self, solved_board: list[list[int]], num_empty: int, rng: Random) -> list[list[int]]:
         """Create puzzle by removing numbers from solved board"""
         puzzle = [row[:] for row in solved_board]
         cells = [(i, j) for i in range(9) for j in range(9)]
@@ -183,7 +183,7 @@ class SudokuDataset(ProceduralDataset):
 
         return puzzle
 
-    def _board_to_string(self, board: List[List[int]]) -> str:
+    def _board_to_string(self, board: list[list[int]]) -> str:
         """Convert board to string representation"""
         return "\n".join(" ".join(str(x) if x != 0 else "_" for x in row) for row in board)
 

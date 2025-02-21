@@ -133,7 +133,7 @@ class DecimalChainSumDataset(ProceduralDataset):
         result = result.quantize(Decimal(f"0.{'0' * max(decimal_places)}"))
         return expression, result
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score the answer by comparing decimal values instead of strings.
         Args:
             answer: The answer to score

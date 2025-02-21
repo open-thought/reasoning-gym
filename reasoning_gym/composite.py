@@ -1,6 +1,6 @@
 from dataclasses import dataclass, replace
 from random import Random
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import yaml
 
@@ -30,7 +30,7 @@ class CompositeConfig:
 
     size: int = 500
     seed: Optional[int] = None
-    datasets: List[DatasetSpec] = None
+    datasets: list[DatasetSpec] = None
 
     def validate(self):
         """Validate configuration parameters"""
@@ -120,7 +120,7 @@ class CompositeDataset(ProceduralDataset):
 
         return item
 
-    def update_dataset_config(self, dataset_name: str, config_updates: Dict[str, Any]) -> None:
+    def update_dataset_config(self, dataset_name: str, config_updates: dict[str, Any]) -> None:
         """Update configuration of a specific dataset
 
         Args:
@@ -175,7 +175,7 @@ class CompositeDataset(ProceduralDataset):
                 self.weights[i] = weight
                 break
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
         dataset_name = entry["metadata"]["source_dataset"]
         return self.datasets[dataset_name].score_answer(answer, entry)
