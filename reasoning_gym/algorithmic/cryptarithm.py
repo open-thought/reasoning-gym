@@ -211,14 +211,14 @@ class CryptarithmDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the Cryptarithm task.
 
         The function awards 1.0 for a correct format and answers for all alphabet pairs.
 
         Args:
             answer (Optional[str]): The user's answer already parsed by `extract_answer`
-            answer_str (Dict[str, any]): The original dataset answer_str containing the correct answer. ie "A=1,B=3..."
+            answer_str (dict[str, Any]): The original dataset answer_str containing the correct answer. ie "A=1,B=3..."
 
         Returns:
             float: The computed score between 0.0 and 1.0.

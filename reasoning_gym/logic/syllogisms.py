@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from enum import StrEnum
 from random import Random
-from typing import List, Optional, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -105,7 +105,7 @@ class SyllogismDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
         self.terms = self.DEFAULT_TERMS
 
-    def _get_allowed_quantifiers(self) -> List[Quantifier]:
+    def _get_allowed_quantifiers(self) -> list[Quantifier]:
         """Get list of allowed quantifiers based on config"""
         quantifiers = []
         if self.config.allow_all:
@@ -120,9 +120,9 @@ class SyllogismDataset(ProceduralDataset):
 
     @staticmethod
     def _is_valid_syllogism(
-        premise1: Tuple[Quantifier, "Term", "Term"],
-        premise2: Tuple[Quantifier, "Term", "Term"],
-        conclusion: Tuple[Quantifier, "Term", "Term"],
+        premise1: tuple[Quantifier, "Term", "Term"],
+        premise2: tuple[Quantifier, "Term", "Term"],
+        conclusion: tuple[Quantifier, "Term", "Term"],
     ) -> bool:
         """
         Checks whether a given syllogism is valid under classical (Aristotelian) rules,
@@ -247,7 +247,7 @@ class SyllogismDataset(ProceduralDataset):
             return f"{quantifier.value} {subject.plural} are {predicate.plural}"
 
     def _check_logical_equivalence(
-        self, premise: Tuple[Quantifier, Term, Term], conclusion: Tuple[Quantifier, Term, Term]
+        self, premise: tuple[Quantifier, Term, Term], conclusion: tuple[Quantifier, Term, Term]
     ) -> bool:
         """Check if a conclusion is logically equivalent to a premise"""
         p_quant, p_subj, p_pred = premise

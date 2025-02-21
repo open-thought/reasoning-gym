@@ -7,7 +7,7 @@ https://leetcode.com/problems/01-matrix/description/
 from collections import deque
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -112,7 +112,7 @@ class BinaryMatrixDataset(ProceduralDataset):
         """Get a string representation of the matrix"""
         return "\n".join(" ".join(str(x) for x in row) for row in matrix)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["answer"]
         if answer is not None:

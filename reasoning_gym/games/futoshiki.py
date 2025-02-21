@@ -4,7 +4,7 @@ import copy
 import itertools
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -85,7 +85,7 @@ class FutoshikiDataset(ProceduralDataset):
         }
 
     def _puzzle_to_string(
-        self, puzzle_grid: List[List[int]], constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str]
+        self, puzzle_grid: list[list[int]], constraints: dict[tuple[tuple[int, int], tuple[int, int]], str]
     ) -> str:
         """
         Formats a Futoshiki puzzle grid as a string with constraints.
@@ -161,9 +161,9 @@ class FutoshikiDataset(ProceduralDataset):
 
     def _solve_logical(
         self,
-        grid: List[List[int]],
-        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str],
-    ) -> Tuple[List[List[int]], List[List[Set[int]]]]:
+        grid: list[list[int]],
+        constraints: dict[tuple[tuple[int, int], tuple[int, int]], str],
+    ) -> tuple[list[list[int]], list[list[set[int]]]]:
         """
         Apply logical rules to progress solution.
         Returns current state if logical rules can't progress further.
@@ -172,7 +172,7 @@ class FutoshikiDataset(ProceduralDataset):
         size, working_grid = len(grid), copy.deepcopy(grid)
 
         # Starting point all numbers are candidates for all unfilled squares
-        candidates: List[List[Set[int]]] = [
+        candidates: list[list[set[int]]] = [
             [set(range(1, len(grid) + 1)) if grid[r][c] == 0 else {grid[r][c]} for c in range(len(grid))]
             for r in range(len(grid))
         ]
@@ -214,7 +214,7 @@ class FutoshikiDataset(ProceduralDataset):
 
             # Eliminate candidates based on constraints
             # Based on currently filled values, eliminate candidates that violate constraints
-            def _eliminate_by_constraint(rc_less: Tuple[int, int], rc_greater: Tuple[int, int]) -> bool:
+            def _eliminate_by_constraint(rc_less: tuple[int, int], rc_greater: tuple[int, int]) -> bool:
                 r_less, c_less = rc_less
                 r_greater, c_greater = rc_greater
                 progress = False
@@ -399,9 +399,9 @@ class FutoshikiDataset(ProceduralDataset):
 
     def _solve(
         self,
-        grid: List[List[int]],
-        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str],
-    ) -> List[List[int]] | None:
+        grid: list[list[int]],
+        constraints: dict[tuple[tuple[int, int], tuple[int, int]], str],
+    ) -> list[list[int]] | None:
         """
         Backtracking Futoshiki solver. Used to verify generated puzzles.
         Applies logical rules first then backtracks to fill gaps.
@@ -442,11 +442,11 @@ class FutoshikiDataset(ProceduralDataset):
 
     def _is_valid(
         self,
-        grid: List[List[int]],
+        grid: list[list[int]],
         row: int,
         col: int,
         val: int,
-        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str],
+        constraints: dict[tuple[tuple[int, int], tuple[int, int]], str],
     ) -> bool:
         """Check row, col, and inequality constraints for placing val in grid[row][col]."""
         size = len(grid)
@@ -482,7 +482,7 @@ class FutoshikiDataset(ProceduralDataset):
         grid[row][col] = original_val
         return True
 
-    def _generate_random_solution(self, size: int, rng: Random) -> List[List[int]]:
+    def _generate_random_solution(self, size: int, rng: Random) -> list[list[int]]:
         """
         Generates a random valid completed Futoshiki solution with numbers 1..size.
         Ensures each row and column has unique numbers.
@@ -514,8 +514,8 @@ class FutoshikiDataset(ProceduralDataset):
         raise ValueError("Could not generate a random solution.")
 
     def _generate_random_constraints(
-        self, solution: List[List[int]], difficulty: int, rng: Random
-    ) -> Dict[Tuple[Tuple[int, int], Tuple[int, int]], str]:
+        self, solution: list[list[int]], difficulty: int, rng: Random
+    ) -> dict[tuple[tuple[int, int], tuple[int, int]], str]:
         """
         Randomly add inequality constraints that match the solution.
         We only add constraints for adjacent cells (horizontal or vertical).
@@ -570,10 +570,10 @@ class FutoshikiDataset(ProceduralDataset):
 
     def _remove_clues(
         self,
-        grid: List[List[int]],
-        constraints: Dict[Tuple[Tuple[int, int], Tuple[int, int]], str],
+        grid: list[list[int]],
+        constraints: dict[tuple[tuple[int, int], tuple[int, int]], str],
         rng: Random,
-    ) -> List[List[int]]:
+    ) -> list[list[int]]:
         """
         Remove clues from a full solution to try to maintain a unique-solution puzzle.
         We remove in random order until we reach our target, or can't without losing uniqueness.
@@ -637,7 +637,9 @@ class FutoshikiDataset(ProceduralDataset):
             row = 0
             num_matching = 0
             for ln in answer.split("\n"):
-                numbers = [int(c) for c in ln if c.isnumeric()]
+                if row >= len(solution):
+                    break
+                numbers = [int(c) for c in ln if c in "123456789"]
                 if len(numbers) != len(solution[0]):
                     continue  # ignore lines without numbers
                 for a, b in zip(solution[row], numbers):

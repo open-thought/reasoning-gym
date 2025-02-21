@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -39,7 +39,7 @@ class NumberFilteringDataset(ProceduralDataset):
         """Format a number with specified decimal places"""
         return f"{num:.{decimals}f}"
 
-    def _generate_numbers(self, rng: Random) -> Tuple[List[float], List[str]]:
+    def _generate_numbers(self, rng: Random) -> tuple[list[float], list[str]]:
         """Generate list of numbers and their string representations"""
         count = rng.randint(self.config.min_numbers, self.config.max_numbers)
         numbers = []

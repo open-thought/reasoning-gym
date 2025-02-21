@@ -8,6 +8,7 @@ Algorithmic tasks for training reasoning capabilities:
 
 from .ab import ABConfig, ABDataset
 from .base_conversion import BaseConversionConfig, BaseConversionDataset
+from .binary_alternation import BinaryAlternationConfig, BinaryAlternationDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesDataset
@@ -16,6 +17,7 @@ from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
+from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixDataset
@@ -26,6 +28,7 @@ from .palindrome_partitioning import PalindromePartitioningConfig, PalindromePar
 from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
+from .rotten_oranges import RottenOrangesConfig, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
@@ -99,4 +102,10 @@ __all__ = [
     "StringSplittingDataset",
     "StringSynthesisConfig",
     "StringSynthesisDataset",
+    "RottenOrangesConfig",
+    "RottenOrangesDataset",
+    "JugsConfig",
+    "JugsDataset",
+    "BinaryAlternationConfig",
+    "BinaryAlternationDataset",
 ]

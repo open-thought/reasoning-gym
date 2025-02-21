@@ -86,7 +86,7 @@ In addition, When doing calculation, Use the following instructions together wit
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
         metadata = entry["metadata"]

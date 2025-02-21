@@ -1,7 +1,7 @@
 # This example is an adapted version of Bytedance's code:
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
 import os
-from typing import Dict, List, Optional
+from typing import Optional
 
 import hydra
 import ray
@@ -64,12 +64,12 @@ class ReasoningGymDataset(Dataset):
             self.client.create_experiment(dataset_name, config)
 
         # Cache for batches
-        self._batch_cache: dict[int, List[BatchEntry]] = {}
+        self._batch_cache: dict[int, list[BatchEntry]] = {}
 
     def __len__(self) -> int:
         return self.size
 
-    def _get_batch(self, batch_idx: int) -> List[BatchEntry]:
+    def _get_batch(self, batch_idx: int) -> list[BatchEntry]:
         """Fetch or retrieve cached batch"""
         if batch_idx not in self._batch_cache:
             base_index = batch_idx * self.batch_size

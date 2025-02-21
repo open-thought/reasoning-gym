@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 from random import Random
-from typing import Generator, Iterable, List, Set, Tuple, Type
+from typing import Generator, Iterable, Type
 
 from reasoning_gym.logic.contrib.logic_puzzle.clues import (
     Clue,
@@ -82,12 +82,12 @@ class Puzzle:
             self.literals = list(elements)
 
         self.houses = tuple(range(1, n_houses + 1))
-        self.clues: Set[Clue] = set()
-        self.constraints: List[Tuple[str]] = []
-        self.extra_clues: Set[Clue] = set()
+        self.clues: set[Clue] = set()
+        self.constraints: list[tuple[str]] = []
+        self.extra_clues: set[Clue] = set()
         self.solution = None
 
-    def _add_constraint(self, constraints: List[Tuple[str]]) -> Puzzle:
+    def _add_constraint(self, constraints: list[tuple[str]]) -> Puzzle:
         self.constraints.extend(constraints)
         return self
 
@@ -128,7 +128,7 @@ class Puzzle:
 
         return self
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         """Express puzzle as solvable CNF"""
 
         # this would be a comprehension if we could use iterable unpacking
@@ -195,8 +195,8 @@ they smoke, and what pet they own.
 """
 
 if __name__ == "__main__":
-    enum_classes: List[Type[Literal]] = [Color, Nationality, Animal, Drink, Cigar]
-    literals: List[Literal] = [el for group in enum_classes for el in group]
+    enum_classes: list[Type[Literal]] = [Color, Nationality, Animal, Drink, Cigar]
+    literals: list[Literal] = [el for group in enum_classes for el in group]
 
     # set up the puzzle with constraints and clues
     puzzle = Puzzle(rng=Random(), element_types=[Color, Nationality, Drink, Cigar, Animal])
@@ -245,7 +245,7 @@ in between them that neither is sitting in).
 """
 
 if __name__ == "__main__":
-    enum_classes: List[Type[Literal]] = [Mother, Children, Flower, Food]
+    enum_classes: list[Type[Literal]] = [Mother, Children, Flower, Food]
     literals = [el for group in enum_classes for el in group]
 
     # set up the puzzle with constraints and clues

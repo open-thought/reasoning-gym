@@ -1,6 +1,6 @@
 """Version manager for tracking dataset versions."""
 
-from typing import Dict, Optional, Tuple
+from typing import Any, Optional
 
 from .dataset import ProceduralDataset
 
@@ -12,7 +12,7 @@ class DatasetVersionManager:
         """Initialize the version manager."""
         self.current_version = 0
         # version_id -> (dataset_name, dataset_instance)
-        self.datasets: Dict[int, Tuple[str, ProceduralDataset]] = {}
+        self.datasets: dict[int, tuple[str, ProceduralDataset]] = {}
 
     def register_dataset(self, name: str, dataset: ProceduralDataset) -> int:
         """
@@ -29,7 +29,7 @@ class DatasetVersionManager:
         self.datasets[self.current_version] = (name, dataset)
         return self.current_version
 
-    def get_dataset(self, version_id: int) -> Optional[Tuple[str, ProceduralDataset]]:
+    def get_dataset(self, version_id: int) -> Optional[tuple[str, ProceduralDataset]]:
         """
         Retrieve a dataset by its version ID.
 
@@ -41,7 +41,7 @@ class DatasetVersionManager:
         """
         return self.datasets.get(version_id)
 
-    def get_entry(self, version_id: int, index: int) -> Dict[str, any]:
+    def get_entry(self, version_id: int, index: int) -> dict[str, Any]:
         """
         Get a specific entry from a versioned dataset.
 

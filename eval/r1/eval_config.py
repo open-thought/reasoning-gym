@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Union
+from typing import Union
 
 import yaml
 
@@ -9,7 +9,7 @@ from reasoning_gym.utils import SYSTEM_PROMPTS
 @dataclass
 class EvalConfig:
     category: str
-    datasets: Union[str, List[str]]
+    datasets: Union[str, list[str]]
     eval_dir: str
     dataset_size: int
     dataset_seed: int

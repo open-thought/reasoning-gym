@@ -90,7 +90,7 @@ class PalindromeDataset(ProceduralDataset):
         """Return the palindrome string from the letter set."""
         return "".join(letters)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided is a valid palindrome.
         The answer is expected to be a single string
 

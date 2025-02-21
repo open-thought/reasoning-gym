@@ -93,7 +93,7 @@ class LegCountingDataset(ProceduralDataset):
     def __init__(self, config: LegCountingConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _generate_animals(self, rng: Random) -> Dict[str, int]:
+    def _generate_animals(self, rng: Random) -> dict[str, int]:
         """Generate a random set of animals and their counts"""
         num_types = rng.randint(self.config.min_animals, self.config.max_animals)
         animals = {}

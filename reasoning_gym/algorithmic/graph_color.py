@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -209,14 +209,14 @@ Return your solution as a JSON map of vertices to colors. (For example: {{0: 1, 
             "metadata": {"possible_answer": solution, "puzzle": puzzle},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the GraphColor task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.

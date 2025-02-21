@@ -5,7 +5,7 @@ import os
 import re
 import time
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 from openai import AsyncOpenAI
 from tqdm.asyncio import tqdm_asyncio
@@ -44,7 +44,7 @@ class AsyncOpenRouterEvaluator:
         match = re.search(r"<answer>(.*?)</answer>", response, re.DOTALL)
         return match.group(1).strip() if match else response
 
-    async def process_single_question(self, entry: Dict, dataset) -> Dict:
+    async def process_single_question(self, entry: dict, dataset) -> dict:
         """Process a single question and return the result."""
         response = await self.get_model_response(entry["question"])
         answer = self.parse_model_response(response)
@@ -54,11 +54,12 @@ class AsyncOpenRouterEvaluator:
             "question": entry["question"],
             "expected_answer": entry["answer"],
             "model_answer": answer,
+            "full_model_response": response,
             "score": score,
             "metadata": entry["metadata"],
         }
 
-    async def evaluate_dataset(self, dataset_config: Dict[str, Any]) -> Dict[str, Any]:
+    async def evaluate_dataset(self, dataset_config: dict[str, Any]) -> dict[str, Any]:
         """Evaluate a single dataset with concurrent question processing."""
         dataset_name = dataset_config.pop("name")
         print(f"\nEvaluating dataset: {dataset_name}")
@@ -92,7 +93,7 @@ class AsyncOpenRouterEvaluator:
             print(f"Error evaluating dataset {dataset_name}: {str(e)}")
             return None
 
-    async def evaluate_datasets(self, dataset_configs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    async def evaluate_datasets(self, dataset_configs: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Evaluate multiple datasets concurrently."""
         tasks = [self.evaluate_dataset(config) for config in dataset_configs]
 

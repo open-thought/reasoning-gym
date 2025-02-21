@@ -5,7 +5,7 @@ import logging
 import os
 from dataclasses import asdict
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 import aiohttp
 from eval_config import EvalConfig
@@ -32,7 +32,7 @@ class OpenRouterEvaluator:
         }
         self.semaphore = asyncio.Semaphore(10)  # Control concurrency
 
-    def save_results(self, results: List[Dict[str, Any]], dataset, dataset_name) -> Dict[str, Any]:
+    def save_results(self, results: list[dict[str, Any]], dataset, dataset_name) -> dict[str, Any]:
         file_name = f"{self.output_dir}/{dataset_name}.json"
         total_score = sum(r["score"] for r in results)
 
@@ -52,7 +52,7 @@ class OpenRouterEvaluator:
             json.dump(metrics, f, indent=2)
         return metrics
 
-    def prepare_messages(self, prompt: str) -> List[Dict[str, str]]:
+    def prepare_messages(self, prompt: str) -> list[dict[str, str]]:
         return {
             "model": self.model,
             "messages": [
@@ -92,7 +92,7 @@ class OpenRouterEvaluator:
 
         raise Exception("Failed to get valid response after retries")
 
-    async def process_entry(self, session: aiohttp.ClientSession, dataset: Any, entry: Any) -> Dict[str, Any]:
+    async def process_entry(self, session: aiohttp.ClientSession, dataset: Any, entry: Any) -> dict[str, Any]:
         """Process a single entry with concurrency control."""
         async with self.semaphore:
             response = await self.get_model_response(session, entry["question"])
@@ -104,11 +104,12 @@ class OpenRouterEvaluator:
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
                 "model_answer": model_answer,
+                "full_model_response": response,
                 "score": score,
                 "metadata": str(entry["metadata"]),
             }
 
-    async def evaluate_dataset(self, session: aiohttp.ClientSession, dataset_name: str) -> Dict[str, Any]:
+    async def evaluate_dataset(self, session: aiohttp.ClientSession, dataset_name: str) -> dict[str, Any]:
         """Evaluate a single dataset asynchronously."""
         self.logger.info(f"\nEvaluating dataset: {dataset_name}")
         dataset = reasoning_gym.create_dataset(
@@ -119,7 +120,7 @@ class OpenRouterEvaluator:
         results = await asyncio.gather(*tasks)
         return self.save_results(results, dataset, dataset_name)
 
-    async def evaluate_datasets(self) -> List[Dict[str, Any]]:
+    async def evaluate_datasets(self) -> list[dict[str, Any]]:
         """Main async evaluation entry point."""
         all_results = []
         async with aiohttp.ClientSession(headers=self.headers) as session:

@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -67,7 +67,7 @@ class NumberFormatDataset(ProceduralDataset):
                 output.append(f"{candidate:.15e}")
         return output
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["metadata"]["solution"]
         if answer is not None and len(answer) > 0:

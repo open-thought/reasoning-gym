@@ -5,9 +5,9 @@ from typing import Any, Dict
 from reasoning_gym.utils import format_number, is_integer
 
 
-def generate_50(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_50(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name: str, pieces1: int, pieces2: int) -> Dict[str, Any]:
+    def generate_from_variables(name: str, pieces1: int, pieces2: int) -> dict[str, Any]:
         half_pieces1 = pieces1 // 2
         total_pieces = half_pieces1 + pieces2
 
@@ -29,7 +29,7 @@ def generate_50(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Teddy", "Tommy", "Billy", "Jimmy", "Bobby", "Danny"]
         name = rng.choice(names)
 
@@ -53,7 +53,7 @@ def generate_50(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_51(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_51(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -67,7 +67,7 @@ def generate_51(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         tokens: int,
         cost1: int,
         cost2: int,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         cost_per_ride = cost2 * times
         cost_per_person = tokens + cost1 + cost_per_ride
@@ -107,7 +107,7 @@ def generate_51(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names_female = ["Emma", "Olivia", "Sophia", "Isabella", "Mia", "Charlotte"]
         parents = ["mom", "dad", "aunt", "uncle"]
         activities1 = ["mini-golf", "bowling", "laser tag"]
@@ -151,9 +151,9 @@ def generate_51(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_52(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_52(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name: str, alphabets: tuple, n1: str, frac: str) -> Dict[str, Any]:
+    def generate_from_variables(name: str, alphabets: tuple, n1: str, frac: str) -> dict[str, Any]:
         alphabet_name, alphabet_count = alphabets
 
         # Calculate intermediate values
@@ -189,7 +189,7 @@ def generate_52(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names_female = ["Emma", "Sophia", "Olivia", "Ava", "Isabella", "Mia", "Charlotte", "Amelia"]
         alphabets = [
             ("alphabet", 26),
@@ -229,9 +229,9 @@ def generate_52(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_53(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_53(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name: str, sides: int, target: int, property: str) -> Dict[str, Any]:
+    def generate_from_variables(name: str, sides: int, target: int, property: str) -> dict[str, Any]:
         numbers_above = sides - target
         prob_above = (numbers_above / sides) * 100
         prob_two_in_row = 25  # probability of two even/odd in a row is always 25%
@@ -257,7 +257,7 @@ def generate_53(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"]
         properties = ["even", "odd"]
 
@@ -290,7 +290,7 @@ def generate_53(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_54(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_54(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name1: str,
@@ -301,7 +301,7 @@ def generate_54(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         location1: str,
         location2: str,
         location3: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         time_after_library = total_time - library_time
         remaining_time = time_after_library - station_time
@@ -328,7 +328,7 @@ def generate_54(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Jack", "James", "William", "Michael", "David", "Joseph"]
         locations = ["cinema", "mall", "library", "park", "gym", "bank", "school"]
 
@@ -366,11 +366,11 @@ def generate_54(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_55(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_55(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, place: str, fruit: str, location: str, insect1: str, insect2: str, n: int, frac: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         num_insect1 = int(n * 0.5)  # half as many bugs as ants
         total_insects = n + num_insect1
 
@@ -396,7 +396,7 @@ def generate_55(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Dax", "Alex", "Sam", "Jordan", "Taylor", "Morgan", "Riley"]
         places = ["orchard", "backyard", "greenhouse", "allotment"]
         fruits = ["strawberries", "cherries", "blueberries", "raspberries"]
@@ -430,11 +430,11 @@ def generate_55(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_56(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_56(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         family: str, item: str, total: int, n1: int, n2: int, flavor1: str, flavor2: str, flavor3: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         n3 = total - (n1 + n2)
 
         question = f"The {family} family is busy making {item}s. So far, they've made {total} {item}s. They have {n1} {flavor1} {item}s, {n2} {flavor2} {item}s, and some {flavor3} {item}s. How many {flavor3} {item}s have they made?"
@@ -459,7 +459,7 @@ def generate_56(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         families = ["Smith", "Johnson", "Williams", "Brown", "Jones"]
         items = ["cupcake", "muffin", "brownie", "biscuit"]
         flavors = ["vanilla", "strawberry", "blueberry", "lemon", "peanut butter"]
@@ -492,11 +492,11 @@ def generate_56(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_57(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_57(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         n1: int, sport1: str, sport2: str, sport3: str, n2: int, n3: int, multiplier: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         n_volleyball = n1 * multiplier
         n_soccer = n2 + n3
         total = n1 + n_volleyball + n_soccer
@@ -521,7 +521,7 @@ def generate_57(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         sports = ["basketball", "badminton", "table tennis", "football", "volleyball"]
         sport1, sport2, sport3 = rng.sample(sports, 3)
 
@@ -567,11 +567,11 @@ def generate_57(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_58(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_58(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, container: str, liquid: str, volume: int, unit: str, num_containers: int, calories: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         total_volume = volume * num_containers
         total_calories = total_volume * calories
 
@@ -597,7 +597,7 @@ def generate_58(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Mike", "James", "David", "Robert", "William"]
         containers = ["cup", "bottle", "carton"]
         liquids = ["juice", "soda", "sparkling water", "tea", "lemonade"]
@@ -628,11 +628,11 @@ def generate_58(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_59(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_59(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         time_per_interval: int, distance_per_interval: int, total_distance: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         intervals = total_distance // distance_per_interval
         total_time = intervals * time_per_interval
 
@@ -653,7 +653,7 @@ def generate_59(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         # Start with total_distance limit and work backwards
         max_total_distance = 100
 
@@ -698,11 +698,11 @@ def generate_59(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_60(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_60(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, unit: str, total_dist: int, beach_dist: int, sidewalk_dist: int, speed_mult: int, beach_time: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         beach_rate = Fraction(beach_dist, beach_time)
         sidewalk_rate = beach_rate * speed_mult
@@ -730,7 +730,7 @@ def generate_60(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Emma", "Sophia", "Isabella", "Olivia", "Ava", "Mia", "Emily"]
         units = ["mile", "kilometer", "block"]
 
@@ -783,7 +783,7 @@ def generate_60(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_61(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_61(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -804,7 +804,7 @@ def generate_61(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         p2: float,
         p3: float,
         discount: float,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         # Calculate costs
         item1_cost = n1 * p1 + n2 * (1 - discount) * p1 + k * p1  # Cost of item1 with discount applied
@@ -845,7 +845,7 @@ def generate_61(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names_female = ["Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte"]
         locations = ["beach", "boardwalk", "pier", "coast"]
         shops = ["souvenir store", "gift shop", "beach shop", "seaside store"]
@@ -939,11 +939,11 @@ def generate_61(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_62(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_62(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         item: str, num_slices: int, name1: str, name2: str, slices_per_day: int, multiplier: int, unit: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         second_person_slices = slices_per_day * multiplier
         total_daily_slices = slices_per_day + second_person_slices
@@ -971,7 +971,7 @@ def generate_62(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         items = ["pizza", "cake", "pie", "lasagna"]
         units = ["pieces", "portions", "servings"]
         names = ["Emma", "Liam", "Olivia", "Noah", "Ava", "Elijah", "Charlotte", "James"]
@@ -1004,9 +1004,9 @@ def generate_62(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_63(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_63(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name: str, hours: int, days: int, rate: int, bonus: int, month: str) -> Dict[str, Any]:
+    def generate_from_variables(name: str, hours: int, days: int, rate: int, bonus: int, month: str) -> dict[str, Any]:
         daily_pay = hours * rate
         monthly_days = days * 4
         monthly_base = daily_pay * monthly_days
@@ -1041,7 +1041,7 @@ def generate_63(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"]
         months = [
             "January",
@@ -1086,9 +1086,9 @@ def generate_63(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_64(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_64(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name: str, n1: int, d1: int, n2: int, d2: int) -> Dict[str, Any]:
+    def generate_from_variables(name: str, n1: int, d1: int, n2: int, d2: int) -> dict[str, Any]:
         first_period = n1 * d1
         second_period = n2 * d2
         total_eggs = first_period + second_period
@@ -1120,7 +1120,7 @@ def generate_64(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Chester", "James", "John", "Robert", "Michael", "William", "David"]
         name = rng.choice(names)
 
@@ -1154,11 +1154,11 @@ def generate_64(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_65(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_65(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, fish: str, day: str, w1: int, w2: int, w3: int, n: int, unit: str, cur: str, price: float
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         total = int((w1 + w2) * price + (n - 2) * w3 * price)
 
         question = f"{name} caught {n} {fish}s last {day}, the first {fish} he caught weighs {w1} {unit}s, the second {fish} he caught weighs {w2} {unit}s, and the last {fish} he caught weighs {w3} {unit}s. If a {unit} of {fish} costs {cur}{price:.2f}, how much will he earn after selling all the {fish}s to the market?"
@@ -1189,7 +1189,7 @@ def generate_65(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Michael", "David", "James", "Robert", "William", "Richard"]
         fish = ["salmon", "cod", "trout", "steelhead"]
         days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
@@ -1228,7 +1228,7 @@ def generate_65(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_66(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_66(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -1240,7 +1240,7 @@ def generate_66(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         min2: int,
         total_hours: int,
         num_wed_episodes: int,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         mon, tue, wed, thu, fri = weekdays
 
@@ -1274,7 +1274,7 @@ def generate_66(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"]
         weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
@@ -1312,11 +1312,11 @@ def generate_66(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_67(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_67(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, fruit: str, n1: int, n2: int, d1: str, d2: str, d3: str, mult: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         first_two_days = n1 + n2
         friday_amount = mult * n1
         total = first_two_days + friday_amount
@@ -1344,7 +1344,7 @@ def generate_67(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "James", "William", "Michael", "David", "Robert", "Thomas"]
         fruits = ["banana", "apple", "orange", "pear", "peach", "plum"]
         weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
@@ -1376,9 +1376,9 @@ def generate_67(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_68(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_68(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(n0: int, r: int, d: int, disease: str) -> Dict[str, Any]:
+    def generate_from_variables(n0: int, r: int, d: int, disease: str) -> dict[str, Any]:
         # Calculate infected people after each day
         day1_new = n0 * r
         day1_total = n0 + day1_new
@@ -1408,7 +1408,7 @@ def generate_68(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             "variables": {"initial_infected": n0, "infection_rate": r, "days": d, "disease_type": disease},
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         diseases = ["virus", "bacteria", "parasite", "infection"]
         disease = rng.choice(diseases)
         d = 3  # Fixed at 3 days
@@ -1451,9 +1451,9 @@ def generate_68(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_69(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_69(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name: str, document: str, total_pages: int, fraction: str) -> Dict[str, Any]:
+    def generate_from_variables(name: str, document: str, total_pages: int, fraction: str) -> dict[str, Any]:
         frac_num = eval(fraction)
         pages_done = int(total_pages * frac_num)
         pages_remaining = total_pages - pages_done
@@ -1477,7 +1477,7 @@ def generate_69(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names_female = ["Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia", "Harper", "Evelyn"]
         documents = ["essay", "report", "thesis", "dissertation", "assignment"]
         fractions = ["1/2", "1/3", "1/4", "2/3", "3/4"]
@@ -1507,11 +1507,11 @@ def generate_69(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_70(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_70(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, objects: str, n: int, obstacle: str, frac: float, k: int, fake_num: int, fake_object: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         dropped = int(n * frac)
         remaining = n - dropped
@@ -1548,7 +1548,7 @@ def generate_70(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"]
         objects = ["marbles", "coins", "buttons", "beads", "pebbles"]
         obstacles = ["rock", "stick", "toy", "root"]
@@ -1609,7 +1609,7 @@ def generate_70(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_71(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_71(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -1624,7 +1624,7 @@ def generate_71(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         p1: int,
         p2: int,
         p3: int,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         cost1 = n1 * p1
         cost2 = n2 * p2
         cost3 = n3 * p3
@@ -1658,7 +1658,7 @@ def generate_71(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names_female = ["Emma", "Olivia", "Ava", "Isabella", "Sophia", "Charlotte", "Mia", "Amelia"]
         shops = ["bakery", "patisserie", "confectionery", "cafe"]
         items = ["pastries", "baked goods", "desserts", "treats"]
@@ -1697,11 +1697,11 @@ def generate_71(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_72(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_72(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         structure: str, n1: int, color1: str, color2: str, color3: str, obj: str, mult: int, total: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         n2 = n1 * mult
         n3 = total - n1 - n2
 
@@ -1728,7 +1728,7 @@ def generate_72(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         structures = ["building", "pyramid", "stack", "tower"]
         objects = ["brick", "cube", "tile", "block"]
         colors = ["green", "purple", "orange", "pink", "white", "black"]
@@ -1761,7 +1761,7 @@ def generate_72(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_73(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_73(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -1776,7 +1776,7 @@ def generate_73(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         cn: int,
         cm: int,
         currency: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         gingerbread_sunday = n1 + n2
         total_gingerbread = n1 + gingerbread_sunday
@@ -1814,7 +1814,7 @@ def generate_73(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Michael", "David", "James", "William", "Robert"]
         fruits = ["apple", "cherry", "blueberry", "peach"]
         foods = ["cookie", "brownie", "muffin", "cupcake"]
@@ -1850,11 +1850,11 @@ def generate_73(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_74(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_74(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, big_fish: str, length: int, num_remoras: int, remora_length: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         total_remora_length_inches = num_remoras * remora_length
         total_remora_length_feet = total_remora_length_inches / 12
         percentage = int((total_remora_length_feet / length) * 100)
@@ -1880,7 +1880,7 @@ def generate_74(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Benny", "Tommy", "Jimmy", "Billy", "Johnny", "Bobby"]
         big_fish = ["dolphin", "whale", "shark"]
 
@@ -1949,11 +1949,11 @@ def generate_74(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_75(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_75(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name1: str, name2: str, color1: str, color2: str, n1: int, n2: int, frac1: float, mult1: float
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         n1_result = int(n1 * frac1)
         n2_result = int(n2 * mult1)
@@ -1987,7 +1987,7 @@ def generate_75(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Ben", "James", "John", "Michael", "William", "David", "Richard", "Joseph"]
         colors = ["blue", "red", "green", "yellow", "purple", "orange"]
 
@@ -2016,9 +2016,9 @@ def generate_75(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_76(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_76(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(n: int, p1: int, p2: int, company: str, frac: float) -> Dict[str, Any]:
+    def generate_from_variables(n: int, p1: int, p2: int, company: str, frac: float) -> dict[str, Any]:
         interviews = int(n * (p1 / 100))
         offers = int(interviews * (p2 / 100))
         accepts = int(offers * frac)
@@ -2049,7 +2049,7 @@ def generate_76(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         companies = ["Microsoft", "Apple", "Amazon", "Facebook", "Netflix", "Tesla", "Google"]
         fractions = {"a third": 1 / 3, "half": 1 / 2, "a quarter": 1 / 4, "two thirds": 2 / 3}
 
@@ -2099,11 +2099,11 @@ def generate_76(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_77(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_77(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         event: str, m: int, w: int, t: str, frac: float, m_left: int, group1: str, group2: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         total = m + w
         left_count = int(total * frac)
         stayed = total - left_count
@@ -2137,7 +2137,7 @@ def generate_77(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         events = ["party", "meeting", "conference", "gathering", "celebration"]
         groups = ["teachers", "doctors", "engineers", "nurses", "artists", "lawyers"]
         times = ["an hour", "two hours", "half an hour", "45 minutes"]
@@ -2205,9 +2205,9 @@ def generate_77(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_78(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_78(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name1: str, name2: str, age_diff: int, age1: int) -> Dict[str, Any]:
+    def generate_from_variables(name1: str, name2: str, age_diff: int, age1: int) -> dict[str, Any]:
         age2 = age1 + age_diff
         avg_age = (age1 + age2) // 2
 
@@ -2235,7 +2235,7 @@ def generate_78(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Emma", "Olivia", "Ava", "Isabella", "Sophia", "Mia", "Charlotte", "Amelia"]
         name1, name2 = rng.sample(names, 2)
 
@@ -2262,7 +2262,7 @@ def generate_78(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_79(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_79(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -2273,7 +2273,7 @@ def generate_79(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         currency: str,
         first_hour_cost: int,
         multiplier: int,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         total_hours = end_time - start_time
         paid_hours = total_hours - free_hours
         other_hours = paid_hours - 1
@@ -2314,7 +2314,7 @@ def generate_79(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["James", "John", "Robert", "Michael", "William", "David", "Richard"]
         vehicles = ["limousine", "party bus", "boat", "luxury car"]
         currencies = ["$", "€", "£"]
@@ -2357,11 +2357,11 @@ def generate_79(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_80(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_80(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, color1: str, color2: str, n1: int, n2: int, n3: int, n4: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         blue_spools = n1 + n2
         total_spools = n1 + n2 + n3 + n4
         percent_blue = int(100 * blue_spools / total_spools)
@@ -2389,7 +2389,7 @@ def generate_80(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Candy", "Sarah", "Emma", "Olivia", "Isabella", "Sophia", "Mia", "Charlotte"]
         colors = ["blue", "red", "green", "yellow", "purple", "orange"]
 
@@ -2424,11 +2424,11 @@ def generate_80(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_81(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_81(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         occupation: str, weeks_per_month: int, days_per_week: int, pay_per_day: int, currency: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         days_per_month = days_per_week * weeks_per_month
         monthly_pay = days_per_month * pay_per_day
         yearly_pay = monthly_pay * 12
@@ -2453,7 +2453,7 @@ def generate_81(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         occupations = ["plumber", "electrician", "painter", "carpenter", "landscaper"]
         currencies = ["$", "£", "€"]
 
@@ -2480,9 +2480,9 @@ def generate_81(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_82(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_82(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name: str, num_emails: int, no_response_percent: int, workdays: int) -> Dict[str, Any]:
+    def generate_from_variables(name: str, num_emails: int, no_response_percent: int, workdays: int) -> dict[str, Any]:
         no_response = num_emails * no_response_percent // 100
         responds_to = num_emails - no_response
         total_responses = responds_to * workdays
@@ -2512,7 +2512,7 @@ def generate_82(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["James", "John", "Robert", "Michael", "William", "David", "Richard", "Joseph"]
         name = rng.choice(names)
 
@@ -2542,9 +2542,9 @@ def generate_82(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_83(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_83(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(name1: str, name2: str, total: int, diff: int, unit: str) -> Dict[str, Any]:
+    def generate_from_variables(name1: str, name2: str, total: int, diff: int, unit: str) -> dict[str, Any]:
         amount1 = (total - diff) // 2  # Sam's amount
         amount2 = amount1 + diff  # Harry's amount
 
@@ -2568,7 +2568,7 @@ def generate_83(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Sam", "Harry", "Tom", "John", "Mike", "Dave", "Steve", "Bob"]
         units = ["feet", "yards", "meters"]
 
@@ -2607,11 +2607,11 @@ def generate_83(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_84(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_84(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, miles: str, time_cold: int, extra_time: int, multiplier: float, distance: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         time_warm = extra_time + multiplier * time_cold
         time_cold_total = distance * time_cold
         time_warm_total = distance * time_warm
@@ -2646,7 +2646,7 @@ def generate_84(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Ray", "Jim", "Bob", "Tom", "Mike", "John", "Steve"]
         units = ["mile", "kilometer"]
 
@@ -2695,11 +2695,11 @@ def generate_84(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_85(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_85(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, room_type: str, area: int, length: int, unit1: str, unit2: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         conversion = 3 if unit1 == "feet" and unit2 == "yards" else 1
         length_converted = length * conversion
         width = area // length_converted
@@ -2730,7 +2730,7 @@ def generate_85(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         def calculate_max_width(difficulty: float, length: int, conversion: int) -> int:
             # Cap the maximum width to avoid numbers getting too large
             theoretical_max = int(100 * difficulty)
@@ -2784,7 +2784,7 @@ def generate_85(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_86(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_86(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         animals: str,
@@ -2802,7 +2802,7 @@ def generate_86(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         w3: int,
         w4: int,
         total: int,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         # Calculate weights
         sugar_weight = n4 * w4
         carrot_weight = n3 * w3
@@ -2831,7 +2831,7 @@ def generate_86(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         animals = rng.choice(["horses", "cows", "sheep", "pigs", "alpacas"])
         unit = rng.choice(["pound", "kilogram"])
         feed_options = ["hay", "corn", "oats", "apples", "wheat"]
@@ -2876,7 +2876,7 @@ def generate_86(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_87(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_87(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -2888,7 +2888,7 @@ def generate_87(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         num_medium: int,
         num_small: int,
         total_amount: int,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         large_used = num_large * weight_large
         medium_used = num_medium * weight_medium
@@ -2926,7 +2926,7 @@ def generate_87(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Peter", "John", "Michael", "David", "James", "Robert", "William"]
         units = ["ounce", "gram", "milliliter"]
 
@@ -2963,9 +2963,9 @@ def generate_87(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_88(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_88(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
-    def generate_from_variables(school: str, venue: str, total: int, graduates: int, faculty: int) -> Dict[str, Any]:
+    def generate_from_variables(school: str, venue: str, total: int, graduates: int, faculty: int) -> dict[str, Any]:
         remaining_seats = total - (graduates + faculty)
         tickets_per_graduate = remaining_seats // graduates
 
@@ -2989,7 +2989,7 @@ def generate_88(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         schools = ["Oakwood High School", "Riverside Academy", "Sunnyside High", "Greenville High School"]
         venues = ["Auditorium", "Gymnasium", "Sports Arena", "Convention Center"]
 
@@ -3019,7 +3019,7 @@ def generate_88(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_89(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_89(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name1: str,
@@ -3032,7 +3032,7 @@ def generate_89(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         multiplier: float,
         less_amount: int,
         fraction: float,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         total_eggs = num_dozen * 12
         found_second = found_first * multiplier
         found_third = found_second - less_amount
@@ -3072,7 +3072,7 @@ def generate_89(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = [
             "Emma",
             "Liam",
@@ -3135,11 +3135,11 @@ def generate_89(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_90(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_90(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         device: str, currency: str, rate1: float, rate2: float, threshold: int, total_mins: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         first_period = threshold
         second_period = total_mins - threshold
 
@@ -3168,7 +3168,7 @@ def generate_90(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         devices = ["payphone", "phone booth", "hotel room phone"]
         currencies = ["$", "£", "€"]
 
@@ -3211,11 +3211,11 @@ def generate_90(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_91(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_91(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, fruit: str, area: str, field_size: int, density: int, months: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         fruits_per_harvest = field_size * density
         harvests_per_year = 12 // months
         total_fruits = fruits_per_harvest * harvests_per_year
@@ -3241,7 +3241,7 @@ def generate_91(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Michael", "David", "James", "Robert", "William", "Richard"]
         fruits = ["pineapple", "mango", "banana", "papaya", "coconut"]
         areas = ["hectare", "square yard", "square meter"]
@@ -3270,7 +3270,7 @@ def generate_91(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_92(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_92(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -3287,7 +3287,7 @@ def generate_92(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         num3: int,
         unit: str,
         currency: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         round_p1 = round(price1)
         round_p2 = round(price2)
@@ -3323,7 +3323,7 @@ def generate_92(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Mike", "David", "James", "Robert", "William", "Richard"]
         products = ["vegetable", "flower", "herb", "plant"]
         locations = ["local fair", "community market", "street bazaar", "town square"]
@@ -3365,7 +3365,7 @@ def generate_92(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_93(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_93(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name1: str,
@@ -3382,7 +3382,7 @@ def generate_93(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         frac1: float,
         mult1: int,
         frac2: float,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         kills_arthur = int(n1 * frac1)
         kills_walter = int(kills_arthur * mult1)
@@ -3418,7 +3418,7 @@ def generate_93(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names_male = ["Arthur", "Bruce", "Charles", "David", "Edward", "Frederick", "George", "Henry"]
         creatures = ["ogres", "trolls", "goblins", "orcs", "giants"]
         weapons1 = ["sword", "mace", "battle axe", "war hammer"]
@@ -3469,11 +3469,11 @@ def generate_93(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_94(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_94(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, num_shares: int, price_per_share: int, increase_pct: int, decrease_pct: int
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         initial_value = num_shares * price_per_share
         first_increase = initial_value * increase_pct / 100
         value_after_increase = initial_value + first_increase
@@ -3507,7 +3507,7 @@ def generate_94(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Maria", "Sarah", "Emma", "Isabella", "Sophia", "Mia", "Charlotte"]
         name = rng.choice(names)
 
@@ -3542,11 +3542,11 @@ def generate_94(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_95(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_95(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name1: str, name2: str, relation: str, food: str, n1: int, n2: int, n3: int, time_unit: str, time_period: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         daily_total = n1 + n2 + n3
         total = daily_total * (7 if time_period == "week" else 30)
 
@@ -3573,7 +3573,7 @@ def generate_95(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         name1_options = ["A father", "A grandfather", "An uncle"]
         name2_options = ["his wife", "his partner", "his spouse"]
         relation_options = ["daughter", "son", "grandchild"]
@@ -3607,11 +3607,11 @@ def generate_95(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_96(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_96(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, food: str, animal1: str, animal2: str, n1: int, n2: int, k1: int, k2: int, unit: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         animal2_amount = 2 * n1 - n2  # Amount per sheep
         animal2_total = k2 * animal2_amount  # Total for sheep
         animal1_total = k1 * n1  # Total for goats
@@ -3647,7 +3647,7 @@ def generate_96(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Michael", "David", "James", "Robert", "William", "Richard"]
         foods = ["hay", "grain", "feed", "silage"]
         animals = ["goat", "cow", "horse", "donkey", "llama", "alpaca", "pig", "turkey", "duck"]
@@ -3685,11 +3685,11 @@ def generate_96(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_97(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_97(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, mult_run: int, frac_skip: float, skip_speed: int, total_time: int, frac_run: float, frac_walk: float
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         run_speed = skip_speed / frac_skip
         walk_speed = run_speed / mult_run
         walk_hours = total_time * frac_walk
@@ -3728,7 +3728,7 @@ def generate_97(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["Dana", "Emma", "Sarah", "Julia", "Sophie", "Maria"]
         name = rng.choice(names)
 
@@ -3781,7 +3781,7 @@ def generate_97(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_98(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_98(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str,
@@ -3794,7 +3794,7 @@ def generate_98(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         weight_passenger: int,
         unit: str,
         force_percent: int,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
 
         total_passenger_weight = num_passengers * weight_passenger
         total_weight = weight_vehicle + weight_item + total_passenger_weight
@@ -3824,7 +3824,7 @@ def generate_98(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["John", "Michael", "David", "James", "Robert", "William", "Richard"]
         vehicles = ["car", "van", "truck", "SUV"]
         items = ["luggage", "groceries", "equipment", "furniture"]
@@ -3878,11 +3878,11 @@ def generate_98(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
     return generate_example(rng, difficulty)
 
 
-def generate_99(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_99(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
 
     def generate_from_variables(
         name: str, currency: str, initial_amount: float, quantity: int, item: str, store_type: str, unit_price: float
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         total_cost = quantity * unit_price
         remaining = initial_amount - total_cost
 
@@ -3908,7 +3908,7 @@ def generate_99(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
             },
         }
 
-    def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+    def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         names = ["David", "John", "Michael", "James", "William", "Robert"]
         currencies = ["$", "€", "£"]
         items = ["screw", "nail", "washer", "nut", "anchor"]

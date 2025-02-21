@@ -1,6 +1,8 @@
 import random
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
+
+from reasoning_gym import utils
 
 from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
@@ -99,6 +101,9 @@ class ProductsDataset(ProceduralDataset):
 
         expression = " ".join(expression_parts)
         return expression, result
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        return utils.compute_decimal_reward(answer, oracle_answer=entry["answer"])
 
 
 class ProductsCurriculum(BaseCurriculum):

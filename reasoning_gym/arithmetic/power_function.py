@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from math import pow
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -46,7 +46,7 @@ class PowerFunctionDataset(ProceduralDataset):
     def __init__(self, config: PowerFunctionConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["answer"]
         if answer is not None:
