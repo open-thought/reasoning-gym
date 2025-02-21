@@ -142,6 +142,7 @@ QUESTION_TEMPLATE = "\n".join(
         "The following emoji is encoded with a sentence",
         "Decode the following sentence from the emoji: {sentence}",
         "Here is a hint: {hint_function}",
+        "Return the secret sentence as your final answer.",
     ]
 )
 
