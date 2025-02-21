@@ -4,25 +4,25 @@
 
 It currently provides **more than 80** tasks over many domains, including but not limited to _algebra_, _arithmetic_, _computation_, _cognition_, _geometry_, _graph theory_, _logic_, and many common _games_.
 
-Some tasks have a single correct answer, while others provide a standard function for algorithmic verification allows training on tasks such as [Rubik‘s Cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube) and [Countdown](<https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round>), which have many correct solutions.
+Some tasks have a single correct answer, while others, such as [Rubik‘s Cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube) and [Countdown](<https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round>), have many correct solutions. To support this, we provide a standard interface for procedurally verifying solutions.
 
 ## 🖼️ Dataset Gallery
 
-In [GALLERY.md](https://github.com/open-thought/reasoning-gym/blob/main/GALLERY.md) you find example outputs of all datasets available in `reasoning-gym`.
+In [GALLERY.md](https://github.com/open-thought/reasoning-gym/blob/main/GALLERY.md), you can find example outputs of all datasets available in `reasoning-gym`.
 
 ## ⬇️ Installation
 
 The `reasoning-gym` package requires Python >= 3.11.
 
-Install the [latest published package from PyPI](https://pypi.org/project/reasoning-gym/) via `pip`:
+Install the latest published [package from PyPI](https://pypi.org/project/reasoning-gym/) via `pip`:
 
 ```
 pip install reasoning-gym
 ```
 
-Please note that this project is currently under active development, and the version published on PyPI may be behind `main`.
+_Note that this project is currently under active development, and the version published on PyPI may be a few days behind `main`._
 
-### 🛠️ Development
+## 🛠️ Development
 
 For development setup, see [CONTRIBUTING.md](CONTRIBUTING.md#delevloper-setup).
 
@@ -51,7 +51,7 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 
 ## 🔍 Evaluation
 
-Evaluation of the performance of different reasoning models will be tracked [in the reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repo.
+Evaluation of the performance of different reasoning models will be tracked in the [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repo.
 
 ## 👷 Contributing
 
