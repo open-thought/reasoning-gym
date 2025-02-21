@@ -1,7 +1,6 @@
-import ast
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -110,7 +109,7 @@ class BitwiseArithmeticDataset(ProceduralDataset):
     def __init__(self, config: BitwiseArithmeticConfig) -> None:
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def __getitem__(self, idx: int) -> Dict[str, Any]:
+    def __getitem__(self, idx: int) -> dict[str, Any]:
         """
         Generate a single arithmetic task.
 
@@ -134,7 +133,7 @@ class BitwiseArithmeticDataset(ProceduralDataset):
 
         return {"question": problem_str, "answer": answer, "metadata": {"problem": problem}}
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
         Compares the user's answer with the correct answer.
 
