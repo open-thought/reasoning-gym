@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from functools import reduce
 from math import lcm
 from random import Random
-from typing import List, Optional, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -34,11 +34,11 @@ class LCMDataset(ProceduralDataset):
     def __init__(self, config: LCMConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _generate_numbers(self, rng: Random) -> Tuple[List[int], int]:
+    def _generate_numbers(self, rng: Random) -> tuple[list[int], int]:
         """Generate a list of random positive integers and their LCM.
         Will try up to 3 times to find numbers with LCM < product."""
 
-        def calculate_product(nums: List[int]) -> int:
+        def calculate_product(nums: list[int]) -> int:
             return reduce(lambda x, y: x * y, nums)
 
         # Try up to 3 times to get LCM < product

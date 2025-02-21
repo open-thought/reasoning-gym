@@ -1,0 +1,4 @@
+peft
+pillow
+unsloth
+vllm

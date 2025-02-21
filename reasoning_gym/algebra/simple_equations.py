@@ -1,7 +1,7 @@
 import random
 import string
 from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Optional
 
 from sympy import Symbol
 
@@ -69,7 +69,7 @@ class SimpleEquationsDataset(ProceduralDataset):
         """Get a random lowercase variable name"""
         return rng.choice(string.ascii_lowercase)
 
-    def _generate_equation(self, rng: random.Random, variable: str) -> Tuple[str, int]:
+    def _generate_equation(self, rng: random.Random, variable: str) -> tuple[str, int]:
         """Generate an equation and its solution
 
         Args:

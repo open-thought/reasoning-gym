@@ -1,12 +1,21 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 import sympy
 from sympy import Symbol, symbols
 from sympy.parsing.sympy_parser import parse_expr
 
 from ..factory import ProceduralDataset, register_dataset
+
+QUESTION_FORMAT_TEMPLATE = """{question}
+Final answer format instructions:
+1. Provide your solution as a arithmetic expression (no '=' sign).
+2. Do not include the target number in the expression.
+3. Use '*' for multiplication.
+4. Use '/' for division.
+5. Do not include any other text or formatting.
+"""
 
 
 @dataclass
@@ -67,8 +76,11 @@ class CountdownDataset(ProceduralDataset):
 
         numbers_str = ", ".join(map(str, numbers))
 
+        question = rng.choice(self._prompt_templates)
+        question = question.format(numbers=numbers_str, target=target)
+
         return {
-            "question": rng.choice(self._prompt_templates).format(numbers=numbers_str, target=target),
+            "question": QUESTION_FORMAT_TEMPLATE.format(question=question),
             "answer": expression,
             "metadata": {
                 "numbers": numbers,
@@ -77,7 +89,7 @@ class CountdownDataset(ProceduralDataset):
             },
         }
 
-    def _generate_candidate_expression(self, rng: Random, num_terms: int) -> Tuple[sympy.Expr, List[int], List[Symbol]]:
+    def _generate_candidate_expression(self, rng: Random, num_terms: int) -> tuple[sympy.Expr, list[int], list[Symbol]]:
         """Generate a candidate expression with random numbers and operators
 
         Args:
@@ -128,7 +140,7 @@ class CountdownDataset(ProceduralDataset):
 
         return expr, numbers, syms
 
-    def _generate_expression(self, rng: Random) -> Tuple[str, List[int], int]:
+    def _generate_expression(self, rng: Random) -> tuple[str, list[int], int]:
         """Generate a valid expression and its result
 
         Returns:
@@ -159,7 +171,7 @@ class CountdownDataset(ProceduralDataset):
 
         raise ValueError(f"Failed to generate valid expression after {max_attempts} attempts")
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
         metadata = entry["metadata"]

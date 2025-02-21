@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import StrEnum
 from random import Random
-from typing import List, Optional
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -42,12 +42,12 @@ class NumberSequenceConfig:
 class PatternRule:
     """Represents a composable sequence pattern rule"""
 
-    def __init__(self, operations: List[Operation], parameters: List[int], subrules: List["PatternRule"] = None):
+    def __init__(self, operations: list[Operation], parameters: list[int], subrules: list["PatternRule"] = None):
         self.operations = operations
         self.parameters = parameters
         self.subrules = subrules or []
 
-    def apply(self, sequence: List[int], position: int) -> int:
+    def apply(self, sequence: list[int], position: int) -> int:
         """Apply the rule to generate the next number"""
         result = sequence[position]  # Start with current number
 
@@ -75,7 +75,7 @@ class PatternRule:
         return result
 
     @classmethod
-    def compose(cls, rules: List["PatternRule"]) -> "PatternRule":
+    def compose(cls, rules: list["PatternRule"]) -> "PatternRule":
         """Create a new rule that composes multiple rules together"""
         return cls([Operation.COMPOSE], [0], subrules=rules)
 
@@ -129,7 +129,7 @@ class PatternGenerator:
 
         return PatternRule(operations, parameters)
 
-    def is_interesting(self, sequence: List[int], max_value: int = 1000) -> bool:
+    def is_interesting(self, sequence: list[int], max_value: int = 1000) -> bool:
         """Check if sequence is interesting enough"""
         if not sequence:
             return False

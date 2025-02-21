@@ -1,10 +1,9 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 import pyfiglet
 
-from ..data.wordle_words import wordle_words
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -23,6 +22,9 @@ class FigletFontDataset(ProceduralDataset):
     """Generates FigletFont tasks"""
 
     def __init__(self, config: FigletFontConfig):
+        from ..data.wordle_words import wordle_words
+
+        self.wordle_words = wordle_words
         self._prompt_templates = [
             "What word does this say?\n\n{figlet_render}",
             "Please read the following figlet font:\n\n{figlet_render}",
@@ -40,7 +42,7 @@ class FigletFontDataset(ProceduralDataset):
         """
         rng = Random(self.seed + idx)
 
-        word = self.config.static_word if self.config.static_word is not None else rng.choice(wordle_words).upper()
+        word = self.config.static_word if self.config.static_word is not None else rng.choice(self.wordle_words).upper()
         if self.config.space_letters:
             render_word = " ".join(word)
         else:
@@ -117,7 +119,7 @@ class FigletFontDataset(ProceduralDataset):
             "metadata": {"font": chosen_font, "space_letters": self.config.space_letters},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the figlet task.
 
         The function awards 1.0 for a correct answer and 0.1 points for each correct letter in the correct position,
@@ -125,7 +127,7 @@ class FigletFontDataset(ProceduralDataset):
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.

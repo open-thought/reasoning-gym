@@ -2,7 +2,7 @@ import cmath
 import math
 import random
 from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -13,7 +13,7 @@ class ComplexArithmeticConfig:
     max_real: int = 10
     min_imag: int = -10
     max_imag: int = 10
-    operations: Tuple[str, ...] = ("+", "-", "*", "/")
+    operations: tuple[str, ...] = ("+", "-", "*", "/")
     seed: Optional[int] = None
     size: int = 500
 

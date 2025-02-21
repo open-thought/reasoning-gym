@@ -2,7 +2,7 @@ import collections
 import json
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, FrozenSet, List, Optional, Set, Tuple
+from typing import FrozenSet, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -81,7 +81,7 @@ class KnightSwapLogic:
         return {abs(a_col - b_col), abs(a_row - b_row)} == {1, 2}
 
     @staticmethod
-    def is_connected(graph: Dict[str, List[str]]) -> bool:
+    def is_connected(graph: dict[str, list[str]]) -> bool:
         """Check if a graph is connected (all nodes reachable from any starting node)."""
         if not graph:
             return True
@@ -98,7 +98,7 @@ class KnightSwapLogic:
         return len(visited) == len(graph)
 
     @staticmethod
-    def generate_board(num_nodes: int, rng: Random, max_attempts: int = 1000) -> Dict[str, List[str]]:
+    def generate_board(num_nodes: int, rng: Random, max_attempts: int = 1000) -> dict[str, list[str]]:
         """Generate a random connected board where edges represent valid knight moves."""
         candidates = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "D1", "D2", "D3"]
         attempts = 0
@@ -120,8 +120,8 @@ class KnightSwapLogic:
 
     @staticmethod
     def solve_swap(
-        board: Dict[str, List[str]], pieces: Dict[str, str], start_turn: str = "w"
-    ) -> Optional[List[Tuple[str, str, str]]]:
+        board: dict[str, list[str]], pieces: dict[str, str], start_turn: str = "w"
+    ) -> Optional[list[tuple[str, str, str]]]:
         """Find a sequence of moves to swap white and black pieces positions."""
 
         @dataclass(frozen=True)
@@ -177,7 +177,7 @@ class KnightSwapDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
         self.game_logic = KnightSwapLogic()
 
-    def _format_board(self, board: Dict[str, List[str]], pieces: Dict[str, str]) -> str:
+    def _format_board(self, board: dict[str, list[str]], pieces: dict[str, str]) -> str:
         """Format the board state as a string."""
         positions = list(board.keys())
         if not positions:
@@ -206,13 +206,13 @@ class KnightSwapDataset(ProceduralDataset):
 
         return "\n".join(lines)
 
-    def _format_moves(self, moves: List[Tuple[str, str, str]]) -> str:
+    def _format_moves(self, moves: list[tuple[str, str, str]]) -> str:
         """Format the solution moves as a string."""
         if not moves:
             return "No"
         return json.dumps([f"{color},{start},{end}" for color, start, end in moves])
 
-    def __getitem__(self, idx: int) -> Dict:
+    def __getitem__(self, idx: int) -> dict:
         """Generate a single Knight Swap puzzle."""
         rng = Random(self.seed + idx)
 
@@ -303,7 +303,7 @@ class KnightSwapDataset(ProceduralDataset):
 
         raise ValueError(f"Failed to generate valid puzzle after trying {self.config.max_attempts} different boards")
 
-    def score_answer(self, answer: Optional[str], entry: Dict) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict) -> float:
         """Score the user's solution for the Knight Swap puzzle.
 
         The answer should be either:

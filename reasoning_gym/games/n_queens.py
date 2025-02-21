@@ -7,21 +7,36 @@ https://en.wikipedia.org/wiki/Eight_queens_puzzle
 from copy import deepcopy
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 MIN_BOARD_SIZE = 4
 MAX_BOARD_SIZE = 12
 
-QUESTION_TEMPLATE = """Solve this N Queens puzzle:
-{puzzle}
-
-The board size is {n}x{n} and your job is to place {num_removed} queen(s) on the board such that no two queens attack each other.
+QUESTION_TEMPLATE = """Your job is to complete an n x n chess board with n Queens in total, such that no two attack each other.
 
 No two queens attack each other if they are not in the same row, column, or diagonal.
 
-Place a queen by replacing an underscore (_) with a Q.
+You can place a queen by replacing an underscore (_) with a Q.
+
+Example:
+- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
+_ Q _ _
+_ _ _ _
+_ _ _ _
+_ _ Q _
+- Output:
+_ Q _ _
+_ _ _ Q
+Q _ _ _
+_ _ Q _
+- Explanation
+    - None of the queens attack each other vertically, horizontally, or diagonally.
+    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+
+Given the below board of size {n} x {n} your job is to place {num_removed} queen(s) on the board such that no two queens attack each other.
+{puzzle}
 """
 
 
@@ -50,7 +65,7 @@ class NQueensDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
         self._solutions = self._get_all_solutions(config.n)
 
-    def _get_all_solutions(self, n: int) -> List[List[List[str]]]:
+    def _get_all_solutions(self, n: int) -> list[list[list[str]]]:
         """Get all solutions for the N Queens puzzle"""
 
         visited_cols = set()
@@ -82,7 +97,7 @@ class NQueensDataset(ProceduralDataset):
         backtrack(0)
         return res
 
-    def _create_puzzle(self, solved_board: List[List[str]], num_removed: int, rng: Random) -> List[List[str]]:
+    def _create_puzzle(self, solved_board: list[list[str]], num_removed: int, rng: Random) -> list[list[str]]:
         """Create puzzle by removing queens from solved board"""
         puzzle = deepcopy(solved_board)
         queens = [(i, j) for i in range(len(puzzle)) for j in range(len(puzzle)) if puzzle[i][j] == "Q"]
@@ -92,15 +107,15 @@ class NQueensDataset(ProceduralDataset):
             puzzle[x][y] = "_"
         return puzzle
 
-    def _board_to_string(self, board: List[List[str]]) -> str:
+    def _board_to_string(self, board: list[list[str]]) -> str:
         """Convert board to string representation"""
         return "\n".join(" ".join(x for x in row) for row in board)
 
-    def _string_to_board(self, board_str: str) -> List[List[str]]:
+    def _string_to_board(self, board_str: str) -> list[list[str]]:
         """Convert string representation to board"""
         return [list(row.split()) for row in board_str.strip().split("\n")]
 
-    def _is_tractable_solution(self, puzzle: List[List[str]], solution: List[List[str]]) -> bool:
+    def _is_tractable_solution(self, puzzle: list[list[str]], solution: list[list[str]]) -> bool:
         """Check if a solution is achievable from the starting state of the puzzle"""
         for r in range(len(puzzle)):
             for c in range(len(puzzle)):
@@ -135,15 +150,18 @@ class NQueensDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         valid_solutions = entry["metadata"]["valid_answers"]
-        reward = 0.0
         if answer is not None:
             if answer in valid_solutions:
-                reward = 1.0
-            else:
-                reward = 0.01
-        return reward
+                return 1.0
+            try:
+                answer = self._board_to_string(eval(answer))
+                if answer in valid_solutions:
+                    return 0.5
+            except Exception as e:
+                return 0.01
+        return 0.0
 
 
 register_dataset("n_queens", NQueensDataset, NQueensConfig)

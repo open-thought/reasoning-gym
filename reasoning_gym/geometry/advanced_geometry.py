@@ -1,9 +1,10 @@
 import random
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import Any, Optional
 
+import numpy as np
 import sympy
-from sympy.geometry import Point, Segment, Triangle
+from sympy.geometry import Point
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -21,7 +22,7 @@ class AdvancedGeometryConfig:
 
     # Probability or list of tasks we want to generate
     # For demonstration, we have three categories:
-    task_types: List[str] = field(
+    task_types: list[str] = field(
         default_factory=lambda: [
             "orthocenter",
             "incircle_radius",
@@ -35,6 +36,18 @@ class AdvancedGeometryConfig:
         assert len(self.task_types) > 0, "Must specify at least one task type."
 
 
+# Join format instructions into a single string
+GEOMETRY_FORMAT_INSTRUCTIONS = "\n".join(
+    [
+        "For all geometry problems:",
+        "1. Give coordinates in the form (x, y)",
+        "2. Round decimal answers to 3 decimal places",
+        "3. Use the degree symbol ° for angles",
+        "4. Return only th angle, coordinates, or radius as your answer.",
+    ]
+)
+
+
 class AdvancedGeometryDataset(ProceduralDataset):
     """
     A dataset for advanced geometry tasks using coordinate geometry.
@@ -43,16 +56,16 @@ class AdvancedGeometryDataset(ProceduralDataset):
     def __init__(self, config: AdvancedGeometryConfig):
         self._prompt_templates = {
             "orthocenter": [
-                "Given triangle ABC with coordinates A={A}, B={B}, and C={C}, find the coordinates of its orthocenter.",
-                "For triangle with vertices A={A}, B={B}, and C={C}, determine the orthocenter (intersection of altitudes).",
+                f"Given triangle ABC with coordinates A={{A}}, B={{B}}, and C={{C}}, find the coordinates of its orthocenter. {GEOMETRY_FORMAT_INSTRUCTIONS}",
+                f"For triangle with vertices A={{A}}, B={{B}}, and C={{C}}, determine the orthocenter (intersection of altitudes). {GEOMETRY_FORMAT_INSTRUCTIONS}",
             ],
             "incircle_radius": [
-                "Consider triangle ABC with coordinates A={A}, B={B}, and C={C}. Compute the radius of its incircle.",
-                "Find the incircle radius of triangle ABC whose vertices are A={A}, B={B}, and C={C}.",
+                f"Consider triangle ABC with coordinates A={{A}}, B={{B}}, and C={{C}}. Compute the radius of its incircle. {GEOMETRY_FORMAT_INSTRUCTIONS}",
+                f"Find the incircle radius of triangle ABC whose vertices are A={{A}}, B={{B}}, and C={{C}}. {GEOMETRY_FORMAT_INSTRUCTIONS}",
             ],
             "angle_measure": [
-                "In triangle ABC with coordinates A={A}, B={B}, and C={C}, find the measure (in degrees) of angle ABC.",
-                "Given a triangle with vertices A={A}, B={B}, C={C}, determine the angle at B in degrees.",
+                f"In triangle ABC with coordinates A={{A}}, B={{B}}, and C={{C}}, find the measure (in degrees) of angle ABC. {GEOMETRY_FORMAT_INSTRUCTIONS}",
+                f"Given a triangle with vertices A={{A}}, B={{B}}, and C={{C}}, determine the angle at B in degrees. {GEOMETRY_FORMAT_INSTRUCTIONS}",
             ],
         }
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -76,6 +89,8 @@ class AdvancedGeometryDataset(ProceduralDataset):
             question, answer, metadata = self._build_angle_measure_task(rng, A, B, C)
         else:
             raise ValueError(f"Unknown task_type: {task_type}")
+
+        metadata["task_type"] = task_type
 
         return {
             "question": question,
@@ -127,13 +142,14 @@ class AdvancedGeometryDataset(ProceduralDataset):
         y_ortho_approx = float(ortho.y.evalf())
 
         question_template = rng.choice(self._prompt_templates["orthocenter"])
-        question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y))
+        question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y), a="a", b="b")
         answer_str = f"({x_ortho_approx:.3f}, {y_ortho_approx:.3f})"
 
         metadata = {
             "A": (A.x, A.y),
             "B": (B.x, B.y),
             "C": (C.x, C.y),
+            "ortho": (ortho.x, ortho.y),
             "orthocenter_exact": (str(ortho.x), str(ortho.y)),
             "orthocenter_approx": (x_ortho_approx, y_ortho_approx),
         }
@@ -200,7 +216,7 @@ class AdvancedGeometryDataset(ProceduralDataset):
             angle_deg = float(angle_rad.evalf() * 180 / sympy.pi)
 
         question_template = rng.choice(self._prompt_templates["angle_measure"])
-        question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y))
+        question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y), a="a", b="b")
 
         answer_str = f"{angle_deg:.2f}°"
         metadata = {
@@ -210,6 +226,55 @@ class AdvancedGeometryDataset(ProceduralDataset):
             "angle_ABC_degrees": angle_deg,
         }
         return question, answer_str, metadata
+
+    def score_answer(self, answer: str | None, entry: dict[str, Any]) -> float:
+        reward = 0.0
+        expected_answer = entry["answer"]
+        metadata = entry["metadata"]
+        task_type = metadata["task_type"]
+
+        if answer is not None:
+            try:
+                if metadata["task_type"] == "angle_measure":
+                    answer = answer.replace("\u00b0", "")
+                    expected_answer = expected_answer.replace("\u00b0", "")
+                    if np.round(float(answer), 2) == np.round(float(expected_answer), 2):
+                        reward = 1.0
+                    elif len(answer.strip()) > 0:
+                        reward = 0.05
+                    else:
+                        reward = 0.01
+                elif metadata["task_type"] == "orthocenter":
+                    x_coord = answer.split(",")[0].replace("(", "").strip()
+                    y_coord = answer.split(",")[1].replace(")", "").strip()
+
+                    expected_x = metadata["ortho"][0]
+                    expected_y = metadata["ortho"][1]
+
+                    if x_coord == expected_x and y_coord == expected_y:
+                        reward = 1.0
+                    elif (np.round(float(x_coord), 2) == np.round(float(expected_x), 2)) and (
+                        np.round(float(y_coord), 2) == np.round(float(expected_y), 2)
+                    ):
+                        reward = 1.0
+                    elif len(x_coord.strip()) > 0 and len(y_coord.strip()) > 0:
+                        reward = 0.05
+                    else:
+                        reward = 0.01
+                elif metadata["task_type"] == "incircle_radius":
+                    if answer == expected_answer:
+                        reward = 1.0
+                    elif np.round(float(answer), 2) == np.round(float(metadata["incircle_radius_exact"]), 2):
+                        reward = 0.5
+                    elif len(answer.strip()) > 0:
+                        reward = 0.05
+                    else:
+                        reward = 0.01
+                else:
+                    raise ValueError(f"Unknown task_type: {task_type}")
+            except:
+                reward = 0.01
+        return reward
 
 
 # Register the dataset

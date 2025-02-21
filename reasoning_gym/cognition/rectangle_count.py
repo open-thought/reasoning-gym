@@ -1,8 +1,44 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
+
+QUESTION_TEMPLATE = """Your task is to count how many rectangles are present in an ASCII grid.
+
+Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
+
+Example:
+- Input: How many rectangles are in the grid below?
+
+              ####
+              #  #
+              ####
+
+
+
+
+
+
+
+
+
+
+ #########
+ #       █##
+ #       █ #
+ ########█ #
+         # #
+         ###
+- Output: 3
+- Explanation:
+    - The first rectangle is the 3x4 rectangle in the top right.
+    - The other two rectangles are overlapping in the bottom left corner.
+    - Therefore, the final answer is 3.
+
+Now, it's your turn. How many rectangles do you see in the grid below?
+{puzzle}
+"""
 
 
 def draw_rectangles_with_overlap(n, width, height, rng):
@@ -84,7 +120,7 @@ class RectangleCountConfig:
 
 
 class RectangleCountDataset(ProceduralDataset):
-    """Generates [RectangleCount Puzzles](https://en.wikipedia.org/wiki/RectangleCount_Puzzle) with configurable parameters"""
+    """Generates ASCII rectangle counting puzzles with configurable parameters"""
 
     def __init__(self, config: RectangleCountConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -103,22 +139,20 @@ class RectangleCountDataset(ProceduralDataset):
         target = rng.randint(1, self.config.max_rectangles)
         puzzle, answer = draw_rectangles_with_overlap(target, self.config.width, self.config.height, rng)
 
-        puzz = f"How many rectangles do you see? Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'. \n\n {puzzle}"
-
         return {
-            "question": puzz,
+            "question": QUESTION_TEMPLATE.format(puzzle=puzzle),
             "answer": str(answer),
-            "metadata": {},
+            "metadata": {"puzzle": puzzle, "solution": answer},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the RectangleCount task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.

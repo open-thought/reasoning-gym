@@ -92,3 +92,13 @@ def test_string_insertion_answer():
 
     # No reuse of newly inserted characters
     assert dataset._get_answer("ABCDBCD") == "ABCDABCD"
+
+    # Test score_answer with correct answer
+    answer = "AABCDAEEEEEEEBCDEBAAAAA"
+    entry = {"answer": "AABCDAEEEEEEEBCDEBAAAAA"}
+    assert dataset.score_answer(answer, entry) == 1.0
+
+    # Test score_answer with correct answer as python list of characters (partial correct)
+    answer = "['A', 'A', 'B', 'C', 'D', 'A', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'B', 'C', 'D', 'E', 'B', 'A', 'A', 'A', 'A', 'A']"
+    entry = {"answer": "AABCDAEEEEEEEBCDEBAAAAA"}
+    assert dataset.score_answer(answer, entry) == 0.5

@@ -7,17 +7,19 @@ from typing import Any, Optional, Union
 SYSTEM_PROMPTS = {
     "DeepSeekZero": """A conversation between User and Assistant. The user asks a question, and the Assistant solves it.
 The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think>
-<answer> answer here </answer>
+<answer>answer here</answer>
+Do not explain your reasoning inside the answer tags, provide only the final answer. When an example is provided, you should strictly follow the format of the output/answer in that example.
 """,
     "default": """Given a problem, your task is to answer the question by thinking step-by-step in a clear and specific manner.
 Once you have thought about the reasoning process, provide the answer in the following format:
-<answer> answer here </answer>
+<answer>answer here</answer>
+Do not explain your reasoning inside the answer tags, provide only the final answer. When an example is provided, you should strictly follow the format of the output/answer in that example.
 """,
 }
 
 
 def extract_answer(completion: str, tag_name: str = "answer") -> Optional[str]:
-    regex = f"<{tag_name}>(.*?)</{tag_name}>"
+    regex = f"<{tag_name}>\\s?(.*?)\\s?</{tag_name}>"
     matches = list(
         re.finditer(
             regex,
@@ -77,3 +79,33 @@ def is_integer(obj: Any) -> bool:
     elif isinstance(obj, Fraction):
         return obj.denominator == 1
     return False
+
+
+def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
+    """Compute the reward for a given answer compared to the oracle answer.
+
+    Args:
+        answer: Answer provided by model
+        oracle_answer: Correct answer to the question
+        strip_commas: Whether to remove commas from answers e.g "1,000" = "1000"
+
+    Returns:
+        Reward value between 0.0 and 1.0
+    """
+    reward = 0.0
+    if answer is not None and len(answer) > 0:
+        reward = 0.01
+        try:
+            if strip_commas:
+                answer = answer.replace(",", "")
+                oracle_answer = oracle_answer.replace(",", "")
+
+            if Decimal(answer) == Decimal(oracle_answer):
+                reward = 1.0
+        except:
+            pass
+
+        if oracle_answer in answer:
+            reward = len(oracle_answer) / len(answer)
+
+    return reward

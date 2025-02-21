@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -38,7 +38,7 @@ class Side(StrEnum):
 class Cube:
     """Represents a cube with colored sides"""
 
-    colors: Dict[Side, Color]
+    colors: dict[Side, Color]
 
     def rotate_front_to_top(self) -> None:
         """Rotate cube so front face becomes top"""
@@ -162,7 +162,7 @@ class ColorCubeRotationDataset(ProceduralDataset):
             rotation_map[from_side]()
 
     def _generate_story(
-        self, initial_state: Dict[Side, Color], rotations: List[Side], target_side: Side, rng: random.Random
+        self, initial_state: dict[Side, Color], rotations: list[Side], target_side: Side, rng: random.Random
     ) -> str:
         """Generate story describing cube state and rotations"""
         # Describe initial state
@@ -185,8 +185,28 @@ class ColorCubeRotationDataset(ProceduralDataset):
 
         # Ask question
         story_parts.append(f"\nWhat is now the color of the {target_side.value} side of the cube?")
+        story_parts.append(f"Provide only the color as your final answer.")
 
         return "\n".join(story_parts)
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        reward = 0.0
+        metadata = entry["metadata"]
+        if answer is not None:
+            try:
+                answer_formatted = answer.lower()
+                solved = answer_formatted == metadata["answer"]
+                if solved:
+                    reward = 1.0
+                elif metadata["answer"] in answer_formatted:
+                    reward = 0.25
+                elif len(answer.strip()) > 0:
+                    reward = 0.05
+                else:
+                    reward = 0.01
+            except:
+                reward = 0.01
+        return reward
 
 
 register_dataset("color_cube_rotation", ColorCubeRotationDataset, ColorCubeRotationConfig)

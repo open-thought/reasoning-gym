@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 import cellpylib as cpl
 
@@ -12,8 +12,8 @@ from ..factory import ProceduralDataset, register_dataset
 class GameOfLifeConfig:
     """Configuration for sudoku puzzle generation"""
 
-    grid_size_x: int = 20
-    grid_size_y: int = 20
+    grid_size_x: int = 10
+    grid_size_y: int = 10
     filled_cells: int = 100  # actually a max
     simulation_steps: int = 1
     seed: Optional[int] = None
@@ -32,7 +32,7 @@ class GameOfLifeDataset(ProceduralDataset):
 
     def __init__(self, config: GameOfLifeConfig):
         self._prompt_templates = [
-            "What will this Game of Life board look like after {simulation_steps} steps of simulation? Reply as array of array representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])\n\n{board}."
+            "What will this Game of Life board look like after {simulation_steps} steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])\n\n{board}."
         ]
 
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -60,10 +60,15 @@ class GameOfLifeDataset(ProceduralDataset):
 
         # Simulate the result to get the answer
         evolved = cpl.evolve2d(
-            board, timesteps=self.config.simulation_steps + 1, apply_rule=cpl.game_of_life_rule, memoize="recursive"
+            board,
+            timesteps=self.config.simulation_steps + 1,
+            apply_rule=cpl.game_of_life_rule,
+            memoize="recursive",
         )
 
-        board_str = str(board[0])
+        rows = [json.dumps(board[0, i].tolist(), separators=(",", ":")) for i in range(board.shape[1])]
+        board_str = "[" + ",\n ".join(rows) + "]"
+
         final_step = evolved[-1]
         final_step_list = final_step.tolist()
         result_str = json.dumps(final_step_list, separators=(",", ":"))
@@ -81,14 +86,14 @@ class GameOfLifeDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the GoL task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.

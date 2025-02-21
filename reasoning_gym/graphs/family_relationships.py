@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass, field
 from enum import StrEnum
 from itertools import count
-from typing import List, Optional, Set, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -37,8 +37,8 @@ class Person:
     gender: Gender
     id: int
     spouse: Optional["Person"] = None
-    parents: List["Person"] = field(default_factory=list)
-    children: List["Person"] = field(default_factory=list)
+    parents: list["Person"] = field(default_factory=list)
+    children: list["Person"] = field(default_factory=list)
 
     def __hash__(self):
         return self.id
@@ -65,7 +65,7 @@ class FamilyRelationshipsConfig:
 
     min_family_size: int = 4
     max_family_size: int = 8
-    male_names: List[str] = field(
+    male_names: list[str] = field(
         default_factory=lambda: [
             "James",
             "John",
@@ -112,7 +112,7 @@ class FamilyRelationshipsConfig:
             "Finn",
         ]
     )
-    female_names: List[str] = field(
+    female_names: list[str] = field(
         default_factory=lambda: [
             "Mary",
             "Patricia",
@@ -175,9 +175,9 @@ class FamilyRelationshipsDataset(ProceduralDataset):
 
     def __init__(self, config: FamilyRelationshipsConfig):
         self._templates = [
-            "What is {person1} to {person2}?",
-            "How is {person1} related to {person2}?",
-            "What relation is {person1} to {person2}?",
+            "What is {person1} to {person2}? Respond only with the word that describes their relationship.",
+            "How is {person1} related to {person2}? Provide the relationship in one word.",
+            "What relation is {person1} to {person2}? Answer with a single word.",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -207,7 +207,7 @@ class FamilyRelationshipsDataset(ProceduralDataset):
             },
         }
 
-    def _generate_family(self, rng: random.Random) -> Set[Person]:
+    def _generate_family(self, rng: random.Random) -> set[Person]:
         """Generate a random family tree"""
         family_size = rng.randint(self.config.min_family_size, self.config.max_family_size)
         family = set()
@@ -292,8 +292,8 @@ class FamilyRelationshipsDataset(ProceduralDataset):
         return family
 
     def _get_relationship_question(
-        self, rng: random.Random, family: Set[Person]
-    ) -> Tuple[Person, Person, Relationship]:
+        self, rng: random.Random, family: set[Person]
+    ) -> tuple[Person, Person, Relationship]:
         """Select two family members and determine their relationship"""
         person1, person2 = rng.sample(list(family), 2)
 
@@ -326,7 +326,7 @@ class FamilyRelationshipsDataset(ProceduralDataset):
 
         return person1, person2, relationship
 
-    def _generate_story(self, family: Set[Person]) -> str:
+    def _generate_story(self, family: set[Person]) -> str:
         """Generate a story describing the family relationships"""
         story_parts = []
 

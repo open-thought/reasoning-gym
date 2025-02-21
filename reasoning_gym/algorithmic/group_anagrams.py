@@ -10,7 +10,7 @@ import json
 from collections import defaultdict
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
@@ -88,9 +88,9 @@ class GroupAnagramsDataset(ProceduralDataset):
         anagrams = list(res.values())
         return self._sort_nested_list(anagrams)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score a single Group Anagrams question"""
-        reward = 0
+        reward = 0.0
         if answer is not None:
             try:
                 answer = json.loads(answer)
@@ -98,11 +98,11 @@ class GroupAnagramsDataset(ProceduralDataset):
                 answer_str = json.dumps(self._sort_nested_list(answer))
                 oracle_str = json.dumps(self._sort_nested_list(oracle))
                 if answer_str == oracle_str:
-                    reward = 1
+                    reward = 1.0
                 else:
                     reward = 0.01
             except Exception:
-                reward = 0
+                reward = 0.0
         return reward
 
     def __getitem__(self, idx: int) -> dict:

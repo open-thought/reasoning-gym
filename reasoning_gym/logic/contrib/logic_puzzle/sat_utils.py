@@ -4,15 +4,15 @@ __author__ = "Raymond Hettinger"
 
 from functools import lru_cache
 from itertools import combinations
-from typing import Dict, FrozenSet, Iterable, List, Set, Tuple
+from typing import FrozenSet, Iterable
 
 import pycosat
 
 Element = str  # literal; any string, but here it's <element house#> e.g., "tushar 5" or "chai 2"
-CNF = List[Tuple[Element, ...]]
+CNF = list[tuple[Element, ...]]
 
 
-def make_translate(cnf: CNF) -> Tuple[Dict[Element, int], Dict[int, Element]]:
+def make_translate(cnf: CNF) -> tuple[dict[Element, int], dict[int, Element]]:
     """Make a translator from symbolic CNF to pycosat's numbered clauses.
 
     Return literal to number dictionary and reverse lookup dict.
@@ -22,7 +22,7 @@ def make_translate(cnf: CNF) -> Tuple[Dict[Element, int], Dict[int, Element]]:
      {1: 'a', 2: 'b', 3: 'c', -1: '~a', -3: '~c', -2: '~b'})
     """
 
-    lit2num: Dict[Element, int] = {}
+    lit2num: dict[Element, int] = {}
     for clause in cnf:
         for literal in clause:
             if literal not in lit2num:
@@ -36,7 +36,7 @@ def make_translate(cnf: CNF) -> Tuple[Dict[Element, int], Dict[int, Element]]:
     return lit2num, num2var
 
 
-def translate(cnf: CNF, uniquify=False) -> Tuple[List[Tuple[int, ...]], Dict[int, Element]]:
+def translate(cnf: CNF, uniquify=False) -> tuple[list[tuple[int, ...]], dict[int, Element]]:
     """Translate a symbolic CNF to a numbered CNF and return reverse mapping.
 
     >>> translate([['~P', 'Q'],['~P', 'R']])
@@ -78,14 +78,14 @@ def neg(element: str) -> str:
     return element[1:] if element.startswith("~") else "~" + element
 
 
-def from_dnf(groups: Iterable[Tuple[str, ...]]) -> CNF:
+def from_dnf(groups: Iterable[tuple[str, ...]]) -> CNF:
     """Convert from or-of-ands to and-of-ors
 
     >>> from_dnf([['~P'], ['Q', 'R']])
     [('~P', 'Q'), ('~P', 'R')]
     """
 
-    cnf: Set[FrozenSet[str]] = {frozenset()}
+    cnf: set[FrozenSet[str]] = {frozenset()}
     for group in groups:
         nl = {frozenset([literal]): neg(literal) for literal in group}
         # The "clause | literal" prevents dup lits: {x, x, y} -> {x, y}
@@ -134,7 +134,7 @@ class Q:
         return f"{self.__class__.__name__}(elements={self.elements!r})"
 
 
-def all_of(elements: List[Element]) -> CNF:
+def all_of(elements: list[Element]) -> CNF:
     """Forces inclusion of matching rows on a truth table"""
     return Q(elements) == len(elements)
 
