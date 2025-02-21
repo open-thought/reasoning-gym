@@ -104,6 +104,7 @@ class OpenRouterEvaluator:
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
                 "model_answer": model_answer,
+                "full_model_response": response,
                 "score": score,
                 "metadata": str(entry["metadata"]),
             }
