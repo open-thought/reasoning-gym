@@ -20,13 +20,14 @@ class BitwiseArithmeticConfig:
         assert 10 >= self.difficulty, "difficulty must be lte 10"
 
 
-def generate_expression(rng, max_depth):
+def generate_expression(rng: Random, max_depth: int) -> str:
     """
     Recursively generate a random arithmetic expression that includes
     standard arithmetic (+, -, *) and bitwise shifting (<<, >>) operators.
     All numbers are represented in hexadecimal format as multi-byte values.
 
     Parameters:
+        rng (Random): Random number generator instance
         max_depth (int): Maximum depth of nested expressions.
 
     Returns:
@@ -55,15 +56,18 @@ def generate_expression(rng, max_depth):
     return f"({left_expr} {op} {right_expr})"
 
 
-def generate_problem(rng, difficulty=1):
+def generate_problem(rng: Random, difficulty: int = 1) -> tuple[str, str]:
     """
     Generate a random arithmetic problem involving multi-byte hexadecimal numbers.
 
     The 'difficulty' parameter controls the complexity:
-      - Lower difficulty produces a shallower expression.
-      - Higher difficulty produces a more deeply nested expression.
+      - difficulty=1: Simple expressions like (0x123 + 0x456)
+      - difficulty=2: Nested expressions like ((0x123 + 0x456) << 1)
+      - difficulty=3: More complex nesting like ((0x123 + 0x456) << (0x789 >> 1))
+      Higher values continue to increase nesting depth and expression complexity.
 
     Parameters:
+        rng (Random): Random number generator instance
         difficulty (int): The difficulty level (1 = simplest; higher values = more complex).
 
     Returns:
