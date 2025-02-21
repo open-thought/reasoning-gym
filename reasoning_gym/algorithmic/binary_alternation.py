@@ -27,8 +27,8 @@ Now, determine the minimum number of swaps to make the following binary string a
 class BinaryAlternationConfig:
     """Configuration for Count Bits dataset generation"""
 
-    min_n: int = 10 # Minimum number of bits in the binary string
-    max_n: int = 30 # Maximum number of bits in the binary string
+    min_n: int = 10  # Minimum number of bits in the binary string
+    max_n: int = 30  # Maximum number of bits in the binary string
     p_solvable: float = 0.8  # Probability of generating a solvable sample
 
     size: int = 500  # Virtual dataset size
@@ -50,7 +50,7 @@ class BinaryAlternationDataset(ProceduralDataset):
     def _get_binary_string(self, rng: Random, solvable: bool) -> str:
         n = rng.randint(self.config.min_n, self.config.max_n)
         ones, zeros = n // 2, n // 2
-        
+
         # Check if we need to add an extra bit
         if n % 2 == 1:
             if rng.random() < 0.5:
@@ -69,12 +69,11 @@ class BinaryAlternationDataset(ProceduralDataset):
                     ones += 2
                 else:
                     zeros += 2
-        
+
         # Generate the string
         string = ["1"] * ones + ["0"] * zeros
         rng.shuffle(string)
         return "".join(string)
-
 
     def _get_answer(self, string: str) -> int:
         """Calculate the minimum number of swaps to make the string alternating"""
@@ -85,11 +84,11 @@ class BinaryAlternationDataset(ProceduralDataset):
                 if c != expected:
                     incorrect += 1
                 expected = "1" if expected == "0" else "0"
-            return incorrect // 2 # number of swaps is half of incorrect positions
-        
+            return incorrect // 2  # number of swaps is half of incorrect positions
+
         ones, zeros = string.count("1"), string.count("0")
-        if abs(ones-zeros) > 1:
-            return -1 # impossible to make alternating
+        if abs(ones - zeros) > 1:
+            return -1  # impossible to make alternating
         if ones > zeros:
             return get_num_swaps("1")
         elif ones < zeros:
@@ -110,5 +109,6 @@ class BinaryAlternationDataset(ProceduralDataset):
             "answer": str(answer),
             "metadata": {"string": string, "solution": answer, "solvable": solvable},
         }
+
 
 register_dataset("binary_alternation", BinaryAlternationDataset, BinaryAlternationConfig)

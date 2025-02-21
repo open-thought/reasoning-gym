@@ -26,7 +26,7 @@ def test_binary_alternation_config_validation():
     with pytest.raises(AssertionError):
         config = BinaryAlternationConfig(p_solvable=-0.01)  # < 0 not allowed
         config.validate()
-    
+
     with pytest.raises(AssertionError):
         config = BinaryAlternationConfig(p_solvable=1.01)  # > 0 not allowed
         config.validate()
