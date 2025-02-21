@@ -79,3 +79,28 @@ def is_integer(obj: Any) -> bool:
     elif isinstance(obj, Fraction):
         return obj.denominator == 1
     return False
+
+
+def compute_reward(answer: Optional[str], oracle_answer: str, allow_commas: bool = True) -> float:
+    """Compute the reward for a given answer compared to the oracle answer.
+
+    Args:
+        answer: Answer provided by model
+        oracle_answer: Correct answer to the question
+        allow_commas: Whether to allow commas in the answer e.g "1,000" = "1000"
+
+    Returns:
+        Reward value between 0.0 and 1.0
+    """
+    reward = 0.0
+    if answer is not None and len(answer) > 0:
+        answer = answer.strip()
+        answer = answer.replace(",", "") if allow_commas else answer
+        if answer == oracle_answer:
+            reward = 1.0
+        elif oracle_answer in answer:
+            reward = len(oracle_answer) / len(answer)
+        else:
+            reward = 0.01
+
+    return reward

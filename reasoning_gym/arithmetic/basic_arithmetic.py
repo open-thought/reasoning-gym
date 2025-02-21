@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Dict, Literal, Optional
 
+from reasoning_gym import utils
+
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -88,7 +90,7 @@ class BasicArithmeticDataset(ProceduralDataset):
         else:
             expression, result = self._generate_simple_task(rng, num_terms, num_digits)
 
-        question = self._format_question(rng, expression) + "."
+        question = self._format_question(rng, expression)
 
         return {
             "question": question,
@@ -233,19 +235,8 @@ class BasicArithmeticDataset(ProceduralDataset):
             return template.format(expression)
 
     def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
-        """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["answer"].strip()
-        reward = 0.0
-        if answer is not None and len(answer) > 0:
-            answer = answer.strip().replace(",", "")
-            if answer == oracle_answer:
-                reward = 1.0
-            elif oracle_answer in answer:
-                reward = len(oracle_answer) / len(answer)
-            else:
-                reward = 0.01
-
-        return reward
+        return utils.compute_reward(answer, oracle_answer, allow_commas=False)
 
 
 # Register the dataset
