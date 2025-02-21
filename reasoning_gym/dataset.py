@@ -4,10 +4,10 @@ from abc import ABC, abstractmethod
 from collections.abc import Iterable, Sized
 from copy import deepcopy
 from random import Random
-from typing import Any, Dict, Iterator, Optional, Type, TypeVar
+from typing import Any, Iterator, Optional, Type, TypeVar
 
 
-class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
+class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
     """Abstract base class for procedural dataset generators"""
 
     def __init__(self, config: Any, seed: Optional[int] = None, size: int = 500):
@@ -28,7 +28,7 @@ class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
         self._current_idx = 0
         return self
 
-    def __next__(self) -> Dict[str, Any]:
+    def __next__(self) -> dict[str, Any]:
         """Get next item in iteration"""
         if self._current_idx >= self.size:
             raise StopIteration
@@ -51,15 +51,16 @@ class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
         """
         raise NotImplementedError
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
-        oracle_answer = entry["answer"]
+        oracle_answer = entry["answer"].strip()
         reward = 0.0
-        if answer is not None:
+        if answer is not None and len(answer) > 0:
+            answer = answer.strip()
             if answer == oracle_answer:
                 reward = 1.0
             elif oracle_answer in answer:
-                reward = 0.5
+                reward = len(oracle_answer) / len(answer)
             else:
                 reward = 0.01
 
@@ -69,7 +70,7 @@ class ProceduralDataset(ABC, Sized, Iterable[Dict[str, Any]]):
 T = TypeVar("T", bound="ProceduralDataset")
 
 
-class ReseedingDataset(Iterable[Dict[str, Any]]):
+class ReseedingDataset(Iterable[dict[str, Any]]):
     """Wrapper that makes any ProceduralDataset infinite by reseeding when reaching the end"""
 
     def __init__(self, dataset: T, chunk_size: int = 500):
@@ -99,14 +100,14 @@ class ReseedingDataset(Iterable[Dict[str, Any]]):
         # Create new dataset instance with chunk config
         return self.dataset_cls(new_config)
 
-    def __iter__(self) -> Iterator[Dict[str, Any]]:
+    def __iter__(self) -> Iterator[dict[str, Any]]:
         """Make the dataset iterable"""
         self._current_chunk = 0
         self._current_dataset = self._create_chunk(0)
         self._current_idx = 0
         return self
 
-    def __next__(self) -> Dict[str, Any]:
+    def __next__(self) -> dict[str, Any]:
         """Get next item, creating new chunk if needed"""
         if self._current_idx >= self.chunk_size:
             # Move to next chunk
@@ -118,6 +119,6 @@ class ReseedingDataset(Iterable[Dict[str, Any]]):
         self._current_idx += 1
         return item
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Forward scoring to the wrapped dataset's implementation"""
         return self.dataset.score_answer(answer, entry)

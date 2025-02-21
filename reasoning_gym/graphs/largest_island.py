@@ -7,7 +7,7 @@ https://leetcode.com/problems/max-area-of-island/description/
 from collections import deque
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -58,7 +58,7 @@ class LargestIslandDataset(ProceduralDataset):
     def _is_valid_cell(self, r: int, c: int) -> bool:
         return 0 <= r < self.config.rows and 0 <= c < self.config.cols
 
-    def _create_grid(self, rng: Random) -> List[List[int]]:
+    def _create_grid(self, rng: Random) -> list[list[int]]:
         """Create a random grid of islands using a random walk algorithm"""
         grid = [[0] * self.config.cols for _ in range(self.config.rows)]
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
@@ -81,7 +81,7 @@ class LargestIslandDataset(ProceduralDataset):
 
         return grid
 
-    def _get_largest_island(self, grid: List[List[int]]) -> int:
+    def _get_largest_island(self, grid: list[list[int]]) -> int:
         """Find the largest island in the grid"""
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
         visited = set()
@@ -108,11 +108,11 @@ class LargestIslandDataset(ProceduralDataset):
 
         return max_area
 
-    def _grid_to_string(self, grid: List[List[int]]) -> str:
+    def _grid_to_string(self, grid: list[list[int]]) -> str:
         """Convert grid to a string representation"""
         return "\n".join(" ".join(str(cell) for cell in row) for row in grid)
 
-    def _string_to_board(self, grid_str: str) -> List[List[int]]:
+    def _string_to_board(self, grid_str: str) -> list[list[int]]:
         """Convert string representation to a grid"""
         return [[int(cell) for cell in row.split()] for row in grid_str.split("\n")]
 

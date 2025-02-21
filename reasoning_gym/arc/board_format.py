@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import List, Tuple
 
 ARC_PROMPT_TEMPLATE = """Find the common rule that maps an input grid to an output grid, given the examples below.
 
@@ -21,7 +20,7 @@ class BoardFormattingOptions:
 
 
 def format_board(
-    board: List[List[int]], formatting_options: BoardFormattingOptions, with_board_shape: bool = False
+    board: list[list[int]], formatting_options: BoardFormattingOptions, with_board_shape: bool = False
 ) -> str:
     """
     Format a board as a string
@@ -65,7 +64,7 @@ def format_board(
 
 def format_board_pair(
     index: int,
-    pair: dict[str, List[List[int]]],
+    pair: dict[str, list[list[int]]],
     formatting_options: BoardFormattingOptions,
 ) -> str:
     """
@@ -82,7 +81,7 @@ def format_board_pair(
     return f"Example {index}:\n\nInput:\n{input_element}\nOutput:\n{output_element}\n\n"
 
 
-def parse_board(formatted_str: str, formatting_options: BoardFormattingOptions) -> Tuple[Tuple[int, ...], ...]:
+def parse_board(formatted_str: str, formatting_options: BoardFormattingOptions) -> tuple[tuple[int, ...], ...]:
     """
     Convert a formatted board string back to a tuple grid using formatting options
     """

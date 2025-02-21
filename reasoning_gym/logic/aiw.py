@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from random import Random
 from string import Template
-from typing import List, Optional
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -20,15 +20,15 @@ class AliceInWonderlandConfig:
     """Configuration options for the Alice in Wonderland dataset.
 
     Attributes:
-        male_names (List[str]): List of male names to use in questions.
-        female_names (List[str]): List of female names to use in questions. Must include 'Alice'.
-        task_types (List[TaskType]): List of task types to include in dataset.
+        male_names (list[str]): List of male names to use in questions.
+        female_names (list[str]): List of female names to use in questions. Must include 'Alice'.
+        task_types (list[TaskType]): List of task types to include in dataset.
         seed (Optional[int]): Seed for random number generation.
         size (int): Number of samples in the dataset.
         max_entities (int): Max number of siblings/friends/colleagues in questions.
     """
 
-    male_names: List[str] = field(
+    male_names: list[str] = field(
         default_factory=lambda: [
             "James",
             "John",
@@ -43,7 +43,7 @@ class AliceInWonderlandConfig:
             "Bob",
         ]
     )
-    female_names: List[str] = field(
+    female_names: list[str] = field(
         default_factory=lambda: [
             "Mary",
             "Patricia",
@@ -58,7 +58,7 @@ class AliceInWonderlandConfig:
             "Alice",
         ]
     )
-    task_types: List[TaskType] = field(
+    task_types: list[TaskType] = field(
         default_factory=lambda: [TaskType.SIBLINGS, TaskType.FRIENDS, TaskType.COLLEAGUES]  # Added Colleagues
     )
     seed: Optional[int] = None
@@ -187,7 +187,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
                 num_female_colleagues_bob_circle=num_female_colleagues_bob_circle,
             )
 
-        return {"question": question, "answer": answer, "metadata": {"task_type": task_type.value}}
+        return {"question": question, "answer": str(answer), "metadata": {"task_type": task_type.value}}
 
     def __getitem__(self, idx: int) -> dict:
         rng = Random(self.seed + idx)

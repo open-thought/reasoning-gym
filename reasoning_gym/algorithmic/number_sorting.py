@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -34,6 +34,11 @@ class NumberSortingDataset(ProceduralDataset):
 
     def __init__(self, config: NumberSortingConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
+        self.added_instruction = """
+Please follow the instruction below:
+## 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
+## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
+"""
 
     def _format_number(self, num: float, decimals: int) -> str:
         """Format number with specified decimal places"""
@@ -41,7 +46,7 @@ class NumberSortingDataset(ProceduralDataset):
         # Reparse to ensure exact decimal representation
         return f"{float(formatted):.{decimals}f}"
 
-    def _generate_numbers(self, rng: Random) -> Tuple[List[float], List[str]]:
+    def _generate_numbers(self, rng: Random) -> tuple[list[float], list[str]]:
         """Generate list of numbers and their string representations"""
         count = rng.randint(self.config.min_numbers, self.config.max_numbers)
         decimals = rng.randint(self.config.min_decimals, self.config.max_decimals)
@@ -78,9 +83,10 @@ class NumberSortingDataset(ProceduralDataset):
         is_ascending = rng.choice([True, False])
         direction = "ascending" if is_ascending else "descending"
         answer = asc_answer if is_ascending else desc_answer
+        question = f"Sort these numbers in {direction} order: {', '.join(number_strs)}" + self.added_instruction
 
         return {
-            "question": f"Sort these numbers in {direction} order: {', '.join(number_strs)}",
+            "question": question,
             "answer": str(answer),
             "metadata": {"original_numbers": number_strs, "direction": direction, "sorted_numbers": answer},
         }

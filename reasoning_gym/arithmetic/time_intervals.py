@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass, field
 from datetime import date, datetime, time, timedelta
-from typing import List, Optional
+from typing import Optional
 
 import pytz
 from dateutil import parser
@@ -19,7 +19,7 @@ class TimeIntervalsConfig:
     min_date: date = date(1900, 1, 1)
     max_date: date = date(3000, 1, 1)
     max_date_difference_days: int = 100
-    task_types: List[str] = field(
+    task_types: list[str] = field(
         default_factory=lambda: ["time", "time_seconds", "time_ms", "date", "datetime", "datetime_tz"]
     )
     seed: Optional[int] = None

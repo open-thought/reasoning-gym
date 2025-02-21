@@ -1,8 +1,7 @@
 import math
 import random
-import string
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from sympy import Eq, Symbol, expand, solve
 
@@ -21,7 +20,7 @@ class PolynomialEquationsConfig:
     max_value: int = 100  # Maximum value for coefficients
     min_degree: int = 1  # Minimum polynomial degree
     max_degree: int = 3  # Maximum polynomial degree
-    operators: Tuple[str, ...] = (
+    operators: tuple[str, ...] = (
         "+",
         "-",
     )  # Allowed operators between terms, Avoid adding '*' or '/' because they will affect the degree
@@ -62,6 +61,14 @@ class PolynomialEquationsDataset(ProceduralDataset):
             "Determine the real value(s) of {variable} that satisfies: {polynomial_expanded} = 0",
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
+        self.added_instruction = """
+In solving the equations, please abide by the following instruction:
+## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
+## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
+## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
+## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
+## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+"""
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     def __getitem__(self, idx: int) -> dict:
@@ -89,19 +96,20 @@ class PolynomialEquationsDataset(ProceduralDataset):
             for sol in solutions:
                 if sol.is_real:
                     # Evaluate symbolic solution to a floating approximation
-                    real_solutions.append(float(sol.evalf()))
+                    real_solutions.append(round(float(sol.evalf()), 4))
 
             if len(real_solutions) > 0:
                 real_solutions.sort()
                 break
 
         answer_str = ", ".join(str(x) for x in real_solutions)
+        question = (
+            rng.choice(self._prompt_templates).format(variable=variable, polynomial_expanded=polynomial_expanded)
+            + self.added_instruction
+        )
 
         return {
-            "question": rng.choice(self._prompt_templates).format(
-                variable=variable,
-                polynomial_expanded=polynomial_expanded,
-            ),
+            "question": question,
             "answer": answer_str,
             "metadata": {
                 "polynomial_expr": str(polynomial_expanded),
@@ -154,7 +162,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
 
         return polynomial_expr
 
-    def _parse_score_to_list(self, answer: Optional[str]) -> List[float]:
+    def _parse_score_to_list(self, answer: Optional[str]) -> list[float]:
         """Parses a comma-separated string of scores into a sorted list of floats.
 
         This method takes a string containing comma-separated numeric values,
@@ -184,7 +192,7 @@ class PolynomialEquationsDataset(ProceduralDataset):
 
         return sorted(output_float_vals)  # Return the sorted list of floats
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
         Score an answer based on its numerical distance to oracle solutions using exponential decay.
         This function compares a predicted answer (or list of answers) to a set of oracle solutions

@@ -1,0 +1,8 @@
+model: deepseek/deepseek-r1
+category: test
+datasets:
+  - YOUR_DATASET_NAME
+eval_dir: eval/r1
+dataset_size: 10
+dataset_seed: 42
+developer_role: system

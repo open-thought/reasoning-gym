@@ -4,9 +4,26 @@ import math
 import random
 import re
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
+
+QUESTION_TEMPLATE = """Solve the Tower of Hanoi problem with {num_disks} disks and {num_pegs} pegs.
+Move all disks from {start_peg} to {target_peg} following the rules:
+- Only one disk can be moved at a time.
+- A larger disk cannot be placed on top of a smaller disk.
+- All disks must be on a peg at all times.
+Example:
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+
+Provide the sequence of moves.
+Formatting guidelines:
+Each instruction should be placed on a single line.
+Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
+Do not include any other text or formatting.
+"""
 
 
 @dataclass
@@ -45,23 +62,23 @@ class MoveGenerator:
     It maintains the current state of all pegs to ensure move validity.
     """
 
-    def __init__(self, num_disks: int, pegs: List[int], start: int, target: int):
+    def __init__(self, num_disks: int, pegs: list[int], start: int, target: int):
         self.num_disks = num_disks
         self.pegs = pegs
         self.start = start
         self.target = target
         self.auxiliary_pegs = [peg for peg in pegs if peg not in (start, target)]
-        self.pegs_state: Dict[int, List[int]] = {peg: [] for peg in pegs}
+        self.pegs_state: dict[int, list[int]] = {peg: [] for peg in pegs}
         for disk in range(num_disks, 0, -1):  # Largest disk at the bottom
             self.pegs_state[start].append(disk)
-        self.moves: List[str] = []
-        self.memo: Dict[Tuple[int, int], int] = {}  # Memoization for T(n, k)
+        self.moves: list[str] = []
+        self.memo: dict[tuple[int, int], int] = {}  # Memoization for T(n, k)
 
-    def generate_moves(self) -> List[str]:
+    def generate_moves(self) -> list[str]:
         self.move(n=self.num_disks, source=self.start, target=self.target, auxiliary_pegs=self.auxiliary_pegs)
         return self.moves
 
-    def move(self, n: int, source: int, target: int, auxiliary_pegs: List[int]):
+    def move(self, n: int, source: int, target: int, auxiliary_pegs: list[int]):
         if n == 0:
             return
         if n == 1:
@@ -158,10 +175,10 @@ class HanoiDataset(ProceduralDataset):
         Returns:
             dict with:
             - "question": Text describing the problem setup.
-            - "answer": List of moves to solve the puzzle.
+            - "answer": list of moves to solve the puzzle.
             - "metadata": Configuration and solution details.
             - "initial_state": (Optional) ASCII visualization of the initial pegs.
-            - "states": (Optional) List of ASCII visualizations after each move.
+            - "states": (Optional) list of ASCII visualizations after each move.
         """
         rng = random.Random(self.seed + idx if self.seed is not None else None)
 
@@ -245,22 +262,13 @@ class HanoiDataset(ProceduralDataset):
         # Peg labels
         peg_labels = {peg: f"Peg {peg}" for peg in pegs}
 
-        question_str = (
-            f"Solve the Tower of Hanoi problem with {num_disks} disks and {num_pegs} pegs.\n"
-            f"Move all disks from {peg_labels[start_peg]} to {peg_labels[target_peg]} following the rules:\n"
-            "- Only one disk can be moved at a time.\n"
-            "- A larger disk cannot be placed on top of a smaller disk.\n"
-            "- All disks must be on a peg at all times.\n"
-            "Example:\n"
-            "Move disk 1 from Peg 1 to Peg 3\n"
-            "Move disk 2 from Peg 1 to Peg 2\n"
-            "Move disk 1 from Peg 3 to Peg 2\n"
-            "\n"
-            "Provide the sequence of moves."
-        )
-
         result = {
-            "question": question_str,
+            "question": QUESTION_TEMPLATE.format(
+                num_disks=num_disks,
+                num_pegs=num_pegs,
+                start_peg=peg_labels[start_peg],
+                target_peg=peg_labels[target_peg],
+            ),
             "answer": solution,
             "metadata": {
                 "num_disks": num_disks,
@@ -274,11 +282,11 @@ class HanoiDataset(ProceduralDataset):
 
         if self.visualize:
             result["initial_state"] = initial_state_str
-            result["states"] = states  # List of all states including initial and after each move
+            result["states"] = states  # list of all states including initial and after each move
 
         return result
 
-    def _visualize_state(self, pegs_state: Dict[int, List[int]]) -> str:
+    def _visualize_state(self, pegs_state: dict[int, list[int]]) -> str:
         """
         Create an ASCII visualization of the current state of the pegs.
         Adapts to variable number of pegs.
@@ -313,7 +321,7 @@ class HanoiDataset(ProceduralDataset):
 
         return visualization
 
-    def _validate_move(self, pegs_state: Dict[int, List[int]], move: str) -> bool:
+    def _validate_move(self, pegs_state: dict[int, list[int]], move: str) -> bool:
         """
         Validate that a move adheres to the Tower of Hanoi rules.
 
@@ -348,7 +356,7 @@ class HanoiDataset(ProceduralDataset):
             print(f"Error validating move '{move}': {e}")
             return False
 
-    def _parse_move(self, move: str) -> Tuple[int, int, int]:
+    def _parse_move(self, move: str) -> tuple[int, int, int]:
         """
         Parse a move string and extract disk number, from peg, and to peg.
 
@@ -359,7 +367,7 @@ class HanoiDataset(ProceduralDataset):
             tuple: (disk, from_peg, to_peg)
         """
         pattern = r"Move disk (\d+) from Peg (\d+) to Peg (\d+)"
-        match = re.match(pattern, move)
+        match = re.search(pattern, move)
         if not match:
             raise ValueError(f"Unexpected move format: '{move}'")
 
@@ -368,7 +376,7 @@ class HanoiDataset(ProceduralDataset):
         to_peg = int(match.group(3))
         return disk, from_peg, to_peg
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
         Score the user's solution for the Tower of Hanoi puzzle.
 

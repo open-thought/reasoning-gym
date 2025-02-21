@@ -148,7 +148,9 @@ class GSMSymbolicDataset(ProceduralDataset):
         rng = Random(self.seed + idx)
         generator_idx = self.task_indices[idx]
         generator = self.generators[generator_idx]
-        return generator(rng, self.config.difficulty)
+        example = generator(rng, self.config.difficulty)
+        example["question"] += " Give only the result as your final answer."
+        return example
 
 
 register_dataset("gsm_symbolic", GSMSymbolicDataset, GSMSymbolicDatasetConfig)

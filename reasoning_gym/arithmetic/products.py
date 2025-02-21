@@ -1,6 +1,8 @@
 import random
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
+
+from reasoning_gym import utils
 
 from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
@@ -14,6 +16,7 @@ class ProductsConfig:
     max_terms: int = 2
     min_digits: int = 1
     max_digits: int = 5
+    allow_negation: bool = False
     seed: Optional[int] = None
     size: int = 500
 
@@ -51,13 +54,16 @@ class ProductsDataset(ProceduralDataset):
         num_digits = rng.randint(self.config.min_digits, self.config.max_digits)
 
         # Calculate value ranges based on number of digits
-        min_value = 0 if num_digits == 1 else 10 ** (num_digits - 1)  # Special case for 1 digit
+        if self.config.allow_negation:
+            min_value = -1 * 10 ** (num_digits) + 1
+        else:
+            min_value = 0 if num_digits == 1 else 10 ** (num_digits - 1)  # Special case for 1 digit
         max_value = (10**num_digits) - 1  # e.g., 999 for 3 digits
 
         expression, result = self._generate_task(rng, num_terms, min_value, max_value)
 
         return {
-            "question": f"{expression} =",
+            "question": f"Solve the following multiplication: {expression}. Give only the result as your final answer.",
             "answer": str(result),
             "metadata": {
                 "difficulty": {
@@ -95,6 +101,9 @@ class ProductsDataset(ProceduralDataset):
 
         expression = " ".join(expression_parts)
         return expression, result
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        return utils.compute_decimal_reward(answer, oracle_answer=entry["answer"])
 
 
 class ProductsCurriculum(BaseCurriculum):

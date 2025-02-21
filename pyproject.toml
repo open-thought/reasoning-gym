@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "reasoning_gym"
-version = "0.1.7"
+version = "0.1.9"
 authors = [
   { name = "Open-Thought community", email = "andreas.koepf@xamla.com" },
 ]
@@ -32,7 +32,22 @@ license = "Apache-2.0"
 license-files = ["LICENSE*"]
 
 [project.optional-dependencies]
-test = ["pytest>=7.0.0", "pytest-cov>=4.0.0"]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "httpx>=0.27.0"
+]
+server = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "pydantic-settings>=2.1.0",
+]
+cli = [
+    "typer>=0.9.0",
+    "rich>=13.7.0",
+    "pyyaml>=6.0.1",
+    "httpx>=0.27.0",
+]
 
 [project.urls]
 "Homepage" = "https://github.com/open-thought/reasoning-gym"
@@ -40,12 +55,19 @@ test = ["pytest>=7.0.0", "pytest-cov>=4.0.0"]
 
 
 [tool.hatch.build]
-packages = ["reasoning_gym"]
-include = [
-  "reasoning_gym/**/*.py",
-  "reasoning_gym/**/*.txt",
-  "reasoning_gym/**/levels/*",
+packages = [
+    "reasoning_gym",
+    "tools.cli.rgc"
 ]
+include = [
+    "reasoning_gym/**/*.py",
+    "reasoning_gym/**/*.txt",
+    "reasoning_gym/**/levels/*",
+    "tools/cli/rgc/**/*.py"
+]
+
+[project.scripts]
+rgc = "tools.cli.rgc.main:main"
 
 [tool.black]
 line-length = 120

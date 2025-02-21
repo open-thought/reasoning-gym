@@ -22,7 +22,7 @@ def test_invalid_config():
 
 def test_board_connectivity():
     """Test that generated boards are connected"""
-    config = KnightSwapConfig(min_nodes=6, max_nodes=6)
+    config = KnightSwapConfig(min_nodes=6, max_nodes=6, seed=42)
     dataset = KnightSwapDataset(config)
     attempts = 10
     # Try multiple puzzles since generation is random
