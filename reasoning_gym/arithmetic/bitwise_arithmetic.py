@@ -123,7 +123,7 @@ class BitwiseArithmeticDataset(ProceduralDataset):
             rng,
             self.config.difficulty,
         )
-        problem_str = f"Please solve this problem. Reply only with the final hexidecimal value.\n" + problem
+        problem_str = f"Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. Reply only with the final hexidecimal value.\n" + problem
 
         return {"question": problem_str, "answer": answer, "metadata": {"problem": problem}}
 
