@@ -10,7 +10,9 @@ This gallery shows examples from all available datasets using their default conf
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
+- [binary_alternation](#binary_alternation)
 - [binary_matrix](#binary_matrix)
+- [bitwise_arithmetic](#bitwise_arithmetic)
 - [caesar_cipher](#caesar_cipher)
 - [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
@@ -43,6 +45,7 @@ This gallery shows examples from all available datasets using their default conf
 - [leg_counting](#leg_counting)
 - [letter_counting](#letter_counting)
 - [letter_jumble](#letter_jumble)
+- [list_functions](#list_functions)
 - [manipulate_matrix](#manipulate_matrix)
 - [maze](#maze)
 - [mini_sudoku](#mini_sudoku)
@@ -60,6 +63,7 @@ This gallery shows examples from all available datasets using their default conf
 - [power_function](#power_function)
 - [prime_factorization](#prime_factorization)
 - [products](#products)
+- [propositional_logic](#propositional_logic)
 - [quantum_lock](#quantum_lock)
 - [ransom_note](#ransom_note)
 - [rearc](#rearc)
@@ -917,17 +921,17 @@ whitespace = single
 Example tasks:
 ````
 Example 1:
-Question: Calculate -5 * -6. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
+Question: Calculate -5 * -6.
 Answer: 30
 Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '-5 * -6'}
 
 Example 2:
-Question: Calculate 965 / 5. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
+Question: Calculate 965 / 5.
 Answer: 193
 Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '965 / 5'}
 
 Example 3:
-Question: Calculate 0 + -2 + -4 * 0 * 3. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
+Question: Calculate 0 + -2 + -4 * 0 * 3.
 Answer: -2
 Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
 
@@ -971,6 +975,70 @@ Question: This is a BF (Brainf*ck) computer program. What is the output?
 Respond only with the exact output of the program.
 Answer: under
 Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program': '>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<'}
+
+````
+
+### binary_alternation
+Generates Binary Alternation exercises with configurable difficulty
+
+Default configuration:
+```python
+min_n = 10
+max_n = 30
+p_solvable = 0.8
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
+
+The string is called alternating if no two adjacent characters are equal. For example, the strings "010" and "1010" are alternating, while the string "0100" is not.
+
+Any two characters may be swapped, even if they are not adjacent.
+
+Example:
+- Input: Determine the minimum number of swaps to make the following binary string alternating: 111000
+- Output: 1
+
+Now, determine the minimum number of swaps to make the following binary string alternating: 0010101011
+
+Answer: 1
+Metadata: {'string': '0010101011', 'solution': 1, 'solvable': True}
+
+Example 2:
+Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
+
+The string is called alternating if no two adjacent characters are equal. For example, the strings "010" and "1010" are alternating, while the string "0100" is not.
+
+Any two characters may be swapped, even if they are not adjacent.
+
+Example:
+- Input: Determine the minimum number of swaps to make the following binary string alternating: 111000
+- Output: 1
+
+Now, determine the minimum number of swaps to make the following binary string alternating: 00011111001010
+
+Answer: 3
+Metadata: {'string': '00011111001010', 'solution': 3, 'solvable': True}
+
+Example 3:
+Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
+
+The string is called alternating if no two adjacent characters are equal. For example, the strings "010" and "1010" are alternating, while the string "0100" is not.
+
+Any two characters may be swapped, even if they are not adjacent.
+
+Example:
+- Input: Determine the minimum number of swaps to make the following binary string alternating: 111000
+- Output: 1
+
+Now, determine the minimum number of swaps to make the following binary string alternating: 100000100111110000000111111
+
+Answer: 7
+Metadata: {'string': '100000100111110000000111111', 'solution': 7, 'solvable': True}
 
 ````
 
@@ -1091,6 +1159,56 @@ Answer: 0 1 1 2 1 2 1 0 1
 1 1 2 3 2 1 2 2 1
 0 0 1 2 3 2 3 3 2
 Metadata: {'matrix': [[0, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [1, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 0, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 0, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 1, 1, 1, 1, 1, 1, 1]], 'solution': [[0, 1, 1, 2, 1, 2, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [2, 1, 2, 2, 1, 2, 1, 0, 1], [2, 2, 2, 1, 0, 1, 1, 0, 1], [1, 2, 3, 2, 1, 1, 2, 1, 1], [0, 1, 2, 2, 1, 0, 1, 1, 0], [1, 1, 2, 3, 2, 1, 2, 2, 1], [0, 0, 1, 2, 3, 2, 3, 3, 2]]}
+
+````
+
+### bitwise_arithmetic
+Dataset that generates tasks testing understanding of bitwise arithmetic operations.
+
+    Generates expressions combining:
+    - Standard arithmetic operators (+, -, *)
+    - Bitwise shift operators (<<, >>)
+    - Multi-byte hexadecimal numbers (e.g. 0x100 to 0xFFFF)
+
+    The difficulty parameter controls expression complexity:
+    - Level 1: Simple expressions like (0x123 + 0x456)
+    - Level 2: Nested expressions with shifts like ((0x123 + 0x456) << 1)
+    - Level 3+: Deeper nesting like ((0x123 + 0x456) << (0x789 >> 1))
+
+    Each task provides:
+    - A question asking to evaluate an expression
+    - The correct answer in hexadecimal format
+    - Metadata including the raw expression
+
+    The dataset verifies answers by evaluating them as Python expressions,
+    supporting both integer and hexadecimal string formats.
+
+Default configuration:
+```python
+difficulty = 2
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. Reply only with the final hexidecimal value.
+((0x3a24 - 0x24b8) + (0x1741 >> 0x3))
+Answer: 0x1854
+Metadata: {'problem': '((0x3a24 - 0x24b8) + (0x1741 >> 0x3))'}
+
+Example 2:
+Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. Reply only with the final hexidecimal value.
+((0xacf1 * 0xb3cc) - (0x9a4b << 0x0))
+Answer: 0x7975b8c1
+Metadata: {'problem': '((0xacf1 * 0xb3cc) - (0x9a4b << 0x0))'}
+
+Example 3:
+Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. Reply only with the final hexidecimal value.
+((0x2e39 + 0x622b) >> 0x0)
+Answer: 0x9064
+Metadata: {'problem': '((0x2e39 + 0x622b) >> 0x0)'}
 
 ````
 
@@ -3040,6 +3158,74 @@ Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_wo
 
 ````
 
+### list_functions
+Default configuration:
+```python
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are an expert at inductive reasoning. Generate an output corresponding to the given input.
+The output is generated by applying the same rule that maps input to output for the examples provided. Your answer should be a list of element/elements
+Examples:
+Input 1: [4, 95, 36, 32]
+Output 1: [4, 32, 36, 95]
+Input 2: [18, 95, 14, 87, 95, 70]
+Output 2: [14, 18, 70, 87, 95, 95]
+Input 3: [76, 55, 5, 4]
+Output 3: [4, 5, 55, 76]
+Input 4: [28, 30, 65, 78]
+Output 4: [28, 30, 65, 78]
+
+
+Input: [72, 26, 92]
+Output:
+
+Answer: [26, 72, 92]
+
+Example 2:
+Question: You are an expert at inductive reasoning. Generate an output corresponding to the given input.
+The output is generated by applying the same rule that maps input to output for the examples provided. Your answer should be a list of element/elements
+Examples:
+Input 1: [37, 90, 98]
+Output 1: [37, 90, 98]
+Input 2: [60, 48, 86, 90, 13]
+Output 2: [60, 48, 86, 90, 13]
+Input 3: [77, 64, 78, 3, 66, 56, 74, 48, 80, 71]
+Output 3: [77, 64, 78, 3, 66, 56, 74, 48, 80, 71]
+Input 4: [51, 23, 8, 14, 16, 49, 20, 13, 21]
+Output 4: [51, 23, 8, 14, 16, 49, 20, 13, 21]
+
+
+Input: [17, 99, 50, 77, 65, 35, 74, 24, 49, 9]
+Output:
+
+Answer: [17, 99, 50, 77, 65, 35, 74, 24, 49, 9]
+
+Example 3:
+Question: You are an expert at inductive reasoning. Generate an output corresponding to the given input.
+The output is generated by applying the same rule that maps input to output for the examples provided. Your answer should be a list of element/elements
+Examples:
+Input 1: [4, 29, 49, 15, 90, 23, 38, 5, 67, 5, 70]
+Output 1: [2]
+Input 2: [37, 66, 21, 15, 44, 46, 80, 10]
+Output 2: [0]
+Input 3: [13, 45, 5, 5, 5, 50, 5]
+Output 3: [4]
+Input 4: [88, 6, 87]
+Output 4: [0]
+
+
+Input: [59, 5, 81, 5, 20, 5, 61, 76, 48, 70, 5, 30]
+Output:
+
+Answer: [4]
+
+````
+
 ### manipulate_matrix
 Generates Manipulate Matrix exercises with configurable difficulty
 
@@ -4140,6 +4326,84 @@ Example 3:
 Question: Solve the following multiplication: 81037 * 25290. Give only the result as your final answer.
 Answer: 2049425730
 Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 5}, 'expression': '81037 * 25290'}
+
+````
+
+### propositional_logic
+Generates propositional logic reasoning tasks
+
+Default configuration:
+```python
+min_vars = 2
+max_vars = 4
+min_statements = 2
+max_statements = 4
+max_complexity = 3
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: The following question is a propositional logic reasoning question.
+In the question we provide a list of premises
+The task is to infer a correct conclusion from the premise.
+FORMAT INSTRUCTIONS:
+Return the conclusion logic statement, as your final answer.
+Use the following notation to denote symbols
+OR = ∨
+AND = ∧
+IMPLIES = →
+IFF = ↔
+NOT = ¬
+Here is the question:Given:
+1. R
+.2. Q
+.What can we conclude from the above statements?
+Answer: None
+Metadata: {'premises': ['R', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3, 'example_answer': '(P ∨ Q)'}
+
+Example 2:
+Question: The following question is a propositional logic reasoning question.
+In the question we provide a list of premises
+The task is to infer a correct conclusion from the premise.
+FORMAT INSTRUCTIONS:
+Return the conclusion logic statement, as your final answer.
+Use the following notation to denote symbols
+OR = ∨
+AND = ∧
+IMPLIES = →
+IFF = ↔
+NOT = ¬
+Here is the question:Given:
+1. ((Q → P) ∨ (Q → P))
+.2. ((Q ↔ Q) → (P → P))
+.3. P
+.What can we conclude from the above statements?
+Answer: None
+Metadata: {'premises': ['((Q → P) ∨ (Q → P))', '((Q ↔ Q) → (P → P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3, 'example_answer': '(Q ∨ P)'}
+
+Example 3:
+Question: The following question is a propositional logic reasoning question.
+In the question we provide a list of premises
+The task is to infer a correct conclusion from the premise.
+FORMAT INSTRUCTIONS:
+Return the conclusion logic statement, as your final answer.
+Use the following notation to denote symbols
+OR = ∨
+AND = ∧
+IMPLIES = →
+IFF = ↔
+NOT = ¬
+Here is the question:Given:
+1. ((Q ∨ P) ∧ ¬P)
+.2. P
+.3. ((P ∧ R) ∧ ¬R)
+.4. ((Q ↔ R) → ¬Q)
+.What can we conclude from the above statements?
+Answer: None
+Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q ↔ R) → ¬Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3, 'example_answer': '(Q ∧ Q)'}
 
 ````
 
@@ -6284,7 +6548,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 20, 9, 44), 'end_time': datetime.datetime(2025, 2, 20, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 21, 9, 44), 'end_time': datetime.datetime(2025, 2, 21, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
