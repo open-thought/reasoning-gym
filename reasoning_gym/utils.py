@@ -81,7 +81,7 @@ def is_integer(obj: Any) -> bool:
     return False
 
 
-def compute_reward(answer: Optional[str], oracle_answer: str, allow_commas: bool = True) -> float:
+def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
     """Compute the reward for a given answer compared to the oracle answer.
 
     Args:
@@ -94,13 +94,18 @@ def compute_reward(answer: Optional[str], oracle_answer: str, allow_commas: bool
     """
     reward = 0.0
     if answer is not None and len(answer) > 0:
-        answer = answer.strip()
-        answer = answer.replace(",", "") if allow_commas else answer
-        if answer == oracle_answer:
-            reward = 1.0
-        elif oracle_answer in answer:
+        reward = 0.01
+        try:
+            if strip_commas:
+                answer = answer.replace(",", "")
+                oracle_answer = oracle_answer.replace(",", "")
+
+            if Decimal(answer) == Decimal(oracle_answer):
+                reward = 1.0
+        except:
+            pass
+
+        if oracle_answer in answer:
             reward = len(oracle_answer) / len(answer)
-        else:
-            reward = 0.01
 
     return reward

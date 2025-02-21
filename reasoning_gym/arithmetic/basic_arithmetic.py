@@ -2,8 +2,6 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Literal, Optional
 
-from reasoning_gym import utils
-
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -233,10 +231,6 @@ class BasicArithmeticDataset(ProceduralDataset):
             templates = ["What is {0}?", "Solve {0}.", "Compute {0}.", "Evaluate: {0}."]
             template = rng.choice(templates)
             return template.format(expression)
-
-    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        oracle_answer = entry["answer"].strip()
-        return utils.compute_reward(answer, oracle_answer, allow_commas=False)
 
 
 # Register the dataset
