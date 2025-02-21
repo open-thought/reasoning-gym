@@ -51,7 +51,7 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 
 ## 🔍 Evaluation
 
-Instructions for running the evaluation scripts are provided in [eval/README.md][https://github.com/open-thought/reasoning-gym/blob/main/eval/README.md].
+Instructions for running the evaluation scripts are provided in [eval/README.md](https://github.com/open-thought/reasoning-gym/blob/main/eval/README.md).
 
 Evaluation results of different reasoning models will be tracked in the [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repo.
 
