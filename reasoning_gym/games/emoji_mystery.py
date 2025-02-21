@@ -1,7 +1,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
@@ -181,7 +181,7 @@ class EmojiMysteryDataset(ProceduralDataset):
             <= self.config.max_words_in_sentence
         ]
 
-    def __getitem__(self, idx: int) -> Dict[str, Any]:
+    def __getitem__(self, idx: int) -> dict[str, Any]:
         rng = Random(self.seed + idx)
         secret_emoji = rng.choice(self.emojis)
         secret_sentence = rng.choice(self.sentences).strip().replace("\n", " ")
@@ -216,7 +216,7 @@ class EmojiMysteryDataset(ProceduralDataset):
         encoded_bytes = sentence.encode("utf-8")
         return base + "".join(self.byte_to_variance_selector(b) for b in encoded_bytes)
 
-    def score_answer(self, answer: str | None, entry: Dict[str, Any]) -> int:
+    def score_answer(self, answer: str | None, entry: dict[str, Any]) -> int:
         reward = 0.0
         if answer is not None:
             try:

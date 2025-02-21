@@ -13,7 +13,7 @@ No leading letter can be zero (unless allow_leading_zero=True).
 
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 

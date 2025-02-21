@@ -4,12 +4,12 @@ from collections import deque
 from dataclasses import dataclass
 from functools import reduce
 from random import Random
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 
-def min_moves_n(jug_capacities: List[int], target: int) -> Optional[int]:
+def min_moves_n(jug_capacities: list[int], target: int) -> Optional[int]:
     """
     Compute the minimum number of moves required to have exactly `target` gallons
     in any one jug for a puzzle with multiple jugs.
@@ -73,7 +73,7 @@ def min_moves_n(jug_capacities: List[int], target: int) -> Optional[int]:
     return None
 
 
-def generate_puzzle(rng: Random, num_jugs: int = 3, difficulty: int = 6, max_attempts: int = 10000) -> Dict[str, any]:
+def generate_puzzle(rng: Random, num_jugs: int = 3, difficulty: int = 6, max_attempts: int = 10000) -> dict[str, Any]:
     """
     Generate a multi-jug water puzzle.
 
@@ -181,7 +181,7 @@ def verify_solution(puzzle, moves):
     return (any(w == target for w in state), states)
 
 
-def generate_jug_solution(jug_capacities: Tuple[int, int, int], target: int) -> List[str]:
+def generate_jug_solution(jug_capacities: tuple[int, int, int], target: int) -> list[str]:
     """Solves the jug puzzle and returns a sequence of formatted steps."""
     capacities = list(jug_capacities)
     initial_state = (0, 0, 0)
@@ -283,14 +283,14 @@ Reply as a JSON-parsable list of moves which result in any of the jugs being fil
             "metadata": {"puzzle": puzzle},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the Jugs task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.
