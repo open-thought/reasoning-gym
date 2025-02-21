@@ -1,31 +1,32 @@
-# Reasoning Gym
+# 💪🧠 Reasoning Gym
 
-We are building a python library of procedural dataset generators and algorithmically verifiable reasoning environments for training reasoning models with reinforcement learning (RL).
+**Reasoning Gym** is a community-created Python library of procedural dataset generators and algorithmically verifiable reasoning environments for training reasoning models with reinforcement learning (RL). The goal is to generate virtually infinite training data with adjustable complexity.
 
-The goal is to generate virtually infinite data with adjustable complexity.
+It currently provides **more than 80** tasks over many domains, including but not limited to _algebra_, _arithmetic_, _computation_, _cognition_, _geometry_, _graph theory_, _logic_, and many common _games_.
 
-Algorithmic verification allows to train on tasks like Rubik‘s cube or [Countdown](<https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round>) which have many correct solutions.
+Some tasks have a single correct answer, while others provide a standard function for algorithmic verification allows training on tasks such as [Rubik‘s Cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube) and [Countdown](<https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round>), which have many correct solutions.
 
-## Dataset Gallery
+## 🖼️ Dataset Gallery
 
-In [GALLERY.md](https://github.com/open-thought/reasoning-gym/blob/main/GALLERY.md) you find example outputs of all datasets available in reasoning-gym.
+In [GALLERY.md](https://github.com/open-thought/reasoning-gym/blob/main/GALLERY.md) you find example outputs of all datasets available in `reasoning-gym`.
 
-## Installation
+## ⬇️ Installation
 
 The `reasoning-gym` package requires Python >= 3.11.
 
-Install via pip:
+Install the [latest published package from PyPI](https://pypi.org/project/reasoning-gym/) via `pip`:
 
 ```
 pip install reasoning-gym
 ```
 
-For development setup see [CONTRIBUTING.md](CONTRIBUTING.md#delevloper-setup).
+Please note that this project is currently under active development, and the version published on PyPI may be behind `main`.
 
+### 🛠️ Development
 
-## How to instantiate a task dataset?
+For development setup, see [CONTRIBUTING.md](CONTRIBUTING.md#delevloper-setup).
 
-Example:
+## ✨ Example Usage
 
 ```python
 import reasoning_gym
@@ -48,7 +49,11 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 ...
 ```
 
-## Contributing
+## 🔍 Evaluation
+
+Evaluation of the performance of different reasoning models will be tracked [in the reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repo.
+
+## 👷 Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
