@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from enum import StrEnum
 from random import Random
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
@@ -84,7 +84,7 @@ class WordSortingDataset(ProceduralDataset):
             return "".join(c.upper() if rng.choice([True, False]) else c.lower() for c in word)
         return word  # ORIGINAL case
 
-    def _generate_words(self, rng: Random) -> Tuple[List[str], List[str]]:
+    def _generate_words(self, rng: Random) -> tuple[list[str], list[str]]:
         """Generate list of words and their transformed versions"""
         count = rng.randint(self.config.min_words, self.config.max_words)
 
@@ -122,7 +122,7 @@ class WordSortingDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         oracle_answer = entry["metadata"]["sorted_words"]
         if answer is not None and len(answer) > 0:
             parsed_answer = [word.strip() for word in re.split(r",\s*", answer)]

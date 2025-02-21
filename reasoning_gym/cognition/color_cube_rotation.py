@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -38,7 +38,7 @@ class Side(StrEnum):
 class Cube:
     """Represents a cube with colored sides"""
 
-    colors: Dict[Side, Color]
+    colors: dict[Side, Color]
 
     def rotate_front_to_top(self) -> None:
         """Rotate cube so front face becomes top"""
@@ -162,7 +162,7 @@ class ColorCubeRotationDataset(ProceduralDataset):
             rotation_map[from_side]()
 
     def _generate_story(
-        self, initial_state: Dict[Side, Color], rotations: List[Side], target_side: Side, rng: random.Random
+        self, initial_state: dict[Side, Color], rotations: list[Side], target_side: Side, rng: random.Random
     ) -> str:
         """Generate story describing cube state and rotations"""
         # Describe initial state
@@ -189,7 +189,7 @@ class ColorCubeRotationDataset(ProceduralDataset):
 
         return "\n".join(story_parts)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
         metadata = entry["metadata"]
         if answer is not None:

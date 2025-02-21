@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 import bfi
 
@@ -108,14 +108,14 @@ int main() {{
         # bf = Minify.minify(bf) # Is this necessary?
         return bf
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the BF task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.

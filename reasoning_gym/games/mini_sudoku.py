@@ -3,7 +3,7 @@
 import copy
 from dataclasses import dataclass
 from random import Random
-from typing import Any, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -46,7 +46,7 @@ class MiniSudokuDataset(ProceduralDataset):
         self._current_idx += 1
         return item
 
-    def _is_valid(self, board: List[List[int]], row: int, col: int, num: int) -> bool:
+    def _is_valid(self, board: list[list[int]], row: int, col: int, num: int) -> bool:
         """Check if number can be placed at position"""
         # Check row
         if num in board[row]:
@@ -64,7 +64,7 @@ class MiniSudokuDataset(ProceduralDataset):
                     return False
         return True
 
-    def _solve(self, board: List[List[int]]) -> bool:
+    def _solve(self, board: list[list[int]]) -> bool:
         """Solve mini sudoku using backtracking"""
         empty = self._find_empty(board)
         if not empty:
@@ -79,7 +79,7 @@ class MiniSudokuDataset(ProceduralDataset):
                 board[row][col] = 0
         return False
 
-    def _find_empty(self, board: List[List[int]]) -> Optional[Tuple[int, int]]:
+    def _find_empty(self, board: list[list[int]]) -> Optional[tuple[int, int]]:
         """Find an empty cell"""
         for i in range(4):
             for j in range(4):
@@ -87,7 +87,7 @@ class MiniSudokuDataset(ProceduralDataset):
                     return (i, j)
         return None
 
-    def _generate_solved_board(self, rng: Random) -> List[List[int]]:
+    def _generate_solved_board(self, rng: Random) -> list[list[int]]:
         """Generate a complete solved mini sudoku board"""
         board = [[0] * 4 for _ in range(4)]
 
@@ -115,10 +115,10 @@ class MiniSudokuDataset(ProceduralDataset):
 
         raise RuntimeError("Failed to generate valid mini sudoku board")
 
-    def _count_solutions(self, board: List[List[int]], limit: int = 2) -> int:
+    def _count_solutions(self, board: list[list[int]], limit: int = 2) -> int:
         """Count the number of solutions for a given board"""
 
-        def _count_solutions_helper(board: List[List[int]]) -> int:
+        def _count_solutions_helper(board: list[list[int]]) -> int:
             empty = self._find_empty(board)
             if not empty:
                 return 1
@@ -136,7 +136,7 @@ class MiniSudokuDataset(ProceduralDataset):
 
         return _count_solutions_helper(board)
 
-    def _create_puzzle(self, solved_board: List[List[int]], num_empty: int, rng: Random) -> List[List[int]]:
+    def _create_puzzle(self, solved_board: list[list[int]], num_empty: int, rng: Random) -> list[list[int]]:
         """Create puzzle by removing numbers from solved board"""
         puzzle = [row[:] for row in solved_board]
         cells = [(i, j) for i in range(4) for j in range(4)]
@@ -157,7 +157,7 @@ class MiniSudokuDataset(ProceduralDataset):
 
         return puzzle
 
-    def _board_to_string(self, board: List[List[int]]) -> str:
+    def _board_to_string(self, board: list[list[int]]) -> str:
         """Convert board to string representation"""
         return "\n".join(" ".join(str(x) if x != 0 else "_" for x in row) for row in board)
 

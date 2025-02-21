@@ -6,7 +6,7 @@ from collections import OrderedDict
 from dataclasses import dataclass, field
 from pathlib import Path
 from statistics import mean, stdev
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Optional, Union
 
 from ..dataset import ProceduralDataset
 
@@ -15,7 +15,7 @@ from ..dataset import ProceduralDataset
 class ScoreStats:
     """Container for score statistics with mean, std, min, max"""
 
-    scores: OrderedDict[Tuple[Tuple[str, Any], ...], Tuple[int, float, float, float, float]]
+    scores: OrderedDict[tuple[tuple[str, Any], ...], tuple[int, float, float, float, float]]
 
     def __str__(self) -> str:
         """Create a formatted report of the statistics
@@ -41,7 +41,7 @@ class ScoreStats:
 class GroupedScores:
     """Container for grouped scores with total count"""
 
-    scores: OrderedDict[Tuple[Tuple[str, Any], ...], List[float]]
+    scores: OrderedDict[tuple[tuple[str, Any], ...], list[float]]
     total_scores: int
 
     def __str__(self) -> str:
@@ -114,11 +114,11 @@ class GroupedScores:
 class ScoreBoard:
     """Tracks scores and metadata for coaching sessions"""
 
-    scores: List[float] = field(default_factory=list)
-    metadata: List[Dict[str, Any]] = field(default_factory=list)
-    conversations: List[Optional[List[Dict]]] = field(default_factory=list)
+    scores: list[float] = field(default_factory=list)
+    metadata: list[dict[str, Any]] = field(default_factory=list)
+    conversations: list[Optional[list[dict]]] = field(default_factory=list)
 
-    def add_score(self, score: float, metadata: Dict[str, Any], conversation: Optional[List[Dict]] = None) -> None:
+    def add_score(self, score: float, metadata: dict[str, Any], conversation: Optional[list[dict]] = None) -> None:
         """Add a new score entry with associated metadata and optional conversation
 
         Args:
@@ -140,7 +140,7 @@ class ScoreBoard:
         """Return the number of stored scores"""
         return len(self.scores)
 
-    def _metadata_to_key(self, metadata: Dict[str, Any]) -> Tuple[Tuple[str, Any], ...]:
+    def _metadata_to_key(self, metadata: dict[str, Any]) -> tuple[tuple[str, Any], ...]:
         """Convert metadata dict to tuple of key-value pairs, sorted by key
 
         If source_dataset and source_index are present in metadata, they will be
@@ -222,7 +222,7 @@ class Coach(ProceduralDataset):
         return self.dataset[idx]
 
     def score_answer(
-        self, answer: Optional[str], entry: Dict[str, Any], conversation: Optional[List[Dict]] = None
+        self, answer: Optional[str], entry: dict[str, Any], conversation: Optional[list[dict]] = None
     ) -> float:
         """Score answer and track results
 

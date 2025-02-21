@@ -8,7 +8,7 @@ import json
 import string
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -93,7 +93,7 @@ class PalindromePartitioningDataset(ProceduralDataset):
         _partition(0)
         return self._sort_list(res)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score a single Palindrome Partitioning question"""
         if answer is not None:
             try:

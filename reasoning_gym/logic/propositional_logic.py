@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from enum import StrEnum
 from random import Random
-from typing import Any, List, Optional, Set
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -123,7 +123,7 @@ class PropositionalLogicDataset(ProceduralDataset):
             },
         }
 
-    def _generate_premises(self, rng: Random, variables: List[str], num_statements: int) -> List[Expression]:
+    def _generate_premises(self, rng: Random, variables: list[str], num_statements: int) -> list[Expression]:
         """Generate a list of premise statements"""
         premises = []
         for _ in range(num_statements):
@@ -131,7 +131,7 @@ class PropositionalLogicDataset(ProceduralDataset):
             premises.append(self._generate_expression(rng, variables, depth))
         return premises
 
-    def _generate_expression(self, rng: Random, variables: List[str], depth: int) -> Expression:
+    def _generate_expression(self, rng: Random, variables: list[str], depth: int) -> Expression:
         """Generate a random logical expression"""
         if depth <= 1:
             return Expression(None, rng.choice(variables))
@@ -144,7 +144,7 @@ class PropositionalLogicDataset(ProceduralDataset):
             right = self._generate_expression(rng, variables, depth - 1)
             return Expression(operator, left, right)
 
-    def _find_valid_conclusion(self, rng: Random, premises: List[Expression], variables: List[str]) -> Expression:
+    def _find_valid_conclusion(self, rng: Random, premises: list[Expression], variables: list[str]) -> Expression:
         """Find a valid conclusion that follows from the premises"""
         # Try random conclusions until we find a valid one
         for _ in range(100):
@@ -155,7 +155,7 @@ class PropositionalLogicDataset(ProceduralDataset):
         # Fallback to a simple conclusion
         return Expression(None, variables[0])
 
-    def _is_valid_conclusion(self, premises: List[Expression], conclusion: Expression) -> bool:
+    def _is_valid_conclusion(self, premises: list[Expression], conclusion: Expression) -> bool:
         """Check if conclusion follows from premises using truth tables"""
         variables = self._collect_variables(premises + [conclusion])
 
@@ -166,7 +166,7 @@ class PropositionalLogicDataset(ProceduralDataset):
                 return False
         return True
 
-    def _collect_variables(self, expressions: List[Expression]) -> Set[str]:
+    def _collect_variables(self, expressions: list[Expression]) -> set[str]:
         """Collect all variables used in expressions"""
         variables = set()
         for expr in expressions:
@@ -179,7 +179,7 @@ class PropositionalLogicDataset(ProceduralDataset):
                     variables.update(self._collect_variables([expr.right]))
         return variables
 
-    def _generate_assignments(self, variables: Set[str]) -> List[dict[str, bool]]:
+    def _generate_assignments(self, variables: set[str]) -> list[dict[str, bool]]:
         """Generate all possible truth value assignments"""
         assignments = []
         for i in range(2 ** len(variables)):

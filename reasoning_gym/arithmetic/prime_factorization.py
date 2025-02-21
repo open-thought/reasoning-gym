@@ -3,7 +3,7 @@
 import math
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -29,7 +29,7 @@ class PrimeFactorizationDataset(ProceduralDataset):
     def __init__(self, config: PrimeFactorizationConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _prime_factors(self, n: int) -> List[int]:
+    def _prime_factors(self, n: int) -> list[int]:
         """Compute prime factors of a number"""
         factors = []
         d = 2
@@ -44,11 +44,11 @@ class PrimeFactorizationDataset(ProceduralDataset):
                 break
         return factors
 
-    def _normalize_answer(self, answer: str) -> List[int]:
+    def _normalize_answer(self, answer: str) -> list[int]:
         """Parse and sort factors from a string"""
         return sorted([int(factor.strip()) for factor in answer.split("×")])
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         oracle_answer = entry["answer"]
         reward = 0.0
         if answer is not None:

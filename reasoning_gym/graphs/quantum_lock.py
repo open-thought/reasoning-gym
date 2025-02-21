@@ -164,7 +164,7 @@ Buttons:
         # If no solution found, regenerate
         return self.generate_quantum_puzzle(rng, difficulty)
 
-    def score_answer(self, answer: Optional[str], entry: dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the task.
 
         The function awards 1.0 for a correct answer and less otherwise.

@@ -1,6 +1,6 @@
 import random
 from dataclasses import dataclass
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from reasoning_gym import utils
 
@@ -102,7 +102,7 @@ class ProductsDataset(ProceduralDataset):
         expression = " ".join(expression_parts)
         return expression, result
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         oracle_answer = entry["answer"].strip()
         return utils.compute_reward(answer, oracle_answer)
 

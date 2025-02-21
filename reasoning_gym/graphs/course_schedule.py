@@ -8,7 +8,7 @@ https://leetcode.com/problems/course-schedule/description/
 from collections import defaultdict
 from dataclasses import dataclass
 from random import Random
-from typing import List, Optional
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -54,7 +54,7 @@ class CourseScheduleDataset(ProceduralDataset):
     def __init__(self, config: CourseScheduleConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _can_finish(self, num_courses: int, prerequisites: List[List[int]]) -> bool:
+    def _can_finish(self, num_courses: int, prerequisites: list[list[int]]) -> bool:
         adj = defaultdict(list)
         for course, prereq in prerequisites:
             adj[course].append(prereq)
@@ -81,7 +81,7 @@ class CourseScheduleDataset(ProceduralDataset):
 
         return True
 
-    def _create_prerequisites(self, rng: Random, courses: List[int], solvable: bool) -> List[List[int]]:
+    def _create_prerequisites(self, rng: Random, courses: list[int], solvable: bool) -> list[list[int]]:
         """Create a list of prerequisites for each course"""
         prerequisites = []
         # Generate a valid course schedule

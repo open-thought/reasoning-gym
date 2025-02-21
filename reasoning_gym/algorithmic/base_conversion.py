@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import Optional, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -61,7 +61,7 @@ class BaseConversionDataset(ProceduralDataset):
         else:
             return f"base-{base}"
 
-    def _generate_conversion(self, rng: Random) -> Tuple[int, int, int]:
+    def _generate_conversion(self, rng: Random) -> tuple[int, int, int]:
         """Generate random value and source/target bases"""
         value = rng.randint(self.config.min_value, self.config.max_value)
 

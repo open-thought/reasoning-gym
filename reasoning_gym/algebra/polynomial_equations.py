@@ -1,8 +1,7 @@
 import math
 import random
-import string
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from sympy import Eq, Symbol, expand, solve
 
@@ -21,7 +20,7 @@ class PolynomialEquationsConfig:
     max_value: int = 100  # Maximum value for coefficients
     min_degree: int = 1  # Minimum polynomial degree
     max_degree: int = 3  # Maximum polynomial degree
-    operators: Tuple[str, ...] = (
+    operators: tuple[str, ...] = (
         "+",
         "-",
     )  # Allowed operators between terms, Avoid adding '*' or '/' because they will affect the degree
@@ -163,7 +162,7 @@ In solving the equations, please abide by the following instruction:
 
         return polynomial_expr
 
-    def _parse_score_to_list(self, answer: Optional[str]) -> List[float]:
+    def _parse_score_to_list(self, answer: Optional[str]) -> list[float]:
         """Parses a comma-separated string of scores into a sorted list of floats.
 
         This method takes a string containing comma-separated numeric values,
@@ -193,7 +192,7 @@ In solving the equations, please abide by the following instruction:
 
         return sorted(output_float_vals)  # Return the sorted list of floats
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
         Score an answer based on its numerical distance to oracle solutions using exponential decay.
         This function compares a predicted answer (or list of answers) to a set of oracle solutions

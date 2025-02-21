@@ -15,7 +15,7 @@ OUTPUT 1: Output in the form which should be generated
 from random import Random
 from typing import Dict, Any
 
-def generate_from_variables(time_per_interval: int, distance_per_interval: int, total_distance: int) -> Dict[str, Any]:
+def generate_from_variables(time_per_interval: int, distance_per_interval: int, total_distance: int) -> dict[str, Any]:
     intervals = total_distance // distance_per_interval
     total_time = intervals * time_per_interval
 
@@ -36,7 +36,7 @@ def generate_from_variables(time_per_interval: int, distance_per_interval: int, 
         }}
     }}
 
-def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
     # Generate random values scaled by difficulty
     distance_per_interval = int(rng.randint(2, int(10 * difficulty)))
     time_per_interval = int(rng.randint(5, int(30 * difficulty)))
@@ -57,7 +57,7 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         }}
     }}
 
-def original_example() -> Dict[str, Any]:
+def original_example() -> dict[str, Any]:
    return generate_from_variables(10, 3, 42)
 ```
 
@@ -79,7 +79,7 @@ from random import Random
 from typing import Dict, Any
 
 def generate_from_variables(name: str, food: str, rate_per_min: int, batch_size: int,
-                          time_per_batch: int, total_amount: int) -> Dict[str, Any]:
+                          time_per_batch: int, total_amount: int) -> dict[str, Any]:
     peel_time = total_amount // rate_per_min
     num_batches = total_amount // batch_size
     cook_time = num_batches * time_per_batch
@@ -110,7 +110,7 @@ def generate_from_variables(name: str, food: str, rate_per_min: int, batch_size:
         }
     }
 
-def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
     names = ["Emily", "Sarah", "Emma", "Sophia", "Olivia", "Ava", "Isabella", "Mia"]
     foods = ["shrimp", "onion", "carrot", "mushroom", "clam"]
 
@@ -139,7 +139,7 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         }
     }
 
-def original_example() -> Dict[str, Any]:
+def original_example() -> dict[str, Any]:
     return generate_from_variables("Emily", "shrimp", 6, 30, 10, 90)
 ```
 
@@ -161,7 +161,7 @@ from random import Random
 from typing import Dict, Any
 
 def generate_from_variables(family: str, item: str, total: int, n1: int, n2: int,
-                          flavor1: str, flavor2: str, flavor3: str) -> Dict[str, Any]:
+                          flavor1: str, flavor2: str, flavor3: str) -> dict[str, Any]:
     n3 = total - (n1 + n2)
 
     question = f"The {family} family is busy making {item}s. So far, they've made {total} {item}s. They have {n1} {flavor1} {item}s, {n2} {flavor2} {item}s, and some {flavor3} {item}s. How many {flavor3} {item}s have they made?"
@@ -186,7 +186,7 @@ def generate_from_variables(family: str, item: str, total: int, n1: int, n2: int
         }
     }
 
-def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
     families = ["Smith", "Johnson", "Williams", "Brown", "Jones"]
     items = ["cupcake", "muffin", "brownie", "biscuit"]
     flavors = ["vanilla", "strawberry", "blueberry", "lemon", "peanut butter"]
@@ -217,7 +217,7 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         }
     }
 
-def original_example() -> Dict[str, Any]:
+def original_example() -> dict[str, Any]:
     return generate_from_variables("Adams", "cookie", 7995, 2595, 3075,
                                  "rainbow", "oatmeal", "chocolate chip")
 ```
@@ -241,7 +241,7 @@ from typing import Dict, Any
 
 def generate_from_variables(name: str, event: str, food: str, obj: str,
                           package_husband: int, used_spoons: int,
-                          remaining_spoons: int) -> Dict[str, Any]:
+                          remaining_spoons: int) -> dict[str, Any]:
 
     total_spoons = remaining_spoons + used_spoons
     package_julia = total_spoons - package_husband
@@ -268,7 +268,7 @@ def generate_from_variables(name: str, event: str, food: str, obj: str,
         }
     }
 
-def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
+def generate_example(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
     names = ['Emma', 'Olivia', 'Ava', 'Isabella', 'Sophia', 'Mia', 'Charlotte']
     events = ['lunch party', 'birthday party', 'potluck party', 'baby shower', 'game night']
     foods = ['roast chicken', 'grilled salmon', 'beef stew', 'vegetable lasagna',
@@ -298,7 +298,7 @@ def generate_example(rng: Random, difficulty: float = 1.0) -> Dict[str, Any]:
         }
     }
 
-def original_example() -> Dict[str, Any]:
+def original_example() -> dict[str, Any]:
     return generate_from_variables('Julia', 'dinner party', 'stew', 'spoons',
                                  5, 3, 12)
 ```

@@ -105,7 +105,7 @@ class RGClient:
         response.raise_for_status()
         return BatchResponse.model_validate(response.json())
 
-    def score_outputs(self, experiment: str, entry_answers: List[AnswerItem]) -> ScoringResponse:
+    def score_outputs(self, experiment: str, entry_answers: list[AnswerItem]) -> ScoringResponse:
         """Score a batch of answers.
 
         Args:

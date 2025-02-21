@@ -11,7 +11,7 @@ class BaseCurriculum:
         self._attributes: dict[str, AttributeDefinition] = {}
         self._current_levels: dict[str, int] = {}
 
-    def generate_configuration(self, defaults: Optional[dict[str, any]] = None) -> ConfigT:
+    def generate_configuration(self, defaults: Optional[dict[str, Any]] = None) -> ConfigT:
         config_args = defaults.copy() if defaults is not None else {}
         for attr in self._attributes.values():
             if isinstance(attr, RangeAttributeDefinition):

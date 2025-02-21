@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from math import gcd
 from random import Random
-from typing import Any, Dict, Optional, Sequence, Tuple
+from typing import Any, Optional, Sequence
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -42,7 +42,7 @@ class FractionSimplificationDataset(ProceduralDataset):
     def __init__(self, config: FractionSimplificationConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _generate_fraction(self, rng: Random) -> Tuple[int, int, int, int]:
+    def _generate_fraction(self, rng: Random) -> tuple[int, int, int, int]:
         """Generate a random fraction and its simplified form.
         Returns (numerator, denominator, simplified_num, simplified_den)"""
         # Try to generate valid fractions until we get one that meets our criteria
@@ -134,7 +134,7 @@ class FractionSimplificationDataset(ProceduralDataset):
         except:
             return None
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]):
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]):
         reward = 0.0
         metadata = entry["metadata"]
         try:

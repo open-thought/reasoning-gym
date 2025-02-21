@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -17,7 +17,7 @@ def _repeat(s: str, n: int) -> str:
     return s * n
 
 
-def _matrix_put(matrix: List[List[str]], h: int, w: int, x: int, y: int, s: str, direction: str):
+def _matrix_put(matrix: list[list[str]], h: int, w: int, x: int, y: int, s: str, direction: str):
     """Place a string `s` into the 2D `matrix` starting at (x,y),
     advancing in `direction` ('RIGHT' or 'DOWN')."""
     if x >= w or y >= h:
@@ -119,14 +119,14 @@ class CircuitLogicDataset(ProceduralDataset):
         self._current_idx = 0
         return self
 
-    def __next__(self) -> Dict[str, Any]:
+    def __next__(self) -> dict[str, Any]:
         if self._current_idx >= self.config.size:
             raise StopIteration
         item = self[self._current_idx]
         self._current_idx += 1
         return item
 
-    def __getitem__(self, idx: int) -> Dict[str, Any]:
+    def __getitem__(self, idx: int) -> dict[str, Any]:
         """
         Generate one random circuit logic item using ASCII drawing.
         """
@@ -142,14 +142,14 @@ class CircuitLogicDataset(ProceduralDataset):
 
     def _generate_circuit(
         self, rng: Random, num_terms: int, min_inputs: int, max_inputs: int, neg_prob: float, allow_reuse: bool
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Generate circuit logic (ASCII drawing + expression + evaluation)
         """
         final_gate_name, final_gate_sym = rng.choice(self.final_gate_options)
         final_gate_width = 2 + len(final_gate_sym)
 
-        distinct_inputs: List[str] = []
+        distinct_inputs: list[str] = []
 
         def get_random_input() -> str:
             if allow_reuse and distinct_inputs and rng.random() < 0.5:
@@ -159,8 +159,8 @@ class CircuitLogicDataset(ProceduralDataset):
                 distinct_inputs.append(name)
                 return name
 
-        term_ops: List[Tuple[str, str, str]] = []
-        term_strings: List[str] = []
+        term_ops: list[tuple[str, str, str]] = []
+        term_strings: list[str] = []
         for _ in range(num_terms):
             op = rng.choice(self.internal_ops)
             term_ops.append(op)
@@ -400,7 +400,7 @@ class CircuitLogicDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         if answer is None or len(answer) == 0:
             return 0.0
 

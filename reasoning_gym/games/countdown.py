@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 import sympy
 from sympy import Symbol, symbols
@@ -89,7 +89,7 @@ class CountdownDataset(ProceduralDataset):
             },
         }
 
-    def _generate_candidate_expression(self, rng: Random, num_terms: int) -> Tuple[sympy.Expr, List[int], List[Symbol]]:
+    def _generate_candidate_expression(self, rng: Random, num_terms: int) -> tuple[sympy.Expr, list[int], list[Symbol]]:
         """Generate a candidate expression with random numbers and operators
 
         Args:
@@ -140,7 +140,7 @@ class CountdownDataset(ProceduralDataset):
 
         return expr, numbers, syms
 
-    def _generate_expression(self, rng: Random) -> Tuple[str, List[int], int]:
+    def _generate_expression(self, rng: Random) -> tuple[str, list[int], int]:
         """Generate a valid expression and its result
 
         Returns:
@@ -171,7 +171,7 @@ class CountdownDataset(ProceduralDataset):
 
         raise ValueError(f"Failed to generate valid expression after {max_attempts} attempts")
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
         metadata = entry["metadata"]

@@ -1,7 +1,6 @@
 import random
-import warnings
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Optional
 
 import sympy as sp
 from sympy.polys.monomials import itermonomials
@@ -23,10 +22,10 @@ class PolynomialMultiplicationConfig:
     max_degree: int = 3  # Maximum polynomial degree
     min_polynomials: int = 2  # Minimum number of polynomials being multiplied
     max_polynomials: int = 3  # Maximum number of polynomials being multiplied
-    variables: Tuple[str] = ("x", "y", "z")  # Tuple of variable names, that will be chosen randomly
+    variables: tuple[str] = ("x", "y", "z")  # Tuple of variable names, that will be chosen randomly
     allow_cross_variable_product: bool = False  # Generate tasks like "Multiply (x^2+3x-1)*(y^2-5)"
     allow_multivariate_polynomials: bool = False  # Generate multivariate tasks like "Multiply (2x^2 + 3y)*(5x^2+3x-1)"
-    operators: Tuple[str, ...] = (
+    operators: tuple[str, ...] = (
         "+",
         "-",
     )  # Allowed operators between terms, Avoid adding '*' or '/' because they will affect the degree
@@ -146,7 +145,7 @@ In addition, When doing calculation, Use the following instructions together wit
 
         return polynomial_expr
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
         metadata = entry["metadata"]
         if answer is not None:
