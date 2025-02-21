@@ -59,7 +59,7 @@ def test_bitwise_arithmetic_difficulty_levels():
             # Higher difficulty should generally produce more operators
             problem = item["metadata"]["problem"]
             num_operators = sum(1 for c in problem if c in ["+", "-", "*", "<", ">"])
-            
+
             if difficulty == 1:
                 assert num_operators <= 2  # Simple expressions
             elif difficulty >= 5:
@@ -97,18 +97,22 @@ def test_bitwise_arithmetic_answer_formats():
     """Test that different answer formats are handled correctly"""
     config = BitwiseArithmeticConfig(difficulty=1, size=10, seed=42)
     dataset = BitwiseArithmeticDataset(config)
-    
+
     for item in dataset:
         problem = item["metadata"]["problem"]
         correct = item["answer"]
-        
+
         # Test hex string format
         assert dataset.score_answer(answer=correct, entry=item) == 1.0
-        
+
         # Test decimal format
         decimal_answer = str(eval(problem))  # Safe as we control the problem
         assert dataset.score_answer(answer=decimal_answer, entry=item) == 1.0
-        
+
         # Test with "0x" prefix variations
-        if not correct.startswith("0x"):
-            assert dataset.score_answer(answer="0x" + correct[2:], entry=item) == 1.0
+        if correct.startswith("-0x"):
+            # For negative numbers, keep the minus sign
+            assert dataset.score_answer(answer="-0x" + correct[3:], entry=item) == 1.0
+        elif not correct.startswith("0x"):
+            # For positive numbers without prefix
+            assert dataset.score_answer(answer="0x" + correct, entry=item) == 1.0
