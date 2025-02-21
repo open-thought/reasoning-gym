@@ -96,8 +96,9 @@ def verify_solution(problem, user_solution):
     """
     try:
         correct_value = eval(problem)
+        # Use base=0 for automatic base detection: 0x->hex, 0b->binary, 0o->octal, no prefix->decimal
         user_value = int(str(user_solution), 0)
-    except Exception as e:
+    except Exception:
         return False
 
     return correct_value == user_value
