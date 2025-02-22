@@ -76,12 +76,12 @@ def create_app(config: ServerConfig) -> FastAPI:
 
     def permute_index(idx: int, epoch_seed: int, dataset_size: int) -> int:
         """Generate a deterministic permuted index without materializing full permutation.
-        
+
         Args:
             idx: Original index to permute
             epoch_seed: Seed for this epoch's permutation
             dataset_size: Size of the dataset
-            
+
         Returns:
             Permuted index in range [0, dataset_size)
         """
@@ -107,7 +107,7 @@ def create_app(config: ServerConfig) -> FastAPI:
             dataset_size = len(experiment.dataset)
             base_seed = experiment.config.seed if experiment.config.seed is not None else 0
             epoch_seed = base_seed + (epoch * dataset_size)
-            
+
             entries = []
             for i in range(base_index, base_index + batch_size):
                 # Get permuted index for this position

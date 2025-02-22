@@ -9,25 +9,6 @@ import torch
 import verl.utils.torch_functional as verl_F
 from omegaconf import OmegaConf, open_dict
 from torch.utils.data import DataLoader, Dataset
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from .main_ppo_custom_reward_server import RayPPOTrainerCustom
-
-class EpochTrackingDataLoader(DataLoader):
-    """DataLoader that tracks epochs based on trainer's global_steps"""
-    
-    def __init__(self, dataset: ReasoningGymDataset, trainer: "RayPPOTrainerCustom", *args, **kwargs):
-        super().__init__(dataset, *args, **kwargs)
-        self.trainer = trainer
-        self.steps_per_epoch = len(self)  # Number of batches per epoch
-        
-    def __iter__(self):
-        # Calculate current epoch from global_steps
-        current_epoch = (self.trainer.global_steps - 1) // self.steps_per_epoch
-        # Update dataset's epoch counter
-        self.dataset.epoch = current_epoch
-        return super().__iter__()
 from transformers import PreTrainedTokenizer
 from verl import DataProto
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
@@ -94,10 +75,7 @@ class ReasoningGymDataset(Dataset):
         if batch_idx not in self._batch_cache:
             base_index = batch_idx * self.batch_size
             response = self.client.get_batch(
-                self.dataset_name,
-                base_index=base_index,
-                batch_size=self.batch_size,
-                epoch=self.epoch
+                self.dataset_name, base_index=base_index, batch_size=self.batch_size, epoch=self.epoch
             )
             self._batch_cache[batch_idx] = response.entries
 
@@ -150,6 +128,22 @@ class ReasoningGymDataset(Dataset):
             row_dict["raw_prompt"] = chat
 
         return row_dict
+
+
+class EpochTrackingDataLoader(DataLoader):
+    """DataLoader that tracks epochs based on trainer's global_steps"""
+
+    def __init__(self, dataset: ReasoningGymDataset, trainer: "RayPPOTrainerCustom", *args, **kwargs):
+        super().__init__(dataset, *args, **kwargs)
+        self.trainer = trainer
+        self.steps_per_epoch = len(self)  # Number of batches per epoch
+
+    def __iter__(self):
+        # Calculate current epoch from global_steps
+        current_epoch = (self.trainer.global_steps - 1) // self.steps_per_epoch
+        # Update dataset's epoch counter
+        self.dataset.epoch = current_epoch
+        return super().__iter__()
 
 
 class RayPPOTrainerCustom(RayPPOTrainer):
