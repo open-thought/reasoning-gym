@@ -86,13 +86,14 @@ class RGClient:
         )
         response.raise_for_status()
 
-    def get_batch(self, experiment: str, base_index: int, batch_size: int) -> BatchResponse:
+    def get_batch(self, experiment: str, base_index: int, batch_size: int, epoch: int = 0) -> BatchResponse:
         """Get a batch of entries from an experiment.
 
         Args:
             experiment: Name of the experiment
             base_index: Starting index for the batch
             batch_size: Number of entries to retrieve
+            epoch: Epoch number for deterministic shuffling (default: 0)
 
         Returns:
             BatchResponse containing entries with questions and metadata
@@ -100,7 +101,7 @@ class RGClient:
         response = httpx.get(
             self._url(f"/experiments/{experiment}/batch"),
             headers=self.headers,
-            params={"base_index": base_index, "batch_size": batch_size},
+            params={"base_index": base_index, "batch_size": batch_size, "epoch": epoch},
         )
         response.raise_for_status()
         return BatchResponse.model_validate(response.json())
