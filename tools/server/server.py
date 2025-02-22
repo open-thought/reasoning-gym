@@ -1,6 +1,7 @@
 """FastAPI server implementation for Reasoning Gym."""
 
 import logging
+from random import Random
 
 from fastapi import FastAPI, HTTPException
 
