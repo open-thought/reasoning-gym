@@ -74,7 +74,7 @@ def create_app(config: ServerConfig) -> FastAPI:
         return {"status": "deleted"}
 
     @app.get("/experiments/{name}/batch", response_model=BatchResponse)
-    async def generate_batch(name: str, base_index: int, batch_size: int):
+    async def generate_batch(name: str, base_index: int, batch_size: int, epoch: int = 0):
         """Generate a batch of raw entries"""
         # Validate parameters
         if base_index < 0:
