@@ -48,6 +48,7 @@ class ReasoningGymDataset(Dataset):
         self.return_raw_chat = return_raw_chat
         self.size = size
         self.batch_size = batch_size
+        self.epoch = 0  # Initialize epoch counter
 
         # Initialize client and create experiment if needed
         self.client = RGClient(base_url=server_url, api_key=api_key)
@@ -73,7 +74,12 @@ class ReasoningGymDataset(Dataset):
         """Fetch or retrieve cached batch"""
         if batch_idx not in self._batch_cache:
             base_index = batch_idx * self.batch_size
-            response = self.client.get_batch(self.dataset_name, base_index=base_index, batch_size=self.batch_size)
+            response = self.client.get_batch(
+                self.dataset_name,
+                base_index=base_index,
+                batch_size=self.batch_size,
+                epoch=self.epoch
+            )
             self._batch_cache[batch_idx] = response.entries
 
             # # Basic cache management - keep only last N batches
