@@ -7,7 +7,9 @@ def test_game_of_life():
     """Test basic properties and solution of generated items"""
 
     # Easy
-    config = GameOfLifeHaltingConfig(seed=42, size=1, max_difficulty=3, grid_size_x=25, grid_size_y=25, max_simulation_steps=1)
+    config = GameOfLifeHaltingConfig(
+        seed=42, size=1, max_difficulty=3, grid_size_x=25, grid_size_y=25, max_simulation_steps=25
+    )
     dataset = GameOfLifeHaltingDataset(config)
 
     for item in dataset:
@@ -15,8 +17,6 @@ def test_game_of_life():
         assert "question" in item
         assert "answer" in item
         assert "metadata" in item
-
-        print(item['question'])
 
         # # Check metadata contains required fields
         assert "grid_size_x" in item["metadata"]

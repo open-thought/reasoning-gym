@@ -31,6 +31,7 @@ class GameOfLifeHaltingConfig:
             assert self.grid_size_x >= 25, "grid_size_x must be gte 25 (difficulty 3)"
             assert self.grid_size_y >= 25, "grid_size_y must be gte 25 (difficulty 3)"
 
+
 class GameOfLifeHaltingDataset(ProceduralDataset):
     """Generates Game of Life games with configurable parameters"""
 
@@ -42,77 +43,76 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
             "size_x": 3,
             "size_y": 3,
             "period": 2,
-            'difficulty': 1,
-            'cells': [
+            "difficulty": 1,
+            "cells": [
                 [0, 0, 0],
                 [1, 1, 1],
                 [0, 0, 0],
-            ]
+            ],
         },
         {
             "name": "toad",
             "size_x": 4,
             "size_y": 4,
             "period": 2,
-            'difficulty': 1,
-            'cells': [
+            "difficulty": 1,
+            "cells": [
                 [0, 1, 1, 0],
                 [1, 0, 0, 0],
                 [0, 0, 0, 1],
-                [0, 1, 1, 0], 
-            ]
+                [0, 1, 1, 0],
+            ],
         },
         {
             "name": "clock",
             "size_x": 4,
             "size_y": 4,
             "period": 2,
-            'difficulty': 1,
-            'cells': [
+            "difficulty": 1,
+            "cells": [
                 [0, 0, 1, 0],
                 [1, 0, 1, 0],
                 [0, 1, 0, 1],
-                [0, 1, 0, 0], 
-            ]
+                [0, 1, 0, 0],
+            ],
         },
         {
             "name": "bipole",
             "size_x": 5,
             "size_y": 5,
             "period": 2,
-            'difficulty': 1,
-            'cells': [
+            "difficulty": 1,
+            "cells": [
                 [0, 0, 0, 1, 1],
                 [0, 0, 1, 0, 1],
                 [0, 0, 0, 0, 0],
                 [1, 0, 1, 0, 0],
                 [1, 1, 0, 0, 0],
-            ]
+            ],
         },
         {
             "name": "tripole",
             "size_x": 6,
             "size_y": 6,
             "period": 2,
-            'difficulty': 1,
-            'cells': [
+            "difficulty": 1,
+            "cells": [
                 [0, 0, 0, 0, 1, 1],
                 [0, 0, 0, 1, 0, 1],
                 [0, 0, 0, 0, 0, 0],
                 [0, 1, 0, 1, 0, 0],
                 [1, 0, 0, 0, 0, 0],
                 [1, 1, 0, 0, 0, 0],
-            ]
+            ],
         },
-
         # Medium
         {
             "name": "caterer",
             "size_x": 6,
             "size_y": 9,
             "period": 3,
-            'difficulty': 2,
-            'cells': [
+            "difficulty": 2,
+            "cells": [
                 [0, 1, 1, 1, 0, 0],
                 [0, 0, 0, 0, 0, 1],
                 [1, 0, 0, 0, 0, 1],
@@ -122,30 +122,30 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
                 [0, 1, 0, 0, 0, 0],
                 [0, 1, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0],
-            ]
+            ],
         },
         {
             "name": "mold",
             "size_x": 6,
             "size_y": 6,
             "period": 4,
-            'difficulty': 2,
-            'cells': [
+            "difficulty": 2,
+            "cells": [
                 [0, 0, 0, 1, 1, 0],
                 [0, 0, 1, 0, 0, 1],
                 [1, 0, 0, 1, 0, 1],
                 [0, 0, 0, 0, 1, 0],
                 [1, 0, 1, 1, 0, 0],
                 [0, 1, 0, 0, 0, 0],
-            ]
+            ],
         },
         {
             "name": "pinwheel",
             "size_x": 12,
             "size_y": 12,
             "period": 4,
-            'difficulty': 2,
-            'cells': [
+            "difficulty": 2,
+            "cells": [
                 [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -158,17 +158,16 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-            ]
+            ],
         },
-
         # Hard
         {
             "name": "pentadecathlon",
             "size_x": 16,
             "size_y": 9,
             "period": 15,
-            'difficulty': 3,
-            'cells': [
+            "difficulty": 3,
+            "cells": [
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -178,78 +177,78 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ]
+            ],
         },
     ]
     NON_OSCILLATORS = [
         {
             "size_x": 3,
             "size_y": 3,
-            'cells': [
+            "cells": [
                 [1, 0, 0],
                 [0, 1, 0],
                 [0, 0, 1],
-            ]
+            ],
         },
         {
             "size_x": 3,
             "size_y": 3,
-            'cells': [
+            "cells": [
                 [0, 0, 1],
                 [0, 1, 0],
                 [1, 0, 0],
-            ]
+            ],
         },
         {
             "size_x": 3,
             "size_y": 3,
-            'cells': [
+            "cells": [
                 [1, 0, 0],
                 [0, 1, 0],
                 [1, 0, 0],
-            ]
+            ],
         },
         {
             "size_x": 3,
             "size_y": 3,
-            'cells': [
+            "cells": [
                 [0, 0, 1],
                 [0, 1, 0],
                 [0, 0, 1],
-            ]
+            ],
         },
         {
             "size_x": 4,
             "size_y": 4,
-            'cells': [
+            "cells": [
                 [1, 0, 0, 0],
                 [0, 1, 0, 0],
                 [0, 0, 1, 0],
                 [0, 0, 0, 1],
-            ]
+            ],
         },
         {
             "size_x": 5,
             "size_y": 5,
-            'cells': [
+            "cells": [
                 [1, 0, 0, 0, 0],
                 [0, 1, 0, 0, 0],
                 [0, 0, 1, 0, 0],
                 [0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 1],
-            ]
+            ],
         },
         {
             "size_x": 6,
             "size_y": 6,
-            'cells': [
+            "cells": [
                 [1, 0, 0, 0, 0, 0],
                 [0, 1, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0, 0],
                 [0, 0, 0, 1, 0, 0],
                 [0, 0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0, 1],
-            ]
+            ],
         },
     ]
 
@@ -265,38 +264,44 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
         # Create a reproducible random generator for this index.
         rng = Random(self.seed + idx)
 
+        # Flip a coin to decide if we should oscillate.
+        should_oscillate = rng.choice([True, False])
+
         # Get dimensions for convenience.
         grid_x = self.config.grid_size_x
         grid_y = self.config.grid_size_y
 
         # Initialize the board.
-        # Note: cpl.init_simple2d returns an array with shape 
+        # Note: cpl.init_simple2d returns an array with shape
         # (timesteps, grid_size_x, grid_size_y)
         board = cpl.init_simple2d(grid_x, grid_y)
         board[:, :, :] = 0  # reset all cells to dead
 
-        # We will place oscillators on the initial board (timestep 0).
+        # We will place patterns on the initial board (timestep 0).
         initial_board = board[0]
 
         # Create an occupancy grid to keep track of which cells (and their 1-cell buffer)
-        # are already occupied by an oscillator.
+        # are already occupied by a pattern.
         occupancy = [[False for _ in range(grid_y)] for _ in range(grid_x)]
 
-        # Filter oscillators that do not exceed the allowed difficulty.
-        valid_oscillators = [
-            osc for osc in self.OSCILLATORS if osc["difficulty"] <= self.config.max_difficulty
-        ]
+        # Determine which set of patterns to use based on should_oscillate.
+        if should_oscillate:
+            valid_patterns = [
+                osc for osc in self.OSCILLATORS if osc["difficulty"] <= self.config.max_difficulty
+            ] + self.NON_OSCILLATORS
+        else:
+            valid_patterns = self.NON_OSCILLATORS
 
-        placed_oscillators: List[Dict] = []
+        placed_patterns: List[Dict] = []
 
-        # Place the requested number of oscillators.
+        # Place the requested number of patterns.
         for _ in range(self.config.oscillators):
-            osc = rng.choice(valid_oscillators)
-            height = osc["size_y"]
-            width = osc["size_x"]
+            pattern = rng.choice(valid_patterns)
+            height = pattern["size_y"]
+            width = pattern["size_x"]
 
-            # We need to ensure that the oscillator (plus a 1-cell border on all sides)
-            # fits within the grid. Therefore, valid top-left positions (i,j) must satisfy:
+            # Ensure the pattern (plus a 1-cell border) fits in the grid.
+            # Valid top-left positions (i,j) must satisfy:
             # 1 <= i <= grid_x - height - 1 and 1 <= j <= grid_y - width - 1.
             attempts = 1000
             placed = False
@@ -320,26 +325,20 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
                         for y in range(j - 1, j + width + 1):
                             occupancy[x][y] = True
 
-                    # Place the oscillator pattern on the initial board.
+                    # Place the pattern on the initial board.
                     for dx in range(height):
                         for dy in range(width):
-                            initial_board[i + dx, j + dy] = osc["cells"][dx][dy]
+                            initial_board[i + dx, j + dy] = pattern["cells"][dx][dy]
 
                     placed = True
-                    placed_oscillators.append({
-                        "name": osc["name"],
-                        "position": (i, j)
-                    })
+                    placed_patterns.append({"name": pattern.get("name", "non-oscillator"), "position": (i, j)})
 
                 attempts -= 1
-            # If no valid placement is found after many attempts, we skip this oscillator.
+            # If no valid placement is found after many attempts, we skip this pattern.
 
         # Evolve the Game of Life using the initial board state.
         evolved = cpl.evolve2d(
-            board,
-            timesteps=self.config.max_simulation_steps + 1,
-            apply_rule=cpl.game_of_life_rule,
-            memoize="recursive"
+            board, timesteps=self.config.max_simulation_steps + 1, apply_rule=cpl.game_of_life_rule, memoize="recursive"
         )
 
         # Convert the initial and final board states to strings.
@@ -359,8 +358,9 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
             "metadata": {
                 "grid_size_x": grid_x,
                 "grid_size_y": grid_y,
-                "placed_oscillators": placed_oscillators,
-                "simulation_steps": self.config.max_simulation_steps
+                "placed_patterns": placed_patterns,
+                "simulation_steps": self.config.max_simulation_steps,
+                "should_oscillate": should_oscillate,
             },
         }
 
