@@ -43,10 +43,10 @@ Now, find the length of the shortest path from * to # in the following grid:
 class ShortestPathConfig:
     """Configuration for Shortest Path dataset generation"""
 
-    min_rows: int = 10
-    max_rows: int = 30
-    min_cols: int = 10
-    max_cols: int = 30
+    min_rows: int = 5
+    max_rows: int = 8
+    min_cols: int = 5
+    max_cols: int = 8
     p_blocked: float = 0.4
 
     size: int = 500  # Virtual dataset size
