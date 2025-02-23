@@ -102,7 +102,7 @@ def test_shortest_path_answer():
         ["X", "*", "O", "#", "X"],
         ["X", "O", "X", "O", "X"],
     ]
-    assert dataset._get_answer(matrix) == 2
+    assert " ".join(dataset._get_answer(matrix)) == "right right"
 
     # One shot example in prompt
     matrix = [
@@ -111,7 +111,7 @@ def test_shortest_path_answer():
         ["X", "O", "X", "O", "X"],
         ["X", "X", "X", "O", "#"],
     ]
-    assert dataset._get_answer(matrix) == 5
+    assert " ".join(dataset._get_answer(matrix)) == "right right down down right"
 
     # Impossible solution
     matrix = [
@@ -120,4 +120,62 @@ def test_shortest_path_answer():
         ["X", "O", "X", "O", "X"],
         ["X", "X", "X", "X", "#"],
     ]
-    assert dataset._get_answer(matrix) == -1
+    assert dataset._get_answer(matrix) == []
+
+    # Multiple valid solutions of same size
+    entry = {
+        "answer": "right right down down",
+        "metadata": {
+            "matrix": [
+                ["X", "X", "X", "X", "X"],
+                ["X", "*", "O", "O", "X"],
+                ["X", "O", "X", "O", "X"],
+                ["X", "O", "O", "#", "X"],
+            ]
+        },
+    }
+    assert dataset.score_answer("right right down down", entry) == 1.0
+    assert dataset.score_answer("down down right right", entry) == 1.0
+
+    # Partial solution (valid, but longer than oracle)
+    entry = {
+        "answer": "right right",
+        "metadata": {
+            "matrix": [
+                ["X", "X", "X", "X", "X"],
+                ["X", "*", "O", "#", "X"],
+                ["X", "O", "X", "O", "X"],
+                ["X", "O", "O", "O", "X"],
+            ]
+        },
+    }
+    assert dataset.score_answer("right right", entry) == 1.0
+    assert dataset.score_answer("down down right right up up", entry) == 0.5
+
+    # Invalid solution (steps over X)
+    entry = {
+        "answer": "right right down down",
+        "metadata": {
+            "matrix": [
+                ["X", "X", "X", "X", "X"],
+                ["X", "*", "O", "O", "X"],
+                ["X", "O", "X", "O", "X"],
+                ["X", "O", "O", "#", "X"],
+            ]
+        },
+    }
+    assert dataset.score_answer("right down right down", entry) == 0.01
+
+    # Answer is None
+    entry = {
+        "answer": "right right down down",
+        "metadata": {
+            "matrix": [
+                ["X", "X", "X", "X", "X"],
+                ["X", "*", "O", "O", "X"],
+                ["X", "O", "X", "O", "X"],
+                ["X", "O", "O", "#", "X"],
+            ]
+        },
+    }
+    assert dataset.score_answer(None, entry) == 0.0
