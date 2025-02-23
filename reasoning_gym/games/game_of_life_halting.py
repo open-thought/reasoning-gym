@@ -15,7 +15,7 @@ class GameOfLifeHaltingConfig:
     grid_size_y: int = 25
     max_difficulty: int = 1
     oscillators: int = 4
-    max_simulation_steps: int = 1
+    max_simulation_steps: int = 20
     seed: Optional[int] = None
     size: int = 500
 
@@ -178,6 +178,77 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ]
+        },
+    ]
+    NON_OSCILLATORS = [
+        {
+            "size_x": 3,
+            "size_y": 3,
+            'cells': [
+                [1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1],
+            ]
+        },
+        {
+            "size_x": 3,
+            "size_y": 3,
+            'cells': [
+                [0, 0, 1],
+                [0, 1, 0],
+                [1, 0, 0],
+            ]
+        },
+        {
+            "size_x": 3,
+            "size_y": 3,
+            'cells': [
+                [1, 0, 0],
+                [0, 1, 0],
+                [1, 0, 0],
+            ]
+        },
+        {
+            "size_x": 3,
+            "size_y": 3,
+            'cells': [
+                [0, 0, 1],
+                [0, 1, 0],
+                [0, 0, 1],
+            ]
+        },
+        {
+            "size_x": 4,
+            "size_y": 4,
+            'cells': [
+                [1, 0, 0, 0],
+                [0, 1, 0, 0],
+                [0, 0, 1, 0],
+                [0, 0, 0, 1],
+            ]
+        },
+        {
+            "size_x": 5,
+            "size_y": 5,
+            'cells': [
+                [1, 0, 0, 0, 0],
+                [0, 1, 0, 0, 0],
+                [0, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 1],
+            ]
+        },
+        {
+            "size_x": 6,
+            "size_y": 6,
+            'cells': [
+                [1, 0, 0, 0, 0, 0],
+                [0, 1, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0, 1],
             ]
         },
     ]
