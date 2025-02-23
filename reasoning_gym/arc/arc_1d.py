@@ -18,7 +18,7 @@ class Arc1DConfig:
 
     def validate(self) -> None:
         """Validate configuration parameters"""
-        assert self.min_size > 0, "min_size must be positive"
+        assert self.min_size >= 8, "min_size must be >= 8"
         assert self.max_size >= self.min_size, "max_size must be >= min_size"
         assert self.num_train > 0, "num_train must be positive"
         assert self.size > 0, "size must be positive"

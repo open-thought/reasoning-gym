@@ -38,7 +38,7 @@ def task_move_n_pix(rng: Random, size: int, move_pix: int, solid: bool) -> Optio
 def task_move_n_pix_wrapped(rng: Random, size: int, move_pix: int, solid: bool) -> Optional[dict[str, list[int]]]:
     """Generate a task where a block is moved to the right by move_pix pixels with wrapping."""
     block_size = rng.randint(1, size)
-    block_pos = rng.randint(0, size)
+    block_pos = rng.randint(0, size - 1)
 
     if solid:
         color = rng.randint(1, 9)
@@ -95,8 +95,8 @@ def task_block_touch_dot(rng: Random, size: int) -> Optional[dict[str, list[int]
     dot_color = 1
     block_color = rng.randint(2, 9)
 
-    block_size = rng.randint(1, size)
-    dot_pos = rng.randint(0, size)
+    block_size = rng.randint(1, size - 1)
+    dot_pos = rng.randint(0, size - 1)
 
     can_place_left = dot_pos >= block_size
     can_place_right = dot_pos + block_size < size
@@ -105,7 +105,7 @@ def task_block_touch_dot(rng: Random, size: int) -> Optional[dict[str, list[int]
         return None
 
     if can_place_left and can_place_right:
-        side = rng.choice(["left", "right"])
+        side = rng.choice(("left", "right"))
     elif can_place_left:
         side = "left"
     else:
@@ -134,8 +134,8 @@ def task_block_touch_dot_n_pix(rng: Random, size: int, move_pix: int) -> Optiona
     dot_color = 2
     block_color = rng.randint(3, 9)
 
-    block_size = rng.randint(1, size)
-    dot_pos = rng.randint(0, size)
+    block_size = rng.randint(1, size - 1)
+    dot_pos = rng.randint(0, size - 1)
 
     can_place_left = dot_pos >= block_size
     can_place_right = dot_pos + block_size < size
@@ -144,7 +144,7 @@ def task_block_touch_dot_n_pix(rng: Random, size: int, move_pix: int) -> Optiona
         return None
 
     if can_place_left and can_place_right:
-        side = rng.choice(["left", "right"])
+        side = rng.choice(("left", "right"))
     elif can_place_left:
         side = "left"
     else:
@@ -177,8 +177,8 @@ def task_block_scale_to_dot(rng: Random, size: int) -> Optional[dict[str, list[i
     dot_color = 2
     block_color = rng.randint(3, 9)
 
-    block_size = rng.randint(1, size)
-    dot_pos = rng.randint(0, size)
+    block_size = rng.randint(1, size - 1)
+    dot_pos = rng.randint(0, size - 1)
 
     can_place_left = dot_pos >= block_size
     can_place_right = dot_pos + block_size < size
@@ -187,7 +187,7 @@ def task_block_scale_to_dot(rng: Random, size: int) -> Optional[dict[str, list[i
         return None
 
     if can_place_left and can_place_right:
-        side = rng.choice(["left", "right"])
+        side = rng.choice(("left", "right"))
     elif can_place_left:
         side = "left"
     else:
@@ -238,13 +238,9 @@ def task_two_points_and_fill(rng: Random, size: int) -> Optional[dict[str, list[
 def task_reflect_block_with_border_pixel(rng: Random, size: int) -> Optional[dict[str, list[int]]]:
     """Generate a task where a block with a border pixel is reflected."""
     block_size = rng.randint(2, size)
-    if block_size > size:
-        return None
 
     c1 = rng.randint(1, 9)
-    c2 = rng.randint(1, 9)
-    if c1 == c2:
-        return None
+    c2 = rng.choice(tuple(c for c in range(1, 9) if c != c1))
 
     side = "left" if rng.random() < 0.5 else "right"
     pos = rng.randint(0, size - block_size)
@@ -265,22 +261,17 @@ def task_reflect_block_with_border_pixel(rng: Random, size: int) -> Optional[dic
 def task_reflect_block_with_border_pixel_random(rng: Random, size: int) -> Optional[dict[str, list[int]]]:
     """Generate a task where a random-colored block with a border pixel is reflected."""
     block_size = rng.randint(2, size)
-    if block_size > size:
-        return None
 
     side = "left" if rng.random() < 0.5 else "right"
     pos = rng.randint(0, size - block_size)
 
-    block = [rng.randint(1, 9) for _ in range(block_size)]
     border_color = rng.randint(1, 9)
+    other_colors = tuple(c for c in range(1, 9) if c != border_color)
+    block = [rng.choice(other_colors) for _ in range(block_size)]
 
     if side == "left":
-        if block[0] == border_color:
-            return None
         block[0] = border_color
     else:
-        if block[block_size - 1] == border_color:
-            return None
         block[block_size - 1] = border_color
 
     question = write_block(pos, block, gen_field(size))
@@ -294,8 +285,8 @@ def task_reflect_block_around_dot(rng: Random, size: int) -> Optional[dict[str, 
     """Generate a task where a block is reflected around a dot."""
     dot_color = 2
 
-    dot_pos = rng.randint(0, size)
-    block_size = rng.randint(1, size)
+    dot_pos = rng.randint(0, size - 1)
+    block_size = rng.randint(1, size - 1)
     block_pos = rng.randint(0, size - block_size)
     block_end = block_pos + block_size - 1
 
@@ -331,8 +322,6 @@ def task_reflect_block_around_dot(rng: Random, size: int) -> Optional[dict[str, 
 def task_block_and_noise_remove(rng: Random, size: int) -> Optional[dict[str, list[int]]]:
     """Generate a task where noise around a block needs to be removed."""
     block_size = rng.randint(2, size)
-    if block_size > size:
-        return None
 
     block_pos = rng.randint(0, size - block_size)
     color = rng.randint(1, 9)
@@ -356,7 +345,7 @@ def task_block_and_noise_remove(rng: Random, size: int) -> Optional[dict[str, li
     noise_positions = []
 
     for _ in range(noise_count):
-        allowed = [i for i in range(size) if not forbidden[i]]
+        allowed = tuple(i for i in range(size) if not forbidden[i])
         if not allowed:
             break
         noise_pos = rng.choice(allowed)
@@ -385,8 +374,6 @@ def task_block_and_noise_remove_inside(rng: Random, size: int) -> Optional[dict[
         return None
 
     block_size = rng.randint(6, size)
-    if block_size > size:
-        return None
 
     block_pos = rng.randint(0, size - block_size)
     color = rng.randint(1, 9)
@@ -471,7 +458,7 @@ def task_copy_block_to_dots_colors(rng: Random, size: int) -> Optional[dict[str,
     dot_colors = []
     pos = block_size + block_size // 2 + 1
 
-    while pos < size - block_size:
+    while pos <= size - block_size:
         if rng.random() < 0.5:
             dot_color = rng.randint(1, 9)
             dot_positions.append(pos)
@@ -759,13 +746,14 @@ def task_duplicate_block_from_seeds(rng: Random, size: int) -> Optional[dict[str
         return None
 
     # Position block with space for seeds
-    block_pos = rng.randint(2, size - block_size - 1)
+    block_pos = rng.randint(2, size - block_size - 2)
 
     # Decide seed placement
-    left_seed = rng.random() < 0.5
-    right_seed = rng.random() < 0.5
-    if not (left_seed or right_seed):
-        return None
+    left_seed = False
+    right_seed = False
+    while not left_seed and not right_seed:
+        left_seed = rng.random() < 0.5
+        right_seed = rng.random() < 0.5
 
     # Create input
     question = gen_field(size)
@@ -814,9 +802,10 @@ def task_duplicate_block_from_seeds(rng: Random, size: int) -> Optional[dict[str
 
 def task_fill_from_pixel(rng: Random, size: int) -> Optional[dict[str, list[int]]]:
     """Generate a task where a pixel fills in one direction until hitting another pixel."""
-    block_size = rng.randint(3, 6)
-    if block_size >= size - 2:
+    if size < 6:
         return None
+
+    block_size = rng.randint(3, size - 3)
 
     # Position block with space for seed
     block_pos = rng.randint(1, size - block_size - 1)
@@ -1039,8 +1028,8 @@ def task_color_left_half_blocks(rng: Random, size: int) -> Optional[dict[str, li
     # Generate blocks with gap 1
     while pos < size:
         if rng.random() < 0.4:
-            block_size = rng.randint(2, 8)
-            if pos + block_size >= size:
+            block_size = rng.randint(2, size // 2)
+            if pos + block_size > size:
                 break
 
             blocks.append((pos, block_size))
