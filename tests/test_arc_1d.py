@@ -112,4 +112,16 @@ def test_arc_1d_sizes(board_size: int):
     config = Arc1DConfig(size=1000, seed=42 + board_size, min_size=board_size, max_size=board_size)
     dataset = Arc1DDataset(config)
     for entry in dataset:
+        assert len(entry["metadata"]["test_example"]["input"]) == board_size
+        assert len(entry["metadata"]["test_example"]["output"]) == board_size
+        assert dataset.score_answer(entry["answer"], entry) == 1.0
+
+
+@pytest.mark.parametrize("min_size,max_size", [(8, 10), (9, 13), (10, 12), (12, 20)])
+def test_arc_1d_size_ranges(min_size: int, max_size: int):
+    config = Arc1DConfig(size=1000, seed=42, min_size=min_size, max_size=max_size)
+    dataset = Arc1DDataset(config)
+    for entry in dataset:
+        assert min_size <= len(entry["metadata"]["test_example"]["input"]) <= max_size
+        assert min_size <= len(entry["metadata"]["test_example"]["output"]) <= max_size
         assert dataset.score_answer(entry["answer"], entry) == 1.0
