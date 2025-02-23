@@ -60,7 +60,7 @@ class CodeIOConfig:
 
     def validate(self) -> None:
         """Validate configuration parameters"""
-        pass
+        assert 0.0 <= self.input_prediction_probability <= 1.0, "input_prediction_probability must be in [0, 1]"
 
 
 class CodeIODataset(ProceduralDataset):
@@ -146,4 +146,4 @@ class CodeIODataset(ProceduralDataset):
 
 
 # Register the dataset
-register_dataset("codeio", CodeIODataset, CodeIOConfig)
+# register_dataset("codeio", CodeIODataset, CodeIOConfig)
