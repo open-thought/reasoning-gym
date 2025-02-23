@@ -1,7 +1,7 @@
 import math
 from fractions import Fraction
 from random import Random
-from typing import Any, Dict
+from typing import Any
 
 from reasoning_gym.utils import format_number, is_integer
 

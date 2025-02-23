@@ -7,7 +7,7 @@ https://leetcode.com/problems/rotting-oranges/description/
 from collections import deque
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 

@@ -1,6 +1,6 @@
 import random
 from random import Random
-from typing import Any, Dict
+from typing import Any
 
 NUM_OF_PAIRS_GENERATED = 5
 
@@ -65,7 +65,7 @@ def create_numbers_divisible_by_five_or_ten(rng: Random):
     return result
 
 
-def generate_0(rng: Random) -> Dict[str, Any]:
+def generate_0(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where input remains unchanged"""
     pairs = {}
 
@@ -78,7 +78,7 @@ def generate_0(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_1(rng: Random) -> Dict[str, Any]:
+def generate_1(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a list of the third element
     after removing all other elements
     """
@@ -95,7 +95,7 @@ def generate_1(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_2(rng: Random) -> Dict[str, Any]:
+def generate_2(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a reversed list of the input"""
     pairs = {}
     for _ in range(NUM_OF_PAIRS_GENERATED):
@@ -108,7 +108,7 @@ def generate_2(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_3(rng: Random) -> Dict[str, Any]:
+def generate_3(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is the sum of unique elements in the list less than 30"""
     pairs = {}
     for _ in range(NUM_OF_PAIRS_GENERATED):
@@ -127,7 +127,7 @@ def generate_3(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_4(rng: Random) -> Dict[str, Any]:
+def generate_4(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is the count of elements equal to 5"""
     pairs = {}
     for i in range(NUM_OF_PAIRS_GENERATED):
@@ -151,7 +151,7 @@ def generate_4(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_5(rng: Random) -> Dict[str, Any]:
+def generate_5(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a list of elements that are followed by an even number
 
     NOTE: This is suppose to be a relatively hard problem
@@ -173,7 +173,7 @@ def generate_5(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_6(rng: Random) -> Dict[str, Any]:
+def generate_6(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a list of elements where each element in input is added to its position(Using zero-indexing)"""
     pairs = {}
     for i in range(NUM_OF_PAIRS_GENERATED):
@@ -190,7 +190,7 @@ def generate_6(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_7(rng: Random) -> Dict[str, Any]:
+def generate_7(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a list of element whose position is indicated by the last element in the input
 
     EXAMPLE:
@@ -213,7 +213,7 @@ def generate_7(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_8(rng: Random) -> Dict[str, Any]:
+def generate_8(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is count of elements in the input"""
     pairs = {}
     for _ in range(NUM_OF_PAIRS_GENERATED):
@@ -227,7 +227,7 @@ def generate_8(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_9(rng: Random) -> Dict[str, Any]:
+def generate_9(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is sum total of elements in the input"""
     pairs = {}
     for _ in range(NUM_OF_PAIRS_GENERATED):
@@ -241,7 +241,7 @@ def generate_9(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_10(rng: Random) -> Dict[str, Any]:
+def generate_10(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a list of the elements in ascending order"""
     pairs = {}
     for _ in range(NUM_OF_PAIRS_GENERATED):
@@ -255,7 +255,7 @@ def generate_10(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_11(rng: Random) -> Dict[str, Any]:
+def generate_11(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a list of the elements in descending order"""
     pairs = {}
     for _ in range(NUM_OF_PAIRS_GENERATED):
@@ -269,7 +269,7 @@ def generate_11(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_12(rng: Random) -> Dict[str, Any]:
+def generate_12(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a list of the elements where the first and last element in input are replaced by their
     successor. Example, for an integer 4, successor is 5
     """
@@ -288,7 +288,7 @@ def generate_12(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_13(rng: Random) -> Dict[str, Any]:
+def generate_13(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is [1] if list of input elements is in ascending order, [0] in descending order"""
     pairs = {}
     for i in range(NUM_OF_PAIRS_GENERATED):
@@ -307,7 +307,7 @@ def generate_13(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_14(rng: Random) -> Dict[str, Any]:
+def generate_14(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is [1] if input element is divisible by 10, [0] if divisible by 5"""
     pairs = {}
 
@@ -327,7 +327,7 @@ def generate_14(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_15(rng: Random) -> Dict[str, Any]:
+def generate_15(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is a twice the amount of last element in the input"""
     pairs = {}
     for _ in range(NUM_OF_PAIRS_GENERATED):
@@ -348,7 +348,7 @@ def generate_15(rng: Random) -> Dict[str, Any]:
     return pairs
 
 
-def generate_16(rng: Random) -> Dict[str, Any]:
+def generate_16(rng: Random) -> dict[str, Any]:
     """Generate input and output pairs where output is built from a function 2x - 4
     NOTE: This is suppose to be amazingly hard for the LLM.
     """

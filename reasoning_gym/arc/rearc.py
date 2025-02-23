@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from random import Random
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 from .board_format import ARC_PROMPT_TEMPLATE, BoardFormattingOptions, format_board, format_board_pair, parse_board
