@@ -47,8 +47,6 @@ Tip: Here is a reference code snippet for this question. You can refer to this c
 {3}
 """
 
-# TODO: also add input prediction prompt
-
 
 @dataclass
 class CodeIOConfig:
