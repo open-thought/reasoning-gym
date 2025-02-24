@@ -123,7 +123,7 @@ class ChainSumCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_terms",
-                levels=[2, 3, 4, 5],
+                levels=list(range(2, 13)),
                 default_level=0,  # Start with 2 terms
                 description="Maximum number of terms in the expression",
                 attr_type=AttributeType.APPEND,
@@ -133,7 +133,7 @@ class ChainSumCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="num_digits",
-                levels=[1, 2, 4, 10],
+                levels=list(range(1, 11)),
                 default_level=0,  # Start with 1-digit numbers
                 description="Number of digits in each operand",
                 attr_type=AttributeType.APPEND,
@@ -145,4 +145,4 @@ class ChainSumCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("chain_sum", ChainSumDataset, ChainSumConfig)
+register_dataset("chain_sum", ChainSumDataset, ChainSumConfig, ChainSumCurriculum)

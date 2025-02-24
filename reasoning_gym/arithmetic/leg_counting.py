@@ -4,6 +4,9 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
+from reasoning_gym.coaching.attributes import AttributeType, RangeAttributeDefinition
+from reasoning_gym.coaching.base_curriculum import BaseCurriculum
+
 from ..factory import ProceduralDataset, register_dataset
 
 ANIMALS = {
@@ -124,4 +127,23 @@ class LegCountingDataset(ProceduralDataset):
         }
 
 
-register_dataset("leg_counting", LegCountingDataset, LegCountingConfig)
+class LegCountingCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(LegCountingCurriculum.__name__, LegCountingConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_animals",
+                levels=list(range(1, 20)),
+                default_level=0,  # Start with 2 terms
+                description="Number of animals in question",
+                attr_type=AttributeType.APPEND,
+                min_value=1,  # Ensure at least 1 animal
+                lower_field_name="min_animals",
+                upper_field_name="max_animals",
+            ),
+        )
+
+
+register_dataset("leg_counting", LegCountingDataset, LegCountingConfig, LegCountingCurriculum)
