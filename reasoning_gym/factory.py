@@ -1,17 +1,25 @@
 from dataclasses import is_dataclass
-from typing import Type, TypeVar
+from typing import Optional, Type, TypeVar
+
+from reasoning_gym.coaching.base_curriculum import BaseCurriculum
 
 from .dataset import ProceduralDataset
 
 # Type variables for generic type hints
 ConfigT = TypeVar("ConfigT")
 DatasetT = TypeVar("DatasetT", bound=ProceduralDataset)
+CurriculumT = TypeVar("CurriculumT", bound=BaseCurriculum)
 
 # Global registry of datasets
-DATASETS: dict[str, tuple[Type[ProceduralDataset], Type]] = {}
+DATASETS: dict[str, tuple[Type[ProceduralDataset], Type, Optional[BaseCurriculum]]] = {}
 
 
-def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[ConfigT]) -> None:
+def register_dataset(
+    name: str,
+    dataset_cls: Type[DatasetT],
+    config_cls: Type[ConfigT],
+    curriculum_cls: Optional[CurriculumT] = None,
+) -> None:
     """
     Register a dataset class with its configuration class.
 
@@ -32,7 +40,7 @@ def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[Co
     if not is_dataclass(config_cls):
         raise ValueError(f"Config class must be a dataclass, got {config_cls}")
 
-    DATASETS[name] = (dataset_cls, config_cls)
+    DATASETS[name] = (dataset_cls, config_cls, curriculum_cls)
 
 
 def create_dataset(name: str, **kwargs) -> ProceduralDataset:
@@ -51,8 +59,19 @@ def create_dataset(name: str, **kwargs) -> ProceduralDataset:
     if name not in DATASETS:
         raise ValueError(f"Dataset '{name}' not registered")
 
-    dataset_cls, config_cls = DATASETS[name]
+    dataset_cls, config_cls, _ = DATASETS[name]
 
     config = config_cls(**kwargs)
 
     return dataset_cls(config=config)
+
+
+def create_curriculum(name: str) -> BaseCurriculum:
+    if name not in DATASETS:
+        raise ValueError(f"Dataset '{name}' not registered")
+
+    curriculum_cls = DATASETS[name][2]
+    if not curriculum_cls:
+        raise ValueError(f"Dataset '{name}' not registered")
+
+    return curriculum_cls()
