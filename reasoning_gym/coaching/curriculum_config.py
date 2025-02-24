@@ -38,26 +38,25 @@ class CurriculumExperimentConfig:
             attr_config.validate()
             
     @classmethod
-    def from_yaml(cls, yaml_path: str) -> "CurriculumExperimentConfig":
-        """Load configuration from YAML file
+    def from_yaml_stream(cls, stream) -> "CurriculumExperimentConfig":
+        """Load configuration from a YAML stream
         
         Args:
-            yaml_path: Path to YAML configuration file
+            stream: A file-like object containing YAML data
             
         Returns:
             CurriculumExperimentConfig instance
             
         Raises:
-            ValueError: If YAML file has invalid format
+            ValueError: If YAML data has invalid format
         """
-        with open(yaml_path, "r") as f:
-            data = yaml.safe_load(f)
+        data = yaml.safe_load(stream)
             
         if not isinstance(data, dict):
-            raise ValueError("YAML file must contain a dictionary")
+            raise ValueError("YAML data must contain a dictionary")
             
         if "curricula" not in data:
-            raise ValueError("YAML file must contain a 'curricula' key")
+            raise ValueError("YAML data must contain a 'curricula' key")
             
         # Convert curriculum configs
         curricula = {}
@@ -75,3 +74,19 @@ class CurriculumExperimentConfig:
             )
             
         return cls(curricula=curricula)
+    
+    @classmethod
+    def from_yaml(cls, yaml_path: str) -> "CurriculumExperimentConfig":
+        """Load configuration from YAML file
+        
+        Args:
+            yaml_path: Path to YAML configuration file
+            
+        Returns:
+            CurriculumExperimentConfig instance
+            
+        Raises:
+            ValueError: If YAML file has invalid format
+        """
+        with open(yaml_path, "r") as f:
+            return cls.from_yaml_stream(f)

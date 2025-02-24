@@ -48,16 +48,35 @@ class CompositeConfig:
             ds.validate()
 
     @classmethod
-    def from_yaml(cls, yaml_path: str) -> "CompositeConfig":
-        """Load configuration from YAML file"""
-        with open(yaml_path, "r") as f:
-            data = yaml.safe_load(f)
+    def from_yaml_stream(cls, stream) -> "CompositeConfig":
+        """Load configuration from a YAML stream
+        
+        Args:
+            stream: A file-like object containing YAML data
+            
+        Returns:
+            CompositeConfig instance
+        """
+        data = yaml.safe_load(stream)
 
         # Convert dataset specs to DatasetSpec objects
         if "datasets" in data:
             data["datasets"] = [DatasetSpec(**ds) for ds in data["datasets"]]
 
         return cls(**data)
+    
+    @classmethod
+    def from_yaml(cls, yaml_path: str) -> "CompositeConfig":
+        """Load configuration from YAML file
+        
+        Args:
+            yaml_path: Path to YAML configuration file
+            
+        Returns:
+            CompositeConfig instance
+        """
+        with open(yaml_path, "r") as f:
+            return cls.from_yaml_stream(f)
 
 
 class CompositeDataset(ProceduralDataset):
