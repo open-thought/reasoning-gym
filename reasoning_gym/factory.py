@@ -21,12 +21,13 @@ def register_dataset(
     curriculum_cls: Optional[CurriculumT] = None,
 ) -> None:
     """
-    Register a dataset class with its configuration class.
+    Register a dataset class with its configuration class and optional curriculum.
 
     Args:
         name: Unique identifier for the dataset
         dataset_cls: Class derived from ProceduralDataset
         config_cls: Configuration dataclass for the dataset
+        curriculum_cls: Optional curriculum class for progressive difficulty
 
     Raises:
         ValueError: If name is already registered or invalid types provided
@@ -67,6 +68,18 @@ def create_dataset(name: str, **kwargs) -> ProceduralDataset:
 
 
 def create_curriculum(name: str) -> BaseCurriculum:
+    """
+    Create a curriculum instance for the named dataset.
+
+    Args:
+        name: Registered dataset name
+
+    Returns:
+        Configured curriculum instance
+
+    Raises:
+        ValueError: If dataset not found or has no curriculum registered
+    """
     if name not in DATASETS:
         raise ValueError(f"Dataset '{name}' not registered")
 
