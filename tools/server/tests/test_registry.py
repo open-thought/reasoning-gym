@@ -35,7 +35,7 @@ def test_experiment_management():
     exp = registry.get_experiment("test_exp")
     assert exp is not None
     assert exp.name == "test_exp"
-    assert isinstance(exp.dataset, CompositeDataset)
+    assert isinstance(exp.composite, CompositeDataset)
     assert exp.config == config
 
     # Test removal
