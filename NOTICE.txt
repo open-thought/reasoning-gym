@@ -1,0 +1,65 @@
+# Third-Party Code Attribution
+
+This project gratefully acknowledges the following open source projects that have been incorporated
+or served as inspiration for parts of our codebase:
+
+## Direct Code Reuse
+
+### Zebra Puzzles
+- Source: https://github.com/nouhadziri/faith-and-fate
+- License: MIT
+- Copyright (c) 2022 Nouha Dziri
+
+### ARC 1D Tasks
+- Source: https://github.com/optozorax/arc_1d
+- License: MIT
+- Copyright (c) 2023 University of Toronto
+- Note: Generators converted to Python
+
+### BF Generation
+- Source: https://github.com/elikaski/BF-it
+- License: MIT
+- Copyright (c) 2020 elikaski
+
+### Sokoban Generation and Solving
+- Source: https://github.com/xbandrade/sokoban-solver-generator
+- License: MIT
+- Copyright (c) 2023 Bruno Andrade
+
+### Re-ARC Dataset
+- Source: https://github.com/michaelhodel/re-arc
+- License: MIT
+- Copyright (c) 2024 Michael Hodel
+
+### CodeSteer Tasks
+- Source: https://github.com/yongchao98/CodeSteer-v1.0
+- License: Apache 2.0
+- Copyright 2025 Yongchao Chen
+- Citation:
+```
+@misc{chen2025codesteersymbolicaugmentedlanguagemodels,
+      title={CodeSteer: Symbolic-Augmented Language Models via Code/Text Guidance},
+      author={Yongchao Chen and Yilun Hao and Yueying Liu and Yang Zhang and Chuchu Fan},
+      year={2025},
+      eprint={2502.04350},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2502.04350},
+}
+```
+
+### Rush Hour Dataset
+- Source: https://github.com/fogleman/rush
+- Website: https://www.michaelfogleman.com/rush/
+- License: MIT
+- Copyright (C) 2018 Michael Fogleman
+- Note: Used sampled version of the RushHour database
+
+### Knights & Knaves Problems
+- Source: https://github.com/AlphaPav/mem-kk-logic
+- License: MIT
+- Copyright (c) 2024 AlphaPav
+- Note: Adapted for K&K problem generation
+
+We are deeply grateful to all authors of these projects for making their work available
+under open source licenses, enabling us to build upon their contributions.
