@@ -66,15 +66,15 @@ class CurriculumExperiment(Experiment):
                 curriculum = create_curriculum(dataset_name)
                 self.curricula[dataset_name] = curriculum
                 
-                # Set attribute levels from config
-                if attr_config.all_attributes_level is not None:
-                    # Set all attributes to same level
-                    level = attr_config.all_attributes_level
+                # Handle special "*" attribute that sets all levels
+                if "*" in attr_config.attribute_levels:
+                    level = attr_config.attribute_levels["*"]
                     for attr_name in curriculum.attributes:
                         curriculum.set_attr_level(attr_name, level)
-                else:
-                    # Set individual attribute levels
-                    for attr_name, level in attr_config.attribute_levels.items():
+                
+                # Set individual attribute levels (overriding "*" if specified)
+                for attr_name, level in attr_config.attribute_levels.items():
+                    if attr_name != "*":
                         curriculum.set_attr_level(attr_name, level)
                 
                 # Generate dataset config from curriculum
