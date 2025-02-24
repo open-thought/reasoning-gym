@@ -63,6 +63,7 @@ COMMON_NAMES = [
 ]
 
 KNIGHT_KNAVE_PAIRS = [
+    ["a knight", "a knave"],
     ["a pioneer", "a laggard"],
     ["a saint", "a sinner"],
     ["a hero", "a villain"],
@@ -70,6 +71,8 @@ KNIGHT_KNAVE_PAIRS = [
     ["an altruist", "an egoist"],
     ["a sage", "a fool"],
 ]
+
+VALID_ROLES = {pair[i].split()[1] for pair in KNIGHT_KNAVE_PAIRS for i in range(2)}
 
 PREFIX = (
     "A very special island is inhabited only by {knight}s and {knave}s. "
@@ -420,7 +423,7 @@ class KnightsKnavesDataset(ProceduralDataset):
         for part in parts:
             if part in ["is", "a"]:
                 continue
-            if part in ["knight", "knave"]:
+            if part in VALID_ROLES:
                 if current_name:
                     assignments.add((current_name, part))
                     current_name = None
