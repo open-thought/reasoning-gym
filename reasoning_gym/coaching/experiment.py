@@ -84,7 +84,7 @@ class CurriculumExperiment(Experiment):
                 # Add dataset to composite
                 spec = DatasetSpec(
                     name=dataset_name,
-                    weight=1.0,  # Default equal weights
+                    weight=attr_config.weight,
                     config=dataset_config.__dict__
                 )
                 self.composite.add_dataset(spec)
