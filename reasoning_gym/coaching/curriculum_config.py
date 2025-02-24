@@ -21,19 +21,15 @@ class CurriculumAttributeConfig:
 @dataclass
 class CurriculumExperimentConfig:
     """Configuration for curriculum experiments"""
-    # List of curricula to configure
-    curricula: List[Dict[str, CurriculumAttributeConfig]]
+    # Dictionary mapping dataset names to their curriculum configurations
+    curricula: Dict[str, CurriculumAttributeConfig]
 
     def validate(self):
         """Validate the configuration"""
         if not self.curricula:
             raise ValueError("Must specify at least one curriculum")
         
-        for curriculum_dict in self.curricula:
-            if len(curriculum_dict) != 1:
-                raise ValueError("Each curriculum entry must have exactly one dataset name as key")
-            
-            for dataset_name, attr_config in curriculum_dict.items():
-                if not isinstance(attr_config, CurriculumAttributeConfig):
-                    raise ValueError(f"Invalid attribute config for dataset {dataset_name}")
-                attr_config.validate()
+        for dataset_name, attr_config in self.curricula.items():
+            if not isinstance(attr_config, CurriculumAttributeConfig):
+                raise ValueError(f"Invalid attribute config for dataset {dataset_name}")
+            attr_config.validate()

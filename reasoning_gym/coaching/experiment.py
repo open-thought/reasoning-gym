@@ -61,8 +61,7 @@ class CurriculumExperiment(Experiment):
         self.curricula = {}
         
         # Add each dataset with its curriculum
-        for curriculum_dict in config.curricula:
-            for dataset_name, attr_config in curriculum_dict.items():
+        for dataset_name, attr_config in config.curricula.items():
                 # Create and store curriculum
                 curriculum = create_curriculum(dataset_name)
                 self.curricula[dataset_name] = curriculum
