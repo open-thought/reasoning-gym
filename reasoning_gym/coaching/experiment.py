@@ -1,9 +1,11 @@
 """Experiment class combining dataset, scoreboard and curriculum."""
 
 from typing import Any, Optional
-from ..composite import CompositeConfig, CompositeDataset
+from ..composite import CompositeConfig, CompositeDataset, DatasetSpec
 from ..version_manager import DatasetVersionManager
+from ..factory import create_curriculum
 from .coach import ScoreBoard
+from .curriculum_config import CurriculumExperimentConfig
 
 
 class Experiment:
@@ -33,12 +35,62 @@ class Experiment:
 
 
 class CurriculumExperiment(Experiment):
-    def __init__(self, name: str, size: int, seed: Optional[int]):
-        config = CompositeConfig(size=size, seed=seed)
-        composite = CompositeDataset(config)
-
-        super().__init__(name=name)
+    def __init__(self, name: str, config: CurriculumExperimentConfig, size: int, seed: Optional[int] = None):
+        """Initialize curriculum experiment with configured datasets and their curricula.
+        
+        Args:
+            name: Name of the experiment
+            config: Configuration specifying datasets and their attribute levels
+            size: Number of examples to generate
+            seed: Random seed for reproducibility
+        """
+        # Create empty composite config
+        composite_config = CompositeConfig(size=size, seed=seed, datasets=[])
+        
+        # Create composite dataset
+        version_manager = DatasetVersionManager()
+        composite = CompositeDataset(config=composite_config, version_manager=version_manager)
+        
+        # Initialize base experiment
+        super().__init__(name=name, composite=composite)
+        
+        # Store curriculum config
+        self.curriculum_config = config
+        
+        # Initialize curricula for each dataset
+        self.curricula = {}
+        
+        # Add each dataset with its curriculum
+        for curriculum_dict in config.curricula:
+            for dataset_name, attr_config in curriculum_dict.items():
+                # Create and store curriculum
+                curriculum = create_curriculum(dataset_name)
+                self.curricula[dataset_name] = curriculum
+                
+                # Set attribute levels from config
+                if attr_config.all_attributes_level is not None:
+                    # Set all attributes to same level
+                    level = attr_config.all_attributes_level
+                    for attr_name in curriculum.attributes:
+                        curriculum.set_attr_level(attr_name, level)
+                else:
+                    # Set individual attribute levels
+                    for attr_name, level in attr_config.attribute_levels.items():
+                        curriculum.set_attr_level(attr_name, level)
+                
+                # Generate dataset config from curriculum
+                dataset_config = curriculum.generate_configuration()
+                
+                # Add dataset to composite
+                spec = DatasetSpec(
+                    name=dataset_name,
+                    weight=1.0,  # Default equal weights
+                    config=dataset_config.__dict__
+                )
+                self.composite.add_dataset(spec)
 
     def update_difficulty(self):
+        """Update difficulty levels based on performance metrics"""
+        # TODO: Implement difficulty adjustment logic
         pass
     
