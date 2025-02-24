@@ -50,10 +50,10 @@ class CompositeConfig:
     @classmethod
     def from_yaml_stream(cls, stream) -> "CompositeConfig":
         """Load configuration from a YAML stream
-        
+
         Args:
             stream: A file-like object containing YAML data
-            
+
         Returns:
             CompositeConfig instance
         """
@@ -64,14 +64,14 @@ class CompositeConfig:
             data["datasets"] = [DatasetSpec(**ds) for ds in data["datasets"]]
 
         return cls(**data)
-    
+
     @classmethod
     def from_yaml(cls, yaml_path: str) -> "CompositeConfig":
         """Load configuration from YAML file
-        
+
         Args:
             yaml_path: Path to YAML configuration file
-            
+
         Returns:
             CompositeConfig instance
         """
