@@ -170,4 +170,4 @@ class CodeIODataset(ProceduralDataset):
 
 
 # Register the dataset
-# register_dataset("codeio", CodeIODataset, CodeIOConfig)
+register_dataset("codeio", CodeIODataset, CodeIOConfig)
