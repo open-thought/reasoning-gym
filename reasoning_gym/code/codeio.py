@@ -1,4 +1,5 @@
 # TODO: consider whether this belongs in the "code" directory
+import gzip
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -50,7 +51,7 @@ Tip: Here is a reference code snippet for this question. You can refer to this c
 
 @dataclass
 class CodeIOConfig:
-    """Configuration for BF task generation"""
+    """Configuration for CodeI/O reasoning task generation"""
 
     seed: Optional[int] = None
     size: int = 500
@@ -64,6 +65,17 @@ class CodeIOConfig:
 class CodeIODataset(ProceduralDataset):
     def __init__(self, config: CodeIOConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
+
+        self._data_path = Path(__file__).parent / "contrib/codeio/data.jsonl.gz"
+        self._offsets = []
+
+        # Index line byte offsets in the CodeI/O data file for fast random access
+        with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
+            while True:
+                offset, line = f.tell(), f.readline()
+                if not line:
+                    break
+                self._offsets.append(offset)
 
     def __len__(self) -> int:
         return self.config.size
@@ -94,18 +106,10 @@ class CodeIODataset(ProceduralDataset):
         """Generate a single CodeI/O reasoning task"""
         rng = Random(self.seed + idx)
 
-        # TODO: load data from external source (HuggingFace dataset?)
-        jsonl_path = Path("data/codeio.jsonl")
-
-        # Avoid loading the entire file into memory in case it's large
-        with open(jsonl_path, "r", encoding="utf-8") as f:
-            num_lines = sum(1 for _ in f)
-            random_line_number = rng.randint(0, num_lines - 1)
-
-            f.seek(0)
-            for current_line_number, line in enumerate(f):
-                if current_line_number == random_line_number:
-                    json_data = json.loads(line.strip())
+        random_offset = rng.choice(self._offsets)
+        with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
+            f.seek(random_offset)
+            json_data = json.loads(f.readline().strip())
 
         query = json_data["query"]
         parameters = json_data["parameters"]
