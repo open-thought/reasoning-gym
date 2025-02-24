@@ -8,6 +8,8 @@ class CurriculumAttributeConfig:
     attribute_levels: Optional[Dict[str, int]] = None
     # Or use "*" to set all attributes to same level
     all_attributes_level: Optional[int] = None
+    # Weight for sampling this dataset
+    weight: float = 1.0
 
     def validate(self):
         """Validate the configuration"""
