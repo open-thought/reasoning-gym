@@ -52,16 +52,6 @@ class OpenRouterEvaluator:
             json.dump(metrics, f, indent=2)
         return metrics
 
-    def prepare_messages(self, prompt: str) -> list[dict[str, str]]:
-        return {
-            "model": self.model,
-            "messages": [
-                {"role": self.config.developer_role, "content": self.config.developer_prompt},
-                {"role": "user", "content": prompt},
-            ],
-            "provider": {"order": ["Nebius"], "allow_fallbacks": False},
-        }
-
     async def get_model_response(self, session: aiohttp.ClientSession, prompt: str) -> str:
         payload = {
             "model": self.model,
@@ -69,6 +59,7 @@ class OpenRouterEvaluator:
                 {"role": self.config.developer_role, "content": self.config.developer_prompt},
                 {"role": "user", "content": prompt},
             ],
+            "provider": {"order": ["Nebius"], "allow_fallbacks": False},
         }
 
         async for attempt in AsyncRetrying(
@@ -98,7 +89,6 @@ class OpenRouterEvaluator:
             response = await self.get_model_response(session, entry["question"])
             model_answer = extract_answer(response)
             score = dataset.score_answer(answer=model_answer, entry=entry)
-            print(f"Question: {entry['question']}")
 
             return {
                 "question": entry["question"],
