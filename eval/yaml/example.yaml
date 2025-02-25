@@ -1,0 +1,8 @@
+model: anthropic/claude-3.7-sonnet  # find model id: https://openrouter.ai/models
+category: test
+datasets:
+  - YOUR_DATASET_NAME
+eval_dir: results/test
+dataset_size: 100
+dataset_seed: 42
+developer_role: system

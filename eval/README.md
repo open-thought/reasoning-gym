@@ -33,68 +33,109 @@ pip install -r requirements-eval.txt
 export OPENROUTER_API_KEY=your-api-key
 ```
 
-4. Prepare your dataset configuration in JSON format (e.g., `eval_basic.json`):
-```json
-[
-  {
-    "name": "dataset_name",
-    "parameter1": "value1",
-    "parameter2": "value2"
-  }
-]
+
+4. Prepare your dataset configuration in YAML format (see examples in `yaml/<model_name>/algorithmic.yaml` e.g `yaml/r1/algorithmic.yaml`):
+```yaml
+model: model-name
+provider: provider-name
+category: category-name
+datasets:
+  - dataset1
+  - dataset2
+eval_dir: results/model-name
+dataset_size: 50
+dataset_seed: 42
+developer_role: system
+
+```
+For example the following file will run an evaluation for deepseek r1 for algorithmic datasets.
+``` yaml
+model: deepseek/deepseek-r1
+provider: Nebius
+category: algorithmic
+datasets:
+  - ab
+  -  base_conversion
+  -  binary_matrix
+  -  caesar_cipher
+  -  count_primes
+  -  game_of_life
+  -  graph_color
+  -  group_anagrams
+  -  isomorphic_strings
+  -  letter_counting
+  -  letter_jumble
+  -  manipulate_matrix
+  -  number_filtering
+  -  number_sorting
+  -  palindrome
+  -  pool_matrix
+  -  ransom_note
+  -  rotate_matrix
+  -  sentence_reordering
+  -  spell_backward
+  -  spiral_matrix
+  -  string_insertion
+  -  string_manipulation
+  -  string_synthesis
+  -  word_ladder
+  -  word_sequence_reversal
+  -  word_sorting
+eval_dir: results/deepseek-r1
+dataset_size: 50
+dataset_seed: 45
+developer_role: system
+
 ```
 
-## Usage
+ The following would run Claude 3.5 on the algorithmic dataset.
+```yaml
+model: anthropic/claude-3.5-sonnet
+category: algorithmic
+provider: Anthropic
+datasets:
+  -  count_primes
+  -  game_of_life
+  -  graph_color
+  -  group_anagrams
+  -  isomorphic_strings
+  -  letter_counting
+  -  letter_jumble
+  -  manipulate_matrix
+  -  number_filtering
+  -  number_sorting
+  -  palindrome
+  -  pool_matrix
+  -  ransom_note
+  -  rotate_matrix
+  -  sentence_reordering
+  -  spell_backward
+  -  spiral_matrix
+  -  string_insertion
+  -  string_manipulation
+  -  string_synthesis
+  -  word_ladder
+  -  word_sequence_reversal
+  -  word_sorting
+eval_dir: results/claude-3.5-sonnet
+dataset_size: 50
+dataset_seed: 45
+developer_role: system
+```
+Here you specify individual model and provider
 
 ### Running Evaluations
 
-You can run evaluations in two ways:
-
-1. Using the provided bash script:
-```bash
-./eval.sh
+To run evaluations
 ```
-
-   Before running, you may want to edit the `eval.sh` script to configure which models to evaluate by modifying the `MODELS` array.
-
-2. Running the Python script directly:
-```bash
-python eval.py --model "model-name" --config "eval_basic.json" --output-dir "results"
+python eval.py --yaml <path-to yaml file>
 ```
-
-### Command Line Arguments
-
-- `--model`: Model identifier (required)
-- `--config`: Path to JSON configuration file (required)
-- `--output-dir`: Directory for saving results (default: "results")
-- `--max-concurrent`: Maximum number of concurrent API calls (default: 10)
-
-## Output
-
-The framework generates two types of output files:
-
-1. Detailed results: `evaluation_{model}_{timestamp}.json`
-   - Contains full response data and scoring for each question
-
-2. Summary: `summary_{model}_{timestamp}.json`
-   - Contains aggregated metrics for each dataset
-
-## Structure
-
+e.g
 ```
-.
-├── eval.py              # Main evaluation script
-├── run_eval.sh          # Bash script for running evaluations
-├── eval_basic.json      # Dataset configuration file
-└── results/             # Output directory (for temporary results)
+python eval.py --yaml yaml/r1/algorithmic.yaml
 ```
+To run r1 evaluations on algorithmic.yaml
 
-## Contributing Evaluation Results
 
-After running evaluations:
-
-1. Fork the [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repository
-2. Add your evaluation results to the appropriate directory
-3. Create a pull request with your results
-
-This helps us maintain a clean separation between code and evaluation data while collecting comprehensive benchmarks across different models.
+The results of individual model on a dataset will be stored in a new folder in the directory E.g `r1/algorithmic/proposition_logic.json`.
+Please upload records of your results to [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval).
