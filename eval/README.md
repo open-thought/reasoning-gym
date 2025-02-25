@@ -42,7 +42,7 @@ category: category-name
 datasets:
   - dataset1
   - dataset2
-eval_dir: eval/r1
+eval_dir: results/model-name
 dataset_size: 50
 dataset_seed: 42
 developer_role: system
@@ -81,7 +81,7 @@ datasets:
   -  word_ladder
   -  word_sequence_reversal
   -  word_sorting
-eval_dir: eval/r1
+eval_dir: results/deepseek-r1
 dataset_size: 50
 dataset_seed: 45
 developer_role: system
@@ -117,7 +117,7 @@ datasets:
   -  word_ladder
   -  word_sequence_reversal
   -  word_sorting
-eval_dir: eval/r1
+eval_dir: results/claude-3.5-sonnet
 dataset_size: 50
 dataset_seed: 45
 developer_role: system
