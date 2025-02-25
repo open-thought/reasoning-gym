@@ -311,19 +311,19 @@ class KKProblemFormatter:
 class KnightsKnavesDataset(ProceduralDataset):
     """
     Generates random knights and knaves problems.
-    
+
     This implementation is adapted from the Knights and Knaves problem generator in:
     https://github.com/AlphaPav/mem-kk-logic
-    
+
     As described in the paper:
     @article{xie2024memorization,
-    title={On Memorization of Large Language Models in Logical Reasoning}, 
+    title={On Memorization of Large Language Models in Logical Reasoning},
     author={Chulin Xie and Yangsibo Huang and Chiyuan Zhang and Da Yu and Xinyun Chen and Bill Yuchen Lin and Bo Li and Badih Ghazi and Ravi Kumar},
     year={2024},
     eprint={2410.23123},
     archivePrefix={arXiv},
     primaryClass={cs.CL},
-    url={https://arxiv.org/abs/2410.23123}, 
+    url={https://arxiv.org/abs/2410.23123},
     }
     """
 
