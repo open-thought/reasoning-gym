@@ -102,8 +102,8 @@ class PoolMatrixDataset(ProceduralDataset):
 
         reward = 0.0
         try:
-            oracle_answer = np.array(entry["answer"])
-            answer = np.array(answer)
+            oracle_answer = np.loadtxt(entry["answer"].splitlines(), dtype=np.float32)
+            answer = np.loadtxt(answer.splitlines(), dtype=np.float32)
             if oracle_answer.shape == answer.shape and np.allclose(oracle_answer, answer):
                 reward = 1.0
             elif oracle_answer.shape == answer.shape:
