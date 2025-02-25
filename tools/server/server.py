@@ -89,12 +89,12 @@ def create_app(config: ServerConfig) -> FastAPI:
         try:
             entries = []
             for i in range(base_index, base_index + batch_size):
-                entry = experiment.dataset[i]
+                entry = experiment.get_dataset_entry(i)
 
                 # Create BatchEntry with minimal required data
                 batch_entry = BatchEntry(
                     question=entry["question"],
-                    entry_id=f"{entry['metadata']['version_id']}.{i}",
+                    entry_id=f"{entry['metadata']['entry_id']}",
                     metadata=entry["metadata"],
                 )
                 entries.append(batch_entry)
@@ -115,7 +115,7 @@ def create_app(config: ServerConfig) -> FastAPI:
             scores = []
             entry_ids = []
             for item in request.answers:
-                score = experiment.dataset.score_answer_with_id(item.answer, item.entry_id)
+                score = experiment.score_answer_with_id(item.answer, item.entry_id)
                 scores.append(score)
                 entry_ids.append(item.entry_id)
 
@@ -134,7 +134,7 @@ def create_app(config: ServerConfig) -> FastAPI:
         # Convert internal config to API response format
         datasets = {}
         for ds_spec in experiment.config.datasets:
-            dataset = experiment.dataset.datasets[ds_spec.name]
+            dataset = experiment.composite.datasets[ds_spec.name]
             datasets[ds_spec.name] = {
                 "weight": ds_spec.weight,
                 "config": vars(dataset.config),  # Get current config from dataset instance
@@ -152,7 +152,7 @@ def create_app(config: ServerConfig) -> FastAPI:
             raise HTTPException(status_code=404, detail=f"Experiment '{name}' not found")
 
         try:
-            experiment.dataset.update_dataset_config(dataset_name, config_update.config)
+            experiment.composite.update_dataset_config(dataset_name, config_update.config)
             return {"status": "updated"}
         except KeyError:
             raise HTTPException(status_code=404, detail=f"Dataset '{dataset_name}' not found in experiment")
