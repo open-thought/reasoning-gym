@@ -13,21 +13,21 @@ class GameOfLifeHaltingConfig:
 
     grid_size_x: int = 25
     grid_size_y: int = 25
-    max_difficulty: int = 1
-    oscillators: int = 4
+    difficulty: int = 1
+    num_oscillators: int = 5
     max_simulation_steps: int = 20
     seed: Optional[int] = None
     size: int = 500
 
     def validate(self):
         """Validate configuration parameters"""
-        if self.max_difficulty == 1:
+        if self.difficulty == 1:
             assert self.grid_size_x >= 7, "grid_size_x must be gte 7 (difficulty 1)"
             assert self.grid_size_y >= 7, "grid_size_y must be gte 7 (difficulty 1)"
-        if self.max_difficulty == 2:
+        if self.difficulty == 2:
             assert self.grid_size_x >= 13, "grid_size_x must be gte 13 (difficulty 2)"
             assert self.grid_size_y >= 13, "grid_size_y must be gte 13 (difficulty 2)"
-        if self.max_difficulty == 3:
+        if self.difficulty == 3:
             assert self.grid_size_x >= 25, "grid_size_x must be gte 25 (difficulty 3)"
             assert self.grid_size_y >= 25, "grid_size_y must be gte 25 (difficulty 3)"
 
@@ -287,15 +287,15 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
         # Determine which set of patterns to use based on should_oscillate.
         if should_oscillate:
             valid_patterns = [
-                osc for osc in self.OSCILLATORS if osc["difficulty"] <= self.config.max_difficulty
-            ] + self.NON_OSCILLATORS
+                osc for osc in self.OSCILLATORS if osc["difficulty"] == self.config.difficulty
+            ]
         else:
             valid_patterns = self.NON_OSCILLATORS
 
         placed_patterns: List[Dict] = []
 
         # Place the requested number of patterns.
-        for _ in range(self.config.oscillators):
+        for _ in range(self.config.num_oscillators):
             pattern = rng.choice(valid_patterns)
             height = pattern["size_y"]
             width = pattern["size_x"]
@@ -336,25 +336,19 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
                 attempts -= 1
             # If no valid placement is found after many attempts, we skip this pattern.
 
-        # Evolve the Game of Life using the initial board state.
-        evolved = cpl.evolve2d(
-            board, timesteps=self.config.max_simulation_steps + 1, apply_rule=cpl.game_of_life_rule, memoize="recursive"
-        )
-
-        # Convert the initial and final board states to strings.
+        # Convert the initial board state to string
         board_str = str(initial_board)
-        result_str = str(evolved[-1])
 
         # Create the question string.
         question = (
             f"This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.\n"
-            f"Will this game halt at or before {self.config.max_simulation_steps} steps?\n\n"
+            f"Will this game halt at or before {self.config.max_simulation_steps} steps? If it will halt, reply 'True'. If it won't halt, reply 'False'.\n\n"
             f"Initial board:\n{board_str}"
         )
 
         return {
             "question": question,
-            "answer": result_str,
+            "answer": not should_oscillate,
             "metadata": {
                 "grid_size_x": grid_x,
                 "grid_size_y": grid_y,
@@ -379,7 +373,7 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
 
         if answer == None:
             return 0.0
-        if answer.replace("\n", "") != entry["answer"].replace("\n", ""):
+        if bool(answer) != bool(entry['answer']):
             return 0.01
         else:
             return 1.0  # Yay
