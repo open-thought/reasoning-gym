@@ -5,6 +5,7 @@ from pathlib import Path
 from random import Random
 from typing import Any, Optional
 
+from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
 OUTPUT_PREDICTION_PROMPT_TEMPLATE = """
@@ -62,19 +63,16 @@ class CodeIOConfig:
 
 
 class CodeIODataset(ProceduralDataset):
+    _jsonl_data: Optional[list] = None
+
     def __init__(self, config: CodeIOConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-        self._data_path = Path(__file__).parent / "contrib/codeio/data.jsonl.gz"
-        self._offsets = []
+        self._data_path = get_data_file_path("codeio.jsonl.gz")
+        print(self._data_path)
 
-        # Index line byte offsets in the CodeI/O data file for fast random access
         with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
-            while True:
-                offset, line = f.tell(), f.readline()
-                if not line:
-                    break
-                self._offsets.append(offset)
+            CodeIODataset._jsonl_data = [json.loads(line.strip()) for line in f.readlines()]
 
     def __len__(self) -> int:
         return self.config.size
@@ -105,10 +103,7 @@ class CodeIODataset(ProceduralDataset):
         """Generate a single CodeI/O reasoning task"""
         rng = Random(self.seed + idx)
 
-        random_offset = rng.choice(self._offsets)
-        with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
-            f.seek(random_offset)
-            json_data = json.loads(f.readline().strip())
+        json_data = rng.choice(CodeIODataset._jsonl_data)
 
         query = json_data["query"]
         parameters = json_data["parameters"]
