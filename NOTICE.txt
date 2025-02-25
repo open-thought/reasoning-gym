@@ -30,6 +30,18 @@ or served as inspiration for parts of our codebase:
 - Source: https://github.com/michaelhodel/re-arc
 - License: MIT
 - Copyright (c) 2024 Michael Hodel
+- Citation:
+```
+@misc{hodel2024addressingabstractionreasoningcorpus,
+      title={Addressing the Abstraction and Reasoning Corpus via Procedural Example Generation}, 
+      author={Michael Hodel},
+      year={2024},
+      eprint={2404.07353},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2404.07353}, 
+}
+```
 
 ### CodeSteer Tasks
 - Source: https://github.com/yongchao98/CodeSteer-v1.0
