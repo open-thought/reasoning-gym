@@ -34,7 +34,7 @@ export OPENROUTER_API_KEY=your-api-key
 ```
 
 
-4. Prepare your dataset configuration in YAML format (see examples in `yaml/algorithmic.yaml` or `yaml/logic.yaml`):
+4. Prepare your dataset configuration in YAML format (see examples in `yaml/<model_name>/algorithmic.yaml` e.g `yaml/r1/algorithmic.yaml`):
 ```yaml
 model: model-name
 category: category-name
@@ -130,8 +130,9 @@ python eval.py --yaml <path-to yaml file>
 ```
 e.g
 ```
-python eval.py --yaml yaml/algorithmic.yaml
+python eval.py --yaml yaml/r1/algorithmic.yaml
 ```
+To run r1 evaluations on algorithmic.yaml
 
 
 The results of individual model on a dataset will be stored in a new folder in the directory E.g `r1/algorithmic/proposition_logic.json`

@@ -1,0 +1,11 @@
+model: deepseek/deepseek-r1
+category: logic
+datasets:
+  - propositional_logic
+  - self_reference
+  - syllogism
+  - zebra_puzzles
+eval_dir: eval/r1
+dataset_size: 50
+dataset_seed: 42
+developer_role: system
