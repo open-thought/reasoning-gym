@@ -37,6 +37,7 @@ export OPENROUTER_API_KEY=your-api-key
 4. Prepare your dataset configuration in YAML format (see examples in `yaml/<model_name>/algorithmic.yaml` e.g `yaml/r1/algorithmic.yaml`):
 ```yaml
 model: model-name
+provider: provider-name
 category: category-name
 datasets:
   - dataset1
@@ -50,6 +51,7 @@ developer_role: system
 For example the following file will run an evaluation for deepseek r1 for algorithmic datasets.
 ``` yaml
 model: deepseek/deepseek-r1
+provider: Nebius
 category: algorithmic
 datasets:
   - ab
@@ -135,4 +137,5 @@ python eval.py --yaml yaml/r1/algorithmic.yaml
 To run r1 evaluations on algorithmic.yaml
 
 
-The results of individual model on a dataset will be stored in a new folder in the directory E.g `r1/algorithmic/proposition_logic.json`
+The results of individual model on a dataset will be stored in a new folder in the directory E.g `r1/algorithmic/proposition_logic.json`.
+Please upload records of your results to [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval).
