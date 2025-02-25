@@ -60,6 +60,18 @@ or served as inspiration for parts of our codebase:
 - License: MIT
 - Copyright (c) 2024 AlphaPav
 - Note: Adapted for K&K problem generation
+- Citation:
+```
+@article{xie2024memorization,
+      title={On Memorization of Large Language Models in Logical Reasoning},
+      author={Chulin Xie and Yangsibo Huang and Chiyuan Zhang and Da Yu and Xinyun Chen and Bill Yuchen Lin and Bo Li and Badih Ghazi and Ravi Kumar},
+      year={2024},
+      eprint={2410.23123},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2410.23123},
+}
+```
 
 We are deeply grateful to all authors of these projects for making their work available
 under open source licenses, enabling us to build upon their contributions.
