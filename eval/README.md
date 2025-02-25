@@ -96,3 +96,6 @@ e.g
 ```
 python eval.py --yaml yaml/algorithmic.yaml
 ```
+
+
+The results of your model run on a dataset will be stored in a new folder in the directory E.g `r1/algorithmic/proposition_logic.json`
