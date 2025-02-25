@@ -18,12 +18,22 @@ This framework provides tools to evaluate language models on the reasoning_gym d
 
 ## Setup
 
-1. Set your OpenRouter API key as an environment variable:
+1. Install reasoning-gym in development mode:
+```bash
+pip install -e ..
+```
+
+2. Install the additional dependencies required for evaluation:
+```bash
+pip install -r requirements-eval.txt
+```
+
+3. Set your OpenRouter API key as an environment variable:
 ```bash
 export OPENROUTER_API_KEY=your-api-key
 ```
 
-2. Prepare your dataset configuration in JSON format (e.g., `eval_basic.json`):
+4. Prepare your dataset configuration in JSON format (e.g., `eval_basic.json`):
 ```json
 [
   {
@@ -42,8 +52,10 @@ You can run evaluations in two ways:
 
 1. Using the provided bash script:
 ```bash
-./run_eval.sh
+./eval.sh
 ```
+
+   Before running, you may want to edit the `eval.sh` script to configure which models to evaluate by modifying the `MODELS` array.
 
 2. Running the Python script directly:
 ```bash
