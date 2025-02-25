@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 import asyncio
 import json
@@ -112,7 +113,6 @@ class OpenRouterEvaluator:
 
     async def evaluate_datasets(self) -> list[dict[str, Any]]:
         """Main async evaluation entry point."""
-        all_results = []
         async with aiohttp.ClientSession(headers=self.headers) as session:
             return await asyncio.gather(*(self.evaluate_dataset(session, name) for name in self.config.datasets))
 
