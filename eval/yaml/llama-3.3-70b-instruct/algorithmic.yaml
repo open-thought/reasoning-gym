@@ -1,0 +1,41 @@
+model: meta-llama/llama-3.3-70b-instruct
+provider: Hyperbolic
+category: algorithmic
+datasets:
+  - ab
+  - base_conversion
+  - binary_alternation
+  - binary_matrix
+  - caesar_cipher
+  - count_primes
+  - cryptarithm
+  - game_of_life
+  - graph_color
+  - group_anagrams
+  - isomorphic_strings
+  - jugs
+  - letter_counting
+  - letter_jumble
+  - manipulate_matrix
+  - number_filtering
+  - number_sorting
+  - palindrome
+  - palindrome_partitioning
+  - pool_matrix
+  - ransom_note
+  - rotate_matrix
+  - rotten_oranges
+  - sentence_reordering
+  - spell_backward
+  - spiral_matrix
+  - string_insertion
+  - string_manipulation
+  - string_splitting
+  - string_synthesis
+  - word_ladder
+  - word_sequence_reversal
+  - word_sorting
+eval_dir: results/llama-3.3-70b-instruct
+dataset_size: 50
+dataset_seed: 45
+developer_role: system
