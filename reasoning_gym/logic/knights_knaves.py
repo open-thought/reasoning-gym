@@ -455,7 +455,6 @@ class KnightsKnavesDataset(ProceduralDataset):
         try:
             oracle_assignments = self._normalize_answer(entry["answer"])
             answer_assignments = self._normalize_answer(answer)
-            print(answer_assignments)
 
             # Full credit for exact assignments regardless of order
             if oracle_assignments == answer_assignments:
