@@ -2,6 +2,12 @@
 
 A simple asynchronous framework for evaluating language models on reasoning tasks using the OpenRouter API.
 
+## Evaluation Results Repository
+
+In order to keep the main repo clean and not clutter it with evaluation traces from different models, we store all evaluation results in a separate repository: [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval).
+
+If you run evaluations and want to contribute your results, please create a pull request in the [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repository, not in the main reasoning-gym repo.
+
 ## Overview
 
 This framework provides tools to evaluate language models on the reasoning_gym datasets. It supports:
@@ -68,5 +74,15 @@ The framework generates two types of output files:
 ├── eval.py              # Main evaluation script
 ├── run_eval.sh          # Bash script for running evaluations
 ├── eval_basic.json      # Dataset configuration file
-└── results/             # Output directory
+└── results/             # Output directory (for temporary results)
 ```
+
+## Contributing Evaluation Results
+
+After running evaluations:
+
+1. Fork the [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repository
+2. Add your evaluation results to the appropriate directory
+3. Create a pull request with your results
+
+This helps us maintain a clean separation between code and evaluation data while collecting comprehensive benchmarks across different models.
