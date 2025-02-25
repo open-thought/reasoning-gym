@@ -111,7 +111,7 @@ class KnightsKnavesConfig:
     :param n_people: Number of people in the problem
     :param depth_constraint: Maximum depth of each person's statement
     :param width_constraint: Maximum width (number of branches) of each person's statement
-    :param size: Number of items in the dataset ??????
+    :param size: Virtual size of dataset
     :param seed: Random seed
     """
 
