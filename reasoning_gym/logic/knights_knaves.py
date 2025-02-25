@@ -408,10 +408,11 @@ class KnightsKnavesDataset(ProceduralDataset):
 
         return {"question": question, "answer": answer, "metadata": metadata}
 
-    def _normalize_answer(self, answer: str) -> set[tuple[str, str]]:
+    @staticmethod
+    def _normalize_answer(answer: str) -> set[tuple[str, str]]:
         """Convert answer string into normalized set of (name, role) tuples"""
         # Remove common punctuation and standardize spacing
-        answer = answer.lower().strip().replace(".", "").replace(",", "")
+        answer = answer.lower().strip().replace(".", " ").replace(",", " ").replace(")", " ").replace("(", " ")
 
         # Split on 'and' or spaces for different formats
         parts = [p.strip() for p in answer.replace(" and ", " ").split()]
@@ -421,7 +422,7 @@ class KnightsKnavesDataset(ProceduralDataset):
         current_name = None
 
         for part in parts:
-            if part in ["is", "a"]:
+            if part in ["is", "a", "an"]:
                 continue
             if part in VALID_ROLES:
                 if current_name:
@@ -440,6 +441,7 @@ class KnightsKnavesDataset(ProceduralDataset):
         try:
             oracle_assignments = self._normalize_answer(entry["answer"])
             answer_assignments = self._normalize_answer(answer)
+            print(answer_assignments)
 
             # Full credit for exact assignments regardless of order
             if oracle_assignments == answer_assignments:

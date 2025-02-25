@@ -1,0 +1,100 @@
+[
+  {
+    "dataset_name": "knights_knaves",
+    "model": "deepseek/deepseek-r1",
+    "size": 10,
+    "provider": "Nebius",
+    "average_score": 1.0,
+    "total_examples": 10,
+    "timestamp": "2025-02-24T20:50:44.558572",
+    "config": {
+      "n_people": 2,
+      "depth_constraint": 2,
+      "width_constraint": 2,
+      "size": 10,
+      "seed": 42
+    },
+    "results": [
+      {
+        "question": "A very special island is inhabited only by sages and fools. Sages always tell the truth, and fools always lie. You meet 2 inhabitants: Zoey, and Riley. Zoey commented, \"Riley is a fool\". In Riley's words: \"Zoey is a sage or Riley is a sage\". So who is a sage and who is a fool? (Format your answer like: \"Zoey is a sage/fool, and Riley is a sage/fool\")",
+        "expected_answer": "Zoey is a fool, and Riley is a sage.",
+        "model_answer": "Zoey is a fool, and Riley is a sage",
+        "full_model_response": "<answer>Zoey is a fool, and Riley is a sage</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('lying', 1), ('or', ('telling-truth', 0), ('telling-truth', 1))), 'solution': (False, True), 'names': [np.str_('Zoey'), np.str_('Riley')], 'knight_knave_terms': {'knight': 'sage', 'knave': 'fool', 'a_knight': np.str_('a sage'), 'a_knave': np.str_('a fool'), 'Knight': 'Sage', 'Knave': 'Fool'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by pioneers and laggards. Pioneers always tell the truth, and laggards always lie. You meet 2 inhabitants: Riley, and Olivia. \"If Riley is a pioneer then Olivia is a laggard\" - Riley. Olivia stated, \"Olivia is a pioneer and Riley is a laggard\". So who is a pioneer and who is a laggard? (Format your answer like: \"Riley is a pioneer/laggard, and Olivia is a pioneer/laggard\")",
+        "expected_answer": "Riley is a pioneer, and Olivia is a laggard.",
+        "model_answer": "Riley is a pioneer, and Olivia is a laggard",
+        "full_model_response": "<answer>Riley is a pioneer, and Olivia is a laggard</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('and', ('telling-truth', 1), ('lying', 0))), 'solution': (True, False), 'names': [np.str_('Riley'), np.str_('Olivia')], 'knight_knave_terms': {'knight': 'pioneer', 'knave': 'laggard', 'a_knight': np.str_('a pioneer'), 'a_knave': np.str_('a laggard'), 'Knight': 'Pioneer', 'Knave': 'Laggard'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by saints and sinners. Saints always tell the truth, and sinners always lie. You meet 2 inhabitants: Samuel, and Jacob. Samuel expressed that If Samuel is a saint then Jacob is a sinner. Jacob was heard saying, \"If Samuel is a saint then Samuel is a sinner\". So who is a saint and who is a sinner? (Format your answer like: \"Samuel is a saint/sinner, and Jacob is a saint/sinner\")",
+        "expected_answer": "Samuel is a saint, and Jacob is a sinner.",
+        "model_answer": "Samuel is a saint, and Jacob is a sinner",
+        "full_model_response": "<answer>Samuel is a saint, and Jacob is a sinner</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('->', ('telling-truth', 0), ('lying', 0))), 'solution': (True, False), 'names': [np.str_('Samuel'), np.str_('Jacob')], 'knight_knave_terms': {'knight': 'saint', 'knave': 'sinner', 'a_knight': np.str_('a saint'), 'a_knave': np.str_('a sinner'), 'Knight': 'Saint', 'Knave': 'Sinner'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by pioneers and laggards. Pioneers always tell the truth, and laggards always lie. You meet 2 inhabitants: Olivia, and Lily. \"Lily is a laggard and Lily is a pioneer\" - Olivia. Lily noted, \"If Olivia is a pioneer then Lily is a pioneer\". So who is a pioneer and who is a laggard? (Format your answer like: \"Olivia is a pioneer/laggard, and Lily is a pioneer/laggard\")",
+        "expected_answer": "Olivia is a laggard, and Lily is a pioneer.",
+        "model_answer": "Olivia is a laggard, and Lily is a pioneer",
+        "full_model_response": "<answer>Olivia is a laggard, and Lily is a pioneer</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('and', ('lying', 1), ('telling-truth', 1)), ('->', ('telling-truth', 0), ('telling-truth', 1))), 'solution': (False, True), 'names': [np.str_('Olivia'), np.str_('Lily')], 'knight_knave_terms': {'knight': 'pioneer', 'knave': 'laggard', 'a_knight': np.str_('a pioneer'), 'a_knave': np.str_('a laggard'), 'Knight': 'Pioneer', 'Knave': 'Laggard'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by altruists and egoists. Altruists always tell the truth, and egoists always lie. You meet 2 inhabitants: Mason, and Jack. Mason expressed that If Jack is an egoist then Mason is an altruist. In Jack's words: \"Mason is not an altruist\". So who is an altruist and who is an egoist? (Format your answer like: \"Mason is a altruist/egoist, and Jack is a altruist/egoist\")",
+        "expected_answer": "Mason is an altruist, and Jack is an egoist.",
+        "model_answer": "Mason is a altruist, and Jack is a egoist",
+        "full_model_response": "<answer>Mason is a altruist, and Jack is a egoist</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('->', ('lying', 1), ('telling-truth', 0)), ('not', ('telling-truth', 0))), 'solution': (True, False), 'names': [np.str_('Mason'), np.str_('Jack')], 'knight_knave_terms': {'knight': 'altruist', 'knave': 'egoist', 'a_knight': np.str_('an altruist'), 'a_knave': np.str_('an egoist'), 'Knight': 'Altruist', 'Knave': 'Egoist'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by heros and villains. Heros always tell the truth, and villains always lie. You meet 2 inhabitants: Benjamin, and Oliver. Benjamin noted, \"Oliver is a villain or Benjamin is a hero\". Oliver commented, \"If Oliver is a hero then Benjamin is a villain\". So who is a hero and who is a villain? (Format your answer like: \"Benjamin is a hero/villain, and Oliver is a hero/villain\")",
+        "expected_answer": "Benjamin is a villain, and Oliver is a hero.",
+        "model_answer": "Benjamin is a villain, and Oliver is a hero",
+        "full_model_response": "<answer>Benjamin is a villain, and Oliver is a hero</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('or', ('lying', 1), ('telling-truth', 0)), ('->', ('telling-truth', 1), ('lying', 0))), 'solution': (False, True), 'names': [np.str_('Benjamin'), np.str_('Oliver')], 'knight_knave_terms': {'knight': 'hero', 'knave': 'villain', 'a_knight': np.str_('a hero'), 'a_knave': np.str_('a villain'), 'Knight': 'Hero', 'Knave': 'Villain'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by saints and sinners. Saints always tell the truth, and sinners always lie. You meet 2 inhabitants: Alexander, and Sofia. Alexander expressed that Sofia is a saint and Sofia is a sinner. \"Alexander is not a sinner,\" Sofia claimed. So who is a saint and who is a sinner? (Format your answer like: \"Alexander is a saint/sinner, and Sofia is a saint/sinner\")",
+        "expected_answer": "Alexander is a sinner, and Sofia is a sinner.",
+        "model_answer": "Alexander is a sinner, and Sofia is a sinner",
+        "full_model_response": "<answer>Alexander is a sinner, and Sofia is a sinner</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('and', ('telling-truth', 1), ('lying', 1)), ('not', ('lying', 0))), 'solution': (False, False), 'names': [np.str_('Alexander'), np.str_('Sofia')], 'knight_knave_terms': {'knight': 'saint', 'knave': 'sinner', 'a_knight': np.str_('a saint'), 'a_knave': np.str_('a sinner'), 'Knight': 'Saint', 'Knave': 'Sinner'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by altruists and egoists. Altruists always tell the truth, and egoists always lie. You meet 2 inhabitants: Sophia, and Oliver. Sophia said that Sophia is an altruist if and only if Oliver is an egoist. Oliver noted, \"Sophia is an egoist if and only if Oliver is an altruist\". So who is an altruist and who is an egoist? (Format your answer like: \"Sophia is a altruist/egoist, and Oliver is a altruist/egoist\")",
+        "expected_answer": "Sophia is an egoist, and Oliver is an egoist.",
+        "model_answer": "Sophia is a egoist, and Oliver is a egoist",
+        "full_model_response": "<answer>Sophia is a egoist, and Oliver is a egoist</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('<=>', ('telling-truth', 0), ('lying', 1)), ('<=>', ('lying', 0), ('telling-truth', 1))), 'solution': (False, False), 'names': [np.str_('Sophia'), np.str_('Oliver')], 'knight_knave_terms': {'knight': 'altruist', 'knave': 'egoist', 'a_knight': np.str_('an altruist'), 'a_knave': np.str_('an egoist'), 'Knight': 'Altruist', 'Knave': 'Egoist'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by altruists and egoists. Altruists always tell the truth, and egoists always lie. You meet 2 inhabitants: Riley, and Lily. Riley commented, \"Riley is an altruist if and only if Lily is an altruist\". In Lily's words: \"Riley is not an altruist\". So who is an altruist and who is an egoist? (Format your answer like: \"Riley is a altruist/egoist, and Lily is a altruist/egoist\")",
+        "expected_answer": "Riley is an egoist, and Lily is an altruist.",
+        "model_answer": "Riley is a egoist, and Lily is a altruist",
+        "full_model_response": "<answer>Riley is a egoist, and Lily is a altruist</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('<=>', ('telling-truth', 0), ('telling-truth', 1)), ('not', ('telling-truth', 0))), 'solution': (False, True), 'names': [np.str_('Riley'), np.str_('Lily')], 'knight_knave_terms': {'knight': 'altruist', 'knave': 'egoist', 'a_knight': np.str_('an altruist'), 'a_knave': np.str_('an egoist'), 'Knight': 'Altruist', 'Knave': 'Egoist'}}"
+      },
+      {
+        "question": "A very special island is inhabited only by sages and fools. Sages always tell the truth, and fools always lie. You meet 2 inhabitants: Abigail, and Lily. \"Lily is not a fool,\" Abigail mentioned. As Lily put it, \"Abigail is a fool or Abigail is a sage\". So who is a sage and who is a fool? (Format your answer like: \"Abigail is a sage/fool, and Lily is a sage/fool\")",
+        "expected_answer": "Abigail is a sage, and Lily is a sage.",
+        "model_answer": "Abigail is a sage, and Lily is a sage",
+        "full_model_response": "<answer>Abigail is a sage, and Lily is a sage</answer>",
+        "score": 1.0,
+        "metadata": "{'statements': (('not', ('lying', 1)), ('or', ('lying', 0), ('telling-truth', 0))), 'solution': (True, True), 'names': [np.str_('Abigail'), np.str_('Lily')], 'knight_knave_terms': {'knight': 'sage', 'knave': 'fool', 'a_knight': np.str_('a sage'), 'a_knave': np.str_('a fool'), 'Knight': 'Sage', 'Knave': 'Fool'}}"
+      }
+    ]
+  }
+]
