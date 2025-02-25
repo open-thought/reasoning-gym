@@ -13,8 +13,8 @@ class EvalConfig:
     eval_dir: str
     dataset_size: int
     dataset_seed: int
-    model: str = "deepseek/deepseek-r1"
-    provider: str = "Nebius"
+    model: str
+    provider: str
     developer_role: str = "system"
     developer_prompt: str = SYSTEM_PROMPTS["DeepSeekZero"]
 

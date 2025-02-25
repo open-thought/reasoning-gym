@@ -27,6 +27,7 @@ This gallery shows examples from all available datasets using their default conf
 - [decimal_arithmetic](#decimal_arithmetic)
 - [decimal_chain_sum](#decimal_chain_sum)
 - [dice](#dice)
+- [emoji_mystery](#emoji_mystery)
 - [family_relationships](#family_relationships)
 - [figlet_font](#figlet_font)
 - [fraction_simplification](#fraction_simplification)
@@ -74,6 +75,7 @@ This gallery shows examples from all available datasets using their default conf
 - [rush_hour](#rush_hour)
 - [self_reference](#self_reference)
 - [sentence_reordering](#sentence_reordering)
+- [shortest_path](#shortest_path)
 - [simple_equations](#simple_equations)
 - [simple_geometry](#simple_geometry)
 - [simple_integration](#simple_integration)
@@ -2006,6 +2008,100 @@ Answer: 19/40
 Example 3:
 Question: I have these dice: 1d20, 1d19, 1d18, 1d15. What are the odds of rolling 48 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
 Answer: 9677/51300
+
+````
+
+### emoji_mystery
+Default configuration:
+```python
+size = 1000
+seed = 42
+min_words_in_sentence = 3
+max_words_in_sentence = 35
+```
+
+Example tasks:
+````
+Example 1:
+Question: The following emoji is encoded with a sentence.
+Decode the following sentence from the emoji: 😽󠄶󠅢󠅙󠅤󠅪󠄐󠄾󠅑󠅠󠅟󠅜󠅕󠅟󠅞󠄐󠅃󠅝󠅙󠅤󠅘󠄐󠅑󠅧󠅟󠅛󠅕󠄐󠅙󠅞󠄐󠅦󠅕󠅢󠅩󠄐󠅒󠅑󠅔󠄐󠅘󠅥󠅝󠅟󠅢󠄞
+Here is a hint: 
+```python
+def variance_selector_to_byte(variation_selector):
+    variation_selector_codepoint = ord(variation_selector)
+    if 0xFE00 <= variation_selector_codepoint <= 0xFE0F:
+        return variation_selector_codepoint - 0xFE00
+    elif 0xE0100 <= variation_selector_codepoint <= 0xE01EF:
+        return variation_selector_codepoint - 0xE0100 + 16
+    else:
+        return None
+def decode(encoded_sentence):
+    decoded_bytes = []
+    variation_selectors_part = encoded_sentence[1:]
+    for char in variation_selectors_part:
+        byte_val = variance_selector_to_byte(char)
+        if byte_val is not None:
+            decoded_bytes.append(byte_val)
+    return bytes(decoded_bytes).decode('utf-8')
+```
+
+Return the secret sentence as your final answer.
+Answer: Fritz Napoleon Smith awoke in very bad humor.
+Metadata: {'emoji': '😽'}
+
+Example 2:
+Question: The following emoji is encoded with a sentence.
+Decode the following sentence from the emoji: 😆󠄱󠅞󠅔󠄐󠅙󠅞󠅔󠅕󠅕󠅔󠄜󠄐󠅣󠅟󠄐󠅓󠅟󠅞󠅖󠅙󠅔󠅕󠅞󠅤󠄐󠅧󠅑󠅣󠄐󠅤󠅘󠅕󠅙󠅢󠄐󠅑󠅙󠅢󠄜󠄐󠅤󠅘󠅕󠅩󠄐󠅣󠅕󠅕󠅝󠅕󠅔󠄐󠅤󠅟󠄐󠅘󠅑󠅦󠅕󠄐󠅞󠅟󠄐󠅔󠅟󠅥󠅒󠅤󠄐󠅑󠅣󠄐󠅤󠅟󠄐󠅤󠅘󠅕󠄐󠅠󠅟󠅣󠅣󠅙󠅒󠅙󠅜󠅙󠅤󠅩󠄐󠅟󠅖󠄐󠅣󠅥󠅓󠅓󠅕󠅣󠅣󠄐󠅙󠅞󠄐󠅣󠅥󠅓󠅘󠄐󠅑󠅞󠄐󠅥󠅞󠅔󠅕󠅢󠅤󠅑󠅛󠅙󠅞󠅗󠄞
+Here is a hint: 
+```python
+def variance_selector_to_byte(variation_selector):
+    variation_selector_codepoint = ord(variation_selector)
+    if 0xFE00 <= variation_selector_codepoint <= 0xFE0F:
+        return variation_selector_codepoint - 0xFE00
+    elif 0xE0100 <= variation_selector_codepoint <= 0xE01EF:
+        return variation_selector_codepoint - 0xE0100 + 16
+    else:
+        return None
+def decode(encoded_sentence):
+    decoded_bytes = []
+    variation_selectors_part = encoded_sentence[1:]
+    for char in variation_selectors_part:
+        byte_val = variance_selector_to_byte(char)
+        if byte_val is not None:
+            decoded_bytes.append(byte_val)
+    return bytes(decoded_bytes).decode('utf-8')
+```
+
+Return the secret sentence as your final answer.
+Answer: And indeed, so confident was their air, they seemed to have no doubt as to the possibility of success in such an undertaking.
+Metadata: {'emoji': '😆'}
+
+Example 3:
+Question: The following emoji is encoded with a sentence.
+Decode the following sentence from the emoji: 😱󠄹󠅞󠄐󠅖󠅑󠅓󠅤󠄜󠄐󠅟󠅞󠅕󠄐󠅟󠅖󠄐󠅤󠅘󠅕󠅝󠄐󠅧󠅑󠅞󠅤󠅕󠅔󠄐󠅤󠅟󠄐󠅢󠅕󠅦󠅙󠅦󠅕󠄐󠅠󠅑󠅙󠅞󠅤󠅙󠅞󠅗󠄜󠄐󠅑󠅞󠄐󠅑󠅢󠅤󠄐󠅖󠅑󠅜󠅜󠅕󠅞󠄐󠅙󠅞󠅤󠅟󠄐󠅔󠅕󠅣󠅥󠅕󠅤󠅥󠅔󠅕󠄐󠅟󠅧󠅙󠅞󠅗󠄐󠅤󠅟󠄐󠅤󠅘󠅕󠄐󠅠󠅢󠅟󠅗󠅢󠅕󠅣󠅣󠄐󠅝󠅑󠅔󠅕󠄐󠅙󠅞󠄐󠅓󠅟󠅜󠅟󠅢󠄝󠅠󠅘󠅟󠅤󠅟󠅗󠅢󠅑󠅠󠅘󠅩󠄞
+Here is a hint: 
+```python
+def variance_selector_to_byte(variation_selector):
+    variation_selector_codepoint = ord(variation_selector)
+    if 0xFE00 <= variation_selector_codepoint <= 0xFE0F:
+        return variation_selector_codepoint - 0xFE00
+    elif 0xE0100 <= variation_selector_codepoint <= 0xE01EF:
+        return variation_selector_codepoint - 0xE0100 + 16
+    else:
+        return None
+def decode(encoded_sentence):
+    decoded_bytes = []
+    variation_selectors_part = encoded_sentence[1:]
+    for char in variation_selectors_part:
+        byte_val = variance_selector_to_byte(char)
+        if byte_val is not None:
+            decoded_bytes.append(byte_val)
+    return bytes(decoded_bytes).decode('utf-8')
+```
+
+Return the secret sentence as your final answer.
+Answer: In fact, one of them wanted to revive painting, an art fallen into desuetude owing to the progress made in color-photography.
+Metadata: {'emoji': '😱'}
 
 ````
 
@@ -5618,6 +5714,141 @@ Metadata: {'word_count': 10}
 
 ````
 
+### shortest_path
+Generates Shortest Path exercises with configurable difficulty
+
+Default configuration:
+```python
+min_rows = 5
+max_rows = 8
+min_cols = 5
+max_cols = 8
+p_blocked = 0.4
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Your task is to find the shortest path from the start to the destination point in a grid.
+
+The grid is represented as a matrix with the following types of cells:
+- *: your starting point
+- #: your destination point
+- O: an open cell
+- X: a blocked cell
+
+Therefore, you need to find the shortest path from * to #, moving only through open cells.
+If there is no path from * to #, simply write "infeasible" (without quotes).
+
+Example 1:
+- Input: Find the length of the shortest path from * to # in the following grid:
+    X X X X X
+    X * O O X
+    X O X O X
+    X X X O #
+- Output: right right down down right
+
+Example 2:
+- Input: Find the length of the shortest path from * to # in the following grid:
+    X X X X X
+    X * O O X
+    X O X O X
+    X X X X #
+- Output: infeasible
+
+Now, find the length of the shortest path from * to # in the following grid:
+O X X X O
+O O X X X
+O O # O O
+* X O O X
+O X X O X
+
+Answer: up right right
+Metadata: {'matrix': [['O', 'X', 'X', 'X', 'O'], ['O', 'O', 'X', 'X', 'X'], ['O', 'O', '#', 'O', 'O'], ['*', 'X', 'O', 'O', 'X'], ['O', 'X', 'X', 'O', 'X']], 'solution': ['up', 'right', 'right']}
+
+Example 2:
+Question: Your task is to find the shortest path from the start to the destination point in a grid.
+
+The grid is represented as a matrix with the following types of cells:
+- *: your starting point
+- #: your destination point
+- O: an open cell
+- X: a blocked cell
+
+Therefore, you need to find the shortest path from * to #, moving only through open cells.
+If there is no path from * to #, simply write "infeasible" (without quotes).
+
+Example 1:
+- Input: Find the length of the shortest path from * to # in the following grid:
+    X X X X X
+    X * O O X
+    X O X O X
+    X X X O #
+- Output: right right down down right
+
+Example 2:
+- Input: Find the length of the shortest path from * to # in the following grid:
+    X X X X X
+    X * O O X
+    X O X O X
+    X X X X #
+- Output: infeasible
+
+Now, find the length of the shortest path from * to # in the following grid:
+# X O O O O O
+X O X O O O O
+X O O X X O O
+O O O O X X X
+O O X O O * O
+
+Answer: infeasible
+Metadata: {'matrix': [['#', 'X', 'O', 'O', 'O', 'O', 'O'], ['X', 'O', 'X', 'O', 'O', 'O', 'O'], ['X', 'O', 'O', 'X', 'X', 'O', 'O'], ['O', 'O', 'O', 'O', 'X', 'X', 'X'], ['O', 'O', 'X', 'O', 'O', '*', 'O']], 'solution': []}
+
+Example 3:
+Question: Your task is to find the shortest path from the start to the destination point in a grid.
+
+The grid is represented as a matrix with the following types of cells:
+- *: your starting point
+- #: your destination point
+- O: an open cell
+- X: a blocked cell
+
+Therefore, you need to find the shortest path from * to #, moving only through open cells.
+If there is no path from * to #, simply write "infeasible" (without quotes).
+
+Example 1:
+- Input: Find the length of the shortest path from * to # in the following grid:
+    X X X X X
+    X * O O X
+    X O X O X
+    X X X O #
+- Output: right right down down right
+
+Example 2:
+- Input: Find the length of the shortest path from * to # in the following grid:
+    X X X X X
+    X * O O X
+    X O X O X
+    X X X X #
+- Output: infeasible
+
+Now, find the length of the shortest path from * to # in the following grid:
+X X X X X
+X O O O X
+O # X X O
+O X X X O
+X O O X X
+O O X X X
+X O O O X
+O O O X *
+
+Answer: infeasible
+Metadata: {'matrix': [['X', 'X', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', '#', 'X', 'X', 'O'], ['O', 'X', 'X', 'X', 'O'], ['X', 'O', 'O', 'X', 'X'], ['O', 'O', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', 'O', 'O', 'X', '*']], 'solution': []}
+
+````
+
 ### simple_equations
 Generates simple equations with one variable to solve
 
@@ -6548,7 +6779,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 21, 9, 44), 'end_time': datetime.datetime(2025, 2, 21, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 23, 9, 44), 'end_time': datetime.datetime(2025, 2, 23, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.

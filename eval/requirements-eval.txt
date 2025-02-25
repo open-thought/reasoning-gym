@@ -1,0 +1,2 @@
+aiohttp>=3.11.13
+tenacity>=9.0.0
