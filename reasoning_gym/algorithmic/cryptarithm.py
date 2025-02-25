@@ -223,6 +223,9 @@ class CryptarithmDataset(ProceduralDataset):
         Returns:
             float: The computed score between 0.0 and 1.0.
         """
+        if not answer:
+            return 0.0
+
         correct_mapping = {}
         correct_answer_str = entry["answer"]  # e.g. "A=1,B=7,..."
         for pair in correct_answer_str.split(","):

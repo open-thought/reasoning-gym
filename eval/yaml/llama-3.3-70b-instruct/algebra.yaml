@@ -1,5 +1,5 @@
-model: deepseek/deepseek-r1
-provider: Nebius
+model: meta-llama/llama-3.3-70b-instruct
+provider: Hyperbolic
 category: algebra
 datasets:
   - intermediate_integration
@@ -8,7 +8,7 @@ datasets:
   - simple_equations
   - simple_integration
   - complex_arithmetic
-eval_dir: results/r1
+eval_dir: results/llama-3.3-70b-instruct
 dataset_size: 50
 dataset_seed: 42
 developer_role: system

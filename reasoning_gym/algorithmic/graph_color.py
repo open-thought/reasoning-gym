@@ -225,12 +225,15 @@ Return your solution as a JSON map of vertices to colors. (For example: {{0: 1, 
         if answer == None:
             return 0.0
 
-        danswer = json.loads(answer)
-        solved, failure = verify_graph_coloring_solution(entry["metadata"]["puzzle"], danswer)
-        if not solved:
-            return 0.01
-        else:
-            return 1.0  # Yay
+        try:
+            danswer = json.loads(answer)
+            solved, failure = verify_graph_coloring_solution(entry["metadata"]["puzzle"], danswer)
+            if not solved:
+                return 0.01  # json was parsable but solution incorrect
+            else:
+                return 1.0  # Yay
+        except Exception:
+            return 0.0
 
 
 register_dataset("graph_color", GraphColorDataset, GraphColorConfig)
