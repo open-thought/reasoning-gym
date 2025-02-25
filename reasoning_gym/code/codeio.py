@@ -63,6 +63,12 @@ class CodeIOConfig:
 
 
 class CodeIODataset(ProceduralDataset):
+    """
+    Exercise some caution when using this dataset, as it involves executing arbitrary code snippets.
+    These code snippets are transformed by an LLM from raw code files which have been curated from high-quality sources.
+    However, there is still a risk that the LLM could have introduced code with bad effects.
+    """
+
     _jsonl_data: Optional[list] = None
 
     def __init__(self, config: CodeIOConfig):
