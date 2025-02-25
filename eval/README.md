@@ -47,9 +47,8 @@ dataset_seed: 42
 developer_role: system
 
 ```
-For example the following file will run an evaluation for deepseek r1 for algorithmic datasets
-
-```yaml
+For example the following file will run an evaluation for deepseek r1 for algorithmic datasets.
+``` yaml
 model: deepseek/deepseek-r1
 category: algorithmic
 datasets:
@@ -84,7 +83,44 @@ eval_dir: eval/r1
 dataset_size: 50
 dataset_seed: 45
 developer_role: system
+
 ```
+
+ The following would run Claude 3.5 on the algorithmic dataset.
+```yaml
+model: anthropic/claude-3.5-sonnet
+category: algorithmic
+provider: Anthropic
+datasets:
+  -  count_primes
+  -  game_of_life
+  -  graph_color
+  -  group_anagrams
+  -  isomorphic_strings
+  -  letter_counting
+  -  letter_jumble
+  -  manipulate_matrix
+  -  number_filtering
+  -  number_sorting
+  -  palindrome
+  -  pool_matrix
+  -  ransom_note
+  -  rotate_matrix
+  -  sentence_reordering
+  -  spell_backward
+  -  spiral_matrix
+  -  string_insertion
+  -  string_manipulation
+  -  string_synthesis
+  -  word_ladder
+  -  word_sequence_reversal
+  -  word_sorting
+eval_dir: eval/r1
+dataset_size: 50
+dataset_seed: 45
+developer_role: system
+```
+Here you specify individual model and provider
 
 ### Running Evaluations
 
@@ -98,4 +134,4 @@ python eval.py --yaml yaml/algorithmic.yaml
 ```
 
 
-The results of your model run on a dataset will be stored in a new folder in the directory E.g `r1/algorithmic/proposition_logic.json`
+The results of individual model on a dataset will be stored in a new folder in the directory E.g `r1/algorithmic/proposition_logic.json`
