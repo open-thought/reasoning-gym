@@ -33,13 +33,13 @@ or served as inspiration for parts of our codebase:
 - Citation:
 ```
 @misc{hodel2024addressingabstractionreasoningcorpus,
-      title={Addressing the Abstraction and Reasoning Corpus via Procedural Example Generation}, 
+      title={Addressing the Abstraction and Reasoning Corpus via Procedural Example Generation},
       author={Michael Hodel},
       year={2024},
       eprint={2404.07353},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2404.07353}, 
+      url={https://arxiv.org/abs/2404.07353},
 }
 ```
 
