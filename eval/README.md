@@ -18,12 +18,17 @@ This framework provides tools to evaluate language models on the reasoning_gym d
 
 ## Setup
 
-1. Set your OpenRouter API key as an environment variable:
+1. Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Set your OpenRouter API key as an environment variable:
 ```bash
 export OPENROUTER_API_KEY=your-api-key
 ```
 
-2. Prepare your dataset configuration in JSON format (e.g., `eval_basic.json`):
+3. Prepare your dataset configuration in JSON format (e.g., `eval_basic.json`):
 ```json
 [
   {
