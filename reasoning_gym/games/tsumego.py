@@ -269,36 +269,25 @@ class TsumegoDataset(ProceduralDataset):
                 "Specify your move in coordinates (e.g. 'C4' for column C, row 4)"
             ),
             "answer": solution_str,
-            "metadata": {"difficulty": {"board_size": size}, "board": board, "solution": solution_str},
+            "metadata": {"difficulty": {"board_size": size}, "board": board},
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score the answer against the solution"""
-        if answer is None:
-            return 0.0
-        answer = answer.strip()
-        if not answer:
-            return 0.01
-        metadata = entry["metadata"]
-        board_size = len(metadata["board"])
-        expected_row, expected_col = metadata["solution"]  # get solution from (row, col) tuple
 
-        try:
-            # Assume letter-number format, e.g. "C4"
-            m = re.match(r"^([A-Za-z])(\d+)$", answer)
-            if not m:
-                return 0.01
-            col_letter, row_str = m.group(1), m.group(2)
-            row = board_size - int(row_str)
-            col = ord(col_letter.upper()) - ord("A")
-            if (row, col) == (expected_row, expected_col):
-                return 1.0
-
-            if 0 <= row < board_size and 0 <= col < board_size:
-                return 0.05
-        except Exception:
-            return 0.01
-        return 0.01
+        oracle_answer = entry["answer"].strip()
+        reward = 0.0
+        if answer is not None and len(answer) > 0:
+            answer = answer.strip().upper()
+            if answer == oracle_answer:
+                reward = 1.0
+            elif oracle_answer in answer:
+                reward = len(oracle_answer) / len(answer)
+            elif re.match(r"^([A-Z])(\d+)$", answer):  # test letter-number format, e.g. "C4"
+                reward = 0.05
+            else:
+                reward = 0.01
+        return reward
 
 
 # Register the dataset
