@@ -191,17 +191,12 @@ class ColorCubeRotationDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
-        metadata = entry["metadata"]
         if answer is not None:
             try:
-                answer_formatted = answer.lower()
-                solved = answer_formatted == metadata["answer"]
+                answer_formatted = answer.strip().lower()
+                solved = answer_formatted == entry["answer"].strip().lower()
                 if solved:
                     reward = 1.0
-                elif metadata["answer"] in answer_formatted:
-                    reward = 0.25
-                elif len(answer.strip()) > 0:
-                    reward = 0.05
                 else:
                     reward = 0.01
             except:
