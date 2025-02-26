@@ -15,6 +15,13 @@ from tenacity import AsyncRetrying, retry_if_exception_type, stop_after_attempt,
 import reasoning_gym
 from reasoning_gym.utils import extract_answer
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
+)
+
 
 class OpenRouterEvaluator:
     def __init__(self, model: str, config: EvalConfig):
