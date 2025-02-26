@@ -1,0 +1,26 @@
+model: openai/o3-mini
+category: arithmetic
+provider: OpenAI
+datasets:
+  - basic_arithmetic
+  - bitwise_arithmetic
+  - calendar_arithmetic
+  - chain_sum
+  - count_bits
+  - decimal_arithmetic
+  - decimal_chain_sum
+  - dice
+  - fraction_simplification
+  - gcd
+  - gsm_symbolic
+  - lcm
+  - leg_counting
+  - number_format
+  - power_function
+  - prime_factorization
+  - products
+  - time_intervals
+eval_dir: results/openai-03
+dataset_size: 50
+dataset_seed: 45
+developer_role: system

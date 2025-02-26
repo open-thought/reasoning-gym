@@ -1,0 +1,14 @@
+model: openai/o3-mini
+category: logic
+provider: OpenAI
+datasets:
+  - aiw
+  - circuit_logic
+  - propositional_logic
+  - self_reference
+  - syllogism
+  - zebra_puzzles
+eval_dir: results/openai-03
+dataset_size: 50
+dataset_seed: 45
+developer_role: system
