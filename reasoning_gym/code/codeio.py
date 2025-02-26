@@ -75,24 +75,9 @@ class CodeIODataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
         self._data_path = get_data_file_path("codeio.jsonl.gz")
-        print(self._data_path)
 
         with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
-            CodeIODataset._jsonl_data = [json.loads(line.strip()) for line in f.readlines()]
-
-    def __len__(self) -> int:
-        return self.config.size
-
-    def __iter__(self):
-        self._current_idx = 0
-        return self
-
-    def __next__(self):
-        if self._current_idx >= self.config.size:
-            raise StopIteration
-        item = self[self._current_idx]
-        self._current_idx += 1
-        return item
+            CodeIODataset._jsonl_data = [json.loads(line) for line in f]
 
     def _generate_io_pairs(self, main_code: str, input_generator_code: str, num_pairs: int = 1):
         local_vars = {}
