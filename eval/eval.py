@@ -24,13 +24,13 @@ logging.basicConfig(
 
 
 class OpenRouterEvaluator:
-    def __init__(self, model: str, config: EvalConfig):
+    def __init__(self, model: str, config: EvalConfig, api_key: str):
         self.logger = logging.getLogger(f"OpenRouterEvaluator.{model}")
         self.config = config
         self.output_dir = f"{config.eval_dir}/{config.category}"
         os.makedirs(self.output_dir, exist_ok=True)
         self.base_url = "https://openrouter.ai/api/v1/chat/completions"
-        self.api_key = os.getenv("OPENROUTER_API_KEY")
+        self.api_key = api_key
         self.model = model
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -98,6 +98,8 @@ class OpenRouterEvaluator:
             model_answer = extract_answer(response)
             score = dataset.score_answer(answer=model_answer, entry=entry)
 
+            print(f"answer: {model_answer}, score: {score}")
+
             return {
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
@@ -120,18 +122,23 @@ class OpenRouterEvaluator:
 
     async def evaluate_datasets(self) -> list[dict[str, Any]]:
         """Main async evaluation entry point."""
-        all_results = []
         async with aiohttp.ClientSession(headers=self.headers) as session:
             return await asyncio.gather(*(self.evaluate_dataset(session, name) for name in self.config.datasets))
 
 
 async def async_main():
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        print("Error: OPENROUTER_API_KEY environment variable is not set")
+        print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
+        exit(1)
+
     parser = argparse.ArgumentParser(description="Evaluate models on reasoning datasets")
     parser.add_argument("--yaml", required=True, help="Path to YAML configuration file")
     args = parser.parse_args()
 
     config = EvalConfig.from_yaml(args.yaml)
-    evaluator = OpenRouterEvaluator(model=config.model, config=config)
+    evaluator = OpenRouterEvaluator(model=config.model, config=config, api_key=api_key)
     results = await evaluator.evaluate_datasets()
 
     output_dir = f"{config.eval_dir}/{config.category}"
