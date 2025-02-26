@@ -88,3 +88,45 @@ def test_complex_arithmetic_division_by_zero():
         item = dataset[i]
         num2 = complex(*item["metadata"]["num2"])
         assert num2 != 0
+
+
+def test_parse_string_to_complex():
+    """Test the parse_string_to_complex method with various input formats."""
+    dataset = ComplexArithmeticDataset(ComplexArithmeticConfig())
+
+    # Test pure real numbers
+    assert dataset.parse_string_to_complex("5") == complex(5, 0)
+    assert dataset.parse_string_to_complex("5.0") == complex(5, 0)
+    assert dataset.parse_string_to_complex("-5") == complex(-5, 0)
+    assert dataset.parse_string_to_complex("-5.5") == complex(-5.5, 0)
+
+    # Test pure imaginary numbers
+    assert dataset.parse_string_to_complex("i") == complex(0, 1)
+    assert dataset.parse_string_to_complex("j") == complex(0, 1)
+    assert dataset.parse_string_to_complex("7i") == complex(0, 7)
+    assert dataset.parse_string_to_complex("7.0i") == complex(0, 7)
+    assert dataset.parse_string_to_complex("-i") == complex(0, -1)
+    assert dataset.parse_string_to_complex("-7i") == complex(0, -7)
+    assert dataset.parse_string_to_complex("-7.5i") == complex(0, -7.5)
+
+    # Test complex numbers with both parts
+    assert dataset.parse_string_to_complex("3+2i") == complex(3, 2)
+    assert dataset.parse_string_to_complex("3 + 2i") == complex(3, 2)
+    assert dataset.parse_string_to_complex("3.5 + 2.5i") == complex(3.5, 2.5)
+    assert dataset.parse_string_to_complex("-3 + 2i") == complex(-3, 2)
+    assert dataset.parse_string_to_complex("3 - 2i") == complex(3, -2)
+    assert dataset.parse_string_to_complex("-3 - 2i") == complex(-3, -2)
+
+    # Test with j notation
+    assert dataset.parse_string_to_complex("3+2j") == complex(3, 2)
+    assert dataset.parse_string_to_complex("3 + 2j") == complex(3, 2)
+
+    # Test with different spacing
+    assert dataset.parse_string_to_complex("  3  +  2i  ") == complex(3, 2)
+    assert dataset.parse_string_to_complex("3+i") == complex(3, 1)
+    assert dataset.parse_string_to_complex("3-i") == complex(3, -1)
+
+    # Test invalid inputs
+    assert dataset.parse_string_to_complex("invalid") is None
+    assert dataset.parse_string_to_complex("3 + i + 2") is None
+    assert dataset.parse_string_to_complex("3 + 2x") is None
