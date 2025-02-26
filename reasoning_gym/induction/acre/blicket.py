@@ -2,9 +2,9 @@
 
 
 import json
-import os
-import random
 from typing import Any, Dict, List
+
+from reasoning_gym.data import get_data_file_path
 
 from .const import (
     ALL_CONFIG_SIZE,
@@ -39,7 +39,14 @@ class BlicketView(object):
 
 class BlicketQuestion(object):
     def __init__(
-        self, min_potential_blickets, max_potential_blickets, min_non_blickets, max_non_blickets, config_size, shuffle
+        self,
+        min_potential_blickets,
+        max_potential_blickets,
+        min_non_blickets,
+        max_non_blickets,
+        config_size,
+        shuffle,
+        rng,
     ):
         self.min_potential_blickets = min_potential_blickets
         self.max_potential_blickets = max_potential_blickets
@@ -47,11 +54,12 @@ class BlicketQuestion(object):
         self.max_non_blickets = max_non_blickets
         self.config_size = config_size
         self.shuffle = shuffle
+        self.rng = rng
 
-        potential_blicket_num = random.randint(self.min_potential_blickets, self.max_potential_blickets)
-        non_blicket_num = random.randint(self.min_non_blickets, self.max_non_blickets)
+        potential_blicket_num = self.rng.randint(self.min_potential_blickets, self.max_potential_blickets)
+        non_blicket_num = self.rng.randint(self.min_non_blickets, self.max_non_blickets)
 
-        samples = random.sample(list(range(self.config_size)), k=potential_blicket_num + non_blicket_num)
+        samples = self.rng.sample(list(range(self.config_size)), k=potential_blicket_num + non_blicket_num)
 
         self.blickets = []
         self.set_blickets = []
@@ -92,8 +100,8 @@ class BlicketQuestion(object):
         habituation_views = self.get_habituation_views()
         evidence_views = self.get_evidence_views()
         if self.shuffle:
-            random.shuffle(habituation_views)
-            random.shuffle(evidence_views)
+            self.rng.shuffle(habituation_views)
+            self.rng.shuffle(evidence_views)
 
         return habituation_views + evidence_views
 
@@ -206,25 +214,25 @@ class BlicketQuestion(object):
 
     def union_sample(self, union, must_have_one=False):
         if must_have_one:
-            first_set = random.sample(union, k=1)
+            first_set = self.rng.sample(union, k=1)
         else:
-            first_num = random.randint(1, len(union))
-            first_set = random.sample(union, k=first_num)
+            first_num = self.rng.randint(1, len(union))
+            first_set = self.rng.sample(union, k=first_num)
         second_set = list(set(union).difference(first_set))
         if len(second_set) > 0:
             additional_num_min = 0
         else:
             additional_num_min = 1
-        additional_num = random.randint(additional_num_min, len(first_set))
-        additional_samples = random.sample(first_set, k=additional_num)
+        additional_num = self.rng.randint(additional_num_min, len(first_set))
+        additional_samples = self.rng.sample(first_set, k=additional_num)
         second_set += additional_samples
 
         return first_set, second_set
 
     def add_noise(self, view):
         # the first non blicket used in habituation and hence the skip
-        noise_num = random.randint(0, len(self.non_blickets) - 1)
-        noise = random.sample(self.non_blickets[1:], k=noise_num)
+        noise_num = self.rng.randint(0, len(self.non_blickets) - 1)
+        noise = self.rng.sample(self.non_blickets[1:], k=noise_num)
         view.add_objects(noise)
 
     def add_blicket(self, obj):
@@ -250,7 +258,7 @@ class BlicketQuestion(object):
             while True:
                 residual = fixed_sum
                 for i in range(len(values) - 1):
-                    values[i] = random.randint(lower[i], min(upper[i], residual))
+                    values[i] = self.rng.randint(lower[i], min(upper[i], residual))
                     residual = residual - values[i]
                 if residual >= lower[-1] and residual <= upper[-1]:
                     values[-1] = residual
@@ -278,10 +286,10 @@ class BlicketQuestion(object):
         direct_sample_num, indirect_sample_num, screen_off_sample_num = fixed_sum_sample(
             constraint_lower, constraint_upper, 2 - potential_sample_num
         )
-        direct_samples = random.sample(self.direct, k=direct_sample_num)
-        indirect_samples = random.sample(self.indirect, k=indirect_sample_num)
-        screen_off_samples = random.sample(self.screen_off, k=screen_off_sample_num)
-        potential_samples = random.sample(self.potential_blickets, k=potential_sample_num)
+        direct_samples = self.rng.sample(self.direct, k=direct_sample_num)
+        indirect_samples = self.rng.sample(self.indirect, k=indirect_sample_num)
+        screen_off_samples = self.rng.sample(self.screen_off, k=screen_off_sample_num)
+        potential_samples = self.rng.sample(self.potential_blickets, k=potential_sample_num)
 
         questions = []
         # label: 0 for light off, 1 for unknown, 2 for light up
@@ -314,7 +322,7 @@ class BlicketQuestion(object):
             questions.append((cause_view, label, "potential"))
 
         if self.shuffle:
-            random.shuffle(questions)
+            self.rng.shuffle(questions)
 
         return questions
 
@@ -323,9 +331,9 @@ class BlicketQuestion(object):
         # on_views = [view for view in views if view.light_state == "on" and len(view.objects) >= 2]
         off_views = [view for view in views if view.light_state == "off"]
 
-        # on_view = random.sample(on_views, k=1)[0]
+        # on_view = rng.sample(on_views, k=1)[0]
         # on_view_ref = views.index(on_view)
-        off_view = random.sample(off_views, k=1)[0]
+        off_view = self.rng.sample(off_views, k=1)[0]
         off_view_ref = views.index(off_view)
 
         questions = []
@@ -336,7 +344,7 @@ class BlicketQuestion(object):
         )
         # adjust weight during sample for better statistics
         all_possibilities += list(set(self.potential_blickets).difference(off_view.objects))
-        possibilities = random.sample(all_possibilities, k=2)
+        possibilities = self.rng.sample(all_possibilities, k=2)
         for possibility in possibilities:
             if possibility in self.direct:
                 q_type = "direct"
@@ -368,17 +376,30 @@ class BlicketQuestion(object):
             questions.append((intervention_view, label, q_type, off_view_ref))
 
         if self.shuffle:
-            random.shuffle(questions)
+            self.rng.shuffle(questions)
 
         return questions
 
 
 class OnOffOff(BlicketQuestion):
     def __init__(
-        self, min_potential_blickets, max_potential_blickets, min_non_blickets, max_non_blickets, config_size, shuffle
+        self,
+        min_potential_blickets,
+        max_potential_blickets,
+        min_non_blickets,
+        max_non_blickets,
+        config_size,
+        shuffle,
+        rng,
     ):
         super(OnOffOff, self).__init__(
-            min_potential_blickets, max_potential_blickets, min_non_blickets, max_non_blickets, config_size, shuffle
+            min_potential_blickets,
+            max_potential_blickets,
+            min_non_blickets,
+            max_non_blickets,
+            config_size,
+            shuffle,
+            rng,
         )
 
     def get_evidence_views(self):
@@ -429,10 +450,23 @@ class OnOffOff(BlicketQuestion):
 
 class OnOnOff(BlicketQuestion):
     def __init__(
-        self, min_potential_blickets, max_potential_blickets, min_non_blickets, max_non_blickets, config_size, shuffle
+        self,
+        min_potential_blickets,
+        max_potential_blickets,
+        min_non_blickets,
+        max_non_blickets,
+        config_size,
+        shuffle,
+        rng,
     ):
         super(OnOnOff, self).__init__(
-            min_potential_blickets, max_potential_blickets, min_non_blickets, max_non_blickets, config_size, shuffle
+            min_potential_blickets,
+            max_potential_blickets,
+            min_non_blickets,
+            max_non_blickets,
+            config_size,
+            shuffle,
+            rng,
         )
 
     def get_evidence_views(self):
@@ -519,11 +553,11 @@ def serialize(questions):
     return question_list
 
 
-def config_control(size, train, config_size, regime):
+def config_control(size, train, config_size, regime, rng):
     questions = []
     for _ in range(size // 2):
         blicket_machine = OnOffOff(
-            ONOFFOFF_MIN_POTENTIAL, ONOFFOFF_MAX_POTENTIAL, ONOFFOFF_MIN_NON, ONOFFOFF_MAX_NON, config_size, True
+            ONOFFOFF_MIN_POTENTIAL, ONOFFOFF_MAX_POTENTIAL, ONOFFOFF_MIN_NON, ONOFFOFF_MAX_NON, config_size, True, rng
         )
         context_views = blicket_machine.get_views()
 
@@ -539,7 +573,7 @@ def config_control(size, train, config_size, regime):
         questions.append(context_views + cause_questions + intervention_questions)
     for _ in range(size // 2):
         blicket_machine = OnOnOff(
-            ONONOFF_MIN_POTENTIAL, ONONOFF_MAX_POTENTIAL, ONONOFF_MIN_NON, ONONOFF_MAX_NON, config_size, True
+            ONONOFF_MIN_POTENTIAL, ONONOFF_MAX_POTENTIAL, ONONOFF_MIN_NON, ONONOFF_MAX_NON, config_size, True, rng
         )
         context_views = blicket_machine.get_views()
 
@@ -553,11 +587,11 @@ def config_control(size, train, config_size, regime):
         for intervention_question in intervention_questions:
             blicket_machine.check_labels(intervention_question[0], intervention_question[1])
         questions.append(context_views + cause_questions + intervention_questions)
-    random.shuffle(questions)
+    rng.shuffle(questions)
     return questions
 
 
-def dist_control(size, train, regime):
+def dist_control(size, train, regime, rng):
     questions = []
     for _ in range(size):
         if train:
@@ -568,10 +602,17 @@ def dist_control(size, train, regime):
                 ONOFFOFF_MAX_NON,
                 ALL_CONFIG_SIZE,
                 True,
+                rng,
             )
         else:
             blicket_machine = OnOnOff(
-                ONONOFF_MIN_POTENTIAL, ONONOFF_MAX_POTENTIAL, ONONOFF_MIN_NON, ONONOFF_MAX_NON, ALL_CONFIG_SIZE, True
+                ONONOFF_MIN_POTENTIAL,
+                ONONOFF_MAX_POTENTIAL,
+                ONONOFF_MIN_NON,
+                ONONOFF_MAX_NON,
+                ALL_CONFIG_SIZE,
+                True,
+                rng,
             )
         context_views = blicket_machine.get_views()
 
@@ -585,14 +626,13 @@ def dist_control(size, train, regime):
         for intervention_question in intervention_questions:
             blicket_machine.check_labels(intervention_question[0], intervention_question[1])
         questions.append(context_views + cause_questions + intervention_questions)
-    random.shuffle(questions)
+    rng.shuffle(questions)
     return questions
 
 
 # Text translation functions
 LIGHT_DICT_TEXT = ["off", "undetermined", "on"]
-OBJECT_DICT_FILE_PATH = os.path.join(os.getcwd(), "reasoning_gym/induction/acre/object_dict.json")
-print("path", OBJECT_DICT_FILE_PATH)
+OBJECT_DICT_FILE_PATH = get_data_file_path("object_dict.json")
 with open(OBJECT_DICT_FILE_PATH, "r") as object_dict_file:
     OBJECT_DICT_TEXT = json.load(object_dict_file)
 
