@@ -1,0 +1,14 @@
+model: meta-llama/llama-3.3-70b-instruct
+provider: Hyperbolic
+category: graphs
+datasets:
+  - course_schedule
+  - family_relationships
+  - largest_island
+  - list_functions
+  - quantum_lock
+  - shortest_path
+eval_dir: results/llama-3.3-70b-instruct
+dataset_size: 50
+dataset_seed: 45
+developer_role: system
