@@ -1,12 +1,12 @@
 #!/bin/bash
 # run this script from the parent directory
-./eval.py --yaml algebra.yaml
-./eval.py --yaml algorithmic.yaml
-./eval.py --yaml arc.yaml
-./eval.py --yaml arithmetic.yaml
-./eval.py --yaml code.yaml
-./eval.py --yaml cognition.yaml
-./eval.py --yaml games.yaml
-./eval.py --yaml geometry.yaml
-./eval.py --yaml graphs.yaml
-./eval.py --yaml logic.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/algebra.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/algorithmic.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/arc.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/arithmetic.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/code.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/cognition.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/games.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/geometry.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/graphs.yaml
+./eval.py --yaml yaml/llama-3.3-70b-instruct/logic.yaml
