@@ -263,7 +263,7 @@ class TsumegoDataset(ProceduralDataset):
 
         return {
             "question": (
-                rng.choice(self._prompt_templates) + "\n\n" + board_str + "\n\n"
+                rng.choice(self._prompt_templates) + "\n\n```\n" + board_str + "\n```\n\n"
                 "X - Black\n"
                 "O - White\n\n"
                 "Specify your move in coordinates (e.g. 'C4' for column C, row 4)"
