@@ -176,7 +176,16 @@ class AsyncModelEvaluator:
 
         try:
             # Create dataset with all parameters
-            dataset_params = {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params}
+            dataset_params = {}
+            
+            # Add size and seed if they're not None
+            if dataset_config.size is not None:
+                dataset_params["size"] = dataset_config.size
+            if dataset_config.seed is not None:
+                dataset_params["seed"] = dataset_config.seed
+                
+            # Add all other parameters
+            dataset_params.update(dataset_config.params)
 
             dataset = reasoning_gym.create_dataset(dataset_name, **dataset_params)
 

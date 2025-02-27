@@ -49,6 +49,8 @@ class EvalConfig:
     system_role: str = "system"
     output_dir: str = "results"
     max_concurrent: int = 10
+    default_size: int = 500
+    default_seed: Optional[int] = None
     categories: List[CategoryConfig] = field(default_factory=list)
 
     @classmethod
@@ -93,11 +95,11 @@ class EvalConfig:
                 # Extract params (everything except name, size, seed)
                 params = {k: v for k, v in dataset_data.items() if k not in ["name", "size", "seed"]}
 
-                # Create dataset config
+                # Create dataset config with defaults from global config
                 dataset_config = DatasetConfig(
                     dataset=dataset_data.get("dataset"),
-                    size=dataset_data.get("size", 500),
-                    seed=dataset_data.get("seed"),
+                    size=dataset_data.get("size", config_data.get("default_size", 500)),
+                    seed=dataset_data.get("seed", config_data.get("default_seed")),
                     params=params,
                 )
                 datasets.append(dataset_config)

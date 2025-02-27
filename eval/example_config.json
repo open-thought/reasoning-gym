@@ -3,14 +3,14 @@
   "provider": "Hyperbolic",
   "output_dir": "results",
   "max_concurrent": 10,
+  "default_size": 50,
+  "default_seed": 42,
   "categories": [
     {
       "category": "algebra",
       "datasets": [
         {
           "dataset": "complex_arithmetic",
-          "size": 50,
-          "seed": 42,
           "params": {
             "min_size": 3,
             "max_size": 5
