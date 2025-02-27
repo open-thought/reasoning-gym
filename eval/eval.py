@@ -358,9 +358,9 @@ class AsyncModelEvaluator:
         timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
         model_name = self.config.model.replace("/", "_")
         
-        # Include provider in directory name if specified
+        # Format directory name with model first, then provider (if specified), then timestamp
         if self.config.provider:
-            dir_prefix = f"{self.config.provider}_{model_name}"
+            dir_prefix = f"{model_name}_{self.config.provider}"
         else:
             dir_prefix = model_name
             
