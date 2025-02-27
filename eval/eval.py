@@ -14,7 +14,7 @@ import sys
 from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Union, Any
+from typing import Optional, Union, Any
 
 from eval_config import EvalConfig, CategoryConfig, DatasetConfig
 from openai import AsyncOpenAI
@@ -118,7 +118,7 @@ class AsyncModelEvaluator:
 
         raise Exception(f"Failed to get model response after {max_retries} attempts")
 
-    async def process_entry(self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: Dict[str, Any]) -> Dict[str, Any]:
+    async def process_entry(self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: dict[str, Any]) -> dict[str, Any]:
         """Process a single dataset entry.
 
         Args:
@@ -161,7 +161,7 @@ class AsyncModelEvaluator:
                 "error": str(e),
             }
 
-    async def evaluate_dataset(self, category_name: str, dataset_config: DatasetConfig) -> Dict[str, Any]:
+    async def evaluate_dataset(self, category_name: str, dataset_config: DatasetConfig) -> dict[str, Any]:
         """Evaluate a single dataset.
 
         Args:
@@ -223,7 +223,7 @@ class AsyncModelEvaluator:
                 "results": [],
             }
 
-    async def evaluate_category(self, category_config: CategoryConfig) -> Dict[str, Any]:
+    async def evaluate_category(self, category_config: CategoryConfig) -> dict[str, Any]:
         """Evaluate all datasets in a category.
 
         Args:
@@ -244,7 +244,7 @@ class AsyncModelEvaluator:
             "datasets": dataset_results,
         }
 
-    async def evaluate_all(self) -> Dict[str, Any]:
+    async def evaluate_all(self) -> dict[str, Any]:
         """Evaluate all categories and datasets.
 
         Returns:
@@ -272,7 +272,7 @@ class AsyncModelEvaluator:
 
         return results
 
-    def generate_summary(self, results: Dict[str, Any]) -> Dict[str, Union[int, OrderedDict]]:
+    def generate_summary(self, results: dict[str, Any]) -> dict[str, Union[int, OrderedDict]]:
         """Generate a summary of evaluation results in the original configuration order.
 
         Args:
@@ -312,7 +312,7 @@ class AsyncModelEvaluator:
 
         return summary
 
-    def save_results(self, results: Dict[str, Any]) -> Tuple[str, str]:
+    def save_results(self, results: dict[str, Any]) -> tuple[str, str]:
         """Save evaluation results to files.
 
         Args:
@@ -349,7 +349,7 @@ class AsyncModelEvaluator:
 
         return str(results_path), str(summary_path)
 
-    def print_summary(self, results: Dict[str, Any]) -> None:
+    def print_summary(self, results: dict[str, Any]) -> None:
         """Print a summary of evaluation results to the console.
 
         Args:

@@ -3,7 +3,7 @@
 import json
 import re
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import yaml
 
@@ -28,7 +28,7 @@ class DatasetConfig:
     size: int = 500
     seed: Optional[int] = None
     # Allow any additional dataset-specific parameters
-    params: Dict[str, Any] = field(default_factory=dict)
+    params: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -36,7 +36,7 @@ class CategoryConfig:
     """Configuration for a category of datasets"""
 
     category: str
-    datasets: List[DatasetConfig]
+    datasets: list[DatasetConfig]
 
 
 @dataclass
@@ -51,7 +51,7 @@ class EvalConfig:
     max_concurrent: int = 10
     default_size: int = 500
     default_seed: Optional[int] = None
-    categories: List[CategoryConfig] = field(default_factory=list)
+    categories: list[CategoryConfig] = field(default_factory=list)
 
     @classmethod
     def from_json(cls, json_path: str) -> "EvalConfig":
@@ -70,7 +70,7 @@ class EvalConfig:
         return cls._process_config_data(config_data)
 
     @classmethod
-    def _process_config_data(cls, config_data: Dict[str, Any]) -> "EvalConfig":
+    def _process_config_data(cls, config_data: dict[str, Any]) -> "EvalConfig":
         """Process configuration data from either JSON or YAML"""
         # Extract categories
         categories_data = config_data.pop("categories", [])
