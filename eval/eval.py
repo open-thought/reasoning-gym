@@ -14,9 +14,9 @@ import sys
 from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Tuple
+from typing import Dict, List, Tuple, Optional, Union, Any
 
-from eval_config import EvalConfig
+from eval_config import EvalConfig, CategoryConfig, DatasetConfig
 from openai import AsyncOpenAI
 from tqdm.asyncio import tqdm_asyncio
 
@@ -118,7 +118,7 @@ class AsyncModelEvaluator:
 
         raise Exception(f"Failed to get model response after {max_retries} attempts")
 
-    async def process_entry(self, dataset: Any, entry: Dict[str, Any]) -> Dict[str, Any]:
+    async def process_entry(self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: Dict[str, Any]) -> Dict[str, Any]:
         """Process a single dataset entry.
 
         Args:
@@ -161,7 +161,7 @@ class AsyncModelEvaluator:
                 "error": str(e),
             }
 
-    async def evaluate_dataset(self, category_name: str, dataset_config: Any) -> Dict[str, Any]:
+    async def evaluate_dataset(self, category_name: str, dataset_config: DatasetConfig) -> Dict[str, Any]:
         """Evaluate a single dataset.
 
         Args:
@@ -223,7 +223,7 @@ class AsyncModelEvaluator:
                 "results": [],
             }
 
-    async def evaluate_category(self, category_config: Any) -> Dict[str, Any]:
+    async def evaluate_category(self, category_config: CategoryConfig) -> Dict[str, Any]:
         """Evaluate all datasets in a category.
 
         Args:
@@ -272,7 +272,7 @@ class AsyncModelEvaluator:
 
         return results
 
-    def generate_summary(self, results: Dict[str, Any]) -> Dict[str, Any]:
+    def generate_summary(self, results: Dict[str, Any]) -> Dict[str, Union[int, OrderedDict]]:
         """Generate a summary of evaluation results in the original configuration order.
 
         Args:
