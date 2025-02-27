@@ -179,7 +179,13 @@ class AsyncModelEvaluator:
             dataset_params = {}
             
             # Add all parameters from the config params dictionary
-            dataset_params.update(dataset_config.params)
+            # Make sure we don't have a nested 'params' dictionary
+            for k, v in dataset_config.params.items():
+                if k != "params":
+                    dataset_params[k] = v
+                elif isinstance(v, dict):
+                    # If there's a nested params dict, flatten it
+                    dataset_params.update(v)
             
             # Add size and seed if they're not None
             if dataset_config.size is not None:

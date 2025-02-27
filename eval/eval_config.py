@@ -100,8 +100,15 @@ class EvalConfig:
                 seed = dataset_data.get("seed", config_data.get("default_seed"))
                 
                 # Extract all other parameters (everything except dataset, size, and seed)
-                params = {k: v for k, v in dataset_data.items() 
-                         if k not in ["dataset", "size", "seed"]}
+                # If there's a nested 'params' dictionary, use its contents directly
+                params = {}
+                for k, v in dataset_data.items():
+                    if k not in ["dataset", "size", "seed"]:
+                        if k == "params" and isinstance(v, dict):
+                            # Flatten nested params dictionary
+                            params.update(v)
+                        else:
+                            params[k] = v
                 
                 # Create dataset config
                 dataset_config = DatasetConfig(
