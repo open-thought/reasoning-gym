@@ -12,14 +12,11 @@
         {
           "dataset": "complex_arithmetic",
           "params": {
-            "min_size": 3,
-            "max_size": 5
+            "min_real":  -10,
+            "max_real": 10,
+            "min_imag": -10,
+            "max_imag": 10
           }
-        },
-        {
-          "dataset": "caesar_cipher",
-          "size": 30,
-          "seed": 123
         }
       ]
     },
@@ -28,13 +25,20 @@
       "datasets": [
         {
           "dataset": "chain_sum",
-          "size": 100,
-          "seed": 789,
+          "size": 52,
+          "seed": 43,
           "params": {
-            "min_terms": 2,
-            "max_terms": 5,
-            "min_digits": 1,
-            "max_digits": 3
+            "min_digits": 2,
+            "allow_negation": true
+          }
+        },
+        {
+          "dataset": "products",
+          "size": 52,
+          "seed": 43,
+          "params": {
+            "min_digits": 2,
+            "allow_negation": true
           }
         }
       ]
