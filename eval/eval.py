@@ -27,7 +27,6 @@ import logging
 import os
 import subprocess
 import sys
-from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Union
@@ -318,7 +317,7 @@ class AsyncModelEvaluator:
 
         return results
 
-    def generate_summary(self, results: dict[str, Any]) -> dict[str, Union[int, OrderedDict]]:
+    def generate_summary(self, results: dict[str, Any]) -> dict[str, Any]:
         """Generate a summary of evaluation results in the original configuration order.
 
         Args:
@@ -330,7 +329,7 @@ class AsyncModelEvaluator:
         summary = {
             "total_datasets": 0,
             "total_examples": 0,
-            "dataset_scores": OrderedDict(),
+            "dataset_scores": {},
         }
 
         # Iterate through categories and datasets in the original order from config
