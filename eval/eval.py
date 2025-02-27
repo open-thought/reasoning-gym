@@ -9,7 +9,7 @@ from datetime import datetime
 from typing import Any
 
 import aiohttp
-from eval_config import EvalConfig
+from eval_config import EvalConfig, EvalOutputEncoder, get_git_commit_hash
 from tenacity import AsyncRetrying, retry_if_exception_type, stop_after_attempt, wait_exponential
 from tqdm.asyncio import tqdm_asyncio
 
@@ -53,12 +53,13 @@ class OpenRouterEvaluator:
             "average_score": total_score / len(results) if results else 0,
             "total_examples": len(results),
             "timestamp": datetime.now().isoformat(),
+            "git_commit": get_git_commit_hash(),
             "config": asdict(dataset.config),
             "results": results,
         }
 
         with open(file_name, "w") as f:
-            json.dump(metrics, f, indent=2)
+            json.dump(metrics, f, indent=2, cls=EvalOutputEncoder)
         return metrics
 
     async def get_model_response(self, session: aiohttp.ClientSession, prompt: str) -> str:
@@ -93,46 +94,15 @@ class OpenRouterEvaluator:
                         self.logger.error(f"Failed to parse JSON response: {response_text}")
                         raise
 
-                    if not data:
+                    if not data or not data.get("choices"):
                         self.logger.error(f"Empty response received: {response_text}")
                         raise ValueError("Empty response")
 
-                    if not data.get("choices"):
-                        self.logger.error(f"Missing choices in response: {data}")
-                        raise ValueError("Missing choices in response")
-
-                    return data["choices"][0]["message"]["content"]
-
-    async def get_model_response(self, session: aiohttp.ClientSession, prompt: str) -> str:
-        payload = {
-            "model": self.model,
-            "messages": [
-                {"role": self.config.developer_role, "content": self.config.developer_prompt},
-                {"role": "user", "content": prompt},
-            ],
-            "provider": {"order": [self.config.provider], "allow_fallbacks": False},
-        }
-
-        async for attempt in AsyncRetrying(
-            stop=stop_after_attempt(20),
-            wait=wait_exponential(multiplier=1, min=1, max=60),
-            retry=retry_if_exception_type(
-                (aiohttp.ClientError, asyncio.TimeoutError, json.JSONDecodeError, ValueError)
-            ),
-        ):
-            with attempt:
-                async with session.post(self.base_url, json=payload) as response:
-                    data = await response.json()
-
-                    if not data:
-                        raise ValueError("Empty response")
-
-                    if not data.get("choices"):
-                        raise ValueError("Missing choices in response")
-
-                    return data["choices"][0]["message"]["content"]
-
-        raise Exception("Failed to get valid response after retries")
+                    output = data["choices"][0]["message"]["content"]
+                    if output is None:
+                        self.logger.error(f"Error in response: {response_text}")
+                        raise ValueError("Error in response")
+                    return output
 
     async def process_entry(self, session: aiohttp.ClientSession, dataset: Any, entry: Any) -> dict[str, Any]:
         """Process a single entry with concurrency control."""
@@ -140,7 +110,6 @@ class OpenRouterEvaluator:
             response = await self.get_model_response(session, entry["question"])
             model_answer = extract_answer(response)
             score = dataset.score_answer(answer=model_answer, entry=entry)
-
             self.logger.info(f"answer: {model_answer}, score: {score}")
 
             return {
