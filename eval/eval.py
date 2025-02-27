@@ -102,19 +102,25 @@ class AsyncModelEvaluator:
         for attempt in range(max_retries):
             try:
                 async with self.semaphore:
-                    completion = await self.client.chat.completions.create(
-                        model=self.config.model,
-                        messages=[
+                    # Prepare API call parameters
+                    params = {
+                        "model": self.config.model,
+                        "messages": [
                             {"role": self.config.system_role, "content": self.config.system_prompt},
                             {"role": "user", "content": prompt},
                         ],
-                        extra_body={
+                    }
+                    
+                    # Add provider configuration if specified
+                    if self.config.provider:
+                        params["extra_body"] = {
                             "provider": {
                                 "order": [self.config.provider],
                                 "allow_fallbacks": False
                             }
-                        },
-                    )
+                        }
+                    
+                    completion = await self.client.chat.completions.create(**params)
                     response = completion.choices[0].message.content
 
                     if self.verbose:
@@ -351,7 +357,14 @@ class AsyncModelEvaluator:
         # Create output directory with timestamp
         timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
         model_name = self.config.model.replace("/", "_")
-        output_dir = Path(self.config.output_dir) / f"{self.config.provider}_{model_name}_{timestamp}"
+        
+        # Include provider in directory name if specified
+        if self.config.provider:
+            dir_prefix = f"{self.config.provider}_{model_name}"
+        else:
+            dir_prefix = model_name
+            
+        output_dir = Path(self.config.output_dir) / f"{dir_prefix}_{timestamp}"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Save full results

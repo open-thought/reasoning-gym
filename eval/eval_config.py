@@ -44,7 +44,7 @@ class EvalConfig:
     """Global evaluation configuration"""
 
     model: str
-    provider: str = "openai"
+    provider: Optional[str] = "openai"
     system_prompt: str = SYSTEM_PROMPTS["default"]
     system_role: str = "system"
     output_dir: str = "results"
