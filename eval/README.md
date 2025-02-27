@@ -97,6 +97,22 @@ categories:
       - dataset: "word_sorting"
 ```
 
+### Generating Configurations
+
+You can generate a configuration file with all registered datasets using the `generate_config.py` script:
+
+```bash
+python generate_config.py --output my_config.yaml --model "anthropic/claude-3.5-sonnet" --provider "Anthropic" --size 50 --seed 42
+```
+
+Options:
+- `--output`: Output YAML file path (default: all_datasets.yaml)
+- `--model`: Model name (default: openai/gpt-4)
+- `--provider`: Provider name (default: None)
+- `--size`: Default dataset size (default: 100)
+- `--seed`: Default dataset seed (default: 42)
+- `--include-params`: Include all configuration parameters (default: False)
+
 ### Running Evaluations
 
 To run evaluations:
