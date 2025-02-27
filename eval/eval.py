@@ -355,12 +355,8 @@ class AsyncModelEvaluator:
         timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
         model_name = self.config.model.replace("/", "_")
 
-        # Format directory name with model first, then provider (if specified), then timestamp
-        if self.config.provider:
-            dir_prefix = f"{model_name}_{self.config.provider}"
-        else:
-            dir_prefix = model_name
-
+        # Format directory name with model and timestamp only
+        dir_prefix = model_name
         output_dir = Path(self.config.output_dir) / f"{dir_prefix}_{timestamp}"
         output_dir.mkdir(parents=True, exist_ok=True)
 
