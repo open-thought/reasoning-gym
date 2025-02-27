@@ -53,8 +53,8 @@ def generate_config(model, provider, size, seed, include_params):
             params = {}
             # Get default values from config class fields
             for field in fields(config_cls):
-                # Skip seed as it's handled separately
-                if field.name != "seed":
+                # Skip seed and size as they're handled separately
+                if field.name not in ["seed", "size"]:
                     # Only include fields with default values
                     if field.default != inspect.Parameter.empty:
                         params[field.name] = field.default
