@@ -153,26 +153,36 @@ class AsyncModelEvaluator:
                 print(f"Score: {score}")
                 print("-" * 40)
 
-            return {
+            result = {
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
                 "model_answer": model_answer,
                 "full_model_response": response,
                 "score": score,
-                "metadata": entry["metadata"],
             }
+            
+            # Only include metadata if configured to do so
+            if self.config.save_metadata:
+                result["metadata"] = entry["metadata"]
+                
+            return result
 
         except Exception as e:
             self.logger.error(f"Error processing entry: {str(e)}")
-            return {
+            result = {
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
                 "model_answer": "ERROR",
                 "full_model_response": f"Error: {str(e)}",
                 "score": 0.0,
-                "metadata": entry["metadata"],
                 "error": str(e),
             }
+            
+            # Only include metadata if configured to do so
+            if self.config.save_metadata:
+                result["metadata"] = entry["metadata"]
+                
+            return result
 
     async def evaluate_dataset(self, category_name: str, dataset_config: DatasetConfig) -> dict[str, Any]:
         """Evaluate a single dataset.
@@ -408,6 +418,7 @@ async def main_async():
     parser.add_argument("--model", help="Override model specified in config")
     parser.add_argument("--output-dir", help="Override output directory specified in config")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
+    parser.add_argument("--save-metadata", action="store_true", help="Save entry metadata in results")
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
@@ -436,6 +447,8 @@ async def main_async():
         config.output_dir = args.output_dir
     if args.max_concurrent:
         config.max_concurrent = args.max_concurrent
+    if args.save_metadata:
+        config.save_metadata = True
 
     # Create evaluator
     evaluator = AsyncModelEvaluator(config=config, verbose=args.verbose, debug=args.debug)
