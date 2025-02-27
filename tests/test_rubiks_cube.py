@@ -31,6 +31,7 @@ def test_rubikscube_items():
     config = RubiksCubeConfig(
         cube_size=3,
         scramble_steps=4,
+        seed=42,
         size=100,
     )
     dataset = RubiksCubeDataset(config)
