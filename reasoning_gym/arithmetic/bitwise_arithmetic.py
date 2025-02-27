@@ -147,7 +147,7 @@ class BitwiseArithmeticDataset(ProceduralDataset):
             self.config.difficulty,
         )
         problem_str = (
-            f"Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. Reply only with the final hexidecimal value.\n"
+            f"Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. If the answer is negative, reply as a negative value (ex., -0x3), not the two's-compliment form. Reply only with the final hexidecimal value.\n"
             + problem
         )
 
