@@ -187,6 +187,8 @@ class AsyncModelEvaluator:
             # Add all other parameters
             dataset_params.update(dataset_config.params)
 
+            print("params: ", dataset_params)
+
             dataset = reasoning_gym.create_dataset(dataset_name, **dataset_params)
 
             # Get all entries
