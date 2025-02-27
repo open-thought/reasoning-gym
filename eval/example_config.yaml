@@ -3,40 +3,31 @@ model: "meta-llama/llama-3.3-70b-instruct"
 provider: "Hyperbolic"
 output_dir: "results"
 max_concurrent: 10
-default_size: 50  # Default size for all datasets
+default_size: 20  # Default size for all datasets
 default_seed: 42  # Default seed for all datasets
 
 categories:
-  - category: "algorithmic"
+  - category: "algebra"
     datasets:
-      - dataset: "binary_matrix"
-        # Uses default size (50) and seed (42)
+      - dataset: "complex_arithmetic"
         params:
-          min_size: 3
-          max_size: 5
-
-      - dataset: "caesar_cipher"
-        size: 30  # Override default size
-        seed: 123  # Override default seed
-
-      - dataset: "word_ladder"
-        size: 40  # Override default size
-        # Uses default seed (42)
-        params:
-          min_word_length: 4
-          max_word_length: 6
+          min_real: -10
+          max_real: 10
+          min_imag: -10
+          max_imag: 10
 
   - category: "arithmetic"
     datasets:
-      - dataset: "chain_sum"
-        size: 100
-        seed: 789
+      - dataset: "products"
+        size: 10
+        seed: 43
         params:
-          min_terms: 2
-          max_terms: 5
-          min_digits: 1
-          max_digits: 3
+          min_digits: 2
+          allow_negation: true
 
-      - dataset: "basic_arithmetic"
-        size: 30
-        seed: 101
+      - dataset: "chain_sum"
+        size: 12
+        seed: 43
+        params:
+          min_digits: 2
+          allow_negation: true

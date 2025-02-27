@@ -3,7 +3,7 @@
   "provider": "Hyperbolic",
   "output_dir": "results",
   "max_concurrent": 10,
-  "default_size": 50,
+  "default_size": 20,
   "default_seed": 42,
   "categories": [
     {
@@ -24,8 +24,8 @@
       "category": "arithmetic",
       "datasets": [
         {
-          "dataset": "chain_sum",
-          "size": 52,
+          "dataset": "products",
+          "size": 10,
           "seed": 43,
           "params": {
             "min_digits": 2,
@@ -33,8 +33,8 @@
           }
         },
         {
-          "dataset": "products",
-          "size": 52,
+          "dataset": "chain_sum",
+          "size": 12,
           "seed": 43,
           "params": {
             "min_digits": 2,

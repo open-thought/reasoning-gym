@@ -96,11 +96,11 @@ class EvalConfig:
 
                 # Extract dataset name
                 dataset_name = dataset_data.get("dataset")
-                
+
                 # Extract size and seed with defaults
                 size = dataset_data.get("size", config_data.get("default_size", 500))
                 seed = dataset_data.get("seed", config_data.get("default_seed"))
-                
+
                 # Extract all other parameters (everything except dataset, size, and seed)
                 # If there's a nested 'params' dictionary, use its contents directly
                 params = {}
@@ -111,7 +111,7 @@ class EvalConfig:
                             params.update(v)
                         else:
                             params[k] = v
-                
+
                 # Create dataset config
                 dataset_config = DatasetConfig(
                     dataset=dataset_name,

@@ -14,9 +14,9 @@ import sys
 from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Union, Any
+from typing import Any, Optional, Union
 
-from eval_config import EvalConfig, CategoryConfig, DatasetConfig
+from eval_config import CategoryConfig, DatasetConfig, EvalConfig
 from openai import AsyncOpenAI
 from tqdm.asyncio import tqdm_asyncio
 
@@ -110,16 +110,11 @@ class AsyncModelEvaluator:
                             {"role": "user", "content": prompt},
                         ],
                     }
-                    
+
                     # Add provider configuration if specified
                     if self.config.provider:
-                        params["extra_body"] = {
-                            "provider": {
-                                "order": [self.config.provider],
-                                "allow_fallbacks": False
-                            }
-                        }
-                    
+                        params["extra_body"] = {"provider": {"order": [self.config.provider], "allow_fallbacks": False}}
+
                     completion = await self.client.chat.completions.create(**params)
                     response = completion.choices[0].message.content
 
@@ -137,7 +132,9 @@ class AsyncModelEvaluator:
 
         raise Exception(f"Failed to get model response after {max_retries} attempts")
 
-    async def process_entry(self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: dict[str, Any]) -> dict[str, Any]:
+    async def process_entry(
+        self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: dict[str, Any]
+    ) -> dict[str, Any]:
         """Process a single dataset entry.
 
         Args:
@@ -166,11 +163,11 @@ class AsyncModelEvaluator:
                 "full_model_response": response,
                 "score": score,
             }
-            
+
             # Only include metadata if configured to do so
             if self.config.save_metadata:
                 result["metadata"] = entry["metadata"]
-                
+
             return result
 
         except Exception as e:
@@ -183,11 +180,11 @@ class AsyncModelEvaluator:
                 "score": 0.0,
                 "error": str(e),
             }
-            
+
             # Only include metadata if configured to do so
             if self.config.save_metadata:
                 result["metadata"] = entry["metadata"]
-                
+
             return result
 
     async def evaluate_dataset(self, category_name: str, dataset_config: DatasetConfig) -> dict[str, Any]:
@@ -206,7 +203,7 @@ class AsyncModelEvaluator:
         try:
             # Create dataset with all parameters
             dataset_params = {}
-            
+
             # Add all parameters from the config params dictionary
             # Make sure we don't have a nested 'params' dictionary
             for k, v in dataset_config.params.items():
@@ -215,7 +212,7 @@ class AsyncModelEvaluator:
                 elif isinstance(v, dict):
                     # If there's a nested params dict, flatten it
                     dataset_params.update(v)
-            
+
             # Add size and seed if they're not None
             if dataset_config.size is not None:
                 dataset_params["size"] = dataset_config.size
@@ -357,28 +354,36 @@ class AsyncModelEvaluator:
         # Create output directory with timestamp
         timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
         model_name = self.config.model.replace("/", "_")
-        
+
         # Format directory name with model first, then provider (if specified), then timestamp
         if self.config.provider:
             dir_prefix = f"{model_name}_{self.config.provider}"
         else:
             dir_prefix = model_name
-            
+
         output_dir = Path(self.config.output_dir) / f"{dir_prefix}_{timestamp}"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         results_path = None
-        
+
         # Save full results if configured to do so
         if self.config.save_full_results:
             results_path = output_dir / "results.json"
             with open(results_path, "w") as f:
                 json.dump(results, f, indent=2)
 
+        # Add timestamp, git hash, model, provider, and duration to summary
+        summary_data = results["summary"].copy()
+        summary_data["timestamp"] = self.start_time.isoformat()
+        summary_data["git_hash"] = self.git_hash
+        summary_data["model"] = self.config.model
+        summary_data["provider"] = self.config.provider
+        summary_data["duration_seconds"] = results["metadata"]["duration_seconds"]
+
         # Save summary
         summary_path = output_dir / "summary.json"
         with open(summary_path, "w") as f:
-            json.dump(results["summary"], f, indent=2)
+            json.dump(summary_data, f, indent=2)
 
         # Save individual dataset results
         for category in results["categories"]:
