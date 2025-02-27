@@ -253,6 +253,7 @@ class AsyncModelEvaluator:
                 "average_score": average_score,
                 "total_examples": len(results),
                 "config": {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params},
+                "system_prompt": self.config.system_prompt,
                 "results": results,
             }
 
@@ -264,6 +265,7 @@ class AsyncModelEvaluator:
                 "average_score": 0.0,
                 "total_examples": 0,
                 "config": {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params},
+                "system_prompt": self.config.system_prompt,
                 "error": str(e),
                 "results": [],
             }
@@ -388,6 +390,7 @@ class AsyncModelEvaluator:
         summary_data["git_hash"] = self.git_hash
         summary_data["model"] = self.config.model
         summary_data["provider"] = self.config.provider
+        summary_data["system_prompt"] = self.config.system_prompt
         summary_data["duration_seconds"] = results["metadata"]["duration_seconds"]
 
         # Save summary
@@ -419,6 +422,11 @@ class AsyncModelEvaluator:
         print("------------------")
         print(f"Model: {self.config.model}")
         print(f"Provider: {self.config.provider}")
+        print(
+            f"System Prompt: {self.config.system_prompt[:50]}..."
+            if len(self.config.system_prompt) > 50
+            else self.config.system_prompt
+        )
         print(f"Git Hash: {self.git_hash}")
         print(f"Duration: {results['metadata']['duration_seconds']:.2f} seconds")
         print()
