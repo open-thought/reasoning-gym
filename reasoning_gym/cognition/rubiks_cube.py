@@ -137,20 +137,21 @@ class RubiksCubeDataset(ProceduralDataset):
         return ansi_escape.sub("", line)
 
     def expand_moves(self, move_str):
-        moves = move_str.split()
-        expanded = []
-        for move in moves:
-            # Split the move into the base part and any trailing digits
-            match = re.fullmatch(r"^([^\d]*)(\d*)$", move)
-            if match:
-                base, num_part = match.groups()
-                if num_part:
-                    # Append two copies of the base if there was a number. I don't think F3 is a valid signmaster notation etc
-                    expanded.append(base)
-                    expanded.append(base)
-                else:
-                    expanded.append(base)
-        return " ".join(expanded).strip()
+        try:
+            moves = move_str.split()
+            expanded = []
+            for move in moves:
+                # Split the move into the base part and any trailing digits
+                match = re.fullmatch(r"^([^\d]*)(\d*)$", move)
+                if match:
+                    base, num_part = match.groups()
+                    if num_part:
+                        expanded.extend([base] * int(num_part))
+                    else:
+                        expanded.append(base)
+            return " ".join(expanded).strip()
+        except Exception as e:
+            return move_str
 
 
 # Register the dataset
