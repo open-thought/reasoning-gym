@@ -375,7 +375,7 @@ class AsyncModelEvaluator:
         summary_data["model"] = self.config.model
         summary_data["provider"] = self.config.provider
         summary_data["duration_seconds"] = results["metadata"]["duration_seconds"]
-
+        
         # Save summary
         summary_path = output_dir / "summary.json"
         with open(summary_path, "w") as f:
