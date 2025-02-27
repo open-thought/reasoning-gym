@@ -186,6 +186,10 @@ class AsyncModelEvaluator:
                 
             # Add all other parameters
             dataset_params.update(dataset_config.params)
+            
+            # Remove the dataset name if it's in the params
+            if "dataset" in dataset_params:
+                del dataset_params["dataset"]
 
             print("params: ", dataset_params)
 
