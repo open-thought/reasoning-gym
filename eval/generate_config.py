@@ -23,7 +23,6 @@ import yaml
 from collections import defaultdict
 from dataclasses import fields
 
-import reasoning_gym
 from reasoning_gym.factory import DATASETS
 
 
