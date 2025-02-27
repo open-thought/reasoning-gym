@@ -1,0 +1,61 @@
+# Combined configuration for deepseek-r1
+model: "deepseek/deepseek-r1"
+provider: "Nebius"
+output_dir: "results"
+max_concurrent: 10
+default_size: 50
+default_seed: 45
+
+categories:
+  - category: "algebra"
+    datasets:
+      - dataset: "intermediate_integration"
+      - dataset: "polynomial_equations"
+      - dataset: "polynomial_multiplication"
+      - dataset: "simple_equations"
+      - dataset: "simple_integration"
+      - dataset: "complex_arithmetic"
+
+  - category: "algorithmic"
+    datasets:
+      - dataset: "ab"
+      - dataset: "base_conversion"
+      - dataset: "binary_matrix"
+      - dataset: "caesar_cipher"
+      - dataset: "count_primes"
+      - dataset: "game_of_life"
+      - dataset: "graph_color"
+      - dataset: "group_anagrams"
+      - dataset: "isomorphic_strings"
+      - dataset: "letter_counting"
+      - dataset: "letter_jumble"
+      - dataset: "manipulate_matrix"
+      - dataset: "number_filtering"
+      - dataset: "number_sorting"
+      - dataset: "palindrome"
+      - dataset: "pool_matrix"
+      - dataset: "ransom_note"
+      - dataset: "rotate_matrix"
+      - dataset: "sentence_reordering"
+      - dataset: "spell_backward"
+      - dataset: "spiral_matrix"
+      - dataset: "string_insertion"
+      - dataset: "string_manipulation"
+      - dataset: "string_synthesis"
+      - dataset: "word_ladder"
+      - dataset: "word_sequence_reversal"
+      - dataset: "word_sorting"
+
+  - category: "cognition"
+    datasets:
+      - dataset: "color_cube_rotation"
+      - dataset: "figlet_font"
+      - dataset: "number_sequence"
+      - dataset: "rubiks_cube"
+
+  - category: "logic"
+    datasets:
+      - dataset: "propositional_logic"
+      - dataset: "self_reference"
+      - dataset: "syllogism"
+      - dataset: "zebra_puzzles"

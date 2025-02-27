@@ -1,9 +1,0 @@
-model: meta-llama/llama-3.3-70b-instruct
-provider: Hyperbolic
-category: code
-datasets:
-  - bf
-eval_dir: results/llama-3.3-70b-instruct
-dataset_size: 50
-dataset_seed: 45
-developer_role: system

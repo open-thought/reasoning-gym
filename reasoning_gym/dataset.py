@@ -37,7 +37,7 @@ class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
         return item
 
     @abstractmethod
-    def __getitem__(self, idx: int) -> dict:
+    def __getitem__(self, idx: int) -> dict[str, Any]:
         """Generate a single dataset item
 
         Args:
