@@ -7,29 +7,29 @@ output_dir: "results"
 max_concurrent: 15
 
 categories:
-  - name: "algorithmic"
+  - category: "algorithmic"
     datasets:
-      - name: "binary_matrix"
+      - dataset: "binary_matrix"
         size: 50
         seed: 42
         params:
           min_size: 3
           max_size: 5
       
-      - name: "caesar_cipher"
+      - dataset: "caesar_cipher"
         size: 30
         seed: 123
       
-      - name: "word_ladder"
+      - dataset: "word_ladder"
         size: 40
         seed: 456
         params:
           min_word_length: 4
           max_word_length: 6
   
-  - name: "arithmetic"
+  - category: "arithmetic"
     datasets:
-      - name: "chain_sum"
+      - dataset: "chain_sum"
         size: 100
         seed: 789
         params:
@@ -38,6 +38,6 @@ categories:
           min_digits: 1
           max_digits: 3
       
-      - name: "basic_arithmetic"
+      - dataset: "basic_arithmetic"
         size: 30
         seed: 101

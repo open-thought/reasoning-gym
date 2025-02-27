@@ -7,10 +7,10 @@
   "max_concurrent": 10,
   "categories": [
     {
-      "name": "algorithmic",
+      "category": "algorithmic",
       "datasets": [
         {
-          "name": "binary_matrix",
+          "dataset": "binary_matrix",
           "size": 50,
           "seed": 42,
           "params": {
@@ -19,17 +19,17 @@
           }
         },
         {
-          "name": "caesar_cipher",
+          "dataset": "caesar_cipher",
           "size": 30,
           "seed": 123
         }
       ]
     },
     {
-      "name": "arithmetic",
+      "category": "arithmetic",
       "datasets": [
         {
-          "name": "chain_sum",
+          "dataset": "chain_sum",
           "size": 100,
           "seed": 789,
           "params": {

@@ -22,7 +22,7 @@ def is_valid_unix_filename(filename: str) -> bool:
 @dataclass
 class DatasetConfig:
     """Configuration for a specific dataset"""
-    name: str
+    dataset: str
     size: int = 500
     seed: Optional[int] = None
     # Allow any additional dataset-specific parameters
@@ -32,7 +32,7 @@ class DatasetConfig:
 @dataclass
 class CategoryConfig:
     """Configuration for a category of datasets"""
-    name: str
+    category: str
     datasets: List[DatasetConfig]
 
 
@@ -71,7 +71,7 @@ class EvalConfig:
         categories = []
         
         for category_data in categories_data:
-            category_name = category_data.get("name")
+            category_name = category_data.get("category")
             if not is_valid_unix_filename(category_name):
                 raise ValueError(
                     f"Invalid category name '{category_name}'. Category names must be valid Unix filenames."
@@ -92,7 +92,7 @@ class EvalConfig:
                 
                 # Create dataset config
                 dataset_config = DatasetConfig(
-                    name=dataset_data.get("name"),
+                    dataset=dataset_data.get("dataset"),
                     size=dataset_data.get("size", 500),
                     seed=dataset_data.get("seed"),
                     params=params
@@ -101,7 +101,7 @@ class EvalConfig:
             
             # Create category config
             category_config = CategoryConfig(
-                name=category_name,
+                category=category_name,
                 datasets=datasets
             )
             categories.append(category_config)

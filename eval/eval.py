@@ -187,7 +187,7 @@ class AsyncModelEvaluator:
         Returns:
             Dict with evaluation results
         """
-        dataset_name = dataset_config.name
+        dataset_name = dataset_config.dataset
         self.logger.info(f"Evaluating dataset: {dataset_name}")
         
         try:
@@ -253,7 +253,7 @@ class AsyncModelEvaluator:
         Returns:
             Dict with category evaluation results
         """
-        category_name = category_config.name
+        category_name = category_config.category
         self.logger.info(f"Evaluating category: {category_name}")
         
         tasks = [
@@ -314,12 +314,12 @@ class AsyncModelEvaluator:
         # Iterate through categories and datasets in the original order from config
         for category_config in self.config.categories:
             for dataset_config in category_config.datasets:
-                dataset_name = dataset_config.name
+                dataset_name = dataset_config.dataset
                 dataset_found = False
                 
                 # Find corresponding results
                 for category in results["categories"]:
-                    if category["name"] == category_config.name:
+                    if category["name"] == category_config.category:
                         for dataset in category["datasets"]:
                             if dataset["name"] == dataset_name:
                                 # Add to summary in original order
