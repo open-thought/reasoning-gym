@@ -1,10 +1,11 @@
 """Configuration classes for the evaluation script"""
 
+import json
+import re
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
-import json
+
 import yaml
-import re
 
 from reasoning_gym.utils import SYSTEM_PROMPTS
 
@@ -22,6 +23,7 @@ def is_valid_unix_filename(filename: str) -> bool:
 @dataclass
 class DatasetConfig:
     """Configuration for a specific dataset"""
+
     dataset: str
     size: int = 500
     seed: Optional[int] = None
@@ -32,6 +34,7 @@ class DatasetConfig:
 @dataclass
 class CategoryConfig:
     """Configuration for a category of datasets"""
+
     category: str
     datasets: List[DatasetConfig]
 
@@ -39,6 +42,7 @@ class CategoryConfig:
 @dataclass
 class EvalConfig:
     """Global evaluation configuration"""
+
     model: str
     provider: str = "openai"
     system_prompt: str = SYSTEM_PROMPTS["default"]
@@ -46,66 +50,62 @@ class EvalConfig:
     output_dir: str = "results"
     max_concurrent: int = 10
     categories: List[CategoryConfig] = field(default_factory=list)
-    
+
     @classmethod
     def from_json(cls, json_path: str) -> "EvalConfig":
         """Load configuration from JSON file"""
-        with open(json_path, 'r') as f:
+        with open(json_path, "r") as f:
             config_data = json.load(f)
-        
+
         return cls._process_config_data(config_data)
-    
+
     @classmethod
     def from_yaml(cls, yaml_path: str) -> "EvalConfig":
         """Load configuration from YAML file"""
-        with open(yaml_path, 'r') as f:
+        with open(yaml_path, "r") as f:
             config_data = yaml.safe_load(f)
-        
+
         return cls._process_config_data(config_data)
-    
+
     @classmethod
     def _process_config_data(cls, config_data: Dict[str, Any]) -> "EvalConfig":
         """Process configuration data from either JSON or YAML"""
         # Extract categories
         categories_data = config_data.pop("categories", [])
         categories = []
-        
+
         for category_data in categories_data:
             category_name = category_data.get("category")
             if not is_valid_unix_filename(category_name):
                 raise ValueError(
                     f"Invalid category name '{category_name}'. Category names must be valid Unix filenames."
                 )
-            
+
             # Process datasets in this category
             datasets_data = category_data.get("datasets", [])
             datasets = []
-            
+
             for dataset_data in datasets_data:
                 # If it's just a string, convert to dict with name
                 if isinstance(dataset_data, str):
                     dataset_data = {"name": dataset_data}
-                
+
                 # Extract params (everything except name, size, seed)
-                params = {k: v for k, v in dataset_data.items() 
-                          if k not in ["name", "size", "seed"]}
-                
+                params = {k: v for k, v in dataset_data.items() if k not in ["name", "size", "seed"]}
+
                 # Create dataset config
                 dataset_config = DatasetConfig(
                     dataset=dataset_data.get("dataset"),
                     size=dataset_data.get("size", 500),
                     seed=dataset_data.get("seed"),
-                    params=params
+                    params=params,
                 )
                 datasets.append(dataset_config)
-            
+
             # Create category config
-            category_config = CategoryConfig(
-                category=category_name,
-                datasets=datasets
-            )
+            category_config = CategoryConfig(category=category_name, datasets=datasets)
             categories.append(category_config)
-        
+
         # Create main config
         return cls(
             model=config_data.get("model"),
@@ -114,5 +114,5 @@ class EvalConfig:
             system_role=config_data.get("system_role", "system"),
             output_dir=config_data.get("output_dir", "results"),
             max_concurrent=config_data.get("max_concurrent", 10),
-            categories=categories
+            categories=categories,
         )

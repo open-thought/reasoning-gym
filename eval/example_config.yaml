@@ -1,10 +1,8 @@
 # Example configuration for the evaluation script
-model: "anthropic/claude-3-opus-20240229"
-provider: "anthropic"
-system_prompt: "You are a helpful assistant that answers questions accurately and concisely. When asked to solve a problem, show your work step by step. Provide your final answer between <answer> and </answer> tags."
-system_role: "system"
+model: "meta-llama/llama-3.3-70b-instruct"
+provider: "Hyperbolic"
 output_dir: "results"
-max_concurrent: 15
+max_concurrent: 10
 
 categories:
   - category: "algorithmic"
@@ -15,18 +13,18 @@ categories:
         params:
           min_size: 3
           max_size: 5
-      
+
       - dataset: "caesar_cipher"
         size: 30
         seed: 123
-      
+
       - dataset: "word_ladder"
         size: 40
         seed: 456
         params:
           min_word_length: 4
           max_word_length: 6
-  
+
   - category: "arithmetic"
     datasets:
       - dataset: "chain_sum"
@@ -37,7 +35,7 @@ categories:
           max_terms: 5
           min_digits: 1
           max_digits: 3
-      
+
       - dataset: "basic_arithmetic"
         size: 30
         seed: 101

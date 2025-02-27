@@ -15,6 +15,7 @@ Once you have thought about the reasoning process, provide the answer in the fol
 <answer>answer here</answer>
 Do not explain your reasoning inside the answer tags, provide only the final answer. When an example is provided, you should strictly follow the format of the output/answer in that example.
 """,
+    "simple": "You are a helpful assistant that answers questions accurately and concisely. When asked to solve a problem, show your work step by step. Provide your final answer between <answer> and </answer> tags.",
 }
 
 
