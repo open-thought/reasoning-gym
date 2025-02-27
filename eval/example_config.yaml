@@ -1,0 +1,43 @@
+# Example configuration for the evaluation script
+model: "anthropic/claude-3-opus-20240229"
+provider: "anthropic"
+system_prompt: "You are a helpful assistant that answers questions accurately and concisely. When asked to solve a problem, show your work step by step. Provide your final answer between <answer> and </answer> tags."
+system_role: "system"
+output_dir: "results"
+max_concurrent: 15
+
+categories:
+  - name: "algorithmic"
+    datasets:
+      - name: "binary_matrix"
+        size: 50
+        seed: 42
+        params:
+          min_size: 3
+          max_size: 5
+      
+      - name: "caesar_cipher"
+        size: 30
+        seed: 123
+      
+      - name: "word_ladder"
+        size: 40
+        seed: 456
+        params:
+          min_word_length: 4
+          max_word_length: 6
+  
+  - name: "arithmetic"
+    datasets:
+      - name: "chain_sum"
+        size: 100
+        seed: 789
+        params:
+          min_terms: 2
+          max_terms: 5
+          min_digits: 1
+          max_digits: 3
+      
+      - name: "basic_arithmetic"
+        size: 30
+        seed: 101

@@ -1,0 +1,45 @@
+{
+  "model": "openai/gpt-4-turbo",
+  "provider": "openai",
+  "system_prompt": "You are a helpful assistant that answers questions accurately and concisely. When asked to solve a problem, show your work step by step. Provide your final answer between <answer> and </answer> tags.",
+  "system_role": "system",
+  "output_dir": "results",
+  "max_concurrent": 10,
+  "categories": [
+    {
+      "name": "algorithmic",
+      "datasets": [
+        {
+          "name": "binary_matrix",
+          "size": 50,
+          "seed": 42,
+          "params": {
+            "min_size": 3,
+            "max_size": 5
+          }
+        },
+        {
+          "name": "caesar_cipher",
+          "size": 30,
+          "seed": 123
+        }
+      ]
+    },
+    {
+      "name": "arithmetic",
+      "datasets": [
+        {
+          "name": "chain_sum",
+          "size": 100,
+          "seed": 789,
+          "params": {
+            "min_terms": 2,
+            "max_terms": 5,
+            "min_digits": 1,
+            "max_digits": 3
+          }
+        }
+      ]
+    }
+  ]
+}
