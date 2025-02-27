@@ -5,10 +5,10 @@
   "max_concurrent": 10,
   "categories": [
     {
-      "category": "algorithmic",
+      "category": "algebra",
       "datasets": [
         {
-          "dataset": "binary_matrix",
+          "dataset": "complex_arithmetic",
           "size": 50,
           "seed": 42,
           "params": {
