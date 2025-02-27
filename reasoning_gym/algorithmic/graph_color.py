@@ -200,7 +200,7 @@ Vertices: {puzzle["vertices"]}
 Edges: {edges}
 Possible colors: {puzzle["color_options"]}
 
-Return your solution as a JSON map of vertices to colors. (For example: {{"0": 1, "1": 2, "2": 3}}. Remember )
+Return your solution as a JSON map of vertices to colors. (For example: {{"0": 1, "1": 2, "2": 3}}.)
 """
 
         return {
