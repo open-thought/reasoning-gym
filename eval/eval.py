@@ -140,8 +140,9 @@ class OpenRouterEvaluator:
             response = await self.get_model_response(session, entry["question"])
             model_answer = extract_answer(response)
             score = dataset.score_answer(answer=model_answer, entry=entry)
-
+            
             self.logger.info(f"answer: {model_answer}, score: {score}")
+
 
             return {
                 "question": entry["question"],

@@ -25,7 +25,7 @@ datasets:
   -  word_ladder
   -  word_sequence_reversal
   -  word_sorting
-eval_dir: eval/r1
+eval_dir: eval/sonnet-3.5
 dataset_size: 50
 dataset_seed: 45
 developer_role: system

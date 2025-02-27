@@ -1,4 +1,5 @@
 model: deepseek/deepseek-r1
+provider: Nebius
 category: cognition
 datasets:
   -  color_cube_rotation

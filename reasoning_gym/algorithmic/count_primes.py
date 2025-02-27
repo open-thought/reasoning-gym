@@ -51,8 +51,8 @@ class CountPrimesDataset(ProceduralDataset):
         rng = Random(self.seed + idx)
         start = rng.randint(1, self.config.max_n)
         end = rng.randint(start, self.config.max_n)
-        primes = self.primes[start : end + 1]
-        answer = sum(primes)
+        primes = [i for i in range(start, end + 1) if self.primes[i]]
+        answer = len(primes)
         return {
             "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": str(answer),

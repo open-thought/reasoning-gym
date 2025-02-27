@@ -86,3 +86,18 @@ def test_count_primes_answer():
     assert primes[8] == False
     assert primes[9] == False
     assert primes[10] == False
+
+
+def test_count_primes_list():
+    """Test that list of primes was correctly generated"""
+    config = CountPrimesConfig(max_n=100, size=100, seed=42)
+    dataset = CountPrimesDataset(config)
+
+    for item in dataset:
+        start = item["metadata"]["start"]
+        end = item["metadata"]["end"]
+        primes = item["metadata"]["primes"]
+        for p in primes:
+            assert p >= start
+            assert p <= end
+            assert dataset.primes[p] == True

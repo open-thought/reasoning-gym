@@ -1,4 +1,5 @@
 model: deepseek/deepseek-r1
+provider: Nebius
 category: algorithmic
 datasets:
   - ab
@@ -28,7 +29,7 @@ datasets:
   -  word_ladder
   -  word_sequence_reversal
   -  word_sorting
-eval_dir: eval/r1
+eval_dir: results/r1
 dataset_size: 50
 dataset_seed: 45
 developer_role: system

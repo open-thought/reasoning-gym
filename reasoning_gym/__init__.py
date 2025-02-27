@@ -5,7 +5,7 @@ Reasoning Gym - A library of procedural dataset generators for training reasonin
 from . import algebra, algorithmic, arc, arithmetic, code, cognition, data, games, geometry, graphs, induction, logic
 from .factory import create_dataset, register_dataset
 
-__version__ = "0.1.12"
+__version__ = "0.1.13"
 __all__ = [
     "arc",
     "algebra",
