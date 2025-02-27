@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 """
 Consolidated evaluation script for reasoning gym datasets.
-Combines features from multiple implementations with improved error handling,
-progress tracking, and configuration options.
+Uses OpenRouter API for all model providers.
 """
 
 import argparse
@@ -43,7 +42,7 @@ def get_git_hash() -> str:
 
 
 class AsyncModelEvaluator:
-    """Evaluates models on reasoning datasets with async API calls."""
+    """Evaluates models on reasoning datasets with async API calls via OpenRouter."""
     
     def __init__(
         self, 
@@ -67,31 +66,31 @@ class AsyncModelEvaluator:
         if debug:
             self.logger.setLevel(logging.DEBUG)
         
-        # Set up API client based on provider
-        if config.provider.lower() == "openai":
-            self.client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        elif config.provider.lower() == "anthropic":
-            self.client = AsyncOpenAI(
-                base_url="https://api.anthropic.com/v1",
-                api_key=os.getenv("ANTHROPIC_API_KEY")
-            )
-        elif config.provider.lower() == "openrouter":
-            self.client = AsyncOpenAI(
-                base_url="https://openrouter.ai/api/v1",
-                api_key=os.getenv("OPENROUTER_API_KEY")
-            )
-        else:
-            raise ValueError(f"Unsupported provider: {config.provider}")
+        # Set up OpenRouter API client
+        api_key = os.getenv("OPENROUTER_API_KEY")
+        if not api_key:
+            raise ValueError("OPENROUTER_API_KEY environment variable is not set")
+            
+        self.client = AsyncOpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=api_key
+        )
         
         # Concurrency control
         self.semaphore = asyncio.Semaphore(config.max_concurrent)
+        
+        # Extra headers for OpenRouter
+        self.extra_headers = {
+            "HTTP-Referer": os.getenv("OR_SITE_URL", "https://github.com/reasoning-gym"),
+            "X-Title": os.getenv("OR_APP_NAME", "Reasoning Gym Evaluation")
+        }
         
         # Metadata
         self.git_hash = get_git_hash()
         self.start_time = datetime.now()
     
     async def get_model_response(self, prompt: str) -> str:
-        """Get response from model with retry logic.
+        """Get response from model with retry logic via OpenRouter.
         
         Args:
             prompt: The prompt to send to the model
@@ -111,11 +110,13 @@ class AsyncModelEvaluator:
             try:
                 async with self.semaphore:
                     completion = await self.client.chat.completions.create(
+                        extra_headers=self.extra_headers,
                         model=self.config.model,
                         messages=[
                             {"role": self.config.system_role, "content": self.config.system_prompt},
                             {"role": "user", "content": prompt},
                         ],
+                        provider={"order": [self.config.provider], "allow_fallbacks": False}
                     )
                     response = completion.choices[0].message.content
                     
@@ -417,12 +418,10 @@ async def main_async():
     
     args = parser.parse_args()
     
-    # Check for required API keys
-    if not os.getenv("OPENAI_API_KEY") and not os.getenv("ANTHROPIC_API_KEY") and not os.getenv("OPENROUTER_API_KEY"):
-        print("Error: No API key found. Please set one of the following environment variables:")
-        print("  - OPENAI_API_KEY")
-        print("  - ANTHROPIC_API_KEY")
-        print("  - OPENROUTER_API_KEY")
+    # Check for required API key
+    if not os.getenv("OPENROUTER_API_KEY"):
+        print("Error: OPENROUTER_API_KEY environment variable is not set")
+        print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
         return 1
     
     # Load configuration
