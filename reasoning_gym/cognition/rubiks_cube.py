@@ -31,8 +31,8 @@ class RubiksCubeDataset(ProceduralDataset):
 
     def __init__(self, config: RubiksCubeConfig):
         self._prompt_templates = [
-            "You are given a {cube_size}x{cube_size}x{cube_size} Rubik's cube. It looks like this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation.",
-            "You see a size {cube_size} Rubik's cube. It is arranged this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube.",
+            "You are given a {cube_size}x{cube_size}x{cube_size} Rubik's cube. It looks like this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.",
+            "You see a size {cube_size} Rubik's cube. It is arranged this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -116,7 +116,8 @@ class RubiksCubeDataset(ProceduralDataset):
 
             # Test the solution
             try:
-                eval_cube.rotate(answer)
+                expanded_answer = self.expand_moves(answer)
+                eval_cube.rotate(expanded_answer)
                 solved = eval_cube.is_done()
 
                 if solved:
@@ -134,6 +135,23 @@ class RubiksCubeDataset(ProceduralDataset):
         """Remove terminal colors from magiccube rendering"""
         ansi_escape = re.compile(r"(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]")
         return ansi_escape.sub("", line)
+
+    def expand_moves(self, move_str):
+        try:
+            moves = move_str.split()
+            expanded = []
+            for move in moves:
+                # Split the move into the base part and any trailing digits
+                match = re.fullmatch(r"^([^\d]*)(\d*)$", move)
+                if match:
+                    base, num_part = match.groups()
+                    if num_part:
+                        expanded.extend([base] * int(num_part))
+                    else:
+                        expanded.append(base)
+            return " ".join(expanded).strip()
+        except Exception as e:
+            return move_str
 
 
 # Register the dataset

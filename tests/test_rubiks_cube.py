@@ -31,6 +31,7 @@ def test_rubikscube_items():
     config = RubiksCubeConfig(
         cube_size=3,
         scramble_steps=4,
+        seed=42,
         size=100,
     )
     dataset = RubiksCubeDataset(config)
@@ -54,6 +55,8 @@ def test_rubikscube_items():
 
         if item["metadata"]["example_correct_answer"] != "R":
             assert dataset.score_answer(answer="R", entry=item) == 0.05
+
+        assert dataset.score_answer(answer="R2 R3 R4 R5 R'2 R'3", entry=item) == 0.05
 
         if len(item["metadata"]["example_correct_answer"]) > 0:
             assert dataset.score_answer(answer="", entry=item) == 0.01
