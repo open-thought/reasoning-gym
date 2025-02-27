@@ -63,7 +63,7 @@ categories:
         params:
           min_digits: 2
           allow_negation: true
-          
+
       - dataset: "products"
         size: 10
         seed: 43
