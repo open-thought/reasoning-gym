@@ -15,7 +15,7 @@ import sys
 from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, Tuple
 
 from openai import AsyncOpenAI
 from tqdm.asyncio import tqdm_asyncio
