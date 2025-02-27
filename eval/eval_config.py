@@ -92,12 +92,15 @@ class EvalConfig:
                 if isinstance(dataset_data, str):
                     dataset_data = {"name": dataset_data}
 
-                # Extract params (everything except name, size, seed)
-                params = {k: v for k, v in dataset_data.items() if k not in ["name", "size", "seed"]}
-
-                # Create dataset config with defaults from global config
+                # Extract dataset name
+                dataset_name = dataset_data.get("dataset")
+                
+                # Extract all other parameters (everything except "dataset")
+                params = {k: v for k, v in dataset_data.items() if k != "dataset"}
+                
+                # Create dataset config
                 dataset_config = DatasetConfig(
-                    dataset=dataset_data.get("dataset"),
+                    dataset=dataset_name,
                     size=dataset_data.get("size", config_data.get("default_size", 500)),
                     seed=dataset_data.get("seed", config_data.get("default_seed")),
                     params=params,
