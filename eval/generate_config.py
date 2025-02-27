@@ -19,16 +19,17 @@ Options:
 
 import argparse
 import inspect
-import yaml
 from collections import defaultdict
 from dataclasses import fields
+
+import yaml
 
 from reasoning_gym.factory import DATASETS
 
 
 def extract_category(module_name):
     """Extract category from module name."""
-    parts = module_name.split('.')
+    parts = module_name.split(".")
     if len(parts) >= 3:
         return parts[1]  # reasoning_gym.{category}.dataset_name
     return "other"
@@ -38,16 +39,14 @@ def generate_config(model, provider, size, seed, include_params):
     """Generate configuration with all registered datasets."""
     # Group datasets by category
     categories = defaultdict(list)
-    
+
     for dataset_name, (dataset_cls, config_cls) in DATASETS.items():
         # Extract category from module name
         category = extract_category(dataset_cls.__module__)
-        
+
         # Create dataset entry
-        dataset_entry = {
-            "dataset": dataset_name
-        }
-        
+        dataset_entry = {"dataset": dataset_name}
+
         # Optionally include all configuration parameters
         if include_params:
             params = {}
@@ -58,13 +57,13 @@ def generate_config(model, provider, size, seed, include_params):
                     # Only include fields with default values
                     if field.default != inspect.Parameter.empty:
                         params[field.name] = field.default
-            
+
             if params:
                 dataset_entry["params"] = params
-        
+
         # Add to appropriate category
         categories[category].append(dataset_entry)
-    
+
     # Create configuration structure
     config = {
         "model": model,
@@ -73,16 +72,13 @@ def generate_config(model, provider, size, seed, include_params):
         "max_concurrent": 10,
         "default_size": size,
         "default_seed": seed,
-        "categories": []
+        "categories": [],
     }
-    
+
     # Add categories
     for category_name, datasets in sorted(categories.items()):
-        config["categories"].append({
-            "category": category_name,
-            "datasets": datasets
-        })
-    
+        config["categories"].append({"category": category_name, "datasets": datasets})
+
     return config
 
 
@@ -94,23 +90,21 @@ def main():
     parser.add_argument("--size", type=int, default=100, help="Default dataset size")
     parser.add_argument("--seed", type=int, default=42, help="Default dataset seed")
     parser.add_argument("--include-params", action="store_true", help="Include all configuration parameters")
-    
+
     args = parser.parse_args()
-    
+
     # Generate configuration
     config = generate_config(
-        model=args.model,
-        provider=args.provider,
-        size=args.size,
-        seed=args.seed,
-        include_params=args.include_params
+        model=args.model, provider=args.provider, size=args.size, seed=args.seed, include_params=args.include_params
     )
-    
+
     # Write to file
     with open(args.output, "w") as f:
         yaml.dump(config, f, default_flow_style=False, sort_keys=False)
-    
-    print(f"Configuration with {sum(len(cat['datasets']) for cat in config['categories'])} datasets written to {args.output}")
+
+    print(
+        f"Configuration with {sum(len(cat['datasets']) for cat in config['categories'])} datasets written to {args.output}"
+    )
     print(f"Categories: {', '.join(cat['category'] for cat in config['categories'])}")
 
 

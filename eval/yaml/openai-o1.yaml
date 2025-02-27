@@ -1,5 +1,5 @@
-model: deepseek/deepseek-r1
-provider: Nebius
+model: openai/o1
+provider: OpenAI
 output_dir: results
 max_concurrent: 10
 default_size: 50
