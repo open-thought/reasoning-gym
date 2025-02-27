@@ -367,10 +367,13 @@ class AsyncModelEvaluator:
         output_dir = Path(self.config.output_dir) / f"{dir_prefix}_{timestamp}"
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Save full results
-        results_path = output_dir / "results.json"
-        with open(results_path, "w") as f:
-            json.dump(results, f, indent=2)
+        results_path = None
+        
+        # Save full results if configured to do so
+        if self.config.save_full_results:
+            results_path = output_dir / "results.json"
+            with open(results_path, "w") as f:
+                json.dump(results, f, indent=2)
 
         # Save summary
         summary_path = output_dir / "summary.json"
@@ -387,7 +390,7 @@ class AsyncModelEvaluator:
                 with open(dataset_path, "w") as f:
                     json.dump(dataset, f, indent=2)
 
-        return str(results_path), str(summary_path)
+        return str(results_path) if results_path else None, str(summary_path)
 
     def print_summary(self, results: dict[str, Any]) -> None:
         """Print a summary of evaluation results to the console.
@@ -430,6 +433,7 @@ async def main_async():
     parser.add_argument("--output-dir", help="Override output directory specified in config")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
     parser.add_argument("--save-metadata", action="store_true", help="Save entry metadata in results")
+    parser.add_argument("--no-full-results", action="store_true", help="Don't save the full results file")
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
@@ -460,6 +464,8 @@ async def main_async():
         config.max_concurrent = args.max_concurrent
     if args.save_metadata:
         config.save_metadata = True
+    if args.no_full_results:
+        config.save_full_results = False
 
     # Create evaluator
     evaluator = AsyncModelEvaluator(config=config, verbose=args.verbose, debug=args.debug)
@@ -472,7 +478,8 @@ async def main_async():
         results_path, summary_path = evaluator.save_results(results)
         evaluator.print_summary(results)
 
-        print(f"\nResults saved to: {results_path}")
+        if results_path:
+            print(f"\nResults saved to: {results_path}")
         print(f"Summary saved to: {summary_path}")
 
         return 0
