@@ -30,8 +30,8 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()],
 )
 
-# Suppress httpx logs unless debug mode is enabled
-logging.getLogger("httpx").setLevel(logging.WARNING)
+# httpx logging will be configured in the AsyncModelEvaluator class
+# based on the debug flag
 
 
 def get_git_hash() -> str:
@@ -62,6 +62,11 @@ class AsyncModelEvaluator:
         self.logger = logging.getLogger("AsyncModelEvaluator")
         if debug:
             self.logger.setLevel(logging.DEBUG)
+            # Enable httpx logs in debug mode
+            logging.getLogger("httpx").setLevel(logging.INFO)
+        else:
+            # Suppress httpx logs in normal mode
+            logging.getLogger("httpx").setLevel(logging.WARNING)
 
         # Set up OpenRouter API client
         api_key = os.getenv("OPENROUTER_API_KEY")
