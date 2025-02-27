@@ -68,14 +68,13 @@ def generate_config(model, provider, size, seed, include_params):
     # Create configuration structure
     config = {
         "model": model,
+        "provider": provider,
+        "output_dir": "results",
+        "max_concurrent": 10,
         "default_size": size,
         "default_seed": seed,
         "categories": []
     }
-    
-    # Add provider if specified
-    if provider:
-        config["provider"] = provider
     
     # Add categories
     for category_name, datasets in sorted(categories.items()):
