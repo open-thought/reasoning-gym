@@ -52,7 +52,7 @@ class EvalConfig:
     default_size: int = 500
     default_seed: Optional[int] = None
     save_metadata: bool = False
-    save_full_results: bool = True
+    save_full_results: bool = False
     categories: list[CategoryConfig] = field(default_factory=list)
 
     @classmethod
@@ -134,6 +134,6 @@ class EvalConfig:
             output_dir=config_data.get("output_dir", "results"),
             max_concurrent=config_data.get("max_concurrent", 10),
             save_metadata=config_data.get("save_metadata", False),
-            save_full_results=config_data.get("save_full_results", True),
+            save_full_results=config_data.get("save_full_results", False),
             categories=categories,
         )

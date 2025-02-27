@@ -433,7 +433,7 @@ async def main_async():
     parser.add_argument("--output-dir", help="Override output directory specified in config")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
     parser.add_argument("--save-metadata", action="store_true", help="Save entry metadata in results")
-    parser.add_argument("--no-full-results", action="store_true", help="Don't save the full results file")
+    parser.add_argument("--full-results", action="store_true", help="Save the full results file")
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
@@ -464,8 +464,8 @@ async def main_async():
         config.max_concurrent = args.max_concurrent
     if args.save_metadata:
         config.save_metadata = True
-    if args.no_full_results:
-        config.save_full_results = False
+    if args.full_results:
+        config.save_full_results = True
 
     # Create evaluator
     evaluator = AsyncModelEvaluator(config=config, verbose=args.verbose, debug=args.debug)
