@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 import asyncio
 import json
@@ -10,19 +11,27 @@ from typing import Any
 import aiohttp
 from eval_config import EvalConfig
 from tenacity import AsyncRetrying, retry_if_exception_type, stop_after_attempt, wait_exponential
+from tqdm.asyncio import tqdm_asyncio
 
 import reasoning_gym
 from reasoning_gym.utils import extract_answer
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
+)
+
 
 class OpenRouterEvaluator:
-    def __init__(self, model: str, config: EvalConfig):
+    def __init__(self, model: str, config: EvalConfig, api_key: str):
         self.logger = logging.getLogger(f"OpenRouterEvaluator.{model}")
         self.config = config
         self.output_dir = f"{config.eval_dir}/{config.category}"
         os.makedirs(self.output_dir, exist_ok=True)
         self.base_url = "https://openrouter.ai/api/v1/chat/completions"
-        self.api_key = os.getenv("OPENROUTER_API_KEY")
+        self.api_key = api_key
         self.model = model
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -71,6 +80,48 @@ class OpenRouterEvaluator:
         ):
             with attempt:
                 async with session.post(self.base_url, json=payload) as response:
+                    response_text = await response.text()
+                    status_code = response.status
+
+                    if not response.ok:
+                        self.logger.error(f"API request failed with status code {status_code}: {response_text}")
+                        raise ValueError(f"API request failed with status code {status_code}")
+
+                    try:
+                        data = json.loads(response_text)
+                    except json.JSONDecodeError as e:
+                        self.logger.error(f"Failed to parse JSON response: {response_text}")
+                        raise
+
+                    if not data:
+                        self.logger.error(f"Empty response received: {response_text}")
+                        raise ValueError("Empty response")
+
+                    if not data.get("choices"):
+                        self.logger.error(f"Missing choices in response: {data}")
+                        raise ValueError("Missing choices in response")
+
+                    return data["choices"][0]["message"]["content"]
+
+    async def get_model_response(self, session: aiohttp.ClientSession, prompt: str) -> str:
+        payload = {
+            "model": self.model,
+            "messages": [
+                {"role": self.config.developer_role, "content": self.config.developer_prompt},
+                {"role": "user", "content": prompt},
+            ],
+            "provider": {"order": [self.config.provider], "allow_fallbacks": False},
+        }
+
+        async for attempt in AsyncRetrying(
+            stop=stop_after_attempt(20),
+            wait=wait_exponential(multiplier=1, min=1, max=60),
+            retry=retry_if_exception_type(
+                (aiohttp.ClientError, asyncio.TimeoutError, json.JSONDecodeError, ValueError)
+            ),
+        ):
+            with attempt:
+                async with session.post(self.base_url, json=payload) as response:
                     data = await response.json()
 
                     if not data:
@@ -90,6 +141,8 @@ class OpenRouterEvaluator:
             model_answer = extract_answer(response)
             score = dataset.score_answer(answer=model_answer, entry=entry)
 
+            self.logger.info(f"answer: {model_answer}, score: {score}")
+
             return {
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
@@ -107,23 +160,28 @@ class OpenRouterEvaluator:
         )
 
         tasks = [self.process_entry(session, dataset, entry) for entry in dataset]
-        results = await asyncio.gather(*tasks)
+        results = await tqdm_asyncio.gather(*tasks, desc=f"Evaluating {dataset_name}")
         return self.save_results(results, dataset, dataset_name)
 
     async def evaluate_datasets(self) -> list[dict[str, Any]]:
         """Main async evaluation entry point."""
-        all_results = []
         async with aiohttp.ClientSession(headers=self.headers) as session:
             return await asyncio.gather(*(self.evaluate_dataset(session, name) for name in self.config.datasets))
 
 
 async def async_main():
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        print("Error: OPENROUTER_API_KEY environment variable is not set")
+        print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
+        exit(1)
+
     parser = argparse.ArgumentParser(description="Evaluate models on reasoning datasets")
     parser.add_argument("--yaml", required=True, help="Path to YAML configuration file")
     args = parser.parse_args()
 
     config = EvalConfig.from_yaml(args.yaml)
-    evaluator = OpenRouterEvaluator(model=config.model, config=config)
+    evaluator = OpenRouterEvaluator(model=config.model, config=config, api_key=api_key)
     results = await evaluator.evaluate_datasets()
 
     output_dir = f"{config.eval_dir}/{config.category}"
