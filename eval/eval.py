@@ -30,6 +30,9 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()],
 )
 
+# Suppress httpx logs unless debug mode is enabled
+logging.getLogger("httpx").setLevel(logging.WARNING)
+
 
 def get_git_hash() -> str:
     """Get current git hash for reproducibility."""
