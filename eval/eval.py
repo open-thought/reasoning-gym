@@ -1,7 +1,23 @@
 #!/usr/bin/env python
 """
-Consolidated evaluation script for reasoning gym datasets.
-Uses OpenRouter API for all model providers.
+Evaluation script for reasoning gym datasets.
+
+This script evaluates LLM performance on reasoning gym datasets using the OpenRouter API.
+
+Usage:
+    python eval.py --config config.yaml [options]
+
+Options:
+    --model MODEL             Override model specified in config
+    --output-dir DIR          Override output directory specified in config
+    --max-concurrent NUM      Maximum number of concurrent API calls
+    --save-metadata           Save entry metadata in results
+    --full-results            Save the full results file
+    --verbose                 Print detailed model responses
+    --debug                   Enable debug logging
+
+Environment variables:
+    OPENROUTER_API_KEY        Required API key for OpenRouter
 """
 
 import argparse
@@ -14,7 +30,7 @@ import sys
 from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional, Union
+from typing import Any, Union
 
 from eval_config import CategoryConfig, DatasetConfig, EvalConfig
 from openai import AsyncOpenAI
@@ -374,7 +390,7 @@ class AsyncModelEvaluator:
         summary_data["model"] = self.config.model
         summary_data["provider"] = self.config.provider
         summary_data["duration_seconds"] = results["metadata"]["duration_seconds"]
-        
+
         # Save summary
         summary_path = output_dir / "summary.json"
         with open(summary_path, "w") as f:
