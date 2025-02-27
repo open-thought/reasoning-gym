@@ -216,8 +216,6 @@ class AsyncModelEvaluator:
             if dataset_config.seed is not None:
                 dataset_params["seed"] = dataset_config.seed
 
-            print("params: ", dataset_params)
-
             dataset = reasoning_gym.create_dataset(dataset_name, **dataset_params)
 
             # Get all entries
