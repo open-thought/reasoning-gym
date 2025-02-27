@@ -100,7 +100,12 @@ class AsyncModelEvaluator:
                             {"role": self.config.system_role, "content": self.config.system_prompt},
                             {"role": "user", "content": prompt},
                         ],
-                        provider={"order": [self.config.provider], "allow_fallbacks": False},
+                        extra_body={
+                            "provider": {
+                                "order": [self.config.provider],
+                                "allow_fallbacks": False
+                            }
+                        },
                     )
                     response = completion.choices[0].message.content
 
