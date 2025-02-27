@@ -178,10 +178,10 @@ class AsyncModelEvaluator:
             # Create dataset with all parameters
             dataset_params = {}
             
-            # Start with all parameters from the config
+            # Add all parameters from the config params dictionary
             dataset_params.update(dataset_config.params)
             
-            # Override with size and seed if they're not None
+            # Add size and seed if they're not None
             if dataset_config.size is not None:
                 dataset_params["size"] = dataset_config.size
             if dataset_config.seed is not None:
