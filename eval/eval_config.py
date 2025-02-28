@@ -53,6 +53,10 @@ class EvalConfig:
     default_seed: Optional[int] = None
     save_metadata: bool = False
     save_full_results: bool = False
+    # Sampling parameters
+    max_tokens: Optional[int] = 32768
+    temperature: Optional[float] = 0.6
+    top_p: Optional[float] = 0.95
     categories: list[CategoryConfig] = field(default_factory=list)
 
     @classmethod
@@ -135,5 +139,9 @@ class EvalConfig:
             max_concurrent=config_data.get("max_concurrent", 10),
             save_metadata=config_data.get("save_metadata", False),
             save_full_results=config_data.get("save_full_results", False),
+            # Sampling parameters
+            max_tokens=config_data.get("max_tokens", 32768),
+            temperature=config_data.get("temperature", 0.6),
+            top_p=config_data.get("top_p", 0.95),
             categories=categories,
         )

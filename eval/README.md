@@ -44,6 +44,9 @@ output_dir: "results"
 max_concurrent: 10
 default_size: 20  # Default size for all datasets
 default_seed: 42  # Default seed for all datasets
+max_tokens: 32768  # Maximum generation length (optional)
+temperature: 0.6   # Generation temperature (optional)
+top_p: 0.95        # Top-p sampling parameter (optional)
 
 categories:
   - category: "algebra"
