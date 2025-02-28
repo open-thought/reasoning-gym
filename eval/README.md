@@ -132,6 +132,12 @@ For example:
 python eval.py --config example_config.yaml --full-results
 ```
 
+You can specify a different API base URL if needed:
+
+```bash
+python eval.py --config example_config.yaml --base-url "https://api.together.xyz/v1"
+```
+
 
 The results will be stored in a directory named after the model and timestamp, containing:
 - `summary.json` - Summary of all results

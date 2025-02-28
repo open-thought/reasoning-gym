@@ -11,6 +11,7 @@ Options:
     --model MODEL             Override model specified in config
     --output-dir DIR          Override output directory specified in config
     --max-concurrent NUM      Maximum number of concurrent API calls
+    --base-url URL            API base URL (default: https://openrouter.ai/api/v1)
     --save-metadata           Save entry metadata in results
     --full-results            Save the full results file
     --verbose                 Print detailed model responses
@@ -61,15 +62,17 @@ def get_git_hash() -> str:
 class AsyncModelEvaluator:
     """Evaluates models on reasoning datasets with async API calls via OpenRouter."""
 
-    def __init__(self, config: EvalConfig, verbose: bool = False, debug: bool = False):
+    def __init__(self, config: EvalConfig, base_url: str = "https://openrouter.ai/api/v1", verbose: bool = False, debug: bool = False):
         """Initialize the evaluator with configuration.
 
         Args:
             config: Evaluation configuration
+            base_url: API base URL
             verbose: Whether to print detailed model responses
             debug: Whether to enable debug logging
         """
         self.config = config
+        self.base_url = base_url
         self.verbose = verbose
         self.debug = debug
 
@@ -88,7 +91,7 @@ class AsyncModelEvaluator:
         if not api_key:
             raise ValueError("OPENROUTER_API_KEY environment variable is not set")
 
-        self.client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
+        self.client = AsyncOpenAI(base_url=self.base_url, api_key=api_key)
 
         # Concurrency control
         self.semaphore = asyncio.Semaphore(config.max_concurrent)
@@ -474,6 +477,7 @@ async def main_async():
     parser.add_argument("--model", help="Override model specified in config")
     parser.add_argument("--output-dir", help="Override output directory specified in config")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
+    parser.add_argument("--base-url", default="https://openrouter.ai/api/v1", help="API base URL")
     parser.add_argument("--save-metadata", action="store_true", help="Save entry metadata in results")
     parser.add_argument("--full-results", action="store_true", help="Save the full results file")
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
@@ -510,7 +514,7 @@ async def main_async():
         config.save_full_results = True
 
     # Create evaluator
-    evaluator = AsyncModelEvaluator(config=config, verbose=args.verbose, debug=args.debug)
+    evaluator = AsyncModelEvaluator(config=config, base_url=args.base_url, verbose=args.verbose, debug=args.debug)
 
     # Run evaluation
     try:
