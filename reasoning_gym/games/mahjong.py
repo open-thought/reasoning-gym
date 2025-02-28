@@ -59,7 +59,7 @@ class MahjongPuzzleDataset(ProceduralDataset):
 
     def _get_initial_string(self, rng: Random) -> str:
         """Generate a random string of letters"""
-        pool = self.vocabulary * 2 # ensure at most 2 of each letter in initial string
+        pool = self.vocabulary * 2  # ensure at most 2 of each letter in initial string
         characters = rng.sample(pool, self.k)
         return "".join(characters)
 
@@ -71,10 +71,8 @@ class MahjongPuzzleDataset(ProceduralDataset):
         """Check if a Chi pattern exists with the new card"""
         all_cards = sorted(list(cards + new_card))
         for i in range(len(all_cards) - 2):
-            seq = all_cards[i:i+3]
-            if (ord(seq[1]) == ord(seq[0]) + 1 and 
-                ord(seq[2]) == ord(seq[1]) + 1 and
-                new_card in seq):
+            seq = all_cards[i : i + 3]
+            if ord(seq[1]) == ord(seq[0]) + 1 and ord(seq[2]) == ord(seq[1]) + 1 and new_card in seq:
                 return True
         return False
 
@@ -101,16 +99,11 @@ class MahjongPuzzleDataset(ProceduralDataset):
             else:
                 new_card = rng.choice(self.vocabulary)
                 result = "Pass"
-            
+
             # Update states
             remove_card = rng.choice(cards)
             cards = cards.replace(remove_card, "", 1) + new_card
-            rounds.append({
-                "add": new_card,
-                "remove": remove_card,
-                "cards": cards,
-                "result": result
-            })
+            rounds.append({"add": new_card, "remove": remove_card, "cards": cards, "result": result})
 
         return result, rounds
 

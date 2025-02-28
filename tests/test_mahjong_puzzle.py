@@ -1,8 +1,8 @@
 """Tests for Mahjong Puzzle questions generation"""
 
-import pytest
+import string
 
-import string 
+import pytest
 
 from reasoning_gym.games.mahjong import MahjongPuzzleConfig, MahjongPuzzleDataset
 
@@ -13,7 +13,7 @@ def test_mahjong_puzzle_config_validation():
     with pytest.raises(AssertionError):
         config = MahjongPuzzleConfig(min_num_rounds=-1)  # Negative not allowed
         config.validate()
-    
+
     with pytest.raises(AssertionError):
         config = MahjongPuzzleConfig(min_num_rounds=0)  # Zero not allowed
         config.validate()
@@ -59,8 +59,8 @@ def test_mahjong_puzzle_dataset_items():
         assert all(isinstance(r, dict) for r in rounds)
         assert all("add" in r for r in rounds)
         assert all("remove" in r for r in rounds)
-        assert all(len(r['cards']) == 13 for r in rounds)
-        assert all(r['result'] in ["Peng", "Chi", "Pass"] for r in rounds)
+        assert all(len(r["cards"]) == 13 for r in rounds)
+        assert all(r["result"] in ["Peng", "Chi", "Pass"] for r in rounds)
 
 
 def test_mahjong_puzzle_dataset_iteration():
@@ -82,12 +82,12 @@ def test_mahjong_puzzle_answer():
 
     # Peng
     cards = "ABBCCDDEEFFGH"
-    assert dataset._check_peng(cards, new_card="B") == True # B, B, B
+    assert dataset._check_peng(cards, new_card="B") == True  # B, B, B
     assert dataset._check_peng(cards, new_card="A") == False
 
     # Chi
     cards = "ABDGIKMOQSUWY"
-    assert dataset._check_chi(cards, new_card="C") == True # A, B, C
+    assert dataset._check_chi(cards, new_card="C") == True  # A, B, C
     assert dataset._check_chi(cards, new_card="A") == False
 
     # Pass
