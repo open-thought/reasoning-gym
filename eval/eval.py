@@ -139,6 +139,9 @@ class AsyncModelEvaluator:
                         params["extra_body"] = {"provider": {"order": [self.config.provider], "allow_fallbacks": False}}
 
                     completion = await self.client.chat.completions.create(**params)
+                    if completion.error:
+                        raise Exception(completion.error["message"])
+
                     response = completion.choices[0].message.content
 
                     if self.verbose:
