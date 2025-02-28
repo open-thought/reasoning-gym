@@ -92,7 +92,7 @@ class Arc1DDataset(ProceduralDataset):
         # Add test input
         question += "Below is a test input grid. Predict the corresponding output grid by applying the rule you found. "
         question += "Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. "
-        question += "Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.\n\n"
+        question += "Your final answer should be just the test output grid itself.\n\n"
         question += "Input:\n"
         question += " ".join(str(x) for x in test_example["input"])
 
