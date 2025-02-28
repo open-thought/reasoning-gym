@@ -38,7 +38,6 @@ class MahjongPuzzleConfig:
 
     min_num_rounds: int = 10
     max_num_rounds: int = 50
-    max_iterations: int = 1_000
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
