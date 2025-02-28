@@ -146,6 +146,8 @@ class CodeIODataset(ProceduralDataset):
                 except json.JSONDecodeError:
                     if oracle_answer in answer:
                         reward = len(oracle_answer) / len(answer)
+                    else:
+                        reward = 0.01
             elif oracle_answer in answer:
                 # max() to avoid penalising too heavily, since correct answers are short here
                 reward = max(len(oracle_answer) / len(answer), 0.2)
