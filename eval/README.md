@@ -28,10 +28,17 @@ pip install -e ..
 pip install -r requirements-eval.txt
 ```
 
-3. Set your OpenRouter API key as an environment variable:
-```bash
-export OPENROUTER_API_KEY=your-api-key
-```
+3. Set your API key:
+   
+   For OpenRouter, you can set it as an environment variable:
+   ```bash
+   export OPENROUTER_API_KEY=your-api-key
+   ```
+   
+   Or provide it directly when running the script:
+   ```bash
+   python eval.py --config your_config.yaml --api-key your-api-key
+   ```
 
 
 4. Prepare your evaluation configuration in YAML or JSON format (see example in `example_config.yaml`):
@@ -135,7 +142,7 @@ python eval.py --config example_config.yaml --full-results
 You can specify a different API base URL if needed:
 
 ```bash
-python eval.py --config example_config.yaml --base-url "https://api.together.xyz/v1"
+python eval.py --config example_config.yaml --base-url "https://api.together.xyz/v1" --api-key "your-together-api-key"
 ```
 
 
