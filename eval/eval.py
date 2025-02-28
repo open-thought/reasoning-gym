@@ -439,11 +439,7 @@ class AsyncModelEvaluator:
         print(f"Model: {self.config.model}")
         print(f"Provider: {self.config.provider}")
         system_prompt = self.config.get_system_prompt()
-        print(
-            f"System Prompt: {system_prompt[:50]}..."
-            if len(system_prompt) > 50
-            else system_prompt
-        )
+        print(f"System Prompt: {system_prompt[:50]}..." if len(system_prompt) > 50 else system_prompt)
         print(f"Max Tokens: {self.config.max_tokens}")
         print(f"Temperature: {self.config.temperature}")
         print(f"Top-p: {self.config.top_p}")

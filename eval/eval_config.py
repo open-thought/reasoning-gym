@@ -1,6 +1,7 @@
 """Configuration classes for the evaluation script"""
 
 import json
+import logging
 import re
 from dataclasses import dataclass, field
 from typing import Any, Optional
@@ -43,50 +44,49 @@ class CategoryConfig:
 class EvalConfig:
     """Global evaluation configuration"""
 
-    model: str
-    provider: Optional[str] = None
-    system_prompt: Optional[str] = None
-    system_prompt_id: Optional[str] = None
-    system_role: str = "system"
-    output_dir: str = "results"
-    max_concurrent: int = 10
-    default_size: int = 500
-    default_seed: Optional[int] = None
-    save_metadata: bool = False
-    save_full_results: bool = False
+    model: str  # Model identifier (e.g., "meta-llama/llama-3.3-70b-instruct")
+    provider: Optional[str] = None  # Provider name for OpenRouter (e.g., "Anthropic", "OpenAI")
+    system_prompt: Optional[str] = None  # Custom system prompt text (overrides system_prompt_id)
+    system_prompt_id: Optional[str] = None  # ID of predefined system prompt from SYSTEM_PROMPTS
+    system_role: str = "system"  # Role for the system message (usually "system")
+    output_dir: str = "results"  # Directory to save evaluation results
+    max_concurrent: int = 10  # Maximum number of concurrent API calls
+    default_size: int = 500  # Default dataset size if not specified for a dataset
+    default_seed: Optional[int] = None  # Default random seed if not specified for a dataset
+    save_metadata: bool = False  # Whether to include dataset entry metadata in results
+    save_full_results: bool = False  # Whether to save the full results file
     # Sampling parameters
-    max_tokens: Optional[int] = 32768
-    temperature: Optional[float] = 0.6
-    top_p: Optional[float] = 0.95
-    categories: list[CategoryConfig] = field(default_factory=list)
-    
+    max_tokens: Optional[int] = 32768  # Maximum number of tokens to generate
+    temperature: Optional[float] = 0.6  # Sampling temperature (higher = more random)
+    top_p: Optional[float] = 0.95  # Nucleus sampling parameter (lower = more deterministic)
+
+    categories: list[CategoryConfig] = field(default_factory=list)  # List of category configurations
+
     def get_system_prompt(self) -> str:
         """Get the system prompt to use for evaluation.
-        
+
         Returns:
             The system prompt string to use
         """
         if self.system_prompt is not None and self.system_prompt_id is not None:
-            import logging
             logging.warning(
                 "Both system_prompt and system_prompt_id are specified in the configuration. "
                 "Using system_prompt and ignoring system_prompt_id."
             )
             return self.system_prompt
-        
+
         if self.system_prompt is not None:
             return self.system_prompt
-        
+
         if self.system_prompt_id is not None:
             if self.system_prompt_id in SYSTEM_PROMPTS:
                 return SYSTEM_PROMPTS[self.system_prompt_id]
             else:
-                import logging
                 logging.warning(
                     f"System prompt ID '{self.system_prompt_id}' not found in SYSTEM_PROMPTS. "
                     f"Using default system prompt instead."
                 )
-        
+
         # Default case: use the default system prompt
         return SYSTEM_PROMPTS["default"]
 
