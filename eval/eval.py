@@ -11,6 +11,7 @@ Options:
     --model MODEL             Override model specified in config
     --output-dir DIR          Override output directory specified in config
     --max-concurrent NUM      Maximum number of concurrent API calls
+    --base-url URL            API base URL (default: https://openrouter.ai/api/v1)
     --save-metadata           Save entry metadata in results
     --full-results            Save the full results file
     --verbose                 Print detailed model responses
@@ -29,7 +30,7 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 from eval_config import CategoryConfig, DatasetConfig, EvalConfig
 from openai import AsyncOpenAI
@@ -61,15 +62,25 @@ def get_git_hash() -> str:
 class AsyncModelEvaluator:
     """Evaluates models on reasoning datasets with async API calls via OpenRouter."""
 
-    def __init__(self, config: EvalConfig, verbose: bool = False, debug: bool = False):
+    def __init__(
+        self,
+        config: EvalConfig,
+        api_key: Optional[str] = None,
+        base_url: str = "https://openrouter.ai/api/v1",
+        verbose: bool = False,
+        debug: bool = False,
+    ):
         """Initialize the evaluator with configuration.
 
         Args:
             config: Evaluation configuration
+            api_key: API key for the service (optional for some APIs)
+            base_url: API base URL
             verbose: Whether to print detailed model responses
             debug: Whether to enable debug logging
         """
         self.config = config
+        self.base_url = base_url
         self.verbose = verbose
         self.debug = debug
 
@@ -83,12 +94,8 @@ class AsyncModelEvaluator:
             # Suppress httpx logs in normal mode
             logging.getLogger("httpx").setLevel(logging.WARNING)
 
-        # Set up OpenRouter API client
-        api_key = os.getenv("OPENROUTER_API_KEY")
-        if not api_key:
-            raise ValueError("OPENROUTER_API_KEY environment variable is not set")
-
-        self.client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
+        # Set up API client
+        self.client = AsyncOpenAI(base_url=self.base_url, api_key=api_key)
 
         # Concurrency control
         self.semaphore = asyncio.Semaphore(config.max_concurrent)
@@ -474,6 +481,11 @@ async def main_async():
     parser.add_argument("--model", help="Override model specified in config")
     parser.add_argument("--output-dir", help="Override output directory specified in config")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
+    parser.add_argument("--base-url", default="https://openrouter.ai/api/v1", help="API base URL")
+    parser.add_argument(
+        "--api-key",
+        help="API key for the service (optional for some APIs, defaults to OPENROUTER_API_KEY env var for OpenRouter URLs)",
+    )
     parser.add_argument("--save-metadata", action="store_true", help="Save entry metadata in results")
     parser.add_argument("--full-results", action="store_true", help="Save the full results file")
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
@@ -481,11 +493,17 @@ async def main_async():
 
     args = parser.parse_args()
 
-    # Check for required API key
-    if not os.getenv("OPENROUTER_API_KEY"):
-        print("Error: OPENROUTER_API_KEY environment variable is not set")
-        print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
-        return 1
+    # Get API key from command line or environment variable
+    api_key = args.api_key
+    if api_key is None:
+        # If base_url is OpenRouter, try to get API key from environment
+        if args.base_url.startswith("https://openrouter.ai/api"):
+            api_key = os.getenv("OPENROUTER_API_KEY")
+            if not api_key:
+                print("Warning: OPENROUTER_API_KEY environment variable is not set")
+                print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
+                print("Or provide it directly with --api-key")
+                print("Continuing without API key...")
 
     # Load configuration
     config_path = args.config
@@ -510,7 +528,9 @@ async def main_async():
         config.save_full_results = True
 
     # Create evaluator
-    evaluator = AsyncModelEvaluator(config=config, verbose=args.verbose, debug=args.debug)
+    evaluator = AsyncModelEvaluator(
+        config=config, api_key=api_key, base_url=args.base_url, verbose=args.verbose, debug=args.debug
+    )
 
     # Run evaluation
     try:
