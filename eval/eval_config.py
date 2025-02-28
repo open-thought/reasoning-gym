@@ -45,7 +45,8 @@ class EvalConfig:
 
     model: str
     provider: Optional[str] = None
-    system_prompt: str = SYSTEM_PROMPTS["default"]
+    system_prompt: Optional[str] = None
+    system_prompt_id: Optional[str] = None
     system_role: str = "system"
     output_dir: str = "results"
     max_concurrent: int = 10
@@ -58,6 +59,36 @@ class EvalConfig:
     temperature: Optional[float] = 0.6
     top_p: Optional[float] = 0.95
     categories: list[CategoryConfig] = field(default_factory=list)
+    
+    def get_system_prompt(self) -> str:
+        """Get the system prompt to use for evaluation.
+        
+        Returns:
+            The system prompt string to use
+        """
+        if self.system_prompt is not None and self.system_prompt_id is not None:
+            import logging
+            logging.warning(
+                "Both system_prompt and system_prompt_id are specified in the configuration. "
+                "Using system_prompt and ignoring system_prompt_id."
+            )
+            return self.system_prompt
+        
+        if self.system_prompt is not None:
+            return self.system_prompt
+        
+        if self.system_prompt_id is not None:
+            if self.system_prompt_id in SYSTEM_PROMPTS:
+                return SYSTEM_PROMPTS[self.system_prompt_id]
+            else:
+                import logging
+                logging.warning(
+                    f"System prompt ID '{self.system_prompt_id}' not found in SYSTEM_PROMPTS. "
+                    f"Using default system prompt instead."
+                )
+        
+        # Default case: use the default system prompt
+        return SYSTEM_PROMPTS["default"]
 
     @classmethod
     def from_json(cls, json_path: str) -> "EvalConfig":
@@ -133,7 +164,8 @@ class EvalConfig:
         return cls(
             model=config_data.get("model"),
             provider=config_data.get("provider", "openai"),
-            system_prompt=config_data.get("system_prompt", SYSTEM_PROMPTS["default"]),
+            system_prompt=config_data.get("system_prompt"),
+            system_prompt_id=config_data.get("system_prompt_id"),
             system_role=config_data.get("system_role", "system"),
             output_dir=config_data.get("output_dir", "results"),
             max_concurrent=config_data.get("max_concurrent", 10),

@@ -121,7 +121,7 @@ class AsyncModelEvaluator:
                     params = {
                         "model": self.config.model,
                         "messages": [
-                            {"role": self.config.system_role, "content": self.config.system_prompt},
+                            {"role": self.config.system_role, "content": self.config.get_system_prompt()},
                             {"role": "user", "content": prompt},
                         ],
                     }
@@ -261,7 +261,7 @@ class AsyncModelEvaluator:
                 "average_score": average_score,
                 "total_examples": len(results),
                 "config": {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params},
-                "system_prompt": self.config.system_prompt,
+                "system_prompt": self.config.get_system_prompt(),
                 "results": results,
             }
 
@@ -273,7 +273,7 @@ class AsyncModelEvaluator:
                 "average_score": 0.0,
                 "total_examples": 0,
                 "config": {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params},
-                "system_prompt": self.config.system_prompt,
+                "system_prompt": self.config.get_system_prompt(),
                 "error": str(e),
                 "results": [],
             }
@@ -401,7 +401,9 @@ class AsyncModelEvaluator:
         summary_data["git_hash"] = self.git_hash
         summary_data["model"] = self.config.model
         summary_data["provider"] = self.config.provider
-        summary_data["system_prompt"] = self.config.system_prompt
+        summary_data["system_prompt"] = self.config.get_system_prompt()
+        if self.config.system_prompt_id:
+            summary_data["system_prompt_id"] = self.config.system_prompt_id
         summary_data["max_tokens"] = self.config.max_tokens
         summary_data["temperature"] = self.config.temperature
         summary_data["top_p"] = self.config.top_p
@@ -436,10 +438,11 @@ class AsyncModelEvaluator:
         print("------------------")
         print(f"Model: {self.config.model}")
         print(f"Provider: {self.config.provider}")
+        system_prompt = self.config.get_system_prompt()
         print(
-            f"System Prompt: {self.config.system_prompt[:50]}..."
-            if len(self.config.system_prompt) > 50
-            else self.config.system_prompt
+            f"System Prompt: {system_prompt[:50]}..."
+            if len(system_prompt) > 50
+            else system_prompt
         )
         print(f"Max Tokens: {self.config.max_tokens}")
         print(f"Temperature: {self.config.temperature}")
