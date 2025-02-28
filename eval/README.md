@@ -28,17 +28,19 @@ pip install -e ..
 pip install -r requirements-eval.txt
 ```
 
-3. Set your API key:
-   
+3. Set your API key (if required by the API):
+
    For OpenRouter, you can set it as an environment variable:
    ```bash
    export OPENROUTER_API_KEY=your-api-key
    ```
-   
+
    Or provide it directly when running the script:
    ```bash
    python eval.py --config your_config.yaml --api-key your-api-key
    ```
+
+   Note: API key is optional for some APIs (e.g., local deployments).
 
 
 4. Prepare your evaluation configuration in YAML or JSON format (see example in `example_config.yaml`):
