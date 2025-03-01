@@ -110,8 +110,12 @@ def test_letter_jumble_dataset_items():
 
         # Test the scoring
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
-        assert dataset.score_answer(answer="gibberish", entry=item) == 0.01
         assert dataset.score_answer(answer=None, entry=item) == 0.0
+        answera = item["answer"].split(" ")
+        answera[0] = "flippityfloop"
+        answera[1] = "doopadoopadoop"
+        answerf = " ".join(answera)
+        assert 0.01 <= dataset.score_answer(answer=answerf, entry=item) <= 1.0
 
 
 def test_letter_jumble_iteration():
