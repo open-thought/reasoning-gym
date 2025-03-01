@@ -19,6 +19,15 @@ class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
         self.size = size
         self.seed = seed if seed is not None else Random().randint(0, 2**32)
 
+    @property
+    def category(self) -> str:
+        """Extract category from the module name."""
+        module_name = self.__class__.__module__
+        parts = module_name.split(".")
+        if len(parts) >= 3:
+            return parts[1]  # reasoning_gym.{category}.dataset_name
+        return "other"
+
     def __len__(self) -> int:
         """Return the virtual size of the dataset"""
         return self.size
