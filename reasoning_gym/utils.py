@@ -36,18 +36,19 @@ def extract_answer(completion: str, tag_name: str = "answer", strip: bool = True
     return answer
 
 
-def format_number(num: Union[int, float], max_decimals: int = 2) -> str:
+def format_number(num: Union[int, float], max_decimals: int = 2, round_if_needed: bool = False) -> str:
     """Convert a number to string representation with controlled decimal places.
 
     Args:
         num: Number to format
         max_decimals: Maximum allowed decimal places
+        round_if_needed: If True, round the number to max_decimals instead of raising an error
 
     Returns:
         String representation of the number
 
     Raises:
-        ValueError: If number requires more decimal places than allowed
+        ValueError: If number requires more decimal places than allowed and round_if_needed is False
     """
     if isinstance(num, int) or num.is_integer():
         return str(int(num))

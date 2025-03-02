@@ -20,8 +20,8 @@ def test_format_number():
     assert format_number(3.10) == "3.1"
     assert format_number(3.00) == "3"
     
-    # Test with max_decimals
-    assert format_number(3.14159, max_decimals=4) == "3.1416"
+    # Test with max_decimals (rounding)
+    assert format_number(3.14159, max_decimals=4, round_if_needed=True) == "3.1416"
     
     # Test with trailing zeros
     assert format_number(5.5000) == "5.5"
