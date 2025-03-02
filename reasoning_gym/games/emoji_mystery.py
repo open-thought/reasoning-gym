@@ -119,7 +119,7 @@ _EMOJIS = [
 ]
 
 # Keep the hint function in a separate variable to control the visibility of the hint
-hint_function = """Here is a hint: 
+hint_function = """Here is a hint:
 ```python
 def variance_selector_to_byte(variation_selector):
     variation_selector_codepoint = ord(variation_selector)

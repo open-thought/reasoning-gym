@@ -75,7 +75,7 @@ FORMAT INSTRUCTIONS:
     - IFF = \u2194
     - NOT = \u00ac
 
-Here is the question: 
+Here is the question:
 """
 
 
