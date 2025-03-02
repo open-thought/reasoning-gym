@@ -39,7 +39,7 @@ def test_compute_decimal_reward():
     # Test with commas
     assert compute_decimal_reward("1,000", "1000") == 1.0
     assert compute_decimal_reward("1,000", "1000", strip_commas=False) < 1.0
-    
+
     # Test with sign, leading zeros, and trailing decimals
     assert compute_decimal_reward("+0001,000.00", "1000") == 1.0
 
