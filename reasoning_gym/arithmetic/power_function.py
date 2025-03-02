@@ -9,14 +9,6 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to compute an exponentiation of a number.
 
-Example:
-- Input: Compute 2^3
-- Output: 8
-
-Example:
-- Input: Compute 412.5^3
-- Output: 70189453.125
-
 Compute {base}^{exponent}
 """
 

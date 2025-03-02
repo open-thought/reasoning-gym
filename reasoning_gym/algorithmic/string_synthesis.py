@@ -23,10 +23,6 @@ In the case a state is repeated the answer is the state before the repetition!
 The output should be the count of each block type after the rules have been applied in the order they are listed above.
 For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {{A}} 2 {{B}} 0 {{C}} 0 (A) 0 (B) 1 (C).
 
-Example:
-- Input: You have 2 [A], 3 [B], and 3 [C].
-- Output: 0 0 0 2 1 0 0 0 0
-
 Now, you have {A_square} [A], {B_square} [B], and {C_square} [C] blocks. Provide the count of each block type after applying the above rules.
 """
 

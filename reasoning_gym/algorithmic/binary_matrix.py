@@ -13,15 +13,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
-Example:
-- Input: Find the distance to the nearest 0 for each cell in the matrix below:
-0 0 0
-0 1 0
-1 1 1
-- Output:
-0 0 0
-0 1 0
-1 2 1
+The output should be a matrix of the same size as the input matrix, where each cell contains the distance to the nearest 0.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
 {matrix}

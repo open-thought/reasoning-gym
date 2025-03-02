@@ -18,9 +18,7 @@ A palindrome is a word that reads the same backward as forward.
 
 You may return all possible palindrome partitioning in any order.
 
-Example:
-- Input: Partition the following string into palindromes: aab
-- Output: [["a","a","b"],["aa","b"]]
+Your output should be a list of lists, where each list represents a palindrome partition, e.g. [["a","a","b"],["aa","b"]].
 
 Partition the following string into palindromes: {string}
 """

@@ -15,9 +15,7 @@ For each word in a sentence, the letter may have been randomly shuffled. Your ta
 
 The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
 
-Example:
-- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
-- Output: meanderings Why any child can do that
+Your output should be a sentence with the words unscrambled.
 
 Now, unscramble these words: {words}
 """

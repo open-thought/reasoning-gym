@@ -21,9 +21,7 @@ class TextTransformation(StrEnum):
 
 QUESTION_TEMPLATE = """Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
 
-Example:
-- Input: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: freely, idea, indemnify, last, END, solving
-- Output: END, freely, idea, indemnify, last, solving
+Your output should be a comma-separated list of words, e.g. word_1, word_2, word_3
 
 Now, sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {words}
 """

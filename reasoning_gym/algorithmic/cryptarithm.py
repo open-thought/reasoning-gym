@@ -17,16 +17,6 @@ from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
-EXAMPLE_CASE = """- Input:
-  BASE
-+ BALL
-------
- GAMES
-
-- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
-
-"""
-
 
 @dataclass
 class CryptarithmConfig:
@@ -35,7 +25,6 @@ class CryptarithmConfig:
     min_words: int = 2  # Minimum number of addends
     max_words: int = 3  # Maximum number of addends
     allow_leading_zero: bool = False
-    include_example: bool = True
     seed: Optional[int] = None
     size: int = 500  # Number of puzzle instances to generate
 
@@ -179,8 +168,6 @@ class CryptarithmDataset(ProceduralDataset):
             )
             + 'Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)\n'
         )
-        if self.config.include_example:
-            question_str += "\nHere's an example:\n" + EXAMPLE_CASE
 
         # 8) Create a human-readable answer, e.g. "A=1,B=0,C=9,..."
         sorted_letter_keys = sorted(letter_to_digit.keys())

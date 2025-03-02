@@ -20,17 +20,7 @@ No two queens attack each other if they are not in the same row, column, or diag
 
 You can place a queen by replacing an underscore (_) with a Q.
 
-Example:
-- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
-_ Q _ _
-_ _ _ _
-_ _ _ _
-_ _ Q _
-- Output:
-_ Q _ _
-_ _ _ Q
-Q _ _ _
-_ _ Q _
+Your output should be also a board in the same format as the input, with queens placed on the board by replacing underscores with the letter Q.
 
 Given the below board of size {n} x {n} your job is to place {num_removed} queen(s) on the board such that no two queens attack each other.
 {puzzle}

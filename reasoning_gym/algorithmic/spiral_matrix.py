@@ -12,12 +12,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
-Example:
-- Input: For the matrix below, what is the list of elements in spiral order?
-1 2 3
-4 5 6
-7 8 9
-- Output: 1 2 3 6 9 8 7 4 5
+Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
 For the matrix below, what is the list of elements in spiral order?
 {matrix}

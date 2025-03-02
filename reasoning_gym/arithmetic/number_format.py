@@ -8,9 +8,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to pick the largest/smallest number out of several options.
 
-Example
-- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
-- Output: 8.975554e+05
+Your output should be only the number of interest.
 
 Now, pick the {size} number of the following candidates: {numbers}
 """

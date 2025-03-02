@@ -18,9 +18,7 @@ QUESTION_TEMPLATE = """Given a string consisting of characters A, B, C, D, and E
 
 Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
 
-Example
-- Input: DDABCDEEDEAB
-- Output: DDABCDAEEDEABD
+Your output should be a string that has been modified according to the pattern.
 
 Given the following string, provide the answer after inserting the characters according to the pattern: {string}
 """

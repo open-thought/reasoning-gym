@@ -8,29 +8,7 @@ QUESTION_TEMPLATE = """Your task is to count how many rectangles are present in 
 
 Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
 
-Example:
-- Input: How many rectangles are in the grid below?
-
-              ####
-              #  #
-              ####
-
-
-
-
-
-
-
-
-
-
- #########
- #       █##
- #       █ #
- ########█ #
-         # #
-         ###
-- Output: 3
+Your output should be a single number, representing the total count of rectangles.
 
 Now, it's your turn. How many rectangles do you see in the grid below?
 {puzzle}

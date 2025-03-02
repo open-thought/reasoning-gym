@@ -118,8 +118,8 @@ _EMOJIS = [
     "🤍",
 ]
 
-
-hint_function = """
+# Keep the hint function in a separate variable to control the visibility of the hint
+hint_function = """Here is a hint: 
 ```python
 def variance_selector_to_byte(variation_selector):
     variation_selector_codepoint = ord(variation_selector)
@@ -129,6 +129,7 @@ def variance_selector_to_byte(variation_selector):
         return variation_selector_codepoint - 0xE0100 + 16
     else:
         return None
+
 def decode(encoded_sentence):
     decoded_bytes = []
     variation_selectors_part = encoded_sentence[1:]
@@ -141,14 +142,14 @@ def decode(encoded_sentence):
 """
 
 
-QUESTION_TEMPLATE = "\n".join(
-    [
-        "The following emoji is encoded with a sentence.",
-        "Decode the following sentence from the emoji: {sentence}",
-        "Here is a hint: {hint_function}",
-        "Return the secret sentence as your final answer.",
-    ]
-)
+QUESTION_TEMPLATE = """The following emoji is encoded with a sentence.
+
+Decode the following sentence from the emoji: {sentence}
+
+{hint_function}
+
+Return the secret sentence as your final answer.
+"""
 
 
 @dataclass
