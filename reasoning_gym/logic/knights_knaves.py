@@ -215,21 +215,11 @@ class KKProblemFormatter:
         self.rng = np.random.default_rng(rand_seed)
         self.problem = problem
 
-    def format_problem(
-        self,
-        random_names=True,
-        random_saying_template=True,
-        random_knight_knave_pairs=True,
-        flip_knight_knave_pair=False,
-        uncommon_name=False,
-        reorder_statement=False,
-    ):
+    def format_problem(self):
         statements = copy.deepcopy(self.problem["statements"])
         n_people = len(statements)
         names = list(self.rng.choice(COMMON_NAMES, size=n_people, replace=False))
-        knight_knave = ["a knight", "a knave"]
-        if random_knight_knave_pairs:
-            knight_knave = self.rng.choice(KNIGHT_KNAVE_PAIRS)
+        knight_knave = self.rng.choice(KNIGHT_KNAVE_PAIRS)
         knight_knave = {
             "knight": knight_knave[0].split()[1],
             "knave": knight_knave[1].split()[1],
