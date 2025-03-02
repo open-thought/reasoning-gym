@@ -24,17 +24,7 @@ EXAMPLE_CASE = """- Input:
  GAMES
 
 - Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
-- Explanation:
-    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
-    * Units: E + L = S (no carry).
-    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
-    * Since S = E + 5 and S is one digit, E < 5.
-    * Hundreds: 2A + 1 = M (with carry).
-    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
-    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
-    * With E < 5, try E = 3: Then S = 8.
-    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
-    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
+
 """
 
 

@@ -11,9 +11,6 @@ QUESTION_TEMPLATE = """Your task is to pick the largest/smallest number out of s
 Example
 - Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
 - Output: 8.975554e+05
-- Explanation:
-    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
-    - Therefore, the largest number is 8.975554e+05
 
 Now, pick the {size} number of the following candidates: {numbers}
 """

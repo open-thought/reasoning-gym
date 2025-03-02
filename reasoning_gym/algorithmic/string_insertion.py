@@ -21,12 +21,6 @@ Once you have inserted a character, you have to skip over the substring and the 
 Example
 - Input: DDABCDEEDEAB
 - Output: DDABCDAEEDEABD
-- Explanation:
-    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
-    - First, we insert A after ABCD.
-    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
-    - Lastly, we insert D after DEAB.
-    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
 
 Given the following string, provide the answer after inserting the characters according to the pattern: {string}
 """

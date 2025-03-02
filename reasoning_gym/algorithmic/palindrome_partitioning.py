@@ -21,10 +21,6 @@ You may return all possible palindrome partitioning in any order.
 Example:
 - Input: Partition the following string into palindromes: aab
 - Output: [["a","a","b"],["aa","b"]]
-- Explanation:
-    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
-    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
-    - Therefore, the final result is a list of the two palindrome partitions.
 
 Partition the following string into palindromes: {string}
 """

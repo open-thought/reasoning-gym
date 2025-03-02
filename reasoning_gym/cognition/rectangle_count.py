@@ -31,10 +31,6 @@ Example:
          # #
          ###
 - Output: 3
-- Explanation:
-    - The first rectangle is the 3x4 rectangle in the top right.
-    - The other two rectangles are overlapping in the bottom left corner.
-    - Therefore, the final answer is 3.
 
 Now, it's your turn. How many rectangles do you see in the grid below?
 {puzzle}

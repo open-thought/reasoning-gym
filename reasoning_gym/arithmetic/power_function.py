@@ -12,16 +12,10 @@ QUESTION_TEMPLATE = """Your task is to compute an exponentiation of a number.
 Example:
 - Input: Compute 2^3
 - Output: 8
-- Explanation:
-    - 2^3 = 2 * 2 * 2 = 8
-    - Therefore, the final answer is 8
 
 Example:
 - Input: Compute 412.5^3
 - Output: 70189453.125
-- Explanation:
-    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
-    - Therefore, the final answer is 70189453.125
 
 Compute {base}^{exponent}
 """

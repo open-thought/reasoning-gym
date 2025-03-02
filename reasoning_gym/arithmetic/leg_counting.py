@@ -59,12 +59,6 @@ QUESTION_TEMPLATE = """Your task is to count how many legs there are in total wh
 Example:
 - Input: How many legs are there in total if you have 1 duck, 2 deers, 1 spider, 3 cows?
 - Output: 30
-- Explanation:
-    - Ducks have 2 legs each, so 1 duck has 2 legs.
-    - Deers have 4 legs each, so 2 deers have 8 legs.
-    - Spiders have 8 legs each, so 1 spider has 8 legs.
-    - Cows have 4 legs each, so 3 cows have 12 legs.
-    - Therefore, the total number of legs is 2 + 8 + 8 + 12 = 30
 
 Now, how many legs are there in total if you have {animals}?
 """

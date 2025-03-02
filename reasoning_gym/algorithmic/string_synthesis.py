@@ -26,12 +26,6 @@ For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {{A}} 2 {{
 Example:
 - Input: You have 2 [A], 3 [B], and 3 [C].
 - Output: 0 0 0 2 1 0 0 0 0
-- Explanation:
-    0. Initial state: 2 3 3 0 0 0 0 0 0
-    1. We can apply Rule 1 and obtain 1 {{A}}. New state: 1 2 2 1 0 0 0 0 0
-    2. We can apply Rule 1 again and obtain 1 {{A}}. New state 0 1 1 2 0 0 0 0 0
-    3. We can apply Rule 3 and obtain 1 {{B}}. New state 0 0 0 2 1 0 0 0 0
-    4. No more rules can be applied. The answer is 0 0 0 2 1 0 0 0 0
 
 Now, you have {A_square} [A], {B_square} [B], and {C_square} [C] blocks. Provide the count of each block type after applying the above rules.
 """

@@ -25,10 +25,7 @@ Example:
         2. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
         3. If the string ends with 'aa', replace it with 'cc'.
 - Output: bbbacc
-- Explanation:
-    - In the first iteration, rule 1 is applied to the string abbac, resulting in cabac
-    - In the second interation, rule 1 doesn't apply, but rule 2 is applied to the string cabac, resulting in bbbacc
-    - In the third iteration, none of the rules (1, 2, 3) apply, so the process is terminated, and the final answer is bbbacc
+
 
 Transform the following string according to the above list of rules:
 {string}

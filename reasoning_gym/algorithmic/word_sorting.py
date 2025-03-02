@@ -24,13 +24,6 @@ QUESTION_TEMPLATE = """Your task is to sort words in ascending or descending ord
 Example:
 - Input: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: freely, idea, indemnify, last, END, solving
 - Output: END, freely, idea, indemnify, last, solving
-- Explanation:
-    - Uppercase letters come before lowercase letters, hence why "END" comes first.
-    - "freely" comes before "idea" because "f" comes before "i".
-    - "idea" comes before "indemnify" because even though they both start with "i", "d" comes before "n".
-    - "indemnify" comes before "last" because "i" comes before "l".
-    - "last" comes before "solving" because "l" comes before "s".
-    - Finally, the output is provided as a comma separated list of the sorted words.
 
 Now, sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {words}
 """

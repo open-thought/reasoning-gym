@@ -18,17 +18,6 @@ The order of the words in the sentence is preserved. Moreover, the style of the 
 Example:
 - Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
 - Output: meanderings Why any child can do that
-- Explanation
-    - We unscramble each of the words independently.
-    - raendgmeins -> meanderings
-    - yWh -> Why
-    - nya -> any
-    - hilcd -> child
-    - anc -> can
-    - od -> do
-    - hatt -> that
-    - The final answer is: meanderings Why any child can do that
-    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
 
 Now, unscramble these words: {words}
 """

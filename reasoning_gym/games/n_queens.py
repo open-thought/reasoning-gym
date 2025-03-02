@@ -31,9 +31,6 @@ _ Q _ _
 _ _ _ Q
 Q _ _ _
 _ _ Q _
-- Explanation
-    - None of the queens attack each other vertically, horizontally, or diagonally.
-    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
 
 Given the below board of size {n} x {n} your job is to place {num_removed} queen(s) on the board such that no two queens attack each other.
 {puzzle}
