@@ -108,7 +108,7 @@ def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_comm
                 oracle_answer = oracle_answer.replace(",", "")
 
             if Decimal(answer) == Decimal(oracle_answer):
-                reward = 1.0
+                return 1.0
         except:
             pass
 
