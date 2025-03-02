@@ -87,6 +87,7 @@ def is_integer(obj: Any) -> bool:
 
 def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
     """Compute the reward for a given answer compared to the oracle answer.
+    Tolerate sign, leading zeros and trailing decimals, optionally strip commas ("+01,000.00" == "1000")
 
     Args:
         answer: Answer provided by model
