@@ -111,7 +111,8 @@ class ChainSumDataset(ProceduralDataset):
         return expression, result
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        return utils.compute_decimal_reward(answer, oracle_answer=entry["answer"])
+        # tolerate sign, leading zeros and trailing decimals, strip commas "+01,000.00" == "1000"
+        return utils.compute_decimal_reward(answer, oracle_answer=entry["answer"], strip_commas=True)
 
 
 class ChainSumCurriculum(BaseCurriculum):
