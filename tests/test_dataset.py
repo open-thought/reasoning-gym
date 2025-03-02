@@ -44,8 +44,8 @@ def test_reseeding_dataset_iteration():
 def test_extract_answer():
     assert extract_answer("This is a text. <final_answer>1234</final_answer>", tag_name="final_answer") == "1234"
 
-    # ignore single whitespae
-    assert extract_answer("This is a text. <answer>\n1234 </answer>", tag_name="answer") == "1234"
+    # ignore whitespaces
+    assert extract_answer("This is a text. <answer>\n1234 </answer>", tag_name="answer", strip=True) == "1234"
 
     config = BasicArithmeticDatasetConfig(
         min_terms=2, max_terms=3, min_digits=1, max_digits=2, operators=["+"], allow_parentheses=False, seed=42, size=10

@@ -19,7 +19,7 @@ Do not explain your reasoning inside the answer tags, provide only the final ans
 }
 
 
-def extract_answer(completion: str, tag_name: str = "answer") -> Optional[str]:
+def extract_answer(completion: str, tag_name: str = "answer", strip: bool = True) -> Optional[str]:
     regex = f"<{tag_name}>\\s?(.*?)\\s?</{tag_name}>"
     matches = list(
         re.finditer(
@@ -30,7 +30,10 @@ def extract_answer(completion: str, tag_name: str = "answer") -> Optional[str]:
     )
     if not matches:
         return None
-    return matches[-1].group(1)
+    answer = matches[-1].group(1)
+    if strip:
+        answer = answer.strip()
+    return answer
 
 
 def format_number(num: Union[int, float], max_decimals: int = 2) -> str:

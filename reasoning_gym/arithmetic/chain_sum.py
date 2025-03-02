@@ -110,9 +110,6 @@ class ChainSumDataset(ProceduralDataset):
         expression = " ".join(expression_parts)
         return expression, result
 
-    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        return utils.compute_decimal_reward(answer, oracle_answer=entry["answer"])
-
 
 class ChainSumCurriculum(BaseCurriculum):
     def __init__(self):
