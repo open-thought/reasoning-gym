@@ -61,10 +61,10 @@ def format_number(num: Union[int, float], max_decimals: int = 2, round_if_needed
     str_val = str_val.rstrip("0").rstrip(".")
     if "." in str_val:
         required_decimals = len(str_val.split(".")[1])
-        if required_decimals > max_decimals:
+        if required_decimals > max_decimals and not round_if_needed:
             raise ValueError(f"Number {num} requires {required_decimals} decimals but only {max_decimals} allowed")
 
-    # Format with required decimals
+    # Format with required decimals (will round if needed)
     result = f"{num:.{max_decimals}f}".rstrip("0").rstrip(".")
 
     # Verify result parses back to original value
