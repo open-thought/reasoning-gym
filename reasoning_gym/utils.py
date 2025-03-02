@@ -67,13 +67,14 @@ def format_number(num: Union[int, float], max_decimals: int = 2, round_if_needed
     # Format with required decimals (will round if needed)
     result = f"{num:.{max_decimals}f}".rstrip("0").rstrip(".")
 
-    # Verify result parses back to original value
-    try:
-        parsed = float(result)
-        if not math.isclose(parsed, num, rel_tol=1e-9):
-            raise ValueError(f"String representation {result} does not match original value {num}")
-    except (ValueError, InvalidOperation) as e:
-        raise ValueError(f"Failed to verify string representation: {e}")
+    # Verify result parses back to original value (skip verification if rounding was applied)
+    if not round_if_needed:
+        try:
+            parsed = float(result)
+            if not math.isclose(parsed, num, rel_tol=1e-9):
+                raise ValueError(f"String representation {result} does not match original value {num}")
+        except (ValueError, InvalidOperation) as e:
+            raise ValueError(f"Failed to verify string representation: {e}")
 
     return result
 
