@@ -8,6 +8,8 @@ from typing import Optional
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
+QUESTION_TEMPLATE = """Solve the following problem. Provide you answer as a comma-separated list of word with a space the comma. Reverse this list of words: {question}"""
+
 
 @dataclass
 class WordSequenceReversalConfig:
@@ -49,7 +51,7 @@ class WordSequenceReversalDataset(ProceduralDataset):
         answer = ", ".join(reversed(words))
 
         return {
-            "question": f"Reverse this list of words: {question}",
+            "question": f"{QUESTION_TEMPLATE.format(question=question)}",
             "answer": answer,
             "metadata": {"num_words": num_words, "words": words},
         }
