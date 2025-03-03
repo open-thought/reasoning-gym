@@ -15,7 +15,6 @@ class GameOfLifeConfig:
     grid_size_x: int = 10
     grid_size_y: int = 10
     filled_cells: int = 100  # actually a max
-    debug_fill: bool = False  # Debugging/test fill pattern, you can ignore this
     simulation_steps: int = 1
     seed: Optional[int] = None
     size: int = 500
@@ -58,12 +57,6 @@ class GameOfLifeDataset(ProceduralDataset):
             rx = rng.randint(0, self.config.grid_size_x - 1)
             ry = rng.randint(0, self.config.grid_size_y - 1)
             board[:, rx, ry] = 1
-
-        # Filling the grid option
-        if self.config.debug_fill:
-            board[:, :, 0] = 0
-            board[:, :, 1] = 1
-            board[:, :, 2] = 0
 
         # Simulate the result to get the answer
         evolved = cpl.evolve2d(
