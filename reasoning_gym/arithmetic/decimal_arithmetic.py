@@ -11,9 +11,9 @@ from ..factory import ProceduralDataset, register_dataset
 class DecimalArithmeticConfig:
     """Configuration for decimal arithmetic dataset generation"""
 
-    min_num_decimal_places: int = 6
-    max_num_decimal_places: int = 6
-    precision: int = 28
+    min_num_decimal_places: int = 3
+    max_num_decimal_places: int = 3
+    precision: int = 6
     terms: int = 6
     seed: Optional[int] = None
     size: int = 500
