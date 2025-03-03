@@ -1,3 +1,5 @@
+import json
+
 import pytest
 
 from reasoning_gym.algorithmic.game_of_life import GameOfLifeConfig, GameOfLifeDataset
@@ -49,6 +51,40 @@ def test_game_of_life_basic_properties():
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
         assert dataset.score_answer(answer="invalid json", entry=item) == 0.01
+
+    config = GameOfLifeConfig(seed=43, size=1, grid_size_x=3, grid_size_y=3, filled_cells=1, simulation_steps=1)
+    dataset = GameOfLifeDataset(config)
+
+    for item in dataset:
+        assert isinstance(item, dict)
+        assert "question" in item
+        assert "answer" in item
+        assert "metadata" in item
+
+        ja = json.loads(item["answer"])
+        ja[0][0] = 1
+        ja[0][1] = 1
+        ja[0][2] = 1
+        jas = json.dumps(ja)
+
+        # Test the scoring
+        assert 0.1 < dataset.score_answer(answer=jas, entry=item) < 1.0
+
+    config = GameOfLifeConfig(
+        seed=44, size=1, grid_size_x=3, grid_size_y=3, filled_cells=9, debug_fill=True, simulation_steps=1
+    )
+    dataset = GameOfLifeDataset(config)
+
+    for item in dataset:
+        assert isinstance(item, dict)
+        assert "question" in item
+        assert "answer" in item
+        assert "metadata" in item
+
+        # This is a completely filled grid after 1 step.
+
+        # Test the scoring
+        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
 
 
 def test_game_of_life_iteration():

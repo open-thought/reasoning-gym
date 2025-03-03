@@ -15,6 +15,7 @@ class GameOfLifeConfig:
     grid_size_x: int = 10
     grid_size_y: int = 10
     filled_cells: int = 100  # actually a max
+    debug_fill: bool = False  # Debugging/test fill pattern, you can ignore this
     simulation_steps: int = 1
     seed: Optional[int] = None
     size: int = 500
@@ -32,7 +33,7 @@ class GameOfLifeDataset(ProceduralDataset):
 
     def __init__(self, config: GameOfLifeConfig):
         self._prompt_templates = [
-            "What will this Game of Life board look like after {simulation_steps} steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])\n\n{board}."
+            "What will this Game of Life board look like after {simulation_steps} steps of simulation? Assume a Moore neighborhood and wrapping topology. Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])\n\n{board}."
         ]
 
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -57,6 +58,12 @@ class GameOfLifeDataset(ProceduralDataset):
             rx = rng.randint(0, self.config.grid_size_x - 1)
             ry = rng.randint(0, self.config.grid_size_y - 1)
             board[:, rx, ry] = 1
+
+        # Filling the grid option
+        if self.config.debug_fill:
+            board[:, :, 0] = 0
+            board[:, :, 1] = 1
+            board[:, :, 2] = 0
 
         # Simulate the result to get the answer
         evolved = cpl.evolve2d(
@@ -105,13 +112,42 @@ class GameOfLifeDataset(ProceduralDataset):
         try:
             ans_arr = json.loads(answer)
             correct_arr = json.loads(entry["answer"])
-
-            if correct_arr != ans_arr:
-                return 0.01
-            else:
-                return 1.0  # Yay
-        except Exception as e:
+        except Exception:
             return 0.01
+
+        total_cells = 0
+        correct_cells = 0
+
+        # Determine if the array is 2D (i.e. a list of lists)
+        is_2d = correct_arr and isinstance(correct_arr[0], list)
+
+        if is_2d:
+            # Iterate over rows and columns of the expected grid.
+            for i, expected_row in enumerate(correct_arr):
+                for j, expected_value in enumerate(expected_row):
+                    total_cells += 1
+                    try:
+                        if ans_arr[i][j] == expected_value:
+                            correct_cells += 1
+                    except (IndexError, TypeError):
+                        # Either the row or the cell is missing, treat as incorrect.
+                        pass
+        else:
+            # 1D array case.
+            for i, expected_value in enumerate(correct_arr):
+                total_cells += 1
+                try:
+                    if ans_arr[i] == expected_value:
+                        correct_cells += 1
+                except IndexError:
+                    pass
+
+        # If for some reason there are no cells, return 0.0.
+        if total_cells == 0:
+            return 0.0
+
+        # Each cell contributes equally.
+        return correct_cells / total_cells
 
 
 register_dataset("game_of_life", GameOfLifeDataset, GameOfLifeConfig)
