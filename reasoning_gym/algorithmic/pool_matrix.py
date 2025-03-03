@@ -11,7 +11,7 @@ from ..factory import ProceduralDataset, register_dataset
 QUESTION_TEMPLATE = """Your job is to perform max/average pooling on the given matrix.
 The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
 
-Your output should be a matrix in the same format as the input matrix. 
+Your output should be a matrix in the same format as the input matrix.
 The output matrix is smaller than the input matrix when the kernel size is greater than 1, and its elements may be floating-point numbers.
 
 Perform {pool_type} pooling on the following matrix with a kernel size of {pool_size}:
