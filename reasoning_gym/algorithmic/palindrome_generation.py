@@ -11,13 +11,7 @@ A palindrome is a phrase that reads the same forwards and backwards.
 
 If there are multiple possible answers, only respond with one of them. You must use all the letters provided.
 
-Example:
-- Input: Form a valid palindrome using the following letters: a, a, b
-- Output: aba
-- Explanation:
-    - The phrase aba reads the same forwards and backwards.
-    - The output answer is a valid palindrome using all the letters provided.
-    - The answer is a string, rather than a list of characters.
+Your output should be a single string, with no spaces or punctuation.
 
 Now, form a valid palindrome using the following letters: {letters}
 """

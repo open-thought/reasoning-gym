@@ -19,13 +19,7 @@ QUESTION_TEMPLATE = """There are several letter cards, and the game rules are as
 6. "Peng" takes precedence over "Chi".
 7. The card that is removed does not affect the result determination of the current round.
 
-Example:
-- Input: Given the initial cards ABBCCDDEEFFGH, what is the result at the end of performing the following rounds of operations:
-Round 1: Add a B card and remove an E card.
-Round 2: Add a C card and remove an H card.
-Round 3: Add an E card and remove a D card.
-Round 4: Add a D card and remove an F card.
-- Output: Chi
+Your output should be one of the following: "Peng", "Chi", or "Pass" (without quotes).
 
 Now, given the initial cards {cards}, what is the result at the end of performing the following rounds of operations:
 {operations}

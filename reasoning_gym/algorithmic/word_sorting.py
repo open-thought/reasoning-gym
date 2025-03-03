@@ -21,16 +21,7 @@ class TextTransformation(StrEnum):
 
 QUESTION_TEMPLATE = """Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
 
-Example:
-- Input: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: freely, idea, indemnify, last, END, solving
-- Output: END, freely, idea, indemnify, last, solving
-- Explanation:
-    - Uppercase letters come before lowercase letters, hence why "END" comes first.
-    - "freely" comes before "idea" because "f" comes before "i".
-    - "idea" comes before "indemnify" because even though they both start with "i", "d" comes before "n".
-    - "indemnify" comes before "last" because "i" comes before "l".
-    - "last" comes before "solving" because "l" comes before "s".
-    - Finally, the output is provided as a comma separated list of the sorted words.
+Your output should be a comma-separated list of words, e.g. word_1, word_2, word_3
 
 Now, sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {words}
 """

@@ -18,15 +18,7 @@ QUESTION_TEMPLATE = """Given a string consisting of characters A, B, C, D, and E
 
 Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
 
-Example
-- Input: DDABCDEEDEAB
-- Output: DDABCDAEEDEABD
-- Explanation:
-    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
-    - First, we insert A after ABCD.
-    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
-    - Lastly, we insert D after DEAB.
-    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
+Your output should be a string that has been modified according to the pattern.
 
 Given the following string, provide the answer after inserting the characters according to the pattern: {string}
 """

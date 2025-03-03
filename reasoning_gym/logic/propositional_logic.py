@@ -62,22 +62,21 @@ class Operator(StrEnum):
     IFF = "↔"
 
 
-QUESTION_FORMAT = "\n".join(
-    [
-        "The following question is a propositional logic reasoning question.",
-        "In the question we provide a list of premises",
-        "The task is to infer a correct conclusion from the premise.",
-        "FORMAT INSTRUCTIONS:",
-        "Return the conclusion logic statement, as your final answer.",
-        "Use the following notation to denote symbols",
-        "OR = \u2228",
-        "AND = \u2227",
-        "IMPLIES = \u2192",
-        "IFF = \u2194",
-        "NOT = \u00ac",
-        "Here is the question:",
-    ]
-)
+QUESTION_FORMAT = """The following question is a propositional logic reasoning question.
+
+In the question we provide a list of premises. The task is to infer a correct conclusion from the premise.
+
+FORMAT INSTRUCTIONS:
+- Return the conclusion logic statement, as your final answer.
+- Use the following notation to denote symbols
+    - OR = \u2228
+    - AND = \u2227
+    - IMPLIES = \u2192
+    - IFF = \u2194
+    - NOT = \u00ac
+
+Here is the question:
+"""
 
 
 @dataclass
