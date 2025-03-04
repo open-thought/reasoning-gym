@@ -500,7 +500,7 @@ async def main_async():
                 print("Warning: OPENROUTER_API_KEY environment variable is not set")
                 print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
                 print("Or provide it directly with --api-key")
-                sys.exit(1)
+                return 1
 
     # Load configuration
     config_path = args.config
