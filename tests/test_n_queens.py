@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.games.n_queens import NQueensConfig, NQueensDataset, NQueensCurriculum
+from reasoning_gym.games.n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
 
 
 def test_nqueens_config_validation():

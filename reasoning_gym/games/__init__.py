@@ -13,7 +13,7 @@ from .knight_swap import KnightSwapConfig, KnightSwapDataset
 from .mahjong import MahjongPuzzleConfig, MahjongPuzzleDataset
 from .maze import MazeConfig, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset
-from .n_queens import NQueensDataset, NQueensConfig, NQueensCurriculum
+from .n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
 from .rush_hour import RushHourConfig, RushHourDataset
 from .sokoban import SokobanConfig, SokobanDataset
 from .sudoku import SudokuConfig, SudokuDataset

@@ -161,7 +161,7 @@ class NQueensCurriculum(BaseCurriculum):
                 name="n",
                 field_name="n",
                 levels=[4, 6, 8, 10, 12],
-                default_level=0, 
+                default_level=0,
                 description="Board size",
                 attr_type=AttributeType.STATIC,
                 min_value=4,
@@ -175,7 +175,7 @@ class NQueensCurriculum(BaseCurriculum):
                 min_value=1,
                 lower_field_name="min_remove",
                 upper_field_name="max_remove",
-            )
+            ),
         )
 
 
