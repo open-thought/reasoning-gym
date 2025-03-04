@@ -78,16 +78,19 @@ class CodeIODataset(ProceduralDataset):
         with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
             CodeIODataset._jsonl_data = [json.loads(line) for line in f]
 
-    def _generate_io_pairs(self, main_code: str, input_generator_code: str, rng: Random, num_pairs: int = 1):
+    def _generate_io_pair(self, main_code: str, input_generator_code: str, rng: Random, max_retries: int = 10):
         local_vars = {}
         exec(main_code, {"Random": Random}, local_vars)
         exec(input_generator_code, {"Random": Random}, local_vars)
-        io_pairs = []
-        for _ in range(num_pairs):
-            inputs = local_vars["generate_inputs"](rng)
-            outputs = local_vars["main_solution"](**inputs)
-            io_pairs.append((inputs, outputs))
-        return io_pairs
+        for _ in range(max_retries):
+            try:
+                inputs = local_vars["generate_inputs"](rng)
+                outputs = local_vars["main_solution"](**inputs)
+            except Exception:
+                # Retry
+                continue
+            return inputs, outputs
+        return {}, {}
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single CodeI/O reasoning task"""
@@ -100,7 +103,7 @@ class CodeIODataset(ProceduralDataset):
         reference_code = json_data["code_sample"]
         input_generator_code = json_data["input_generator"]
 
-        input_data, output_data = self._generate_io_pairs(reference_code, input_generator_code, rng, num_pairs=1)[0]
+        input_data, output_data = self._generate_io_pair(reference_code, input_generator_code, rng)
 
         if rng.random() < self.config.input_prediction_probability:
             question = OUTPUT_PREDICTION_PROMPT_TEMPLATE.format(query, parameters, input_data, reference_code)
