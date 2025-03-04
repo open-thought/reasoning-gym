@@ -90,13 +90,16 @@ class Puzzle24Dataset(ProceduralDataset):
             expr, numbers, syms = self._generate_candidate_expression(rng, 4)
             if expr.subs({sym: num for sym, num in zip(syms, numbers)}) == 24:
                 break
+        expr_str = str(expr)
+        for i, sym in enumerate(syms):
+            expr_str = expr_str.replace(str(sym), str(numbers[i]))
 
         question = QUESTION_TEMPLATE.format(
             numbers=", ".join(map(str, numbers)), operators=", ".join(self.config.operators)
         )
         return {
             "question": question,
-            "answer": str(expr),
+            "answer": expr_str,
             "metadata": {
                 "numbers": numbers,
                 "expression": expr,

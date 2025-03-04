@@ -59,7 +59,17 @@ def test_puzzle24_basic_properties():
         assert num_str in item["question"]
 
 
-def test_puzzle24_score_answer():
+def test_puzzle24_score_answer_correct():
+    """Test the score_answer method for correct answers"""
+    config = Puzzle24Config(seed=42)
+    dataset = Puzzle24Dataset(config)
+    for item in dataset:
+        answer = item["answer"]
+        print(item)
+        assert dataset.score_answer(answer, item) == 1.0
+
+
+def test_puzzle24_score_answer_individual():
     """Test the score_answer method"""
     config = Puzzle24Config(seed=42)
     dataset = Puzzle24Dataset(config)
