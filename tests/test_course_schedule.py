@@ -138,7 +138,7 @@ def test_course_schedule_curriculum():
     assert base_cfg.min_num_prerequisites == 2 and base_cfg.max_num_prerequisites == 2
     assert base_cfg.min_cycle_length == 3 and base_cfg.max_cycle_length == 3
 
-    # test incrementing attribute levels for num_terms & num_digits attributes
+    # test incrementing attribute levels 
     curriculum.increment_attr_level("num_courses")
     curriculum.increment_attr_level("num_prerequisites")
     curriculum.increment_attr_level("cycle_length")
@@ -147,7 +147,7 @@ def test_course_schedule_curriculum():
     assert increased_cfg.min_num_prerequisites == 2 and increased_cfg.max_num_prerequisites == 3
     assert increased_cfg.min_cycle_length == 3 and increased_cfg.max_cycle_length == 4
 
-    # test decrementing attribute level for num_digits again
+    # test decrementing attribute level for num_courses again
     curriculum.decrement_attr_level("num_courses")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_num_courses == 10 and partially_decreased_cfg.max_num_courses == 10
