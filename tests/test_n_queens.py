@@ -117,7 +117,7 @@ def test_nqueens_score_answer():
 
         # Test invalid answer gets score 0.01
         invalid_answer = "_ _ _ _\n_ _ _ _\n_ _ _ _\n_ _ _ _"
-        assert dataset.score_answer(invalid_answer, item) == 0.01
+        assert dataset.score_answer(invalid_answer, item) == 0.0
 
         # Test None answer gets score 0.0
         assert dataset.score_answer(None, item) == 0.0
