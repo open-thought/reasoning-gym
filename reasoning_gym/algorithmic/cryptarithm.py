@@ -200,7 +200,7 @@ class CryptarithmDataset(ProceduralDataset):
         Returns:
             float: The computed score between 0.0 and 1.0.
         """
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0
 
         correct_mapping = {}

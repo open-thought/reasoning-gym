@@ -65,14 +65,13 @@ class NumberFormatDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["metadata"]["solution"]
-        if answer is not None and len(answer) > 0:
+        if isinstance(answer, str) and len(answer) > 0:
             try:
                 answer = float(answer.strip().replace(",", ""))
                 if abs(answer - oracle_answer) < 1e-2:
                     return 1.0
-                return 0.01
             except:
-                return 0.0
+                pass
         return 0.0
 
     def __getitem__(self, idx: int) -> dict:

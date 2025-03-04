@@ -36,7 +36,7 @@ def test_reseeding_dataset_iteration():
 
     # Test score_answer forwarding
     test_item = next(iter(infinite_dataset))
-    assert infinite_dataset.score_answer("wrong", test_item) == 0.01
+    assert infinite_dataset.score_answer("wrong", test_item) == 0.0
     assert infinite_dataset.score_answer(test_item["answer"], test_item) == 1.0
 
 

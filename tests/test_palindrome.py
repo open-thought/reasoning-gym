@@ -84,8 +84,8 @@ def test_score_answer():
         wrong_letters = "abcd" if "abcd" != correct_answer else "efgh"
         assert dataset.score_answer(wrong_letters, entry=item) == 0.02
 
-        # Empty String input should score 0.01
-        assert dataset.score_answer("", entry=item) == 0.01
+        # Empty String input should score 0.0
+        assert dataset.score_answer("", entry=item) == 0.0
 
         # Empty input should score 0.0
         assert dataset.score_answer(None, entry=item) == 0.0

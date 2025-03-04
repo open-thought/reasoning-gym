@@ -130,12 +130,9 @@ Return the final state of the program.
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
-            return 0.0
-        if answer != entry["answer"]:
-            return 0.01
-        else:
+        if answer == entry["answer"]:
             return 1.0  # Yay
+        return 0.0
 
 
 # Register the dataset

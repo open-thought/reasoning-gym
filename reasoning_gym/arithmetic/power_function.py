@@ -44,10 +44,8 @@ class PowerFunctionDataset(ProceduralDataset):
                     return 1.0
                 elif difference < 1e-1:
                     return 0.5
-                else:
-                    return 0.01
-            except Exception as e:
-                return 0.01
+            except Exception:
+                pass
         return 0.0
 
     def __getitem__(self, idx: int) -> dict:

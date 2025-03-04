@@ -339,9 +339,7 @@ class SelfReferenceDataset(ProceduralDataset):
 
         # Solve puzzle
         solutions = solve_puzzle_dynamic(puzzle)
-        for idx, sol in enumerate(solutions, start=1):
-            sol_str = ["True" if s else "False" for s in sol]
-        answer = len(solutions)
+        answer = str(len(solutions))
 
         return {
             "question": puzz_s,
@@ -362,12 +360,10 @@ class SelfReferenceDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
-            return 0.0
-        if str(answer) != str(entry["answer"]):
-            return 0.1
-        else:
-            return 1.0  # Yay
+        if isinstance(answer, str):
+            if answer == str(entry["answer"]):
+                return 1.0  # Yay
+        return 0.0
 
 
 register_dataset("self_reference", SelfReferenceDataset, SelfReferenceConfig)

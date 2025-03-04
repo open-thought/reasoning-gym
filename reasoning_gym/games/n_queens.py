@@ -138,8 +138,8 @@ class NQueensDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        valid_solutions = entry["metadata"]["valid_answers"]
-        if answer is not None:
+        if isinstance(answer, str):
+            valid_solutions = entry["metadata"]["valid_answers"]
             if answer in valid_solutions:
                 return 1.0
             try:
@@ -147,7 +147,7 @@ class NQueensDataset(ProceduralDataset):
                 if answer in valid_solutions:
                     return 0.5
             except Exception as e:
-                return 0.01
+                pass
         return 0.0
 
 

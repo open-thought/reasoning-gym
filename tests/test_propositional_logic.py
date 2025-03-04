@@ -100,4 +100,4 @@ def test_propositional_logic_dataset_score_answer_incorrect():
     dataset = PropositionalLogicDataset(PropositionalLogicConfig(size=100, seed=101))
     for i, item in enumerate(dataset):
         score = dataset.score_answer("Wrong", item)
-        assert score == 0.01
+        assert score == 0.0

@@ -160,17 +160,15 @@ class BitwiseArithmeticDataset(ProceduralDataset):
         Returns:
             float: 1.0 if the user's answer is correct; otherwise, 0.01 unless no answer is provided, in which case 0.
         """
-        if answer is None:
-            return 0.0
+        if isinstance(answer, str):
+            try:
+                solved = verify_solution(entry["metadata"]["problem"], answer)
+                if solved:
+                    return 1.0
+            except Exception:
+                pass
 
-        try:
-            solved = verify_solution(entry["metadata"]["problem"], answer)
-            if solved:
-                return 1.0
-        except Exception:
-            return 0.01
-
-        return 0.01
+        return 0.0
 
 
 # Register the dataset with the factory.

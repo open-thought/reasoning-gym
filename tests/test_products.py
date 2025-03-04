@@ -139,7 +139,7 @@ def test_products_scoring():
     assert dataset.score_answer(item["answer"], item) == 1.0, "Exact match should score 1.0"
 
     # Test scoring with wrong answer
-    assert dataset.score_answer("wrong", item) == 0.01, "Wrong answer should score 0.01"
+    assert dataset.score_answer("wrong", item) == 0.0, "Wrong answer should score 0.0"
 
     # Test scoring with partial match (answer contained in response)
     assert (

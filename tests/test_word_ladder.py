@@ -380,20 +380,20 @@ def test_word_ladder_score_answer():
     assert dataset.score_answer("COLD", entry) == 0.0
 
     # Test wrong start word
-    assert dataset.score_answer("BOLD,CORD,CARD,WARD,WARM", entry) == 0.01
+    assert dataset.score_answer("BOLD,CORD,CARD,WARD,WARM", entry) == 0.0
 
     # Test wrong end word
-    assert dataset.score_answer("COLD,CORD,CARD,WARD,WARP", entry) == 0.01
+    assert dataset.score_answer("COLD,CORD,CARD,WARD,WARP", entry) == 0.0
 
     # Test wrong word length
-    assert dataset.score_answer("COLD,CORDS,CARDS,WARD,WARM", entry) == 0.01
+    assert dataset.score_answer("COLD,CORDS,CARDS,WARD,WARM", entry) == 0.0
 
     # Test invalid transitions (more than one letter change)
-    assert dataset.score_answer("COLD,WARD,WARM", entry) == 0.01
+    assert dataset.score_answer("COLD,WARD,WARM", entry) == 0.0
 
     # Test case insensitivity
     assert dataset.score_answer("cold,cord,card,ward,warm", entry) == 1.0
 
     # Test with unknown words (should return partial credit)
-    assert dataset.score_answer("COLD,COXD,CARD,WARD,WARM", entry) < 1.0
-    assert dataset.score_answer("COLD,COXD,CARD,WARD,WARM", entry) > 0.0
+    assert dataset.score_answer("COLD,COXD,CORD,CARD,WARD,WARM", entry) < 1.0
+    assert dataset.score_answer("COLD,COXD,CORD,CARD,WARD,WARM", entry) > 0.0

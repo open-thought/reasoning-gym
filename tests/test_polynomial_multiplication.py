@@ -92,7 +92,6 @@ def test_polynomial_equations_dataset_items():
 
         # Check metadata
         assert isinstance(item["metadata"]["polynomial_expr"], str)
-        assert isinstance(item["metadata"]["result"], str)
         assert isinstance(item["metadata"]["variables"], list)
 
         # Check polynomial_expr existence
@@ -127,42 +126,6 @@ def test_cross_polynomial_equations_dataset_items():
 
         # Check metadata
         assert isinstance(item["metadata"]["polynomial_expr"], str)
-        assert isinstance(item["metadata"]["result"], str)
-        assert isinstance(item["metadata"]["variables"], list)
-
-        # Check polynomial_expr existence
-        poly_str = item["metadata"]["polynomial_expr"]
-        # Ensure it can parse with sympy
-        sp.sympify(poly_str)
-
-
-def test_cross_polynomial_equations_dataset_items():
-    """Test that generated items have correct structure"""
-    ds = create_dataset(
-        "polynomial_multiplication",
-        min_terms=2,
-        max_terms=3,
-        min_value=1,
-        max_value=5,
-        min_degree=1,
-        max_degree=2,
-        min_polynomials=2,
-        max_polynomials=5,
-        variables=tuple("xyz"),
-        allow_cross_variable_product=True,
-        allow_multivariate_polynomials=False,
-        size=3,
-        seed=100,
-    )
-
-    for item in ds:
-        assert "question" in item
-        assert "answer" in item
-        assert "metadata" in item
-
-        # Check metadata
-        assert isinstance(item["metadata"]["polynomial_expr"], str)
-        assert isinstance(item["metadata"]["result"], str)
         assert isinstance(item["metadata"]["variables"], list)
 
         # Check polynomial_expr existence
@@ -197,7 +160,6 @@ def test_multivariate_polynomial_equations_dataset_items():
 
         # Check metadata
         assert isinstance(item["metadata"]["polynomial_expr"], str)
-        assert isinstance(item["metadata"]["result"], str)
         assert isinstance(item["metadata"]["variables"], list)
 
         # Check polynomial_expr existence
@@ -242,7 +204,7 @@ def test_polynomial_solutions_evaluation():
         poly_expr = sp.expand(poly_str)
 
         # Verify that each solution satisfies the polynomial
-        assert poly_expr == item["answer"]
+        assert str(poly_expr) == item["answer"]
 
 
 def test_score_function():
@@ -266,11 +228,11 @@ def test_score_function():
 
     for item in ds:
         poly_str = item["metadata"]["polynomial_expr"]
-        assert ds.score_answer(poly_str, item) == 0.05
+        assert ds.score_answer(poly_str, item) == 0.0
 
         poly_expr = str(sp.expand(poly_str))
         assert ds.score_answer(poly_expr, item) == 1.0
 
-        assert ds.score_answer(None, item) == 0.00
-        assert ds.score_answer("Not a polynomial", item) == 0.01
-        assert ds.score_answer("x**4", item) == 0.05
+        assert ds.score_answer(None, item) == 0.0
+        assert ds.score_answer("Not a polynomial", item) == 0.0
+        assert ds.score_answer("x**4", item) == 0.0

@@ -58,6 +58,7 @@ def test_complex_arithmetic_scoring():
     assert dataset.score_answer("3 + 2i", entry) == 1.0
     assert dataset.score_answer("3+2i", entry) == 1.0
     assert dataset.score_answer("3.0 + 2.0i", entry) == 1.0
+    assert dataset.score_answer("((3.0 + 2.0i ) )", entry) == 1.0
 
     # Test answers with small errors (should get high but < 1.0 scores)
     print(dataset.score_answer("3.1 + 2i", entry))

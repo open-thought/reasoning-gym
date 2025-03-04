@@ -103,7 +103,7 @@ def test_arc_1d_scoring():
     assert dataset.score_answer(f"The answer is: {entry['answer']}", entry) > 0.5
 
     # Test incorrect answer
-    assert dataset.score_answer("wrong answer", entry) == 0.01
+    assert dataset.score_answer("wrong answer", entry) == 0.0
 
     # Test None answer
     assert dataset.score_answer(None, entry) == 0.0

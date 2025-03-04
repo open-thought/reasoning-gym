@@ -126,11 +126,9 @@ class SpiralMatrixDataset(ProceduralDataset):
             try:
                 answer = " ".join(str(item) for item in eval(answer))
                 if answer == oracle_answer:
-                    return 0.5
-                else:
-                    return 0.01
-            except Exception as e:
-                return 0.01
+                    return 0.1
+            except Exception:
+                pass
 
         return 0.0
 

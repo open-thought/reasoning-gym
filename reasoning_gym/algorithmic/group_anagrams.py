@@ -95,7 +95,7 @@ class GroupAnagramsDataset(ProceduralDataset):
                 if answer_str == oracle_str:
                     reward = 1.0
                 else:
-                    reward = 0.01
+                    reward = 0.01  # json parsable
             except Exception:
                 reward = 0.0
         return reward

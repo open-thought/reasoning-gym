@@ -358,16 +358,14 @@ class FamilyRelationshipsDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
-        if answer is not None:
+        if isinstance(answer, str):
             try:
                 answer_formatted = answer.strip().lower()
-                solved = answer_formatted == entry["answer"].strip().lower()
-                if solved:
+                oracle_answer = entry["answer"].strip().lower()
+                if answer_formatted == oracle_answer:
                     reward = 1.0
-                else:
-                    reward = 0.01
             except:
-                reward = 0.01
+                pass
         return reward
 
 

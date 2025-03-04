@@ -125,8 +125,8 @@ class ShortestPathDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
-        oracle_answer = entry["answer"].strip()
-        if answer is not None and len(answer) > 0:
+        if isinstance(answer, str) and len(answer) > 0:
+            oracle_answer = entry["answer"].strip()
             answer = answer.strip()
 
             # Exact answer
@@ -144,8 +144,6 @@ class ShortestPathDataset(ProceduralDataset):
             # Path is valid but has a larger length than the oracle answer
             elif self._is_valid_path(matrix, answer):
                 return 0.5
-
-            return 0.01
 
         return 0.0
 

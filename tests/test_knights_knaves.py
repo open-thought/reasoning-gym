@@ -99,8 +99,7 @@ def test_score_answer():
     assert dataset.score_answer(correct_answer, problem) == 1.0
     assert abs(dataset.score_answer(half_answer, problem) - 0.65) < 1e-10
     assert dataset.score_answer(modified_answer, problem) == 1.0
-    assert dataset.score_answer(wrong_answer, problem) == 0.01
-    print("flipped")
+    assert dataset.score_answer(wrong_answer, problem) == 0.0
     assert dataset.score_answer(flipped_answer, problem) == 1.0
 
 

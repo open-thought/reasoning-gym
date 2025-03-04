@@ -246,7 +246,7 @@ class TimeIntervalsDataset(ProceduralDataset):
         Returns a score between 0 and 1, with partial credit for answers that are
         close to correct in the appropriate units/format
         """
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0
 
         expected = entry["answer"]

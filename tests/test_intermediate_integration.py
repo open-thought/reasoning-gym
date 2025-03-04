@@ -121,16 +121,16 @@ def test_score_answer_cases():
         ("x**2", {"variable": "x", "integrand": "2*x"}, 1.0),
         ("log(x)", {"variable": "x", "integrand": "1/x"}, 1.0),
         # Incorrect but properly formatted
-        ("x**3 + C", {"variable": "x", "integrand": "2*x"}, 0.05),
-        ("cos(X)", {"variable": "X", "integrand": "sin(X)"}, 0.05),
+        ("x**3 + C", {"variable": "x", "integrand": "2*x"}, 0.0),
+        ("cos(X)", {"variable": "X", "integrand": "sin(X)"}, 0.0),
         # Malformed expressions
-        ("x**2 +", {"variable": "x", "integrand": "2*x"}, 0.01),
-        ("sin(x", {"variable": "x", "integrand": "cos(x)"}, 0.01),
+        ("x**2 +", {"variable": "x", "integrand": "2*x"}, 0.0),
+        ("sin(x", {"variable": "x", "integrand": "cos(x)"}, 0.0),
         # Empty answer
-        ("", {"variable": "x", "integrand": "2*x"}, 0.01),
+        ("", {"variable": "x", "integrand": "2*x"}, 0.0),
         # Case sensitivity
-        ("x**2 + C", {"variable": "X", "integrand": "2*X"}, 0.05),
-        ("X**2 + C", {"variable": "x", "integrand": "2*x"}, 0.05),
+        ("x**2 + C", {"variable": "X", "integrand": "2*X"}, 0.0),
+        ("X**2 + C", {"variable": "x", "integrand": "2*x"}, 0.0),
         # Alternative constant notation
         ("x**2 + K", {"variable": "x", "integrand": "2*x"}, 1.0),
         ("sin(x) + D", {"variable": "x", "integrand": "cos(x)"}, 1.0),

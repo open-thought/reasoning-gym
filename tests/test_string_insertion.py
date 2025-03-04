@@ -101,4 +101,4 @@ def test_string_insertion_answer():
     # Test score_answer with correct answer as python list of characters (partial correct)
     answer = "['A', 'A', 'B', 'C', 'D', 'A', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'B', 'C', 'D', 'E', 'B', 'A', 'A', 'A', 'A', 'A']"
     entry = {"answer": "AABCDAEEEEEEEBCDEBAAAAA"}
-    assert dataset.score_answer(answer, entry) == 0.5
+    assert dataset.score_answer(answer, entry) == 0.1

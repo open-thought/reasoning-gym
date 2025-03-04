@@ -108,9 +108,9 @@ class BinaryMatrixDataset(ProceduralDataset):
                     # check if answer is python list of lists
                     answer = self._matrix_to_str(eval(answer))
                     if answer == oracle_answer:
-                        return 0.5
-                except Exception as e:
-                    return 0.01
+                        return 0.1
+                except Exception:
+                    return 0.0
         return 0.0
 
     def __getitem__(self, idx: int) -> dict:

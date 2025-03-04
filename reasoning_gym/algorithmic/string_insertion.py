@@ -75,7 +75,7 @@ class StringInsertionDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["answer"]
-        if answer is not None:
+        if isinstance(answer, str):
             if answer == oracle_answer:
                 return 1.0
             else:
@@ -83,9 +83,9 @@ class StringInsertionDataset(ProceduralDataset):
                     # check if answer is python list of characters
                     answer = "".join(eval(answer))
                     if answer == oracle_answer:
-                        return 0.5
-                except Exception as e:
-                    return 0.01
+                        return 0.1
+                except Exception:
+                    pass
         return 0.0
 
     def __getitem__(self, idx: int) -> dict:

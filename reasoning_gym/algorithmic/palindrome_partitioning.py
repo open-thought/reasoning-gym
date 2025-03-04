@@ -95,9 +95,8 @@ class PalindromePartitioningDataset(ProceduralDataset):
                 oracle = self.to_set_of_tuples(entry["metadata"]["solution"])
                 if answer == oracle:
                     return 1.0
-                return 0.01
             except Exception:
-                return 0.0
+                pass
         return 0.0
 
     def _generate_palindrome_letters(self, rng: Random, length: int) -> list[str]:

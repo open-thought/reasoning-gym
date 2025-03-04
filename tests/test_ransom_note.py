@@ -86,7 +86,7 @@ def test_group_anagrams_dataset_items():
 
         # Test the scoring
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
-        assert dataset.score_answer(answer="gibberish", entry=item) == 0.01
+        assert dataset.score_answer(answer="gibberish", entry=item) == 0.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
 

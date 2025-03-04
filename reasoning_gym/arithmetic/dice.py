@@ -138,12 +138,11 @@ class DiceDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
-            return 0.0
-        if answer.lower().replace("\n", "") != entry["answer"].lower().replace("\n", ""):
-            return 0.01
-        else:
-            return 1.0  # Yay
+        if isinstance(answer, str):
+            if answer.lower().replace("\n", "") == entry["answer"].lower().replace("\n", ""):
+                return 1.0  # Yay
+
+        return 0.0
 
 
 register_dataset("dice", DiceDataset, DiceConfig)

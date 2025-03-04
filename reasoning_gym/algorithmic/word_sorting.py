@@ -121,8 +121,6 @@ class WordSortingDataset(ProceduralDataset):
                 return 1.0
             elif sorted(parsed_answer) == oracle_answer:
                 return 0.2
-            else:
-                return 0.01
 
         return 0.0
 
