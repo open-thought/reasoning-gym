@@ -62,12 +62,15 @@ class PolynomialEquationsDataset(ProceduralDataset):
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
         self.added_instruction = """
-In solving the equations, please abide by the following instruction:
-## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
-## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
-## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
-## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
-## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+In solving equations, please follow these instructions:
+1. Provide all answers as comma-separated decimal values. For example: "-0.3773, 0.4005"
+2. For solutions that can be expressed in exact form (like "u = 2 + sqrt(4560)/172" and "u = 2 - sqrt(4560)/172"), convert them to decimal form in your final answer.
+3. If there are no real values that satisfy the equation, report your answer as an empty string: ""
+4. Format your answer based on the number of solutions:
+   - For 1 solution: a single decimal number
+   - For 2 solutions: two comma-separated decimal numbers
+   - For 3 or more solutions: all values as comma-separated decimal numbers
+5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 """
         super().__init__(config=config, seed=config.seed, size=config.size)
 
