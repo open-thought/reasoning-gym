@@ -1,6 +1,7 @@
 import reasoning_gym
 from reasoning_gym.factory import DATASETS
 
+
 def test_score_answer_consistency():
     for dataset_name in DATASETS.keys():
         dataset = reasoning_gym.create_dataset(dataset_name, size=10, seed=1234)

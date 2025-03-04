@@ -85,14 +85,14 @@ def generate(
         if out_of_place_boxes >= boxes // 2:
             # Optionally save the puzzle to a file:
             if path:
-                np.savetxt(path, matrix, fmt='%s')
+                np.savetxt(path, matrix, fmt="%s")
             puzzle_str = player.puzzle_to_string(matrix)
 
             grid_list = [list(line) for line in puzzle_str.replace(" ", "").strip().split("\n")]
             grid_array = np.array(grid_list)
             solution, depth = solve_astar(grid_array, max_depth=max_depth)
             if solution is None:
-                continue    # retry generation
+                continue  # retry generation
 
             if debug:
                 print(f"solution={solution}")
