@@ -13,6 +13,7 @@ QUESTION_TEMPLATE = """How many 1 bits are there in the binary representation of
 class CountBitsConfig:
     """Configuration for Count Bits dataset generation"""
 
+    min_n: int = 1  # Minimum number to consider
     max_n: int = 2**31 - 1  # Maximum number to consider
 
     size: int = 500  # Virtual dataset size
@@ -20,7 +21,7 @@ class CountBitsConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 1 <= self.max_n, "max_n must be at least 1"
+        assert 1 <= self.min_n <= self.max_n, "min_n must be between 1 and max_n"
 
 
 class CountBitsDataset(ProceduralDataset):
@@ -33,7 +34,7 @@ class CountBitsDataset(ProceduralDataset):
         """Generate a single Count Bits question"""
         rng = Random(self.seed + idx)
 
-        number = rng.randint(1, self.config.max_n)
+        number = rng.randint(self.config.min_n, self.config.max_n)
         binary = bin(number)[2:]
         answer = binary.count("1")
 
@@ -42,6 +43,9 @@ class CountBitsDataset(ProceduralDataset):
             "answer": str(answer),
             "metadata": {"number": number, "solution": answer, "binary": binary},
         }
+
+
+
 
 
 register_dataset("count_bits", CountBitsDataset, CountBitsConfig)
