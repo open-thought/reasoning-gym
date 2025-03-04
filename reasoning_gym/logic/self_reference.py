@@ -339,8 +339,6 @@ class SelfReferenceDataset(ProceduralDataset):
 
         # Solve puzzle
         solutions = solve_puzzle_dynamic(puzzle)
-        for idx, sol in enumerate(solutions, start=1):
-            sol_str = ["True" if s else "False" for s in sol]
         answer = str(len(solutions))
 
         return {

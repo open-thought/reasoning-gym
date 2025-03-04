@@ -246,7 +246,7 @@ When performing calculations, please follow these guidelines:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
         metadata = entry["metadata"]
-        if answer is not None:
+        if isinstance(answer, str):
             try:
                 var = metadata["variable"]
                 x = sympy.Symbol(var)

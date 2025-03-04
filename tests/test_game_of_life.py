@@ -50,7 +50,7 @@ def test_game_of_life_basic_properties():
         # Test the scoring
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
-        assert dataset.score_answer(answer="invalid json", entry=item) == 0.01
+        assert dataset.score_answer(answer="invalid json", entry=item) == 0.0
 
     config = GameOfLifeConfig(seed=43, size=1, grid_size_x=3, grid_size_y=3, filled_cells=1, simulation_steps=1)
     dataset = GameOfLifeDataset(config)
