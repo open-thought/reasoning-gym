@@ -138,7 +138,7 @@ def test_course_schedule_curriculum():
     assert base_cfg.min_num_prerequisites == 2 and base_cfg.max_num_prerequisites == 2
     assert base_cfg.min_cycle_length == 3 and base_cfg.max_cycle_length == 3
 
-    # test incrementing attribute levels 
+    # test incrementing attribute levels
     curriculum.increment_attr_level("num_courses")
     curriculum.increment_attr_level("num_prerequisites")
     curriculum.increment_attr_level("cycle_length")
