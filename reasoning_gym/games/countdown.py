@@ -51,9 +51,9 @@ class CountdownDataset(ProceduralDataset):
 
     def __init__(self, config: CountdownConfig):
         self._prompt_templates = [
-            "Using the numbers {numbers}, create an expression that equals {target}.\nYou can only use each number once.",
-            "Find a way to make {target} using some or all of these numbers: {numbers}.\nEach number can only be used once.",
-            "Calculate {target} using the numbers {numbers}.\nEach number may be used at most once.",
+            "Using all the numbers {numbers}, create an expression that equals {target}.\nYou can only use each number once.",
+            "Find a way to make {target} using all of these numbers: {numbers}.\nEach number can only be used once.",
+            "Calculate {target} using all of these numbers: {numbers}.\nEach number may be used at most once.",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -174,31 +174,23 @@ class CountdownDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
-        reward = 0.0
-        metadata = entry["metadata"]
-        if answer is not None:
-            try:
-                answer = answer.strip()
-                user_answer = int(parse_expr(answer))
-                used_numbers = [int(num) for num in re.findall(r"\b\d+\b", answer)]
-                valid_numbers = True
+        reward = 0.01  # Default reward
 
-                for num in used_numbers:
-                    if num not in metadata["numbers"]:
-                        valid_numbers = False
-                        break
+        if answer is None or not answer.strip():
+            return reward
 
-                solved = user_answer == metadata["target"] and valid_numbers
+        try:
+            answer = answer.strip()
+            user_answer = int(parse_expr(answer))
+            used_numbers = [int(num) for num in re.findall(r"\b\d+\b", answer)]
+            target_numbers = set(entry["metadata"]["numbers"])
 
-                if solved:
-                    reward = 1.0
-                elif len(answer) > 0:
-                    reward = 0.05
-                else:
-                    reward = 0.01
-            except Exception as e:
-                reward = 0.01
-        return reward
+            if (user_answer == entry["metadata"]["target"]) and (set(used_numbers) == target_numbers):
+                return 1.0
+
+            return 0.05 if answer else 0.01
+        except Exception:
+            return 0.01
 
 
 # Register the dataset
