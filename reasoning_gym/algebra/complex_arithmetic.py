@@ -103,6 +103,10 @@ class ComplexArithmeticDataset(ProceduralDataset):
             # Normalize the answer string by removing spaces and converting to lowercase
             answer = answer.replace(" ", "").lower()
 
+            # remove brackets
+            while len(answer) > 1 and answer[0] == "(" and answer[-1] == ")":
+                answer = answer[1:-1]
+
             # Convert mathematical notation 'i' to Python's 'j' for complex numbers
             answer = answer.replace("i", "j")
 
