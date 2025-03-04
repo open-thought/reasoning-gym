@@ -228,7 +228,7 @@ def is_valid_final_state(pegs_state: dict, target_peg: int, num_disks: int) -> b
     return target_stack == list(range(num_disks, 0, -1))
 
 
-def test_score_answer():
+def test_toh_score_answer():
     """
     Test that the score_answer method returns the expected reward values.
 

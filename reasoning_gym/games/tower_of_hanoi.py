@@ -388,11 +388,8 @@ class HanoiDataset(ProceduralDataset):
             - An empty string gives 0.01.
             - None gives 0.0.
         """
-        if answer is None:
+        if not isinstance(answer, str) or len(answer) == 0:
             return 0.0
-
-        if answer == "":
-            return 0.01
 
         # If answer is a string, split it into lines; if it's already a list, use it directly.
         if isinstance(answer, str):
@@ -418,11 +415,11 @@ class HanoiDataset(ProceduralDataset):
             try:
                 disk, from_peg, to_peg = self._parse_move(move)
             except Exception:
-                return 0.01  # Invalid move format
+                return 0.0  # Invalid move format
 
             # Validate the move using existing _validate_move method.
             if not self._validate_move(peg_state, move):
-                return 0.01
+                return 0.0
 
             # Execute the move.
             peg_state[from_peg].pop()

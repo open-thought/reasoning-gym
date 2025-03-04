@@ -93,7 +93,7 @@ Here is your puzzle:
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
+        if not isinstance(answer, str):
             return 0.0
 
         try:
@@ -109,9 +109,9 @@ Here is your puzzle:
             if self._is_solved(game.get_curr_state()):
                 return 1.0
         except Exception as e:
-            return 0.01
+            pass
 
-        return 0.1
+        return 0.0
 
 
 register_dataset("sokoban", SokobanDataset, SokobanConfig)

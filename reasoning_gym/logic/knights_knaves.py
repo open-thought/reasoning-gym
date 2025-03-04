@@ -489,7 +489,7 @@ class KnightsKnavesDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score an answer against the oracle answer."""
-        if answer is None or len(answer) == 0:
+        if not isinstance(answer, str) or len(answer) == 0:
             return 0.0
 
         try:
@@ -506,11 +506,9 @@ class KnightsKnavesDataset(ProceduralDataset):
                 if matching > 0:
                     return 0.3 + (0.7 * matching / len(oracle_assignments))
 
-            return 0.01
-
         except Exception:
-            # If parsing fails, give minimal credit
-            return 0.01
+            pass
+        return 0.0
 
 
 register_dataset("knights_knaves", KnightsKnavesDataset, KnightsKnavesConfig)

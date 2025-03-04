@@ -295,7 +295,7 @@ class PropositionalLogicDataset(ProceduralDataset):
 
     def score_answer(self, answer: str | None, entry: dict[str, Any]) -> float:
         """Robust scoring implementation for propositional logic answers"""
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0
 
         try:
@@ -304,7 +304,7 @@ class PropositionalLogicDataset(ProceduralDataset):
             valid_vars = set(entry["metadata"]["variables"])
             answer_vars = re.findall(r"([A-Z])", cleaned_answer)
             if any(var not in valid_vars for var in answer_vars):
-                return 0.01
+                return 0.0
 
             premises = [Expression.from_string(p) for p in entry["metadata"]["premises"]]
             answer_expr = Expression.from_string(cleaned_answer)
@@ -316,7 +316,7 @@ class PropositionalLogicDataset(ProceduralDataset):
                     return 1.0
             return 0.05
         except (ValueError, KeyError, AttributeError):
-            return 0.01
+            return 0.0
 
     def _is_trivial(self, expr: Expression) -> bool:
         """Check for trivial tautologies like P ∨ ¬P"""

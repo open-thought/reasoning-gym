@@ -110,19 +110,17 @@ class NeedleHaystackDataset(ProceduralDataset):
         Returns:
             float: The computed score between 0.0 and 1.0.
         """
+        if isinstance(answer, str):
+            correct_word = entry["answer"]
 
-        correct_word = entry["answer"]
-        if not answer:
-            return 0.0  # No answer given
+            # Normalize case
+            answer = answer.replace(" ", "").strip().lower()
+            correct_word = correct_word.strip().lower()
 
-        # Normalize case
-        answer = answer.replace(" ", "").strip().lower()
-        correct_word = correct_word.strip().lower()
+            if answer == correct_word:
+                return 1.0  # Correct!
 
-        if answer == correct_word:
-            return 1.0  # Correct!
-
-        return 0.01
+        return 0.0
 
 
 # Register the dataset

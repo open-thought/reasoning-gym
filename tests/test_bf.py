@@ -23,7 +23,7 @@ def test_bf():
         # Test the scoring
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
-        assert dataset.score_answer(answer="Love is a battlefield", entry=item) == 0.01
+        assert dataset.score_answer(answer="Love is a battlefield", entry=item) == 0.0
 
     # Medium
     config = BFConfig(seed=43, size=20, difficulty=2)

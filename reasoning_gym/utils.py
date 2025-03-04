@@ -103,7 +103,6 @@ def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_comm
     """
     reward = 0.0
     if answer is not None and len(answer) > 0:
-        reward = 0.01
         try:
             if strip_commas:
                 answer = answer.replace(",", "")

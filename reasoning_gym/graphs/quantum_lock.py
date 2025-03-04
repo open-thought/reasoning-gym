@@ -169,7 +169,7 @@ Buttons:
 
         The function awards 1.0 for a correct answer and less otherwise.
         """
-        if answer == None:
+        if not isinstance(answer, str):
             return 0.0
 
         # Get correct solution from metadata
@@ -196,7 +196,7 @@ Buttons:
                 return 1.0  # Different answer, but qually correct
             return 0.5  # Alternative scoring - you're correct, but not optimal
 
-        return 0.1
+        return 0.0
 
     def simulate_sequence(self, metadata: dict, sequence: list[str]) -> int:
         """Simulate button presses to verify solutions"""

@@ -108,14 +108,12 @@ class RansomNoteDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
-            return 0.0
+        if isinstance(answer, str):
+            s_answer = answer.strip()
+            if s_answer == str(entry["answer"]):
+                return 1.0
 
-        s_answer = answer.strip()
-        if not s_answer == str(entry["answer"]):
-            return 0.01
-        else:
-            return 1.0
+        return 0.0
 
 
 register_dataset("ransom_note", RansomNoteDataset, RansomNoteConfig)

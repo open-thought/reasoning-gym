@@ -92,14 +92,14 @@ class PalindromeDataset(ProceduralDataset):
         - Correct answer (palindrome with only correct letters in the correct quantities) gives 1.0
         - An answer that is a palindrome, but not with the same letters as provided, gives 0.05
         - An answer that is a string, but not a palindrome gives 0.02
-        - An empty string gives 0.01.
+        - An empty string gives 0.0
         - None gives 0.0.
         """
         if answer is None or not isinstance(answer, str):
             return 0.0  # No answer given
 
         if answer == "":
-            return 0.01
+            return 0.0
 
         metadata = entry["metadata"]
         answer = answer.strip().lower()

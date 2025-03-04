@@ -103,12 +103,8 @@ When performing calculations, please follow these guidelines:
                 # Check mathematical equivalence through simplification
                 if sympy.simplify(derivative - integrand) == 0:
                     reward = 1.0
-                elif answer.strip():
-                    reward = 0.05
-                else:
-                    reward = 0.01
             except:
-                reward = 0.01
+                reward = 0.0
         return reward
 
 

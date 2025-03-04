@@ -221,8 +221,8 @@ class WordLadderDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        if answer is None:
-            return 0
+        if not isinstance(answer, str):
+            return 0.0
 
         answer_words = tuple(s.strip() for s in answer.upper().split(","))
 
@@ -239,17 +239,17 @@ class WordLadderDataset(ProceduralDataset):
         # 4. all words are in our vocabulary
 
         if len(answer_words) < 2:
-            return 0
+            return 0.0
 
         if answer_words[0] != start_word or answer_words[-1] != end_word:
-            return 0.01
+            return 0.0
 
         if not all(len(w) == word_length for w in answer_words):
-            return 0.01
+            return 0.0
 
         for i in range(1, len(answer_words)):
             if sum(1 for a, b in zip(answer_words[i - 1], answer_words[i]) if a != b) != 1:
-                return 0.01
+                return 0.0
 
         reward = 1.0
         for word in answer_words:

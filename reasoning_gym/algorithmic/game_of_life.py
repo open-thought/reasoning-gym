@@ -106,7 +106,7 @@ class GameOfLifeDataset(ProceduralDataset):
             ans_arr = json.loads(answer)
             correct_arr = json.loads(entry["answer"])
         except Exception:
-            return 0.01
+            return 0.0
 
         total_cells = 0
         correct_cells = 0

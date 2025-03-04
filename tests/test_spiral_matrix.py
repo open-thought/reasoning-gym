@@ -85,12 +85,12 @@ def test_spiral_matrix_answer():
     # Score answer in list format (partially correct)
     entry = {"answer": "1 2 3 6 9 8 7 4 5"}
     answer = "[1, 2, 3, 6, 9, 8, 7, 4, 5]"
-    assert dataset.score_answer(answer, entry) == 0.5
+    assert dataset.score_answer(answer, entry) == 0.1
 
     # Answer is incorrect
     entry = {"answer": "1 2 3 6 9 8 7 4 5"}
     answer = "1 2 3"
-    assert dataset.score_answer(answer, entry) == 0.01
+    assert dataset.score_answer(answer, entry) == 0.0
 
     # Answer is none
     entry = {"answer": "1 2 3 6 9 8 7 4 5"}

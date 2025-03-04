@@ -106,10 +106,9 @@ When performing calculations, please follow these guidelines:
 
         return {
             "question": question,
-            "answer": product,
+            "answer": str(product),
             "metadata": {
                 "polynomial_expr": str(polynomial_expr),
-                "result": str(product),
                 "variables": list(product.free_symbols),
             },
         }
@@ -147,21 +146,16 @@ When performing calculations, please follow these guidelines:
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
-        metadata = entry["metadata"]
         if answer is not None:
             try:
                 predicted_poly = sp.parse_expr(answer)
-                target_poly = sp.parse_expr(metadata["result"])
+                target_poly = sp.parse_expr(entry["answer"])
 
                 # Check if the difference simplifies to zero (i.e. they are equivalent).
                 if predicted_poly == target_poly:
                     reward = 1.0
-                elif answer.strip():
-                    reward = 0.05
-                else:
-                    reward = 0.01
             except Exception:
-                reward = 0.01
+                reward = 0.0
         return reward
 
 

@@ -69,9 +69,6 @@ class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
                 reward = 1.0
             elif oracle_answer in answer:
                 reward = len(oracle_answer) / len(answer)
-            else:
-                reward = 0.01
-
         return reward
 
 
