@@ -13,16 +13,13 @@ Move all disks from {start_peg} to {target_peg} following the rules:
 - Only one disk can be moved at a time.
 - A larger disk cannot be placed on top of a smaller disk.
 - All disks must be on a peg at all times.
-Example:
-Move disk 1 from Peg 1 to Peg 3
-Move disk 2 from Peg 1 to Peg 2
-Move disk 1 from Peg 3 to Peg 2
 
 Provide the sequence of moves.
+
 Formatting guidelines:
-Each instruction should be placed on a single line.
-Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
-Do not include any other text or formatting.
+- Each instruction should be placed on a single line.
+- Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
+- Do not include any other text or formatting.
 """
 
 

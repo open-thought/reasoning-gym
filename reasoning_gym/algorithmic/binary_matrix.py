@@ -13,22 +13,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
-Example:
-- Input: Find the distance to the nearest 0 for each cell in the matrix below:
-0 0 0
-0 1 0
-1 1 1
-- Output:
-0 0 0
-0 1 0
-1 2 1
-- Explanation
-    - Each cell with a 0 has a distance of 0 to itself.
-    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
-    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
-    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
-    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
-    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
+The output should be a matrix of the same size as the input matrix, where each cell contains the distance to the nearest 0.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
 {matrix}

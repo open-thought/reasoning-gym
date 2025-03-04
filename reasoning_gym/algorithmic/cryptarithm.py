@@ -17,26 +17,6 @@ from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
-EXAMPLE_CASE = """- Input:
-  BASE
-+ BALL
-------
- GAMES
-
-- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
-- Explanation:
-    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
-    * Units: E + L = S (no carry).
-    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
-    * Since S = E + 5 and S is one digit, E < 5.
-    * Hundreds: 2A + 1 = M (with carry).
-    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
-    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
-    * With E < 5, try E = 3: Then S = 8.
-    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
-    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
-"""
-
 
 @dataclass
 class CryptarithmConfig:
@@ -45,7 +25,6 @@ class CryptarithmConfig:
     min_words: int = 2  # Minimum number of addends
     max_words: int = 3  # Maximum number of addends
     allow_leading_zero: bool = False
-    include_example: bool = True
     seed: Optional[int] = None
     size: int = 500  # Number of puzzle instances to generate
 
@@ -189,8 +168,6 @@ class CryptarithmDataset(ProceduralDataset):
             )
             + 'Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)\n'
         )
-        if self.config.include_example:
-            question_str += "\nHere's an example:\n" + EXAMPLE_CASE
 
         # 8) Create a human-readable answer, e.g. "A=1,B=0,C=9,..."
         sorted_letter_keys = sorted(letter_to_digit.keys())

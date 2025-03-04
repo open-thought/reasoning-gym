@@ -126,10 +126,23 @@ Options:
 - `--size`: Default dataset size (default: 100)
 - `--seed`: Default dataset seed (default: 42)
 - `--include-params`: Include all configuration parameters (default: False)
+- `--category`: Only include datasets from this category (default: None)
+
+#### Generating Config for a Specific Category
+
+To generate a configuration file containing only datasets from a specific category:
+
+```bash
+python generate_config.py --category algorithmic --output algorithmic_datasets.yaml --model "anthropic/claude-3.5-sonnet"
+```
+
+This will create a configuration file that includes only datasets in the "algorithmic" category. This is useful when you want to focus your evaluation on a specific type of reasoning tasks.
+
+Example categories include: math, arithmetic, reasoning, algorithmic, etc. The category is automatically extracted from the dataset's module name (e.g., from `reasoning_gym.math.dataset_name`, it extracts "math").
+
+You can see all available categories by running the script without the `--category` option, as it will print all categories at the end of execution.
 
 ### Running Evaluations
-
-To run evaluations:
 
 ```bash
 python eval.py --config configs/your_config.yaml

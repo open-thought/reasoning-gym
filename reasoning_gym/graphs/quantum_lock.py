@@ -192,7 +192,9 @@ Buttons:
         # Partial credit for reaching target (optional)
         final_state = self.simulate_sequence(entry["metadata"], user_sequence)
         if final_state == entry["metadata"]["target_value"]:
-            return 0.5  # Alternative scoring option
+            if len(user_sequence) == len(target_sequence):
+                return 1.0  # Different answer, but qually correct
+            return 0.5  # Alternative scoring - you're correct, but not optimal
 
         return 0.1
 
