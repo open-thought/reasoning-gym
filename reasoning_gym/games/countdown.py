@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
@@ -177,15 +178,25 @@ class CountdownDataset(ProceduralDataset):
         metadata = entry["metadata"]
         if answer is not None:
             try:
+                answer = answer.strip()
                 user_answer = int(parse_expr(answer))
-                solved = user_answer == metadata["target"]
+                used_numbers = [int(num) for num in re.findall(r"\b\d+\b", answer)]
+                valid_numbers = True
+
+                for num in used_numbers:
+                    if num not in metadata["numbers"]:
+                        valid_numbers = False
+                        break
+
+                solved = user_answer == metadata["target"] and valid_numbers
+
                 if solved:
                     reward = 1.0
-                elif len(answer.strip()) > 0:  # encourage partial solutions
+                elif len(answer) > 0:
                     reward = 0.05
                 else:
                     reward = 0.01
-            except:
+            except Exception as e:
                 reward = 0.01
         return reward
 
