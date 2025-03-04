@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 MIN_BOARD_SIZE = 4
@@ -162,6 +163,32 @@ class NQueensDataset(ProceduralDataset):
             except Exception as e:
                 return 0.01
         return 0.0
+
+
+class NQueensCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(NQueensCurriculum.__name__, NQueensConfig)
+
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="n",
+                levels=[4, 6, 8, 10, 12],
+                default_level=0, 
+                description="Board size",
+                attr_type=AttributeType.APPEND,
+                min_value=4,
+            ),
+            RangeAttributeDefinition(
+                name="num_removed",
+                levels=[2, 4, 6, 8, 10],
+                default_level=0,
+                description="Number of queens to remove",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_remove",
+                upper_field_name="max_remove",
+            )
+        )
 
 
 register_dataset("n_queens", NQueensDataset, NQueensConfig)
