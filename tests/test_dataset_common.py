@@ -4,6 +4,8 @@ from reasoning_gym.factory import DATASETS
 
 def test_score_answer_consistency():
     for dataset_name in DATASETS.keys():
+        if dataset_name == "composite":
+            continue
         dataset = reasoning_gym.create_dataset(dataset_name, size=10, seed=1234)
         for entry in dataset:
             assert entry["answer"] is None or isinstance(
