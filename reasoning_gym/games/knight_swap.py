@@ -314,8 +314,7 @@ class KnightSwapDataset(ProceduralDataset):
         - 1.0 for correct answer (either "No" for impossible puzzles or valid solution of optimal length)
         - A proportional score for correct but longer solutions
         - 0.05 for valid moves that don't solve the puzzle
-        - 0.01 for invalid format
-        - 0.0 for None
+        - 0.0 for invalid format or None
         """
         if not isinstance(answer, str):
             return 0.0
@@ -326,7 +325,7 @@ class KnightSwapDataset(ProceduralDataset):
 
         # Handle impossible puzzles
         if not entry["metadata"]["is_possible"]:
-            return 1.0 if answer.lower() == "no" else 0.01
+            return 1.0 if answer.lower() == "no" else 0.0
 
         # Handle "No" answer for possible puzzles
         if answer.lower() == "no":

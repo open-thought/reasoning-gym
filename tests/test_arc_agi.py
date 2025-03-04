@@ -110,7 +110,7 @@ def test_arc_agi_scoring():
         assert dataset.score_answer(item["answer"], entry=item) == 1.0
 
         # Test invalid format
-        assert dataset.score_answer("invalid grid format", entry=item) == 0.01
+        assert dataset.score_answer("invalid grid format", entry=item) == 0.0
 
         # Test None answer
         assert dataset.score_answer(None, entry=item) == 0.0

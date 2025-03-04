@@ -172,18 +172,12 @@ Buttons:
         if not isinstance(answer, str):
             return 0.0
 
-        # Get correct solution from metadata
-        correct_solution = entry["metadata"].get("solution_path", [])
-
         # Normalize both answers
-        def normalize_seq(seq):
-            """Handle both string and list inputs by converting to string first"""
-            # Convert sequence to string representation if it's a list
-            input_str = "".join(seq) if isinstance(seq, list) else str(seq or "")
-            return [c.upper() for c in re.findall(r"[A-C]", input_str.upper())]
+        def normalize_seq(seq: str) -> list[str]:
+            return [c.upper() for c in re.findall(r"[A-C]", seq.upper())]
 
         user_sequence = normalize_seq(answer)
-        target_sequence = normalize_seq("".join(correct_solution))
+        target_sequence = normalize_seq(entry["answer"])
 
         # Exact sequence match required
         if user_sequence == target_sequence:

@@ -266,7 +266,7 @@ class HanoiDataset(ProceduralDataset):
                 start_peg=peg_labels[start_peg],
                 target_peg=peg_labels[target_peg],
             ),
-            "answer": solution,
+            "answer": "\n".join(solution),
             "metadata": {
                 "num_disks": num_disks,
                 "num_pegs": num_pegs,
@@ -383,21 +383,14 @@ class HanoiDataset(ProceduralDataset):
         Expected behavior:
             - Correct answer (i.e. equivalent in length, or better, than the one provided in the dataset item) gives 1.0.
             - A correct solution that is suboptimal length gives a proportional reward of optimal_move_count/user_move_count
-            - A badly formatted answer gives a minimal reward (0.01).
             - An answer that is syntactically valid but does not solve the puzzle gives a partial reward (0.05).
-            - An empty string gives 0.01.
-            - None gives 0.0.
+            - A badly formatted or empty answer gives 0.0
         """
         if not isinstance(answer, str) or len(answer) == 0:
             return 0.0
 
-        # If answer is a string, split it into lines; if it's already a list, use it directly.
-        if isinstance(answer, str):
-            moves = [line.strip() for line in answer.strip().splitlines() if line.strip()]
-        elif isinstance(answer, list):
-            moves = [line.strip() for line in answer if isinstance(line, str) and line.strip()]
-        else:
-            return 0.0
+        # Spilt answer string it into lines
+        moves = [line.strip() for line in answer.strip().splitlines() if line.strip()]
 
         # Build the initial peg state from metadata.
         metadata = entry["metadata"]
