@@ -137,7 +137,7 @@ class MahjongPuzzleCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_rounds",
-                levels=[10, 50, 100, 250, 500],
+                levels=[10, 50, 100, 500],
                 default_level=0,
                 description="Number of rounds in the game",
                 attr_type=AttributeType.APPEND,
