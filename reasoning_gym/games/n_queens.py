@@ -159,10 +159,11 @@ class NQueensCurriculum(BaseCurriculum):
         self._define_attributes(
             ScalarAttributeDefinition(
                 name="n",
+                field_name="n",
                 levels=[4, 6, 8, 10, 12],
                 default_level=0, 
                 description="Board size",
-                attr_type=AttributeType.APPEND,
+                attr_type=AttributeType.STATIC,
                 min_value=4,
             ),
             RangeAttributeDefinition(
