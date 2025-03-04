@@ -27,8 +27,9 @@ class PolynomialEquationsConfig:
     seed: Optional[int] = None
     size: int = 500
     # reward function hyperparameters
-    penalty_missing_factor = 0.1
-    penalty_extra_factor = 0.05
+    penalty_missing_factor = 0.5
+    penalty_extra_factor = 0.5
+    exp_distance_factor = -10.0
 
     def validate(self) -> None:
         """Validate configuration parameters."""
@@ -241,7 +242,7 @@ In solving equations, please follow these instructions:
                 # Remove matched oracle solution
                 oracle_solutions.pop(matched_distance_index)
                 # Exponential decay reward
-                total_reward += math.exp(-matched_distance)
+                total_reward += math.exp(matched_distance * self.config.exp_distance_factor)
             else:
                 # Extra predicted solution
                 extra_solutions += 1
