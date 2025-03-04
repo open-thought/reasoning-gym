@@ -45,7 +45,7 @@ class MahjongPuzzleConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 1 <= self.min_num_rounds, "min_num_rounds must be reater than 0"
+        assert 1 <= self.min_num_rounds, "min_num_rounds must be greater than 0"
         assert self.min_num_rounds <= self.max_num_rounds, "min_num_rounds must be less than max_num_rounds"
 
 
