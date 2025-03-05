@@ -33,10 +33,10 @@ def test_codeio_dataset():
 def test_codeio_config():
     # Test constraints on input probability
     with pytest.raises(AssertionError):
-        CodeIOConfig(size=10, seed=42, input_prediction_probability=1.1)
+        CodeIOConfig(size=10, seed=42, input_prediction_probability=1.1).validate()
 
     with pytest.raises(AssertionError):
-        CodeIOConfig(size=10, seed=42, input_prediction_probability=-0.1)
+        CodeIOConfig(size=10, seed=42, input_prediction_probability=-0.1).validate()
 
-    CodeIOConfig(size=10, seed=42, input_prediction_probability=0.1)
-    CodeIOConfig(size=10, seed=42, input_prediction_probability=0.9)
+    CodeIOConfig(size=10, seed=42, input_prediction_probability=0.1).validate()
+    CodeIOConfig(size=10, seed=42, input_prediction_probability=0.9).validate()
