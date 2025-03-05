@@ -149,8 +149,23 @@ class GSMSymbolicDataset(ProceduralDataset):
         generator_idx = self.task_indices[idx]
         generator = self.generators[generator_idx]
         example = generator(rng, self.config.difficulty)
-        example["question"] += " Give only the result as your final answer."
+        example["question"] += " Give the result as your final answer. Do not include units."
         return example
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        reward = 0.0
+        if answer is None:
+            return reward
+        try:
+            answer_value = float(answer)
+            expected_answer = float(entry["answer"])
+            if answer_value == expected_answer:
+                reward = 1.0
+            else:
+                reward = 0.01
+        except Exception:
+            return reward
+        return reward
 
 
 register_dataset("gsm_symbolic", GSMSymbolicDataset, GSMSymbolicDatasetConfig)
