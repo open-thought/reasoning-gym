@@ -171,7 +171,7 @@ class RushHourDataset(ProceduralDataset):
         Returns:
             1.0 if solution reaches goal state, 0.0 otherwise
         """
-        if not answer:
+        if not isinstance(answer, str) or len(answer) == 0:
             return 0.0
 
         try:

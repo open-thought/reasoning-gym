@@ -13,7 +13,7 @@ from reasoning_gym.games.contrib.sokoban.src.utils import (
 )
 
 
-def astar(matrix, player_pos, debug=False, heuristic="manhattan"):
+def astar(matrix, player_pos, debug: bool = False, heuristic: str = "manhattan", max_depth: int = 100):
     # print(f'A* - {heuristic.title()} Heuristic')
     heur = "[A*]" if heuristic == "manhattan" else "[Dijkstra]"
     shape = matrix.shape
@@ -67,15 +67,18 @@ def astar(matrix, player_pos, debug=False, heuristic="manhattan"):
                 return (path + direction[move], depth + 1)
             if debug:
                 print(f"{heur} Solution Depth: {depth + 1}\n{path + direction[move]}", 20)
-    print(f"{heur} Solution not found!\n")
+
+        if depth > max_depth:
+            break
+
     if debug:
         print(f"{heur} Solution Not Found!\nDepth {depth + 1}", 20)
 
     return (None, -1 if not heap else depth + 1)
 
 
-def solve_astar(puzzle, visualizer=False, heuristic="manhattan"):
+def solve_astar(puzzle, visualizer: bool = False, heuristic: str = "manhattan", max_depth: int = 100):
     matrix = puzzle
     where = np.where((matrix == "*") | (matrix == "%"))
     player_pos = where[0][0], where[1][0]
-    return astar(matrix, player_pos, debug=visualizer, heuristic=heuristic)
+    return astar(matrix, player_pos, debug=visualizer, heuristic=heuristic, max_depth=max_depth)

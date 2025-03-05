@@ -13,17 +13,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to rotate it clockwise.
 
-Example:
-
-Input: Rotate the matrix below by 90 degrees clockwise:
-1 2 3
-4 5 6
-7 8 9
-
-Output:
-7 4 1
-8 5 2
-9 6 3
+Your output should be a matrix in the same format as the input.
 
 Rotate the matrix below by {degrees} degrees clockwise:
 {matrix}

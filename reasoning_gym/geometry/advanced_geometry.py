@@ -36,16 +36,12 @@ class AdvancedGeometryConfig:
         assert len(self.task_types) > 0, "Must specify at least one task type."
 
 
-# Join format instructions into a single string
-GEOMETRY_FORMAT_INSTRUCTIONS = "\n".join(
-    [
-        "For all geometry problems:",
-        "1. Give coordinates in the form (x, y)",
-        "2. Round decimal answers to 3 decimal places",
-        "3. Use the degree symbol ° for angles",
-        "4. Return only th angle, coordinates, or radius as your answer.",
-    ]
-)
+GEOMETRY_FORMAT_INSTRUCTIONS = """For all geometry problems:
+1. Give coordinates in the form (x, y)
+2. Round decimal answers to 3 decimal places
+3. Use the degree symbol ° for angles
+4. Return only the angle, coordinates, or radius as your answer.
+"""
 
 
 class AdvancedGeometryDataset(ProceduralDataset):

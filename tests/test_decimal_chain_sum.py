@@ -242,11 +242,11 @@ def test_decimal_precision_scoring():
     assert dataset.score_answer("0.3", {"answer": "0.300"}) == 1.0
 
     # Test incorrect answers
-    assert dataset.score_answer("1.200000001", {"answer": "1.200"}) == 0.01
-    assert dataset.score_answer("1.199999999", {"answer": "1.200"}) == 0.01
+    assert dataset.score_answer("1.200000001", {"answer": "1.200"}) == 0.0
+    assert dataset.score_answer("1.199999999", {"answer": "1.200"}) == 0.0
 
     # Test invalid inputs
     assert dataset.score_answer(None, {"answer": "1.200"}) == 0.0
     assert dataset.score_answer("", {"answer": "1.200"}) == 0.0
-    assert dataset.score_answer("invalid", {"answer": "1.200"}) == 0.01
-    assert dataset.score_answer("1.2.3", {"answer": "1.200"}) == 0.01
+    assert dataset.score_answer("invalid", {"answer": "1.200"}) == 0.0
+    assert dataset.score_answer("1.2.3", {"answer": "1.200"}) == 0.0

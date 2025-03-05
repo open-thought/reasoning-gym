@@ -16,23 +16,12 @@ The grid is represented as a matrix with the following types of cells:
 - X: a blocked cell
 
 Therefore, you need to find the shortest path from * to #, moving only through open cells.
+
+You may only move in four directions: up, down, left, and right.
+
 If there is no path from * to #, simply write "infeasible" (without quotes).
 
-Example 1:
-- Input: Find the length of the shortest path from * to # in the following grid:
-    X X X X X
-    X * O O X
-    X O X O X
-    X X X O #
-- Output: right right down down right
-
-Example 2:
-- Input: Find the length of the shortest path from * to # in the following grid:
-    X X X X X
-    X * O O X
-    X O X O X
-    X X X X #
-- Output: infeasible
+Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
 
 Now, find the length of the shortest path from * to # in the following grid:
 {grid}
@@ -136,8 +125,8 @@ class ShortestPathDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
-        oracle_answer = entry["answer"].strip()
-        if answer is not None and len(answer) > 0:
+        if isinstance(answer, str) and len(answer) > 0:
+            oracle_answer = entry["answer"].strip()
             answer = answer.strip()
 
             # Exact answer
@@ -155,8 +144,6 @@ class ShortestPathDataset(ProceduralDataset):
             # Path is valid but has a larger length than the oracle answer
             elif self._is_valid_path(matrix, answer):
                 return 0.5
-
-            return 0.01
 
         return 0.0
 

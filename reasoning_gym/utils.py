@@ -16,6 +16,8 @@ Once you have thought about the reasoning process, provide the answer in the fol
 Do not explain your reasoning inside the answer tags, provide only the final answer. When an example is provided, you should strictly follow the format of the output/answer in that example.
 """,
     "simple": "You are a helpful assistant that answers questions accurately and concisely. When asked to solve a problem, show your work step by step. Provide your final answer between <answer> and </answer> tags.",
+    "direct": "Answer the question directly. Provide your answer between <answer> and </answer> tags. Do not return any preamble, explanation, or reasoning.",
+    "chain_of_draft": "Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most. Return the answer at the end of the response enclosed in <answer> </answer> tags.",
 }
 
 
@@ -101,7 +103,6 @@ def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_comm
     """
     reward = 0.0
     if answer is not None and len(answer) > 0:
-        reward = 0.01
         try:
             if strip_commas:
                 answer = answer.replace(",", "")

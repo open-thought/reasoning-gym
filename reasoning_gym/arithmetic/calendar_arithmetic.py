@@ -428,7 +428,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         # we suppose the answer is the last occurence of the expected answer type
-        if answer is None:
+        if not isinstance(answer, str) or len(answer) == 0:
             return 0.0
 
         oracle_answer = entry["answer"]
@@ -439,9 +439,6 @@ class CalendarArithmeticDataset(ProceduralDataset):
             CalendarTask.WEEKDAY_OF_DATE_FROM_FIRST_DATE.value,
             CalendarTask.WEEKDAY_OF_DATE.value,
         }:
-            if not answer:
-                return 0.0
-
             answer = answer.strip()
             oracle_answer = oracle_answer
             weekdays = {d.name.title() for d in Weekday}

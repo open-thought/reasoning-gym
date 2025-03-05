@@ -50,4 +50,4 @@ def test_compute_decimal_reward():
     # Test invalid answers
     assert compute_decimal_reward(None, "42") == 0.0
     assert compute_decimal_reward("", "42") == 0.0
-    assert compute_decimal_reward("not a number", "42") == 0.01
+    assert compute_decimal_reward("not a number", "42") == 0.0

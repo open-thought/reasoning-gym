@@ -110,7 +110,7 @@ def test_number_format_answer():
 
     # Incorrect answer (diff larger than 1e-2)
     model_answer = "54245.9"
-    assert dataset.score_answer(model_answer, entry) == 0.01
+    assert dataset.score_answer(model_answer, entry) == 0.0
 
     # Answer is null
     model_answer = None

@@ -15,20 +15,7 @@ For each word in a sentence, the letter may have been randomly shuffled. Your ta
 
 The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
 
-Example:
-- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
-- Output: meanderings Why any child can do that
-- Explanation
-    - We unscramble each of the words independently.
-    - raendgmeins -> meanderings
-    - yWh -> Why
-    - nya -> any
-    - hilcd -> child
-    - anc -> can
-    - od -> do
-    - hatt -> that
-    - The final answer is: meanderings Why any child can do that
-    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+Your output should be a sentence with the words unscrambled.
 
 Now, unscramble these words: {words}
 """
@@ -129,7 +116,7 @@ class LetterJumbleDataset(ProceduralDataset):
 
         # Each word in the expected answer is worth an equal fraction of 1.0
         total_words = len(expected_words)
-        score_per_word = 1.0 / total_words if total_words else 0
+        score_per_word = 1.0 / total_words if total_words > 0 else 0
 
         # Calculate scores word by word
         scores = []
@@ -155,18 +142,16 @@ class LetterJumbleDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0
 
         oracle_answer = entry["answer"].strip().lower()
-        if answer:
-            answer = answer.strip().lower()
-            if answer == oracle_answer:
-                return 1.0  # Perfect score!
-            else:
-                partial_score = self.partial(oracle_answer, answer)
-                return partial_score
-        return 0.01
+        answer = answer.strip().lower()
+        if answer == oracle_answer:
+            return 1.0  # Perfect score!
+        else:
+            partial_score = self.partial(oracle_answer, answer)
+            return partial_score
 
 
 register_dataset("letter_jumble", LetterJumbleDataset, LetterJumbleConfig)

@@ -214,7 +214,7 @@ def test_manipulate_matrix_score_answer():
 
     # incorrect answer
     answer = "1 2 3\n4 5 6\n7 8 8"
-    assert dataset.score_answer(answer, entry) == 0.01
+    assert dataset.score_answer(answer, entry) == 0.0
 
     # answer is none
     answer = None

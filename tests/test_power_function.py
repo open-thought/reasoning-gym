@@ -71,7 +71,7 @@ def test_power_function_score_function():
 
     # Answer is far from solution
     answer = str(item["metadata"]["solution"] - 1)
-    assert dataset.score_answer(answer, item) == 0.01
+    assert dataset.score_answer(answer, item) == 0.0
 
     # Answer is None
     answer = None

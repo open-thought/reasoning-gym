@@ -8,7 +8,7 @@ from typing import Optional
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
-QUESTION_TEMPLATE = """Solve the following problem. Provide you answer as a comma-separated list of word with a space the comma. Reverse this list of words: {question}"""
+QUESTION_TEMPLATE = """Solve the following problem. Provide you answer as a comma-separated list of words with a space after the comma. Reverse this list of words: {question}"""
 
 
 @dataclass

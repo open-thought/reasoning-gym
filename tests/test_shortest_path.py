@@ -164,7 +164,7 @@ def test_shortest_path_answer():
             ]
         },
     }
-    assert dataset.score_answer("right down right down", entry) == 0.01
+    assert dataset.score_answer("right down right down", entry) == 0.0
 
     # Answer is None
     entry = {

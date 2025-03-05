@@ -303,11 +303,11 @@ Reply as a JSON-parsable list of moves which result in any of the jugs being fil
             danswer = json.loads(answer)
             valid, _ = verify_solution(entry["metadata"]["puzzle"], danswer)
             if not valid:
-                return 0.01
+                return 0.01  # json parsable
             else:
                 return 1.0  # Yay
         except Exception as e:
-            return 0.01
+            return 0.0
 
 
 register_dataset("jugs", JugsDataset, JugsConfig)

@@ -16,7 +16,7 @@ def test_needle_haystack():
 
         # Test the scoring
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
-        assert dataset.score_answer(answer="david bowie rules", entry=item) == 0.01
+        assert dataset.score_answer(answer="david bowie rules", entry=item) == 0.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
     config = NeedleHaystackConfig(seed=42, size=1, num_statements=500)

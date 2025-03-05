@@ -115,7 +115,7 @@ def test_binary_matrix_answer():
     # Answer is a python list (partially correct answer)
     answer = "[[0, 0, 0], [0, 1, 0], [1, 2, 1]]"
     entry = {"answer": "0 0 0\n0 1 0\n1 2 1"}
-    assert dataset.score_answer(answer, entry) == 0.5
+    assert dataset.score_answer(answer, entry) == 0.1
 
     # Answer is null
     answer = None

@@ -11,25 +11,8 @@ from ..factory import ProceduralDataset, register_dataset
 QUESTION_TEMPLATE = """Your job is to perform max/average pooling on the given matrix.
 The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
 
-Example 1:
-- Input: Perform max pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-6 8
-14 16
-
-Example 2:
-- Input: Perform average pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-3.5 5.5
-11.5 13.5
+Your output should be a matrix in the same format as the input matrix.
+The output matrix is smaller than the input matrix when the kernel size is greater than 1, and its elements may be floating-point numbers.
 
 Perform {pool_type} pooling on the following matrix with a kernel size of {pool_size}:
 {matrix}
@@ -97,7 +80,7 @@ class PoolMatrixDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score the answer based on the metadata"""
 
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0
 
         reward = 0.0
@@ -108,8 +91,6 @@ class PoolMatrixDataset(ProceduralDataset):
                 reward = 1.0
             elif oracle_answer.shape == answer.shape:
                 reward = 0.1
-            else:
-                reward = 0.01
         except Exception:
             pass
         return reward

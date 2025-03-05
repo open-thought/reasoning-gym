@@ -143,7 +143,7 @@ def test_pool_matrix_score_answer():
     dataset = PoolMatrixDataset(config)
     for entry in dataset:
         assert dataset.score_answer(entry["answer"], entry=entry) == 1
-        assert 0.0 < dataset.score_answer("1 2.0\n3.0 4", entry=entry) <= 0.1
+        assert dataset.score_answer("1 2.0\n3.0 4", entry=entry) in [0.0, 0.1]
         assert dataset.score_answer("one two three", entry=entry) == 0.0
         assert dataset.score_answer("", entry=entry) == 0.0
         assert dataset.score_answer(None, entry=entry) == 0.0
