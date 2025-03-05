@@ -13,6 +13,7 @@ The stride is equal to the kernel size, meaning there is no overlap between the 
 
 Your output should be a matrix in the same format as the input matrix.
 The output matrix is smaller than the input matrix when the kernel size is greater than 1, and its elements may be floating-point numbers.
+Give elements in the output matrix correct to 2 decimal places.
 
 Perform {pool_type} pooling on the following matrix with a kernel size of {pool_size}:
 {matrix}
@@ -87,7 +88,7 @@ class PoolMatrixDataset(ProceduralDataset):
         try:
             oracle_answer = np.loadtxt(entry["answer"].splitlines(), dtype=np.float32)
             answer = np.loadtxt(answer.splitlines(), dtype=np.float32)
-            if oracle_answer.shape == answer.shape and np.allclose(oracle_answer, answer):
+            if oracle_answer.shape == answer.shape and np.allclose(oracle_answer, answer, rtol=1e-2):
                 reward = 1.0
             elif oracle_answer.shape == answer.shape:
                 reward = 0.1
