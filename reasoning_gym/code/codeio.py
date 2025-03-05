@@ -115,7 +115,7 @@ class CodeIODataset(ProceduralDataset):
         return {
             "question": question,
             "answer": solution,
-            "metadata": {},
+            "metadata": {"input_data": input_data, "output_data": output_data},
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -144,17 +144,17 @@ class CodeIODataset(ProceduralDataset):
                         reward = 0.1
                     else:
                         # At least we got a JSON object, I guess?
-                        reward = 0.05
+                        reward = 0.01
                 except json.JSONDecodeError:
                     if oracle_answer in answer:
                         reward = len(oracle_answer) / len(answer)
                     else:
-                        reward = 0.01
+                        reward = 0.00
             elif oracle_answer in answer:
                 # max() to avoid penalising too heavily, since correct answers are short here
                 reward = max(len(oracle_answer) / len(answer), 0.2)
             else:
-                reward = 0.01
+                reward = 0.00
 
         return reward
 
