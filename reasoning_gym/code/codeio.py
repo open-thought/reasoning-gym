@@ -1,7 +1,6 @@
 import gzip
 import json
 from dataclasses import dataclass
-from pathlib import Path
 from random import Random
 from typing import Any, Optional
 
@@ -79,16 +78,19 @@ class CodeIODataset(ProceduralDataset):
         with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
             CodeIODataset._jsonl_data = [json.loads(line) for line in f]
 
-    def _generate_io_pairs(self, main_code: str, input_generator_code: str, num_pairs: int = 1):
+    def _generate_io_pair(self, main_code: str, input_generator_code: str, rng: Random, max_retries: int = 3):
         local_vars = {}
-        exec(main_code, {}, local_vars)
-        exec(input_generator_code, {}, local_vars)
-        io_pairs = []
-        for _ in range(num_pairs):
-            inputs = local_vars["input_generator"]()
-            outputs = local_vars["main"](**inputs)
-            io_pairs.append((inputs, outputs))
-        return io_pairs
+        exec(main_code, {"Random": Random}, local_vars)
+        exec(input_generator_code, {"Random": Random}, local_vars)
+        for _ in range(max_retries):
+            try:
+                inputs = local_vars["generate_inputs"](rng)
+                outputs = local_vars["main_solution"](**inputs)
+            except Exception:
+                # Retry
+                continue
+            return inputs, outputs
+        return {}, {}
 
     def __getitem__(self, idx: int) -> dict:
         """Generate a single CodeI/O reasoning task"""
@@ -96,12 +98,12 @@ class CodeIODataset(ProceduralDataset):
 
         json_data = rng.choice(CodeIODataset._jsonl_data)
 
-        query = json_data["query"]
-        parameters = json_data["parameters"]
-        reference_code = json_data["reference_code"]
+        query = json_data["task_description"]
+        parameters = json_data["input_output_spec"]
+        reference_code = json_data["code_sample"]
         input_generator_code = json_data["input_generator"]
 
-        input_data, output_data = self._generate_io_pairs(reference_code, input_generator_code, num_pairs=1)[0]
+        input_data, output_data = self._generate_io_pair(reference_code, input_generator_code, rng)
 
         if rng.random() < self.config.input_prediction_probability:
             question = OUTPUT_PREDICTION_PROMPT_TEMPLATE.format(query, parameters, input_data, reference_code)
@@ -113,7 +115,7 @@ class CodeIODataset(ProceduralDataset):
         return {
             "question": question,
             "answer": solution,
-            "metadata": {},
+            "metadata": {"input_data": input_data, "output_data": output_data},
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -142,15 +144,17 @@ class CodeIODataset(ProceduralDataset):
                         reward = 0.1
                     else:
                         # At least we got a JSON object, I guess?
-                        reward = 0.05
+                        reward = 0.01
                 except json.JSONDecodeError:
                     if oracle_answer in answer:
                         reward = len(oracle_answer) / len(answer)
+                    else:
+                        reward = 0.00
             elif oracle_answer in answer:
                 # max() to avoid penalising too heavily, since correct answers are short here
                 reward = max(len(oracle_answer) / len(answer), 0.2)
             else:
-                reward = 0.01
+                reward = 0.00
 
         return reward
 
