@@ -10,7 +10,7 @@ from .countdown import CountdownConfig, CountdownDataset
 from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryDataset
 from .futoshiki import FutoshikiConfig, FutoshikiDataset
 from .knight_swap import KnightSwapConfig, KnightSwapDataset
-from .mahjong import MahjongPuzzleConfig, MahjongPuzzleDataset
+from .mahjong import MahjongPuzzleConfig, MahjongPuzzleCurriculum, MahjongPuzzleDataset
 from .maze import MazeConfig, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuDataset
 from .n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
@@ -48,4 +48,5 @@ __all__ = [
     "KnightSwapDataset",
     "MahjongPuzzleConfig",
     "MahjongPuzzleDataset",
+    "MahjongPuzzleCurriculum",
 ]

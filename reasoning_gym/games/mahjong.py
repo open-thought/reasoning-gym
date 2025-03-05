@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There are several letter cards, and the game rules are as follows:
@@ -38,7 +39,7 @@ class MahjongPuzzleConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 1 <= self.min_num_rounds, "min_num_rounds must be reater than 0"
+        assert 1 <= self.min_num_rounds, "min_num_rounds must be greater than 0"
         assert self.min_num_rounds <= self.max_num_rounds, "min_num_rounds must be less than max_num_rounds"
 
 
@@ -120,6 +121,25 @@ class MahjongPuzzleDataset(ProceduralDataset):
             "answer": answer,
             "metadata": {"rounds": rounds, "solution": answer},
         }
+
+
+class MahjongPuzzleCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(MahjongPuzzleCurriculum.__name__, MahjongPuzzleConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_rounds",
+                levels=[10, 50, 100, 500],
+                default_level=0,
+                description="Number of rounds in the game",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_num_rounds",
+                upper_field_name="max_num_rounds",
+            )
+        )
 
 
 register_dataset("mahjong_puzzle", MahjongPuzzleDataset, MahjongPuzzleConfig)
