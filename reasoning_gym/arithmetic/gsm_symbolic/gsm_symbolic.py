@@ -1,5 +1,6 @@
 """GSM Symblic dataset generator"""
 
+import re
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Callable, Optional
@@ -157,7 +158,12 @@ class GSMSymbolicDataset(ProceduralDataset):
         if answer is None:
             return reward
         try:
-            answer_value = float(answer)
+            # Extract number using regex with search
+            match = re.search(r"\b-?\d+(?:\.\d+)?\b", answer)
+            if not match:
+                return reward
+
+            answer_value = float(match.group(0))
             expected_answer = float(entry["answer"])
             if answer_value == expected_answer:
                 reward = 1.0
