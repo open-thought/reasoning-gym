@@ -78,7 +78,7 @@ class CodeIODataset(ProceduralDataset):
         with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
             CodeIODataset._jsonl_data = [json.loads(line) for line in f]
 
-    def _generate_io_pair(self, main_code: str, input_generator_code: str, rng: Random, max_retries: int = 10):
+    def _generate_io_pair(self, main_code: str, input_generator_code: str, rng: Random, max_retries: int = 3):
         local_vars = {}
         exec(main_code, {"Random": Random}, local_vars)
         exec(input_generator_code, {"Random": Random}, local_vars)
