@@ -11,9 +11,9 @@ from ..factory import ProceduralDataset, register_dataset
 class DecimalArithmeticConfig:
     """Configuration for decimal arithmetic dataset generation"""
 
-    min_num_decimal_places: int = 6
-    max_num_decimal_places: int = 6
-    precision: int = 28
+    min_num_decimal_places: int = 3
+    max_num_decimal_places: int = 3
+    precision: int = 6
     terms: int = 6
     seed: Optional[int] = None
     size: int = 500
@@ -178,7 +178,7 @@ class DecimalArithmeticDataset(ProceduralDataset):
             + problem_str
         )
 
-        return {"question": problem_str, "answer": answer, "metadata": {}}
+        return {"question": problem_str, "answer": str(answer), "metadata": {}}
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
@@ -189,12 +189,12 @@ class DecimalArithmeticDataset(ProceduralDataset):
         Returns:
             float: 1.0 if the user's answer is within tolerance; otherwise, 0.01.
         """
-        if answer is None:
+        if not isinstance(answer, str):
             return 0.0
 
         try:
             user_ans: Decimal = Decimal(answer)
-            correct_ans: Decimal = entry["answer"]
+            correct_ans: Decimal = Decimal(entry["answer"])
 
             # Determine tolerance based on the desired precision.
             precision: int = self.config.max_num_decimal_places
@@ -202,9 +202,9 @@ class DecimalArithmeticDataset(ProceduralDataset):
             if abs(user_ans - correct_ans) <= tol:
                 return 1.0
         except Exception:
-            return 0.01
+            pass
 
-        return 0.01
+        return 0.0
 
 
 # Register the dataset with the factory.

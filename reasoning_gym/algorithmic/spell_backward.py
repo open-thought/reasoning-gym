@@ -52,14 +52,14 @@ class SpellBackwardDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
         expected_answer = entry["answer"]
-        if answer is not None:
+        if isinstance(answer, str):
             try:
                 if expected_answer.lower() == answer.lower():
                     reward = 1.0
                 else:
                     reward = 0.05
             except:
-                reward = 0.01
+                reward = 0.0
         return reward
 
 

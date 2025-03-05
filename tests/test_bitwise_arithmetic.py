@@ -43,7 +43,7 @@ def test_bitwise_arithmetic_items():
 
         # Test scoring edge cases
         assert dataset.score_answer(answer=None, entry=item) == 0.0
-        assert dataset.score_answer(answer="invalid", entry=item) == 0.01
+        assert dataset.score_answer(answer="invalid", entry=item) == 0.0
 
 
 def test_bitwise_arithmetic_difficulty_levels():

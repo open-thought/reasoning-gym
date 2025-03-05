@@ -195,7 +195,7 @@ class MiniSudokuDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        if not answer:
+        if not isinstance(answer, str) or len(answer) == 0:
             return 0.0
 
         oracle_answer = entry["answer"]

@@ -11,6 +11,7 @@ Options:
     --model MODEL             Override model specified in config
     --output-dir DIR          Override output directory specified in config
     --max-concurrent NUM      Maximum number of concurrent API calls
+    --base-url URL            API base URL (default: https://openrouter.ai/api/v1)
     --save-metadata           Save entry metadata in results
     --full-results            Save the full results file
     --verbose                 Print detailed model responses
@@ -27,10 +28,9 @@ import logging
 import os
 import subprocess
 import sys
-from collections import OrderedDict
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 from eval_config import CategoryConfig, DatasetConfig, EvalConfig
 from openai import AsyncOpenAI
@@ -62,15 +62,25 @@ def get_git_hash() -> str:
 class AsyncModelEvaluator:
     """Evaluates models on reasoning datasets with async API calls via OpenRouter."""
 
-    def __init__(self, config: EvalConfig, verbose: bool = False, debug: bool = False):
+    def __init__(
+        self,
+        config: EvalConfig,
+        api_key: Optional[str] = None,
+        base_url: str = "https://openrouter.ai/api/v1",
+        verbose: bool = False,
+        debug: bool = False,
+    ):
         """Initialize the evaluator with configuration.
 
         Args:
             config: Evaluation configuration
+            api_key: API key for the service (optional for some APIs)
+            base_url: API base URL
             verbose: Whether to print detailed model responses
             debug: Whether to enable debug logging
         """
         self.config = config
+        self.base_url = base_url
         self.verbose = verbose
         self.debug = debug
 
@@ -84,12 +94,8 @@ class AsyncModelEvaluator:
             # Suppress httpx logs in normal mode
             logging.getLogger("httpx").setLevel(logging.WARNING)
 
-        # Set up OpenRouter API client
-        api_key = os.getenv("OPENROUTER_API_KEY")
-        if not api_key:
-            raise ValueError("OPENROUTER_API_KEY environment variable is not set")
-
-        self.client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
+        # Set up API client
+        self.client = AsyncOpenAI(base_url=self.base_url, api_key=api_key)
 
         # Concurrency control
         self.semaphore = asyncio.Semaphore(config.max_concurrent)
@@ -122,10 +128,18 @@ class AsyncModelEvaluator:
                     params = {
                         "model": self.config.model,
                         "messages": [
-                            {"role": self.config.system_role, "content": self.config.system_prompt},
+                            {"role": self.config.system_role, "content": self.config.get_system_prompt()},
                             {"role": "user", "content": prompt},
                         ],
                     }
+
+                    # Add sampling parameters if specified
+                    if self.config.max_tokens is not None:
+                        params["max_tokens"] = self.config.max_tokens
+                    if self.config.temperature is not None:
+                        params["temperature"] = self.config.temperature
+                    if self.config.top_p is not None:
+                        params["top_p"] = self.config.top_p
 
                     # Add provider configuration if specified
                     if self.config.provider:
@@ -254,6 +268,7 @@ class AsyncModelEvaluator:
                 "average_score": average_score,
                 "total_examples": len(results),
                 "config": {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params},
+                "system_prompt": self.config.get_system_prompt(),
                 "results": results,
             }
 
@@ -265,6 +280,7 @@ class AsyncModelEvaluator:
                 "average_score": 0.0,
                 "total_examples": 0,
                 "config": {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params},
+                "system_prompt": self.config.get_system_prompt(),
                 "error": str(e),
                 "results": [],
             }
@@ -309,6 +325,9 @@ class AsyncModelEvaluator:
                 "provider": self.config.provider,
                 "git_hash": self.git_hash,
                 "duration_seconds": (datetime.now() - self.start_time).total_seconds(),
+                "max_tokens": self.config.max_tokens,
+                "temperature": self.config.temperature,
+                "top_p": self.config.top_p,
             },
             "categories": category_results,
         }
@@ -318,7 +337,7 @@ class AsyncModelEvaluator:
 
         return results
 
-    def generate_summary(self, results: dict[str, Any]) -> dict[str, Union[int, OrderedDict]]:
+    def generate_summary(self, results: dict[str, Any]) -> dict[str, Any]:
         """Generate a summary of evaluation results in the original configuration order.
 
         Args:
@@ -330,7 +349,7 @@ class AsyncModelEvaluator:
         summary = {
             "total_datasets": 0,
             "total_examples": 0,
-            "dataset_scores": OrderedDict(),
+            "dataset_scores": {},
         }
 
         # Iterate through categories and datasets in the original order from config
@@ -383,12 +402,18 @@ class AsyncModelEvaluator:
             with open(results_path, "w") as f:
                 json.dump(results, f, indent=2)
 
-        # Add timestamp, git hash, model, provider, and duration to summary
+        # Add timestamp, git hash, model, provider, sampling parameters, and duration to summary
         summary_data = results["summary"].copy()
         summary_data["timestamp"] = self.start_time.isoformat()
         summary_data["git_hash"] = self.git_hash
         summary_data["model"] = self.config.model
         summary_data["provider"] = self.config.provider
+        summary_data["system_prompt"] = self.config.get_system_prompt()
+        if self.config.system_prompt_id:
+            summary_data["system_prompt_id"] = self.config.system_prompt_id
+        summary_data["max_tokens"] = self.config.max_tokens
+        summary_data["temperature"] = self.config.temperature
+        summary_data["top_p"] = self.config.top_p
         summary_data["duration_seconds"] = results["metadata"]["duration_seconds"]
 
         # Save summary
@@ -420,6 +445,11 @@ class AsyncModelEvaluator:
         print("------------------")
         print(f"Model: {self.config.model}")
         print(f"Provider: {self.config.provider}")
+        system_prompt = self.config.get_system_prompt()
+        print(f"System Prompt: {system_prompt[:50]}..." if len(system_prompt) > 50 else system_prompt)
+        print(f"Max Tokens: {self.config.max_tokens}")
+        print(f"Temperature: {self.config.temperature}")
+        print(f"Top-p: {self.config.top_p}")
         print(f"Git Hash: {self.git_hash}")
         print(f"Duration: {results['metadata']['duration_seconds']:.2f} seconds")
         print()
@@ -448,6 +478,11 @@ async def main_async():
     parser.add_argument("--model", help="Override model specified in config")
     parser.add_argument("--output-dir", help="Override output directory specified in config")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
+    parser.add_argument("--base-url", default="https://openrouter.ai/api/v1", help="API base URL")
+    parser.add_argument(
+        "--api-key",
+        help="API key for the service (optional for some APIs, defaults to OPENROUTER_API_KEY env var for OpenRouter URLs)",
+    )
     parser.add_argument("--save-metadata", action="store_true", help="Save entry metadata in results")
     parser.add_argument("--full-results", action="store_true", help="Save the full results file")
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
@@ -455,11 +490,17 @@ async def main_async():
 
     args = parser.parse_args()
 
-    # Check for required API key
-    if not os.getenv("OPENROUTER_API_KEY"):
-        print("Error: OPENROUTER_API_KEY environment variable is not set")
-        print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
-        return 1
+    # Get API key from command line or environment variable
+    api_key = args.api_key
+    if api_key is None:
+        # If base_url is OpenRouter, try to get API key from environment
+        if args.base_url.startswith("https://openrouter.ai/api"):
+            api_key = os.getenv("OPENROUTER_API_KEY")
+            if not api_key:
+                print("Warning: OPENROUTER_API_KEY environment variable is not set")
+                print("Please set it using: export OPENROUTER_API_KEY=your-api-key")
+                print("Or provide it directly with --api-key")
+                return 1
 
     # Load configuration
     config_path = args.config
@@ -484,7 +525,9 @@ async def main_async():
         config.save_full_results = True
 
     # Create evaluator
-    evaluator = AsyncModelEvaluator(config=config, verbose=args.verbose, debug=args.debug)
+    evaluator = AsyncModelEvaluator(
+        config=config, api_key=api_key, base_url=args.base_url, verbose=args.verbose, debug=args.debug
+    )
 
     # Run evaluation
     try:

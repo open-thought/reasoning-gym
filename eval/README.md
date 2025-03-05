@@ -28,10 +28,19 @@ pip install -e ..
 pip install -r requirements-eval.txt
 ```
 
-3. Set your OpenRouter API key as an environment variable:
-```bash
-export OPENROUTER_API_KEY=your-api-key
-```
+3. Set your API key (if required by the API):
+
+   For OpenRouter, you can set it as an environment variable:
+   ```bash
+   export OPENROUTER_API_KEY=your-api-key
+   ```
+
+   Or provide it directly when running the script:
+   ```bash
+   python eval.py --config your_config.yaml --api-key your-api-key
+   ```
+
+   Note: API key is optional for some APIs (e.g., local deployments).
 
 
 4. Prepare your evaluation configuration in YAML or JSON format (see example in `example_config.yaml`):
@@ -44,6 +53,11 @@ output_dir: "results"
 max_concurrent: 10
 default_size: 20  # Default size for all datasets
 default_seed: 42  # Default seed for all datasets
+max_tokens: 32768  # Maximum generation length (optional)
+temperature: 0.6   # Generation temperature (optional)
+top_p: 0.95        # Top-p sampling parameter (optional)
+system_prompt_id: "default"  # Use a predefined system prompt by ID (optional)
+# system_prompt: "Your custom system prompt here"  # Or specify a custom system prompt directly
 
 categories:
   - category: "algebra"
@@ -97,9 +111,38 @@ categories:
       - dataset: "word_sorting"
 ```
 
-### Running Evaluations
+### Generating Configurations
 
-To run evaluations:
+You can generate a configuration file with all registered datasets using the `generate_config.py` script:
+
+```bash
+python generate_config.py --output my_config.yaml --model "anthropic/claude-3.5-sonnet" --provider "Anthropic" --size 50 --seed 42
+```
+
+Options:
+- `--output`: Output YAML file path (default: all_datasets.yaml)
+- `--model`: Model name (default: openai/gpt-4)
+- `--provider`: Provider name (default: None)
+- `--size`: Default dataset size (default: 100)
+- `--seed`: Default dataset seed (default: 42)
+- `--include-params`: Include all configuration parameters (default: False)
+- `--category`: Only include datasets from this category (default: None)
+
+#### Generating Config for a Specific Category
+
+To generate a configuration file containing only datasets from a specific category:
+
+```bash
+python generate_config.py --category algorithmic --output algorithmic_datasets.yaml --model "anthropic/claude-3.5-sonnet"
+```
+
+This will create a configuration file that includes only datasets in the "algorithmic" category. This is useful when you want to focus your evaluation on a specific type of reasoning tasks.
+
+Example categories include: math, arithmetic, reasoning, algorithmic, etc. The category is automatically extracted from the dataset's module name (e.g., from `reasoning_gym.math.dataset_name`, it extracts "math").
+
+You can see all available categories by running the script without the `--category` option, as it will print all categories at the end of execution.
+
+### Running Evaluations
 
 ```bash
 python eval.py --config configs/your_config.yaml
@@ -109,6 +152,12 @@ For example:
 
 ```bash
 python eval.py --config example_config.yaml --full-results
+```
+
+You can specify a different API base URL if needed:
+
+```bash
+python eval.py --config example_config.yaml --base-url "https://api.together.xyz/v1" --api-key "your-together-api-key"
 ```
 
 

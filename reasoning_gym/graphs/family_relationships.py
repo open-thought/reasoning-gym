@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass, field
 from enum import StrEnum
 from itertools import count
-from typing import Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -355,6 +355,18 @@ class FamilyRelationshipsDataset(ProceduralDataset):
                     story_parts.append(f"They have children called {children_str}.")
 
         return " ".join(story_parts)
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        reward = 0.0
+        if isinstance(answer, str):
+            try:
+                answer_formatted = answer.strip().lower()
+                oracle_answer = entry["answer"].strip().lower()
+                if answer_formatted == oracle_answer:
+                    reward = 1.0
+            except:
+                pass
+        return reward
 
 
 register_dataset("family_relationships", FamilyRelationshipsDataset, FamilyRelationshipsConfig)

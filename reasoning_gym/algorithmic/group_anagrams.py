@@ -21,12 +21,7 @@ QUESTION_TEMPLATE = """An anagram is a word formed by rearranging the letters of
 
 Your job is to group the anagrams together. You can return the answer in any order.
 
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
 {words}
@@ -100,7 +95,7 @@ class GroupAnagramsDataset(ProceduralDataset):
                 if answer_str == oracle_str:
                     reward = 1.0
                 else:
-                    reward = 0.01
+                    reward = 0.01  # json parsable
             except Exception:
                 reward = 0.0
         return reward

@@ -182,7 +182,7 @@ class FigletFontDataset(ProceduralDataset):
         """
 
         correct_word = entry["answer"]
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0  # No answer given
 
         # Normalize case

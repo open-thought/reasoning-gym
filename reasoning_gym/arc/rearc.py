@@ -106,7 +106,7 @@ class ReArcDataset(ProceduralDataset):
                 else:
                     reward = 0.05
             except:
-                reward = 0.01
+                reward = 0.0
         return reward
 
 

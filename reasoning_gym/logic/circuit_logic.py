@@ -401,16 +401,14 @@ class CircuitLogicDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        if answer is None or len(answer) == 0:
-            return 0.0
+        if isinstance(answer, str) and len(answer) > 0:
+            oracle_answer = entry["answer"]
+            if oracle_answer == answer:
+                return 1.0
+            elif oracle_answer == answer.strip():
+                return len(oracle_answer) / len(answer)
 
-        oracle_answer = entry["answer"]
-        if oracle_answer == answer:
-            return 1.0
-        elif oracle_answer == answer.strip():
-            return len(oracle_answer) / len(answer)
-
-        return 0.01
+        return 0.0
 
 
 register_dataset("circuit_logic", CircuitLogicDataset, CircuitLogicConfig)

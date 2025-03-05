@@ -45,6 +45,7 @@ def test_items():
         assert "question" in item
         assert "answer" in item
         assert "metadata" in item
+        assert "solution" in item["metadata"]
 
 
 def test_solution():
@@ -98,8 +99,7 @@ def test_score_answer():
     assert dataset.score_answer(correct_answer, problem) == 1.0
     assert abs(dataset.score_answer(half_answer, problem) - 0.65) < 1e-10
     assert dataset.score_answer(modified_answer, problem) == 1.0
-    assert dataset.score_answer(wrong_answer, problem) == 0.01
-    print("flipped")
+    assert dataset.score_answer(wrong_answer, problem) == 0.0
     assert dataset.score_answer(flipped_answer, problem) == 1.0
 
 
@@ -185,3 +185,52 @@ def test_satisfiability():
     assert not KnightsKnavesDataset.test_satisfiability(
         ("<=>", ("telling-truth", 0), ("telling-truth", 1)), (True, False)
     )
+
+
+def test_depth_constraint():
+    config = KnightsKnavesConfig(
+        n_people=2,
+        depth_constraint=4,
+        width_constraint=2,
+        size=5,
+        seed=42,
+    )
+    dataset = KnightsKnavesDataset(config)
+    assert len(dataset) == 5
+    for i in range(len(dataset)):
+        # make sure there's a unique solution
+        assert len(dataset[i]["metadata"]["solution"]) == len(dataset[i]["metadata"]["names"])
+
+
+def test_depth_constraint_specific_problem():
+    test_statements = (
+        (
+            "or",
+            ("not", ("and", ("telling-truth", 0), ("telling-truth", 1), ("lying", 1))),
+            (
+                "and",
+                ("not", ("telling-truth", 0)),
+                ("->", ("telling-truth", 0), ("lying", 1)),
+                ("<=>", ("telling-truth", 1), ("lying", 2)),
+            ),
+            (
+                "and",
+                ("or", ("lying", 2), ("lying", 1), ("telling-truth", 0)),
+                ("or", ("telling-truth", 0), ("lying", 2)),
+                ("or", ("telling-truth", 2), ("telling-truth", 0)),
+            ),
+        ),
+        (
+            "not",
+            (
+                "or",
+                ("and", ("telling-truth", 1), ("telling-truth", 2), ("telling-truth", 0)),
+                ("or", ("telling-truth", 2), ("telling-truth", 1), ("telling-truth", 0)),
+            ),
+        ),
+        ("not", ("telling-truth", 0)),
+    )
+
+    solutions = KnightsKnavesDataset.find_solution(test_statements)
+    assert len(solutions) == 1, "Should have exactly one solution"
+    assert solutions[0] == (True, False, False)

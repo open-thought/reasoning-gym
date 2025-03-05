@@ -80,7 +80,7 @@ def test_rearc_scoring_edge_cases():
         assert 0.0 < dataset.score_answer(partial, entry=item) < 1.0
 
         # Malformed answer
-        assert dataset.score_answer("[[invalid", entry=item) == 0.01
+        assert dataset.score_answer("[[invalid", entry=item) == 0.0
 
         # Case sensitivity
         answer = format_board(item["metadata"]["output"], dataset.board_format_opts).lower()

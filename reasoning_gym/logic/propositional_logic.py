@@ -62,22 +62,21 @@ class Operator(StrEnum):
     IFF = "↔"
 
 
-QUESTION_FORMAT = "\n".join(
-    [
-        "The following question is a propositional logic reasoning question.",
-        "In the question we provide a list of premises",
-        "The task is to infer a correct conclusion from the premise.",
-        "FORMAT INSTRUCTIONS:",
-        "Return the conclusion logic statement, as your final answer.",
-        "Use the following notation to denote symbols",
-        "OR = \u2228",
-        "AND = \u2227",
-        "IMPLIES = \u2192",
-        "IFF = \u2194",
-        "NOT = \u00ac",
-        "Here is the question:",
-    ]
-)
+QUESTION_FORMAT = """The following question is a propositional logic reasoning question.
+
+In the question we provide a list of premises. The task is to infer a correct conclusion from the premise.
+
+FORMAT INSTRUCTIONS:
+- Return the conclusion logic statement, as your final answer.
+- Use the following notation to denote symbols
+    - OR = \u2228
+    - AND = \u2227
+    - IMPLIES = \u2192
+    - IFF = \u2194
+    - NOT = \u00ac
+
+Here is the question:
+"""
 
 
 @dataclass
@@ -296,7 +295,7 @@ class PropositionalLogicDataset(ProceduralDataset):
 
     def score_answer(self, answer: str | None, entry: dict[str, Any]) -> float:
         """Robust scoring implementation for propositional logic answers"""
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0
 
         try:
@@ -305,7 +304,7 @@ class PropositionalLogicDataset(ProceduralDataset):
             valid_vars = set(entry["metadata"]["variables"])
             answer_vars = re.findall(r"([A-Z])", cleaned_answer)
             if any(var not in valid_vars for var in answer_vars):
-                return 0.01
+                return 0.0
 
             premises = [Expression.from_string(p) for p in entry["metadata"]["premises"]]
             answer_expr = Expression.from_string(cleaned_answer)
@@ -317,7 +316,7 @@ class PropositionalLogicDataset(ProceduralDataset):
                     return 1.0
             return 0.05
         except (ValueError, KeyError, AttributeError):
-            return 0.01
+            return 0.0
 
     def _is_trivial(self, expr: Expression) -> bool:
         """Check for trivial tautologies like P ∨ ¬P"""

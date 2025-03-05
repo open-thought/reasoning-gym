@@ -11,13 +11,7 @@ A palindrome is a phrase that reads the same forwards and backwards.
 
 If there are multiple possible answers, only respond with one of them. You must use all the letters provided.
 
-Example:
-- Input: Form a valid palindrome using the following letters: a, a, b
-- Output: aba
-- Explanation:
-    - The phrase aba reads the same forwards and backwards.
-    - The output answer is a valid palindrome using all the letters provided.
-    - The answer is a string, rather than a list of characters.
+Your output should be a single string, with no spaces or punctuation.
 
 Now, form a valid palindrome using the following letters: {letters}
 """
@@ -98,14 +92,14 @@ class PalindromeDataset(ProceduralDataset):
         - Correct answer (palindrome with only correct letters in the correct quantities) gives 1.0
         - An answer that is a palindrome, but not with the same letters as provided, gives 0.05
         - An answer that is a string, but not a palindrome gives 0.02
-        - An empty string gives 0.01.
+        - An empty string gives 0.0
         - None gives 0.0.
         """
         if answer is None or not isinstance(answer, str):
             return 0.0  # No answer given
 
         if answer == "":
-            return 0.01
+            return 0.0
 
         metadata = entry["metadata"]
         answer = answer.strip().lower()

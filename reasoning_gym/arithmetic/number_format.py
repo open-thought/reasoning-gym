@@ -8,12 +8,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to pick the largest/smallest number out of several options.
 
-Example
-- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
-- Output: 8.975554e+05
-- Explanation:
-    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
-    - Therefore, the largest number is 8.975554e+05
+Your output should be only the number of interest.
 
 Now, pick the {size} number of the following candidates: {numbers}
 """
@@ -70,14 +65,13 @@ class NumberFormatDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["metadata"]["solution"]
-        if answer is not None and len(answer) > 0:
+        if isinstance(answer, str) and len(answer) > 0:
             try:
                 answer = float(answer.strip().replace(",", ""))
                 if abs(answer - oracle_answer) < 1e-2:
                     return 1.0
-                return 0.01
             except:
-                return 0.0
+                pass
         return 0.0
 
     def __getitem__(self, idx: int) -> dict:

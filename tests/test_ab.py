@@ -57,7 +57,7 @@ def test_ab_scoring():
 
         # Test wrong answer
         wrong_answer = "A# B#" if item["answer"] != "A# B#" else "B# A#"
-        assert dataset.score_answer(answer=wrong_answer, entry=item) == 0.01
+        assert dataset.score_answer(answer=wrong_answer, entry=item) == 0.0
 
         # Test None answer
         assert dataset.score_answer(answer=None, entry=item) == 0.0

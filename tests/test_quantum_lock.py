@@ -43,7 +43,8 @@ def test_quantumlock_items():
         assert "target_value" in item["metadata"]
 
         # Verify solution works
-        assert dataset.score_answer(answer=item["metadata"]["solution_path"], entry=item) == 1.0
+        answer = "".join(item["metadata"]["solution_path"])
+        assert dataset.score_answer(answer=answer, entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
 
@@ -98,17 +99,17 @@ def test_quantumlock_scoring():
     dataset = QuantumLockDataset(config)
 
     for item in dataset:
-        solution = item["metadata"]["solution_path"]
+        solution = item["answer"]
 
         # Test correct solution
         assert dataset.score_answer(solution, item) == 1.0
 
         # Test empty/None answers
         assert dataset.score_answer(None, item) == 0.0
-        assert dataset.score_answer("", item) == 0.1
+        assert dataset.score_answer("", item) == 0.0
 
         # Test invalid buttons
-        assert dataset.score_answer("XYZ", item) == 0.1
+        assert dataset.score_answer("XYZ", item) == 0.0
 
         # Test case insensitivity
         if solution:

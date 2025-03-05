@@ -15,10 +15,6 @@ The string is called alternating if no two adjacent characters are equal. For ex
 
 Any two characters may be swapped, even if they are not adjacent.
 
-Example:
-- Input: Determine the minimum number of swaps to make the following binary string alternating: 111000
-- Output: 1
-
 Now, determine the minimum number of swaps to make the following binary string alternating: {string}
 """
 

@@ -8,9 +8,11 @@ from reasoning_gym.algorithmic.manipulate_matrix import ManipulateMatrixConfig, 
 def test_manipulate_matrix_config_validation():
     """Test that invalid configs raise appropriate errors"""
 
-    with pytest.raises(AssertionError):
-        config = ManipulateMatrixConfig(max_transforms=-1)  # max_transforms should be non-negative
-        config.validate()
+    for field in ["min_transforms", "max_transforms"]:
+        for num_transforms in [-1, 0]:  # Number of transforms should be positive
+            with pytest.raises(AssertionError):
+                config = ManipulateMatrixConfig(**{field: num_transforms})
+                config.validate()
 
     invalid_dims = [-1, 0]  # Dimensions should be positive integers
     dim_fields = ["min_rows", "min_cols", "max_rows", "max_cols"]
@@ -19,25 +21,6 @@ def test_manipulate_matrix_config_validation():
         for dim in invalid_dims:
             with pytest.raises(AssertionError):
                 config = ManipulateMatrixConfig(**{field: dim})
-                config.validate()
-
-    invalid_probabilities = [-0.01, 1.01]  # Probabilities should be between 0 and 1 inclusive
-    probability_fields = [
-        "p_hmirror",
-        "p_vmirror",
-        "p_dmirror",
-        "p_cmirror",
-        "p_map",
-        "p_crop",
-        "p_remove_every_nth_row",
-        "p_remove_every_nth_col",
-        "p_zero_divisible",
-    ]
-
-    for field in probability_fields:
-        for prob in invalid_probabilities:
-            with pytest.raises(AssertionError):
-                config = ManipulateMatrixConfig(**{field: prob})
                 config.validate()
 
 
@@ -212,3 +195,27 @@ def test_manipulate_matrix_transforms():
         [16, 18, 20],
         [21, 23, 25],
     ]
+
+
+def test_manipulate_matrix_score_answer():
+    """Test the score_answer method"""
+    config = ManipulateMatrixConfig(seed=42)
+    dataset = ManipulateMatrixDataset(config)
+
+    entry = {"answer": dataset._matrix_to_str([[1, 2, 3], [4, 5, 6], [7, 8, 9]])}
+
+    # perfect match
+    answer = "1 2 3\n4 5 6\n7 8 9"
+    assert dataset.score_answer(answer, entry) == 1.0
+
+    # model answer contains unnecessary empty spaces
+    answer = "1   2 3\n4 5 6   \n7 8 9  "
+    assert dataset.score_answer(answer, entry) == 1.0
+
+    # incorrect answer
+    answer = "1 2 3\n4 5 6\n7 8 8"
+    assert dataset.score_answer(answer, entry) == 0.0
+
+    # answer is none
+    answer = None
+    assert dataset.score_answer(answer, entry) == 0.0
