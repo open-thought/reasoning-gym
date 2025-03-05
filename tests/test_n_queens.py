@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.games.n_queens import NQueensConfig, NQueensDataset
+from reasoning_gym.games.n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
 
 
 def test_nqueens_config_validation():
@@ -146,3 +146,28 @@ def is_valid_solution(board: list[list[str]]) -> bool:
                 off_diags.add(r - c)
 
     return num_queens == n
+
+
+def test_n_queens_curriculum():
+    curriculum = NQueensCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: NQueensConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.n == 4
+    assert base_cfg.min_remove == 2 and base_cfg.max_remove == 2
+
+    # test incrementing attribute levels for n & num_removed attributes
+    curriculum.increment_attr_level("n")
+    curriculum.increment_attr_level("num_removed")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.n == 6
+    assert increased_cfg.min_remove == 2 and increased_cfg.max_remove == 4
+
+    # test decrementing attribute level for n again
+    curriculum.decrement_attr_level("n")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.n == 4
+    assert partially_decreased_cfg.min_remove == 2 and partially_decreased_cfg.max_remove == 4
