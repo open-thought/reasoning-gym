@@ -1,4 +1,4 @@
-from .course_schedule import CourseScheduleConfig, CourseScheduleDataset
+from .course_schedule import CourseScheduleConfig, CourseScheduleCurriculum, CourseScheduleDataset
 from .family_relationships import FamilyRelationshipsConfig, FamilyRelationshipsDataset
 from .largest_island import LargestIslandDataset
 from .quantum_lock import QuantumLockConfig, QuantumLockDataset
@@ -12,6 +12,7 @@ __all__ = [
     "LargestIslandDataset",
     "CourseScheduleDataset",
     "CourseScheduleConfig",
+    "CourseScheduleCurriculum",
     "ShortestPathConfig",
     "ShortestPathDataset",
 ]
