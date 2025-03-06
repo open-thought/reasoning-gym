@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.logic.game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
+from reasoning_gym.algorithmic.game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 
 
 def test_game_of_life():
