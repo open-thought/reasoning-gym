@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Literal, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -94,9 +95,8 @@ class BasicArithmeticDataset(ProceduralDataset):
             "question": question,
             "answer": str(result),
             "metadata": {
-                "num_terms": num_terms,
-                "num_digits": num_digits,
                 "expression": expression,
+                "difficulty": {"num_terms": num_terms, "num_digits": num_digits},
             },
         }
 
@@ -231,6 +231,33 @@ class BasicArithmeticDataset(ProceduralDataset):
             templates = ["What is {0}?", "Solve {0}.", "Compute {0}.", "Evaluate: {0}."]
             template = rng.choice(templates)
             return template.format(expression)
+
+
+class BasicArithmeticCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(name=BasicArithmeticCurriculum.__name__, config_cls=BasicArithmeticDatasetConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_terms",
+                levels=[2, 5, 10, 20],
+                default_level=0,
+                description="Number of terms in the expression",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+            ),
+            RangeAttributeDefinition(
+                name="num_digits",
+                levels=[1, 2, 5, 10],
+                default_level=0,
+                description="Number of digits in the numbers",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_digits",
+                upper_field_name="max_digits",
+            ),
+        )
 
 
 # Register the dataset
