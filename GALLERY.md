@@ -10,11 +10,14 @@ This gallery shows examples from all available datasets using their default conf
 - [base_conversion](#base_conversion)
 - [basic_arithmetic](#basic_arithmetic)
 - [bf](#bf)
+- [binary_alternation](#binary_alternation)
 - [binary_matrix](#binary_matrix)
+- [bitwise_arithmetic](#bitwise_arithmetic)
 - [caesar_cipher](#caesar_cipher)
 - [calendar_arithmetic](#calendar_arithmetic)
 - [chain_sum](#chain_sum)
 - [circuit_logic](#circuit_logic)
+- [codeio](#codeio)
 - [color_cube_rotation](#color_cube_rotation)
 - [complex_arithmetic](#complex_arithmetic)
 - [count_bits](#count_bits)
@@ -25,6 +28,7 @@ This gallery shows examples from all available datasets using their default conf
 - [decimal_arithmetic](#decimal_arithmetic)
 - [decimal_chain_sum](#decimal_chain_sum)
 - [dice](#dice)
+- [emoji_mystery](#emoji_mystery)
 - [family_relationships](#family_relationships)
 - [figlet_font](#figlet_font)
 - [fraction_simplification](#fraction_simplification)
@@ -38,11 +42,14 @@ This gallery shows examples from all available datasets using their default conf
 - [isomorphic_strings](#isomorphic_strings)
 - [jugs](#jugs)
 - [knight_swap](#knight_swap)
+- [knights_knaves](#knights_knaves)
 - [largest_island](#largest_island)
 - [lcm](#lcm)
 - [leg_counting](#leg_counting)
 - [letter_counting](#letter_counting)
 - [letter_jumble](#letter_jumble)
+- [list_functions](#list_functions)
+- [mahjong_puzzle](#mahjong_puzzle)
 - [manipulate_matrix](#manipulate_matrix)
 - [maze](#maze)
 - [mini_sudoku](#mini_sudoku)
@@ -60,6 +67,8 @@ This gallery shows examples from all available datasets using their default conf
 - [power_function](#power_function)
 - [prime_factorization](#prime_factorization)
 - [products](#products)
+- [propositional_logic](#propositional_logic)
+- [puzzle24](#puzzle24)
 - [quantum_lock](#quantum_lock)
 - [ransom_note](#ransom_note)
 - [rearc](#rearc)
@@ -70,6 +79,7 @@ This gallery shows examples from all available datasets using their default conf
 - [rush_hour](#rush_hour)
 - [self_reference](#self_reference)
 - [sentence_reordering](#sentence_reordering)
+- [shortest_path](#shortest_path)
 - [simple_equations](#simple_equations)
 - [simple_geometry](#simple_geometry)
 - [simple_integration](#simple_integration)
@@ -118,19 +128,7 @@ To *compute* a program, we must rewrite neighbor tokens, using the rules:
     B# #B ... becomes ... nothing
 
 In other words, whenever two neighbor tokens have their '#' facing each-other,
-they must be rewritten according to the corresponding rule. For example, the
-first example shown here is computed as:
-
-    B# A# #B #A B# =
-    B# #B A# #A B# =
-    A# #A B# =
-    B#
-
-The steps were:
-1. We replaced `A# #B` by `#B A#`.
-2. We replaced `B# #B` by nothing.
-3. We replaced `A# #A` by nothing.
-The final result was just `B#`.
+they must be rewritten according to the corresponding rule.
 
 Now, consider the following program:
 
@@ -155,19 +153,7 @@ To *compute* a program, we must rewrite neighbor tokens, using the rules:
     B# #B ... becomes ... nothing
 
 In other words, whenever two neighbor tokens have their '#' facing each-other,
-they must be rewritten according to the corresponding rule. For example, the
-first example shown here is computed as:
-
-    B# A# #B #A B# =
-    B# #B A# #A B# =
-    A# #A B# =
-    B#
-
-The steps were:
-1. We replaced `A# #B` by `#B A#`.
-2. We replaced `B# #B` by nothing.
-3. We replaced `A# #A` by nothing.
-The final result was just `B#`.
+they must be rewritten according to the corresponding rule.
 
 Now, consider the following program:
 
@@ -192,19 +178,7 @@ To *compute* a program, we must rewrite neighbor tokens, using the rules:
     B# #B ... becomes ... nothing
 
 In other words, whenever two neighbor tokens have their '#' facing each-other,
-they must be rewritten according to the corresponding rule. For example, the
-first example shown here is computed as:
-
-    B# A# #B #A B# =
-    B# #B A# #A B# =
-    A# #A B# =
-    B#
-
-The steps were:
-1. We replaced `A# #B` by `#B A#`.
-2. We replaced `B# #B` by nothing.
-3. We replaced `A# #A` by nothing.
-The final result was just `B#`.
+they must be rewritten according to the corresponding rule.
 
 Now, consider the following program:
 
@@ -235,7 +209,8 @@ Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -
 1. Give coordinates in the form (x, y)
 2. Round decimal answers to 3 decimal places
 3. Use the degree symbol ° for angles
-4. Return only th angle, coordinates, or radius as your answer.
+4. Return only the angle, coordinates, or radius as your answer.
+
 Answer: 17.10°
 Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237, 'task_type': 'angle_measure'}
 
@@ -244,7 +219,8 @@ Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determ
 1. Give coordinates in the form (x, y)
 2. Round decimal answers to 3 decimal places
 3. Use the degree symbol ° for angles
-4. Return only th angle, coordinates, or radius as your answer.
+4. Return only the angle, coordinates, or radius as your answer.
+
 Answer: (0.304, -1.217)
 Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'ortho': (7/23, -28/23), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262), 'task_type': 'orthocenter'}
 
@@ -253,7 +229,8 @@ Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), 
 1. Give coordinates in the form (x, y)
 2. Round decimal answers to 3 decimal places
 3. Use the degree symbol ° for angles
-4. Return only th angle, coordinates, or radius as your answer.
+4. Return only the angle, coordinates, or radius as your answer.
+
 Answer: 2.176
 Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009, 'task_type': 'incircle_radius'}
 
@@ -341,7 +318,7 @@ Example 3:
 Input:  0 0 0 7 9 4 9 1 0 0
 Output: 7 9 4 9 1 0 0 0 0 0
 
-Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer should be just the test output grid itself.
 
 Input:
 0 0 0 0 0 1 5 0 0 0
@@ -363,7 +340,7 @@ Example 3:
 Input:  0 0 0 0 0 0 0 0 0 3 7 2 1 1 3 1 3 5 0
 Output: 0 0 0 0 0 0 0 0 0 0 3 7 2 1 1 3 1 3 5
 
-Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer should be just the test output grid itself.
 
 Input:
 0 9 2 1 2 8 6 6 9 8 0 0 0 0 0 0 0 0 0
@@ -385,7 +362,7 @@ Example 3:
 Input:  5 5 5 5 5 5 5 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 Output: 5 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
-Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer must be placed in <output></output> tags and should be just be the text output grid itself.
+Below is a test input grid. Predict the corresponding output grid by applying the rule you found. Describe how you derived the rule and your overall reasoning process in detail before you submit your answer. Your final answer should be just the test output grid itself.
 
 Input:
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 0
@@ -830,19 +807,6 @@ Question: Your task is to convert a number between two different bases.
 
 If the target base is > 10, use lowercase letters a-z for digits above 9.
 
-Example:
-- Input: Convert the base-9 number 440 to base-5
-- Output: 2420
-- Explanation
-    - First, we convert the base-9 number 440 to base-10: 4 * 9**2 + 4 * 9**1 + 0 * 9**0 = 324 + 36 + 0 = 360
-    - Next, we convert the base-10 number 360 to base-5:
-        - 360 // 5 = 72 remainder 0
-        - 72 // 5 = 14 remainder 2
-        - 14 // 5 = 2 remainder 4
-        - 2 // 5 = 0 remainder 2
-    - Reading the remainders in reverse order gives us the base-5 number 2 4 2 0
-    - Hence, the final answer is 2420
-
 Now, convert the base-3 number 220020 to binary
 
 Answer: 1010001110
@@ -853,19 +817,6 @@ Question: Your task is to convert a number between two different bases.
 
 If the target base is > 10, use lowercase letters a-z for digits above 9.
 
-Example:
-- Input: Convert the base-9 number 440 to base-5
-- Output: 2420
-- Explanation
-    - First, we convert the base-9 number 440 to base-10: 4 * 9**2 + 4 * 9**1 + 0 * 9**0 = 324 + 36 + 0 = 360
-    - Next, we convert the base-10 number 360 to base-5:
-        - 360 // 5 = 72 remainder 0
-        - 72 // 5 = 14 remainder 2
-        - 14 // 5 = 2 remainder 4
-        - 2 // 5 = 0 remainder 2
-    - Reading the remainders in reverse order gives us the base-5 number 2 4 2 0
-    - Hence, the final answer is 2420
-
 Now, convert the base-6 number 103 to base-13
 
 Answer: 30
@@ -875,19 +826,6 @@ Example 3:
 Question: Your task is to convert a number between two different bases.
 
 If the target base is > 10, use lowercase letters a-z for digits above 9.
-
-Example:
-- Input: Convert the base-9 number 440 to base-5
-- Output: 2420
-- Explanation
-    - First, we convert the base-9 number 440 to base-10: 4 * 9**2 + 4 * 9**1 + 0 * 9**0 = 324 + 36 + 0 = 360
-    - Next, we convert the base-10 number 360 to base-5:
-        - 360 // 5 = 72 remainder 0
-        - 72 // 5 = 14 remainder 2
-        - 14 // 5 = 2 remainder 4
-        - 2 // 5 = 0 remainder 2
-    - Reading the remainders in reverse order gives us the base-5 number 2 4 2 0
-    - Hence, the final answer is 2420
 
 Now, convert the base-10 number 418 to base-13
 
@@ -917,17 +855,17 @@ whitespace = single
 Example tasks:
 ````
 Example 1:
-Question: Calculate -5 * -6. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
+Question: Calculate -5 * -6.
 Answer: 30
 Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '-5 * -6'}
 
 Example 2:
-Question: Calculate 965 / 5. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
+Question: Calculate 965 / 5.
 Answer: 193
 Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '965 / 5'}
 
 Example 3:
-Question: Calculate 0 + -2 + -4 * 0 * 3. Ensure to report the answer as an integer. Do not add commas to the integer answers reported.
+Question: Calculate 0 + -2 + -4 * 0 * 3.
 Answer: -2
 Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
 
@@ -974,6 +912,58 @@ Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program'
 
 ````
 
+### binary_alternation
+Generates Binary Alternation exercises with configurable difficulty
+
+Default configuration:
+```python
+min_n = 10
+max_n = 30
+p_solvable = 0.8
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
+
+The string is called alternating if no two adjacent characters are equal. For example, the strings "010" and "1010" are alternating, while the string "0100" is not.
+
+Any two characters may be swapped, even if they are not adjacent.
+
+Now, determine the minimum number of swaps to make the following binary string alternating: 0010101011
+
+Answer: 1
+Metadata: {'string': '0010101011', 'solution': 1, 'solvable': True}
+
+Example 2:
+Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
+
+The string is called alternating if no two adjacent characters are equal. For example, the strings "010" and "1010" are alternating, while the string "0100" is not.
+
+Any two characters may be swapped, even if they are not adjacent.
+
+Now, determine the minimum number of swaps to make the following binary string alternating: 00011111001010
+
+Answer: 3
+Metadata: {'string': '00011111001010', 'solution': 3, 'solvable': True}
+
+Example 3:
+Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
+
+The string is called alternating if no two adjacent characters are equal. For example, the strings "010" and "1010" are alternating, while the string "0100" is not.
+
+Any two characters may be swapped, even if they are not adjacent.
+
+Now, determine the minimum number of swaps to make the following binary string alternating: 100000100111110000000111111
+
+Answer: 7
+Metadata: {'string': '100000100111110000000111111', 'solution': 7, 'solvable': True}
+
+````
+
 ### binary_matrix
 Generates Binary Matrix exercises with configurable difficulty
 
@@ -991,22 +981,7 @@ Example tasks:
 Example 1:
 Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
-Example:
-- Input: Find the distance to the nearest 0 for each cell in the matrix below:
-0 0 0
-0 1 0
-1 1 1
-- Output:
-0 0 0
-0 1 0
-1 2 1
-- Explanation
-    - Each cell with a 0 has a distance of 0 to itself.
-    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
-    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
-    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
-    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
-    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
+The output should be a matrix of the same size as the input matrix, where each cell contains the distance to the nearest 0.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
 1 1 0 1
@@ -1023,22 +998,7 @@ Metadata: {'matrix': [[1, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 1, 0]], '
 Example 2:
 Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
-Example:
-- Input: Find the distance to the nearest 0 for each cell in the matrix below:
-0 0 0
-0 1 0
-1 1 1
-- Output:
-0 0 0
-0 1 0
-1 2 1
-- Explanation
-    - Each cell with a 0 has a distance of 0 to itself.
-    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
-    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
-    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
-    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
-    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
+The output should be a matrix of the same size as the input matrix, where each cell contains the distance to the nearest 0.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
 1 0 1
@@ -1053,22 +1013,7 @@ Metadata: {'matrix': [[1, 0, 1], [1, 1, 1], [1, 0, 1]], 'solution': [[1, 0, 1], 
 Example 3:
 Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
-Example:
-- Input: Find the distance to the nearest 0 for each cell in the matrix below:
-0 0 0
-0 1 0
-1 1 1
-- Output:
-0 0 0
-0 1 0
-1 2 1
-- Explanation
-    - Each cell with a 0 has a distance of 0 to itself.
-    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
-    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
-    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
-    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
-    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
+The output should be a matrix of the same size as the input matrix, where each cell contains the distance to the nearest 0.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
 0 1 1 1 1 1 1 0 1
@@ -1091,6 +1036,56 @@ Answer: 0 1 1 2 1 2 1 0 1
 1 1 2 3 2 1 2 2 1
 0 0 1 2 3 2 3 3 2
 Metadata: {'matrix': [[0, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [1, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 0, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 0, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 1, 1, 1, 1, 1, 1, 1]], 'solution': [[0, 1, 1, 2, 1, 2, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [2, 1, 2, 2, 1, 2, 1, 0, 1], [2, 2, 2, 1, 0, 1, 1, 0, 1], [1, 2, 3, 2, 1, 1, 2, 1, 1], [0, 1, 2, 2, 1, 0, 1, 1, 0], [1, 1, 2, 3, 2, 1, 2, 2, 1], [0, 0, 1, 2, 3, 2, 3, 3, 2]]}
+
+````
+
+### bitwise_arithmetic
+Dataset that generates tasks testing understanding of bitwise arithmetic operations.
+
+    Generates expressions combining:
+    - Standard arithmetic operators (+, -, *)
+    - Bitwise shift operators (<<, >>)
+    - Multi-byte hexadecimal numbers (e.g. 0x100 to 0xFFFF)
+
+    The difficulty parameter controls expression complexity:
+    - Level 1: Simple expressions like (0x123 + 0x456)
+    - Level 2: Nested expressions with shifts like ((0x123 + 0x456) << 1)
+    - Level 3+: Deeper nesting like ((0x123 + 0x456) << (0x789 >> 1))
+
+    Each task provides:
+    - A question asking to evaluate an expression
+    - The correct answer in hexadecimal format
+    - Metadata including the raw expression
+
+    The dataset verifies answers by evaluating them as Python expressions,
+    supporting both integer and hexadecimal string formats.
+
+Default configuration:
+```python
+difficulty = 2
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. If the answer is negative, reply as a negative value (ex., -0x3), not the two's-compliment form. Reply only with the final hexidecimal value.
+((0x3a24 - 0x24b8) + (0x1741 >> 0x3))
+Answer: 0x1854
+Metadata: {'problem': '((0x3a24 - 0x24b8) + (0x1741 >> 0x3))'}
+
+Example 2:
+Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. If the answer is negative, reply as a negative value (ex., -0x3), not the two's-compliment form. Reply only with the final hexidecimal value.
+((0xacf1 * 0xb3cc) - (0x9a4b << 0x0))
+Answer: 0x7975b8c1
+Metadata: {'problem': '((0xacf1 * 0xb3cc) - (0x9a4b << 0x0))'}
+
+Example 3:
+Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. If the answer is negative, reply as a negative value (ex., -0x3), not the two's-compliment form. Reply only with the final hexidecimal value.
+((0x2e39 + 0x622b) >> 0x0)
+Answer: 0x9064
+Metadata: {'problem': '((0x2e39 + 0x622b) >> 0x0)'}
 
 ````
 
@@ -1398,6 +1393,147 @@ Metadata: {'expression': "(A⊕A'⊕A⊕A)&(A↑A↑A↑A')&(A'⊕A'⊕A)&(B&C&D
 
 ````
 
+### codeio
+Exercise some caution when using this dataset, as it involves executing arbitrary code snippets.
+    These code snippets are transformed by an LLM from raw code files which have been curated from high-quality sources.
+    However, there is still a risk that the LLM could have introduced code with bad effects.
+
+Default configuration:
+```python
+seed = 42
+size = 500
+input_prediction_probability = 0.5
+```
+
+Example tasks:
+````
+Example 1:
+Question: 
+You are given a question that requires some input and output variables as follows:
+
+You are given an integer `number`. Your task is to determine if the number is a prime number. A prime number is a positive integer greater than 1 that has no positive divisors other than 1 and itself. The function should return a boolean value indicating whether the number is prime. The function should raise a `ValueError` if the input is not a positive integer.
+
+The input and output requirements are as follows:
+
+Input:
+    number (int): A positive integer to check for primality.
+
+Output:
+    return (dict): A dictionary with one key:
+    - is_prime (bool): A boolean value indicating whether the input number is prime.
+
+Given the following input:
+
+{'number': 114}
+
+Can you predict the output without writing any code? Please think and then provide the exact output in the form of a JSON object as your final answer. The keys and values of the object should strictly match the output requirement as specified.
+
+Tip: Here is a reference code snippet for this question. You can refer to this code to guide your reasoning but not copy spans of code directly.
+
+def main_solution(number):
+    import math
+
+    if not isinstance(number, int) or not number >= 0:
+        raise ValueError("is_prime() only accepts positive integers")
+
+    if 1 < number < 4:
+        return {"is_prime": True}
+    elif number < 2 or number % 2 == 0 or number % 3 == 0:
+        return {"is_prime": False}
+
+    for i in range(5, int(math.sqrt(number) + 1), 6):
+        if number % i == 0 or number % (i + 2) == 0:
+            return {"is_prime": False}
+    return {"is_prime": True}
+
+Answer: {"is_prime": false}
+Metadata: {'input_data': {'number': 114}, 'output_data': {'is_prime': False}}
+
+Example 2:
+Question: 
+You are given a question that requires some input and output variables as follows:
+
+You are given an integer `n`. Your task is to calculate the number of distinct terms in the sequence generated by `a^b` for all integers `a` and `b` where `2 <= a <= n` and `2 <= b <= n`. Return the count of distinct terms in the sequence.
+
+The input and output requirements are as follows:
+
+Input:
+    n (int): An integer representing the upper limit for both `a` and `b` in the expression `a^b`.
+
+Output:
+    return (dict): A dictionary with one key:
+    - distinct_terms (int): The number of distinct terms in the sequence generated by `a^b` for `2 <= a <= n` and `2 <= b <= n`.
+
+Given the following output:
+
+{'distinct_terms': 1224}
+
+Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
+
+Tip: Here is a reference code snippet for this question. You can refer to this code to guide your reasoning but not copy spans of code directly.
+
+def main_solution(n: int) -> dict:
+    collect_powers = set()
+
+    n = n + 1  # maximum limit
+
+    for a in range(2, n):
+        for b in range(2, n):
+            current_pow = a**b  # calculates the current power
+            collect_powers.add(current_pow)  # adds the result to the set
+    return {"distinct_terms": len(collect_powers)}
+
+Answer: {"n": 38}
+Metadata: {'input_data': {'n': 38}, 'output_data': {'distinct_terms': 1224}}
+
+Example 3:
+Question: 
+You are given a question that requires some input and output variables as follows:
+
+You are given an integer `n`. Your task is to find the largest prime factor of `n`. A prime factor is a prime number that divides `n` without leaving a remainder. The function should return the largest prime factor of `n` as an integer. If `n` is less than or equal to 0, the function should raise a `ValueError`. If `n` is not an integer or cannot be cast to an integer, the function should raise a `TypeError`.
+
+The input and output requirements are as follows:
+
+Input:
+    n (int): An integer greater than or equal to 1. The function will find the largest prime factor of this number.
+
+Output:
+    return (dict): A dictionary with one key:
+    - largest_prime_factor (int): The largest prime factor of the input number `n`.
+
+Given the following output:
+
+{'largest_prime_factor': 2647}
+
+Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
+
+Tip: Here is a reference code snippet for this question. You can refer to this code to guide your reasoning but not copy spans of code directly.
+
+def main_solution(n: int) -> dict:
+    try:
+        n = int(n)
+    except (TypeError, ValueError):
+        raise TypeError("Parameter n must be int or castable to int.")
+    if n <= 0:
+        raise ValueError("Parameter n must be greater than or equal to one.")
+    i = 2
+    ans = 0
+    if n == 2:
+        return {"largest_prime_factor": 2}
+    while n > 2:
+        while n % i != 0:
+            i += 1
+        ans = i
+        while n % i == 0:
+            n = n // i
+        i += 1
+    return {"largest_prime_factor": int(ans)}
+
+Answer: {"n": 545282}
+Metadata: {'input_data': {'n': 545282}, 'output_data': {'largest_prime_factor': 2647}}
+
+````
+
 ### color_cube_rotation
 Generates color cube rotation reasoning tasks
 
@@ -1507,6 +1643,7 @@ Generates Count Bits exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_n = 1
 max_n = 2147483647
 size = 500
 seed = 42
@@ -1546,17 +1683,17 @@ Example tasks:
 Example 1:
 Question: Count how many prime numbers there are between 1825 and 2029 (inclusive) ?
 Answer: 27
-Metadata: {'start': 1825, 'end': 2029, 'primes': [False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True], 'solution': 27}
+Metadata: {'start': 1825, 'end': 2029, 'primes': [1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999, 2003, 2011, 2017, 2027, 2029], 'solution': 27}
 
 Example 2:
 Question: Count how many prime numbers there are between 632 and 5319 (inclusive) ?
 Answer: 589
-Metadata: {'start': 632, 'end': 5319, 'primes': [False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False], 'solution': 589}
+Metadata: {'start': 632, 'end': 5319, 'primes': [641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999, 2003, 2011, 2017, 2027, 2029, 2039, 2053, 2063, 2069, 2081, 2083, 2087, 2089, 2099, 2111, 2113, 2129, 2131, 2137, 2141, 2143, 2153, 2161, 2179, 2203, 2207, 2213, 2221, 2237, 2239, 2243, 2251, 2267, 2269, 2273, 2281, 2287, 2293, 2297, 2309, 2311, 2333, 2339, 2341, 2347, 2351, 2357, 2371, 2377, 2381, 2383, 2389, 2393, 2399, 2411, 2417, 2423, 2437, 2441, 2447, 2459, 2467, 2473, 2477, 2503, 2521, 2531, 2539, 2543, 2549, 2551, 2557, 2579, 2591, 2593, 2609, 2617, 2621, 2633, 2647, 2657, 2659, 2663, 2671, 2677, 2683, 2687, 2689, 2693, 2699, 2707, 2711, 2713, 2719, 2729, 2731, 2741, 2749, 2753, 2767, 2777, 2789, 2791, 2797, 2801, 2803, 2819, 2833, 2837, 2843, 2851, 2857, 2861, 2879, 2887, 2897, 2903, 2909, 2917, 2927, 2939, 2953, 2957, 2963, 2969, 2971, 2999, 3001, 3011, 3019, 3023, 3037, 3041, 3049, 3061, 3067, 3079, 3083, 3089, 3109, 3119, 3121, 3137, 3163, 3167, 3169, 3181, 3187, 3191, 3203, 3209, 3217, 3221, 3229, 3251, 3253, 3257, 3259, 3271, 3299, 3301, 3307, 3313, 3319, 3323, 3329, 3331, 3343, 3347, 3359, 3361, 3371, 3373, 3389, 3391, 3407, 3413, 3433, 3449, 3457, 3461, 3463, 3467, 3469, 3491, 3499, 3511, 3517, 3527, 3529, 3533, 3539, 3541, 3547, 3557, 3559, 3571, 3581, 3583, 3593, 3607, 3613, 3617, 3623, 3631, 3637, 3643, 3659, 3671, 3673, 3677, 3691, 3697, 3701, 3709, 3719, 3727, 3733, 3739, 3761, 3767, 3769, 3779, 3793, 3797, 3803, 3821, 3823, 3833, 3847, 3851, 3853, 3863, 3877, 3881, 3889, 3907, 3911, 3917, 3919, 3923, 3929, 3931, 3943, 3947, 3967, 3989, 4001, 4003, 4007, 4013, 4019, 4021, 4027, 4049, 4051, 4057, 4073, 4079, 4091, 4093, 4099, 4111, 4127, 4129, 4133, 4139, 4153, 4157, 4159, 4177, 4201, 4211, 4217, 4219, 4229, 4231, 4241, 4243, 4253, 4259, 4261, 4271, 4273, 4283, 4289, 4297, 4327, 4337, 4339, 4349, 4357, 4363, 4373, 4391, 4397, 4409, 4421, 4423, 4441, 4447, 4451, 4457, 4463, 4481, 4483, 4493, 4507, 4513, 4517, 4519, 4523, 4547, 4549, 4561, 4567, 4583, 4591, 4597, 4603, 4621, 4637, 4639, 4643, 4649, 4651, 4657, 4663, 4673, 4679, 4691, 4703, 4721, 4723, 4729, 4733, 4751, 4759, 4783, 4787, 4789, 4793, 4799, 4801, 4813, 4817, 4831, 4861, 4871, 4877, 4889, 4903, 4909, 4919, 4931, 4933, 4937, 4943, 4951, 4957, 4967, 4969, 4973, 4987, 4993, 4999, 5003, 5009, 5011, 5021, 5023, 5039, 5051, 5059, 5077, 5081, 5087, 5099, 5101, 5107, 5113, 5119, 5147, 5153, 5167, 5171, 5179, 5189, 5197, 5209, 5227, 5231, 5233, 5237, 5261, 5273, 5279, 5281, 5297, 5303, 5309], 'solution': 589}
 
 Example 3:
 Question: Count how many prime numbers there are between 6694 and 8824 (inclusive) ?
 Answer: 236
-Metadata: {'start': 6694, 'end': 8824, 'primes': [False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, True, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, True, False, True, False, False, False], 'solution': 236}
+Metadata: {'start': 6694, 'end': 8824, 'primes': [6701, 6703, 6709, 6719, 6733, 6737, 6761, 6763, 6779, 6781, 6791, 6793, 6803, 6823, 6827, 6829, 6833, 6841, 6857, 6863, 6869, 6871, 6883, 6899, 6907, 6911, 6917, 6947, 6949, 6959, 6961, 6967, 6971, 6977, 6983, 6991, 6997, 7001, 7013, 7019, 7027, 7039, 7043, 7057, 7069, 7079, 7103, 7109, 7121, 7127, 7129, 7151, 7159, 7177, 7187, 7193, 7207, 7211, 7213, 7219, 7229, 7237, 7243, 7247, 7253, 7283, 7297, 7307, 7309, 7321, 7331, 7333, 7349, 7351, 7369, 7393, 7411, 7417, 7433, 7451, 7457, 7459, 7477, 7481, 7487, 7489, 7499, 7507, 7517, 7523, 7529, 7537, 7541, 7547, 7549, 7559, 7561, 7573, 7577, 7583, 7589, 7591, 7603, 7607, 7621, 7639, 7643, 7649, 7669, 7673, 7681, 7687, 7691, 7699, 7703, 7717, 7723, 7727, 7741, 7753, 7757, 7759, 7789, 7793, 7817, 7823, 7829, 7841, 7853, 7867, 7873, 7877, 7879, 7883, 7901, 7907, 7919, 7927, 7933, 7937, 7949, 7951, 7963, 7993, 8009, 8011, 8017, 8039, 8053, 8059, 8069, 8081, 8087, 8089, 8093, 8101, 8111, 8117, 8123, 8147, 8161, 8167, 8171, 8179, 8191, 8209, 8219, 8221, 8231, 8233, 8237, 8243, 8263, 8269, 8273, 8287, 8291, 8293, 8297, 8311, 8317, 8329, 8353, 8363, 8369, 8377, 8387, 8389, 8419, 8423, 8429, 8431, 8443, 8447, 8461, 8467, 8501, 8513, 8521, 8527, 8537, 8539, 8543, 8563, 8573, 8581, 8597, 8599, 8609, 8623, 8627, 8629, 8641, 8647, 8663, 8669, 8677, 8681, 8689, 8693, 8699, 8707, 8713, 8719, 8731, 8737, 8741, 8747, 8753, 8761, 8779, 8783, 8803, 8807, 8819, 8821], 'solution': 236}
 
 ````
 
@@ -1580,8 +1717,9 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate 139 using the numbers 36, 29, 95, 32, 4, 15.
+Question: Calculate 139 using all of these numbers: 36, 29, 95, 32, 4, 15.
 Each number may be used at most once.
+
 Final answer format instructions:
 1. Provide your solution as a arithmetic expression (no '=' sign).
 2. Do not include the target number in the expression.
@@ -1593,8 +1731,9 @@ Answer: 15 - 4 + 95 + 36 - 32 + 29
 Metadata: {'numbers': [36, 29, 95, 32, 4, 15], 'target': 139, 'expression': '15 - 4 + 95 + 36 - 32 + 29'}
 
 Example 2:
-Question: Using the numbers 74, 48, 56, 66, create an expression that equals 132.
+Question: Using all the numbers 74, 48, 56, 66, create an expression that equals 132.
 You can only use each number once.
+
 Final answer format instructions:
 1. Provide your solution as a arithmetic expression (no '=' sign).
 2. Do not include the target number in the expression.
@@ -1606,8 +1745,9 @@ Answer: 66 - 56 + 74 + 48
 Metadata: {'numbers': [74, 48, 56, 66], 'target': 132, 'expression': '66 - 56 + 74 + 48'}
 
 Example 3:
-Question: Using the numbers 5, 41, 38, 81, 14, create an expression that equals 450.
+Question: Using all the numbers 5, 41, 38, 81, 14, create an expression that equals 450.
 You can only use each number once.
+
 Final answer format instructions:
 1. Provide your solution as a arithmetic expression (no '=' sign).
 2. Do not include the target number in the expression.
@@ -1625,11 +1765,13 @@ Generates Course Schedule exercises with configurable difficulty
 
 Default configuration:
 ```python
-num_courses = 5
+min_num_courses = 5
+max_num_courses = 10
+min_num_prerequisites = 1
 max_num_prerequisites = 2
-p_solvable = 0.5
 min_cycle_length = 3
 max_cycle_length = 5
+p_solvable = 0.5
 size = 500
 seed = 42
 ```
@@ -1637,37 +1779,37 @@ seed = 42
 Example tasks:
 ````
 Example 1:
-Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+Question: There are a total of 10 courses you have to take, labeled from 0 to 9.
 
 You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
-[(2, 1), (4, 2), (4, 3), (2, 3)]
+[(9, 7), (8, 2), (7, 3), (8, 7), (1, 9), (1, 7), (2, 7), (5, 8), (9, 5), (2, 3), (6, 5), (3, 7), (4, 5), (3, 1), (0, 8), (5, 3)]
 
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 
-Answer: True
-Metadata: {'courses': [3, 1, 2, 4, 0], 'prerequisites': [(2, 1), (4, 2), (4, 3), (2, 3)], 'solution': True, 'solvable': True}
+Answer: False
+Metadata: {'courses': [7, 3, 2, 8, 5, 6, 9, 4, 0, 1], 'prerequisites': [(9, 7), (8, 2), (7, 3), (8, 7), (1, 9), (1, 7), (2, 7), (5, 8), (9, 5), (2, 3), (6, 5), (3, 7), (4, 5), (3, 1), (0, 8), (5, 3)], 'solution': False, 'solvable': False}
 
 Example 2:
 Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
 
 You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
-[(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)]
+[(1, 3), (0, 2), (1, 0), (3, 4), (3, 0), (4, 0), (2, 4), (2, 1)]
 
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 
 Answer: False
-Metadata: {'courses': [1, 4, 3, 2, 0], 'prerequisites': [(3, 0), (2, 4), (2, 3), (4, 1), (3, 1), (0, 1), (0, 2), (1, 3)], 'solution': False, 'solvable': False}
+Metadata: {'courses': [0, 4, 3, 1, 2], 'prerequisites': [(1, 3), (0, 2), (1, 0), (3, 4), (3, 0), (4, 0), (2, 4), (2, 1)], 'solution': False, 'solvable': False}
 
 Example 3:
-Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
+Question: There are a total of 8 courses you have to take, labeled from 0 to 7.
 
 You are given the following list of prerequisites, where prerequisites[i] = (a_i, b_i) indicates that you must first take course b_i if you want to take course a_i:
-[]
+[(6, 0), (2, 5), (3, 2), (3, 6), (6, 4), (5, 4), (2, 4), (1, 4), (0, 4), (7, 6)]
 
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 
 Answer: True
-Metadata: {'courses': [2, 1, 4, 0, 3], 'prerequisites': [], 'solution': True, 'solvable': True}
+Metadata: {'courses': [4, 5, 0, 2, 6, 3, 7, 1], 'prerequisites': [(6, 0), (2, 5), (3, 2), (3, 6), (6, 4), (5, 4), (2, 4), (1, 4), (0, 4), (7, 6)], 'solution': True, 'solvable': True}
 
 ````
 
@@ -1685,7 +1827,6 @@ Default configuration:
 min_words = 2
 max_words = 3
 allow_leading_zero = False
-include_example = True
 seed = 42
 size = 500
 ```
@@ -1703,26 +1844,6 @@ Question: Solve this cryptarithm:
 Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
-Here's an example:
-- Input:
-  BASE
-+ BALL
-------
- GAMES
-
-- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
-- Explanation:
-    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
-    * Units: E + L = S (no carry).
-    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
-    * Since S = E + 5 and S is one digit, E < 5.
-    * Hundreds: 2A + 1 = M (with carry).
-    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
-    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
-    * With E < 5, try E = 3: Then S = 8.
-    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
-    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
-
 Answer: F=3,I=4,K=2,L=9,M=1,O=8,P=0,Z=7
 Metadata: {'letters': ['L', 'O', 'K', 'I', 'P', 'Z', 'M', 'F'], 'word_values': [381, 42098], 'sum_number': 42479, 'words_letters': ['FOM', 'IKPLO'], 'result_letters': 'IKIZL', 'digit_to_letter': {'9': 'L', '8': 'O', '2': 'K', '4': 'I', '0': 'P', '7': 'Z', '1': 'M', '3': 'F'}, 'letter_to_digit': {'L': 9, 'O': 8, 'K': 2, 'I': 4, 'P': 0, 'Z': 7, 'M': 1, 'F': 3}}
 
@@ -1736,26 +1857,6 @@ Question: Solve this cryptarithm:
 
 Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
-
-Here's an example:
-- Input:
-  BASE
-+ BALL
-------
- GAMES
-
-- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
-- Explanation:
-    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
-    * Units: E + L = S (no carry).
-    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
-    * Since S = E + 5 and S is one digit, E < 5.
-    * Hundreds: 2A + 1 = M (with carry).
-    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
-    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
-    * With E < 5, try E = 3: Then S = 8.
-    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
-    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
 
 Answer: D=8,E=9,H=3,I=0,J=7,K=2,O=6,P=5
 Metadata: {'letters': ['O', 'K', 'H', 'P', 'I', 'D', 'E', 'J'], 'word_values': [3358, 70625], 'sum_number': 73983, 'words_letters': ['HHPD', 'JIOKP'], 'result_letters': 'JHEDH', 'digit_to_letter': {'6': 'O', '2': 'K', '3': 'H', '5': 'P', '0': 'I', '8': 'D', '9': 'E', '7': 'J'}, 'letter_to_digit': {'O': 6, 'K': 2, 'H': 3, 'P': 5, 'I': 0, 'D': 8, 'E': 9, 'J': 7}}
@@ -1772,26 +1873,6 @@ Question: Solve this cryptarithm:
 Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
-Here's an example:
-- Input:
-  BASE
-+ BALL
-------
- GAMES
-
-- Output: B=7, A=4, S=8, E=3, L=5, M=9, G=1
-- Explanation:
-    * BASE + BALL = GAMES, two 4-digit numbers sum to 5 digits, so G = 1.
-    * Units: E + L = S (no carry).
-    * Tens: S + L = E + 10 (carry 1). Substitute S = E + L to get E + 2L = E + 10, so L = 5.
-    * Since S = E + 5 and S is one digit, E < 5.
-    * Hundreds: 2A + 1 = M (with carry).
-    * Thousands: 2B = A + 10 (carry makes G = 1). So A = 2B - 10.
-    * Try B = 7: Then A = 4 and M = 2(4) + 1 = 9.
-    * With E < 5, try E = 3: Then S = 8.
-    * Solution: B = 7, A = 4, S = 8, E = 3, L = 5, M = 9, G = 1
-    * Verify: BASE (7483) + BALL (7455) = GAMES (14938).
-
 Answer: A=0,G=7,H=9,N=8,P=3,R=2,X=1,Z=5
 Metadata: {'letters': ['Z', 'H', 'N', 'G', 'X', 'A', 'R', 'P'], 'word_values': [25290, 33155, 59750], 'sum_number': 118195, 'words_letters': ['RZRHA', 'PPXZZ', 'ZHGZA'], 'result_letters': 'XXNXHZ', 'digit_to_letter': {'5': 'Z', '9': 'H', '8': 'N', '7': 'G', '1': 'X', '0': 'A', '2': 'R', '3': 'P'}, 'letter_to_digit': {'Z': 5, 'H': 9, 'N': 8, 'G': 7, 'X': 1, 'A': 0, 'R': 2, 'P': 3}}
 
@@ -1802,9 +1883,9 @@ Dataset that generates basic arithmetic tasks using Decimal arithmetic and prope
 
 Default configuration:
 ```python
-min_num_decimal_places = 6
-max_num_decimal_places = 6
-precision = 28
+min_num_decimal_places = 3
+max_num_decimal_places = 3
+precision = 6
 terms = 6
 seed = 42
 size = 500
@@ -1813,19 +1894,19 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Please solve this problem to a maximum of 28 significant digits, rounding up from the half. Only reply with the final value.
-(0.419611*3.744855)-(9.149733+0.533225)+3.668137-9.416130 = ?
-Answer: -13.859568648595
+Question: Please solve this problem to a maximum of 6 significant digits, rounding up from the half. Only reply with the final value.
+(0.410*3.658)-(8.936+0.521)+3.583-9.196 = ?
+Answer: -13.5702
 
 Example 2:
-Question: Please solve this problem to a maximum of 28 significant digits, rounding up from the half. Only reply with the final value.
-(4.799697-6.205510+(8.359621+9.674082*6.609140)-1.800269) = ?
-Answer: 69.09090130948
+Question: Please solve this problem to a maximum of 6 significant digits, rounding up from the half. Only reply with the final value.
+4.688-(6.061+9.811/((8.423/8.962)/2.887)) = ?
+Answer: -31.5099
 
 Example 3:
-Question: Please solve this problem to a maximum of 28 significant digits, rounding up from the half. Only reply with the final value.
-((8.724497+6.368109)-0.488171-9.541022+(2.628828*9.915288)) = ?
-Answer: 31.128999722464
+Question: Please solve this problem to a maximum of 6 significant digits, rounding up from the half. Only reply with the final value.
+((8.521+6.219)-0.477-9.318+(2.568*9.683)) = ?
+Answer: 29.8109
 
 ````
 
@@ -1853,9 +1934,9 @@ Answer: 8.19
 Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 1}, 'expression': '4.23 + 3.96'}
 
 Example 2:
-Question: State the final answer to the following arithmetic problem: 812.57 - 880.2577 =
-Answer: -67.6877
-Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812.57 - 880.2577'}
+Question: State the final answer to the following arithmetic problem: 812.57 - 880.2580 =
+Answer: -67.6880
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812.57 - 880.2580'}
 
 Example 3:
 Question: State the final answer to the following arithmetic problem: 2.75 - 6.5 - 3.7 + 4.7 - 0.98 =
@@ -1888,6 +1969,115 @@ Answer: 19/40
 Example 3:
 Question: I have these dice: 1d20, 1d19, 1d18, 1d15. What are the odds of rolling 48 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
 Answer: 9677/51300
+
+````
+
+### emoji_mystery
+Default configuration:
+```python
+size = 1000
+seed = 42
+min_words_in_sentence = 3
+max_words_in_sentence = 35
+```
+
+Example tasks:
+````
+Example 1:
+Question: The following emoji is encoded with a sentence.
+
+Decode the following sentence from the emoji: 😽󠄶󠅢󠅙󠅤󠅪󠄐󠄾󠅑󠅠󠅟󠅜󠅕󠅟󠅞󠄐󠅃󠅝󠅙󠅤󠅘󠄐󠅑󠅧󠅟󠅛󠅕󠄐󠅙󠅞󠄐󠅦󠅕󠅢󠅩󠄐󠅒󠅑󠅔󠄐󠅘󠅥󠅝󠅟󠅢󠄞
+
+Here is a hint:
+```python
+def variance_selector_to_byte(variation_selector):
+    variation_selector_codepoint = ord(variation_selector)
+    if 0xFE00 <= variation_selector_codepoint <= 0xFE0F:
+        return variation_selector_codepoint - 0xFE00
+    elif 0xE0100 <= variation_selector_codepoint <= 0xE01EF:
+        return variation_selector_codepoint - 0xE0100 + 16
+    else:
+        return None
+
+def decode(encoded_sentence):
+    decoded_bytes = []
+    variation_selectors_part = encoded_sentence[1:]
+    for char in variation_selectors_part:
+        byte_val = variance_selector_to_byte(char)
+        if byte_val is not None:
+            decoded_bytes.append(byte_val)
+    return bytes(decoded_bytes).decode('utf-8')
+```
+
+
+Return the secret sentence as your final answer.
+
+Answer: Fritz Napoleon Smith awoke in very bad humor.
+Metadata: {'emoji': '😽'}
+
+Example 2:
+Question: The following emoji is encoded with a sentence.
+
+Decode the following sentence from the emoji: 😆󠄱󠅞󠅔󠄐󠅙󠅞󠅔󠅕󠅕󠅔󠄜󠄐󠅣󠅟󠄐󠅓󠅟󠅞󠅖󠅙󠅔󠅕󠅞󠅤󠄐󠅧󠅑󠅣󠄐󠅤󠅘󠅕󠅙󠅢󠄐󠅑󠅙󠅢󠄜󠄐󠅤󠅘󠅕󠅩󠄐󠅣󠅕󠅕󠅝󠅕󠅔󠄐󠅤󠅟󠄐󠅘󠅑󠅦󠅕󠄐󠅞󠅟󠄐󠅔󠅟󠅥󠅒󠅤󠄐󠅑󠅣󠄐󠅤󠅟󠄐󠅤󠅘󠅕󠄐󠅠󠅟󠅣󠅣󠅙󠅒󠅙󠅜󠅙󠅤󠅩󠄐󠅟󠅖󠄐󠅣󠅥󠅓󠅓󠅕󠅣󠅣󠄐󠅙󠅞󠄐󠅣󠅥󠅓󠅘󠄐󠅑󠅞󠄐󠅥󠅞󠅔󠅕󠅢󠅤󠅑󠅛󠅙󠅞󠅗󠄞
+
+Here is a hint:
+```python
+def variance_selector_to_byte(variation_selector):
+    variation_selector_codepoint = ord(variation_selector)
+    if 0xFE00 <= variation_selector_codepoint <= 0xFE0F:
+        return variation_selector_codepoint - 0xFE00
+    elif 0xE0100 <= variation_selector_codepoint <= 0xE01EF:
+        return variation_selector_codepoint - 0xE0100 + 16
+    else:
+        return None
+
+def decode(encoded_sentence):
+    decoded_bytes = []
+    variation_selectors_part = encoded_sentence[1:]
+    for char in variation_selectors_part:
+        byte_val = variance_selector_to_byte(char)
+        if byte_val is not None:
+            decoded_bytes.append(byte_val)
+    return bytes(decoded_bytes).decode('utf-8')
+```
+
+
+Return the secret sentence as your final answer.
+
+Answer: And indeed, so confident was their air, they seemed to have no doubt as to the possibility of success in such an undertaking.
+Metadata: {'emoji': '😆'}
+
+Example 3:
+Question: The following emoji is encoded with a sentence.
+
+Decode the following sentence from the emoji: 😱󠄹󠅞󠄐󠅖󠅑󠅓󠅤󠄜󠄐󠅟󠅞󠅕󠄐󠅟󠅖󠄐󠅤󠅘󠅕󠅝󠄐󠅧󠅑󠅞󠅤󠅕󠅔󠄐󠅤󠅟󠄐󠅢󠅕󠅦󠅙󠅦󠅕󠄐󠅠󠅑󠅙󠅞󠅤󠅙󠅞󠅗󠄜󠄐󠅑󠅞󠄐󠅑󠅢󠅤󠄐󠅖󠅑󠅜󠅜󠅕󠅞󠄐󠅙󠅞󠅤󠅟󠄐󠅔󠅕󠅣󠅥󠅕󠅤󠅥󠅔󠅕󠄐󠅟󠅧󠅙󠅞󠅗󠄐󠅤󠅟󠄐󠅤󠅘󠅕󠄐󠅠󠅢󠅟󠅗󠅢󠅕󠅣󠅣󠄐󠅝󠅑󠅔󠅕󠄐󠅙󠅞󠄐󠅓󠅟󠅜󠅟󠅢󠄝󠅠󠅘󠅟󠅤󠅟󠅗󠅢󠅑󠅠󠅘󠅩󠄞
+
+Here is a hint:
+```python
+def variance_selector_to_byte(variation_selector):
+    variation_selector_codepoint = ord(variation_selector)
+    if 0xFE00 <= variation_selector_codepoint <= 0xFE0F:
+        return variation_selector_codepoint - 0xFE00
+    elif 0xE0100 <= variation_selector_codepoint <= 0xE01EF:
+        return variation_selector_codepoint - 0xE0100 + 16
+    else:
+        return None
+
+def decode(encoded_sentence):
+    decoded_bytes = []
+    variation_selectors_part = encoded_sentence[1:]
+    for char in variation_selectors_part:
+        byte_val = variance_selector_to_byte(char)
+        if byte_val is not None:
+            decoded_bytes.append(byte_val)
+    return bytes(decoded_bytes).decode('utf-8')
+```
+
+
+Return the secret sentence as your final answer.
+
+Answer: In fact, one of them wanted to revive painting, an art fallen into desuetude owing to the progress made in color-photography.
+Metadata: {'emoji': '😱'}
 
 ````
 
@@ -1946,50 +2136,47 @@ Example tasks:
 Example 1:
 Question: Please read the following figlet font:
 
-  sSSSs        d s  b        sss.      d sss        sss sssss 
- S     S       S  S S      d           S                S     
-S       S      S   SS      Y           S                S     
-S       S      S    S        ss.       S sSSs           S     
-S       S      S    S           b      S                S     
- S     S       S    S           P      S                S     
-  "sss"        P    P      ` ss'       P sSSss          P     
-                                                              
+  # #    ##   ##   ####   ## ###  ######   
+ ## ##   ###  ##  ######  ## ###  ######   
+### ###   ### ##  ##  ##  ##               
+##   ##  # #####   ##     ## ###    ##     
+##   ##  ## ####     ##   ## ###    ##     
+### ###  ##  ###  ##  ##  ##        ##     
+ ## ##   ##   ##  ######  ## ###    ##     
+  # #    ##    #   ####   ## ###    ##     
 
 Answer: ONSET
-Metadata: {'font': 'amc_tubes', 'space_letters': True}
+Metadata: {'font': 'pawn_ins', 'space_letters': True}
 
 Example 2:
 Question: What word does this say?
 
-######   ######   ######     ####   ##    ## 
- ##  ##   ##  ##   ##  ##   ##  ##   ##  ##  
- ##  ##   ##       ##  ##  ##   ##   ##  ##  
- #####    ####     #####   ##        ######  
- ##       ##       ## ##   ##   ##   ##  ##  
- ##       ##  ##   ## ##    ##  ##   ##  ##  
-####     ######   ### ###    ####   ##    ## 
-                                             
+ 888888ba      88888888b     888888ba      a88888b.    dP     dP  
+ 88    `8b     88            88    `8b    d8'   `88    88     88  
+a88aaaa8P'    a88aaaa       a88aaaa8P'    88           88aaaaa88a 
+ 88            88            88   `8b.    88           88     88  
+ 88            88            88     88    Y8.   .88    88     88  
+ dP            88888888P     dP     dP     Y88888P'    dP     dP  
+                                                                  
+                                                                  
 
 Answer: PERCH
-Metadata: {'font': 'demo_2__', 'space_letters': True}
+Metadata: {'font': 'nancyj-improved', 'space_letters': True}
 
 Example 3:
 Question: What word does this say?
 
-                                              
-                                              
-                                              
-### ###   ### ###   #####    ######   #####   
- ## ##     ##  #     ## ##    ##  #    ## ##  
- ## ##     ### #     ## ##    ####     ## ##  
- ## ##     #####     ## ##    ##       ####   
- ## ##     ## ##     ## ##    ## ##    ## ##  
-  ###     ### ##    #####    ######   #### ## 
-                                              
-                                              
+##   ##  ###  ##  ######   #######  ######   
+##   ##   ### ##   ## ###   ##  ##   ##  ##  
+##   ##   ######   ##  ##   ##       ##  ##  
+##   ##   ## ###   ##  ##   ####     #####   
+##   ##   ##  ##   ##  ##   ##       ##  ##  
+### ###   ##  ##   ## ###   ##  ##   ##  ##  
+ #####   ###  ##  ######   #######  #### ### 
+                                             
 
 Answer: UNDER
-Metadata: {'font': 'xcourb', 'space_letters': True}
+Metadata: {'font': 'fp2_____', 'space_letters': True}
 
 ````
 
@@ -2126,7 +2313,7 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Assume a Moore neighborhood and wrapping topology. Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[0,1,0,1,1,0,0,0,1,0],
  [1,0,0,1,0,1,1,1,1,1],
@@ -2142,7 +2329,7 @@ Answer: [[0,1,0,0,0,0,0,0,0,0],[1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,
 Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 2:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Assume a Moore neighborhood and wrapping topology. Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[1,1,1,1,1,1,0,1,1,1],
  [0,0,1,1,1,1,1,1,1,1],
@@ -2158,7 +2345,7 @@ Answer: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0],[0,1,
 Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
 
 Example 3:
-Question: What will this Game of Life board look like after 1 steps of simulation? Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
+Question: What will this Game of Life board look like after 1 steps of simulation? Assume a Moore neighborhood and wrapping topology. Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
 [[0,1,0,1,1,1,1,0,0,1],
  [0,1,0,0,1,1,1,0,1,1],
@@ -2228,7 +2415,7 @@ Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 Edges: [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)]
 Possible colors: [1, 2, 3, 4]
 
-Return your solution as a JSON map of vertices to colors. (For example: {0: 1, 1: 2, 2: 3})
+Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
 Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 1, 8: 3, 9: 4}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
@@ -2240,7 +2427,7 @@ Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 Edges: [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)]
 Possible colors: [1, 2, 3, 4]
 
-Return your solution as a JSON map of vertices to colors. (For example: {0: 1, 1: 2, 2: 3})
+Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
 Metadata: {'possible_answer': {0: 1, 1: 2, 2: 1, 3: 3, 4: 2, 5: 2, 6: 1, 7: 2, 8: 1, 9: 3}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
@@ -2252,7 +2439,7 @@ Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 Edges: [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)]
 Possible colors: [1, 2, 3, 4]
 
-Return your solution as a JSON map of vertices to colors. (For example: {0: 1, 1: 2, 2: 3})
+Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
 Metadata: {'possible_answer': {0: 1, 1: 1, 2: 1, 3: 1, 4: 2, 5: 3, 6: 3, 7: 3, 8: 4, 9: 2}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
@@ -2277,12 +2464,7 @@ Question: An anagram is a word formed by rearranging the letters of a different 
 
 Your job is to group the anagrams together. You can return the answer in any order.
 
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
 ["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
@@ -2295,12 +2477,7 @@ Question: An anagram is a word formed by rearranging the letters of a different 
 
 Your job is to group the anagrams together. You can return the answer in any order.
 
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
 ["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
@@ -2313,12 +2490,7 @@ Question: An anagram is a word formed by rearranging the letters of a different 
 
 Your job is to group the anagrams together. You can return the answer in any order.
 
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
 ["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
@@ -2339,17 +2511,17 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: There are 12 students playing basketball and twice that number playing volleyball. There are 17 boys and 17 girls playing table tennis. If each student only participates in one group, how many students are there in total? Give only the result as your final answer.
+Question: There are 12 students playing basketball and twice that number playing volleyball. There are 17 boys and 17 girls playing table tennis. If each student only participates in one group, how many students are there in total? Give the result as your final answer. Do not include units.
 Answer: 70
 Metadata: {'difficulty': 1.0, 'answer_value': 70, 'answer_cot': 'There are 12 x 2 = 24 students playing volleyball.\nThere are 17 + 17 = 34 students playing table tennis.\nIn total there are 12 + 24 + 34 = 70 students.\n#### 70', 'variables': {'tennis_players': 12, 'volleyball_players': 24, 'soccer_boys': 17, 'soccer_girls': 17, 'total_soccer': 34, 'total_students': 70, 'sports': ['basketball', 'volleyball', 'table tennis']}}
 
 Example 2:
-Question: In Ms. Johnson's class of 100 students, 80% of the class are volleyball players. Out of the remaining class, 65% of the students are choir members or part of robotics club members. These 3 groups of students will need to leave early today to travel to an away performance. How many students are leaving early? Give only the result as your final answer.
+Question: In Ms. Johnson's class of 100 students, 80% of the class are volleyball players. Out of the remaining class, 65% of the students are choir members or part of robotics club members. These 3 groups of students will need to leave early today to travel to an away performance. How many students are leaving early? Give the result as your final answer. Do not include units.
 Answer: 93
 Metadata: {'difficulty': 1.0, 'answer_value': 93, 'answer_cot': "80% of the 100 student class are volleyball players so that's 0.8*100 = 80 students\nThere are 100 students and 80 are volleyball players so that leaves 100-80 = 20 students\n65% of the remaining 20 students are part of robotics club members or choir members so that's 0.65*20 = 13 students\n80 students are volleyball players and 13 are part of robotics club members/choir members so 80+13 = 93 students will be leaving early\n#### 93", 'variables': {'teacher': 'Ms. Johnson', 'total_students': 100, 'percent_group1': 80, 'percent_group23': 65, 'group1': 'volleyball players', 'group2': 'choir members', 'group3': 'robotics club members', 'event': 'performance', 'group1_count': 80, 'group23_count': 13}}
 
 Example 3:
-Question: Olivia is trying to decide whether to do her business accounting herself or hire an accountant. If she does it herself, she'll be able to do 7 fewer hours of consulting work, losing €57/hour in missed income. The accountant charges €57. How much more money will she have if she hires the accountant? Give only the result as your final answer.
+Question: Olivia is trying to decide whether to do her business accounting herself or hire an accountant. If she does it herself, she'll be able to do 7 fewer hours of consulting work, losing €57/hour in missed income. The accountant charges €57. How much more money will she have if she hires the accountant? Give the result as your final answer. Do not include units.
 Answer: 342
 Metadata: {'difficulty': 1.0, 'answer_value': 342, 'answer_cot': "First find the total lost revenue if Olivia does her business accounting herself: €57/hour * 7 hours = €399\nThen subtract the accountant's charge to find how much money Olivia saves: €399 - €57 = €342\n#### 342", 'variables': {'name': 'Olivia', 'task': 'her business accounting', 'profession': 'accountant', 'hours': 7, 'work_type': 'consulting', 'hourly_rate': 57, 'fee': 57, 'currency': '€', 'lost_income': 399}}
 
@@ -2382,27 +2554,30 @@ Example tasks:
 ````
 Example 1:
 Question: Find the indefinite integral: ∫ -3*exp(3*x + 9) dx
-In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
+3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
 Answer: -exp(3*x + 9) + C
 Metadata: {'integrand': '-3*exp(3*x + 9)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': -exp(3*x + 9)}
 
 Example 2:
 Question: Evaluate the indefinite integral: ∫ -6*sin(2*X + 10)*cos(2*X + 10)**4 dx
-In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
+3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
 Answer: 3*cos(2*X + 10)**5/5 + C
 Metadata: {'integrand': '-6*sin(2*X + 10)*cos(2*X + 10)**4', 'problem_type': 'substitution', 'variable': 'X', 'type': 'trigonometric', 'expected_answer_expression': 3*cos(2*X + 10)**5/5}
 
 Example 3:
 Question: Find the indefinite integral: ∫ 2*asin(x) dx
-In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
+3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
 Answer: 2*Integral(asin(x), x) + C
 Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': 2*Integral(asin(x), x)}
@@ -2429,19 +2604,6 @@ All occurrences of a character must be replaced with another character while pre
 
 No two characters may map to the same character, but a character may map to itself.
 
-Example 1:
-Input: egg add
-Output: True
-Explanation: The strings s and t can be made identical by:
-    - Mapping 'e' to 'a'.
-    - Mapping 'g' to 'd'.
-
-Example 2:
-Input: foo bar
-Output: False
-Explanation:
-    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
-
 Return True if the following two strings are isomorphic, or False otherwise:
 cc bw
 
@@ -2455,19 +2617,6 @@ All occurrences of a character must be replaced with another character while pre
 
 No two characters may map to the same character, but a character may map to itself.
 
-Example 1:
-Input: egg add
-Output: True
-Explanation: The strings s and t can be made identical by:
-    - Mapping 'e' to 'a'.
-    - Mapping 'g' to 'd'.
-
-Example 2:
-Input: foo bar
-Output: False
-Explanation:
-    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
-
 Return True if the following two strings are isomorphic, or False otherwise:
 nai oik
 
@@ -2480,19 +2629,6 @@ Question: Two strings are isomorphic if the characters in one string can be repl
 All occurrences of a character must be replaced with another character while preserving the order of characters.
 
 No two characters may map to the same character, but a character may map to itself.
-
-Example 1:
-Input: egg add
-Output: True
-Explanation: The strings s and t can be made identical by:
-    - Mapping 'e' to 'a'.
-    - Mapping 'g' to 'd'.
-
-Example 2:
-Input: foo bar
-Output: False
-Explanation:
-    - The strings cannot be made identical as 'o' needs to be mapped to both 'a' and 'r'.
 
 Return True if the following two strings are isomorphic, or False otherwise:
 hogtytyof kgqwfwfgh
@@ -2721,14 +2857,63 @@ Metadata: {'board': {'B1': ['A3'], 'A3': ['B1', 'C2'], 'A2': ['C1', 'C3'], 'C3':
 
 ````
 
+### knights_knaves
+Generates random knights and knaves problems.
+
+    This implementation is adapted from the Knights and Knaves problem generator in:
+    https://github.com/AlphaPav/mem-kk-logic
+
+    As described in the paper:
+    @article{xie2024memorization,
+    title={On Memorization of Large Language Models in Logical Reasoning},
+    author={Chulin Xie and Yangsibo Huang and Chiyuan Zhang and Da Yu and Xinyun Chen and Bill Yuchen Lin and Bo Li and Badih Ghazi and Ravi Kumar},
+    year={2024},
+    eprint={2410.23123},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL},
+    url={https://arxiv.org/abs/2410.23123},
+    }
+
+Default configuration:
+```python
+n_people = 2
+depth_constraint = 2
+width_constraint = 2
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: A very special island is inhabited only by sages and fools. Sages always tell the truth, and fools always lie. You meet 2 inhabitants: Zoey, and Riley. Zoey commented, "Riley is a fool". In Riley's words: "Zoey is a sage or Riley is a sage". So who is a sage and who is a fool? (Format your answer like: "Zoey is a sage/fool, and Riley is a sage/fool")
+Answer: Zoey is a fool, and Riley is a sage.
+Metadata: {'statements': (('lying', 1), ('or', ('telling-truth', 0), ('telling-truth', 1))), 'solution': (False, True), 'names': ['Zoey', 'Riley'], 'knight_knave_terms': {'knight': 'sage', 'knave': 'fool', 'a_knight': 'a sage', 'a_knave': 'a fool', 'Knight': 'Sage', 'Knave': 'Fool'}}
+
+Example 2:
+Question: A very special island is inhabited only by pioneers and laggards. Pioneers always tell the truth, and laggards always lie. You meet 2 inhabitants: Riley, and Olivia. "if Riley is a pioneer then Olivia is a laggard" - Riley. Olivia stated, "Olivia is a pioneer and Riley is a laggard". So who is a pioneer and who is a laggard? (Format your answer like: "Riley is a pioneer/laggard, and Olivia is a pioneer/laggard")
+Answer: Riley is a pioneer, and Olivia is a laggard.
+Metadata: {'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('and', ('telling-truth', 1), ('lying', 0))), 'solution': (True, False), 'names': ['Riley', 'Olivia'], 'knight_knave_terms': {'knight': 'pioneer', 'knave': 'laggard', 'a_knight': 'a pioneer', 'a_knave': 'a laggard', 'Knight': 'Pioneer', 'Knave': 'Laggard'}}
+
+Example 3:
+Question: A very special island is inhabited only by saints and sinners. Saints always tell the truth, and sinners always lie. You meet 2 inhabitants: Samuel, and Jacob. Samuel expressed that if Samuel is a saint then Jacob is a sinner. Jacob was heard saying, "if Samuel is a saint then Samuel is a sinner". So who is a saint and who is a sinner? (Format your answer like: "Samuel is a saint/sinner, and Jacob is a saint/sinner")
+Answer: Samuel is a saint, and Jacob is a sinner.
+Metadata: {'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('->', ('telling-truth', 0), ('lying', 0))), 'solution': (True, False), 'names': ['Samuel', 'Jacob'], 'knight_knave_terms': {'knight': 'saint', 'knave': 'sinner', 'a_knight': 'a saint', 'a_knave': 'a sinner', 'Knight': 'Saint', 'Knave': 'Sinner'}}
+
+````
+
 ### largest_island
 Generates Largest Island exercises with configurable difficulty
 
 Default configuration:
 ```python
-rows = 10
-cols = 10
+min_rows = 5
+max_rows = 10
+min_cols = 5
+max_cols = 10
+min_num_islands = 0
 max_num_islands = 5
+min_island_size = 0
 max_island_size = 10
 size = 500
 seed = 42
@@ -2737,40 +2922,17 @@ seed = 42
 Example tasks:
 ````
 Example 1:
-Question: You are given the following 10 x 10 binary matrix grid:
-0 0 0 1 0 0 0 0 0 0
-1 1 0 1 0 0 0 0 0 1
-0 1 0 1 1 0 0 0 0 1
-0 1 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 1 1
-0 0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 0 1 0
-1 1 0 1 1 0 0 0 1 1
-1 1 1 1 1 0 0 0 0 0
-
-An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
-You may assume all four edges of the grid are surrounded by water.
-
-The area of an island is the number of cells with a value 1 in the island.
-
-Return the maximum area of an island in grid. If there is no island, return 0.
-
-Answer: 10
-Metadata: {'grid': [[0, 0, 0, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0, 0, 0, 1], [0, 1, 0, 1, 1, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 0, 0, 0, 0, 0]], 'solution': 10}
-
-Example 2:
-Question: You are given the following 10 x 10 binary matrix grid:
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
+Question: You are given the following 10 x 5 binary matrix grid:
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
 
 An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
 You may assume all four edges of the grid are surrounded by water.
@@ -2780,20 +2942,15 @@ The area of an island is the number of cells with a value 1 in the island.
 Return the maximum area of an island in grid. If there is no island, return 0.
 
 Answer: 0
-Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 0}
+Metadata: {'grid': [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], 'solution': 0}
 
-Example 3:
-Question: You are given the following 10 x 10 binary matrix grid:
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-1 1 0 0 0 0 0 0 0 0
-1 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 1 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 1 0
-0 0 0 0 0 0 0 0 0 0
+Example 2:
+Question: You are given the following 5 x 7 binary matrix grid:
+0 0 1 1 1 0 1
+1 0 0 1 1 0 1
+1 0 0 0 0 1 1
+1 0 0 1 1 1 0
+1 0 0 1 1 1 0
 
 An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
 You may assume all four edges of the grid are surrounded by water.
@@ -2802,8 +2959,29 @@ The area of an island is the number of cells with a value 1 in the island.
 
 Return the maximum area of an island in grid. If there is no island, return 0.
 
-Answer: 3
-Metadata: {'grid': [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 3}
+Answer: 10
+Metadata: {'grid': [[0, 0, 1, 1, 1, 0, 1], [1, 0, 0, 1, 1, 0, 1], [1, 0, 0, 0, 0, 1, 1], [1, 0, 0, 1, 1, 1, 0], [1, 0, 0, 1, 1, 1, 0]], 'solution': 10}
+
+Example 3:
+Question: You are given the following 8 x 9 binary matrix grid:
+1 0 0 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 1 0 0
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+
+An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical).
+You may assume all four edges of the grid are surrounded by water.
+
+The area of an island is the number of cells with a value 1 in the island.
+
+Return the maximum area of an island in grid. If there is no island, return 0.
+
+Answer: 6
+Metadata: {'grid': [[1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 6}
 
 ````
 
@@ -2856,16 +3034,6 @@ Example tasks:
 Example 1:
 Question: Your task is to count how many legs there are in total when given a list of animals.
 
-Example:
-- Input: How many legs are there in total if you have 1 duck, 2 deers, 1 spider, 3 cows?
-- Output: 30
-- Explanation:
-    - Ducks have 2 legs each, so 1 duck has 2 legs.
-    - Deers have 4 legs each, so 2 deers have 8 legs.
-    - Spiders have 8 legs each, so 1 spider has 8 legs.
-    - Cows have 4 legs each, so 3 cows have 12 legs.
-    - Therefore, the total number of legs is 2 + 8 + 8 + 12 = 30
-
 Now, how many legs are there in total if you have 3 sea slugs, 12 deers, 2 giraffes, 11 elephants?
 
 Answer: 100
@@ -2874,16 +3042,6 @@ Metadata: {'difficulty': {'num_animals': 4}, 'animals': {'sea slug': 3, 'deer': 
 Example 2:
 Question: Your task is to count how many legs there are in total when given a list of animals.
 
-Example:
-- Input: How many legs are there in total if you have 1 duck, 2 deers, 1 spider, 3 cows?
-- Output: 30
-- Explanation:
-    - Ducks have 2 legs each, so 1 duck has 2 legs.
-    - Deers have 4 legs each, so 2 deers have 8 legs.
-    - Spiders have 8 legs each, so 1 spider has 8 legs.
-    - Cows have 4 legs each, so 3 cows have 12 legs.
-    - Therefore, the total number of legs is 2 + 8 + 8 + 12 = 30
-
 Now, how many legs are there in total if you have 6 sheeps, 11 dogs, 12 praying mantiss?
 
 Answer: 140
@@ -2891,16 +3049,6 @@ Metadata: {'difficulty': {'num_animals': 3}, 'animals': {'sheep': 6, 'dog': 11, 
 
 Example 3:
 Question: Your task is to count how many legs there are in total when given a list of animals.
-
-Example:
-- Input: How many legs are there in total if you have 1 duck, 2 deers, 1 spider, 3 cows?
-- Output: 30
-- Explanation:
-    - Ducks have 2 legs each, so 1 duck has 2 legs.
-    - Deers have 4 legs each, so 2 deers have 8 legs.
-    - Spiders have 8 legs each, so 1 spider has 8 legs.
-    - Cows have 4 legs each, so 3 cows have 12 legs.
-    - Therefore, the total number of legs is 2 + 8 + 8 + 12 = 30
 
 Now, how many legs are there in total if you have 2 crabs, 10 lobsters, 1 human, 2 cows, 3 bees, 13 elephants, 9 dogs, 12 snakes, 5 shrimps?
 
@@ -2964,20 +3112,7 @@ For each word in a sentence, the letter may have been randomly shuffled. Your ta
 
 The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
 
-Example:
-- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
-- Output: meanderings Why any child can do that
-- Explanation
-    - We unscramble each of the words independently.
-    - raendgmeins -> meanderings
-    - yWh -> Why
-    - nya -> any
-    - hilcd -> child
-    - anc -> can
-    - od -> do
-    - hatt -> that
-    - The final answer is: meanderings Why any child can do that
-    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+Your output should be a sentence with the words unscrambled.
 
 Now, unscramble these words: ew hsall eb ebla ot puodrce
 
@@ -2991,20 +3126,7 @@ For each word in a sentence, the letter may have been randomly shuffled. Your ta
 
 The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
 
-Example:
-- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
-- Output: meanderings Why any child can do that
-- Explanation
-    - We unscramble each of the words independently.
-    - raendgmeins -> meanderings
-    - yWh -> Why
-    - nya -> any
-    - hilcd -> child
-    - anc -> can
-    - od -> do
-    - hatt -> that
-    - The final answer is: meanderings Why any child can do that
-    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+Your output should be a sentence with the words unscrambled.
 
 Now, unscramble these words: ni oiurnalmsj Well Cahs
 
@@ -3018,20 +3140,7 @@ For each word in a sentence, the letter may have been randomly shuffled. Your ta
 
 The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
 
-Example:
-- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
-- Output: meanderings Why any child can do that
-- Explanation
-    - We unscramble each of the words independently.
-    - raendgmeins -> meanderings
-    - yWh -> Why
-    - nya -> any
-    - hilcd -> child
-    - anc -> can
-    - od -> do
-    - hatt -> that
-    - The final answer is: meanderings Why any child can do that
-    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+Your output should be a sentence with the words unscrambled.
 
 Now, unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks ot oyu rheet si a gain fo sucrbbisesr rM
 
@@ -3040,26 +3149,194 @@ Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_wo
 
 ````
 
+### list_functions
+Default configuration:
+```python
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are an expert at inductive reasoning. Generate an output corresponding to the given input.
+The output is generated by applying the same rule that maps input to output for the examples provided. Your answer should be a list of element/elements
+Examples:
+Input 1: [4, 95, 36, 32]
+Output 1: [4, 32, 36, 95]
+Input 2: [18, 95, 14, 87, 95, 70]
+Output 2: [14, 18, 70, 87, 95, 95]
+Input 3: [76, 55, 5, 4]
+Output 3: [4, 5, 55, 76]
+Input 4: [28, 30, 65, 78]
+Output 4: [28, 30, 65, 78]
+
+
+Input: [72, 26, 92]
+Output:
+
+Answer: [26, 72, 92]
+
+Example 2:
+Question: You are an expert at inductive reasoning. Generate an output corresponding to the given input.
+The output is generated by applying the same rule that maps input to output for the examples provided. Your answer should be a list of element/elements
+Examples:
+Input 1: [37, 90, 98]
+Output 1: [37, 90, 98]
+Input 2: [60, 48, 86, 90, 13]
+Output 2: [60, 48, 86, 90, 13]
+Input 3: [77, 64, 78, 3, 66, 56, 74, 48, 80, 71]
+Output 3: [77, 64, 78, 3, 66, 56, 74, 48, 80, 71]
+Input 4: [51, 23, 8, 14, 16, 49, 20, 13, 21]
+Output 4: [51, 23, 8, 14, 16, 49, 20, 13, 21]
+
+
+Input: [17, 99, 50, 77, 65, 35, 74, 24, 49, 9]
+Output:
+
+Answer: [17, 99, 50, 77, 65, 35, 74, 24, 49, 9]
+
+Example 3:
+Question: You are an expert at inductive reasoning. Generate an output corresponding to the given input.
+The output is generated by applying the same rule that maps input to output for the examples provided. Your answer should be a list of element/elements
+Examples:
+Input 1: [4, 29, 49, 15, 90, 23, 38, 5, 67, 5, 70]
+Output 1: [2]
+Input 2: [37, 66, 21, 15, 44, 46, 80, 10]
+Output 2: [0]
+Input 3: [13, 45, 5, 5, 5, 50, 5]
+Output 3: [4]
+Input 4: [88, 6, 87]
+Output 4: [0]
+
+
+Input: [59, 5, 81, 5, 20, 5, 61, 76, 48, 70, 5, 30]
+Output:
+
+Answer: [4]
+
+````
+
+### mahjong_puzzle
+Generates Mahjong Puzzle exercises with configurable difficulty
+
+Default configuration:
+```python
+min_num_rounds = 10
+max_num_rounds = 50
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: There are several letter cards, and the game rules are as follows:
+1. Initially, there are 13 cards.
+2. Each time, a new card is added, and a result is determined. Then, one card is removed.
+3. When there are two identical cards in hand, and the newly added card is the same as these two cards, the result is determined as "Peng".
+4. If there are two cards in hand such that the new card can form a consecutive letter sequence with these two cards, the result is determined as "Chi". For example: ABC, BCD, CDE, etc.
+5. If the new card does not meet the conditions of 3 and 4, the result is determined as "Pass".
+6. "Peng" takes precedence over "Chi".
+7. The card that is removed does not affect the result determination of the current round.
+
+Your output should be one of the following: "Peng", "Chi", or "Pass" (without quotes).
+
+Now, given the initial cards OHBVRPOIGIFLB, what is the result at the end of performing the following rounds of operations:
+Round 1: Add a B card and remove a V card.
+Round 2: Add an O card and remove a F card.
+Round 3: Add an O card and remove a R card.
+Round 4: Add an U card and remove an O card.
+Round 5: Add a N card and remove an O card.
+Round 6: Add a Q card and remove a G card.
+Round 7: Add a B card and remove a N card.
+Round 8: Add a Q card and remove an I card.
+Round 9: Add a B card and remove a Q card.
+Round 10: Add a G card and remove a B card.
+Round 11: Add a F card and remove a B card.
+Round 12: Add an I card and remove a F card.
+
+Answer: Chi
+Metadata: {'rounds': [{'add': 'B', 'remove': 'V', 'cards': 'OHBRPOIGIFLBB', 'result': 'Peng'}, {'add': 'O', 'remove': 'F', 'cards': 'OHBRPOIGILBBO', 'result': 'Peng'}, {'add': 'O', 'remove': 'R', 'cards': 'OHBPOIGILBBOO', 'result': 'Peng'}, {'add': 'U', 'remove': 'O', 'cards': 'HBPOIGILBBOOU', 'result': 'Pass'}, {'add': 'N', 'remove': 'O', 'cards': 'HBPIGILBBOOUN', 'result': 'Pass'}, {'add': 'Q', 'remove': 'G', 'cards': 'HBPIILBBOOUNQ', 'result': 'Chi'}, {'add': 'B', 'remove': 'N', 'cards': 'HBPIILBBOOUQB', 'result': 'Peng'}, {'add': 'Q', 'remove': 'I', 'cards': 'HBPILBBOOUQBQ', 'result': 'Chi'}, {'add': 'B', 'remove': 'Q', 'cards': 'HBPILBBOOUBQB', 'result': 'Peng'}, {'add': 'G', 'remove': 'B', 'cards': 'HPILBBOOUBQBG', 'result': 'Chi'}, {'add': 'F', 'remove': 'B', 'cards': 'HPILBOOUBQBGF', 'result': 'Chi'}, {'add': 'I', 'remove': 'F', 'cards': 'HPILBOOUBQBGI', 'result': 'Chi'}], 'solution': 'Chi'}
+
+Example 2:
+Question: There are several letter cards, and the game rules are as follows:
+1. Initially, there are 13 cards.
+2. Each time, a new card is added, and a result is determined. Then, one card is removed.
+3. When there are two identical cards in hand, and the newly added card is the same as these two cards, the result is determined as "Peng".
+4. If there are two cards in hand such that the new card can form a consecutive letter sequence with these two cards, the result is determined as "Chi". For example: ABC, BCD, CDE, etc.
+5. If the new card does not meet the conditions of 3 and 4, the result is determined as "Pass".
+6. "Peng" takes precedence over "Chi".
+7. The card that is removed does not affect the result determination of the current round.
+
+Your output should be one of the following: "Peng", "Chi", or "Pass" (without quotes).
+
+Now, given the initial cards CSSWJDXQGUMFP, what is the result at the end of performing the following rounds of operations:
+Round 1: Add a N card and remove an U card.
+Round 2: Add a V card and remove a X card.
+Round 3: Add a S card and remove a S card.
+Round 4: Add a S card and remove a W card.
+Round 5: Add a S card and remove a P card.
+Round 6: Add an E card and remove a S card.
+Round 7: Add a R card and remove a V card.
+Round 8: Add a P card and remove a D card.
+Round 9: Add an E card and remove a C card.
+Round 10: Add a B card and remove a G card.
+Round 11: Add an E card and remove a N card.
+
+Answer: Peng
+Metadata: {'rounds': [{'add': 'N', 'remove': 'U', 'cards': 'CSSWJDXQGMFPN', 'result': 'Pass'}, {'add': 'V', 'remove': 'X', 'cards': 'CSSWJDQGMFPNV', 'result': 'Chi'}, {'add': 'S', 'remove': 'S', 'cards': 'CSWJDQGMFPNVS', 'result': 'Peng'}, {'add': 'S', 'remove': 'W', 'cards': 'CSJDQGMFPNVSS', 'result': 'Peng'}, {'add': 'S', 'remove': 'P', 'cards': 'CSJDQGMFNVSSS', 'result': 'Peng'}, {'add': 'E', 'remove': 'S', 'cards': 'CJDQGMFNVSSSE', 'result': 'Chi'}, {'add': 'R', 'remove': 'V', 'cards': 'CJDQGMFNSSSER', 'result': 'Chi'}, {'add': 'P', 'remove': 'D', 'cards': 'CJQGMFNSSSERP', 'result': 'Chi'}, {'add': 'E', 'remove': 'C', 'cards': 'JQGMFNSSSERPE', 'result': 'Chi'}, {'add': 'B', 'remove': 'G', 'cards': 'JQMFNSSSERPEB', 'result': 'Pass'}, {'add': 'E', 'remove': 'N', 'cards': 'JQMFSSSERPEBE', 'result': 'Peng'}], 'solution': 'Peng'}
+
+Example 3:
+Question: There are several letter cards, and the game rules are as follows:
+1. Initially, there are 13 cards.
+2. Each time, a new card is added, and a result is determined. Then, one card is removed.
+3. When there are two identical cards in hand, and the newly added card is the same as these two cards, the result is determined as "Peng".
+4. If there are two cards in hand such that the new card can form a consecutive letter sequence with these two cards, the result is determined as "Chi". For example: ABC, BCD, CDE, etc.
+5. If the new card does not meet the conditions of 3 and 4, the result is determined as "Pass".
+6. "Peng" takes precedence over "Chi".
+7. The card that is removed does not affect the result determination of the current round.
+
+Your output should be one of the following: "Peng", "Chi", or "Pass" (without quotes).
+
+Now, given the initial cards AHISHLYOSBWVK, what is the result at the end of performing the following rounds of operations:
+Round 1: Add a H card and remove a K card.
+Round 2: Add a W card and remove a H card.
+Round 3: Add an U card and remove an O card.
+Round 4: Add a M card and remove an U card.
+Round 5: Add a V card and remove a Y card.
+Round 6: Add a C card and remove a S card.
+Round 7: Add a K card and remove a H card.
+Round 8: Add a V card and remove a M card.
+Round 9: Add a W card and remove a W card.
+Round 10: Add a W card and remove an A card.
+
+Answer: Peng
+Metadata: {'rounds': [{'add': 'H', 'remove': 'K', 'cards': 'AHISHLYOSBWVH', 'result': 'Peng'}, {'add': 'W', 'remove': 'H', 'cards': 'AISHLYOSBWVHW', 'result': 'Pass'}, {'add': 'U', 'remove': 'O', 'cards': 'AISHLYSBWVHWU', 'result': 'Pass'}, {'add': 'M', 'remove': 'U', 'cards': 'AISHLYSBWVHWM', 'result': 'Pass'}, {'add': 'V', 'remove': 'Y', 'cards': 'AISHLSBWVHWMV', 'result': 'Pass'}, {'add': 'C', 'remove': 'S', 'cards': 'AIHLSBWVHWMVC', 'result': 'Chi'}, {'add': 'K', 'remove': 'H', 'cards': 'AILSBWVHWMVCK', 'result': 'Chi'}, {'add': 'V', 'remove': 'M', 'cards': 'AILSBWVHWVCKV', 'result': 'Peng'}, {'add': 'W', 'remove': 'W', 'cards': 'AILSBVHWVCKVW', 'result': 'Peng'}, {'add': 'W', 'remove': 'A', 'cards': 'ILSBVHWVCKVWW', 'result': 'Peng'}], 'solution': 'Peng'}
+
+````
+
 ### manipulate_matrix
 Generates Manipulate Matrix exercises with configurable difficulty
 
 Default configuration:
 ```python
-min_rows = 1
-min_cols = 1
+min_rows = 2
+min_cols = 2
 max_rows = 10
 max_cols = 10
-max_transforms = 5
-p_rotate = 0.2
-p_hmirror = 0.2
-p_vmirror = 0.2
-p_dmirror = 0.2
-p_cmirror = 0.2
-p_map = 0.2
-p_crop = 0.2
-p_remove_every_nth_row = 0.2
-p_remove_every_nth_col = 0.2
-p_zero_divisible = 0.2
+min_transforms = 1
+max_transforms = 10
+w_rotate = 1
+w_hmirror = 1
+w_vmirror = 1
+w_dmirror = 1
+w_cmirror = 1
+w_map = 1
+w_crop = 1
+w_remove_every_nth_row = 1
+w_remove_every_nth_col = 1
+w_zero_divisible = 1
 size = 500
 seed = 42
 ```
@@ -3068,50 +3345,69 @@ Example tasks:
 ````
 Example 1:
 Question: For the following matrix:
-4
-3
+4 3
+3 2
+1 8
 
 Perform the following series of operations in order:
 - Identity transformation, i.e. no change
+- Map each occurrence of 0 to 9
+- Rotate the matrix 180 degrees
 
-
-Answer: 4
-3
-Metadata: {'matrix': [[4], [3]], 'solution': [[4], [3]], 'operations': []}
+Answer: 8 1
+2 3
+3 4
+Metadata: {'matrix': [[4, 3], [3, 2], [1, 8]], 'solution': [[8, 1], [2, 3], [3, 4]], 'operations': [{'transform': 'map', 'from': 0, 'to': 9, 'instruction': '- Map each occurrence of 0 to 9'}, {'transform': 'rotate', 'degrees': '180', 'instruction': '- Rotate the matrix 180 degrees'}]}
 
 Example 2:
 Question: For the following matrix:
-2 7 5 1 7
+2 7 5 1 7 9
+7 9 0 8 6 9
 
 Perform the following series of operations in order:
 - Identity transformation, i.e. no change
+- Set all elements divisible by 9 to zero
+- Remove every 2-nd row (1-indexed)
+- Mirror the matrix along the diagonal
+- Rotate the matrix 90 degrees
+- Mirror the matrix along the diagonal
+- Rotate the matrix 360 degrees
 
-
-Answer: 2 7 5 1 7
-Metadata: {'matrix': [[2, 7, 5, 1, 7]], 'solution': [[2, 7, 5, 1, 7]], 'operations': []}
+Answer: 0
+7
+1
+5
+7
+2
+Metadata: {'matrix': [[2, 7, 5, 1, 7, 9], [7, 9, 0, 8, 6, 9]], 'solution': [[0], [7], [1], [5], [7], [2]], 'operations': [{'transform': 'zero_divisible', 'k': 9, 'instruction': '- Set all elements divisible by 9 to zero'}, {'transform': 'remove_every_nth_row', 'n': 2, 'instruction': '- Remove every 2-nd row (1-indexed)'}, {'transform': 'dmirror', 'instruction': '- Mirror the matrix along the diagonal'}, {'transform': 'rotate', 'degrees': '90', 'instruction': '- Rotate the matrix 90 degrees'}, {'transform': 'dmirror', 'instruction': '- Mirror the matrix along the diagonal'}, {'transform': 'rotate', 'degrees': '360', 'instruction': '- Rotate the matrix 360 degrees'}]}
 
 Example 3:
 Question: For the following matrix:
-8 1 2 6 3 4 0 3 1
-9 0 1 2 8 4 6 9 6
-5 5 1 5 4 9 2 1 8
-1 9 1 4 5 1 4 0 5
-6 1 7 7 3 3 2 4 3
-0 0 6 0 5 5 7 7 9
-8 2 3 7 7 5 9 0 4
+8 1 2 6 3 4 0 3 1 9
+0 1 2 8 4 6 9 6 5 5
+1 5 4 9 2 1 8 1 9 1
+4 5 1 4 0 5 6 1 7 7
+3 3 2 4 3 0 0 6 0 5
+5 7 7 9 8 2 3 7 7 5
+9 0 4 2 0 3 0 9 9 8
+8 4 5 9 3 6 1 5 5 1
 
 Perform the following series of operations in order:
 - Identity transformation, i.e. no change
+- Set all elements divisible by 1 to zero
+- Remove every 2-nd column (1-indexed)
+- Set all elements divisible by 8 to zero
+- Horizontally mirror the matrix
 
-
-Answer: 8 1 2 6 3 4 0 3 1
-9 0 1 2 8 4 6 9 6
-5 5 1 5 4 9 2 1 8
-1 9 1 4 5 1 4 0 5
-6 1 7 7 3 3 2 4 3
-0 0 6 0 5 5 7 7 9
-8 2 3 7 7 5 9 0 4
-Metadata: {'matrix': [[8, 1, 2, 6, 3, 4, 0, 3, 1], [9, 0, 1, 2, 8, 4, 6, 9, 6], [5, 5, 1, 5, 4, 9, 2, 1, 8], [1, 9, 1, 4, 5, 1, 4, 0, 5], [6, 1, 7, 7, 3, 3, 2, 4, 3], [0, 0, 6, 0, 5, 5, 7, 7, 9], [8, 2, 3, 7, 7, 5, 9, 0, 4]], 'solution': [[8, 1, 2, 6, 3, 4, 0, 3, 1], [9, 0, 1, 2, 8, 4, 6, 9, 6], [5, 5, 1, 5, 4, 9, 2, 1, 8], [1, 9, 1, 4, 5, 1, 4, 0, 5], [6, 1, 7, 7, 3, 3, 2, 4, 3], [0, 0, 6, 0, 5, 5, 7, 7, 9], [8, 2, 3, 7, 7, 5, 9, 0, 4]], 'operations': []}
+Answer: 0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+Metadata: {'matrix': [[8, 1, 2, 6, 3, 4, 0, 3, 1, 9], [0, 1, 2, 8, 4, 6, 9, 6, 5, 5], [1, 5, 4, 9, 2, 1, 8, 1, 9, 1], [4, 5, 1, 4, 0, 5, 6, 1, 7, 7], [3, 3, 2, 4, 3, 0, 0, 6, 0, 5], [5, 7, 7, 9, 8, 2, 3, 7, 7, 5], [9, 0, 4, 2, 0, 3, 0, 9, 9, 8], [8, 4, 5, 9, 3, 6, 1, 5, 5, 1]], 'solution': [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], 'operations': [{'transform': 'zero_divisible', 'k': 1, 'instruction': '- Set all elements divisible by 1 to zero'}, {'transform': 'remove_every_nth_col', 'n': 2, 'instruction': '- Remove every 2-nd column (1-indexed)'}, {'transform': 'zero_divisible', 'k': 8, 'instruction': '- Set all elements divisible by 8 to zero'}, {'transform': 'hmirror', 'instruction': '- Horizontally mirror the matrix'}]}
 
 ````
 
@@ -3282,20 +3578,7 @@ No two queens attack each other if they are not in the same row, column, or diag
 
 You can place a queen by replacing an underscore (_) with a Q.
 
-Example:
-- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
-_ Q _ _
-_ _ _ _
-_ _ _ _
-_ _ Q _
-- Output:
-_ Q _ _
-_ _ _ Q
-Q _ _ _
-_ _ Q _
-- Explanation
-    - None of the queens attack each other vertically, horizontally, or diagonally.
-    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+Your output should be also a board in the same format as the input, with queens placed on the board by replacing underscores with the letter Q.
 
 Given the below board of size 8 x 8 your job is to place 1 queen(s) on the board such that no two queens attack each other.
 _ _ _ _ _ _ Q _
@@ -3324,20 +3607,7 @@ No two queens attack each other if they are not in the same row, column, or diag
 
 You can place a queen by replacing an underscore (_) with a Q.
 
-Example:
-- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
-_ Q _ _
-_ _ _ _
-_ _ _ _
-_ _ Q _
-- Output:
-_ Q _ _
-_ _ _ Q
-Q _ _ _
-_ _ Q _
-- Explanation
-    - None of the queens attack each other vertically, horizontally, or diagonally.
-    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+Your output should be also a board in the same format as the input, with queens placed on the board by replacing underscores with the letter Q.
 
 Given the below board of size 8 x 8 your job is to place 3 queen(s) on the board such that no two queens attack each other.
 _ Q _ _ _ _ _ _
@@ -3366,20 +3636,7 @@ No two queens attack each other if they are not in the same row, column, or diag
 
 You can place a queen by replacing an underscore (_) with a Q.
 
-Example:
-- Input: Given the below board of size 4 x 4 your job is to place 2 queen(s) on the board such that no two queens attack each other.
-_ Q _ _
-_ _ _ _
-_ _ _ _
-_ _ Q _
-- Output:
-_ Q _ _
-_ _ _ Q
-Q _ _ _
-_ _ Q _
-- Explanation
-    - None of the queens attack each other vertically, horizontally, or diagonally.
-    - The added queens are marked with Q at the positions (1, 3) and (2, 0).
+Your output should be also a board in the same format as the input, with queens placed on the board by replacing underscores with the letter Q.
 
 Given the below board of size 8 x 8 your job is to place 5 queen(s) on the board such that no two queens attack each other.
 _ _ _ _ _ _ _ _
@@ -3490,12 +3747,7 @@ Example tasks:
 Example 1:
 Question: Your task is to pick the largest/smallest number out of several options.
 
-Example
-- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
-- Output: 8.975554e+05
-- Explanation:
-    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
-    - Therefore, the largest number is 8.975554e+05
+Your output should be only the number of interest.
 
 Now, pick the largest number of the following candidates: 25011730.212000 25011280.271000
 
@@ -3505,12 +3757,7 @@ Metadata: {'candidates': [25011730.212, 25011280.271], 'solution': 25011730.212,
 Example 2:
 Question: Your task is to pick the largest/smallest number out of several options.
 
-Example
-- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
-- Output: 8.975554e+05
-- Explanation:
-    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
-    - Therefore, the largest number is 8.975554e+05
+Your output should be only the number of interest.
 
 Now, pick the largest number of the following candidates: 286,084,894.213 286,085,419.581
 
@@ -3520,12 +3767,7 @@ Metadata: {'candidates': [286084894.213, 286085419.581], 'solution': 286085419.5
 Example 3:
 Question: Your task is to pick the largest/smallest number out of several options.
 
-Example
-- Input: Pick the largest number of the following candidates: 857575.23 8.975554e+05 887,555.62
-- Output: 8.975554e+05
-- Explanation:
-    - Sorting the numbers written in various notations we get: 857575.23 < 887,555.62 < 8.975554e+05
-    - Therefore, the largest number is 8.975554e+05
+Your output should be only the number of interest.
 
 Now, pick the largest number of the following candidates: 520020968.942000 520021372.170000 5.200202022530000e+08 520020728.080000 520020548.078000
 
@@ -3633,13 +3875,7 @@ A palindrome is a phrase that reads the same forwards and backwards.
 
 If there are multiple possible answers, only respond with one of them. You must use all the letters provided.
 
-Example:
-- Input: Form a valid palindrome using the following letters: a, a, b
-- Output: aba
-- Explanation:
-    - The phrase aba reads the same forwards and backwards.
-    - The output answer is a valid palindrome using all the letters provided.
-    - The answer is a string, rather than a list of characters.
+Your output should be a single string, with no spaces or punctuation.
 
 Now, form a valid palindrome using the following letters: h, a, h, a
 
@@ -3653,13 +3889,7 @@ A palindrome is a phrase that reads the same forwards and backwards.
 
 If there are multiple possible answers, only respond with one of them. You must use all the letters provided.
 
-Example:
-- Input: Form a valid palindrome using the following letters: a, a, b
-- Output: aba
-- Explanation:
-    - The phrase aba reads the same forwards and backwards.
-    - The output answer is a valid palindrome using all the letters provided.
-    - The answer is a string, rather than a list of characters.
+Your output should be a single string, with no spaces or punctuation.
 
 Now, form a valid palindrome using the following letters: h, y, h
 
@@ -3673,13 +3903,7 @@ A palindrome is a phrase that reads the same forwards and backwards.
 
 If there are multiple possible answers, only respond with one of them. You must use all the letters provided.
 
-Example:
-- Input: Form a valid palindrome using the following letters: a, a, b
-- Output: aba
-- Explanation:
-    - The phrase aba reads the same forwards and backwards.
-    - The output answer is a valid palindrome using all the letters provided.
-    - The answer is a string, rather than a list of characters.
+Your output should be a single string, with no spaces or punctuation.
 
 Now, form a valid palindrome using the following letters: n, j, n, j, d, j, s, s, d
 
@@ -3709,13 +3933,7 @@ A palindrome is a word that reads the same backward as forward.
 
 You may return all possible palindrome partitioning in any order.
 
-Example:
-- Input: Partition the following string into palindromes: aab
-- Output: [["a","a","b"],["aa","b"]]
-- Explanation:
-    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
-    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
-    - Therefore, the final result is a list of the two palindrome partitions.
+Your output should be a list of lists, where each list represents a palindrome partition, e.g. [["a","a","b"],["aa","b"]].
 
 Partition the following string into palindromes: agegvckakcgnnrw
 
@@ -3729,13 +3947,7 @@ A palindrome is a word that reads the same backward as forward.
 
 You may return all possible palindrome partitioning in any order.
 
-Example:
-- Input: Partition the following string into palindromes: aab
-- Output: [["a","a","b"],["aa","b"]]
-- Explanation:
-    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
-    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
-    - Therefore, the final result is a list of the two palindrome partitions.
+Your output should be a list of lists, where each list represents a palindrome partition, e.g. [["a","a","b"],["aa","b"]].
 
 Partition the following string into palindromes: sesjj
 
@@ -3749,13 +3961,7 @@ A palindrome is a word that reads the same backward as forward.
 
 You may return all possible palindrome partitioning in any order.
 
-Example:
-- Input: Partition the following string into palindromes: aab
-- Output: [["a","a","b"],["aa","b"]]
-- Explanation:
-    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
-    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
-    - Therefore, the final result is a list of the two palindrome partitions.
+Your output should be a list of lists, where each list represents a palindrome partition, e.g. [["a","a","b"],["aa","b"]].
 
 Partition the following string into palindromes: owfwofaafsd
 
@@ -3787,36 +3993,45 @@ Example tasks:
 ````
 Example 1:
 Question: Find the real value(s) of w in the equation: -127*w = 0
-In solving the equations, please abide by the following instruction:
-## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
-## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
-## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
-## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
-## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+In solving equations, please follow these instructions:
+1. Provide all answers as comma-separated decimal values. For example: "-0.3773, 0.4005"
+2. For solutions that can be expressed in exact form (like "u = 2 + sqrt(4560)/172" and "u = 2 - sqrt(4560)/172"), convert them to decimal form in your final answer.
+3. If there are no real values that satisfy the equation, report your answer as an empty string: ""
+4. Format your answer based on the number of solutions:
+   - For 1 solution: a single decimal number
+   - For 2 solutions: two comma-separated decimal numbers
+   - For 3 or more solutions: all values as comma-separated decimal numbers
+5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 
 Answer: 0.0
 Metadata: {'polynomial_expr': '-127*w', 'variable': 'w', 'degree': 1, 'real_solutions': [0.0]}
 
 Example 2:
 Question: Determine the real value(s) of b that satisfies: 86*b**2 - 2*b - 13 = 0
-In solving the equations, please abide by the following instruction:
-## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
-## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
-## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
-## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
-## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+In solving equations, please follow these instructions:
+1. Provide all answers as comma-separated decimal values. For example: "-0.3773, 0.4005"
+2. For solutions that can be expressed in exact form (like "u = 2 + sqrt(4560)/172" and "u = 2 - sqrt(4560)/172"), convert them to decimal form in your final answer.
+3. If there are no real values that satisfy the equation, report your answer as an empty string: ""
+4. Format your answer based on the number of solutions:
+   - For 1 solution: a single decimal number
+   - For 2 solutions: two comma-separated decimal numbers
+   - For 3 or more solutions: all values as comma-separated decimal numbers
+5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 
 Answer: -0.3773, 0.4006
 Metadata: {'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773, 0.4006]}
 
 Example 3:
 Question: Determine the real value(s) of p that satisfies: 71*p**3 - 2*p - 29 = 0
-In solving the equations, please abide by the following instruction:
-## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
-## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
-## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
-## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
-## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+In solving equations, please follow these instructions:
+1. Provide all answers as comma-separated decimal values. For example: "-0.3773, 0.4005"
+2. For solutions that can be expressed in exact form (like "u = 2 + sqrt(4560)/172" and "u = 2 - sqrt(4560)/172"), convert them to decimal form in your final answer.
+3. If there are no real values that satisfy the equation, report your answer as an empty string: ""
+4. Format your answer based on the number of solutions:
+   - For 1 solution: a single decimal number
+   - For 2 solutions: two comma-separated decimal numbers
+   - For 3 or more solutions: all values as comma-separated decimal numbers
+5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 
 Answer: 0.7546
 Metadata: {'polynomial_expr': '71*p**3 - 2*p - 29', 'variable': 'p', 'degree': 3, 'real_solutions': [0.7546]}
@@ -3850,30 +4065,30 @@ Example tasks:
 ````
 Example 1:
 Question: Calculate the following: (-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)
-In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z
-Metadata: {'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'result': '1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z', 'variables': [z]}
+Metadata: {'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'variables': [z]}
 
 Example 2:
 Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
-In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416
-Metadata: {'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'result': '-6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416', 'variables': [x]}
+Metadata: {'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': [x]}
 
 Example 3:
 Question: Calculate the following: (29*y**2 - 49*y)*(21*y**3 + 49)
-In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y
-Metadata: {'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'result': '609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y', 'variables': [y]}
+Metadata: {'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'variables': [y]}
 
 ````
 
@@ -3897,25 +4112,9 @@ Example 1:
 Question: Your job is to perform max/average pooling on the given matrix.
 The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
 
-Example 1:
-- Input: Perform max pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-6 8
-14 16
-
-Example 2:
-- Input: Perform average pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-3.5 5.5
-11.5 13.5
+Your output should be a matrix in the same format as the input matrix.
+The output matrix is smaller than the input matrix when the kernel size is greater than 1, and its elements may be floating-point numbers.
+Give elements in the output matrix correct to 2 decimal places.
 
 Perform max pooling on the following matrix with a kernel size of 3:
 6 3
@@ -3929,25 +4128,9 @@ Example 2:
 Question: Your job is to perform max/average pooling on the given matrix.
 The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
 
-Example 1:
-- Input: Perform max pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-6 8
-14 16
-
-Example 2:
-- Input: Perform average pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-3.5 5.5
-11.5 13.5
+Your output should be a matrix in the same format as the input matrix.
+The output matrix is smaller than the input matrix when the kernel size is greater than 1, and its elements may be floating-point numbers.
+Give elements in the output matrix correct to 2 decimal places.
 
 Perform average pooling on the following matrix with a kernel size of 3:
 4 0 1 5 0 3
@@ -3960,25 +4143,9 @@ Example 3:
 Question: Your job is to perform max/average pooling on the given matrix.
 The stride is equal to the kernel size, meaning there is no overlap between the pooling regions.
 
-Example 1:
-- Input: Perform max pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-6 8
-14 16
-
-Example 2:
-- Input: Perform average pooling on the following matrix with a kernel size of 2:
-1 2 3 4
-5 6 7 8
-9 10 11 12
-13 14 15 16
-- Output:
-3.5 5.5
-11.5 13.5
+Your output should be a matrix in the same format as the input matrix.
+The output matrix is smaller than the input matrix when the kernel size is greater than 1, and its elements may be floating-point numbers.
+Give elements in the output matrix correct to 2 decimal places.
 
 Perform average pooling on the following matrix with a kernel size of 3:
 4 3 1 3 0 4 3 8 7 7
@@ -4015,21 +4182,8 @@ Example tasks:
 Example 1:
 Question: Your task is to compute an exponentiation of a number.
 
-Example:
-- Input: Compute 2^3
-- Output: 8
-- Explanation:
-    - 2^3 = 2 * 2 * 2 = 8
-    - Therefore, the final answer is 8
-
-Example:
-- Input: Compute 412.5^3
-- Output: 70189453.125
-- Explanation:
-    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
-    - Therefore, the final answer is 70189453.125
-
-Compute 278.8536^-8
+Compute 278.8536^-8. Return your final answer correct to 3 significant figures.
+Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 
 Answer: 2.7352054627088526e-20
 Metadata: {'base': 278.8536, 'exponent': -8, 'solution': 2.7352054627088526e-20}
@@ -4037,21 +4191,8 @@ Metadata: {'base': 278.8536, 'exponent': -8, 'solution': 2.7352054627088526e-20}
 Example 2:
 Question: Your task is to compute an exponentiation of a number.
 
-Example:
-- Input: Compute 2^3
-- Output: 8
-- Explanation:
-    - 2^3 = 2 * 2 * 2 = 8
-    - Therefore, the final answer is 8
-
-Example:
-- Input: Compute 412.5^3
-- Output: 70189453.125
-- Explanation:
-    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
-    - Therefore, the final answer is 70189453.125
-
-Compute -922.8963^-4
+Compute -922.8963^-4. Return your final answer correct to 3 significant figures.
+Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 
 Answer: 1.3784416297559e-12
 Metadata: {'base': -922.8963, 'exponent': -4, 'solution': 1.3784416297559e-12}
@@ -4059,21 +4200,8 @@ Metadata: {'base': -922.8963, 'exponent': -4, 'solution': 1.3784416297559e-12}
 Example 3:
 Question: Your task is to compute an exponentiation of a number.
 
-Example:
-- Input: Compute 2^3
-- Output: 8
-- Explanation:
-    - 2^3 = 2 * 2 * 2 = 8
-    - Therefore, the final answer is 8
-
-Example:
-- Input: Compute 412.5^3
-- Output: 70189453.125
-- Explanation:
-    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
-    - Therefore, the final answer is 70189453.125
-
-Compute -182.9282^-5
+Compute -182.9282^-5. Return your final answer correct to 3 significant figures.
+Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 
 Answer: -4.881987860097121e-12
 Metadata: {'base': -182.9282, 'exponent': -5, 'solution': -4.881987860097121e-12}
@@ -4140,6 +4268,140 @@ Example 3:
 Question: Solve the following multiplication: 81037 * 25290. Give only the result as your final answer.
 Answer: 2049425730
 Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 5}, 'expression': '81037 * 25290'}
+
+````
+
+### propositional_logic
+Generates propositional logic reasoning tasks
+
+Default configuration:
+```python
+min_vars = 2
+max_vars = 4
+min_statements = 2
+max_statements = 4
+max_complexity = 3
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: The following question is a propositional logic reasoning question.
+
+In the question we provide a list of premises. The task is to infer a correct conclusion from the premise.
+
+FORMAT INSTRUCTIONS:
+- Return the conclusion logic statement, as your final answer.
+- Use the following notation to denote symbols
+    - OR = ∨
+    - AND = ∧
+    - IMPLIES = →
+    - IFF = ↔
+    - NOT = ¬
+
+Here is the question:
+Given:
+1. R
+.2. Q
+.What can we conclude from the above statements?
+Answer: None
+Metadata: {'premises': ['R', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3, 'example_answer': '(P ∨ Q)'}
+
+Example 2:
+Question: The following question is a propositional logic reasoning question.
+
+In the question we provide a list of premises. The task is to infer a correct conclusion from the premise.
+
+FORMAT INSTRUCTIONS:
+- Return the conclusion logic statement, as your final answer.
+- Use the following notation to denote symbols
+    - OR = ∨
+    - AND = ∧
+    - IMPLIES = →
+    - IFF = ↔
+    - NOT = ¬
+
+Here is the question:
+Given:
+1. ((Q → P) ∨ (Q → P))
+.2. ((Q ↔ Q) → (P → P))
+.3. P
+.What can we conclude from the above statements?
+Answer: None
+Metadata: {'premises': ['((Q → P) ∨ (Q → P))', '((Q ↔ Q) → (P → P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3, 'example_answer': '(Q ∨ P)'}
+
+Example 3:
+Question: The following question is a propositional logic reasoning question.
+
+In the question we provide a list of premises. The task is to infer a correct conclusion from the premise.
+
+FORMAT INSTRUCTIONS:
+- Return the conclusion logic statement, as your final answer.
+- Use the following notation to denote symbols
+    - OR = ∨
+    - AND = ∧
+    - IMPLIES = →
+    - IFF = ↔
+    - NOT = ¬
+
+Here is the question:
+Given:
+1. ((Q ∨ P) ∧ ¬P)
+.2. P
+.3. ((P ∧ R) ∧ ¬R)
+.4. ((Q ↔ R) → ¬Q)
+.What can we conclude from the above statements?
+Answer: None
+Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q ↔ R) → ¬Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3, 'example_answer': '(Q ∧ Q)'}
+
+````
+
+### puzzle24
+Default configuration:
+```python
+operators = ('+', '-', '*', '/')
+min_value = 1
+max_value = 10
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Make 24 using 4, 3, 9, 8. You can only use each number once. You can use the operators +, -, *, /.
+Final answer format instructions:
+1. Provide your final answer as a arithmetic expression (no '=' sign).
+2. Do not include the target number in the expression.
+3. Use '*' for multiplication.
+4. Use '/' for division.
+
+Answer: 4 + 3 + 9 + 8
+Metadata: {'numbers': [4, 3, 9, 8], 'expression': x0 + x1 + x2 + x3}
+
+Example 2:
+Question: Make 24 using 8, 2, 10, 4. You can only use each number once. You can use the operators +, -, *, /.
+Final answer format instructions:
+1. Provide your final answer as a arithmetic expression (no '=' sign).
+2. Do not include the target number in the expression.
+3. Use '*' for multiplication.
+4. Use '/' for division.
+
+Answer: 8 + 2 + 10 + 4
+Metadata: {'numbers': [8, 2, 10, 4], 'expression': x0 + x1 + x2 + x3}
+
+Example 3:
+Question: Make 24 using 6, 5, 10, 3. You can only use each number once. You can use the operators +, -, *, /.
+Final answer format instructions:
+1. Provide your final answer as a arithmetic expression (no '=' sign).
+2. Do not include the target number in the expression.
+3. Use '*' for multiplication.
+4. Use '/' for division.
+
+Answer: 6 + 5 + 10 + 3
+Metadata: {'numbers': [6, 5, 10, 3], 'expression': x0 + x1 + x2 + x3}
 
 ````
 
@@ -4545,33 +4807,7 @@ Question: Your task is to count how many rectangles are present in an ASCII grid
 
 Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
 
-Example:
-- Input: How many rectangles are in the grid below?
-
-              ####
-              #  #
-              ####
-
-
-
-
-
-
-
-
-
-
- #########
- #       █##
- #       █ #
- ########█ #
-         # #
-         ###
-- Output: 3
-- Explanation:
-    - The first rectangle is the 3x4 rectangle in the top right.
-    - The other two rectangles are overlapping in the bottom left corner.
-    - Therefore, the final answer is 3.
+Your output should be a single number, representing the total count of rectangles.
 
 Now, it's your turn. How many rectangles do you see in the grid below?
                                                                                 
@@ -4664,33 +4900,7 @@ Question: Your task is to count how many rectangles are present in an ASCII grid
 
 Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
 
-Example:
-- Input: How many rectangles are in the grid below?
-
-              ####
-              #  #
-              ####
-
-
-
-
-
-
-
-
-
-
- #########
- #       █##
- #       █ #
- ########█ #
-         # #
-         ###
-- Output: 3
-- Explanation:
-    - The first rectangle is the 3x4 rectangle in the top right.
-    - The other two rectangles are overlapping in the bottom left corner.
-    - Therefore, the final answer is 3.
+Your output should be a single number, representing the total count of rectangles.
 
 Now, it's your turn. How many rectangles do you see in the grid below?
                                                                                 
@@ -4783,33 +4993,7 @@ Question: Your task is to count how many rectangles are present in an ASCII grid
 
 Single rectangles are outlined with a '#', overlapping rectangles (max 2) are shown with '█'.
 
-Example:
-- Input: How many rectangles are in the grid below?
-
-              ####
-              #  #
-              ####
-
-
-
-
-
-
-
-
-
-
- #########
- #       █##
- #       █ #
- ########█ #
-         # #
-         ###
-- Output: 3
-- Explanation:
-    - The first rectangle is the 3x4 rectangle in the top right.
-    - The other two rectangles are overlapping in the bottom left corner.
-    - Therefore, the final answer is 3.
+Your output should be a single number, representing the total count of rectangles.
 
 Now, it's your turn. How many rectangles do you see in the grid below?
                                                                                 
@@ -4915,17 +5099,7 @@ Example tasks:
 Example 1:
 Question: Given a square matrix, your job is to rotate it clockwise.
 
-Example:
-
-Input: Rotate the matrix below by 90 degrees clockwise:
-1 2 3
-4 5 6
-7 8 9
-
-Output:
-7 4 1
-8 5 2
-9 6 3
+Your output should be a matrix in the same format as the input.
 
 Rotate the matrix below by 90 degrees clockwise:
 3 1
@@ -4938,17 +5112,7 @@ Metadata: {'matrix': [[3, 1], [2, 0]], 'num_rotations': 1, 'solution': [[2, 3], 
 Example 2:
 Question: Given a square matrix, your job is to rotate it clockwise.
 
-Example:
-
-Input: Rotate the matrix below by 90 degrees clockwise:
-1 2 3
-4 5 6
-7 8 9
-
-Output:
-7 4 1
-8 5 2
-9 6 3
+Your output should be a matrix in the same format as the input.
 
 Rotate the matrix below by 180 degrees clockwise:
 0
@@ -4959,17 +5123,7 @@ Metadata: {'matrix': [[0]], 'num_rotations': 2, 'solution': [[0]]}
 Example 3:
 Question: Given a square matrix, your job is to rotate it clockwise.
 
-Example:
-
-Input: Rotate the matrix below by 90 degrees clockwise:
-1 2 3
-4 5 6
-7 8 9
-
-Output:
-7 4 1
-8 5 2
-9 6 3
+Your output should be a matrix in the same format as the input.
 
 Rotate the matrix below by 180 degrees clockwise:
 28 17 38 29 8 15 26
@@ -5017,13 +5171,6 @@ Every minute, any fresh orange that is 4-directionally adjacent to a rotten oran
 Your task is determine the minimum number of minutes that must elapse until no cell has a fresh orange.
 If this is impossible, return -1.
 
-Example:
-- Input: Determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
-    2 1 1
-    1 1 0
-    0 1 1
-- Output: 4
-
 Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
 1 1 1 1 2 1 1 1 1 0 1 1 1 1 1 2 1 0 1 1 1 1 1 0 0 1 1 1 1 1
 1 1 0 1 1 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1 1 2 1 0
@@ -5070,13 +5217,6 @@ Every minute, any fresh orange that is 4-directionally adjacent to a rotten oran
 Your task is determine the minimum number of minutes that must elapse until no cell has a fresh orange.
 If this is impossible, return -1.
 
-Example:
-- Input: Determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
-    2 1 1
-    1 1 0
-    0 1 1
-- Output: 4
-
 Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
 1 0 1 1 1 1 0 0 0 2 1
 1 1 1 1 1 2 1 1 0 1 2
@@ -5103,13 +5243,6 @@ Every minute, any fresh orange that is 4-directionally adjacent to a rotten oran
 
 Your task is determine the minimum number of minutes that must elapse until no cell has a fresh orange.
 If this is impossible, return -1.
-
-Example:
-- Input: Determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
-    2 1 1
-    1 1 0
-    0 1 1
-- Output: 4
 
 Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 0 1 1 1 1 1
@@ -5169,7 +5302,7 @@ Question: You are given a 3x3x3 Rubik's cube. It looks like this:
           B  W  B                   
  
 
-Please provide a solution to solve this cube using Singmaster notation.
+Please provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.
 Answer: None
 Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "F L' R", 'example_correct_answer': "L F' U' R D B' D' U R U' R' U B U' B' U' R' U R U B U' B' U R' U R U B U' B' U' B' U B U L U' L' U' B' U B U L U' L' U B' U B U L U' L' F R U R' U' F' U' R U R' U R U U R' F U' B' U F' U' B R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U"}
 
@@ -5187,7 +5320,7 @@ Question: You are given a 3x3x3 Rubik's cube. It looks like this:
           B  W  W                   
  
 
-Please provide a solution to solve this cube using Singmaster notation.
+Please provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.
 Answer: None
 Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "L' F U'", 'example_correct_answer': "U' D' B D L' U' F D R' D' U' R U' R' F' U U F U F U' F' U' L' U L U F U' F' U L' U L U F U' F' R U' R' U' F' U F R' U R U B U' B' U' U' B' U B U L U' L' F R U R' U' R U R' U' F' U R U R' U R U U R' U' R U R' U R U U R' U' R U' L' U R' U' L U F U' B' U F' U' B R' D' R D R' D' R D U U R' D' R D R' D' R D U R' D' R D R' D' R D U"}
 
@@ -5205,7 +5338,7 @@ Question: You are given a 3x3x3 Rubik's cube. It looks like this:
           W  W  Y                   
  
 
-Please provide a solution to solve this cube using Singmaster notation.
+Please provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.
 Answer: None
 Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'example_correct_answer': "R R U'"}
 
@@ -5354,6 +5487,108 @@ Metadata: {'word_count': 10}
 
 ````
 
+### shortest_path
+Generates Shortest Path exercises with configurable difficulty
+
+Default configuration:
+```python
+min_rows = 5
+max_rows = 8
+min_cols = 5
+max_cols = 8
+p_blocked = 0.4
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: Your task is to find the shortest path from the start to the destination point in a grid.
+
+The grid is represented as a matrix with the following types of cells:
+- *: your starting point
+- #: your destination point
+- O: an open cell
+- X: a blocked cell
+
+Therefore, you need to find the shortest path from * to #, moving only through open cells.
+
+You may only move in four directions: up, down, left, and right.
+
+If there is no path from * to #, simply write "infeasible" (without quotes).
+
+Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
+
+Now, find the length of the shortest path from * to # in the following grid:
+O X X X O
+O O X X X
+O O # O O
+* X O O X
+O X X O X
+
+Answer: up right right
+Metadata: {'matrix': [['O', 'X', 'X', 'X', 'O'], ['O', 'O', 'X', 'X', 'X'], ['O', 'O', '#', 'O', 'O'], ['*', 'X', 'O', 'O', 'X'], ['O', 'X', 'X', 'O', 'X']], 'solution': ['up', 'right', 'right']}
+
+Example 2:
+Question: Your task is to find the shortest path from the start to the destination point in a grid.
+
+The grid is represented as a matrix with the following types of cells:
+- *: your starting point
+- #: your destination point
+- O: an open cell
+- X: a blocked cell
+
+Therefore, you need to find the shortest path from * to #, moving only through open cells.
+
+You may only move in four directions: up, down, left, and right.
+
+If there is no path from * to #, simply write "infeasible" (without quotes).
+
+Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
+
+Now, find the length of the shortest path from * to # in the following grid:
+# X O O O O O
+X O X O O O O
+X O O X X O O
+O O O O X X X
+O O X O O * O
+
+Answer: infeasible
+Metadata: {'matrix': [['#', 'X', 'O', 'O', 'O', 'O', 'O'], ['X', 'O', 'X', 'O', 'O', 'O', 'O'], ['X', 'O', 'O', 'X', 'X', 'O', 'O'], ['O', 'O', 'O', 'O', 'X', 'X', 'X'], ['O', 'O', 'X', 'O', 'O', '*', 'O']], 'solution': []}
+
+Example 3:
+Question: Your task is to find the shortest path from the start to the destination point in a grid.
+
+The grid is represented as a matrix with the following types of cells:
+- *: your starting point
+- #: your destination point
+- O: an open cell
+- X: a blocked cell
+
+Therefore, you need to find the shortest path from * to #, moving only through open cells.
+
+You may only move in four directions: up, down, left, and right.
+
+If there is no path from * to #, simply write "infeasible" (without quotes).
+
+Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
+
+Now, find the length of the shortest path from * to # in the following grid:
+X X X X X
+X O O O X
+O # X X O
+O X X X O
+X O O X X
+O O X X X
+X O O O X
+O O O X *
+
+Answer: infeasible
+Metadata: {'matrix': [['X', 'X', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', '#', 'X', 'X', 'O'], ['O', 'X', 'X', 'X', 'O'], ['X', 'O', 'O', 'X', 'X'], ['O', 'O', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', 'O', 'O', 'X', '*']], 'solution': []}
+
+````
+
 ### simple_equations
 Generates simple equations with one variable to solve
 
@@ -5445,27 +5680,27 @@ Example tasks:
 ````
 Example 1:
 Question: Find the indefinite integral: ∫ 70*x**6 + 12*x**2/5 dx
-In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 10*x**7 + 4*x**3/5 + C
 Metadata: {'integrand': '70*x**6 + 12*x**2/5', 'variable': 'x', 'expected_answer_expression': 10*x**7 + 4*x**3/5}
 
 Example 2:
 Question: Find the indefinite integral: ∫ 49*x**6/10 + 48*x**5 - 4*x - 10/9 dx
-In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9 + C
 Metadata: {'integrand': '49*x**6/10 + 48*x**5 - 4*x - 10/9', 'variable': 'x', 'expected_answer_expression': 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9}
 
 Example 3:
 Question: Find the indefinite integral: ∫ -28*X**3 + 8*X dx
-In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: -7*X**4 + 4*X**2 + C
 Metadata: {'integrand': '-28*X**3 + 8*X', 'variable': 'X', 'expected_answer_expression': -7*X**4 + 4*X**2}
@@ -5481,8 +5716,9 @@ min_w = 6
 min_h = 6
 max_w = 10
 max_h = 10
-min_boxes = 6
+min_boxes = 4
 max_boxes = 10
+max_depth = 80
 seed = 42
 size = 500
 ```
@@ -5503,17 +5739,16 @@ $ - A box on a goal
 Your solution must be a string of characters, ex: LDURRUDL.
 
 Here is your puzzle:
-+ + + + + + + + +  
-+ + X - @ * @ X +  
-+ + + - - @ - + +  
-+ + + - - - X $ +  
-+ + + + - + + + +  
-+ + $ + + + + + +  
-+ + + + + + + + +  
++ + + + + +  
++ X X @ - +  
++ - X - - +  
++ @ - @ - +  
++ % @ - - +  
++ + + + + +  
 
 
-Answer: RLDULLRRDLDR
-Metadata: {'gamestr': '+ + + + + + + + +  \n+ + X - @ * @ X +  \n+ + + - - @ - + +  \n+ + + - - - X $ +  \n+ + + + - + + + +  \n+ + $ + + + + + +  \n+ + + + + + + + +  \n\n', 'difficulty': {'size': (7, 9), 'num_steps': 12}}
+Answer: UURRRULDRDLDLU
+Metadata: {'gamestr': '+ + + + + +  \n+ X X @ - +  \n+ - X - - +  \n+ @ - @ - +  \n+ % @ - - +  \n+ + + + + +  \n\n', 'difficulty': {'size': (6, 6), 'num_steps': 14}}
 
 Example 2:
 Question: You are going to solve a 'sokoban' puzzle.
@@ -5530,17 +5765,17 @@ Your solution must be a string of characters, ex: LDURRUDL.
 
 Here is your puzzle:
 + + + + + +  
-+ - * - - +  
-+ @ - - @ +  
-+ X - @ - +  
++ - - - * +  
++ @ @ @ @ +  
++ X - - - +  
 + - - - X +  
-+ X - @ X +  
-+ - - - - +  
++ X - $ X +  
++ + - - - +  
 + + + + + +  
 
 
-Answer: LDRRDRDDLLURURDULUURDD
-Metadata: {'gamestr': '+ + + + + +  \n+ - * - - +  \n+ @ - - @ +  \n+ X - @ - +  \n+ - - - X +  \n+ X - @ X +  \n+ - - - - +  \n+ + + + + +  \n\n', 'difficulty': {'size': (8, 6), 'num_steps': 22}}
+Answer: DDUULDDRDLLULDURRUULDULDRRDDLURUULLDRRURDD
+Metadata: {'gamestr': '+ + + + + +  \n+ - - - * +  \n+ @ @ @ @ +  \n+ X - - - +  \n+ - - - X +  \n+ X - $ X +  \n+ + - - - +  \n+ + + + + +  \n\n', 'difficulty': {'size': (8, 6), 'num_steps': 42}}
 
 Example 3:
 Question: You are going to solve a 'sokoban' puzzle.
@@ -5556,20 +5791,19 @@ $ - A box on a goal
 Your solution must be a string of characters, ex: LDURRUDL.
 
 Here is your puzzle:
-+ + + + + + + + + + + +  
-+ - $ - X + - - - - - +  
-+ - @ - - - - - @ - X +  
-+ - * - @ - - X - $ - +  
-+ - - - - X + - - - - +  
-+ + - - - - + $ - @ - +  
-+ + + - - - - - - - - +  
-+ + + - - - $ - - - - +  
-+ + + + - - - - - - - +  
-+ + + + + + + + + + + +  
++ + + + + + + + + +  
++ $ + + + X - @ - +  
++ + + + + X @ @ - +  
++ X + + X - - X - +  
++ - + X @ - - X - +  
++ @ - - X @ - - - +  
++ - - - @ - @ - - +  
++ - - - - - - * - +  
++ + + + + + + + + +  
 
 
-Answer: RRRRURRRLDDRRDLULDRDLLLLULLDRDRUULUUULDLLURRDRU
-Metadata: {'gamestr': '+ + + + + + + + + + + +  \n+ - $ - X + - - - - - +  \n+ - @ - - - - - @ - X +  \n+ - * - @ - - X - $ - +  \n+ - - - - X + - - - - +  \n+ + - - - - + $ - @ - +  \n+ + + - - - - - - - - +  \n+ + + - - - $ - - - - +  \n+ + + + - - - - - - - +  \n+ + + + + + + + + + + +  \n\n', 'difficulty': {'size': (10, 12), 'num_steps': 47}}
+Answer: ULULULRDRDDLUUUURRRUULLDDUURDLDLDRLDDDLLULLUUDRRDRDRUUURUL
+Metadata: {'gamestr': '+ + + + + + + + + +  \n+ $ + + + X - @ - +  \n+ + + + + X @ @ - +  \n+ X + + X - - X - +  \n+ - + X @ - - X - +  \n+ @ - - X @ - - - +  \n+ - - - @ - @ - - +  \n+ - - - - - - * - +  \n+ + + + + + + + + +  \n\n', 'difficulty': {'size': (9, 10), 'num_steps': 58}}
 
 ````
 
@@ -5617,19 +5851,14 @@ Example tasks:
 Example 1:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
-Example:
-- Input: For the matrix below, what is the list of elements in spiral order?
-1 2 3
-4 5 6
-7 8 9
-- Output: 1 2 3 6 9 8 7 4 5
-- Explanation:
-    - We start from the top-left element (1) and move right until we reach the end of the row: 1 2 3
-    - Then, we move down until we reach the last column: 1 2 3 6 9
-    - Next, we move left until we reach the first column: 1 2 3 6 9 8 7
-    - Then, we move up until we reach the second row (i.e. one below the previously traversed row): 1 2 3 6 9 8 7 4
-    - Finally, we move right until we reach the second to last column: 1 2 3 6 9 8 7 4 5
-    - The output format is a space-separated list of elements in spiral order (as opposed to a python list)
+The spiral order is clockwise, starting from the top-left corner. More precisely:
+- Start from the top-left corner and move right.
+- Move down towards the bottom-right corner.
+- Move left towards the bottom-left corner.
+- Move up towards the top-right corner.
+- Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
 For the matrix below, what is the list of elements in spiral order?
 3 1 3
@@ -5642,19 +5871,14 @@ Metadata: {'matrix': [[3, 1, 3], [2, 4, 9], [1, 0, 8]], 'solution': [3, 1, 3, 9,
 Example 2:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
-Example:
-- Input: For the matrix below, what is the list of elements in spiral order?
-1 2 3
-4 5 6
-7 8 9
-- Output: 1 2 3 6 9 8 7 4 5
-- Explanation:
-    - We start from the top-left element (1) and move right until we reach the end of the row: 1 2 3
-    - Then, we move down until we reach the last column: 1 2 3 6 9
-    - Next, we move left until we reach the first column: 1 2 3 6 9 8 7
-    - Then, we move up until we reach the second row (i.e. one below the previously traversed row): 1 2 3 6 9 8 7 4
-    - Finally, we move right until we reach the second to last column: 1 2 3 6 9 8 7 4 5
-    - The output format is a space-separated list of elements in spiral order (as opposed to a python list)
+The spiral order is clockwise, starting from the top-left corner. More precisely:
+- Start from the top-left corner and move right.
+- Move down towards the bottom-right corner.
+- Move left towards the bottom-left corner.
+- Move up towards the top-right corner.
+- Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
 For the matrix below, what is the list of elements in spiral order?
 5 7
@@ -5666,19 +5890,14 @@ Metadata: {'matrix': [[5, 7], [2, 4]], 'solution': [5, 7, 4, 2]}
 Example 3:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
-Example:
-- Input: For the matrix below, what is the list of elements in spiral order?
-1 2 3
-4 5 6
-7 8 9
-- Output: 1 2 3 6 9 8 7 4 5
-- Explanation:
-    - We start from the top-left element (1) and move right until we reach the end of the row: 1 2 3
-    - Then, we move down until we reach the last column: 1 2 3 6 9
-    - Next, we move left until we reach the first column: 1 2 3 6 9 8 7
-    - Then, we move up until we reach the second row (i.e. one below the previously traversed row): 1 2 3 6 9 8 7 4
-    - Finally, we move right until we reach the second to last column: 1 2 3 6 9 8 7 4 5
-    - The output format is a space-separated list of elements in spiral order (as opposed to a python list)
+The spiral order is clockwise, starting from the top-left corner. More precisely:
+- Start from the top-left corner and move right.
+- Move down towards the bottom-right corner.
+- Move left towards the bottom-left corner.
+- Move up towards the top-right corner.
+- Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
 For the matrix below, what is the list of elements in spiral order?
 1 9 9 5 2 9 7 3
@@ -5718,15 +5937,7 @@ Question: Given a string consisting of characters A, B, C, D, and E, your job is
 
 Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
 
-Example
-- Input: DDABCDEEDEAB
-- Output: DDABCDAEEDEABD
-- Explanation:
-    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
-    - First, we insert A after ABCD.
-    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
-    - Lastly, we insert D after DEAB.
-    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
+Your output should be a string that has been modified according to the pattern.
 
 Given the following string, provide the answer after inserting the characters according to the pattern: ACBBBAEA
 
@@ -5743,15 +5954,7 @@ Question: Given a string consisting of characters A, B, C, D, and E, your job is
 
 Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
 
-Example
-- Input: DDABCDEEDEAB
-- Output: DDABCDAEEDEABD
-- Explanation:
-    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
-    - First, we insert A after ABCD.
-    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
-    - Lastly, we insert D after DEAB.
-    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
+Your output should be a string that has been modified according to the pattern.
 
 Given the following string, provide the answer after inserting the characters according to the pattern: CBDCAD
 
@@ -5768,15 +5971,7 @@ Question: Given a string consisting of characters A, B, C, D, and E, your job is
 
 Once you have inserted a character, you have to skip over the substring and the inserted character and continue the search from the next character.
 
-Example
-- Input: DDABCDEEDEAB
-- Output: DDABCDAEEDEABD
-- Explanation:
-    - Theere are two inserted characters: DDABCD[A]EEDEAB[D] (shown in square brackets)
-    - First, we insert A after ABCD.
-    - Even though with the newly inserted 'A' we can obtain the substring BCD[A], we can't use it to insert another character.
-    - Lastly, we insert D after DEAB.
-    - Therefore, the final answer is DDABCDAEEDEABD (represented as a string, instead of a list of characters).
+Your output should be a string that has been modified according to the pattern.
 
 Given the following string, provide the answer after inserting the characters according to the pattern: EEABDBCABAEAABECDE
 
@@ -5816,18 +6011,7 @@ Evaluate the following rules in order, and apply the first applicable rule to th
 Once you have applied a rule, repeat the process with the new string until no further transformations can be performed (i.e. the string doesn't change), or a state is repeated.
 If a state is repeated, the process is terminated, and the repeated state is discarded (i.e. is not considered as the final answer) and the state before the repeated state is considered as the final answer.
 
-Example:
-- Input:
-    - String: abbac
-    - Rules:
-        1. If the string prefix is 'ab', replace it with 'ca'.
-        2. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
-        3. If the string ends with 'aa', replace it with 'cc'.
-- Output: bbbacc
-- Explanation:
-    - In the first iteration, rule 1 is applied to the string abbac, resulting in cabac
-    - In the second interation, rule 1 doesn't apply, but rule 2 is applied to the string cabac, resulting in bbbacc
-    - In the third iteration, none of the rules (1, 2, 3) apply, so the process is terminated, and the final answer is bbbacc
+Your output should be the final transformed string after applying all the rules.
 
 Transform the following string according to the above list of rules:
 acbaaaca
@@ -5851,18 +6035,7 @@ Evaluate the following rules in order, and apply the first applicable rule to th
 Once you have applied a rule, repeat the process with the new string until no further transformations can be performed (i.e. the string doesn't change), or a state is repeated.
 If a state is repeated, the process is terminated, and the repeated state is discarded (i.e. is not considered as the final answer) and the state before the repeated state is considered as the final answer.
 
-Example:
-- Input:
-    - String: abbac
-    - Rules:
-        1. If the string prefix is 'ab', replace it with 'ca'.
-        2. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
-        3. If the string ends with 'aa', replace it with 'cc'.
-- Output: bbbacc
-- Explanation:
-    - In the first iteration, rule 1 is applied to the string abbac, resulting in cabac
-    - In the second interation, rule 1 doesn't apply, but rule 2 is applied to the string cabac, resulting in bbbacc
-    - In the third iteration, none of the rules (1, 2, 3) apply, so the process is terminated, and the final answer is bbbacc
+Your output should be the final transformed string after applying all the rules.
 
 Transform the following string according to the above list of rules:
 bcabbc
@@ -5886,18 +6059,7 @@ Evaluate the following rules in order, and apply the first applicable rule to th
 Once you have applied a rule, repeat the process with the new string until no further transformations can be performed (i.e. the string doesn't change), or a state is repeated.
 If a state is repeated, the process is terminated, and the repeated state is discarded (i.e. is not considered as the final answer) and the state before the repeated state is considered as the final answer.
 
-Example:
-- Input:
-    - String: abbac
-    - Rules:
-        1. If the string prefix is 'ab', replace it with 'ca'.
-        2. If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.
-        3. If the string ends with 'aa', replace it with 'cc'.
-- Output: bbbacc
-- Explanation:
-    - In the first iteration, rule 1 is applied to the string abbac, resulting in cabac
-    - In the second interation, rule 1 doesn't apply, but rule 2 is applied to the string cabac, resulting in bbbacc
-    - In the third iteration, none of the rules (1, 2, 3) apply, so the process is terminated, and the final answer is bbbacc
+Your output should be the final transformed string after applying all the rules.
 
 Transform the following string according to the above list of rules:
 cccaababaaacaaaccb
@@ -5936,17 +6098,6 @@ After you make use of a rule, you should update the counts of each machine and p
 The output should be the count of each machine and part type after the rules have been exhaustively applied in the following order: A B C X Y Z.
 For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
 
-Example:
-- Input: You have 2 machines A, 0 machines B, and 1 machine C.
-- Output: 0 0 1 2 0 2
-- Explanation
-    0. Initial state: 2 0 1 0 0 0
-    1. We can apply rule 1 and trade 1 machine A for 2 part X and 1 part Y: 1 0 1 2 1 0
-    2. Starting over, we can apply rule 1 again: 0 0 1 4 2 0
-    3. In the next iteration, we can apply rule 5 and trade 1 part X and 1 part Y for 1 part Z: 0 0 1 3 1 1
-    4. In the next iteration, we can apply rule 5 again: 0 0 1 2 0 2
-    5. We can't apply any more rules, so the final answer is 0 0 1 2 0 2
-
 Now, you have 5 machine A, 0 machine B, and 0 machine C. Provide the count of each machine and part type after applying the above rules.
 
 Answer: 0 0 0 5 0 5
@@ -5967,17 +6118,6 @@ After you make use of a rule, you should update the counts of each machine and p
 The output should be the count of each machine and part type after the rules have been exhaustively applied in the following order: A B C X Y Z.
 For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
 
-Example:
-- Input: You have 2 machines A, 0 machines B, and 1 machine C.
-- Output: 0 0 1 2 0 2
-- Explanation
-    0. Initial state: 2 0 1 0 0 0
-    1. We can apply rule 1 and trade 1 machine A for 2 part X and 1 part Y: 1 0 1 2 1 0
-    2. Starting over, we can apply rule 1 again: 0 0 1 4 2 0
-    3. In the next iteration, we can apply rule 5 and trade 1 part X and 1 part Y for 1 part Z: 0 0 1 3 1 1
-    4. In the next iteration, we can apply rule 5 again: 0 0 1 2 0 2
-    5. We can't apply any more rules, so the final answer is 0 0 1 2 0 2
-
 Now, you have 0 machine A, 2 machine B, and 5 machine C. Provide the count of each machine and part type after applying the above rules.
 
 Answer: 0 0 1 0 1 1
@@ -5997,17 +6137,6 @@ After you make use of a rule, you should update the counts of each machine and p
 
 The output should be the count of each machine and part type after the rules have been exhaustively applied in the following order: A B C X Y Z.
 For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
-
-Example:
-- Input: You have 2 machines A, 0 machines B, and 1 machine C.
-- Output: 0 0 1 2 0 2
-- Explanation
-    0. Initial state: 2 0 1 0 0 0
-    1. We can apply rule 1 and trade 1 machine A for 2 part X and 1 part Y: 1 0 1 2 1 0
-    2. Starting over, we can apply rule 1 again: 0 0 1 4 2 0
-    3. In the next iteration, we can apply rule 5 and trade 1 part X and 1 part Y for 1 part Z: 0 0 1 3 1 1
-    4. In the next iteration, we can apply rule 5 again: 0 0 1 2 0 2
-    5. We can't apply any more rules, so the final answer is 0 0 1 2 0 2
 
 Now, you have 3 machine A, 4 machine B, and 4 machine C. Provide the count of each machine and part type after applying the above rules.
 
@@ -6045,16 +6174,6 @@ In the case a state is repeated the answer is the state before the repetition!
 The output should be the count of each block type after the rules have been applied in the order they are listed above.
 For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
 
-Example:
-- Input: You have 2 [A], 3 [B], and 3 [C].
-- Output: 0 0 0 2 1 0 0 0 0
-- Explanation:
-    0. Initial state: 2 3 3 0 0 0 0 0 0
-    1. We can apply Rule 1 and obtain 1 {A}. New state: 1 2 2 1 0 0 0 0 0
-    2. We can apply Rule 1 again and obtain 1 {A}. New state 0 1 1 2 0 0 0 0 0
-    3. We can apply Rule 3 and obtain 1 {B}. New state 0 0 0 2 1 0 0 0 0
-    4. No more rules can be applied. The answer is 0 0 0 2 1 0 0 0 0
-
 Now, you have 5 [A], 0 [B], and 0 [C] blocks. Provide the count of each block type after applying the above rules.
 
 Answer: 5 0 0 0 0 0 0 0 0
@@ -6075,16 +6194,6 @@ In the case a state is repeated the answer is the state before the repetition!
 The output should be the count of each block type after the rules have been applied in the order they are listed above.
 For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
 
-Example:
-- Input: You have 2 [A], 3 [B], and 3 [C].
-- Output: 0 0 0 2 1 0 0 0 0
-- Explanation:
-    0. Initial state: 2 3 3 0 0 0 0 0 0
-    1. We can apply Rule 1 and obtain 1 {A}. New state: 1 2 2 1 0 0 0 0 0
-    2. We can apply Rule 1 again and obtain 1 {A}. New state 0 1 1 2 0 0 0 0 0
-    3. We can apply Rule 3 and obtain 1 {B}. New state 0 0 0 2 1 0 0 0 0
-    4. No more rules can be applied. The answer is 0 0 0 2 1 0 0 0 0
-
 Now, you have 0 [A], 2 [B], and 5 [C] blocks. Provide the count of each block type after applying the above rules.
 
 Answer: 0 0 1 0 0 1 0 0 1
@@ -6104,16 +6213,6 @@ In the case a state is repeated the answer is the state before the repetition!
 
 The output should be the count of each block type after the rules have been applied in the order they are listed above.
 For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
-
-Example:
-- Input: You have 2 [A], 3 [B], and 3 [C].
-- Output: 0 0 0 2 1 0 0 0 0
-- Explanation:
-    0. Initial state: 2 3 3 0 0 0 0 0 0
-    1. We can apply Rule 1 and obtain 1 {A}. New state: 1 2 2 1 0 0 0 0 0
-    2. We can apply Rule 1 again and obtain 1 {A}. New state 0 1 1 2 0 0 0 0 0
-    3. We can apply Rule 3 and obtain 1 {B}. New state 0 0 0 2 1 0 0 0 0
-    4. No more rules can be applied. The answer is 0 0 0 2 1 0 0 0 0
 
 Now, you have 3 [A], 4 [B], and 4 [C] blocks. Provide the count of each block type after applying the above rules.
 
@@ -6284,7 +6383,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 2, 20, 9, 44), 'end_time': datetime.datetime(2025, 2, 20, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 5, 9, 44), 'end_time': datetime.datetime(2025, 3, 5, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -6316,18 +6415,21 @@ Move all disks from Peg 3 to Peg 2 following the rules:
 - Only one disk can be moved at a time.
 - A larger disk cannot be placed on top of a smaller disk.
 - All disks must be on a peg at all times.
-Example:
+
+Provide the sequence of moves.
+
+Formatting guidelines:
+- Each instruction should be placed on a single line.
+- Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
+- Do not include any other text or formatting.
+
+Answer: Move disk 1 from Peg 3 to Peg 2
+Move disk 2 from Peg 3 to Peg 1
+Move disk 1 from Peg 2 to Peg 1
+Move disk 3 from Peg 3 to Peg 2
 Move disk 1 from Peg 1 to Peg 3
 Move disk 2 from Peg 1 to Peg 2
 Move disk 1 from Peg 3 to Peg 2
-
-Provide the sequence of moves.
-Formatting guidelines:
-Each instruction should be placed on a single line.
-Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
-Do not include any other text or formatting.
-
-Answer: ['Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
 Metadata: {'num_disks': 3, 'num_pegs': 3, 'start_peg': 3, 'target_peg': 2, 'auxiliary_pegs': [1], 'solution_length': 7}
 
 Example 2:
@@ -6336,18 +6438,19 @@ Move all disks from Peg 2 to Peg 4 following the rules:
 - Only one disk can be moved at a time.
 - A larger disk cannot be placed on top of a smaller disk.
 - All disks must be on a peg at all times.
-Example:
-Move disk 1 from Peg 1 to Peg 3
-Move disk 2 from Peg 1 to Peg 2
-Move disk 1 from Peg 3 to Peg 2
 
 Provide the sequence of moves.
-Formatting guidelines:
-Each instruction should be placed on a single line.
-Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
-Do not include any other text or formatting.
 
-Answer: ['Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 3 from Peg 2 to Peg 4', 'Move disk 2 from Peg 3 to Peg 4', 'Move disk 1 from Peg 1 to Peg 4']
+Formatting guidelines:
+- Each instruction should be placed on a single line.
+- Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
+- Do not include any other text or formatting.
+
+Answer: Move disk 1 from Peg 2 to Peg 1
+Move disk 2 from Peg 2 to Peg 3
+Move disk 3 from Peg 2 to Peg 4
+Move disk 2 from Peg 3 to Peg 4
+Move disk 1 from Peg 1 to Peg 4
 Metadata: {'num_disks': 3, 'num_pegs': 4, 'start_peg': 2, 'target_peg': 4, 'auxiliary_pegs': [1, 3], 'solution_length': 5}
 
 Example 3:
@@ -6356,18 +6459,77 @@ Move all disks from Peg 1 to Peg 2 following the rules:
 - Only one disk can be moved at a time.
 - A larger disk cannot be placed on top of a smaller disk.
 - All disks must be on a peg at all times.
-Example:
+
+Provide the sequence of moves.
+
+Formatting guidelines:
+- Each instruction should be placed on a single line.
+- Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
+- Do not include any other text or formatting.
+
+Answer: Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+Move disk 3 from Peg 1 to Peg 3
+Move disk 1 from Peg 2 to Peg 1
+Move disk 2 from Peg 2 to Peg 3
+Move disk 1 from Peg 1 to Peg 3
+Move disk 4 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+Move disk 2 from Peg 3 to Peg 1
+Move disk 1 from Peg 2 to Peg 1
+Move disk 3 from Peg 3 to Peg 2
 Move disk 1 from Peg 1 to Peg 3
 Move disk 2 from Peg 1 to Peg 2
 Move disk 1 from Peg 3 to Peg 2
-
-Provide the sequence of moves.
-Formatting guidelines:
-Each instruction should be placed on a single line.
-Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
-Do not include any other text or formatting.
-
-Answer: ['Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 5 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 4 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 6 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 4 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 3 from Peg 2 to Peg 1', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 5 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 3 from Peg 1 to Peg 3', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 2 from Peg 2 to Peg 3', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 4 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2', 'Move disk 2 from Peg 3 to Peg 1', 'Move disk 1 from Peg 2 to Peg 1', 'Move disk 3 from Peg 3 to Peg 2', 'Move disk 1 from Peg 1 to Peg 3', 'Move disk 2 from Peg 1 to Peg 2', 'Move disk 1 from Peg 3 to Peg 2']
+Move disk 5 from Peg 1 to Peg 3
+Move disk 1 from Peg 2 to Peg 1
+Move disk 2 from Peg 2 to Peg 3
+Move disk 1 from Peg 1 to Peg 3
+Move disk 3 from Peg 2 to Peg 1
+Move disk 1 from Peg 3 to Peg 2
+Move disk 2 from Peg 3 to Peg 1
+Move disk 1 from Peg 2 to Peg 1
+Move disk 4 from Peg 2 to Peg 3
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+Move disk 3 from Peg 1 to Peg 3
+Move disk 1 from Peg 2 to Peg 1
+Move disk 2 from Peg 2 to Peg 3
+Move disk 1 from Peg 1 to Peg 3
+Move disk 6 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+Move disk 2 from Peg 3 to Peg 1
+Move disk 1 from Peg 2 to Peg 1
+Move disk 3 from Peg 3 to Peg 2
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+Move disk 4 from Peg 3 to Peg 1
+Move disk 1 from Peg 2 to Peg 1
+Move disk 2 from Peg 2 to Peg 3
+Move disk 1 from Peg 1 to Peg 3
+Move disk 3 from Peg 2 to Peg 1
+Move disk 1 from Peg 3 to Peg 2
+Move disk 2 from Peg 3 to Peg 1
+Move disk 1 from Peg 2 to Peg 1
+Move disk 5 from Peg 3 to Peg 2
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+Move disk 3 from Peg 1 to Peg 3
+Move disk 1 from Peg 2 to Peg 1
+Move disk 2 from Peg 2 to Peg 3
+Move disk 1 from Peg 1 to Peg 3
+Move disk 4 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
+Move disk 2 from Peg 3 to Peg 1
+Move disk 1 from Peg 2 to Peg 1
+Move disk 3 from Peg 3 to Peg 2
+Move disk 1 from Peg 1 to Peg 3
+Move disk 2 from Peg 1 to Peg 2
+Move disk 1 from Peg 3 to Peg 2
 Metadata: {'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxiliary_pegs': [3], 'solution_length': 63}
 
 ````
@@ -6389,6 +6551,7 @@ Example tasks:
 Example 1:
 Question: I have a Go problem for you. Black moves next - can you capture some of the white stones?
 
+```
    A B C D E F G H I
  9 X . . . X . . . .
  8 . . . . . . . . .
@@ -6399,17 +6562,19 @@ Question: I have a Go problem for you. Black moves next - can you capture some o
  3 . . X O X . . . .
  2 . . . X . . . . .
  1 . O . O . . X . .
+```
 
 X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
 Answer: E4
-Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', 'O'], ['O', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', 'O', '.', '.', '.'], ['.', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']], 'solution': 'E4'}
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['X', '.', '.', '.', 'X', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', 'O'], ['O', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', 'X', 'O', 'O', '.', 'O', '.', '.', '.'], ['.', '.', 'X', 'O', 'X', '.', '.', '.', '.'], ['.', '.', '.', 'X', '.', '.', '.', '.', '.'], ['.', 'O', '.', 'O', '.', '.', 'X', '.', '.']]}
 
 Example 2:
 Question: Here's a Go challenge. Playing as Black, how can you capture as many white stones as possible?
 
+```
    A B C D E F G H I
  9 . . O . . . . . .
  8 . X O . . . . . .
@@ -6420,18 +6585,20 @@ Question: Here's a Go challenge. Playing as Black, how can you capture as many w
  3 . X . . . . X . .
  2 O . O . . . . . .
  1 . . . . O . . . .
+```
 
 X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
 Answer: B7
-Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.'], ['O', 'O', 'O', 'X', '.', '.', '.', '.', '.'], ['X', 'O', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']], 'solution': 'B7'}
+Metadata: {'difficulty': {'board_size': 9}, 'board': [['.', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', 'O', '.', '.', '.', '.', '.', '.'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.'], ['O', 'O', 'O', 'X', '.', '.', '.', '.', '.'], ['X', 'O', 'O', '.', '.', '.', '.', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', '.', '.', '.', '.', 'X', '.', '.'], ['O', '.', 'O', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', 'O', '.', '.', '.', '.']]}
 
 Example 3:
 Question: Tsumego time. Black to play and capture some stones.
 Find the key move.
 
+```
    A B C D E F G H I J K L
 12 . . . . . . . . . . . .
 11 . . X . . . . . . . . .
@@ -6445,13 +6612,14 @@ Find the key move.
  3 X . X . . . . . . . . .
  2 . . . . . . . . . . . .
  1 . . . . . . . . . . X .
+```
 
 X - Black
 O - White
 
 Specify your move in coordinates (e.g. 'C4' for column C, row 4)
 Answer: D4
-Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'X', 'X', '.', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', 'O', 'O', 'X', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'O', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']], 'solution': 'D4'}
+Metadata: {'difficulty': {'board_size': 12}, 'board': [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['X', '.', '.', '.', '.', 'X', '.', '.', '.', 'X', '.', '.'], ['.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'X', 'X', '.', '.', '.', '.', '.', '.', '.', 'O'], ['.', 'X', 'O', 'O', 'X', '.', '.', '.', '.', '.', '.', '.'], ['.', 'O', 'O', '.', '.', '.', '.', '.', 'O', '.', '.', 'O'], ['X', '.', 'X', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'X', '.']]}
 
 ````
 
@@ -6507,17 +6675,17 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Reverse this list of words: bed, if, problem, but, Well, an, transmission, nutritive
+Question: Solve the following problem. Provide you answer as a comma-separated list of words with a space after the comma. Reverse this list of words: bed, if, problem, but, Well, an, transmission, nutritive
 Answer: nutritive, transmission, an, Well, but, problem, if, bed
 Metadata: {'num_words': 8, 'words': ['bed', 'if', 'problem', 'but', 'Well', 'an', 'transmission', 'nutritive']}
 
 Example 2:
-Question: Reverse this list of words: it, pleasure, Gutenberg
+Question: Solve the following problem. Provide you answer as a comma-separated list of words with a space after the comma. Reverse this list of words: it, pleasure, Gutenberg
 Answer: Gutenberg, pleasure, it
 Metadata: {'num_words': 3, 'words': ['it', 'pleasure', 'Gutenberg']}
 
 Example 3:
-Question: Reverse this list of words: readable, to, he, that, to, possession
+Question: Solve the following problem. Provide you answer as a comma-separated list of words with a space after the comma. Reverse this list of words: readable, to, he, that, to, possession
 Answer: possession, to, that, he, to, readable
 Metadata: {'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'possession']}
 
@@ -6542,16 +6710,7 @@ Example tasks:
 Example 1:
 Question: Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
 
-Example:
-- Input: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: freely, idea, indemnify, last, END, solving
-- Output: END, freely, idea, indemnify, last, solving
-- Explanation:
-    - Uppercase letters come before lowercase letters, hence why "END" comes first.
-    - "freely" comes before "idea" because "f" comes before "i".
-    - "idea" comes before "indemnify" because even though they both start with "i", "d" comes before "n".
-    - "indemnify" comes before "last" because "i" comes before "l".
-    - "last" comes before "solving" because "l" comes before "s".
-    - Finally, the output is provided as a comma separated list of the sorted words.
+Your output should be a comma-separated list of words, e.g. word_1, word_2, word_3
 
 Now, sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: DIRECT, given, exclaims, dreaming
 
@@ -6561,16 +6720,7 @@ Metadata: {'original_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'trans
 Example 2:
 Question: Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
 
-Example:
-- Input: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: freely, idea, indemnify, last, END, solving
-- Output: END, freely, idea, indemnify, last, solving
-- Explanation:
-    - Uppercase letters come before lowercase letters, hence why "END" comes first.
-    - "freely" comes before "idea" because "f" comes before "i".
-    - "idea" comes before "indemnify" because even though they both start with "i", "d" comes before "n".
-    - "indemnify" comes before "last" because "i" comes before "l".
-    - "last" comes before "solving" because "l" comes before "s".
-    - Finally, the output is provided as a comma separated list of the sorted words.
+Your output should be a comma-separated list of words, e.g. word_1, word_2, word_3
 
 Now, sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list: heat, begun, sometimes
 
@@ -6580,16 +6730,7 @@ Metadata: {'original_words': ['heat', 'begun', 'sometimes'], 'transformed_words'
 Example 3:
 Question: Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
 
-Example:
-- Input: Sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: freely, idea, indemnify, last, END, solving
-- Output: END, freely, idea, indemnify, last, solving
-- Explanation:
-    - Uppercase letters come before lowercase letters, hence why "END" comes first.
-    - "freely" comes before "idea" because "f" comes before "i".
-    - "idea" comes before "indemnify" because even though they both start with "i", "d" comes before "n".
-    - "indemnify" comes before "last" because "i" comes before "l".
-    - "last" comes before "solving" because "l" comes before "s".
-    - Finally, the output is provided as a comma separated list of the sorted words.
+Your output should be a comma-separated list of words, e.g. word_1, word_2, word_3
 
 Now, sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: violates, yes, already, completing, pages, duty, his, EXPRESS, duly
 

@@ -1,5 +1,5 @@
 from dataclasses import is_dataclass
-from typing import Dict, Type, TypeVar
+from typing import Type, TypeVar
 
 from .dataset import ProceduralDataset
 
@@ -8,7 +8,7 @@ ConfigT = TypeVar("ConfigT")
 DatasetT = TypeVar("DatasetT", bound=ProceduralDataset)
 
 # Global registry of datasets
-DATASETS: Dict[str, tuple[Type[ProceduralDataset], Type]] = {}
+DATASETS: dict[str, tuple[Type[ProceduralDataset], Type]] = {}
 
 
 def register_dataset(name: str, dataset_cls: Type[DatasetT], config_cls: Type[ConfigT]) -> None:

@@ -1,6 +1,6 @@
 import random
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import sympy
 
@@ -77,9 +77,10 @@ class IntermediateIntegrationDataset(ProceduralDataset):
             "Evaluate the indefinite integral: ∫ {integrand} dx",
         ]
         self.added_instruction = """
-In addition, when doing calculation, use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps. For example Use [-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C] instead of [-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C].
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
+3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 """
 
     def _get_outer_constant(self, rng: random.Random) -> int:
@@ -241,11 +242,11 @@ In addition, when doing calculation, use the following instructions together wit
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
         reward = 0.0
         metadata = entry["metadata"]
-        if answer is not None:
+        if isinstance(answer, str):
             try:
                 var = metadata["variable"]
                 x = sympy.Symbol(var)
@@ -258,12 +259,8 @@ In addition, when doing calculation, use the following instructions together wit
                 # Check mathematical equivalence through simplification
                 if sympy.simplify(derivative - integrand) == 0:
                     reward = 1.0
-                elif answer.strip():
-                    reward = 0.05
-                else:
-                    reward = 0.01
             except:
-                reward = 0.01
+                reward = 0.0
         return reward
 
 

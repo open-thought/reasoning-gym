@@ -7,7 +7,7 @@ https://leetcode.com/problems/rotting-oranges/description/
 from collections import deque
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -20,13 +20,6 @@ Every minute, any fresh orange that is 4-directionally adjacent to a rotten oran
 
 Your task is determine the minimum number of minutes that must elapse until no cell has a fresh orange.
 If this is impossible, return -1.
-
-Example:
-- Input: Determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
-    2 1 1
-    1 1 0
-    0 1 1
-- Output: 4
 
 Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
 {matrix}

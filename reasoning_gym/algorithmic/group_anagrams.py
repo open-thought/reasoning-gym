@@ -10,7 +10,7 @@ import json
 from collections import defaultdict
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
@@ -21,12 +21,7 @@ QUESTION_TEMPLATE = """An anagram is a word formed by rearranging the letters of
 
 Your job is to group the anagrams together. You can return the answer in any order.
 
-Example:
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
-Output: [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]
-Explanation:
-    - There is no string in the input that can be rearranged to form "bat".
-    - The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
 {words}
@@ -88,7 +83,7 @@ class GroupAnagramsDataset(ProceduralDataset):
         anagrams = list(res.values())
         return self._sort_nested_list(anagrams)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score a single Group Anagrams question"""
         reward = 0.0
         if answer is not None:
@@ -100,7 +95,7 @@ class GroupAnagramsDataset(ProceduralDataset):
                 if answer_str == oracle_str:
                     reward = 1.0
                 else:
-                    reward = 0.01
+                    reward = 0.01  # json parsable
             except Exception:
                 reward = 0.0
         return reward

@@ -72,13 +72,32 @@ def test_countdown_game_items():
             dataset.score_answer(answer="a wrong solution", entry=item) == 0.01
         )  # wrong answer but incorrectly formatted
         assert dataset.score_answer(answer="", entry=item) == 0.01  # wrong answer but empty string
-        assert dataset.score_answer(answer=None, entry=item) == 0.0  # no answer
+        assert dataset.score_answer(answer=None, entry=item) == 0.01  # no answer
 
         try:
             result = eval(expr)  # Safe here since we control expression generation
             assert result == item["metadata"]["target"]
         except (SyntaxError, ZeroDivisionError):
             pytest.fail(f"Invalid expression generated: {expr}")
+
+
+def test_answer_with_incorrect_numbers():
+    dataset = CountdownDataset(CountdownConfig(size=10, seed=42))
+    answer = "45+2"
+    item = {
+        "metadata": {
+            "numbers": [44, 3],
+            "target": 47,
+        }
+    }
+    assert dataset.score_answer(answer=answer, entry=item) == 0.05
+
+
+def test_answer_without_all_numbers():
+    dataset = CountdownDataset(CountdownConfig(size=10, seed=42))
+    answer = "45+2+3"
+    item = {"metadata": {"numbers": [1, 45, 2, 3], "target": 50}}
+    assert dataset.score_answer(answer=answer, entry=item) == 0.05
 
 
 def test_countdown_game_randomization():

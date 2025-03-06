@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 import pyfiglet
 
@@ -107,6 +107,54 @@ class FigletFontDataset(ProceduralDataset):
             "wow",
             "eftipiti",
             "relief2",
+            "mshebrew210",
+            "kik_star",
+            "puzzle",
+            "p_skateb",
+            "hypa_bal",
+            "tomahawk",
+            "timesofl",
+            "moscow",
+            "cola",
+            "baz__bil",
+            "stencil1",
+            "battlesh",
+            "tsn_base",
+            "kgames_i",
+            "binary",
+            "greek",
+            "mnemonic",
+            "panther_",
+            "b1ff",
+            "c_consen",
+            "horizontal_right",
+            "dwhistled",
+            "hex",
+            "flipped",
+            "high_noo",
+            "patorjk-hex",
+            "amc_3_liv1",
+            "gauntlet",
+            "cybersmall",
+            "octal",
+            "js_cursive",
+            "battle_s",
+            "deep_str",
+            "rally_s2",
+            "convoy__",
+            "atc_gran",
+            "grand_pr",
+            "ivrit",
+            "rammstein",
+            "horizontal_left",
+            "eftiwall",
+            "decimal",
+            "goofy",
+            "rot13",
+            "konto_slant",
+            "subteran",
+            "rally_sp",
+            "charset_",
         ]
         all_fonts = pyfiglet.FigletFont.getFonts()
         ok_fonts = list(filter(lambda x: x not in bad_fonts, all_fonts))
@@ -119,7 +167,7 @@ class FigletFontDataset(ProceduralDataset):
             "metadata": {"font": chosen_font, "space_letters": self.config.space_letters},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the figlet task.
 
         The function awards 1.0 for a correct answer and 0.1 points for each correct letter in the correct position,
@@ -127,14 +175,14 @@ class FigletFontDataset(ProceduralDataset):
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.
         """
 
         correct_word = entry["answer"]
-        if not answer:
+        if not isinstance(answer, str):
             return 0.0  # No answer given
 
         # Normalize case

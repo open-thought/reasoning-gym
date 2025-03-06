@@ -31,7 +31,7 @@ def test_dataset_item_properties():
         assert key in item
 
     metadata = item["metadata"]
-    for key in ["difficulty", "board", "solution"]:
+    for key in ["difficulty", "board"]:
         assert key in metadata
 
     board = metadata["board"]
@@ -99,57 +99,31 @@ def test_liberties_and_move():
     assert not dataset._is_valid_move(board_move, 1, 1, "X")
 
 
-def convert_solution(sol, board_size):
-    # sol is expected to be a string like 'E5'
-    letter = sol[0].upper()
-    number = int(sol[1:])
-    return (board_size - number, ord(letter) - ord("A"))
-
-
 def test_score_answer():
-    config = TsumegoConfig(min_board_size=9, max_board_size=9, max_stones=10, size=5)
+    config = TsumegoConfig(min_board_size=9, max_board_size=9, max_stones=10, size=5, seed=123)
     dataset = TsumegoDataset(config)
 
-    # prepare dummy with letter+number format solution
-    entry = dataset[0].copy()
-    entry["metadata"]["solution"] = "E5"
+    entry = dataset[0]
 
-    # Patch score_answer to convert metadata solution if needed
-    original_score_answer = dataset.score_answer
+    assert dataset.score_answer(entry["answer"], entry) == 1.0
 
-    def patched_score_answer(answer, entry):
-        board_size = len(entry["metadata"]["board"])
-        sol = entry["metadata"]["solution"]
-        if isinstance(sol, str):
-            entry["metadata"]["solution"] = convert_solution(sol, board_size)
-        return original_score_answer(answer, entry)
+    # correct solution with additional text
+    assert 0 < dataset.score_answer("move: " + entry["answer"], entry) < 1.0
 
-    dataset.score_answer = patched_score_answer
-
-    # Correct letter-number answer (E corresponds to board coordinate (4,4) for a 9x9 board)
-    assert dataset.score_answer("E5", entry) == 1.0
-
-    # Valid but incorrect letter-number move (D corresponds to (4,3) for a 9x9 board)
+    # Incorrect letter-number move, but correct letter-digit format
     assert dataset.score_answer("D4", entry) == 0.05
 
     # Invalid format
     assert dataset.score_answer("invalid", entry) == 0.01
 
     # Empty answer
-    assert dataset.score_answer("", entry) == 0.01
+    assert dataset.score_answer("", entry) == 0.0
 
     # None answer
     assert dataset.score_answer(None, entry) == 0.0
 
-    # Out-of-bound letter-number move: 'J' corresponds to 10 which is greater than board size = 9
-    assert dataset.score_answer("J9", entry) == 0.01
-
     # test optimal score for answers, patching each entry
     for x in dataset:
-        board_size = len(x["metadata"]["board"])
-        sol = x["metadata"]["solution"]
-        if isinstance(sol, str):
-            x["metadata"]["solution"] = convert_solution(sol, board_size)
         assert len(x["metadata"]["board"]) == x["metadata"]["difficulty"]["board_size"]
         assert dataset.score_answer(x["answer"], entry=x) == 1.0
 
@@ -265,11 +239,18 @@ def test_capture_verification():
     dataset = TsumegoDataset(config)
     entry = dataset[0]
     board = entry["metadata"]["board"]
-    solution = entry["metadata"]["solution"]
+
     # If solution is a letter+number string, convert it
-    if isinstance(solution, str):
-        board_size = len(board)
-        solution = convert_solution(solution, board_size)
+
+    def convert_solution(sol, board_size):
+        # sol is expected to be a string like 'E5'
+        letter = sol[0].upper()
+        number = int(sol[1:])
+        return (board_size - number, ord(letter) - ord("A"))
+
+    solution = entry["answer"]
+    assert isinstance(solution, str)
+    solution = convert_solution(solution, len(board))
     initial_white = sum(row.count("O") for row in board)
 
     # Make a deep copy of the board to simulate the move

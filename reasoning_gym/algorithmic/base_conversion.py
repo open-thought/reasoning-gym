@@ -2,26 +2,13 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import Optional, Tuple
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to convert a number between two different bases.
 
 If the target base is > 10, use lowercase letters a-z for digits above 9.
-
-Example:
-- Input: Convert the base-9 number 440 to base-5
-- Output: 2420
-- Explanation
-    - First, we convert the base-9 number 440 to base-10: 4 * 9**2 + 4 * 9**1 + 0 * 9**0 = 324 + 36 + 0 = 360
-    - Next, we convert the base-10 number 360 to base-5:
-        - 360 // 5 = 72 remainder 0
-        - 72 // 5 = 14 remainder 2
-        - 14 // 5 = 2 remainder 4
-        - 2 // 5 = 0 remainder 2
-    - Reading the remainders in reverse order gives us the base-5 number 2 4 2 0
-    - Hence, the final answer is 2420
 
 Now, convert the {source_name} number {source_repr} to {target_name}
 """
@@ -61,7 +48,7 @@ class BaseConversionDataset(ProceduralDataset):
         else:
             return f"base-{base}"
 
-    def _generate_conversion(self, rng: Random) -> Tuple[int, int, int]:
+    def _generate_conversion(self, rng: Random) -> tuple[int, int, int]:
         """Generate random value and source/target bases"""
         value = rng.randint(self.config.min_value, self.config.max_value)
 

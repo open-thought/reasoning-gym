@@ -95,17 +95,17 @@ def test_palindrome_partitioning_score_answer():
     item = {"metadata": {"solution": [["no", "on"], ["noon"], ["n", "o", "o", "n"]]}}
     assert dataset.score_answer(answer, item) == 1
 
-    # Verify the score is 0.01 when incorrect
+    # Verify the score is 0.0 when incorrect
     answer = json.dumps([["n", "o", "o", "n"], ["no", "on"]])
     item = {"metadata": {"solution": [["no", "on"], ["noon"], ["n", "o", "o", "n"]]}}
-    assert dataset.score_answer(answer, item) == 0.01
+    assert dataset.score_answer(answer, item) == 0.0
 
-    # Verify the score is 0 when answer is None
+    # Verify the score is 0.0 when answer is None
     answer = None
     item = {"metadata": {"solution": [["no", "on"], ["noon"], ["n", "o", "o", "n"]]}}
-    assert dataset.score_answer(answer, item) == 0
+    assert dataset.score_answer(answer, item) == 0.0
 
-    # Verify the score is 0 when answer is malformed JSON
+    # Verify the score is 0.0 when answer is malformed JSON
     answer = '["n", "o", "o", "n"], ["no", "on"], ["noon"]'
     item = {"metadata": {"solution": [["no", "on"], ["noon"], ["n", "o", "o", "n"]]}}
-    assert dataset.score_answer(answer, item) == 0
+    assert dataset.score_answer(answer, item) == 0.0

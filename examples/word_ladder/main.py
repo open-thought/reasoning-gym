@@ -9,12 +9,12 @@ main.py – Orchestrates the overall flow:
 import sys
 import uuid
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from examples.word_ladder.utils import create_word_ladders, generate_reasoning
 
 
-def create_dataset(jsonl_path: Path, config: Dict[str, Any]) -> bool:
+def create_dataset(jsonl_path: Path, config: dict[str, Any]) -> bool:
     """
     Creates the word ladder dataset, handling potential exhaustion gracefully.
 

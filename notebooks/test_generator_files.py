@@ -1,7 +1,6 @@
 import importlib.util
 import os
 from datetime import datetime
-from typing import Any, Dict
 
 
 def test_generator_files(directory_path: str) -> None:

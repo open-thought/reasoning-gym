@@ -6,7 +6,7 @@ import math
 import os
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, List, Optional, Tuple
+from typing import Any, Optional
 
 import torch
 import torch.nn as nn
@@ -109,7 +109,7 @@ class AlgorithmicRewardExperienceMaker(NaiveExperienceMaker):
         self.dataset = dataset
 
     @torch.no_grad()
-    def generate_samples(self, all_prompts: List[Tuple[str, Any]], **generate_kwargs) -> List[Samples]:
+    def generate_samples(self, all_prompts: list[tuple[str, Any]], **generate_kwargs) -> list[Samples]:
         """
         Generate samples and return in batches.
         """

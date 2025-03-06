@@ -1,7 +1,6 @@
 import random
-import warnings
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Optional
 
 import sympy as sp
 from sympy.polys.monomials import itermonomials
@@ -23,10 +22,10 @@ class PolynomialMultiplicationConfig:
     max_degree: int = 3  # Maximum polynomial degree
     min_polynomials: int = 2  # Minimum number of polynomials being multiplied
     max_polynomials: int = 3  # Maximum number of polynomials being multiplied
-    variables: Tuple[str] = ("x", "y", "z")  # Tuple of variable names, that will be chosen randomly
+    variables: tuple[str] = ("x", "y", "z")  # Tuple of variable names, that will be chosen randomly
     allow_cross_variable_product: bool = False  # Generate tasks like "Multiply (x^2+3x-1)*(y^2-5)"
     allow_multivariate_polynomials: bool = False  # Generate multivariate tasks like "Multiply (2x^2 + 3y)*(5x^2+3x-1)"
-    operators: Tuple[str, ...] = (
+    operators: tuple[str, ...] = (
         "+",
         "-",
     )  # Allowed operators between terms, Avoid adding '*' or '/' because they will affect the degree
@@ -70,9 +69,9 @@ class PolynomialMultiplicationDataset(ProceduralDataset):
             "Calculate the following: {polynomial_expr}",
         ]
         self.added_instruction = """
-In addition, When doing calculation, Use the following instructions together with your mathematical ingenuity to solve the integral problems
-## 1. Use ** instead ^ to represent powers. For example 7*X**2 instead of 7*X^2.
-## 2. Always use * when doing all sorts of multiplcation in your reasoning steps and even in reporting answers.
+When performing calculations, please follow these guidelines:
+1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
+2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 """
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -107,10 +106,9 @@ In addition, When doing calculation, Use the following instructions together wit
 
         return {
             "question": question,
-            "answer": product,
+            "answer": str(product),
             "metadata": {
                 "polynomial_expr": str(polynomial_expr),
-                "result": str(product),
                 "variables": list(product.free_symbols),
             },
         }
@@ -146,23 +144,18 @@ In addition, When doing calculation, Use the following instructions together wit
 
         return polynomial_expr
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
-        metadata = entry["metadata"]
         if answer is not None:
             try:
                 predicted_poly = sp.parse_expr(answer)
-                target_poly = sp.parse_expr(metadata["result"])
+                target_poly = sp.parse_expr(entry["answer"])
 
                 # Check if the difference simplifies to zero (i.e. they are equivalent).
                 if predicted_poly == target_poly:
                     reward = 1.0
-                elif answer.strip():
-                    reward = 0.05
-                else:
-                    reward = 0.01
             except Exception:
-                reward = 0.01
+                reward = 0.0
         return reward
 
 

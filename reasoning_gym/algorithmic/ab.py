@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -102,19 +102,7 @@ To *compute* a program, we must rewrite neighbor tokens, using the rules:
     B# #B ... becomes ... nothing
 
 In other words, whenever two neighbor tokens have their '#' facing each-other,
-they must be rewritten according to the corresponding rule. For example, the
-first example shown here is computed as:
-
-    B# A# #B #A B# =
-    B# #B A# #A B# =
-    A# #A B# =
-    B#
-
-The steps were:
-1. We replaced `A# #B` by `#B A#`.
-2. We replaced `B# #B` by nothing.
-3. We replaced `A# #A` by nothing.
-The final result was just `B#`.
+they must be rewritten according to the corresponding rule.
 
 Now, consider the following program:
 
@@ -129,25 +117,22 @@ Return the final state of the program.
             "metadata": {},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the AB task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
-            return 0.0
-        if answer != entry["answer"]:
-            return 0.01
-        else:
+        if answer == entry["answer"]:
             return 1.0  # Yay
+        return 0.0
 
 
 # Register the dataset

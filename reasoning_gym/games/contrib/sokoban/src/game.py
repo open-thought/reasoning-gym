@@ -29,8 +29,7 @@ class PuzzleElement:
 
 
 class Game:
-    def __init__(self, width=19, height=10, level=None, path=None):
-        self.level = level
+    def __init__(self, width=19, height=10, path=None):
         self.width = width
         self.height = height
         self.puzzle = np.empty((height, width), dtype=PuzzleElement)
@@ -39,7 +38,7 @@ class Game:
         self.puzzle_size = None
         self.pad_x = 0
         self.pad_y = 0
-        self.path = path or f"levels/lvl{level}.dat"
+        self.path = path
 
         if path:
             if type(self) == Game:
@@ -108,7 +107,7 @@ class Game:
 
         # Calculate puzzle size and padding
         self.puzzle_size = (len(data), len(data[0]) if len(data) > 0 else 0)
-        pad_x = (self.width - self.puzzle_size[1] - 2) // 2  # -2 matches original file-based logic
+        pad_x = (self.width - self.puzzle_size[1]) // 2
         pad_y = (self.height - self.puzzle_size[0]) // 2
         self.pad_x, self.pad_y = pad_x, pad_y
 
@@ -140,15 +139,15 @@ class Game:
 
 
 class ReverseGame(Game):
-    def __init__(self, rng: Random, width=19, height=10, level=None):
-        super().__init__(width, height, level)
+    def __init__(self, rng: Random, width: int = 19, height: int = 10):
+        super().__init__(width, height)
         self.rng = rng
         self.pad_x = 0
         self.pad_y = 0
 
     def load_puzzle(self, puzzle):
         self.puzzle_size = (len(puzzle), len(puzzle[0]) if len(puzzle) > 0 else 0)
-        pad_x = (self.width - len(puzzle[0]) - 2) // 2
+        pad_x = (self.width - len(puzzle[0])) // 2
         pad_y = (self.height - len(puzzle)) // 2
         self.pad_x, self.pad_y = pad_x, pad_y
         for i, row in enumerate(puzzle):

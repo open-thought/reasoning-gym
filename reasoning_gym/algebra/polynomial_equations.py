@@ -1,8 +1,7 @@
 import math
 import random
-import string
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from sympy import Eq, Symbol, expand, solve
 
@@ -21,15 +20,16 @@ class PolynomialEquationsConfig:
     max_value: int = 100  # Maximum value for coefficients
     min_degree: int = 1  # Minimum polynomial degree
     max_degree: int = 3  # Maximum polynomial degree
-    operators: Tuple[str, ...] = (
+    operators: tuple[str, ...] = (
         "+",
         "-",
     )  # Allowed operators between terms, Avoid adding '*' or '/' because they will affect the degree
     seed: Optional[int] = None
     size: int = 500
     # reward function hyperparameters
-    penalty_missing_factor = 0.1
-    penalty_extra_factor = 0.05
+    penalty_missing_factor = 0.5
+    penalty_extra_factor = 0.5
+    exp_distance_factor = -10.0
 
     def validate(self) -> None:
         """Validate configuration parameters."""
@@ -63,12 +63,15 @@ class PolynomialEquationsDataset(ProceduralDataset):
             "Solve the polynomial equation for real {variable}:\n{polynomial_expanded} = 0",
         ]
         self.added_instruction = """
-In solving the equations, please abide by the following instruction:
-## 1. All answers should be comma-separated. For example "-0.3773, 0.4005" etc.
-## 2. In cases where your answer is b = 2 + sqrt(4560) / 172 and b = 2 - sqrt(4560) / 172. Since b can be 2 numbers, resolve your answer like this instead, "-0.3773, 0.4005".
-## 3. If there are no real values of i that satisfy the equation, report your answer as empty string, "".
-## 4. If there are 2 answers, resolve the answers as comma-separated floats of 2 numbers, if 3 answers, make it comma-separated floats of 3 numbers.
-## 5. Resolve all numbers as floats in the string of comma-separated numbers. Round the floats higher than 4 decimal place(d.p) down to 4 d.p.
+In solving equations, please follow these instructions:
+1. Provide all answers as comma-separated decimal values. For example: "-0.3773, 0.4005"
+2. For solutions that can be expressed in exact form (like "u = 2 + sqrt(4560)/172" and "u = 2 - sqrt(4560)/172"), convert them to decimal form in your final answer.
+3. If there are no real values that satisfy the equation, report your answer as an empty string: ""
+4. Format your answer based on the number of solutions:
+   - For 1 solution: a single decimal number
+   - For 2 solutions: two comma-separated decimal numbers
+   - For 3 or more solutions: all values as comma-separated decimal numbers
+5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 """
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -163,7 +166,7 @@ In solving the equations, please abide by the following instruction:
 
         return polynomial_expr
 
-    def _parse_score_to_list(self, answer: Optional[str]) -> List[float]:
+    def _parse_score_to_list(self, answer: Optional[str]) -> list[float]:
         """Parses a comma-separated string of scores into a sorted list of floats.
 
         This method takes a string containing comma-separated numeric values,
@@ -193,7 +196,7 @@ In solving the equations, please abide by the following instruction:
 
         return sorted(output_float_vals)  # Return the sorted list of floats
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
         Score an answer based on its numerical distance to oracle solutions using exponential decay.
         This function compares a predicted answer (or list of answers) to a set of oracle solutions
@@ -239,7 +242,7 @@ In solving the equations, please abide by the following instruction:
                 # Remove matched oracle solution
                 oracle_solutions.pop(matched_distance_index)
                 # Exponential decay reward
-                total_reward += math.exp(-matched_distance)
+                total_reward += math.exp(matched_distance * self.config.exp_distance_factor)
             else:
                 # Extra predicted solution
                 extra_solutions += 1

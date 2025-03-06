@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.logic_puzzle.generate import generate_puzzle
@@ -55,25 +55,23 @@ class ZebraDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the Zebra task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
-            return 0.0
-        if answer.lower().replace("\n", "") != entry["answer"].lower().replace("\n", ""):
-            return 0.01
-        else:
-            return 1.0  # Yay
+        if isinstance(answer, str):
+            if answer.lower().replace("\n", "") == entry["answer"].lower().replace("\n", ""):
+                return 1.0  # Yay
+        return 0.0
 
 
 register_dataset("zebra_puzzles", ZebraDataset, ZebraConfig)

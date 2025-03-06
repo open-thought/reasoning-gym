@@ -6,25 +6,20 @@ https://leetcode.com/problems/spiral-matrix/description/
 
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
-Example:
-- Input: For the matrix below, what is the list of elements in spiral order?
-1 2 3
-4 5 6
-7 8 9
-- Output: 1 2 3 6 9 8 7 4 5
-- Explanation:
-    - We start from the top-left element (1) and move right until we reach the end of the row: 1 2 3
-    - Then, we move down until we reach the last column: 1 2 3 6 9
-    - Next, we move left until we reach the first column: 1 2 3 6 9 8 7
-    - Then, we move up until we reach the second row (i.e. one below the previously traversed row): 1 2 3 6 9 8 7 4
-    - Finally, we move right until we reach the second to last column: 1 2 3 6 9 8 7 4 5
-    - The output format is a space-separated list of elements in spiral order (as opposed to a python list)
+The spiral order is clockwise, starting from the top-left corner. More precisely:
+- Start from the top-left corner and move right.
+- Move down towards the bottom-right corner.
+- Move left towards the bottom-left corner.
+- Move up towards the top-right corner.
+- Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
 For the matrix below, what is the list of elements in spiral order?
 {matrix}
@@ -116,7 +111,7 @@ class SpiralMatrixDataset(ProceduralDataset):
             "metadata": {"matrix": matrix, "solution": answer},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["answer"].strip()
 
@@ -131,11 +126,9 @@ class SpiralMatrixDataset(ProceduralDataset):
             try:
                 answer = " ".join(str(item) for item in eval(answer))
                 if answer == oracle_answer:
-                    return 0.5
-                else:
-                    return 0.01
-            except Exception as e:
-                return 0.01
+                    return 0.1
+            except Exception:
+                pass
 
         return 0.0
 

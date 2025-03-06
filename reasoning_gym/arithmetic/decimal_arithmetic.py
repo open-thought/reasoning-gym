@@ -2,7 +2,7 @@ import ast
 from dataclasses import dataclass
 from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import Random
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -11,9 +11,9 @@ from ..factory import ProceduralDataset, register_dataset
 class DecimalArithmeticConfig:
     """Configuration for decimal arithmetic dataset generation"""
 
-    min_num_decimal_places: int = 6
-    max_num_decimal_places: int = 6
-    precision: int = 28
+    min_num_decimal_places: int = 3
+    max_num_decimal_places: int = 3
+    precision: int = 6
     terms: int = 6
     seed: Optional[int] = None
     size: int = 500
@@ -25,7 +25,7 @@ class DecimalArithmeticConfig:
         ), "precision must be 2 or more higher than max_num_decimal_places"
 
 
-def build_grouped_expression(operands: List[str], operators: List[str], rng: Random) -> str:
+def build_grouped_expression(operands: list[str], operators: list[str], rng: Random) -> str:
     """
     Recursively build an arithmetic expression string from operands and operators,
     inserting parentheses at random.
@@ -53,7 +53,7 @@ def generate_arithmetic_problem(
     min_num_decimal_places: int,
     max_num_decimal_places: int,
     terms: int = 2,
-    operations: Optional[List[str]] = None,
+    operations: Optional[list[str]] = None,
 ) -> str:
     """
     Generates a simple arithmetic problem with decimal numbers (as a string) formatted
@@ -72,8 +72,8 @@ def generate_arithmetic_problem(
     if operations is None:
         operations = ["+", "-", "*", "/"]
 
-    operands: List[str] = []
-    operators: List[str] = []
+    operands: list[str] = []
+    operators: list[str] = []
 
     for i in range(terms):
         # Choose a random number of decimal places for this term.
@@ -149,7 +149,7 @@ class DecimalArithmeticDataset(ProceduralDataset):
     def __init__(self, config: DecimalArithmeticConfig) -> None:
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def __getitem__(self, idx: int) -> Dict[str, Any]:
+    def __getitem__(self, idx: int) -> dict[str, Any]:
         """
         Generate a single arithmetic task.
 
@@ -178,9 +178,9 @@ class DecimalArithmeticDataset(ProceduralDataset):
             + problem_str
         )
 
-        return {"question": problem_str, "answer": answer, "metadata": {}}
+        return {"question": problem_str, "answer": str(answer), "metadata": {}}
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
         Compares the user's answer (converted to Decimal) with the correct answer.
         Instead of requiring exact equality, we allow an error up to one unit in the
@@ -189,12 +189,12 @@ class DecimalArithmeticDataset(ProceduralDataset):
         Returns:
             float: 1.0 if the user's answer is within tolerance; otherwise, 0.01.
         """
-        if answer is None:
+        if not isinstance(answer, str):
             return 0.0
 
         try:
             user_ans: Decimal = Decimal(answer)
-            correct_ans: Decimal = entry["answer"]
+            correct_ans: Decimal = Decimal(entry["answer"])
 
             # Determine tolerance based on the desired precision.
             precision: int = self.config.max_num_decimal_places
@@ -202,9 +202,9 @@ class DecimalArithmeticDataset(ProceduralDataset):
             if abs(user_ans - correct_ans) <= tol:
                 return 1.0
         except Exception:
-            return 0.01
+            pass
 
-        return 0.01
+        return 0.0
 
 
 # Register the dataset with the factory.

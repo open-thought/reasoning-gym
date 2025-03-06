@@ -1,7 +1,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional
+from typing import Any, Optional
 
 from magiccube.cube import Cube, CubeMove, CubeMoveType
 from magiccube.solver.basic.basic_solver import BasicSolver
@@ -31,12 +31,12 @@ class RubiksCubeDataset(ProceduralDataset):
 
     def __init__(self, config: RubiksCubeConfig):
         self._prompt_templates = [
-            "You are given a {cube_size}x{cube_size}x{cube_size} Rubik's cube. It looks like this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation.",
-            "You see a size {cube_size} Rubik's cube. It is arranged this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube.",
+            "You are given a {cube_size}x{cube_size}x{cube_size} Rubik's cube. It looks like this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.",
+            "You see a size {cube_size} Rubik's cube. It is arranged this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _generate_random_moves(self, rng: Random, cube: Cube, num_steps: int = 50, wide=None) -> List[CubeMove]:
+    def _generate_random_moves(self, rng: Random, cube: Cube, num_steps: int = 50, wide=None) -> list[CubeMove]:
         """Generate a list of random moves (but don't apply them).
         By default scramble only uses wide moves to cubes with size >=4."""
 
@@ -106,7 +106,7 @@ class RubiksCubeDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the cube"""
         reward = 0.0  # default reward
         if answer is not None:
@@ -116,7 +116,8 @@ class RubiksCubeDataset(ProceduralDataset):
 
             # Test the solution
             try:
-                eval_cube.rotate(answer)
+                expanded_answer = self.expand_moves(answer)
+                eval_cube.rotate(expanded_answer)
                 solved = eval_cube.is_done()
 
                 if solved:
@@ -134,6 +135,23 @@ class RubiksCubeDataset(ProceduralDataset):
         """Remove terminal colors from magiccube rendering"""
         ansi_escape = re.compile(r"(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]")
         return ansi_escape.sub("", line)
+
+    def expand_moves(self, move_str):
+        try:
+            moves = move_str.split()
+            expanded = []
+            for move in moves:
+                # Split the move into the base part and any trailing digits
+                match = re.fullmatch(r"^([^\d]*)(\d*)$", move)
+                if match:
+                    base, num_part = match.groups()
+                    if num_part:
+                        expanded.extend([base] * int(num_part))
+                    else:
+                        expanded.append(base)
+            return " ".join(expanded).strip()
+        except Exception as e:
+            return move_str
 
 
 # Register the dataset

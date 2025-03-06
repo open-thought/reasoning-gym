@@ -1,29 +1,17 @@
 """Computhe the power of a number."""
 
 from dataclasses import dataclass
+from decimal import Decimal
 from math import pow
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to compute an exponentiation of a number.
 
-Example:
-- Input: Compute 2^3
-- Output: 8
-- Explanation:
-    - 2^3 = 2 * 2 * 2 = 8
-    - Therefore, the final answer is 8
-
-Example:
-- Input: Compute 412.5^3
-- Output: 70189453.125
-- Explanation:
-    - 412.5^3 = 412.5 * 412.5 * 412.5 = 70189453.125
-    - Therefore, the final answer is 70189453.125
-
-Compute {base}^{exponent}
+Compute {base}^{exponent}. Return your final answer correct to 3 significant figures.
+Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 """
 
 
@@ -46,18 +34,23 @@ class PowerFunctionDataset(ProceduralDataset):
     def __init__(self, config: PowerFunctionConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
-        """Overwrite this method in derived classes if a single oracle answer is not available."""
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        """Score the answer by checking if it matches the expected answer to 3 significant figures."""
         oracle_answer = entry["answer"]
         if answer is not None:
             try:
-                answer = round(float(answer), 4)
-                oracle_answer = round(float(oracle_answer), 4)
-                difference = abs(float(answer) - float(oracle_answer))
-                if difference < 1e-4:
+                user_answer = Decimal(answer)
+                oracle_value = Decimal(oracle_answer)
+
+                if oracle_value == 0:
+                    return 1.0 if user_answer == 0 else 0.01
+
+                user_sig_figs = f"{user_answer:.3g}"
+                oracle_sig_figs = f"{oracle_value:.3g}"
+
+                # Check if they match to 3 significant figures
+                if user_sig_figs == oracle_sig_figs:
                     return 1.0
-                elif difference < 1e-1:
-                    return 0.5
                 else:
                     return 0.01
             except Exception as e:

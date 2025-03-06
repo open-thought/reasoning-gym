@@ -7,28 +7,13 @@ https://leetcode.com/problems/01-matrix/description/
 from collections import deque
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
 
-Example:
-- Input: Find the distance to the nearest 0 for each cell in the matrix below:
-0 0 0
-0 1 0
-1 1 1
-- Output:
-0 0 0
-0 1 0
-1 2 1
-- Explanation
-    - Each cell with a 0 has a distance of 0 to itself.
-    - The cell at (1, 1) has a distance of 1 to the nearest 0 (any of the three 0's at (1, 0), (0, 1), (1, 2)).
-    - The cell at (2, 0) has a distance of 1 to the nearest 0 (the 0 at (1, 0)).
-    - The cell at (2, 1) has a distance of 2 to the nearest 0 (any of the two 0's at (1, 0), (1, 2))
-    - The cell at (2, 2) has a distance of 1 to the nearest 0 (the 0 at (1, 2)).
-    - Hence, the final answer is the matrix is the output shown above, where each cell contains the distance to the nearest 0, in the same format as the input matrix.
+The output should be a matrix of the same size as the input matrix, where each cell contains the distance to the nearest 0.
 
 Find the distance to the nearest 0 for each cell in the matrix below:
 {matrix}
@@ -112,7 +97,7 @@ class BinaryMatrixDataset(ProceduralDataset):
         """Get a string representation of the matrix"""
         return "\n".join(" ".join(str(x) for x in row) for row in matrix)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Overwrite this method in derived classes if a single oracle answer is not available."""
         oracle_answer = entry["answer"]
         if answer is not None:
@@ -123,9 +108,9 @@ class BinaryMatrixDataset(ProceduralDataset):
                     # check if answer is python list of lists
                     answer = self._matrix_to_str(eval(answer))
                     if answer == oracle_answer:
-                        return 0.5
-                except Exception as e:
-                    return 0.01
+                        return 0.1
+                except Exception:
+                    return 0.0
         return 0.0
 
     def __getitem__(self, idx: int) -> dict:

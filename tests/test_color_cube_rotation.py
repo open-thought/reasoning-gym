@@ -49,6 +49,16 @@ def test_deterministic_generation():
         assert dataset1[i]["question"] == dataset2[i]["question"]
         assert dataset1[i]["answer"] == dataset2[i]["answer"]
 
+    for item in dataset1:
+        assert isinstance(item, dict)
+        assert "question" in item
+        assert "answer" in item
+        assert "metadata" in item
+
+        # Test the scoring
+        assert dataset1.score_answer(answer=item["answer"], entry=item) == 1.0
+        assert dataset1.score_answer(answer=None, entry=item) == 0.0
+
 
 def test_cube_rotations():
     # Test individual rotation operations

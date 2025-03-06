@@ -8,6 +8,7 @@ Algorithmic tasks for training reasoning capabilities:
 
 from .ab import ABConfig, ABDataset
 from .base_conversion import BaseConversionConfig, BaseConversionDataset
+from .binary_alternation import BinaryAlternationConfig, BinaryAlternationDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesDataset
@@ -105,4 +106,6 @@ __all__ = [
     "RottenOrangesDataset",
     "JugsConfig",
     "JugsDataset",
+    "BinaryAlternationConfig",
+    "BinaryAlternationDataset",
 ]

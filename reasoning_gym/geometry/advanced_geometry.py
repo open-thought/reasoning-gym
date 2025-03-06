@@ -1,11 +1,10 @@
 import random
-import re
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import numpy as np
 import sympy
-from sympy.geometry import Point, Segment, Triangle
+from sympy.geometry import Point
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -23,7 +22,7 @@ class AdvancedGeometryConfig:
 
     # Probability or list of tasks we want to generate
     # For demonstration, we have three categories:
-    task_types: List[str] = field(
+    task_types: list[str] = field(
         default_factory=lambda: [
             "orthocenter",
             "incircle_radius",
@@ -37,16 +36,12 @@ class AdvancedGeometryConfig:
         assert len(self.task_types) > 0, "Must specify at least one task type."
 
 
-# Join format instructions into a single string
-GEOMETRY_FORMAT_INSTRUCTIONS = "\n".join(
-    [
-        "For all geometry problems:",
-        "1. Give coordinates in the form (x, y)",
-        "2. Round decimal answers to 3 decimal places",
-        "3. Use the degree symbol ° for angles",
-        "4. Return only th angle, coordinates, or radius as your answer.",
-    ]
-)
+GEOMETRY_FORMAT_INSTRUCTIONS = """For all geometry problems:
+1. Give coordinates in the form (x, y)
+2. Round decimal answers to 3 decimal places
+3. Use the degree symbol ° for angles
+4. Return only the angle, coordinates, or radius as your answer.
+"""
 
 
 class AdvancedGeometryDataset(ProceduralDataset):
@@ -228,7 +223,7 @@ class AdvancedGeometryDataset(ProceduralDataset):
         }
         return question, answer_str, metadata
 
-    def score_answer(self, answer: str | None, entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: str | None, entry: dict[str, Any]) -> float:
         reward = 0.0
         expected_answer = entry["answer"]
         metadata = entry["metadata"]

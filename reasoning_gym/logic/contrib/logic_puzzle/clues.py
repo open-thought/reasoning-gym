@@ -14,7 +14,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from functools import wraps
 from itertools import product
-from typing import Iterable, List, Tuple
+from typing import Iterable
 
 from reasoning_gym.logic.contrib.logic_puzzle.literals import Literal
 from reasoning_gym.logic.contrib.logic_puzzle.sat_utils import from_dnf, neg
@@ -39,7 +39,7 @@ class Clue(ABC):
     """Base class for the types of clues that we allow."""
 
     @abstractmethod
-    def as_cnf(self) -> Iterable[Tuple[str]]: ...
+    def as_cnf(self) -> Iterable[tuple[str]]: ...
 
     @abstractmethod
     def __repr__(self) -> str: ...
@@ -67,7 +67,7 @@ class found_at(Clue):
     value: Literal
     house: int
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return [(comb(self.value, self.house),)]
 
     @_capitalize_first
@@ -89,7 +89,7 @@ class not_at(Clue):
     value: Literal
     house: int
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return [(neg(comb(self.value, self.house)),)]
 
     @_capitalize_first
@@ -110,9 +110,9 @@ class same_house(Clue):
 
     value1: Literal
     value2: Literal
-    houses: Tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
+    houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return from_dnf((comb(self.value1, i), comb(self.value2, i)) for i in self.houses)
 
     @_capitalize_first
@@ -134,9 +134,9 @@ class consecutive(Clue):
 
     value1: Literal
     value2: Literal
-    houses: Tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
+    houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return from_dnf((comb(self.value1, i), comb(self.value2, j)) for i, j in zip(self.houses, self.houses[1:]))
 
     @_capitalize_first
@@ -156,9 +156,9 @@ class beside(Clue):
 
     value1: Literal
     value2: Literal
-    houses: Tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
+    houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return from_dnf(
             [(comb(self.value1, i), comb(self.value2, j)) for i, j in zip(self.houses, self.houses[1:])]
             + [(comb(self.value2, i), comb(self.value1, j)) for i, j in zip(self.houses, self.houses[1:])]
@@ -182,9 +182,9 @@ class left_of(Clue):
 
     value1: Literal
     value2: Literal
-    houses: Tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
+    houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return from_dnf(
             (comb(self.value1, i), comb(self.value2, j)) for i, j in product(self.houses, self.houses) if i < j
         )
@@ -207,9 +207,9 @@ class right_of(Clue):
 
     value1: Literal
     value2: Literal
-    houses: Tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
+    houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return sat_utils.from_dnf(
             (comb(self.value1, i), comb(self.value2, j)) for i, j in product(self.houses, self.houses) if i > j
         )
@@ -233,9 +233,9 @@ class one_between(Clue):
 
     value1: Literal
     value2: Literal
-    houses: Tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
+    houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return from_dnf(
             [(comb(self.value1, i), comb(self.value2, j)) for i, j in zip(self.houses, self.houses[2:])]
             + [(comb(self.value2, i), comb(self.value1, j)) for i, j in zip(self.houses, self.houses[2:])]
@@ -257,9 +257,9 @@ class two_between(Clue):
 
     value1: Literal
     value2: Literal
-    houses: Tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
+    houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
-    def as_cnf(self) -> List[Tuple[str]]:
+    def as_cnf(self) -> list[tuple[str]]:
         return from_dnf(
             [(comb(self.value1, i), comb(self.value2, j)) for i, j in zip(self.houses, self.houses[3:])]
             + [(comb(self.value2, i), comb(self.value1, j)) for i, j in zip(self.houses, self.houses[3:])]

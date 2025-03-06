@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
@@ -92,7 +92,7 @@ class SentenceReorderingDataset(ProceduralDataset):
             "metadata": {"word_count": word_count},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         reward = 0.0
         expected_answer = entry["answer"]
         if answer is not None:
@@ -110,7 +110,7 @@ class SentenceReorderingDataset(ProceduralDataset):
                 else:
                     reward = 0.05
             except:
-                reward = 0.01
+                reward = 0.0
         return reward
 
 

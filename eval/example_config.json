@@ -1,0 +1,47 @@
+{
+  "model": "meta-llama/llama-3.3-70b-instruct",
+  "provider": "Hyperbolic",
+  "output_dir": "results",
+  "max_concurrent": 10,
+  "default_size": 20,
+  "default_seed": 42,
+  "categories": [
+    {
+      "category": "algebra",
+      "datasets": [
+        {
+          "dataset": "complex_arithmetic",
+          "params": {
+            "min_real":  -10,
+            "max_real": 10,
+            "min_imag": -10,
+            "max_imag": 10
+          }
+        }
+      ]
+    },
+    {
+      "category": "arithmetic",
+      "datasets": [
+        {
+          "dataset": "products",
+          "size": 10,
+          "seed": 43,
+          "params": {
+            "min_digits": 2,
+            "allow_negation": true
+          }
+        },
+        {
+          "dataset": "chain_sum",
+          "size": 12,
+          "seed": 43,
+          "params": {
+            "min_digits": 2,
+            "allow_negation": true
+          }
+        }
+      ]
+    }
+  ]
+}

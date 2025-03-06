@@ -19,7 +19,7 @@ TODO: Generate multi-step Tsumego problems.
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -62,11 +62,11 @@ class TsumegoDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     # New helper method for board copying
-    def _copy_board(self, board: List[List[str]]) -> List[List[str]]:
+    def _copy_board(self, board: list[list[str]]) -> list[list[str]]:
         """Return a deep copy of the board."""
         return [row[:] for row in board]
 
-    def _get_liberties(self, board: List[List[str]], row: int, col: int) -> Set[Tuple[int, int]]:
+    def _get_liberties(self, board: list[list[str]], row: int, col: int) -> set[tuple[int, int]]:
         """Get empty adjacent points (liberties) for a stone"""
         size = len(board)
         liberties = set()
@@ -76,7 +76,7 @@ class TsumegoDataset(ProceduralDataset):
                 liberties.add((r, c))
         return liberties
 
-    def _get_group(self, board: List[List[str]], row: int, col: int) -> Set[Tuple[int, int]]:
+    def _get_group(self, board: list[list[str]], row: int, col: int) -> set[tuple[int, int]]:
         """Get all stones in the same group (connected stones of same color)"""
         size = len(board)
         color = board[row][col]
@@ -94,14 +94,14 @@ class TsumegoDataset(ProceduralDataset):
                     queue.append((nr, nc))
         return group
 
-    def _count_liberties(self, board: List[List[str]], group: Set[Tuple[int, int]]) -> int:
+    def _count_liberties(self, board: list[list[str]], group: set[tuple[int, int]]) -> int:
         """Count total liberties for a group of stones"""
         liberties = set()
         for row, col in group:
             liberties.update(self._get_liberties(board, row, col))
         return len(liberties)
 
-    def _would_capture(self, board: List[List[str]], row: int, col: int, color: str) -> bool:
+    def _would_capture(self, board: list[list[str]], row: int, col: int, color: str) -> bool:
         """Check if a move would capture any opponent stones"""
         size = len(board)
         opponent = "O" if color == "X" else "X"
@@ -120,7 +120,7 @@ class TsumegoDataset(ProceduralDataset):
                     return True
         return False
 
-    def _is_valid_move(self, board: List[List[str]], row: int, col: int, color: str) -> bool:
+    def _is_valid_move(self, board: list[list[str]], row: int, col: int, color: str) -> bool:
         """Check if a move is legal (not suicide, unless it captures)"""
         size = len(board)
         if not (0 <= row < size and 0 <= col < size):
@@ -139,7 +139,7 @@ class TsumegoDataset(ProceduralDataset):
         group = self._get_group(board_copy, row, col)
         return self._count_liberties(board_copy, group) > 0
 
-    def _make_move(self, board: List[List[str]], row: int, col: int, color: str) -> bool:
+    def _make_move(self, board: list[list[str]], row: int, col: int, color: str) -> bool:
         """Make a move and update ko point. Returns True if move was valid."""
         if not self._is_valid_move(board, row, col, color):
             return False
@@ -164,7 +164,7 @@ class TsumegoDataset(ProceduralDataset):
 
         return True
 
-    def _generate_capture_problem(self, size: int, rng: Random) -> Tuple[List[List[str]], Tuple[int, int]]:
+    def _generate_capture_problem(self, size: int, rng: Random) -> tuple[list[list[str]], tuple[int, int]]:
         """Generate a capture problem"""
         board = [["." for _ in range(size)] for _ in range(size)]
         stones_placed = 0
@@ -235,7 +235,7 @@ class TsumegoDataset(ProceduralDataset):
             tries += 1
         raise RuntimeError("Failed to generate a capture problem")
 
-    def _board_to_string(self, board: List[List[str]]) -> str:
+    def _board_to_string(self, board: list[list[str]]) -> str:
         """Convert board to string representation"""
         size = len(board)
         # Column labels
@@ -263,42 +263,31 @@ class TsumegoDataset(ProceduralDataset):
 
         return {
             "question": (
-                rng.choice(self._prompt_templates) + "\n\n" + board_str + "\n\n"
+                rng.choice(self._prompt_templates) + "\n\n```\n" + board_str + "\n```\n\n"
                 "X - Black\n"
                 "O - White\n\n"
                 "Specify your move in coordinates (e.g. 'C4' for column C, row 4)"
             ),
             "answer": solution_str,
-            "metadata": {"difficulty": {"board_size": size}, "board": board, "solution": solution_str},
+            "metadata": {"difficulty": {"board_size": size}, "board": board},
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score the answer against the solution"""
-        if answer is None:
-            return 0.0
-        answer = answer.strip()
-        if not answer:
-            return 0.01
-        metadata = entry["metadata"]
-        board_size = len(metadata["board"])
-        expected_row, expected_col = metadata["solution"]  # get solution from (row, col) tuple
 
-        try:
-            # Assume letter-number format, e.g. "C4"
-            m = re.match(r"^([A-Za-z])(\d+)$", answer)
-            if not m:
-                return 0.01
-            col_letter, row_str = m.group(1), m.group(2)
-            row = board_size - int(row_str)
-            col = ord(col_letter.upper()) - ord("A")
-            if (row, col) == (expected_row, expected_col):
-                return 1.0
-
-            if 0 <= row < board_size and 0 <= col < board_size:
-                return 0.05
-        except Exception:
-            return 0.01
-        return 0.01
+        oracle_answer = entry["answer"].strip()
+        reward = 0.0
+        if answer is not None and len(answer) > 0:
+            answer = answer.strip().upper()
+            if answer == oracle_answer:
+                reward = 1.0
+            elif oracle_answer in answer:
+                reward = len(oracle_answer) / len(answer)
+            elif re.match(r"^([A-Z])(\d+)$", answer):  # test letter-number format, e.g. "C4"
+                reward = 0.05
+            else:
+                reward = 0.01
+        return reward
 
 
 # Register the dataset

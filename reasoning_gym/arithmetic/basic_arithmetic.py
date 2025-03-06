@@ -64,9 +64,6 @@ class BasicArithmeticDataset(ProceduralDataset):
 
     def __init__(self, config: BasicArithmeticDatasetConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
-        self.added_instruction = (
-            " Ensure to report the answer as an integer. Do not add commas to the integer answers reported."
-        )
 
     def __getitem__(self, idx: int) -> dict[str, Any]:
         """Generate a single arithmetic task
@@ -91,7 +88,7 @@ class BasicArithmeticDataset(ProceduralDataset):
         else:
             expression, result = self._generate_simple_task(rng, num_terms, num_digits)
 
-        question = self._format_question(rng, expression) + self.added_instruction
+        question = self._format_question(rng, expression)
 
         return {
             "question": question,

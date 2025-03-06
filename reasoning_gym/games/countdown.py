@@ -1,6 +1,7 @@
+import re
 from dataclasses import dataclass
 from random import Random
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 import sympy
 from sympy import Symbol, symbols
@@ -9,6 +10,7 @@ from sympy.parsing.sympy_parser import parse_expr
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_FORMAT_TEMPLATE = """{question}
+
 Final answer format instructions:
 1. Provide your solution as a arithmetic expression (no '=' sign).
 2. Do not include the target number in the expression.
@@ -50,9 +52,9 @@ class CountdownDataset(ProceduralDataset):
 
     def __init__(self, config: CountdownConfig):
         self._prompt_templates = [
-            "Using the numbers {numbers}, create an expression that equals {target}.\nYou can only use each number once.",
-            "Find a way to make {target} using some or all of these numbers: {numbers}.\nEach number can only be used once.",
-            "Calculate {target} using the numbers {numbers}.\nEach number may be used at most once.",
+            "Using all the numbers {numbers}, create an expression that equals {target}.\nYou can only use each number once.",
+            "Find a way to make {target} using all of these numbers: {numbers}.\nEach number can only be used once.",
+            "Calculate {target} using all of these numbers: {numbers}.\nEach number may be used at most once.",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
@@ -89,7 +91,7 @@ class CountdownDataset(ProceduralDataset):
             },
         }
 
-    def _generate_candidate_expression(self, rng: Random, num_terms: int) -> Tuple[sympy.Expr, List[int], List[Symbol]]:
+    def _generate_candidate_expression(self, rng: Random, num_terms: int) -> tuple[sympy.Expr, list[int], list[Symbol]]:
         """Generate a candidate expression with random numbers and operators
 
         Args:
@@ -140,7 +142,7 @@ class CountdownDataset(ProceduralDataset):
 
         return expr, numbers, syms
 
-    def _generate_expression(self, rng: Random) -> Tuple[str, List[int], int]:
+    def _generate_expression(self, rng: Random) -> tuple[str, list[int], int]:
         """Generate a valid expression and its result
 
         Returns:
@@ -171,23 +173,25 @@ class CountdownDataset(ProceduralDataset):
 
         raise ValueError(f"Failed to generate valid expression after {max_attempts} attempts")
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, Any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the problem"""
-        reward = 0.0
-        metadata = entry["metadata"]
-        if answer is not None:
-            try:
-                user_answer = int(parse_expr(answer))
-                solved = user_answer == metadata["target"]
-                if solved:
-                    reward = 1.0
-                elif len(answer.strip()) > 0:  # encourage partial solutions
-                    reward = 0.05
-                else:
-                    reward = 0.01
-            except:
-                reward = 0.01
-        return reward
+        reward = 0.01  # Default reward
+
+        if answer is None or not answer.strip():
+            return reward
+
+        try:
+            answer = answer.strip()
+            user_answer = int(parse_expr(answer))
+            used_numbers = [int(num) for num in re.findall(r"\b\d+\b", answer)]
+            target_numbers = set(entry["metadata"]["numbers"])
+
+            if (user_answer == entry["metadata"]["target"]) and (set(used_numbers) == target_numbers):
+                return 1.0
+
+            return 0.05 if answer else 0.01
+        except Exception:
+            return 0.01
 
 
 # Register the dataset

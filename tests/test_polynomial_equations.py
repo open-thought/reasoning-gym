@@ -122,11 +122,11 @@ def test_polynomial_solutions_evaluation():
     "oracle_answer, predicted_answer, expected_reward",
     [
         ("4,-4.12", "4,-4.12", 1.0),  # Exact match
-        ("4,-4.12", "4.0001,-4.120001", approx(0.9999, rel=1e-3)),  # Very close match
-        ("4,-4.12", "4.1,-4.2", approx(0.9139, rel=1e-3)),
-        ("4,8", "4", approx(0.9, rel=1e-3)),  # Missing an oracle solution -> missing solution penalty applies
-        ("4", "4,8", approx(0.95, rel=1e-3)),  # extra solution -> extra solution penalty
-        ("-1,-2", "1,4", approx(0.06890, rel=1e-3)),  # -1 matched w/ 1 and -2 matched w/ 4
+        ("4,-4.12", "4.0001,-4.120001", approx(0.9994, rel=1e-3)),  # Very close match
+        ("4,-4.12", "4.1,-4.2", approx(0.4086, rel=1e-3)),
+        ("4,8", "4", approx(0.5, rel=1e-3)),  # Missing an oracle solution -> missing solution penalty applies
+        ("4", "4,8", approx(0.5, rel=1e-3)),  # extra solution -> extra solution penalty
+        ("-1,-2", "1,4", approx(1.0305e-9, rel=1e-3)),  # -1 matched w/ 1 and -2 matched w/ 4
         ("", "1", approx(0, rel=1e-4)),  # oracle no solution, predicted extra solution
         ("1", "", approx(0, rel=1e-4)),  # oracle has a solution, predicted no solution
     ],

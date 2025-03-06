@@ -155,8 +155,8 @@ def test_score_calculation():
 
     # Test invalid answers
     assert dataset.score_answer(None, puzzle) == 0.0
-    assert dataset.score_answer("", puzzle) == 0.01
-    assert dataset.score_answer("Invalid", puzzle) == 0.01
+    assert dataset.score_answer("", puzzle) == 0.0
+    assert dataset.score_answer("Invalid", puzzle) == 0.0
 
     # Test correct answer
     assert dataset.score_answer(puzzle["answer"], puzzle) == 1.0

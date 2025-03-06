@@ -8,7 +8,7 @@ import json
 import string
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -18,13 +18,7 @@ A palindrome is a word that reads the same backward as forward.
 
 You may return all possible palindrome partitioning in any order.
 
-Example:
-- Input: Partition the following string into palindromes: aab
-- Output: [["a","a","b"],["aa","b"]]
-- Explanation:
-    - One way to partition the string is "a" | "a" | "b", where each substring is a palindrome.
-    - Another way to partition the string is "aa" | "b", where again each substring is a palindrome.
-    - Therefore, the final result is a list of the two palindrome partitions.
+Your output should be a list of lists, where each list represents a palindrome partition, e.g. [["a","a","b"],["aa","b"]].
 
 Partition the following string into palindromes: {string}
 """
@@ -93,7 +87,7 @@ class PalindromePartitioningDataset(ProceduralDataset):
         _partition(0)
         return self._sort_list(res)
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score a single Palindrome Partitioning question"""
         if answer is not None:
             try:
@@ -101,9 +95,8 @@ class PalindromePartitioningDataset(ProceduralDataset):
                 oracle = self.to_set_of_tuples(entry["metadata"]["solution"])
                 if answer == oracle:
                     return 1.0
-                return 0.01
             except Exception:
-                return 0.0
+                pass
         return 0.0
 
     def _generate_palindrome_letters(self, rng: Random, length: int) -> list[str]:

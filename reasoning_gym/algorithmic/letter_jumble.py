@@ -3,7 +3,7 @@
 import re
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Any, Optional
 
 from reasoning_gym.data import read_data_file
 
@@ -15,20 +15,7 @@ For each word in a sentence, the letter may have been randomly shuffled. Your ta
 
 The order of the words in the sentence is preserved. Moreover, the style of the sentence is preserved (i.e. punctuation, capitalization, new lines, etc.).
 
-Example:
-- Input: Unscramble these words: raendgmeins yWh nya hilcd anc od hatt
-- Output: meanderings Why any child can do that
-- Explanation
-    - We unscramble each of the words independently.
-    - raendgmeins -> meanderings
-    - yWh -> Why
-    - nya -> any
-    - hilcd -> child
-    - anc -> can
-    - od -> do
-    - hatt -> that
-    - The final answer is: meanderings Why any child can do that
-    - Notice that the order of the words is preserved, no new words / symbols (e.g. new lines) are added.
+Your output should be a sentence with the words unscrambled.
 
 Now, unscramble these words: {words}
 """
@@ -123,29 +110,48 @@ class LetterJumbleDataset(ProceduralDataset):
             },
         }
 
-    def score_answer(self, answer: Optional[str], entry: Dict[str, any]) -> float:
+    def partial(self, expected_answer, model_answer):
+        expected_words = expected_answer.split()
+        model_words = model_answer.split()
+
+        # Each word in the expected answer is worth an equal fraction of 1.0
+        total_words = len(expected_words)
+        score_per_word = 1.0 / total_words if total_words > 0 else 0
+
+        # Calculate scores word by word
+        scores = []
+        for i, word in enumerate(expected_words):
+            # Check if the corresponding word exists in model_answer and matches exactly
+            if i < len(model_words) and word == model_words[i]:
+                scores.append(score_per_word)
+            else:
+                scores.append(0.0)
+
+        return min(1.0, sum(scores))
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves this task.
 
         The function awards 1.0 for a correct answer.
 
         Args:
             answer (Optional[str]): The user's answer.
-            entry (Dict[str, any]): The original dataset entry containing the correct answer.
+            entry (dict[str, Any]): The original dataset entry containing the correct answer.
 
         Returns:
             float: The computed score between 0.0 and 1.0.
         """
 
-        oracle_answer = entry["answer"].strip()
-        if answer:
-            answer = answer.strip()
-            if answer == oracle_answer:
-                return 1.0
-            elif answer.lower() == oracle_answer.lower():
-                return 0.5
-            else:
-                return 0.01
-        return 0.0
+        if not isinstance(answer, str):
+            return 0.0
+
+        oracle_answer = entry["answer"].strip().lower()
+        answer = answer.strip().lower()
+        if answer == oracle_answer:
+            return 1.0  # Perfect score!
+        else:
+            partial_score = self.partial(oracle_answer, answer)
+            return partial_score
 
 
 register_dataset("letter_jumble", LetterJumbleDataset, LetterJumbleConfig)

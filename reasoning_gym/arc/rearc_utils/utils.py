@@ -1,5 +1,5 @@
 import random
-from typing import Any, List, Tuple
+from typing import Any
 
 from .dsl import *
 
@@ -40,7 +40,7 @@ def get_pso_difficulty(example: dict) -> float:
     return (pix_pct + col_pct + obj_dens) / 3
 
 
-def unifint(rng: random.Random, diff_lb: float, diff_ub: float, bounds: Tuple[int, int]) -> int:
+def unifint(rng: random.Random, diff_lb: float, diff_ub: float, bounds: tuple[int, int]) -> int:
     """
     rng
     diff_lb: lower bound for difficulty, must be in range [0, diff_ub]
@@ -83,7 +83,7 @@ def strip_prefix(string: str, prefix: str) -> str:
     return string[len(prefix) :]
 
 
-def format_grid(grid: List[List[int]]) -> Grid:
+def format_grid(grid: list[list[int]]) -> Grid:
     """
     grid type casting
     """

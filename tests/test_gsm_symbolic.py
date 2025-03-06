@@ -90,3 +90,14 @@ def test_gsm_symbolic_generators():
         print(f"ok: q={len(question_set)}, a={len(answer_set)}")
 
         i += 1
+
+
+def test_gsm_symbolic_score_answer():
+    """Test score answer function"""
+    config = GSMSymbolicDatasetConfig(size=100, seed=42)
+    dataset = GSMSymbolicDataset(config)
+
+    for i in range(len(dataset)):
+        item = dataset[i]
+        score = dataset.score_answer(item["answer"], item)
+        assert score == 1.0

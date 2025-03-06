@@ -3,9 +3,10 @@ Arithmetic tasks for training reasoning capabilities:
 """
 
 from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
+from .bitwise_arithmetic import BitwiseArithmeticConfig, BitwiseArithmeticDataset
 from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 from .chain_sum import ChainSumConfig, ChainSumDataset
-from .count_bits import CountBitsConfig, CountBitsDataset
+from .count_bits import CountBitsConfig, CountBitsCurriculum, CountBitsDataset
 from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticDataset
 from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumDataset
 from .dice import DiceConfig, DiceDataset
@@ -47,6 +48,7 @@ __all__ = [
     "TimeIntervalsDataset",
     "CountBitsConfig",
     "CountBitsDataset",
+    "CountBitsCurriculum",
     "DiceConfig",
     "DiceDataset",
     "NumberFormatConfig",
@@ -55,4 +57,6 @@ __all__ = [
     "DecimalArithmeticDataset",
     "DecimalChainSumConfig",
     "DecimalChainSumDataset",
+    "BitwiseArithmeticConfig",
+    "BitwiseArithmeticDataset",
 ]

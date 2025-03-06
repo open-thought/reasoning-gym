@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, Optional
+from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
@@ -56,16 +56,6 @@ ANIMALS = {
 
 QUESTION_TEMPLATE = """Your task is to count how many legs there are in total when given a list of animals.
 
-Example:
-- Input: How many legs are there in total if you have 1 duck, 2 deers, 1 spider, 3 cows?
-- Output: 30
-- Explanation:
-    - Ducks have 2 legs each, so 1 duck has 2 legs.
-    - Deers have 4 legs each, so 2 deers have 8 legs.
-    - Spiders have 8 legs each, so 1 spider has 8 legs.
-    - Cows have 4 legs each, so 3 cows have 12 legs.
-    - Therefore, the total number of legs is 2 + 8 + 8 + 12 = 30
-
 Now, how many legs are there in total if you have {animals}?
 """
 
@@ -93,7 +83,7 @@ class LegCountingDataset(ProceduralDataset):
     def __init__(self, config: LegCountingConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _generate_animals(self, rng: Random) -> Dict[str, int]:
+    def _generate_animals(self, rng: Random) -> dict[str, int]:
         """Generate a random set of animals and their counts"""
         num_types = rng.randint(self.config.min_animals, self.config.max_animals)
         animals = {}
