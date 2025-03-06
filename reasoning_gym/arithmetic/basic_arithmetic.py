@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Literal, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -231,6 +232,44 @@ class BasicArithmeticDataset(ProceduralDataset):
             templates = ["What is {0}?", "Solve {0}.", "Compute {0}.", "Evaluate: {0}."]
             template = rng.choice(templates)
             return template.format(expression)
+
+
+class BasicArithmeticCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(BasicArithmeticCurriculum.__name__, BasicArithmeticDatasetConfig)
+
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_terms",
+                levels=[
+                    [2, 2],
+                    [3, 4],
+                    [4, 5],
+                    [5, 6],
+                ],
+                default_level=0,
+                description="Range of terms in the arithmetic expression",
+                attr_type=AttributeType.STATIC,
+                min_value=2,
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+            ),
+            RangeAttributeDefinition(
+                name="num_digits",
+                levels=[
+                    [1, 2],
+                    [1, 3],
+                    [1, 4],
+                    [1, 4],
+                ],
+                default_level=0,
+                description="Range of digits in each term",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+                lower_field_name="min_digits",
+                upper_field_name="max_digits",
+            ),
+        )
 
 
 # Register the dataset

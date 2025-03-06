@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Optional
+from typing import Any, Optional
 
 from ..factory import ConfigT
 from .attributes import AttributeDefinition, RangeAttributeDefinition, ScalarAttributeDefinition
