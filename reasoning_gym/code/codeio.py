@@ -157,30 +157,36 @@ class CodeIODataset(ProceduralDataset):
 
         def _tree_node_edit_distance(text1: str, text2: str):
             """Compute edit distance between two tree nodes based on their types."""
+            if ":" not in text1 or ":" not in text2:
+                return _str_edit_distance(text1, text2)
+
             key1, value1 = text1.split(":", 1)
             key2, value2 = text2.split(":", 1)
 
             key_dist = _str_edit_distance(key1, key2) if key1 != key2 else 0
+            value_dist = _str_edit_distance(value1, value2) if value1 != value2 else 0
 
-            if value1 == value2:
-                value_dist = 0
-            else:
-                if value1.isnumeric() and value2.isnumeric():
+            if value1 != value2:
+                # Numeric, allowing decimals
+                if value1.replace(".", "").isnumeric() and value2.replace(".", "").isnumeric():
                     try:
                         # TODO: Consider a more sophisticated distance metric for numeric values?
-                        value_dist = abs(float(value1) - float(value2))
+                        abs1, abs2 = abs(float(value1)), abs(float(value2))
+                        divisor = max(min(abs1, abs2), 10e-5)
+                        value_dist += (abs1 - abs2) / divisor
                     except ValueError:
-                        # Fall back on string edit distance if the values cannot be converted to floats
-                        value_dist = _str_edit_distance(value1, value2)
-                else:
-                    value_dist = _str_edit_distance(value1, value2)
+                        # Fall back on string edit distance
+                        pass
+                elif value1.isnumeric() or value2.isnumeric():
+                    # Penalise severely if the answer is numeric when it shouldn't be, or vice versa
+                    value_dist += max(len(text1), len(text2))
 
             return key_dist + value_dist
 
         edit_distance = zss.simple_distance(tree1, tree2, label_dist=_tree_node_edit_distance)
         max_size = max(len(json.dumps(json1)), len(json.dumps(json2)))
 
-        similarity_score = 1 - (edit_distance / max_size)
+        similarity_score = 1 - (edit_distance / (0.2 * max_size))
         return max(0, similarity_score)
 
     def _score_answer_json(self, answer_json: dict, oracle_json: dict, max_score: float) -> float:
