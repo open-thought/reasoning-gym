@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
@@ -44,9 +45,8 @@ class BinaryMatrixDataset(ProceduralDataset):
     def __init__(self, config: BinaryMatrixConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _get_binary_matrix(self, rng: Random) -> list[list[int]]:
+    def _get_binary_matrix(self, rng: Random, n: int) -> list[list[int]]:
         """Generate a random binary matrix"""
-        n = rng.randint(self.config.min_n, self.config.max_n)
         # Ensure at least one 0 in the matrix, so that a solution exists
         numbers = [0] + [0 if rng.random() < self.config.p_zero else 1 for _ in range(n**2 - 1)]
         rng.shuffle(numbers)
@@ -117,7 +117,8 @@ class BinaryMatrixDataset(ProceduralDataset):
         """Generate a single Binary Matrix question"""
         rng = Random(self.seed + idx)
 
-        matrix = self._get_binary_matrix(rng)
+        n = rng.randint(self.config.min_n, self.config.max_n)
+        matrix = self._get_binary_matrix(rng, n)
         matrix_str = self._matrix_to_str(matrix)
 
         answer = self._get_distances(matrix)
@@ -126,8 +127,42 @@ class BinaryMatrixDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str),
             "answer": answer_str,
-            "metadata": {"matrix": matrix, "solution": answer},
+            "metadata": {
+                "matrix": matrix,
+                "solution": answer,
+                "difficulty": {
+                    "n": n,
+                    "p_zero": self.config.p_zero,
+                },
+            },
         }
+
+
+class BinaryMatrixCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(BinaryMatrixCurriculum.__name__, BinaryMatrixConfig)
+
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="p_zero",
+                field_name="p_zero",
+                levels=[0.5, 0.25, 0.1, 0.05],
+                default_level=0,
+                description="Board size",
+                attr_type=AttributeType.STATIC,
+                min_value=0,
+            ),
+            RangeAttributeDefinition(
+                name="n",
+                levels=[10, 50, 250, 1000],
+                default_level=0,
+                description="Board size",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_n",
+                upper_field_name="max_n",
+            ),
+        )
 
 
 register_dataset("binary_matrix", BinaryMatrixDataset, BinaryMatrixConfig)
