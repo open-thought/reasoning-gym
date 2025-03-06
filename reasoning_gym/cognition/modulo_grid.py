@@ -158,9 +158,6 @@ class ModuloGridDataset(ProceduralDataset):
         if not isinstance(answer, str):
             return 0.0
 
-        # rm all spaces
-        answer[:] = [[s.replace(" ", "") for s in row] for row in answer]
-
         if answer == entry["answer"]:
             return 1.0  # Yay
 
