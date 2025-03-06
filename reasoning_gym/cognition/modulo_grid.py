@@ -121,7 +121,7 @@ class ModuloGridDataset(ProceduralDataset):
             holes_grid[rng.randint(0, len(holes_grid) - 1)][rng.randint(0, len(holes_grid[0]) - 1)] = "❔"
 
         question = (
-            "Identify the pattern which defines this grid, then use that pattern to fill in the question marks. Return the entire completed grid as your answer.\n\n"
+            "Identify the mathematical pattern which defines this grid, then use that pattern to fill in the question marks. Return the entire completed grid as your answer.\n\n"
             + flatten_grid(holes_grid)
         )
 
