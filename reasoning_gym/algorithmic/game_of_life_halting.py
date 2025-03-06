@@ -346,7 +346,7 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
 
         return {
             "question": question,
-            "answer": not should_oscillate,
+            "answer": str(not should_oscillate),
             "metadata": {
                 "grid_size_x": grid_x,
                 "grid_size_y": grid_y,
