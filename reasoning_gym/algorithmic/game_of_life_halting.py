@@ -286,9 +286,7 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
 
         # Determine which set of patterns to use based on should_oscillate.
         if should_oscillate:
-            valid_patterns = [
-                osc for osc in self.OSCILLATORS if osc["difficulty"] == self.config.difficulty
-            ]
+            valid_patterns = [osc for osc in self.OSCILLATORS if osc["difficulty"] == self.config.difficulty]
         else:
             valid_patterns = self.NON_OSCILLATORS
 
@@ -373,7 +371,7 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
 
         if answer == None:
             return 0.0
-        if bool(answer) != bool(entry['answer']):
+        if bool(answer) != bool(entry["answer"]):
             return 0.01
         else:
             return 1.0  # Yay
