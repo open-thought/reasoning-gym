@@ -4,6 +4,7 @@ Cognition tasks for training reasoning capabilities.
 
 from .color_cube_rotation import ColorCubeRotationConfig, ColorCubeRotationDataset
 from .figlet_fonts import FigletFontConfig, FigletFontDataset
+from .modulo_grid import ModuloGridConfig, ModuloGridDataset
 from .needle_haystack import NeedleHaystackConfig, NeedleHaystackDataset
 from .number_sequences import NumberSequenceConfig, NumberSequenceDataset
 from .rectangle_count import RectangleCountConfig, RectangleCountDataset
@@ -22,4 +23,6 @@ __all__ = [
     "RectangleCountDataset",
     "NeedleHaystackConfig",
     "NeedleHaystackDataset",
+    "ModuloGridConfig",
+    "ModuloGridDataset",
 ]
