@@ -342,7 +342,7 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
         # Create the question string.
         question = (
             f"This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.\n"
-            f"Will this game halt at or before {self.config.max_simulation_steps} steps? If it will halt, reply 'True'. If it won't halt, reply 'False'.\n\n"
+            f"Will this game halt at or before {self.config.max_simulation_steps} steps? Assume a Moore neighborhood and wrapping topology. If it will halt, reply 'True'. If it won't halt, reply 'False'.\n\n"
             f"Initial board:\n{board_str}"
         )
 
