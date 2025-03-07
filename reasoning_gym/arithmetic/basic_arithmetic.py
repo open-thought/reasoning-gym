@@ -261,4 +261,4 @@ class BasicArithmeticCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("basic_arithmetic", BasicArithmeticDataset, BasicArithmeticDatasetConfig)
+register_dataset("basic_arithmetic", BasicArithmeticDataset, BasicArithmeticDatasetConfig, BasicArithmeticCurriculum)
