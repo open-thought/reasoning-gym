@@ -174,4 +174,4 @@ class CourseScheduleCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("course_schedule", CourseScheduleDataset, CourseScheduleConfig)
+register_dataset("course_schedule", CourseScheduleDataset, CourseScheduleConfig, CourseScheduleCurriculum)

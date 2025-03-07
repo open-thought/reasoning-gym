@@ -193,4 +193,4 @@ class ShortestPathCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("shortest_path", ShortestPathDataset, ShortestPathConfig)
+register_dataset("shortest_path", ShortestPathDataset, ShortestPathConfig, ShortestPathCurriculum)

@@ -1,7 +1,8 @@
-from typing import Any, Iterable, Optional
+from typing import Any, Optional, TypeVar
 
-from ..factory import ConfigT
 from .attributes import AttributeDefinition, RangeAttributeDefinition, ScalarAttributeDefinition
+
+ConfigT = TypeVar("ConfigT")
 
 
 class BaseCurriculum:
@@ -21,7 +22,6 @@ class BaseCurriculum:
             elif isinstance(attr, ScalarAttributeDefinition):
                 val = self.get_attr_value(attr.name)
                 config_args[attr.field_name] = val
-        print(config_args)
         return self._config_cls(**config_args)
 
     @property

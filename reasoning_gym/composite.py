@@ -48,16 +48,35 @@ class CompositeConfig:
             ds.validate()
 
     @classmethod
-    def from_yaml(cls, yaml_path: str) -> "CompositeConfig":
-        """Load configuration from YAML file"""
-        with open(yaml_path, "r") as f:
-            data = yaml.safe_load(f)
+    def from_yaml_stream(cls, stream) -> "CompositeConfig":
+        """Load configuration from a YAML stream
+
+        Args:
+            stream: A file-like object containing YAML data
+
+        Returns:
+            CompositeConfig instance
+        """
+        data = yaml.safe_load(stream)
 
         # Convert dataset specs to DatasetSpec objects
         if "datasets" in data:
             data["datasets"] = [DatasetSpec(**ds) for ds in data["datasets"]]
 
         return cls(**data)
+
+    @classmethod
+    def from_yaml(cls, yaml_path: str) -> "CompositeConfig":
+        """Load configuration from YAML file
+
+        Args:
+            yaml_path: Path to YAML configuration file
+
+        Returns:
+            CompositeConfig instance
+        """
+        with open(yaml_path, "r") as f:
+            return cls.from_yaml_stream(f)
 
 
 class CompositeDataset(ProceduralDataset):
@@ -246,20 +265,7 @@ class CompositeDataset(ProceduralDataset):
         self.dataset_names.pop(idx)
         self.weights.pop(idx)
 
-    def score_answer_with_id(self, answer: Optional[str], entry_id: str) -> float:
-        """Score an answer using an entry_id to lookup the original entry
-
-        Args:
-            answer: The answer to score
-            entry_id: String in format "version_id.index"
-
-        Returns:
-            Score between 0 and 1
-
-        Raises:
-            ValueError: If entry_id format is invalid
-            KeyError: If version not found in version manager
-        """
+    def resolve_entry_id(self, entry_id: str) -> tuple[ProceduralDataset, int, str]:
         if self.version_manager is None:
             raise RuntimeError("Version manager required for scoring with entry_id")
 
@@ -274,6 +280,24 @@ class CompositeDataset(ProceduralDataset):
             raise KeyError(f"Version {version_id} not found in version manager")
 
         dataset_name, dataset = dataset_info
+        return dataset, index, dataset_name
+
+    def score_answer_with_id(self, answer: Optional[str], entry_id: str) -> float:
+        """Score an answer using an entry_id to lookup the original entry
+
+        Args:
+            answer: The answer to score
+            entry_id: String in format "version_id.index"
+
+        Returns:
+            Score between 0 and 1
+
+        Raises:
+            ValueError: If entry_id format is invalid
+            KeyError: If version not found in version manager
+        """
+
+        dataset, index, _ = self.resolve_entry_id(entry_id)
 
         # Get entry from dataset
         entry = dataset[index]
