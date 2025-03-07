@@ -218,10 +218,6 @@ class DecimalArithmeticDataset(ProceduralDataset):
         return 0.0
 
 
-# Register the dataset with the factory.
-register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticConfig)
-
-
 class DecimalArithmeticCurriculum(BaseCurriculum):
     """Curriculum for Decimal Arithmetic"""
 
@@ -249,3 +245,7 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
                 upper_field_name="max_terms",
             ),
         )
+
+
+# Register the dataset with the factory.
+register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticConfig, DecimalArithmeticCurriculum)

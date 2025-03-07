@@ -200,4 +200,4 @@ class DecimalChainSumCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("decimal_chain_sum", DecimalChainSumDataset, DecimalChainSumConfig)
+register_dataset("decimal_chain_sum", DecimalChainSumDataset, DecimalChainSumConfig, DecimalChainSumCurriculum)
