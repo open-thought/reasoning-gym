@@ -165,4 +165,4 @@ class BinaryMatrixCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("binary_matrix", BinaryMatrixDataset, BinaryMatrixConfig)
+register_dataset("binary_matrix", BinaryMatrixDataset, BinaryMatrixConfig, BinaryMatrixCurriculum)
