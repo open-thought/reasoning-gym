@@ -135,6 +135,10 @@ class NQueensDataset(ProceduralDataset):
                 "solutions": valid_solutions,
                 "num_removed": num_removed,
                 "valid_answers": valid_solutions_str,
+                "difficulty": {
+                    "n": self.config.n,
+                    "num_removed": num_removed,
+                },
             },
         }
 
