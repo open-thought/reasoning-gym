@@ -7,8 +7,8 @@ from .bitwise_arithmetic import BitwiseArithmeticConfig, BitwiseArithmeticDatase
 from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 from .chain_sum import ChainSumConfig, ChainSumDataset
 from .count_bits import CountBitsConfig, CountBitsCurriculum, CountBitsDataset
-from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticDataset
-from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumDataset
+from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticCurriculum, DecimalArithmeticDataset
+from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumCurriculum, DecimalChainSumDataset
 from .dice import DiceConfig, DiceDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
@@ -57,6 +57,8 @@ __all__ = [
     "NumberFormatDataset",
     "DecimalArithmeticConfig",
     "DecimalArithmeticDataset",
+    "DecimalArithmeticCurriculum",
+    "DecimalChainSumCurriculum",
     "DecimalChainSumConfig",
     "DecimalChainSumDataset",
     "BitwiseArithmeticConfig",
