@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "reasoning_gym"
-version = "0.1.14"
+version = "0.1.15"
 authors = [
   { name = "Open-Thought community", email = "andreas.koepf@xamla.com" },
 ]
@@ -57,13 +57,12 @@ cli = [
 [tool.hatch.build]
 packages = [
     "reasoning_gym",
-    "tools.cli.rgc"
+    "tools.cli.rgc",
 ]
 include = [
     "reasoning_gym/**/*.py",
     "reasoning_gym/**/*.txt",
-    "reasoning_gym/**/levels/*",
-    "tools/cli/rgc/**/*.py"
+    "tools/cli/rgc/**/*.py",
 ]
 
 [project.scripts]

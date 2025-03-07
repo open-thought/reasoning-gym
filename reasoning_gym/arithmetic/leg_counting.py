@@ -135,19 +135,19 @@ class LegCountingCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_animals",
-                levels=[10, 50, 100, 500],
+                levels=list(range(1, 20)),
                 default_level=0,
-                description="Number of animals in the problem",
+                description="Number of animals in question",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
+                min_value=1,  # Ensure at least 1 animal
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",
             ),
             RangeAttributeDefinition(
                 name="num_instances",
-                levels=[10, 100, 1000, 10000],
+                levels=[2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
                 default_level=0,
-                description="Number of columns in the grid",
+                description="Number of instances of each animal",
                 attr_type=AttributeType.APPEND,
                 min_value=1,
                 lower_field_name="min_instances",
@@ -156,4 +156,4 @@ class LegCountingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("leg_counting", LegCountingDataset, LegCountingConfig)
+register_dataset("leg_counting", LegCountingDataset, LegCountingConfig, LegCountingCurriculum)

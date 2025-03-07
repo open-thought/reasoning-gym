@@ -131,7 +131,13 @@ class CourseScheduleDataset(ProceduralDataset):
                 prerequisites=str(prerequisites),
             ),
             "answer": str(answer),
-            "metadata": {"courses": courses, "prerequisites": prerequisites, "solution": answer, "solvable": solvable},
+            "metadata": {
+                "courses": courses,
+                "prerequisites": prerequisites,
+                "solution": answer,
+                "solvable": solvable,
+                "difficulty": {"num_courses": num_courses},
+            },
         }
 
 
@@ -174,4 +180,4 @@ class CourseScheduleCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("course_schedule", CourseScheduleDataset, CourseScheduleConfig)
+register_dataset("course_schedule", CourseScheduleDataset, CourseScheduleConfig, CourseScheduleCurriculum)

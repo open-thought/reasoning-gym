@@ -34,6 +34,7 @@ This gallery shows examples from all available datasets using their default conf
 - [fraction_simplification](#fraction_simplification)
 - [futoshiki](#futoshiki)
 - [game_of_life](#game_of_life)
+- [game_of_life_halting](#game_of_life_halting)
 - [gcd](#gcd)
 - [graph_color](#graph_color)
 - [group_anagrams](#group_anagrams)
@@ -53,6 +54,7 @@ This gallery shows examples from all available datasets using their default conf
 - [manipulate_matrix](#manipulate_matrix)
 - [maze](#maze)
 - [mini_sudoku](#mini_sudoku)
+- [modulo_grid](#modulo_grid)
 - [n_queens](#n_queens)
 - [needle_haystack](#needle_haystack)
 - [number_filtering](#number_filtering)
@@ -2362,6 +2364,93 @@ Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulatio
 
 ````
 
+### game_of_life_halting
+Generates Game of Life games with configurable parameters
+
+    This is a variant of the Game of Life task, which rather than trying to test the algorithmic simulation, tests
+    the ability of the model to do explanatory reasoning of the board. The idea is that a model with good
+    explanatory reasoning will be able to see that a game will not halt without simulating it into the future.
+
+    The task presents a GoL board, and the model is asked to predict if the board will halt (die, all cells zero)
+    after n steps. Sometimes, the board will be made up of 'oscillators', isolated structures which never die.
+    Othertimes, it is filled with non-oscillators, structures which will always die after a few steps. The model
+    should deduce which case the presented board is.
+
+Default configuration:
+```python
+grid_size_x = 12
+grid_size_y = 12
+difficulty = 1
+num_oscillators = 5
+max_simulation_steps = 20
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.
+Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapping topology. If it will halt, reply 'True'. If it won't halt, reply 'False'.
+
+Initial board:
+[[0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 1 1 0]
+ [0 0 0 0 0 0 0 0 1 0 1 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 1 0 0 0]
+ [0 0 0 0 0 0 1 1 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]]
+Answer: False
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'bipole', 'position': (1, 6)}], 'simulation_steps': 20, 'should_oscillate': True}
+
+Example 2:
+Question: This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.
+Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapping topology. If it will halt, reply 'True'. If it won't halt, reply 'False'.
+
+Initial board:
+[[0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 0 0 1 0 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 0 1 0 0 0 0]
+ [0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]]
+Answer: True
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (3, 4)}], 'simulation_steps': 20, 'should_oscillate': False}
+
+Example 3:
+Question: This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.
+Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapping topology. If it will halt, reply 'True'. If it won't halt, reply 'False'.
+
+Initial board:
+[[0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0 0 1 0 0 0]
+ [0 0 1 0 0 0 0 1 0 0 0 0]
+ [0 1 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 1 0 0 0 0 0 0]
+ [0 0 0 0 1 0 0 0 0 0 1 0]
+ [0 0 0 0 0 1 0 0 0 1 0 0]
+ [0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]]
+Answer: True
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (6, 3)}, {'name': 'non-oscillator', 'position': (1, 1)}, {'name': 'non-oscillator', 'position': (1, 6)}, {'name': 'non-oscillator', 'position': (7, 8)}], 'simulation_steps': 20, 'should_oscillate': False}
+
+````
+
 ### gcd
 Generates Greatest Common Divisor (GCD) tasks
 
@@ -3554,6 +3643,168 @@ Answer: 2 4 1 3
 3 1 2 4
 4 2 3 1
 Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 0, 2, 4], [4, 0, 0, 1]], 'solution': [[2, 4, 1, 3], [1, 3, 4, 2], [3, 1, 2, 4], [4, 2, 3, 1]], 'num_empty': 8}
+
+````
+
+### modulo_grid
+Generates ModuloGrid tasks
+
+    This is an ARC-ish task for mathematical explanatory reasoning. It generates a binary grid based on a hidden
+    mathematical function based around modulo division of a function based on the coordinates, then asks to fill
+    in any gaps in the grid.
+
+    The function used to determine the pattern can be based on sums, multiples, powers, and differences, then a
+    constructed modulo matching a target function. Some patterns are obvious without knowing the underlying rule,
+    some are very difficult. Pretty much all the parameters are configurable, so we are able to generate a
+    good curriculum.
+
+Default configuration:
+```python
+size_x = 20
+size_y = 20
+max_divisor = 20
+max_target = 20
+max_holes = 1
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: Identify the mathematical pattern which defines this grid, then use that pattern to fill in the question marks. Return the entire completed grid as your answer.
+
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌❔❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+Answer: ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
+Metadata: {'divisor': 4, 'target': 1, 'operation': 'prod'}
+
+Example 2:
+Question: Identify the mathematical pattern which defines this grid, then use that pattern to fill in the question marks. Return the entire completed grid as your answer.
+
+❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅
+❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌
+❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌
+❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌
+✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❔
+❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌
+Answer: ❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅
+❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌
+❌❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌
+❌✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌
+✅❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌
+Metadata: {'divisor': 15, 'target': 12, 'operation': 'sum'}
+
+Example 3:
+Question: Identify the mathematical pattern which defines this grid, then use that pattern to fill in the question marks. Return the entire completed grid as your answer.
+
+❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌
+✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌
+❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌
+❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❔❌
+❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌
+❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌
+❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌
+❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌
+❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅
+❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌
+✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌
+❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌
+❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌
+❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌
+❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌
+❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌
+❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌
+❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅
+❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌
+Answer: ❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌
+✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌
+❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌
+❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌
+❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌
+❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌
+❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌❌
+❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅❌
+❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌✅
+❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌❌
+❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌❌
+✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌❌
+❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌❌
+❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌❌
+❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌❌
+❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌❌
+❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌❌
+❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌
+❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅
+❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌
+Metadata: {'divisor': 10, 'target': 1, 'operation': 'diff'}
 
 ````
 
@@ -6383,7 +6634,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 5, 9, 44), 'end_time': datetime.datetime(2025, 3, 5, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 7, 9, 44), 'end_time': datetime.datetime(2025, 3, 7, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.

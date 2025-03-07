@@ -115,7 +115,7 @@ class ProductsCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_terms",
-                levels=[2, 3, 4, 5],
+                levels=list(range(2, 13)),
                 default_level=0,  # Start with 2 terms
                 description="Maximum number of terms in the expression",
                 attr_type=AttributeType.APPEND,
@@ -125,7 +125,7 @@ class ProductsCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="num_digits",
-                levels=[1, 2, 3, 4],
+                levels=list(range(1, 11)),
                 default_level=0,  # Start with 1-digit numbers
                 description="Number of digits in each operand",
                 attr_type=AttributeType.APPEND,
@@ -137,4 +137,4 @@ class ProductsCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("products", ProductsDataset, ProductsConfig)
+register_dataset("products", ProductsDataset, ProductsConfig, ProductsCurriculum)

@@ -61,7 +61,7 @@ class LargestIslandDataset(ProceduralDataset):
     def _is_valid_cell(self, r: int, c: int, rows: int, cols: int) -> bool:
         return 0 <= r < rows and 0 <= c < cols
 
-    def _create_grid(self, rng: Random, rows: int, cols: int) -> list[list[int]]:
+    def _create_grid(self, rng: Random, rows: int, cols: int, num_islands: int) -> list[list[int]]:
         """Create a random grid of islands using a random walk algorithm"""
         grid = [[0] * cols for _ in range(rows)]
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
@@ -78,7 +78,6 @@ class LargestIslandDataset(ProceduralDataset):
                         r, c = new_r, new_c
                         break
 
-        num_islands = rng.randint(self.config.min_num_islands, self.config.max_num_islands)
         for _ in range(num_islands):
             create_island()
 
@@ -130,7 +129,8 @@ class LargestIslandDataset(ProceduralDataset):
 
         rows = rng.randint(self.config.min_rows, self.config.max_rows)
         cols = rng.randint(self.config.min_cols, self.config.max_cols)
-        grid = self._create_grid(rng, rows, cols)
+        num_islands = rng.randint(self.config.min_num_islands, self.config.max_num_islands)
+        grid = self._create_grid(rng, rows, cols, num_islands)
         grid_str = self._grid_to_string(grid)
 
         answer = self._get_largest_island(grid)
@@ -138,7 +138,15 @@ class LargestIslandDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(rows=rows, cols=cols, grid=grid_str),
             "answer": str(answer),
-            "metadata": {"grid": grid, "solution": answer},
+            "metadata": {
+                "grid": grid,
+                "solution": answer,
+                "difficulty": {
+                    "rows": rows,
+                    "cols": cols,
+                    "num_islands": num_islands,
+                },
+            },
         }
 
 
@@ -191,4 +199,4 @@ class LargestIslandCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("largest_island", LargestIslandDataset, LargestIslandConfig)
+register_dataset("largest_island", LargestIslandDataset, LargestIslandConfig, LargestIslandCurriculum)

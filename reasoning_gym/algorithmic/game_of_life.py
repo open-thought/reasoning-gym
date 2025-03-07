@@ -10,7 +10,7 @@ from ..factory import ProceduralDataset, register_dataset
 
 @dataclass
 class GameOfLifeConfig:
-    """Configuration for sudoku puzzle generation"""
+    """Configuration for Game of Life puzzle generation"""
 
     grid_size_x: int = 10
     grid_size_y: int = 10

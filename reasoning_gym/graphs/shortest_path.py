@@ -57,12 +57,8 @@ class ShortestPathDataset(ProceduralDataset):
     def __init__(self, config: ShortestPathConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def _get_grid(self, rng: Random) -> list[list[str]]:
+    def _get_grid(self, rng: Random, rows: int, cols: int) -> list[list[str]]:
         """Generate a random grid with open and blocked cells"""
-
-        rows, cols = rng.randint(self.config.min_rows, self.config.max_rows), rng.randint(
-            self.config.min_cols, self.config.max_cols
-        )
         grid = [["X" if rng.random() < self.config.p_blocked else "O" for _ in range(cols)] for _ in range(rows)]
 
         start_r, start_c = rng.randint(0, rows - 1), rng.randint(0, cols - 1)
@@ -152,7 +148,9 @@ class ShortestPathDataset(ProceduralDataset):
         """Generate a single Shortest Path question"""
         rng = Random(self.seed + idx)
 
-        matrix = self._get_grid(rng)
+        rows = rng.randint(self.config.min_rows, self.config.max_rows)
+        cols = rng.randint(self.config.min_cols, self.config.max_cols)
+        matrix = self._get_grid(rng, rows, cols)
         matrix_str = self._matrix_to_str(matrix)
         answer = self._get_answer(matrix)
         answer_str = " ".join(answer) if answer else "infeasible"
@@ -160,7 +158,14 @@ class ShortestPathDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(grid=matrix_str),
             "answer": answer_str,
-            "metadata": {"matrix": matrix, "solution": answer},
+            "metadata": {
+                "matrix": matrix,
+                "solution": answer,
+                "difficulty": {
+                    "rows": rows,
+                    "cols": cols,
+                },
+            },
         }
 
 
@@ -193,4 +198,4 @@ class ShortestPathCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("shortest_path", ShortestPathDataset, ShortestPathConfig)
+register_dataset("shortest_path", ShortestPathDataset, ShortestPathConfig, ShortestPathCurriculum)

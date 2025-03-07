@@ -42,7 +42,12 @@ class CountBitsDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(number=number),
             "answer": str(answer),
-            "metadata": {"number": number, "solution": answer, "binary": binary},
+            "metadata": {
+                "number": number,
+                "solution": answer,
+                "binary": binary,
+                "difficulty": {"n": number},
+            },
         }
 
 
@@ -65,4 +70,4 @@ class CountBitsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("count_bits", CountBitsDataset, CountBitsConfig)
+register_dataset("count_bits", CountBitsDataset, CountBitsConfig, CountBitsCurriculum)

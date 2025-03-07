@@ -14,6 +14,7 @@ from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesDataset
 from .cryptarithm import CryptarithmConfig, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
+from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
@@ -51,6 +52,8 @@ __all__ = [
     "CryptarithmDataset",
     "GameOfLifeConfig",
     "GameOfLifeDataset",
+    "GameOfLifeHaltingConfig",
+    "GameOfLifeHaltingDataset",
     "LetterCountingConfig",
     "LetterCountingDataset",
     "LetterJumbleConfig",
