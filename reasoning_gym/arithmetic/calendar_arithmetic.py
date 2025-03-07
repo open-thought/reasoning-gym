@@ -42,7 +42,7 @@ class Weekday(Enum):
 class CalendarTask(StrEnum):
     WEEKDAY_OFFSET = "weekday_offset"
     WEEKDAY_OF_DATE = "weekday_of_date"
-    WEEKDAY_OF_DATE_FROM_FIRST_DATE = "weekday_of_date_from_first_day"
+    WEEKDAY_OF_DATE_FROM_FIRST_DATE = "weekday_of_date_from_first_date"
     RECURRING_EVENT_CALCULATIONS = "recurring_event_day"
     COUNT_DAYS = "count_days"
     COUNT_BUSINESS_DAYS = "count_business_days"
@@ -113,7 +113,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         self.task_handlers = {
             CalendarTask.WEEKDAY_OFFSET.value: self._weekday_offset,
             CalendarTask.WEEKDAY_OF_DATE.value: self._weekday_of_date,
-            CalendarTask.WEEKDAY_OF_DATE_FROM_FIRST_DATE.value: self._weekday_of_date_from_first_day,
+            CalendarTask.WEEKDAY_OF_DATE_FROM_FIRST_DATE.value: self._weekday_of_date_from_first_date,
             CalendarTask.RECURRING_EVENT_CALCULATIONS.value: self._recurring_event_day,
             CalendarTask.COUNT_DAYS.value: self._count_days,
             CalendarTask.COUNT_BUSINESS_DAYS.value: self._count_business_days,
@@ -126,6 +126,10 @@ class CalendarArithmeticDataset(ProceduralDataset):
         rng = random.Random(self.seed + idx)
         task = rng.choice(self.tasks)
         question, answer, metadata = task(rng)
+        metadata["difficulty"] = {
+            "task_complexity": self.tasks.index(task),
+            "date_range": self.config.offset_upper_bound,
+        }
         return {
             "question": question,
             "answer": str(answer),
@@ -194,7 +198,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, answer_weekday, metadata
 
-    def _weekday_of_date_from_first_day(self, rng: random.Random) -> tuple[str, str, dict]:
+    def _weekday_of_date_from_first_date(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: Given an hypothetical weekday for January 1, ask what weekday a later date in the year falls on.
         example:
