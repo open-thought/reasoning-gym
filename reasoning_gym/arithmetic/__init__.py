@@ -14,7 +14,7 @@ from .fraction_simplification import FractionSimplificationConfig, FractionSimpl
 from .gcd import GCDConfig, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
 from .lcm import LCMConfig, LCMDataset
-from .leg_counting import LegCountingConfig, LegCountingDataset
+from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
 from .number_format import NumberFormatConfig, NumberFormatDataset
 from .power_function import PowerFunctionConfig, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
@@ -36,6 +36,7 @@ __all__ = [
     "LCMDataset",
     "LegCountingConfig",
     "LegCountingDataset",
+    "LegCountingCurriculum",
     "PowerFunctionConfig",
     "PowerFunctionDataset",
     "PrimeFactorizationConfig",

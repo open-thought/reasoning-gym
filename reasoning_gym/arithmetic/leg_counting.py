@@ -4,9 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from reasoning_gym.coaching.attributes import AttributeType, RangeAttributeDefinition
-from reasoning_gym.coaching.base_curriculum import BaseCurriculum
-
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 ANIMALS = {
@@ -69,6 +67,7 @@ class LegCountingConfig:
 
     min_animals: int = 3  # Minimum number of animals in problem
     max_animals: int = 10  # Maximum number of animals
+    min_instances: int = 1  # Minimum instances of each animal
     max_instances: int = 15  # Maximum instances of each animal
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
@@ -77,7 +76,8 @@ class LegCountingConfig:
         """Validate configuration parameters"""
         assert self.min_animals > 0, "min_animals must be positive"
         assert self.max_animals >= self.min_animals, "max_animals must be >= min_animals"
-        assert self.max_instances > 0, "max_instances must be positive"
+        assert self.min_instances > 0, "min_instances must be positive"
+        assert self.max_instances >= self.min_instances, "max_instances must be >= min_instances"
 
 
 class LegCountingDataset(ProceduralDataset):
@@ -94,7 +94,7 @@ class LegCountingDataset(ProceduralDataset):
         # Select random animals
         selected_animals = rng.sample(list(ANIMALS.keys()), num_types)
         for animal in selected_animals:
-            count = rng.randint(1, self.config.max_instances)
+            count = rng.randint(self.config.min_instances, self.config.max_instances)
             animals[animal] = count
 
         return animals
@@ -136,12 +136,22 @@ class LegCountingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_animals",
                 levels=list(range(1, 20)),
-                default_level=0,  # Start with 2 terms
+                default_level=0,
                 description="Number of animals in question",
                 attr_type=AttributeType.APPEND,
                 min_value=1,  # Ensure at least 1 animal
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",
+            ),
+            RangeAttributeDefinition(
+                name="num_instances",
+                levels=[2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
+                default_level=0,
+                description="Number of instances of each animal",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_instances",
+                upper_field_name="max_instances",
             ),
         )
 
