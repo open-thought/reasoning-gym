@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.rotate_matrix import RotateMatrixConfig, RotateMatrixDataset
+from reasoning_gym.algorithmic.rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 
 
 def test_rotate_matrix_config_validation():
@@ -142,3 +142,28 @@ def test_rotate_matrix_answer():
         [6, 7, 8],
     ]
     assert dataset._get_rotated(matrix, num_rotations=4) == expected
+
+
+def test_rotate_matrix_curriculum():
+    curriculum = RotateMatrixCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: RotateMatrixConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_n == 10 and base_cfg.max_n == 10
+    assert base_cfg.min_rotations == 4 and base_cfg.max_rotations == 4
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("n")
+    curriculum.increment_attr_level("num_rotations")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 25
+    assert increased_cfg.min_rotations == 4 and increased_cfg.max_rotations == 8
+
+    # test decrementing attribute level for n again
+    curriculum.decrement_attr_level("n")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_n == 10 and partially_decreased_cfg.max_n == 10
+    assert partially_decreased_cfg.min_rotations == 4 and partially_decreased_cfg.max_rotations == 8
