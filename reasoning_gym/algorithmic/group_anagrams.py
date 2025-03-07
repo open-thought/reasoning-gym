@@ -12,10 +12,9 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
-
-MAX_ANAGRAM_GROUPS = 500
 
 QUESTION_TEMPLATE = """An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
 
@@ -32,7 +31,9 @@ Group the following list of words into anagrams:
 class GroupAnagramsConfig:
     """Configuration for Group Anagrams dataset generation"""
 
-    anagram_groups: int = 10  # Groups of anagrams present in the input
+    min_anagram_groups: int = 2  # Minimum number of anagram groups present in the input
+    max_anagram_groups: int = 10  # Maximum number of anagram groups present in the input
+    min_words_per_group: int = 2  # Minimum number of words in a single anagram group
     max_words_per_group: int = 5  # Maximum number of words in a single anagram group
 
     size: int = 500  # Virtual dataset size
@@ -40,10 +41,8 @@ class GroupAnagramsConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert (
-            1 <= self.anagram_groups <= MAX_ANAGRAM_GROUPS
-        ), f"anagram_groups must be between 1 and {MAX_ANAGRAM_GROUPS}"
-        assert 1 <= self.max_words_per_group, "max_words_per_group must be at least 1"
+        assert 2 <= self.min_anagram_groups <= self.max_anagram_groups, "Invalid number of anagram groups"
+        assert 2 <= self.min_words_per_group <= self.max_words_per_group, "Invalid number of words per group"
 
 
 class GroupAnagramsDataset(ProceduralDataset):
@@ -54,11 +53,12 @@ class GroupAnagramsDataset(ProceduralDataset):
         with get_data_file_path("anagrams.jsonl").open() as f:
             self.anagrams = [json.loads(line)["words"] for line in f]
 
-    def _get_anagram_words(self, rng: Random) -> list[str]:
+    def _get_anagram_words(self, rng: Random, num_groups: int) -> list[str]:
         """Generate a list of words with anagrams"""
         words = []
-        for sample in rng.sample(self.anagrams, self.config.anagram_groups):
-            anagrams = rng.sample(sample, rng.randint(1, min(len(sample), self.config.max_words_per_group)))
+        for sample in rng.sample(self.anagrams, num_groups):
+            num_words = min(len(sample), rng.randint(self.config.min_words_per_group, self.config.max_words_per_group))
+            anagrams = rng.sample(sample, num_words)
             words.extend(anagrams)
         return words
 
@@ -103,15 +103,54 @@ class GroupAnagramsDataset(ProceduralDataset):
     def __getitem__(self, idx: int) -> dict:
         """Generate a single Group Anagrams question"""
         rng = Random(self.seed + idx)
-        words = self._get_anagram_words(rng)
+
+        anagram_groups = min(
+            len(self.anagrams), rng.randint(self.config.min_anagram_groups, self.config.max_anagram_groups)
+        )
+        words = self._get_anagram_words(rng, num_groups=anagram_groups)
         answer = self._group_anagrams(words)
         answer_str = json.dumps(answer)
 
         return {
             "question": QUESTION_TEMPLATE.format(words=json.dumps(words)),
             "answer": answer_str,
-            "metadata": {"words": words, "solution": answer},
+            "metadata": {
+                "words": words,
+                "solution": answer,
+                "difficulty": {
+                    "anagram_groups": anagram_groups,
+                },
+            },
         }
 
 
-register_dataset("group_anagrams", GroupAnagramsDataset, GroupAnagramsConfig)
+class GroupAnagramsCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(GroupAnagramsCurriculum.__name__, GroupAnagramsConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="anagram_groups",
+                levels=[10, 100, 1_000, 10_000],
+                default_level=0,
+                description="Number of anagram groups in the input",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_anagram_groups",
+                upper_field_name="max_anagram_groups",
+            ),
+            RangeAttributeDefinition(
+                name="words_per_group",
+                levels=[2, 5, 10, 20],
+                default_level=0,
+                description="Number of words in a single anagram group",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_words_per_group",
+                upper_field_name="max_words_per_group",
+            ),
+        )
+
+
+register_dataset("group_anagrams", GroupAnagramsDataset, GroupAnagramsConfig, GroupAnagramsCurriculum)
