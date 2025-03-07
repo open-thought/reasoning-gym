@@ -1,6 +1,7 @@
 import pytest
 
 from reasoning_gym.arithmetic.basic_arithmetic import (
+    BasicArithmeticCurriculum,
     BasicArithmeticDataset,
     BasicArithmeticDatasetConfig,
     eval_floordiv,
@@ -96,3 +97,47 @@ def test_arithmetic_dataset_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items, "Multiple iterations should yield same items"
+
+
+def test_curriculum():
+    """Teset basic arithmetic curriculum"""
+    curriculum = BasicArithmeticCurriculum()
+
+    base_value = {"size": 500, "seed": 42}
+
+    base_cfg = curriculum.generate_configuration(base_value)
+    # level 1
+
+    assert base_cfg.min_terms == 2
+    assert base_cfg.max_terms == 2
+    assert base_cfg.min_digits == 1
+    assert base_cfg.max_digits == 2
+    assert base_cfg.size == 500
+    assert base_cfg.seed == 42
+
+    # level 2
+    curriculum.increment_attr_level("num_terms")
+    curriculum.increment_attr_level("num_digits")
+    increased_cfg = curriculum.generate_configuration()
+    assert increased_cfg.min_terms == 3
+    assert increased_cfg.max_terms == 4
+    assert increased_cfg.min_digits == 1
+    assert increased_cfg.max_digits == 3
+
+    # level 3
+    curriculum.increment_attr_level("num_terms")
+    curriculum.increment_attr_level("num_digits")
+    increased_cfg = curriculum.generate_configuration()
+    assert increased_cfg.min_terms == 4
+    assert increased_cfg.max_terms == 5
+    assert increased_cfg.min_digits == 2
+    assert increased_cfg.max_digits == 3
+
+    # level 2
+    curriculum.decrement_attr_level("num_terms")
+    curriculum.decrement_attr_level("num_digits")
+    decreased_cfg = curriculum.generate_configuration()
+    assert decreased_cfg.min_terms == 3
+    assert decreased_cfg.max_terms == 4
+    assert decreased_cfg.min_digits == 1
+    assert decreased_cfg.max_digits == 3

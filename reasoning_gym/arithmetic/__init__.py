@@ -2,7 +2,7 @@
 Arithmetic tasks for training reasoning capabilities:
 """
 
-from .basic_arithmetic import BasicArithmeticDataset, BasicArithmeticDatasetConfig
+from .basic_arithmetic import BasicArithmeticCurriculum, BasicArithmeticDataset, BasicArithmeticDatasetConfig
 from .bitwise_arithmetic import BitwiseArithmeticConfig, BitwiseArithmeticDataset
 from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
 from .chain_sum import ChainSumConfig, ChainSumDataset
@@ -24,6 +24,7 @@ from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
 __all__ = [
     "BasicArithmeticDataset",
     "BasicArithmeticDatasetConfig",
+    "BasicArithmeticCurriculum",
     "ChainSumDataset",
     "ChainSumConfig",
     "CalendarArithmeticConfig",
