@@ -1,3 +1,4 @@
+from copy import deepcopy
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
@@ -21,6 +22,8 @@ class ModuloGridConfig:
         """Validate configuration parameters"""
         assert self.size_x > 5, "size_x must be greater than 5"
         assert self.size_y > 5, "size_y must be greater than 5"
+        assert self.max_divisor > 0, "max_divisor must be greater than 0"
+        assert self.max_target > 0, "max_target must be greater than 0"
         assert self.max_holes > 0, "max_holes must be greater than 0"
 
 
@@ -75,7 +78,6 @@ def generate_grid(size_x, size_y, operation, mod_target):
 
 
 def flatten_grid(grid):
-    """ """
     x = ""
     for row in grid:
         x = x + "".join(row) + "\n"
@@ -83,7 +85,17 @@ def flatten_grid(grid):
 
 
 class ModuloGridDataset(ProceduralDataset):
-    """Generates ModuloGrid tasks"""
+    """Generates ModuloGrid tasks
+
+    This is an ARC-ish task for mathematical explanatory reasoning. It generates a binary grid based on a hidden
+    mathematical function based around modulo division of a function based on the coordinates, then asks to fill
+    in any gaps in the grid.
+
+    The function used to determine the pattern can be based on sums, multiples, powers, and differences, then a
+    constructed modulo matching a target function. Some patterns are obvious without knowing the underlying rule,
+    some are very difficult. Pretty much all the parameters are configurable, so we are able to generate a
+    good curriculum.
+    """
 
     def __init__(self, config: ModuloGridConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
@@ -97,8 +109,6 @@ class ModuloGridDataset(ProceduralDataset):
                 - answer: None, indicating to use the dynamic evaluator
                 - metadata: dict with generation parameters and example solution
         """
-        from .needle_data import NAMES, SUBJECTS, VERBS
-
         rng = Random(self.seed + idx)
 
         valid = False
@@ -114,8 +124,7 @@ class ModuloGridDataset(ProceduralDataset):
             if "✅" in sgrid:
                 valid = True
 
-        full_grid = grid
-        holes_grid = grid
+        holes_grid = deepcopy(grid)
 
         for i in range(self.config.max_holes):
             holes_grid[rng.randint(0, len(holes_grid) - 1)][rng.randint(0, len(holes_grid[0]) - 1)] = "❔"
@@ -132,17 +141,6 @@ class ModuloGridDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        """Determine if the solution provided solves the task.
-
-        Args:
-            answer (Optional[str]): The user's answer.
-            entry (dict[str, Any]): The original dataset entry containing the correct answer.
-
-        Returns:
-            float: The computed score between 0.0 and 1.0.
-        """
-
-    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the BF task.
 
         The function awards 1.0 for a correct answer.
@@ -155,13 +153,11 @@ class ModuloGridDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if not isinstance(answer, str):
-            return 0.0
+        if isinstance(answer, str):
+            if answer == entry["answer"]:
+                return 1.0  # Yay
 
-        if answer == entry["answer"]:
-            return 1.0  # Yay
-
-        return 0.01
+        return 0.0
 
 
 # Register the dataset

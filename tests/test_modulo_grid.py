@@ -12,11 +12,12 @@ def test_modulo_grid():
 
     for item in dataset:
         assert isinstance(item, dict)
-        assert "question" in item
-        assert "answer" in item
+        assert "question" in item and isinstance(item["question"], str)
+        assert "answer" in item and isinstance(item["answer"], str)
         assert "metadata" in item
 
         # Test the scoring
+        assert item["question"] != item["answer"]
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
@@ -26,10 +27,11 @@ def test_modulo_grid():
 
     for item in dataset:
         assert isinstance(item, dict)
-        assert "question" in item
-        assert "answer" in item
+        assert "question" in item and isinstance(item["question"], str)
+        assert "answer" in item and isinstance(item["answer"], str)
         assert "metadata" in item
 
         # Test the scoring
+        assert item["question"] != item["answer"]
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
