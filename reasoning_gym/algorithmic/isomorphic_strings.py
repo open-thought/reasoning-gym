@@ -37,7 +37,9 @@ class IsomorphicStringsConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 2 <= self.min_string_length <= self.max_string_length, "min_string_length must be between 2 and max_string_length"
+        assert (
+            2 <= self.min_string_length <= self.max_string_length
+        ), "min_string_length must be between 2 and max_string_length"
         assert 0 <= self.p_solvable <= 1, "p_solvable must be between 0 and 1"
 
 
@@ -106,13 +108,14 @@ class IsomorphicStringsDataset(ProceduralDataset):
             "answer": str(answer),
             "metadata": {
                 "words": [s, t],
-                "solution": answer, 
+                "solution": answer,
                 "solvable": solvable,
                 "difficulty": {
                     "string_length": string_length,
-                }
+                },
             },
         }
+
 
 class IsomorphicStringsCurriculum(BaseCurriculum):
     def __init__(self):

@@ -17,7 +17,7 @@ from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
-from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset, IsomorphicStringsCurriculum
+from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsCurriculum, IsomorphicStringsDataset
 from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset

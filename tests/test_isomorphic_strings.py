@@ -4,7 +4,11 @@ import json
 
 import pytest
 
-from reasoning_gym.algorithmic.isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset, IsomorphicStringsCurriculum
+from reasoning_gym.algorithmic.isomorphic_strings import (
+    IsomorphicStringsConfig,
+    IsomorphicStringsCurriculum,
+    IsomorphicStringsDataset,
+)
 
 
 def test_isomorphic_strings_config_validation():
@@ -106,6 +110,7 @@ def test_isomorphic_strings_answer():
         "",
     )
     assert dataset._check_isomorphic(s, t) == True
+
 
 def test_isomorphic_strings_curriculum():
     curriculum = IsomorphicStringsCurriculum()
