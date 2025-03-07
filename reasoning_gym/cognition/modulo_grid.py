@@ -77,11 +77,8 @@ def generate_grid(size_x, size_y, operation, mod_target):
     return grid
 
 
-def flatten_grid(grid):
-    x = ""
-    for row in grid:
-        x = x + "".join(row) + "\n"
-    return x.strip()
+def flatten_grid(grid: list[list[str]]) -> str:
+    return "\n".join("".join(row) for row in grid)
 
 
 class ModuloGridDataset(ProceduralDataset):
