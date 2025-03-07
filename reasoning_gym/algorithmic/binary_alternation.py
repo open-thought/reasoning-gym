@@ -132,4 +132,4 @@ class BinaryAlternationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("binary_alternation", BinaryAlternationDataset, BinaryAlternationConfig)
+register_dataset("binary_alternation", BinaryAlternationDataset, BinaryAlternationConfig, BinaryAlternationCurriculum)
