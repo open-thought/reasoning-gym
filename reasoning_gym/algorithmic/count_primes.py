@@ -52,7 +52,7 @@ class CountPrimesDataset(ProceduralDataset):
     def __getitem__(self, idx: int) -> dict:
         """Generate a single Count Primes question"""
         rng = Random(self.seed + idx)
-        start = rng.randint(self.config.min_n,  self.config.max_n)
+        start = rng.randint(self.config.min_n, self.config.max_n)
         end = rng.randint(start, self.config.max_n)
         primes = [i for i in range(start, end + 1) if self.primes[i]]
         answer = len(primes)
@@ -60,13 +60,13 @@ class CountPrimesDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": str(answer),
             "metadata": {
-                "start": start, 
-                "end": end, 
-                "primes": primes, 
+                "start": start,
+                "end": end,
+                "primes": primes,
                 "solution": answer,
                 "difficulty": {
                     "n": (start, end),
-                }
+                },
             },
         }
 

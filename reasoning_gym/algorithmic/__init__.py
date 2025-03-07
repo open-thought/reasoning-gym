@@ -11,7 +11,7 @@ from .base_conversion import BaseConversionConfig, BaseConversionDataset
 from .binary_alternation import BinaryAlternationConfig, BinaryAlternationDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
-from .count_primes import CountPrimesConfig, CountPrimesDataset, CountPrimesCurriculum
+from .count_primes import CountPrimesConfig, CountPrimesCurriculum, CountPrimesDataset
 from .cryptarithm import CryptarithmConfig, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset

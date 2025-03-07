@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.count_primes import CountPrimesConfig, CountPrimesDataset, CountPrimesCurriculum
+from reasoning_gym.algorithmic.count_primes import CountPrimesConfig, CountPrimesCurriculum, CountPrimesDataset
 
 
 def test_count_primes_config_validation():
@@ -101,6 +101,7 @@ def test_count_primes_list():
             assert p >= start
             assert p <= end
             assert dataset.primes[p] == True
+
 
 def test_shortest_path_curriculum():
     curriculum = CountPrimesCurriculum()
