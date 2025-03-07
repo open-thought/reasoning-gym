@@ -119,7 +119,11 @@ class MahjongPuzzleDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(cards=cards, operations=operations),
             "answer": answer,
-            "metadata": {"rounds": rounds, "solution": answer},
+            "metadata": {
+                "rounds": rounds,
+                "solution": answer,
+                "difficulty": {"num_rounds": num_rounds},
+            },
         }
 
 
