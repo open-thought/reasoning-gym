@@ -6,6 +6,7 @@ from math import pow
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to compute an exponentiation of a number.
@@ -21,7 +22,7 @@ class PowerFunctionConfig:
 
     min_base: float = -1e3  # Minimum base value
     max_base: float = 1e3  # Maximum base value
-    min_exponent: int = -8  # Minimum exponent value
+    min_exponent: int = 0  # Minimum exponent value
     max_exponent: int = 8  # Maximum exponent value
 
     size: int = 500  # Virtual dataset size
@@ -63,6 +64,10 @@ class PowerFunctionDataset(ProceduralDataset):
 
         base = round(rng.uniform(self.config.min_base, self.config.max_base), 4)
         exponent = rng.randint(self.config.min_exponent, self.config.max_exponent)
+
+        if rng.random() < 0.5:
+            exponent = -exponent
+
         answer = pow(base, exponent)
 
         return {
@@ -70,6 +75,22 @@ class PowerFunctionDataset(ProceduralDataset):
             "answer": str(answer),
             "metadata": {"base": base, "exponent": exponent, "solution": answer},
         }
+
+
+class PowerFunctionCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(PowerFunctionCurriculum.__name__, PowerFunctionConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="exponent",
+                levels=[2, 4, 6, 10],
+                default_level=0,
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_exponent",
+                upper_field_name="max_exponent",
+            ),
+        )
 
 
 register_dataset("power_function", PowerFunctionDataset, PowerFunctionConfig)

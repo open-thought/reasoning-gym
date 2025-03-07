@@ -62,3 +62,23 @@ def test_power_function_score_function():
     for item in dataset:
         answer = item["answer"]
         assert dataset.score_answer(answer, item) == 1.0
+
+
+def test_power_function_curriculum():
+    """Test PowerFunctionCurriculum configuration generation and attribute manipulation"""
+    from reasoning_gym.arithmetic import PowerFunctionCurriculum
+
+    curriculum = PowerFunctionCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_exponent == 2 and base_cfg.max_exponent == 2
+
+    # Test incrementing attribute levels for exponent & base attributes
+    curriculum.increment_attr_level("exponent")
+
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_exponent == 2 and increased_cfg.max_exponent == 4
