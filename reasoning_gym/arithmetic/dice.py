@@ -123,7 +123,12 @@ class DiceDataset(ProceduralDataset):
         return {
             "question": puzzle_str,
             "answer": answer_str,
-            "metadata": {"difficulty": {"num_dice": self.config.num_dice, "max_dice_size": self.config.max_dice_size}},
+            "metadata": {
+                "difficulty": {
+                    "num_dice": self.config.num_dice,
+                    "max_dice_size": self.config.max_dice_size,
+                }
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
