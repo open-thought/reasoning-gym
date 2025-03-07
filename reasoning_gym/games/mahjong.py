@@ -146,4 +146,4 @@ class MahjongPuzzleCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("mahjong_puzzle", MahjongPuzzleDataset, MahjongPuzzleConfig)
+register_dataset("mahjong_puzzle", MahjongPuzzleDataset, MahjongPuzzleConfig, MahjongPuzzleCurriculum)
