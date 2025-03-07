@@ -18,7 +18,7 @@ WEEKDAYS = [
 
 WEEKDAY_TASKS = {
     "weekday_offset",
-    "weekday_of_date_from_first_day",
+    "weekday_of_date_from_first_date",
     "weekday_of_date",
 }
 NUMERIC_TASKS = {
@@ -71,6 +71,7 @@ def test_calendar_item_structure():
         assert isinstance(item["question"], str) and len(item["question"]) > 0
         assert isinstance(item["answer"], str) and len(item["answer"]) > 0
         assert "task" in item["metadata"]
+        print(item["metadata"]["task"])
         assert item["metadata"]["task"] in CALENDAR_TASKS
 
 
