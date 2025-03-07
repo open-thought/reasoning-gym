@@ -6,6 +6,7 @@ from datetime import date, timedelta
 from enum import Enum, StrEnum, auto
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -482,6 +483,48 @@ class CalendarArithmeticDataset(ProceduralDataset):
             return 0.0
 
         return 0.0
+
+
+class CalendarArithmeticCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(CalendarArithmeticCurriculum.__name__, CalendarArithmeticConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="task_complexity",
+                levels=[
+                    # Level 1: Basic date to weekday conversion
+                    ["weekday_of_date"],
+                    # Level 2: Add offset calculations
+                    ["weekday_of_date", "is_leap_year", "weekday_offset"],
+                    # Level 3: Add counting business days
+                    ["weekday_of_date", "is_leap_year", "weekday_offset", "count_days", "count_business_days"],
+                    # Level 4: All tasks
+                    [
+                        "weekday_of_date",
+                        "is_leap_year",
+                        "weekday_offset",
+                        "count_days",
+                        "count_business_days",
+                        "weekday_of_date_from_first_date",
+                        "recurring_event_day",
+                    ],
+                ],
+                default_level=0,
+                description="Controls which calendar tasks are included",
+                attr_type=AttributeType.STATIC,
+                field_name="tasks",
+            ),
+            ScalarAttributeDefinition(
+                name="date_range",
+                levels=[30, 100, 250, 365],
+                default_level=0,
+                description="Maximum day range for offset and counting tasks",
+                attr_type=AttributeType.STATIC,
+                field_name="offset_upper_bound",
+            ),
+        )
 
 
 register_dataset("calendar_arithmetic", CalendarArithmeticDataset, CalendarArithmeticConfig)

@@ -4,7 +4,7 @@ Arithmetic tasks for training reasoning capabilities:
 
 from .basic_arithmetic import BasicArithmeticCurriculum, BasicArithmeticDataset, BasicArithmeticDatasetConfig
 from .bitwise_arithmetic import BitwiseArithmeticConfig, BitwiseArithmeticCurriculum, BitwiseArithmeticDataset
-from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
+from .calendar_arithmetic import CalendarArithmeticConfig, CalendarArithmeticCurriculum, CalendarArithmeticDataset
 from .chain_sum import ChainSumConfig, ChainSumDataset
 from .count_bits import CountBitsConfig, CountBitsCurriculum, CountBitsDataset
 from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticCurriculum, DecimalArithmeticDataset
@@ -29,6 +29,7 @@ __all__ = [
     "ChainSumConfig",
     "CalendarArithmeticConfig",
     "CalendarArithmeticDataset",
+    "CalendarArithmeticCurriculum",
     "FractionSimplificationConfig",
     "FractionSimplificationDataset",
     "GCDConfig",
