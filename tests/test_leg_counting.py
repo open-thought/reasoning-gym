@@ -94,18 +94,18 @@ def test_leg_counting_curriculum():
     base_cfg: LegCountingConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_animals == 10 and base_cfg.max_animals == 10
-    assert base_cfg.min_instances == 10 and base_cfg.max_instances == 10
+    assert base_cfg.min_animals == 1 and base_cfg.max_animals == 1
+    assert base_cfg.min_instances == 2 and base_cfg.max_instances == 2
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("num_animals")
     curriculum.increment_attr_level("num_instances")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_animals == 10 and increased_cfg.max_animals == 50
-    assert increased_cfg.min_instances == 10 and increased_cfg.max_instances == 100
+    assert increased_cfg.min_animals == 1 and increased_cfg.max_animals == 2
+    assert increased_cfg.min_instances == 2 and increased_cfg.max_instances == 4
 
     # test decrementing attribute level for num_animals again
     curriculum.decrement_attr_level("num_animals")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_animals == 10 and partially_decreased_cfg.max_animals == 10
-    assert partially_decreased_cfg.min_instances == 10 and partially_decreased_cfg.max_instances == 100
+    assert partially_decreased_cfg.min_animals == 1 and partially_decreased_cfg.max_animals == 1
+    assert partially_decreased_cfg.min_instances == 2 and partially_decreased_cfg.max_instances == 4
