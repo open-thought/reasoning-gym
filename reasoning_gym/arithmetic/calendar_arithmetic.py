@@ -494,13 +494,9 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="task_complexity",
                 levels=[
-                    # Level 1: Basic date to weekday conversion
                     ["weekday_of_date"],
-                    # Level 2: Add offset calculations
                     ["weekday_of_date", "is_leap_year", "weekday_offset"],
-                    # Level 3: Add counting business days
                     ["weekday_of_date", "is_leap_year", "weekday_offset", "count_days", "count_business_days"],
-                    # Level 4: All tasks
                     [
                         "weekday_of_date",
                         "is_leap_year",
