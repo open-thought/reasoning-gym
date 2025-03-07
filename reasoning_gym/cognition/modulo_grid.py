@@ -137,25 +137,6 @@ class ModuloGridDataset(ProceduralDataset):
             "metadata": {"divisor": divisor, "target": target, "operation": operation},
         }
 
-    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        """Determine if the solution provided solves the BF task.
-
-        The function awards 1.0 for a correct answer.
-
-        Args:
-            answer (Optional[str]): The user's answer.
-            entry (dict[str, Any]): The original dataset entry containing the correct answer.
-
-        Returns:
-            float: The computed score between 0.0 and 1.0.
-        """
-
-        if isinstance(answer, str):
-            if answer == entry["answer"]:
-                return 1.0  # Yay
-
-        return 0.0
-
 
 # Register the dataset
 register_dataset("modulo_grid", ModuloGridDataset, ModuloGridConfig)
