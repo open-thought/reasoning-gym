@@ -380,12 +380,10 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if not isinstance(answer, str):
-            return 0.0
-        if bool(answer) != bool(entry["answer"]):
-            return 0.01
-        else:
-            return 1.0  # Yay
+        if answer is not None and bool(answer) == bool(entry["answer"]):
+            # python's bool conversion is very tolerant and normally doesn't raise exceptions
+            return 1.0
+        return 0.0
 
 
 register_dataset("game_of_life_halting", GameOfLifeHaltingDataset, GameOfLifeHaltingConfig)
