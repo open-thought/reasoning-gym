@@ -181,7 +181,7 @@ def test_shortest_path_answer():
     assert dataset.score_answer(None, entry) == 0.0
 
 
-def test_chain_sum_curriculum():
+def test_shortest_path_curriculum():
     curriculum = ShortestPathCurriculum()
 
     base_value = {"size": 150, "seed": 1}
