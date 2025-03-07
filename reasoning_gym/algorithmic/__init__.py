@@ -21,7 +21,7 @@ from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDatase
 from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
-from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixDataset
+from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculum, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
@@ -87,6 +87,7 @@ __all__ = [
     "RotateMatrixDataset",
     "ManipulateMatrixConfig",
     "ManipulateMatrixDataset",
+    "ManipulateMatrixCurriculum",
     "BinaryMatrixConfig",
     "BinaryMatrixDataset",
     "PoolMatrixConfig",

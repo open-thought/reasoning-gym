@@ -7,6 +7,7 @@ from typing import Any, Optional
 
 import numpy as np
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """For the following matrix:
@@ -52,8 +53,8 @@ class ManipulateMatrixConfig:
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 1 <= self.min_rows, "min_rows must be at least 1"
-        assert 1 <= self.min_cols, "min_cols must be at least 1"
+        assert 2 <= self.min_rows, "min_rows must be at least 2"
+        assert 2 <= self.min_cols, "min_cols must be at least 2"
         assert self.min_rows <= self.max_rows, "max_rows must be at least min_rows"
         assert self.min_cols <= self.max_cols, "max_cols must be at least min_cols"
         assert 1 <= self.min_transforms, "min_transforms must be at least 1"
@@ -118,10 +119,8 @@ class ManipulateMatrixDataset(ProceduralDataset):
         )
         self._weights = np.exp(weights) / np.sum(np.exp(weights))
 
-    def _get_matrix(self, rng: Random) -> list[list[int]]:
+    def _get_matrix(self, rng: Random, rows: int, cols: int) -> list[list[int]]:
         """Generate a random matrix"""
-        rows = rng.randint(self.config.min_rows, self.config.max_rows)
-        cols = rng.randint(self.config.min_cols, self.config.max_cols)
         numbers = [rng.randint(0, 9) for _ in range(rows * cols)]
         matrix = [numbers[i * cols : (i + 1) * cols] for i in range(rows)]
         return matrix
@@ -205,7 +204,9 @@ class ManipulateMatrixDataset(ProceduralDataset):
         """Generate a single Manipulate Matrix question"""
         rng = Random(self.seed + idx)
 
-        matrix = self._get_matrix(rng)
+        rows = rng.randint(self.config.min_rows, self.config.max_rows)
+        cols = rng.randint(self.config.min_cols, self.config.max_cols)
+        matrix = self._get_matrix(rng, rows, cols)
         matrix_str = self._matrix_to_str(matrix)
 
         num_transforms = rng.randint(self.config.min_transforms, self.config.max_transforms)
@@ -304,8 +305,56 @@ class ManipulateMatrixDataset(ProceduralDataset):
                 matrix=matrix_str, operations="\n".join(op["instruction"] for op in operations)
             ),
             "answer": answer_str,
-            "metadata": {"matrix": matrix, "solution": answer, "operations": operations},
+            "metadata": {
+                "matrix": matrix,
+                "solution": answer,
+                "operations": operations,
+                "difficulty": {
+                    "rows": rows,
+                    "cols": cols,
+                    "num_transforms": num_transforms,
+                },
+            },
         }
 
 
-register_dataset("manipulate_matrix", ManipulateMatrixDataset, ManipulateMatrixConfig)
+class ManipulateMatrixCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(ManipulateMatrixCurriculum.__name__, ManipulateMatrixConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="rows",
+                levels=[10, 25, 50, 100],
+                default_level=0,
+                description="Number of rows in the matrix",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_rows",
+                upper_field_name="max_rows",
+            ),
+            RangeAttributeDefinition(
+                name="cols",
+                levels=[10, 25, 50, 100],
+                default_level=0,
+                description="Number of columns in the matrix",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_cols",
+                upper_field_name="max_cols",
+            ),
+            RangeAttributeDefinition(
+                name="num_transforms",
+                levels=[5, 10, 20, 30],
+                default_level=0,
+                description="Number of transformations to apply",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_transforms",
+                upper_field_name="max_transforms",
+            ),
+        )
+
+
+register_dataset("manipulate_matrix", ManipulateMatrixDataset, ManipulateMatrixConfig, ManipulateMatrixCurriculum)
