@@ -7,7 +7,7 @@ Algorithmic tasks for training reasoning capabilities:
 """
 
 from .ab import ABConfig, ABDataset
-from .base_conversion import BaseConversionConfig, BaseConversionDataset
+from .base_conversion import BaseConversionConfig, BaseConversionCurriculum, BaseConversionDataset
 from .binary_alternation import BinaryAlternationConfig, BinaryAlternationCurriculum, BinaryAlternationDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixCurriculum, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
@@ -46,6 +46,7 @@ __all__ = [
     "SpellBackwardDataset",
     "BaseConversionConfig",
     "BaseConversionDataset",
+    "BaseConversionCurriculum",
     "CaesarCipherConfig",
     "CaesarCipherDataset",
     "CryptarithmConfig",

@@ -2,7 +2,11 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.base_conversion import BaseConversionConfig, BaseConversionDataset
+from reasoning_gym.algorithmic.base_conversion import (
+    BaseConversionConfig,
+    BaseConversionCurriculum,
+    BaseConversionDataset,
+)
 
 
 def test_base_conversion_config_validation():
@@ -163,3 +167,28 @@ def test_base_conversion_formatting():
         assert item["answer"].strip() == item["answer"]
         # Verify hint is included for bases > 10
         assert "use lowercase letters" in item["question"]
+
+
+def test_base_conversion__curriculum():
+    curriculum = BaseConversionCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: BaseConversionConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_base == 9 and base_cfg.max_base == 9
+    assert base_cfg.min_value == 1000 and base_cfg.max_value == 1000
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("base")
+    curriculum.increment_attr_level("value")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_base == 9 and increased_cfg.max_base == 18
+    assert increased_cfg.min_value == 1000 and increased_cfg.max_value == 10000
+
+    # test decrementing attribute level for base again
+    curriculum.decrement_attr_level("base")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_base == 9 and partially_decreased_cfg.max_base == 9
+    assert partially_decreased_cfg.min_value == 1000 and partially_decreased_cfg.max_value == 10000
