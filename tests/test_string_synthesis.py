@@ -2,7 +2,11 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.string_synthesis import StringSynthesisConfig, StringSynthesisDataset
+from reasoning_gym.algorithmic.string_synthesis import (
+    StringSynthesisConfig,
+    StringSynthesisCurriculum,
+    StringSynthesisDataset,
+)
 
 
 def test_string_synthesis_config_validation():
@@ -117,3 +121,26 @@ def test_string_synthesis_answer():
         [0, 1, 1, 2, 0, 0, 0, 0, 0],  # Rule 1 again
         [0, 0, 0, 2, 1, 0, 0, 0, 0],  # Rule 3 (final state)
     ]
+
+
+def test_string_synthesis_curriculum():
+    curriculum = StringSynthesisCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: StringSynthesisConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_initial_blocks == 1 and base_cfg.max_initial_blocks == 1
+
+    # test incrementing attribute level for num_initial_blocks attribute
+    curriculum.increment_attr_level("num_initial_blocks")
+
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_initial_blocks == 1 and increased_cfg.max_initial_blocks == 3
+
+    # test incrementing again
+    curriculum.increment_attr_level("num_initial_blocks")
+
+    second_increased_cfg = curriculum.generate_configuration(base_value)
+    assert second_increased_cfg.min_initial_blocks == 1 and second_increased_cfg.max_initial_blocks == 5

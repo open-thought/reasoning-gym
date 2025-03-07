@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There are nine different blocks [A] [B] [C] {{A}} {{B}} {{C}} (A) (B) (C)
@@ -31,8 +32,8 @@ Now, you have {A_square} [A], {B_square} [B], and {C_square} [C] blocks. Provide
 class StringSynthesisConfig:
     """Configuration for String Synthesis dataset generation"""
 
-    min_initial_blocks: int = 0  # Minimum number of initial blocks
-    max_initial_blocks: int = 5  # Maximum number of initial blocks
+    min_initial_blocks: int = 10  # Minimum number of initial blocks
+    max_initial_blocks: int = 10  # Maximum number of initial blocks
     max_iterations: int = 1_000  # Maximum number of iterations to apply the rules (Safety check for infinite loops)
 
     size: int = 500  # Virtual dataset size
@@ -122,8 +123,29 @@ class StringSynthesisDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(A_square=A_square, B_square=B_square, C_square=C_square),
             "answer": answer_str,
-            "metadata": {"states": states, "solution": answer},
+            "metadata": {
+                "states": states,
+                "difficulty": {"num_initial_blocks": (A_square + B_square + C_square) / 3},
+                "solution": answer,
+            },
         }
 
 
-register_dataset("string_synthesis", StringSynthesisDataset, StringSynthesisConfig)
+class StringSynthesisCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(StringSynthesisCurriculum.__name__, StringSynthesisConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_initial_blocks",
+                levels=[1, 3, 5, 10],
+                default_level=0,
+                description="Number of blocks to start with",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_initial_blocks",
+                upper_field_name="max_initial_blocks",
+            )
+        )
+
+
+register_dataset("string_synthesis", StringSynthesisDataset, StringSynthesisConfig, StringSynthesisCurriculum)
