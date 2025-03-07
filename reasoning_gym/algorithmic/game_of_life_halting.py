@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from random import Random
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 import cellpylib as cpl
 
@@ -11,8 +11,8 @@ from ..factory import ProceduralDataset, register_dataset
 class GameOfLifeHaltingConfig:
     """Configuration for Game of Life halting problems generation"""
 
-    grid_size_x: int = 25
-    grid_size_y: int = 25
+    grid_size_x: int = 12
+    grid_size_y: int = 12
     difficulty: int = 1
     num_oscillators: int = 5
     max_simulation_steps: int = 20
@@ -21,6 +21,7 @@ class GameOfLifeHaltingConfig:
 
     def validate(self):
         """Validate configuration parameters"""
+        assert self.difficulty in (1, 2, 3), "difficulty must be one of (1, 2, 3)"
         if self.difficulty == 1:
             assert self.grid_size_x >= 7, "grid_size_x must be gte 7 (difficulty 1)"
             assert self.grid_size_y >= 7, "grid_size_y must be gte 7 (difficulty 1)"
@@ -33,7 +34,17 @@ class GameOfLifeHaltingConfig:
 
 
 class GameOfLifeHaltingDataset(ProceduralDataset):
-    """Generates Game of Life games with configurable parameters"""
+    """Generates Game of Life games with configurable parameters
+
+    This is a variant of the Game of Life task, which rather than trying to test the algorithmic simulation, tests
+    the ability of the model to do explanatory reasoning of the board. The idea is that a model with good
+    explanatory reasoning will be able to see that a game will not halt without simulating it into the future.
+
+    The task presents a GoL board, and the model is asked to predict if the board will halt (die, all cells zero)
+    after n steps. Sometimes, the board will be made up of 'oscillators', isolated structures which never die.
+    Othertimes, it is filled with non-oscillators, structures which will always die after a few steps. The model
+    should deduce which case the presented board is.
+    """
 
     # via this great wiki https://conwaylife.com/wiki/oscillator
     OSCILLATORS = [
@@ -369,7 +380,7 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer == None:
+        if not isinstance(answer, str):
             return 0.0
         if bool(answer) != bool(entry["answer"]):
             return 0.01
