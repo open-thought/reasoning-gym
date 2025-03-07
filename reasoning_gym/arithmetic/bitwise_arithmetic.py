@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -169,6 +170,25 @@ class BitwiseArithmeticDataset(ProceduralDataset):
                 pass
 
         return 0.0
+
+
+class BitwiseArithmeticCurriculum(BaseCurriculum):
+    """Curriculum for Bitwise Arithmetic dataset"""
+
+    def __init__(self):
+        super().__init__(BitwiseArithmeticCurriculum.__name__, BitwiseArithmeticConfig)
+
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="difficulty",
+                levels=[1, 2, 3, 4, 5],
+                default_level=0,
+                description="Range of difficulty levels",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+                field_name="difficulty",
+            ),
+        )
 
 
 # Register the dataset with the factory.
