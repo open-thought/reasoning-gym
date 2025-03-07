@@ -32,8 +32,8 @@ Now, you have {A_square} [A], {B_square} [B], and {C_square} [C] blocks. Provide
 class StringSynthesisConfig:
     """Configuration for String Synthesis dataset generation"""
 
-    min_initial_blocks: int = 10  # Minimum number of initial blocks
-    max_initial_blocks: int = 10  # Maximum number of initial blocks
+    min_initial_blocks: int = 0  # Minimum number of initial blocks
+    max_initial_blocks: int = 5  # Maximum number of initial blocks
     max_iterations: int = 1_000  # Maximum number of iterations to apply the rules (Safety check for infinite loops)
 
     size: int = 500  # Virtual dataset size
