@@ -65,4 +65,4 @@ class CountBitsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("count_bits", CountBitsDataset, CountBitsConfig)
+register_dataset("count_bits", CountBitsDataset, CountBitsConfig, CountBitsCurriculum)

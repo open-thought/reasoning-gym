@@ -179,4 +179,4 @@ class NQueensCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("n_queens", NQueensDataset, NQueensConfig)
+register_dataset("n_queens", NQueensDataset, NQueensConfig, NQueensCurriculum)

@@ -191,4 +191,4 @@ class LargestIslandCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("largest_island", LargestIslandDataset, LargestIslandConfig)
+register_dataset("largest_island", LargestIslandDataset, LargestIslandConfig, LargestIslandCurriculum)
