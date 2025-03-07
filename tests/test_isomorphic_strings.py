@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from reasoning_gym.algorithmic.isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
+from reasoning_gym.algorithmic.isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset, IsomorphicStringsCurriculum
 
 
 def test_isomorphic_strings_config_validation():
@@ -106,3 +106,23 @@ def test_isomorphic_strings_answer():
         "",
     )
     assert dataset._check_isomorphic(s, t) == True
+
+def test_isomorphic_strings_curriculum():
+    curriculum = IsomorphicStringsCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: IsomorphicStringsConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_string_length == 10 and base_cfg.max_string_length == 10
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("string_length")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_string_length == 10 and increased_cfg.max_string_length == 50
+
+    # test incrementing attribute levels again
+    curriculum.increment_attr_level("string_length")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_string_length == 10 and increased_cfg.max_string_length == 100
