@@ -106,3 +106,73 @@ class BaseCurriculum:
             self.set_attr_level(attr_name, current_level - 1)
             return True
         return False
+        
+    def get_max_level(self) -> int:
+        """
+        Get the maximum level currently set across all attributes.
+        
+        Returns:
+            int: The maximum level currently set across all attributes
+        """
+        if not self._attributes:
+            return 0
+            
+        return max(self.get_attr_level(attr_name) for attr_name in self._attributes)
+        
+    def set_global_level(self, level: int) -> None:
+        """
+        Set all attributes to the specified level.
+        If the level exceeds the number of defined levels for an attribute,
+        use the highest defined level for that attribute.
+        
+        Args:
+            level: The level to set for all attributes
+        """
+        for attr_name, attr in self._attributes.items():
+            # Use the highest defined level if the requested level exceeds available levels
+            attr_level = min(level, len(attr.levels) - 1)
+            self.set_attr_level(attr_name, attr_level)
+            
+    def increase_global_level(self) -> bool:
+        """
+        Increase the level of all attributes by one from the current maximum level.
+        
+        Returns:
+            bool: True if at least one attribute's level was increased, False otherwise
+        """
+        current_max = self.get_max_level()
+        target_level = current_max + 1
+        
+        # Check if any attribute can be increased
+        can_increase = any(
+            self.get_attr_level(attr_name) < len(attr.levels) - 1
+            for attr_name in self._attributes
+        )
+        
+        if can_increase:
+            for attr_name, attr in self._attributes.items():
+                # Only increase if the attribute is not already at its maximum level
+                if self.get_attr_level(attr_name) < len(attr.levels) - 1:
+                    # Don't exceed the attribute's maximum level
+                    new_level = min(target_level, len(attr.levels) - 1)
+                    self.set_attr_level(attr_name, new_level)
+            return True
+        return False
+        
+    def decrease_global_level(self) -> bool:
+        """
+        Decrease the level of all attributes by one from the current maximum level.
+        
+        Returns:
+            bool: True if at least one attribute's level was decreased, False otherwise
+        """
+        current_max = self.get_max_level()
+        
+        if current_max > 0:
+            target_level = current_max - 1
+            for attr_name in self._attributes:
+                # Only decrease if the attribute is at the current maximum level
+                if self.get_attr_level(attr_name) == current_max:
+                    self.set_attr_level(attr_name, target_level)
+            return True
+        return False
