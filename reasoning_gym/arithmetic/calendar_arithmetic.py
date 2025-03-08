@@ -527,4 +527,6 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("calendar_arithmetic", CalendarArithmeticDataset, CalendarArithmeticConfig)
+register_dataset(
+    "calendar_arithmetic", CalendarArithmeticDataset, CalendarArithmeticConfig, CalendarArithmeticCurriculum
+)
