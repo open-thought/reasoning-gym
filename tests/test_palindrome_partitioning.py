@@ -4,6 +4,7 @@ import json
 
 from reasoning_gym.algorithmic.palindrome_partitioning import (
     PalindromePartitioningConfig,
+    PalindromePartitioningCurriculum,
     PalindromePartitioningDataset,
 )
 
@@ -109,3 +110,31 @@ def test_palindrome_partitioning_score_answer():
     answer = '["n", "o", "o", "n"], ["no", "on"], ["noon"]'
     item = {"metadata": {"solution": [["no", "on"], ["noon"], ["n", "o", "o", "n"]]}}
     assert dataset.score_answer(answer, item) == 0.0
+
+
+def test_palindrome_partitioning_curriculum():
+    curriculum = PalindromePartitioningCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: PalindromePartitioningConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_string_len == 10 and base_cfg.max_string_len == 10
+    assert base_cfg.min_substring_palindrome_len == 5 and base_cfg.max_substring_palindrome_len == 5
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("string_len")
+    curriculum.increment_attr_level("substring_palindrome_len")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_string_len == 10 and increased_cfg.max_string_len == 100
+    assert increased_cfg.min_substring_palindrome_len == 5 and increased_cfg.max_substring_palindrome_len == 10
+
+    # test decrementing attribute level for substring_palindrome_len again
+    curriculum.decrement_attr_level("substring_palindrome_len")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_string_len == 10 and partially_decreased_cfg.max_string_len == 100
+    assert (
+        partially_decreased_cfg.min_substring_palindrome_len == 5
+        and partially_decreased_cfg.max_substring_palindrome_len == 5
+    )
