@@ -73,7 +73,7 @@ class PowerFunctionDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(base=base, exponent=exponent),
             "answer": str(answer),
-            "metadata": {"base": base, "exponent": exponent, "solution": answer},
+            "metadata": {"base": base, "exponent": exponent, "solution": answer, "difficulty": {"exponent": exponent}},
         }
 
 
@@ -93,4 +93,4 @@ class PowerFunctionCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("power_function", PowerFunctionDataset, PowerFunctionConfig)
+register_dataset("power_function", PowerFunctionDataset, PowerFunctionConfig, PowerFunctionCurriculum)
