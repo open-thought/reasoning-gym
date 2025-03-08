@@ -7,16 +7,16 @@ Algorithmic tasks for training reasoning capabilities:
 """
 
 from .ab import ABConfig, ABDataset
-from .base_conversion import BaseConversionConfig, BaseConversionDataset
-from .binary_alternation import BinaryAlternationConfig, BinaryAlternationDataset
-from .binary_matrix import BinaryMatrixConfig, BinaryMatrixDataset
+from .base_conversion import BaseConversionConfig, BaseConversionCurriculum, BaseConversionDataset
+from .binary_alternation import BinaryAlternationConfig, BinaryAlternationCurriculum, BinaryAlternationDataset
+from .binary_matrix import BinaryMatrixConfig, BinaryMatrixCurriculum, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
-from .count_primes import CountPrimesConfig, CountPrimesDataset
+from .count_primes import CountPrimesConfig, CountPrimesCurriculum, CountPrimesDataset
 from .cryptarithm import CryptarithmConfig, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
-from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
+from .group_anagrams import GroupAnagramsConfig, GroupAnagramsCurriculum, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsCurriculum, IsomorphicStringsDataset
 from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
@@ -39,13 +39,14 @@ from .string_splitting import StringSplittingConfig, StringSplittingDataset
 from .string_synthesis import StringSynthesisConfig, StringSynthesisDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
 from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
-from .word_sorting import TextTransformation, WordSortingConfig, WordSortingDataset
+from .word_sorting import TextTransformation, WordSortingConfig, WordSortingCurriculum, WordSortingDataset
 
 __all__ = [
     "SpellBackwardConfig",
     "SpellBackwardDataset",
     "BaseConversionConfig",
     "BaseConversionDataset",
+    "BaseConversionCurriculum",
     "CaesarCipherConfig",
     "CaesarCipherDataset",
     "CryptarithmConfig",
@@ -66,6 +67,7 @@ __all__ = [
     "SentenceReorderingDataset",
     "WordSequenceReversalConfig",
     "WordSequenceReversalDataset",
+    "WordSortingCurriculum",
     "WordSortingConfig",
     "WordSortingDataset",
     "TextTransformation",
@@ -75,6 +77,7 @@ __all__ = [
     "PalindromeDataset",
     "GroupAnagramsConfig",
     "GroupAnagramsDataset",
+    "GroupAnagramsCurriculum",
     "PalindromePartitioningConfig",
     "PalindromePartitioningDataset",
     "SpiralMatrixConfig",
@@ -90,12 +93,14 @@ __all__ = [
     "ManipulateMatrixDataset",
     "BinaryMatrixConfig",
     "BinaryMatrixDataset",
+    "BinaryMatrixCurriculum",
     "PoolMatrixConfig",
     "PoolMatrixDataset",
     "ABConfig",
     "ABDataset",
     "CountPrimesConfig",
     "CountPrimesDataset",
+    "CountPrimesCurriculum",
     "GraphColorConfig",
     "GraphColorDataset",
     "StringInsertionConfig",
@@ -112,4 +117,5 @@ __all__ = [
     "JugsDataset",
     "BinaryAlternationConfig",
     "BinaryAlternationDataset",
+    "BinaryAlternationCurriculum",
 ]

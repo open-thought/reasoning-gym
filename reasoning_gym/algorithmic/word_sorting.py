@@ -6,6 +6,7 @@ from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -105,11 +106,14 @@ class WordSortingDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(direction=direction, words=", ".join(transformed_words)),
             "answer": ", ".join(answer),
             "metadata": {
+                "difficulty": {
+                    "num_words": len(original_words),
+                    "word_length": max(len(word) for word in original_words),
+                },
                 "original_words": original_words,
+                "sorted_words": answer,
                 "transformed_words": transformed_words,
                 "direction": direction,
-                "transformation": self.config.transformation,
-                "sorted_words": answer,
             },
         }
 
@@ -123,6 +127,34 @@ class WordSortingDataset(ProceduralDataset):
                 return 0.2
 
         return 0.0
+
+
+class WordSortingCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(WordSortingCurriculum.__name__, WordSortingConfig)
+
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_words",
+                levels=[5, 10, 20, 30],
+                default_level=0,
+                description="Number of words to sort",
+                attr_type=AttributeType.APPEND,
+                min_value=5,
+                lower_field_name="min_words",
+                upper_field_name="max_words",
+            ),
+            RangeAttributeDefinition(
+                name="word_length",
+                levels=[3, 6, 9, 12],
+                default_level=0,
+                description="Length of words to sort",
+                attr_type=AttributeType.APPEND,
+                min_value=3,
+                lower_field_name="min_word_length",
+                upper_field_name="max_word_length",
+            ),
+        )
 
 
 register_dataset("word_sorting", WordSortingDataset, WordSortingConfig)

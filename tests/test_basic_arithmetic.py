@@ -1,6 +1,7 @@
 import pytest
 
 from reasoning_gym.arithmetic.basic_arithmetic import (
+    BasicArithmeticCurriculum,
     BasicArithmeticDataset,
     BasicArithmeticDatasetConfig,
     eval_floordiv,
@@ -96,3 +97,52 @@ def test_arithmetic_dataset_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items, "Multiple iterations should yield same items"
+
+
+def test_basic_arithmetic_curriculum():
+    """Test the BasicArithmeticCurriculum functionality"""
+    curriculum = BasicArithmeticCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: BasicArithmeticDatasetConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
+    assert base_cfg.min_digits == 1 and base_cfg.max_digits == 1
+
+    # Test incrementing attribute levels
+    curriculum.increment_attr_level("num_terms")
+    curriculum.increment_attr_level("num_digits")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 5
+    assert increased_cfg.min_digits == 1 and increased_cfg.max_digits == 2
+
+    # Test decrementing attribute level for num_terms
+    curriculum.decrement_attr_level("num_terms")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_terms == 2 and partially_decreased_cfg.max_terms == 2
+    assert partially_decreased_cfg.min_digits == 1 and partially_decreased_cfg.max_digits == 2
+
+    # Test additional increments to ensure levels work as expected
+    curriculum.increment_attr_level("num_terms")
+    curriculum.increment_attr_level("num_terms")
+    higher_level_cfg = curriculum.generate_configuration(base_value)
+    assert higher_level_cfg.min_terms == 2 and higher_level_cfg.max_terms == 10
+    assert higher_level_cfg.min_digits == 1 and higher_level_cfg.max_digits == 2
+
+    # Test boundary conditions - trying to decrement below level 0
+    curriculum.decrement_attr_level("num_terms")
+    curriculum.decrement_attr_level("num_terms")
+    curriculum.decrement_attr_level("num_digits")
+    lower_bound_cfg = curriculum.generate_configuration(base_value)
+    assert lower_bound_cfg.min_terms == 2 and lower_bound_cfg.max_terms == 2
+    assert lower_bound_cfg.min_digits == 1 and lower_bound_cfg.max_digits == 1
+
+    # Test boundary conditions - trying to increment above max level
+    for _ in range(5):
+        curriculum.increment_attr_level("num_terms")
+        curriculum.increment_attr_level("num_digits")
+    upper_bound_cfg = curriculum.generate_configuration(base_value)
+    assert upper_bound_cfg.min_terms == 2 and upper_bound_cfg.max_terms == 20
+    assert upper_bound_cfg.min_digits == 1 and upper_bound_cfg.max_digits == 10

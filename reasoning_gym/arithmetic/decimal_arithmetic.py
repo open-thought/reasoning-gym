@@ -4,6 +4,7 @@ from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -13,8 +14,9 @@ class DecimalArithmeticConfig:
 
     min_num_decimal_places: int = 3
     max_num_decimal_places: int = 3
-    precision: int = 6
-    terms: int = 6
+    min_terms: int = 2
+    max_terms: int = 6
+    precision: int = 12
     seed: Optional[int] = None
     size: int = 500
 
@@ -31,7 +33,7 @@ def build_grouped_expression(operands: list[str], operators: list[str], rng: Ran
     inserting parentheses at random.
 
     The expression is built by choosing a random split among the operands;
-    the operator at that split becomes the “root” of the subexpression.
+    the operator at that split becomes the "root" of the subexpression.
     With 50% chance, the resulting combination is wrapped in parentheses.
     """
     if len(operands) == 1:
@@ -74,10 +76,13 @@ def generate_arithmetic_problem(
 
     operands: list[str] = []
     operators: list[str] = []
+    max_ndp = 1
 
     for i in range(terms):
         # Choose a random number of decimal places for this term.
         ndp: int = rng.randint(min_num_decimal_places, max_num_decimal_places)
+        if ndp > max_ndp:
+            max_ndp = ndp
         max_integer_part: int = 10  # Maximum whole number before the decimal
         max_value: int = max_integer_part * (10**ndp)
         raw_int: int = rng.randint(1, max_value)
@@ -94,7 +99,7 @@ def generate_arithmetic_problem(
 
     expr: str = build_grouped_expression(operands, operators, rng)
     problem_str: str = expr + " = ?"
-    return problem_str
+    return problem_str, max_ndp
 
 
 def evaluate_expression(expr: str) -> Decimal:
@@ -163,11 +168,13 @@ class DecimalArithmeticDataset(ProceduralDataset):
         rng: Random = Random(self.seed + idx if self.seed is not None else None)
         getcontext().prec = self.config.precision
 
-        problem_str: str = generate_arithmetic_problem(
+        terms = rng.randint(self.config.min_terms, self.config.max_terms)
+
+        problem_str, decimal_places = generate_arithmetic_problem(
             rng,
             self.config.min_num_decimal_places,
             self.config.max_num_decimal_places,
-            terms=self.config.terms,
+            terms=terms,
         )
         # Remove the trailing " = ?" to obtain the pure arithmetic expression.
         expr: str = problem_str.replace(" = ?", "").strip()
@@ -178,7 +185,11 @@ class DecimalArithmeticDataset(ProceduralDataset):
             + problem_str
         )
 
-        return {"question": problem_str, "answer": str(answer), "metadata": {}}
+        return {
+            "question": problem_str,
+            "answer": str(answer),
+            "metadata": {"decimal_places": decimal_places, "num_terms": terms},
+        }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
@@ -207,5 +218,34 @@ class DecimalArithmeticDataset(ProceduralDataset):
         return 0.0
 
 
+class DecimalArithmeticCurriculum(BaseCurriculum):
+    """Curriculum for Decimal Arithmetic"""
+
+    def __init__(self):
+        super().__init__(DecimalArithmeticCurriculum.__name__, DecimalArithmeticConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="decimal_places",
+                levels=[3, 5, 8, 10],
+                default_level=0,
+                description="Number of decimal places of the numbers in problem",
+                attr_type=AttributeType.APPEND,
+                min_value=3,
+                lower_field_name="min_num_decimal_places",
+                upper_field_name="max_num_decimal_places",
+            ),
+            RangeAttributeDefinition(
+                name="num_terms",
+                levels=[2, 3, 4, 6],
+                default_level=0,
+                description="Number of terms in the arithmetic expression",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+            ),
+        )
+
+
 # Register the dataset with the factory.
-register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticConfig)
+register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticConfig, DecimalArithmeticCurriculum)

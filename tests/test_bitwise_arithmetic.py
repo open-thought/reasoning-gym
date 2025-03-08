@@ -1,6 +1,10 @@
 import pytest
 
-from reasoning_gym.arithmetic.bitwise_arithmetic import BitwiseArithmeticConfig, BitwiseArithmeticDataset
+from reasoning_gym.arithmetic.bitwise_arithmetic import (
+    BitwiseArithmeticConfig,
+    BitwiseArithmeticCurriculum,
+    BitwiseArithmeticDataset,
+)
 
 
 def test_bitwise_arithmetic_config_validation():
@@ -116,3 +120,28 @@ def test_bitwise_arithmetic_answer_formats():
         elif not correct.startswith("0x"):
             # For positive numbers without prefix
             assert dataset.score_answer(answer="0x" + correct, entry=item) == 1.0
+
+
+def test_bitwise_arithmetic_curriculum():
+    """Test that curriculum generates appropriate configurations"""
+
+    curriculum = BitwiseArithmeticCurriculum()
+
+    base_value = {"size": 500, "seed": 42}
+
+    base_cfg: BitwiseArithmeticConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.difficulty == 1
+    assert base_cfg.size == 500
+    assert base_cfg.seed == 42
+
+    curriculum.set_attr_level("difficulty", 1)  # 0-indexed
+    cfg: BitwiseArithmeticConfig = curriculum.generate_configuration()
+    assert cfg.difficulty == 2
+
+    curriculum.increment_attr_level("difficulty")
+    cfg: BitwiseArithmeticConfig = curriculum.generate_configuration()
+    assert cfg.difficulty == 3
+
+    curriculum.decrement_attr_level("difficulty")
+    cfg: BitwiseArithmeticConfig = curriculum.generate_configuration()
+    assert cfg.difficulty == 2
