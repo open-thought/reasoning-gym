@@ -30,13 +30,13 @@ from .palindrome_partitioning import (
     PalindromePartitioningCurriculum,
     PalindromePartitioningDataset,
 )
-from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
+from .pool_matrix import PoolMatrixConfig, PoolMatrixCurriculum, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
-from .rotten_oranges import RottenOrangesConfig, RottenOrangesDataset
+from .rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
-from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
+from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixCurriculum, SpiralMatrixDataset
 from .string_insertion import StringInsertionConfig, StringInsertionDataset
 from .string_manipulation import StringManipulationConfig, StringManipulationDataset
 from .string_splitting import StringSplittingConfig, StringSplittingDataset
@@ -87,6 +87,7 @@ __all__ = [
     "PalindromePartitioningCurriculum",
     "SpiralMatrixConfig",
     "SpiralMatrixDataset",
+    "SpiralMatrixCurriculum",
     "RansomNoteConfig",
     "RansomNoteDataset",
     "IsomorphicStringsConfig",
@@ -103,6 +104,7 @@ __all__ = [
     "BinaryMatrixCurriculum",
     "PoolMatrixConfig",
     "PoolMatrixDataset",
+    "PoolMatrixCurriculum",
     "ABConfig",
     "ABDataset",
     "CountPrimesConfig",
@@ -120,6 +122,7 @@ __all__ = [
     "StringSynthesisDataset",
     "RottenOrangesConfig",
     "RottenOrangesDataset",
+    "RottenOrangesCurriculum",
     "JugsConfig",
     "JugsDataset",
     "BinaryAlternationConfig",

@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.rotten_oranges import RottenOrangesConfig, RottenOrangesDataset
+from reasoning_gym.algorithmic.rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
 
 
 def test_rotten_oranges_config_validation():
@@ -117,3 +117,24 @@ def test_rotten_oranges_answer():
         [0, 1, 1],
     ]
     assert dataset._get_answer(matrix) == 4
+
+
+def test_rotten_oranges_curriculum():
+    curriculum = RottenOrangesCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: RottenOrangesConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_n == 10 and base_cfg.max_n == 10
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("n")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 25
+
+    # test decrementing attribute level for n again
+    curriculum.decrement_attr_level("n")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_n == 10 and partially_decreased_cfg.max_n == 10
