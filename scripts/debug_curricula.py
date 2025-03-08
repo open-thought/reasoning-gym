@@ -5,6 +5,7 @@ import argparse
 import textwrap
 from copy import deepcopy
 from pathlib import Path
+from typing import Optional
 
 from tqdm import tqdm
 
@@ -155,8 +156,6 @@ def main():
     script_dir = Path(__file__).parent
     if not script_dir.exists():
         script_dir.mkdir(parents=True)
-
-    curricula_path = script_dir.parent / output_path
     
     print(f"Generating curricula documentation...")
     print(f"Number of examples per level: {args.examples}")
@@ -169,6 +168,8 @@ def main():
         base, ext = output_path.rsplit('.', 1) if '.' in output_path else (output_path, 'md')
         output_path = f"{base}_{args.dataset}.{ext}"
         print(f"Generating documentation for dataset: {args.dataset}")
+    
+    curricula_path = script_dir.parent / output_path
     
     curricula_content = generate_curricula_doc(
         num_examples=args.examples,
