@@ -1,6 +1,7 @@
 #!/usr/bin/env -S PYTHONHASHSEED=1 python3
 """Generate a markdown document showing curriculum progression for all datasets"""
 
+import argparse
 import textwrap
 from copy import deepcopy
 from pathlib import Path
@@ -10,8 +11,13 @@ from tqdm import tqdm
 from reasoning_gym.factory import DATASETS, CURRICULA, create_curriculum, create_dataset
 
 
-def generate_curricula_doc() -> str:
-    """Generate markdown content showing curriculum progression"""
+def generate_curricula_doc(num_examples: int = 1, show_config: bool = False) -> str:
+    """Generate markdown content showing curriculum progression
+    
+    Args:
+        num_examples: Number of examples to generate per difficulty level
+        show_config: Whether to show the effective dataset configuration
+    """
 
     # Start with header
     content = ["# Reasoning Gym Curriculum Progression\n"]
@@ -84,9 +90,6 @@ def generate_curricula_doc() -> str:
                 # Create dataset with this config
                 dataset = dataset_cls(config=config)
                 
-                # Get first example
-                example = dataset[0]
-                
                 # Show level and example
                 content.append(f"##### Difficulty Level {level}\n")
                 
@@ -96,12 +99,26 @@ def generate_curricula_doc() -> str:
                     attr_level = min(level, len(attr.levels) - 1)
                     content.append(f"- {attr_name}: {attr.levels[attr_level]}\n")
                 
-                content.append("\n```\n")
-                content.append(f"Question: {example['question']}\n")
-                content.append(f"Answer: {example['answer']}\n")
-                if example.get("metadata"):
-                    content.append(f"Metadata: {example['metadata']}\n")
-                content.append("```\n\n")
+                # Show the effective configuration if requested
+                if show_config:
+                    content.append("\nEffective configuration:\n")
+                    for key, value in vars(config).items():
+                        if key != "seed" and key != "size":
+                            content.append(f"- {key}: {value}\n")
+                
+                # Generate multiple examples
+                for ex_idx in range(num_examples):
+                    # Get example
+                    example = dataset[ex_idx]
+                    
+                    content.append(f"\n```\n")
+                    if num_examples > 1:
+                        content.append(f"Example {ex_idx + 1}:\n")
+                    content.append(f"Question: {example['question']}\n")
+                    content.append(f"Answer: {example['answer']}\n")
+                    if example.get("metadata"):
+                        content.append(f"Metadata: {example['metadata']}\n")
+                    content.append("```\n")
             except Exception as e:
                 content.append(f"##### Difficulty Level {level}\n")
                 content.append(f"*Error generating example: {str(e)}*\n\n")
@@ -113,15 +130,31 @@ def generate_curricula_doc() -> str:
 
 def main():
     """Generate curricula markdown file"""
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description="Generate curriculum documentation")
+    parser.add_argument("--examples", type=int, default=1, 
+                        help="Number of examples to generate per difficulty level")
+    parser.add_argument("--show-config", action="store_true", 
+                        help="Show the effective dataset configuration")
+    parser.add_argument("--output", type=str, default="CURRICULA.md",
+                        help="Output file path (relative to project root)")
+    args = parser.parse_args()
+    
     # Ensure scripts directory exists
     script_dir = Path(__file__).parent
     if not script_dir.exists():
         script_dir.mkdir(parents=True)
 
-    curricula_path = script_dir.parent / "CURRICULA.md"
+    curricula_path = script_dir.parent / args.output
     
     print(f"Generating curricula documentation...")
-    curricula_content = generate_curricula_doc()
+    print(f"Number of examples per level: {args.examples}")
+    print(f"Show configuration: {args.show_config}")
+    
+    curricula_content = generate_curricula_doc(
+        num_examples=args.examples,
+        show_config=args.show_config
+    )
 
     with open(curricula_path, "w") as f:
         f.write(curricula_content)
