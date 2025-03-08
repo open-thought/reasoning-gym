@@ -4,7 +4,7 @@ from datetime import date
 
 import pytest
 
-from reasoning_gym.arithmetic import CalendarArithmeticConfig, CalendarArithmeticDataset
+from reasoning_gym.arithmetic import CalendarArithmeticConfig, CalendarArithmeticCurriculum, CalendarArithmeticDataset
 
 WEEKDAYS = [
     "Monday",
@@ -18,7 +18,7 @@ WEEKDAYS = [
 
 WEEKDAY_TASKS = {
     "weekday_offset",
-    "weekday_of_date_from_first_day",
+    "weekday_of_date_from_first_date",
     "weekday_of_date",
 }
 NUMERIC_TASKS = {
@@ -71,6 +71,7 @@ def test_calendar_item_structure():
         assert isinstance(item["question"], str) and len(item["question"]) > 0
         assert isinstance(item["answer"], str) and len(item["answer"]) > 0
         assert "task" in item["metadata"]
+        print(item["metadata"]["task"])
         assert item["metadata"]["task"] in CALENDAR_TASKS
 
 
@@ -196,3 +197,22 @@ def test_task_case_sensitivity():
 
     for item in dataset:
         assert item["metadata"]["task"] in [t.lower() for t in tasks]
+
+
+def test_calendar_curriculum():
+    """Test that the curriculum generates correct configurations."""
+    curriculum = CalendarArithmeticCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: CalendarArithmeticConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.size == 150
+    assert base_cfg.seed == 1
+    assert base_cfg.tasks == ["weekday_of_date"]
+    assert base_cfg.offset_upper_bound == 30
+
+    curriculum.increment_attr_level("task_complexity")
+    curriculum.increment_attr_level("date_range")
+    increased_cfg: CalendarArithmeticConfig = curriculum.generate_configuration()
+    assert increased_cfg.tasks == ["weekday_of_date", "is_leap_year", "weekday_offset"]
+    assert increased_cfg.offset_upper_bound == 100

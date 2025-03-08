@@ -6,6 +6,7 @@ from datetime import date, timedelta
 from enum import Enum, StrEnum, auto
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -41,7 +42,7 @@ class Weekday(Enum):
 class CalendarTask(StrEnum):
     WEEKDAY_OFFSET = "weekday_offset"
     WEEKDAY_OF_DATE = "weekday_of_date"
-    WEEKDAY_OF_DATE_FROM_FIRST_DATE = "weekday_of_date_from_first_day"
+    WEEKDAY_OF_DATE_FROM_FIRST_DATE = "weekday_of_date_from_first_date"
     RECURRING_EVENT_CALCULATIONS = "recurring_event_day"
     COUNT_DAYS = "count_days"
     COUNT_BUSINESS_DAYS = "count_business_days"
@@ -112,7 +113,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         self.task_handlers = {
             CalendarTask.WEEKDAY_OFFSET.value: self._weekday_offset,
             CalendarTask.WEEKDAY_OF_DATE.value: self._weekday_of_date,
-            CalendarTask.WEEKDAY_OF_DATE_FROM_FIRST_DATE.value: self._weekday_of_date_from_first_day,
+            CalendarTask.WEEKDAY_OF_DATE_FROM_FIRST_DATE.value: self._weekday_of_date_from_first_date,
             CalendarTask.RECURRING_EVENT_CALCULATIONS.value: self._recurring_event_day,
             CalendarTask.COUNT_DAYS.value: self._count_days,
             CalendarTask.COUNT_BUSINESS_DAYS.value: self._count_business_days,
@@ -125,6 +126,10 @@ class CalendarArithmeticDataset(ProceduralDataset):
         rng = random.Random(self.seed + idx)
         task = rng.choice(self.tasks)
         question, answer, metadata = task(rng)
+        metadata["difficulty"] = {
+            "task_complexity": self.tasks.index(task),
+            "date_range": self.config.offset_upper_bound,
+        }
         return {
             "question": question,
             "answer": str(answer),
@@ -193,7 +198,7 @@ class CalendarArithmeticDataset(ProceduralDataset):
         }
         return question, answer_weekday, metadata
 
-    def _weekday_of_date_from_first_day(self, rng: random.Random) -> tuple[str, str, dict]:
+    def _weekday_of_date_from_first_date(self, rng: random.Random) -> tuple[str, str, dict]:
         """
         task: Given an hypothetical weekday for January 1, ask what weekday a later date in the year falls on.
         example:
@@ -484,4 +489,44 @@ class CalendarArithmeticDataset(ProceduralDataset):
         return 0.0
 
 
-register_dataset("calendar_arithmetic", CalendarArithmeticDataset, CalendarArithmeticConfig)
+class CalendarArithmeticCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(CalendarArithmeticCurriculum.__name__, CalendarArithmeticConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="task_complexity",
+                levels=[
+                    ["weekday_of_date"],
+                    ["weekday_of_date", "is_leap_year", "weekday_offset"],
+                    ["weekday_of_date", "is_leap_year", "weekday_offset", "count_days", "count_business_days"],
+                    [
+                        "weekday_of_date",
+                        "is_leap_year",
+                        "weekday_offset",
+                        "count_days",
+                        "count_business_days",
+                        "weekday_of_date_from_first_date",
+                        "recurring_event_day",
+                    ],
+                ],
+                default_level=0,
+                description="Controls which calendar tasks are included",
+                attr_type=AttributeType.STATIC,
+                field_name="tasks",
+            ),
+            ScalarAttributeDefinition(
+                name="date_range",
+                levels=[30, 100, 250, 365],
+                default_level=0,
+                description="Maximum day range for offset and counting tasks",
+                attr_type=AttributeType.STATIC,
+                field_name="offset_upper_bound",
+            ),
+        )
+
+
+register_dataset(
+    "calendar_arithmetic", CalendarArithmeticDataset, CalendarArithmeticConfig, CalendarArithmeticCurriculum
+)
