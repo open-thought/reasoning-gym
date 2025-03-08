@@ -9,7 +9,7 @@ from .chain_sum import ChainSumConfig, ChainSumDataset
 from .count_bits import CountBitsConfig, CountBitsCurriculum, CountBitsDataset
 from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticCurriculum, DecimalArithmeticDataset
 from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumCurriculum, DecimalChainSumDataset
-from .dice import DiceConfig, DiceDataset
+from .dice import DiceConfig, DiceCurriculum, DiceDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
@@ -54,6 +54,7 @@ __all__ = [
     "CountBitsCurriculum",
     "DiceConfig",
     "DiceDataset",
+    "DiceCurriculum",
     "NumberFormatConfig",
     "NumberFormatDataset",
     "DecimalArithmeticConfig",
