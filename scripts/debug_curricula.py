@@ -12,13 +12,13 @@ from tqdm import tqdm
 from reasoning_gym.factory import CURRICULA, DATASETS, create_curriculum, create_dataset
 
 
-def generate_curricula_doc(num_examples: int = 1, show_config: bool = False, dataset_name: Optional[str] = None) -> str:
+def generate_curricula_doc(num_examples: int = 1, show_config: bool = False, dataset_names: Optional[list[str]] = None) -> str:
     """Generate markdown content showing curriculum progression
 
     Args:
         num_examples: Number of examples to generate per difficulty level
         show_config: Whether to show the effective dataset configuration
-        dataset_name: Optional name of a specific dataset to generate documentation for
+        dataset_names: Optional list of specific dataset names to generate documentation for
     """
 
     # Start with header
@@ -28,11 +28,13 @@ def generate_curricula_doc(num_examples: int = 1, show_config: bool = False, dat
     # Get datasets with curricula
     all_datasets_with_curricula = sorted([name for name in DATASETS.keys() if name in CURRICULA])
 
-    # Filter to specific dataset if provided
-    if dataset_name:
-        if dataset_name not in CURRICULA:
-            raise ValueError(f"Dataset '{dataset_name}' does not have a curriculum")
-        datasets_with_curricula = [dataset_name]
+    # Filter to specific datasets if provided
+    if dataset_names:
+        # Validate all requested datasets
+        for name in dataset_names:
+            if name not in CURRICULA:
+                raise ValueError(f"Dataset '{name}' does not have a curriculum")
+        datasets_with_curricula = dataset_names
     else:
         datasets_with_curricula = all_datasets_with_curricula
 
@@ -141,7 +143,7 @@ def main():
     parser.add_argument(
         "--output", type=str, default="CURRICULA.md", help="Output file path (relative to project root)"
     )
-    parser.add_argument("--dataset", type=str, help="Generate documentation for a specific dataset only")
+    parser.add_argument("--dataset", type=str, help="Generate documentation for specific datasets (comma-separated list)")
     args = parser.parse_args()
 
     # Ensure scripts directory exists
@@ -153,13 +155,16 @@ def main():
     print(f"Number of examples per level: {args.examples}")
     print(f"Show configuration: {args.show_config}")
 
+    # Parse dataset names if provided
+    dataset_names = None
     if args.dataset:
-        print(f"Generating documentation for dataset: {args.dataset}")
+        dataset_names = [name.strip() for name in args.dataset.split(',')]
+        print(f"Generating documentation for datasets: {', '.join(dataset_names)}")
 
     curricula_path = script_dir.parent / args.output
 
     curricula_content = generate_curricula_doc(
-        num_examples=args.examples, show_config=args.show_config, dataset_name=args.dataset
+        num_examples=args.examples, show_config=args.show_config, dataset_names=dataset_names
     )
 
     with open(curricula_path, "w") as f:
