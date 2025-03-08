@@ -161,15 +161,10 @@ def main():
     print(f"Number of examples per level: {args.examples}")
     print(f"Show configuration: {args.show_config}")
     
-    # If a specific dataset is provided, modify the output filename
-    output_path = args.output
     if args.dataset:
-        # Add dataset name to the output filename
-        base, ext = output_path.rsplit('.', 1) if '.' in output_path else (output_path, 'md')
-        output_path = f"{base}_{args.dataset}.{ext}"
         print(f"Generating documentation for dataset: {args.dataset}")
     
-    curricula_path = script_dir.parent / output_path
+    curricula_path = script_dir.parent / args.output
     
     curricula_content = generate_curricula_doc(
         num_examples=args.examples,
