@@ -26,7 +26,7 @@ from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
 from .palindrome_partitioning import PalindromePartitioningConfig, PalindromePartitioningDataset
-from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
+from .pool_matrix import PoolMatrixConfig, PoolMatrixCurriculum, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
@@ -99,6 +99,7 @@ __all__ = [
     "BinaryMatrixCurriculum",
     "PoolMatrixConfig",
     "PoolMatrixDataset",
+    "PoolMatrixCurriculum",
     "ABConfig",
     "ABDataset",
     "CountPrimesConfig",
