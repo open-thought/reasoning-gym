@@ -25,7 +25,11 @@ from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculu
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
-from .palindrome_partitioning import PalindromePartitioningConfig, PalindromePartitioningDataset
+from .palindrome_partitioning import (
+    PalindromePartitioningConfig,
+    PalindromePartitioningCurriculum,
+    PalindromePartitioningDataset,
+)
 from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
@@ -80,6 +84,7 @@ __all__ = [
     "GroupAnagramsCurriculum",
     "PalindromePartitioningConfig",
     "PalindromePartitioningDataset",
+    "PalindromePartitioningCurriculum",
     "SpiralMatrixConfig",
     "SpiralMatrixDataset",
     "RansomNoteConfig",
