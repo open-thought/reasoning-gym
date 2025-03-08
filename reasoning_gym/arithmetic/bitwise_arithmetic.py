@@ -152,7 +152,11 @@ class BitwiseArithmeticDataset(ProceduralDataset):
             + problem
         )
 
-        return {"question": problem_str, "answer": answer, "metadata": {"problem": problem}}
+        return {
+            "question": problem_str,
+            "answer": answer,
+            "metadata": {"problem": problem, "difficulty": {"difficulty": self.config.difficulty}},
+        }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """
@@ -192,4 +196,4 @@ class BitwiseArithmeticCurriculum(BaseCurriculum):
 
 
 # Register the dataset with the factory.
-register_dataset("bitwise_arithmetic", BitwiseArithmeticDataset, BitwiseArithmeticConfig)
+register_dataset("bitwise_arithmetic", BitwiseArithmeticDataset, BitwiseArithmeticConfig, BitwiseArithmeticCurriculum)
