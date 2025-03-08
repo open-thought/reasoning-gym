@@ -31,7 +31,7 @@ from .palindrome_partitioning import (
     PalindromePartitioningDataset,
 )
 from .pool_matrix import PoolMatrixConfig, PoolMatrixCurriculum, PoolMatrixDataset
-from .ransom_note import RansomNoteConfig, RansomNoteDataset
+from .ransom_note import RansomNoteConfig, RansomNoteCurriculum, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
@@ -90,6 +90,7 @@ __all__ = [
     "SpiralMatrixCurriculum",
     "RansomNoteConfig",
     "RansomNoteDataset",
+    "RansomNoteCurriculum",
     "IsomorphicStringsConfig",
     "IsomorphicStringsDataset",
     "IsomorphicStringsCurriculum",
