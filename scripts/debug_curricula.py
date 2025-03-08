@@ -85,7 +85,7 @@ def generate_curricula_doc(num_examples: int = 1, show_config: bool = False) -> 
                         curriculum.set_attr_level(attr_name, level)
                 
                 # Generate config with this level
-                config = curriculum.generate_configuration({"seed": 42})
+                config = curriculum.generate_configuration({"seed": 42 + level})
                 
                 # Create dataset with this config
                 dataset = dataset_cls(config=config)
@@ -94,7 +94,7 @@ def generate_curricula_doc(num_examples: int = 1, show_config: bool = False) -> 
                 content.append(f"##### Difficulty Level {level}\n")
                 
                 # Show the current values for each attribute
-                content.append("Current attribute values:\n")
+                content.append("Attribute values:\n")
                 for attr_name, attr in curriculum.attributes.items():
                     attr_level = min(level, len(attr.levels) - 1)
                     content.append(f"- {attr_name}: {attr.levels[attr_level]}\n")
@@ -132,7 +132,7 @@ def main():
     """Generate curricula markdown file"""
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="Generate curriculum documentation")
-    parser.add_argument("--examples", type=int, default=1, 
+    parser.add_argument("--examples", type=int, default=3, 
                         help="Number of examples to generate per difficulty level")
     parser.add_argument("--show-config", action="store_true", 
                         help="Show the effective dataset configuration")
