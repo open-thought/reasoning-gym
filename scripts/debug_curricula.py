@@ -89,10 +89,8 @@ def generate_curricula_doc(num_examples: int = 1, show_config: bool = False, dat
                 # Reset curriculum to defaults
                 curriculum = create_curriculum(name)
                 
-                # Set all attributes to this level, if available
-                for attr_name, attr in curriculum.attributes.items():
-                    if level < len(attr.levels):
-                        curriculum.set_attr_level(attr_name, level)
+                # Set all attributes to this level using the global level function
+                curriculum.set_global_level(level)
                 
                 # Generate config with this level
                 config = curriculum.generate_configuration({"seed": 42 + level})
