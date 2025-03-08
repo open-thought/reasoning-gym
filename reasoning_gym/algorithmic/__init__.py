@@ -32,7 +32,7 @@ from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMat
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
-from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixDataset
+from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixCurriculum, SpiralMatrixDataset
 from .string_insertion import StringInsertionConfig, StringInsertionDataset
 from .string_manipulation import StringManipulationConfig, StringManipulationDataset
 from .string_splitting import StringSplittingConfig, StringSplittingDataset
@@ -82,6 +82,7 @@ __all__ = [
     "PalindromePartitioningDataset",
     "SpiralMatrixConfig",
     "SpiralMatrixDataset",
+    "SpiralMatrixCurriculum",
     "RansomNoteConfig",
     "RansomNoteDataset",
     "IsomorphicStringsConfig",
