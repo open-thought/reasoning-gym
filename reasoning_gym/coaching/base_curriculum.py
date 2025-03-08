@@ -145,7 +145,7 @@ class BaseCurriculum:
         
         # Check if any attribute can be increased
         can_increase = any(
-            self.get_attr_level(attr_name) < len(attr.levels) - 1
+            self.get_attr_level(attr_name) < len(self._attributes[attr_name].levels) - 1
             for attr_name in self._attributes
         )
         
