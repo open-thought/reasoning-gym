@@ -90,11 +90,11 @@ def generate_curricula_doc() -> str:
                 # Show level and example
                 content.append(f"##### Difficulty Level {level}\n")
                 
-                # Show the current level for each attribute
-                content.append("Current attribute levels:\n")
+                # Show the current values for each attribute
+                content.append("Current attribute values:\n")
                 for attr_name, attr in curriculum.attributes.items():
                     attr_level = min(level, len(attr.levels) - 1)
-                    content.append(f"- {attr_name}: Level {attr_level} ({attr.levels[attr_level]})\n")
+                    content.append(f"- {attr_name}: {attr.levels[attr_level]}\n")
                 
                 content.append("\n```\n")
                 content.append(f"Question: {example['question']}\n")
