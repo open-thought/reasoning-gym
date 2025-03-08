@@ -11,12 +11,13 @@ from tqdm import tqdm
 from reasoning_gym.factory import DATASETS, CURRICULA, create_curriculum, create_dataset
 
 
-def generate_curricula_doc(num_examples: int = 1, show_config: bool = False) -> str:
+def generate_curricula_doc(num_examples: int = 1, show_config: bool = False, dataset_name: Optional[str] = None) -> str:
     """Generate markdown content showing curriculum progression
     
     Args:
         num_examples: Number of examples to generate per difficulty level
         show_config: Whether to show the effective dataset configuration
+        dataset_name: Optional name of a specific dataset to generate documentation for
     """
 
     # Start with header
@@ -26,7 +27,15 @@ def generate_curricula_doc(num_examples: int = 1, show_config: bool = False) -> 
     )
 
     # Get datasets with curricula
-    datasets_with_curricula = sorted([name for name in DATASETS.keys() if name in CURRICULA])
+    all_datasets_with_curricula = sorted([name for name in DATASETS.keys() if name in CURRICULA])
+    
+    # Filter to specific dataset if provided
+    if dataset_name:
+        if dataset_name not in CURRICULA:
+            raise ValueError(f"Dataset '{dataset_name}' does not have a curriculum")
+        datasets_with_curricula = [dataset_name]
+    else:
+        datasets_with_curricula = all_datasets_with_curricula
 
     # Add index
     content.append("## Available Curricula\n")
@@ -138,6 +147,8 @@ def main():
                         help="Show the effective dataset configuration")
     parser.add_argument("--output", type=str, default="CURRICULA.md",
                         help="Output file path (relative to project root)")
+    parser.add_argument("--dataset", type=str, 
+                        help="Generate documentation for a specific dataset only")
     args = parser.parse_args()
     
     # Ensure scripts directory exists
@@ -145,15 +156,24 @@ def main():
     if not script_dir.exists():
         script_dir.mkdir(parents=True)
 
-    curricula_path = script_dir.parent / args.output
+    curricula_path = script_dir.parent / output_path
     
     print(f"Generating curricula documentation...")
     print(f"Number of examples per level: {args.examples}")
     print(f"Show configuration: {args.show_config}")
     
+    # If a specific dataset is provided, modify the output filename
+    output_path = args.output
+    if args.dataset:
+        # Add dataset name to the output filename
+        base, ext = output_path.rsplit('.', 1) if '.' in output_path else (output_path, 'md')
+        output_path = f"{base}_{args.dataset}.{ext}"
+        print(f"Generating documentation for dataset: {args.dataset}")
+    
     curricula_content = generate_curricula_doc(
         num_examples=args.examples,
-        show_config=args.show_config
+        show_config=args.show_config,
+        dataset_name=args.dataset
     )
 
     with open(curricula_path, "w") as f:
