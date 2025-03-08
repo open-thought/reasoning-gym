@@ -17,7 +17,7 @@ from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsCurriculum, GroupAnagramsDataset
-from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
+from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsCurriculum, IsomorphicStringsDataset
 from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
@@ -86,6 +86,7 @@ __all__ = [
     "RansomNoteDataset",
     "IsomorphicStringsConfig",
     "IsomorphicStringsDataset",
+    "IsomorphicStringsCurriculum",
     "RotateMatrixConfig",
     "RotateMatrixDataset",
     "ManipulateMatrixConfig",
