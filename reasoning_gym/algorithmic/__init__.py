@@ -16,7 +16,7 @@ from .cryptarithm import CryptarithmConfig, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 from .graph_color import GraphColorConfig, GraphColorDataset
-from .group_anagrams import GroupAnagramsConfig, GroupAnagramsDataset
+from .group_anagrams import GroupAnagramsConfig, GroupAnagramsCurriculum, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsDataset
 from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingDataset
@@ -76,6 +76,7 @@ __all__ = [
     "PalindromeDataset",
     "GroupAnagramsConfig",
     "GroupAnagramsDataset",
+    "GroupAnagramsCurriculum",
     "PalindromePartitioningConfig",
     "PalindromePartitioningDataset",
     "SpiralMatrixConfig",
