@@ -27,7 +27,7 @@ from .number_sorting import NumberSortingConfig, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
 from .palindrome_partitioning import PalindromePartitioningConfig, PalindromePartitioningDataset
 from .pool_matrix import PoolMatrixConfig, PoolMatrixDataset
-from .ransom_note import RansomNoteConfig, RansomNoteDataset
+from .ransom_note import RansomNoteConfig, RansomNoteCurriculum, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
@@ -84,6 +84,7 @@ __all__ = [
     "SpiralMatrixDataset",
     "RansomNoteConfig",
     "RansomNoteDataset",
+    "RansomNoteCurriculum",
     "IsomorphicStringsConfig",
     "IsomorphicStringsDataset",
     "IsomorphicStringsCurriculum",
