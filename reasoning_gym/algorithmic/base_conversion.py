@@ -125,8 +125,8 @@ class BaseConversionCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="base",
-                levels=[9, 18, 27, 36],
-                default_level=0,
+                levels=[2, 9, 18, 27, 36],
+                default_level=1,
                 description="The base of the number system",
                 attr_type=AttributeType.APPEND,
                 min_value=2,
