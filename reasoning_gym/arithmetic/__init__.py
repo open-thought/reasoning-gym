@@ -16,7 +16,7 @@ from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetCon
 from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
 from .number_format import NumberFormatConfig, NumberFormatDataset
-from .power_function import PowerFunctionConfig, PowerFunctionDataset
+from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
@@ -41,6 +41,7 @@ __all__ = [
     "LegCountingCurriculum",
     "PowerFunctionConfig",
     "PowerFunctionDataset",
+    "PowerFunctionCurriculum",
     "PrimeFactorizationConfig",
     "PrimeFactorizationDataset",
     "ProductsDataset",
