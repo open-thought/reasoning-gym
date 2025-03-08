@@ -12,7 +12,9 @@ from tqdm import tqdm
 from reasoning_gym.factory import CURRICULA, DATASETS, create_curriculum, create_dataset
 
 
-def generate_curricula_doc(num_examples: int = 1, show_config: bool = False, dataset_names: Optional[list[str]] = None) -> str:
+def generate_curricula_doc(
+    num_examples: int = 1, show_config: bool = False, dataset_names: Optional[list[str]] = None
+) -> str:
     """Generate markdown content showing curriculum progression
 
     Args:
@@ -143,7 +145,9 @@ def main():
     parser.add_argument(
         "--output", type=str, default="CURRICULA.md", help="Output file path (relative to project root)"
     )
-    parser.add_argument("--dataset", type=str, help="Generate documentation for specific datasets (comma-separated list)")
+    parser.add_argument(
+        "--dataset", type=str, help="Generate documentation for specific datasets (comma-separated list)"
+    )
     args = parser.parse_args()
 
     # Ensure scripts directory exists
@@ -158,7 +162,7 @@ def main():
     # Parse dataset names if provided
     dataset_names = None
     if args.dataset:
-        dataset_names = [name.strip() for name in args.dataset.split(',')]
+        dataset_names = [name.strip() for name in args.dataset.split(",")]
         print(f"Generating documentation for datasets: {', '.join(dataset_names)}")
 
     curricula_path = script_dir.parent / args.output
