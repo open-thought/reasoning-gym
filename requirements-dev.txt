@@ -6,3 +6,4 @@ flake8>=7.1.1
 mypy>=1.14.1
 pre-commit>=4.1.0
 openai>=1.61.1
+zss>=1.2.0
