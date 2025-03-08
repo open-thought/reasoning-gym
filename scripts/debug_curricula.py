@@ -59,44 +59,54 @@ def generate_curricula_doc() -> str:
             content.append(f"  - Levels: {attr.levels}\n")
         content.append("\n")
 
-        # For each attribute, show progression through levels
-        for attr_name, attr in curriculum.attributes.items():
-            content.append(f"#### Progression of '{attr_name}'\n")
-            
-            # Reset curriculum to defaults
-            curriculum = create_curriculum(name)
-            
-            # Show examples at each level
-            attr_levels = len(attr.levels)
-            for level in tqdm(range(attr_levels), 
-                             desc=f"Dataset: {name}, Attribute: {attr_name}",
-                             leave=False):
-                try:
-                    # Set the attribute to this level
-                    curriculum.set_attr_level(attr_name, level)
-                    
-                    # Generate config with this level
-                    config = curriculum.generate_configuration({"seed": 42})
-                    
-                    # Create dataset with this config
-                    dataset = dataset_cls(config=config)
-                    
-                    # Get first example
-                    example = dataset[0]
-                    
-                    # Show level and example
-                    content.append(f"##### Level {level}: {attr.levels[level]}\n")
-                    content.append("```\n")
-                    content.append(f"Question: {example['question']}\n")
-                    content.append(f"Answer: {example['answer']}\n")
-                    if example.get("metadata"):
-                        content.append(f"Metadata: {example['metadata']}\n")
-                    content.append("```\n\n")
-                except Exception as e:
-                    content.append(f"##### Level {level}: {attr.levels[level]}\n")
-                    content.append(f"*Error generating example: {str(e)}*\n\n")
-            
-            content.append("\n")
+        # Show progression with all attributes increasing simultaneously
+        content.append(f"#### Overall Difficulty Progression\n")
+        
+        # Find the maximum number of levels across all attributes
+        max_levels = max(len(attr.levels) for attr in curriculum.attributes.values())
+        
+        # Show examples at each difficulty level
+        for level in tqdm(range(max_levels), 
+                         desc=f"Dataset: {name}, Overall Difficulty",
+                         leave=False):
+            try:
+                # Reset curriculum to defaults
+                curriculum = create_curriculum(name)
+                
+                # Set all attributes to this level, if available
+                for attr_name, attr in curriculum.attributes.items():
+                    if level < len(attr.levels):
+                        curriculum.set_attr_level(attr_name, level)
+                
+                # Generate config with this level
+                config = curriculum.generate_configuration({"seed": 42})
+                
+                # Create dataset with this config
+                dataset = dataset_cls(config=config)
+                
+                # Get first example
+                example = dataset[0]
+                
+                # Show level and example
+                content.append(f"##### Difficulty Level {level}\n")
+                
+                # Show the current level for each attribute
+                content.append("Current attribute levels:\n")
+                for attr_name, attr in curriculum.attributes.items():
+                    attr_level = min(level, len(attr.levels) - 1)
+                    content.append(f"- {attr_name}: Level {attr_level} ({attr.levels[attr_level]})\n")
+                
+                content.append("\n```\n")
+                content.append(f"Question: {example['question']}\n")
+                content.append(f"Answer: {example['answer']}\n")
+                if example.get("metadata"):
+                    content.append(f"Metadata: {example['metadata']}\n")
+                content.append("```\n\n")
+            except Exception as e:
+                content.append(f"##### Difficulty Level {level}\n")
+                content.append(f"*Error generating example: {str(e)}*\n\n")
+        
+        content.append("\n")
 
     return "".join(content)
 
