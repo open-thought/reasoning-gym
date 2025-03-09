@@ -42,7 +42,11 @@ from .string_manipulation import StringManipulationConfig, StringManipulationCur
 from .string_splitting import StringSplittingConfig, StringSplittingDataset
 from .string_synthesis import StringSynthesisConfig, StringSynthesisDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
-from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
+from .word_sequence_reversal import (
+    WordSequenceReversalConfig,
+    WordSequenceReversalCurriculum,
+    WordSequenceReversalDataset,
+)
 from .word_sorting import TextTransformation, WordSortingConfig, WordSortingCurriculum, WordSortingDataset
 
 __all__ = [
@@ -72,6 +76,7 @@ __all__ = [
     "SentenceReorderingDataset",
     "WordSequenceReversalConfig",
     "WordSequenceReversalDataset",
+    "WordSequenceReversalCurriculum",
     "WordSortingCurriculum",
     "WordSortingConfig",
     "WordSortingDataset",
@@ -120,6 +125,7 @@ __all__ = [
     "StringInsertionCurriculum",
     "StringManipulationConfig",
     "StringManipulationDataset",
+    "StringManipulationCurriculum",
     "StringSplittingConfig",
     "StringSplittingDataset",
     "StringSynthesisConfig",
