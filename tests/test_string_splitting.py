@@ -2,7 +2,11 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.string_splitting import StringSplittingConfig, StringSplittingDataset
+from reasoning_gym.algorithmic.string_splitting import (
+    StringSplittingConfig,
+    StringSplittingCurriculum,
+    StringSplittingDataset,
+)
 
 
 def test_string_splitting_config_validation():
@@ -106,3 +110,24 @@ def test_string_splitting_answer():
         [0, 0, 1, 3, 1, 1],
         [0, 0, 1, 2, 0, 2],
     ]
+
+
+def test_string_splitting_curriculum():
+    curriculum = StringSplittingCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: StringSplittingConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_initial_machines == 10 and base_cfg.max_initial_machines == 50
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("initial_machines")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_initial_machines == 10 and increased_cfg.max_initial_machines == 100
+
+    # test decrementing attribute level for initial_machines again
+    curriculum.decrement_attr_level("initial_machines")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_initial_machines == 10 and partially_decreased_cfg.max_initial_machines == 50
