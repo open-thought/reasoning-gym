@@ -10,7 +10,7 @@ from .ab import ABConfig, ABDataset
 from .base_conversion import BaseConversionConfig, BaseConversionCurriculum, BaseConversionDataset
 from .binary_alternation import BinaryAlternationConfig, BinaryAlternationCurriculum, BinaryAlternationDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixCurriculum, BinaryMatrixDataset
-from .caesar_cipher import CaesarCipherConfig, CaesarCipherDataset
+from .caesar_cipher import CaesarCipherConfig, CaesarCipherCurriculum, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesCurriculum, CountPrimesDataset
 from .cryptarithm import CryptarithmConfig, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
@@ -53,6 +53,7 @@ __all__ = [
     "BaseConversionCurriculum",
     "CaesarCipherConfig",
     "CaesarCipherDataset",
+    "CaesarCipherCurriculum",
     "CryptarithmConfig",
     "CryptarithmDataset",
     "GameOfLifeConfig",
