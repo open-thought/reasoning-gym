@@ -62,7 +62,7 @@ class WordSequenceReversalDataset(ProceduralDataset):
         return {
             "question": f"{QUESTION_TEMPLATE.format(words=words_str)}",
             "answer": answer,
-            "metadata": {"num_words": num_words, "words": words},
+            "metadata": {"num_words": num_words, "words": words, "difficulty": {"words": num_words}},
         }
 
 
