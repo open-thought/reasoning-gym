@@ -214,10 +214,7 @@ Return your solution as a JSON map of vertices to colors. (For example: {{"0": 1
             "metadata": {
                 "possible_answer": solution,
                 "puzzle": puzzle,
-                "difficulty": {
-                    "num_vertices": len(puzzle["vertices"]),
-                    "num_colors": len(puzzle["color_options"]),
-                },
+                "difficulty": {"num_vertices": num_vertices, "num_colors": num_colors},
             },
         }
 

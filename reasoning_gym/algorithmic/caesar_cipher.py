@@ -67,6 +67,7 @@ class CaesarCipherDataset(ProceduralDataset):
 
         # Select random sentence and rotation
         sentence = rng.choice(self.valid_sentences)
+        num_words = len(sentence.split())
         rotation = rng.randint(self.config.min_rotation, self.config.max_rotation)
 
         # Generate cipher text
@@ -81,7 +82,7 @@ class CaesarCipherDataset(ProceduralDataset):
                 "clear_text": sentence,
                 "difficulty": {
                     "rotation": rotation,
-                    "words": len(sentence.split()),
+                    "words": num_words,
                 },
             },
         }
