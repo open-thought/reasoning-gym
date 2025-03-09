@@ -1,0 +1,15 @@
+model: deepseek/deepseek-r1
+provider: Nebius
+output_dir: results/deepseek-r1_algebra
+max_concurrent: 10
+default_size: 50
+default_seed: 45
+categories:
+- category: algebra
+  datasets:
+  - dataset: complex_arithmetic
+  - dataset: intermediate_integration
+  - dataset: polynomial_equations
+  - dataset: polynomial_multiplication
+  - dataset: simple_equations
+  - dataset: simple_integration

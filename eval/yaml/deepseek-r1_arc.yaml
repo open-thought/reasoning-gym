@@ -1,0 +1,12 @@
+model: deepseek/deepseek-r1
+provider: Nebius
+output_dir: results/deepseek-r1_arc
+max_concurrent: 10
+default_size: 50
+default_seed: 45
+categories:
+- category: arc
+  datasets:
+  - dataset: arc_1d
+  - dataset: arc_agi
+  - dataset: rearc
