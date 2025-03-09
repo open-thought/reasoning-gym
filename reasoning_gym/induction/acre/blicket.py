@@ -632,7 +632,7 @@ def dist_control(size, train, regime, rng):
 
 # Text translation functions
 LIGHT_DICT_TEXT = ["off", "undetermined", "on"]
-OBJECT_DICT_FILE_PATH = get_data_file_path("object_dict.json")
+OBJECT_DICT_FILE_PATH = get_data_file_path("acre_objects.json")
 with open(OBJECT_DICT_FILE_PATH, "r") as object_dict_file:
     OBJECT_DICT_TEXT = json.load(object_dict_file)
 
