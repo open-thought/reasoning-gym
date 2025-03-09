@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -74,8 +75,40 @@ class CaesarCipherDataset(ProceduralDataset):
         return {
             "question": f"Decrypt this Caesar cipher text: {cipher_text}. Provide only the decrypted text as your final answer.",
             "answer": sentence,
-            "metadata": {"rotation": rotation, "cipher_text": cipher_text, "clear_text": sentence},
+            "metadata": {
+                "rotation": rotation,
+                "cipher_text": cipher_text,
+                "clear_text": sentence,
+            },
         }
 
 
-register_dataset("caesar_cipher", CaesarCipherDataset, CaesarCipherConfig)
+class CaesarCipherCurriculum(BaseCurriculum):
+    """Curriculum for Caesar cipher task generation"""
+
+    def __init__(self):
+        super().__init__(CaesarCipherCurriculum.__name__, CaesarCipherConfig)
+
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="rotation",
+                levels=[5, 10, 15, 25],
+                default_level=0,
+                description="Max rotation for cipher",
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_rotation",
+                upper_field_name="max_rotation",
+            ),
+            RangeAttributeDefinition(
+                name="words",
+                levels=[5, 10, 15, 25],
+                default_level=0,
+                description="Max number of words",
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_words",
+                upper_field_name="max_words",
+            ),
+        )
+
+
+register_dataset("caesar_cipher", CaesarCipherDataset, CaesarCipherConfig, CaesarCipherCurriculum)
