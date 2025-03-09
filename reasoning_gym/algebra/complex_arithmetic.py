@@ -61,7 +61,6 @@ class ComplexArithmeticDataset(ProceduralDataset):
 
         # Choose random operation
         op = rng.choices(self.config.operations, weights=self.config.operations_weights, k=1)[0]
-        # op = rng.choice(self.config.operations)
 
         if op == "/":
             # For division, first generate the quotient (a) and divisor (b)
