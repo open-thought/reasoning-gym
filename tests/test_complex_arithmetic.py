@@ -148,26 +148,31 @@ def test_complex_arithmetic_curriculum():
     assert base_cfg.size == 150
     assert base_cfg.min_real == base_cfg.min_imag == -10
     assert base_cfg.max_real == base_cfg.max_imag == 10
+    assert base_cfg.operations_weights == [0.4, 0.4, 0.1, 0.1]
 
     # Increase and validate increase in level
     curriculum.increment_attr_level("min_real")
     curriculum.increment_attr_level("min_imag")
     curriculum.increment_attr_level("max_real")
     curriculum.increment_attr_level("max_imag")
+    curriculum.increment_attr_level("operations_weights")
 
     increased_cfg: ComplexArithmeticCurriculum = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_real == increased_cfg.min_imag == -100
     assert increased_cfg.max_real == increased_cfg.max_imag == 100
+    assert increased_cfg.operations_weights == [0.25, 0.25, 0.25, 0.25]
 
     # Decrease and validate decrease in level
     curriculum.decrement_attr_level("min_real")
     curriculum.decrement_attr_level("min_imag")
     curriculum.decrement_attr_level("max_real")
     curriculum.decrement_attr_level("max_imag")
+    curriculum.decrement_attr_level("operations_weights")
 
     decreased_cfg: ComplexArithmeticCurriculum = curriculum.generate_configuration(base_value)
     assert decreased_cfg.min_real == decreased_cfg.min_imag == -10
     assert decreased_cfg.max_real == decreased_cfg.max_imag == 10
+    assert decreased_cfg.operations_weights == [0.4, 0.4, 0.1, 0.1]
 
     # Test upper bound boundary condition
     for _ in range(10):
@@ -175,9 +180,11 @@ def test_complex_arithmetic_curriculum():
         curriculum.increment_attr_level("min_imag")
         curriculum.increment_attr_level("max_real")
         curriculum.increment_attr_level("max_imag")
+        curriculum.increment_attr_level("operations_weights")
     upper_bound_cfg: ComplexArithmeticCurriculum = curriculum.generate_configuration(base_value)
     assert upper_bound_cfg.min_real == upper_bound_cfg.min_imag == -100000000
     assert upper_bound_cfg.max_real == upper_bound_cfg.max_imag == 100000000
+    assert upper_bound_cfg.operations_weights == [0.1, 0.1, 0.4, 0.4]
 
     # Test lower bound boundary condition
     for _ in range(10):
@@ -185,6 +192,8 @@ def test_complex_arithmetic_curriculum():
         curriculum.decrement_attr_level("min_imag")
         curriculum.decrement_attr_level("max_real")
         curriculum.decrement_attr_level("max_imag")
+        curriculum.decrement_attr_level("operations_weights")
     lower_bound_cfg: ComplexArithmeticCurriculum = curriculum.generate_configuration(base_value)
     assert lower_bound_cfg.min_real == lower_bound_cfg.min_imag == -10
     assert lower_bound_cfg.max_real == lower_bound_cfg.max_imag == 10
+    assert lower_bound_cfg.operations_weights == [0.4, 0.4, 0.1, 0.1]

@@ -1,7 +1,7 @@
 import cmath
 import math
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
@@ -15,6 +15,7 @@ class ComplexArithmeticConfig:
     min_imag: int = -10
     max_imag: int = 10
     operations: tuple[str, ...] = ("+", "-", "*", "/")
+    operations_weights: list[float] = field(default_factory=lambda: [0.4, 0.4, 0.1, 0.1])
     seed: Optional[int] = None
     size: int = 500
 
@@ -23,6 +24,7 @@ class ComplexArithmeticConfig:
         assert self.max_real >= self.min_real, "max_real must be >= min_real"
         assert self.max_imag >= self.min_imag, "max_imag must be >= min_imag"
         assert all(op in ("+", "-", "*", "/") for op in self.operations), "invalid operator"
+        assert round(sum(self.operations_weights), 1) == 1.0, "operations_weights must sum to 1.0"
 
 
 class ComplexArithmeticDataset(ProceduralDataset):
@@ -58,7 +60,8 @@ class ComplexArithmeticDataset(ProceduralDataset):
         rng = random.Random(self.seed + idx)
 
         # Choose random operation
-        op = rng.choice(self.config.operations)
+        op = rng.choices(self.config.operations, weights=self.config.operations_weights, k=1)[0]
+        # op = rng.choice(self.config.operations)
 
         if op == "/":
             # For division, first generate the quotient (a) and divisor (b)
@@ -92,6 +95,13 @@ class ComplexArithmeticDataset(ProceduralDataset):
                 "num2": (b.real, b.imag),
                 "operation": op,
                 "result": (int(result.real), int(result.imag)),  # Convert to int since we ensure whole numbers
+                "difficulty": {
+                    "min_real": self.config.min_real,
+                    "max_real": self.config.max_real,
+                    "min_imag": self.config.min_imag,
+                    "max_imag": self.config.max_imag,
+                    "operations_weights": self.config.operations_weights,
+                },
             },
         }
 
@@ -213,6 +223,15 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 description="Maximum imaginary part for complex numbers",
                 attr_type=AttributeType.STATIC,
                 min_value=10,
+            ),
+            ScalarAttributeDefinition(
+                name="operations_weights",
+                field_name="operations_weights",
+                levels=[[0.4, 0.4, 0.1, 0.1], [0.25, 0.25, 0.25, 0.25], [0.2, 0.2, 0.3, 0.3], [0.1, 0.1, 0.4, 0.4]],
+                default_level=0,
+                description="Operations weights to sample operation to use for each complex arithmetic problem",
+                attr_type=AttributeType.STATIC,
+                min_value=[0.4, 0.4, 0.1, 0.1],
             ),
         )
 
