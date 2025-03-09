@@ -15,7 +15,7 @@ from .count_primes import CountPrimesConfig, CountPrimesCurriculum, CountPrimesD
 from .cryptarithm import CryptarithmConfig, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
-from .graph_color import GraphColorConfig, GraphColorDataset
+from .graph_color import GraphColorConfig, GraphColorCurriculum, GraphColorDataset
 from .group_anagrams import GroupAnagramsConfig, GroupAnagramsCurriculum, GroupAnagramsDataset
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsCurriculum, IsomorphicStringsDataset
 from .jugs import JugsConfig, JugsDataset
@@ -113,6 +113,7 @@ __all__ = [
     "CountPrimesCurriculum",
     "GraphColorConfig",
     "GraphColorDataset",
+    "GraphColorCurriculum",
     "StringInsertionConfig",
     "StringInsertionDataset",
     "StringManipulationConfig",
