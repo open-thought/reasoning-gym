@@ -7,6 +7,7 @@ from typing import Optional
 
 from reasoning_gym.data import read_data_file
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -41,7 +42,10 @@ class LetterCountingDataset(ProceduralDataset):
         rng = Random(self.seed + idx)
 
         # Select random span of words
-        span_length = rng.randint(self.config.min_words, self.config.max_words)
+        span_length = min(
+            rng.randint(self.config.min_words, self.config.max_words),
+            len(self.words),
+        )
         start_idx = rng.randint(0, len(self.words) - span_length)
         span = self.words[start_idx : start_idx + span_length]
 
@@ -59,8 +63,32 @@ class LetterCountingDataset(ProceduralDataset):
         return {
             "question": f'How many times does the letter "{target_letter}" appear in the text: "{" ".join(span)}"?',
             "answer": str(count),
-            "metadata": {"span_length": span_length, "target_letter": target_letter, "span": span},
+            "metadata": {
+                "span_length": span_length,
+                "target_letter": target_letter,
+                "span": span,
+                "difficulty": {"words": span_length},
+            },
         }
 
 
-register_dataset("letter_counting", LetterCountingDataset, LetterCountingConfig)
+class LetterCountingCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(LetterCountingCurriculum.__name__, LetterCountingConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="words",
+                levels=[10, 50, 100, 1000],
+                default_level=1,
+                description="Number of words in the span",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_words",
+                upper_field_name="max_words",
+            ),
+        )
+
+
+register_dataset("letter_counting", LetterCountingDataset, LetterCountingConfig, LetterCountingCurriculum)
