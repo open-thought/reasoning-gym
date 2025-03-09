@@ -682,6 +682,6 @@ def final_parse(serialized_questions) -> List[Dict[str, Any]]:
             else:  # test case
                 # question is a dict of input and output
                 question = get_trial(entry["objects"], entry["label"])
-
                 output_data.append({"examples": examples, "question": question})
+
     return output_data

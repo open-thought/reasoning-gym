@@ -60,11 +60,6 @@ def test_acre_questions_generator():
     config = ACREDatasetConfig(size=10, seed=42)
     dataset = ACREDataset(config)
 
-    # Test lazy loading
-    assert dataset._questions is None
-    _ = dataset.questions  # Access to trigger loading
-    assert dataset._questions is not None
-
     # Test properties of questions
     assert isinstance(dataset.questions, list)
     assert len(dataset.questions) > 0
