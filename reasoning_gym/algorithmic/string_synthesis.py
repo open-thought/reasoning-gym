@@ -129,7 +129,13 @@ class StringSynthesisDataset(ProceduralDataset):
                 max_iterations=self.config.max_iterations,
             ),
             "answer": answer_str,
-            "metadata": {"states": states, "solution": answer},
+            "metadata": {
+                "states": states,
+                "solution": answer,
+                "difficulty": {
+                    "initial_blocks": (A_square, B_square, C_square),
+                },
+            },
         }
 
 
