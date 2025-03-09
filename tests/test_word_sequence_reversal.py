@@ -1,6 +1,10 @@
 import pytest
 
-from reasoning_gym.algorithmic.word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
+from reasoning_gym.algorithmic.word_sequence_reversal import (
+    WordSequenceReversalConfig,
+    WordSequenceReversalCurriculum,
+    WordSequenceReversalDataset,
+)
 
 
 def test_word_sequence_reversal_config_validation():
@@ -73,3 +77,24 @@ def test_word_sequence_reversal_text_preprocessing():
     assert len(dataset.words) > 0
     # Verify words contain only alphanumeric characters
     assert all(word.isalnum() for word in dataset.words)
+
+
+def test_word_sequence_reversal_curriculum():
+    curriculum = WordSequenceReversalCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: WordSequenceReversalConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_words == 10 and base_cfg.max_words == 50
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("words")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_words == 10 and increased_cfg.max_words == 100
+
+    # test decrementing attribute level for words again
+    curriculum.decrement_attr_level("words")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_words == 10 and partially_decreased_cfg.max_words == 50
