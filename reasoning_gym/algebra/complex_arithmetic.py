@@ -4,6 +4,7 @@ import random
 from dataclasses import dataclass
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -169,4 +170,51 @@ class ComplexArithmeticDataset(ProceduralDataset):
             return 0.0
 
 
-register_dataset("complex_arithmetic", ComplexArithmeticDataset, ComplexArithmeticConfig)
+class ComplexArithmeticCurriculum(BaseCurriculum):
+    """Curriculum for complex number arithmetic problems."""
+
+    def __init__(self):
+        super().__init__(ComplexArithmeticCurriculum.__name__, ComplexArithmeticConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="min_real",
+                field_name="min_real",
+                levels=[-10, -100, -10000, -100000000],
+                default_level=0,
+                description="Minimum real part for complex numbers",
+                attr_type=AttributeType.STATIC,
+                min_value=-100000000,
+            ),
+            ScalarAttributeDefinition(
+                name="max_real",
+                field_name="max_real",
+                levels=[10, 100, 10000, 100000000],
+                default_level=0,
+                description="Maximum real part for complex numbers",
+                attr_type=AttributeType.STATIC,
+                min_value=10,
+            ),
+            ScalarAttributeDefinition(
+                name="min_imag",
+                field_name="min_imag",
+                levels=[-10, -100, -10000, -100000000],
+                default_level=0,
+                description="Minimum imaginary part for complex numbers",
+                attr_type=AttributeType.STATIC,
+                min_value=-100000000,
+            ),
+            ScalarAttributeDefinition(
+                name="max_imag",
+                field_name="max_imag",
+                levels=[10, 100, 10000, 100000000],
+                default_level=0,
+                description="Maximum imaginary part for complex numbers",
+                attr_type=AttributeType.STATIC,
+                min_value=10,
+            ),
+        )
+
+
+register_dataset("complex_arithmetic", ComplexArithmeticDataset, ComplexArithmeticConfig, ComplexArithmeticCurriculum)
