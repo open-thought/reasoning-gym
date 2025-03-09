@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -154,8 +155,10 @@ def greedy_graph_coloring(puzzle):
 class GraphColorConfig:
     """Configuration for GraphColor puzzle generation"""
 
-    num_colors: int = 4
-    num_vertices: int = 10
+    min_num_colors: int = 3
+    max_num_colors: int = 3
+    min_num_vertices: int = 10
+    max_num_vertices: int = 10
     edge_probability: float = 0.4
     seed: Optional[int] = None
     size: int = 500
@@ -187,9 +190,9 @@ class GraphColorDataset(ProceduralDataset):
         while solution is None:
             puzzle = generate_graph_coloring_puzzle(
                 rng=rng,
-                num_vertices=self.config.num_vertices,
+                num_vertices=rng.randint(self.config.min_num_vertices, self.config.max_num_vertices),
                 edge_probability=self.config.edge_probability,
-                num_colors=self.config.num_colors,
+                num_colors=rng.randint(self.config.min_num_colors, self.config.max_num_colors),
             )
             solution = greedy_graph_coloring(puzzle)
 
@@ -237,4 +240,32 @@ Return your solution as a JSON map of vertices to colors. (For example: {{"0": 1
         return 0.0
 
 
-register_dataset("graph_color", GraphColorDataset, GraphColorConfig)
+class GraphColorCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(GraphColorCurriculum.__name__, GraphColorConfig)
+
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_vertices",
+                levels=[10, 20, 30, 40],
+                default_level=0,
+                description="Number of vertices in the graph",
+                attr_type=AttributeType.APPEND,
+                min_value=10,
+                lower_field_name="min_num_vertices",
+                upper_field_name="max_num_vertices",
+            ),
+            RangeAttributeDefinition(
+                name="num_colors",
+                levels=[3, 4, 5, 6],
+                default_level=0,
+                description="Number of colors in the graph",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_num_colors",
+                upper_field_name="max_num_colors",
+            ),
+        )
+
+
+register_dataset("graph_color", GraphColorDataset, GraphColorConfig, GraphColorCurriculum)
