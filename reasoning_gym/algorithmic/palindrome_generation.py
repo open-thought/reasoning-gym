@@ -116,4 +116,4 @@ class PalindromeDataset(ProceduralDataset):
         return 1.0  # Correct solution
 
 
-register_dataset("palindrome", PalindromeDataset, PalindromeConfig)
+register_dataset("palindrome_generation", PalindromeDataset, PalindromeConfig)
