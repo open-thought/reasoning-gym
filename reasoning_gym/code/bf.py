@@ -55,7 +55,7 @@ class BFDataset(ProceduralDataset):
             "metadata": {
                 "bfit_code": bfit_code,
                 "bf_program": bf_program,
-                "difficulty": self.config.difficulty,
+                "difficulty": {"difficulty": self.config.difficulty},
             },
         }
 

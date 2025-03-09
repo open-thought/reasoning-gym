@@ -139,9 +139,11 @@ class ModuloGridDataset(ProceduralDataset):
                 "divisor": divisor,
                 "target": target,
                 "operation": operation,
-                "holes": self.config.max_holes,
-                "size_x": self.config.size_x,
-                "size_y": self.config.size_y,
+                "difficulty": {
+                    "holes": self.config.max_holes,
+                    "size_x": self.config.size_x,
+                    "size_y": self.config.size_y,
+                },
             },
         }
 

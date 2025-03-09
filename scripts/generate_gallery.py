@@ -16,7 +16,7 @@ def generate_gallery() -> str:
     content.append("This gallery shows examples from all available datasets using their default configurations.\n\n")
 
     # Add index
-    content.append(f"## Available Datasets ({len(DATASETS.keys())})\n")
+    content.append(f"## Available Datasets ({len(DATASETS)})\n")
     for name in sorted(DATASETS.keys()):
         # Create anchor link
         anchor = name.replace(" ", "-").lower()
