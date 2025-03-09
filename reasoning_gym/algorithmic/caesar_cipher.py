@@ -79,6 +79,10 @@ class CaesarCipherDataset(ProceduralDataset):
                 "rotation": rotation,
                 "cipher_text": cipher_text,
                 "clear_text": sentence,
+                "difficulty": {
+                    "rotation": rotation,
+                    "words": len(sentence.split()),
+                },
             },
         }
 
