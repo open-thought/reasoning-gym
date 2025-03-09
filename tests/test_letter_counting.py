@@ -2,7 +2,11 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.letter_counting import LetterCountingConfig, LetterCountingDataset
+from reasoning_gym.algorithmic.letter_counting import (
+    LetterCountingConfig,
+    LetterCountingCurriculum,
+    LetterCountingDataset,
+)
 
 
 def test_letter_counting_config_validation():
@@ -76,3 +80,24 @@ def test_letter_counting_text_preprocessing():
     assert len(dataset.words) > 0
     # Verify words contain only word characters
     assert all(word.isalnum() for word in dataset.words)
+
+
+def test_letter_counting_curriculum():
+    curriculum = LetterCountingCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: LetterCountingConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_words == 10 and base_cfg.max_words == 50
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("words")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_words == 10 and increased_cfg.max_words == 100
+
+    # test decrementing attribute level for words again
+    curriculum.decrement_attr_level("words")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_words == 10 and partially_decreased_cfg.max_words == 50
