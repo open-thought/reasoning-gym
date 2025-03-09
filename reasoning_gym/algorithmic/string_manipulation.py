@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your job is to repeatedly transform a string according to a set of rules until no further transformations can be performed, or a state is repeated.
@@ -42,6 +43,7 @@ class StringManipulationConfig:
         assert self.min_string_length <= self.max_string_length, "Minimum string length should be less than maximum"
         assert 3 <= self.min_num_rules, "Minimum number of rules should be at least 3"
         assert self.min_num_rules <= self.max_num_rules, "Minimum number of rules should be less than maximum"
+        assert self.max_num_rules <= 20, "Maximum number of rules should be at most 20"
 
 
 class StringManipulationDataset(ProceduralDataset):
@@ -181,8 +183,43 @@ class StringManipulationDataset(ProceduralDataset):
                 "solution": answer,
                 "states": states,
                 "selected_rules": [rule for rule, _ in selected_rules],
+                "difficulty": {
+                    "string_length": string_length,
+                    "num_rules": num_rules,
+                },
             },
         }
 
 
-register_dataset("string_manipulation", StringManipulationDataset, StringManipulationConfig)
+class StringManipulationCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(StringManipulationCurriculum.__name__, StringManipulationConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="string_length",
+                levels=[10, 50, 100, 500],
+                default_level=0,
+                description="Length of the string",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_string_length",
+                upper_field_name="max_string_length",
+            ),
+            RangeAttributeDefinition(
+                name="num_rules",
+                levels=[5, 10, 15, 20],
+                default_level=0,
+                description="Number of rules to apply",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_num_rules",
+                upper_field_name="max_num_rules",
+            ),
+        )
+
+
+register_dataset(
+    "string_manipulation", StringManipulationDataset, StringManipulationConfig, StringManipulationCurriculum
+)
