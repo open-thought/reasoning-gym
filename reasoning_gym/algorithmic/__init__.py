@@ -39,7 +39,7 @@ from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixCurriculum, SpiralMatrixDataset
 from .string_insertion import StringInsertionConfig, StringInsertionDataset
 from .string_manipulation import StringManipulationConfig, StringManipulationDataset
-from .string_splitting import StringSplittingConfig, StringSplittingDataset
+from .string_splitting import StringSplittingConfig, StringSplittingCurriculum, StringSplittingDataset
 from .string_synthesis import StringSynthesisConfig, StringSynthesisDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
 from .word_sequence_reversal import WordSequenceReversalConfig, WordSequenceReversalDataset
@@ -121,6 +121,7 @@ __all__ = [
     "StringManipulationDataset",
     "StringSplittingConfig",
     "StringSplittingDataset",
+    "StringSplittingCurriculum",
     "StringSynthesisConfig",
     "StringSynthesisDataset",
     "RottenOrangesConfig",
