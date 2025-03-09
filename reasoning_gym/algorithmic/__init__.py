@@ -38,7 +38,7 @@ from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDat
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixCurriculum, SpiralMatrixDataset
 from .string_insertion import StringInsertionConfig, StringInsertionDataset
-from .string_manipulation import StringManipulationConfig, StringManipulationDataset
+from .string_manipulation import StringManipulationConfig, StringManipulationCurriculum, StringManipulationDataset
 from .string_splitting import StringSplittingConfig, StringSplittingDataset
 from .string_synthesis import StringSynthesisConfig, StringSynthesisDataset
 from .word_ladder import WordLadderConfig, WordLadderDataset
