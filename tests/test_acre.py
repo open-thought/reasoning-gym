@@ -1,5 +1,3 @@
-from random import Random
-
 import pytest
 
 from reasoning_gym.induction.acre.acre import ACREDataset, ACREDatasetConfig

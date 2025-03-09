@@ -2,8 +2,7 @@
 
 # Culled and Adapted from https://github.com/WellyZhang/ACRE
 
-import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from random import Random
 from typing import Any, Dict, List, Optional
 
@@ -13,14 +12,13 @@ from .blicket import config_control, dist_control, final_parse, serialize
 from .const import ALL_CONFIG_SIZE, ATTR_CONFIG_SIZE
 
 
-# Create blicket questions based on 3 regime(IID, Comp, Sys)
+# Create blicket questions based on 3 regimes (IID, Comp, Sys)
 @dataclass
 class ACREDatasetConfig:
     """Configuration for ACRE dataset generation"""
 
     train: int = 1  # The default is 1 for training, otherwise 0 for validation and testing
-    regime: List[str] = field(default_factory=lambda: ["IID", "Comp", "Sys"])
-    size: int = 10  # Ideally we want the size to be in multiples of 10, Split ratio = 6 : 2 : 2 -> IID : Comp : Sys
+    size: int = 500  # Size must be in multiples of 10, Split ratio = 6 : 2 : 2 -> IID : Comp : Sys
     seed: Optional[int] = None
 
     def validate(self) -> None:
@@ -54,14 +52,16 @@ Output:
         """
         Generates questions of particular size
         """
-        questions = []
+
         iid_size = int(0.6 * self.config.size)
         comp_size = int(0.2 * self.config.size)
         sys_size = int(0.2 * self.config.size)
         rng = Random(self.seed)
-        iid_questions = config_control(iid_size, self.config.train, ALL_CONFIG_SIZE, self.config.regime[0], rng)
-        comp_questions = config_control(comp_size, self.config.train, ATTR_CONFIG_SIZE, self.config.regime[1], rng)
-        sys_questions = dist_control(sys_size, self.config.train, self.config.regime[2], rng)
+        iid_questions = config_control(iid_size, self.config.train, ALL_CONFIG_SIZE, "IID", rng)
+        comp_questions = config_control(comp_size, self.config.train, ATTR_CONFIG_SIZE, "Comp", rng)
+        sys_questions = dist_control(sys_size, self.config.train, "Sys", rng)
+
+        questions = []
         questions.extend(iid_questions)
         questions.extend(comp_questions)
         questions.extend(sys_questions)
