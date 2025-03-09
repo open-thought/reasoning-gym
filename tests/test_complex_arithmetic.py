@@ -85,7 +85,9 @@ def test_complex_arithmetic_scoring():
 
 def test_complex_arithmetic_division_by_zero():
     """Test that division by zero is handled properly."""
-    config = ComplexArithmeticConfig(operations=("/",), seed=42)  # Only test division
+    config = ComplexArithmeticConfig(
+        operations=("+", "-", "*", "/"), operations_weights=[0.0, 0.0, 0.0, 1.0], seed=42
+    )  # Only test division
     dataset = ComplexArithmeticDataset(config)
 
     # Check multiple items to ensure no division by zero
