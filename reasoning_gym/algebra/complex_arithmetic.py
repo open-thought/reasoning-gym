@@ -185,7 +185,7 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Minimum real part for complex numbers",
                 attr_type=AttributeType.STATIC,
-                min_value=-100000000,
+                min_value=-10,
             ),
             ScalarAttributeDefinition(
                 name="max_real",
@@ -203,7 +203,7 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Minimum imaginary part for complex numbers",
                 attr_type=AttributeType.STATIC,
-                min_value=-100000000,
+                min_value=-10,
             ),
             ScalarAttributeDefinition(
                 name="max_imag",
