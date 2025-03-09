@@ -188,7 +188,12 @@ class DecimalArithmeticDataset(ProceduralDataset):
         return {
             "question": problem_str,
             "answer": str(answer),
-            "metadata": {"decimal_places": decimal_places, "num_terms": terms},
+            "metadata": {
+                "difficulty": {
+                    "decimal_places": decimal_places,
+                    "num_terms": terms,
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
