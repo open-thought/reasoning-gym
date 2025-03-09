@@ -85,5 +85,19 @@ or served as inspiration for parts of our codebase:
 }
 ```
 
+### ACRE Dataset
+- Source: https://github.com/WellyZhang/ACRE
+- License: GPL-3.0
+- Website: wellyzhang.github.io/project/acre.html
+- Citation:
+```
+@inproceedings{zhang2021acre,
+    title={ACRE: Abstract Causal REasoning Beyond Covariation},
+    author={Zhang, Chi and Jia, Baoxiong and Edmonds, Mark and Zhu, Song-Chun and Zhu, Yixin},
+    booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year={2021}
+}
+```
+
 We are deeply grateful to all authors of these projects for making their work available
 under open source licenses, enabling us to build upon their contributions.
