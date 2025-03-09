@@ -1,6 +1,7 @@
 """ACRE(Abstract Causal REasoning Beyond Covariation) dataset"""
 
 # Culled and Adapted from https://github.com/WellyZhang/ACRE
+# Licensed under GPL-3.0
 
 from dataclasses import dataclass
 from random import Random
