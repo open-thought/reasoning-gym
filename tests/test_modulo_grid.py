@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.cognition.modulo_grid import ModuloGridConfig, ModuloGridDataset
+from reasoning_gym.cognition.modulo_grid import ModuloGridConfig, ModuloGridCurriculum, ModuloGridDataset
 
 
 def test_modulo_grid():
@@ -35,3 +35,17 @@ def test_modulo_grid():
         assert item["question"] != item["answer"]
         assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
+
+
+def test_mg_curriculum():
+    curriculum = ModuloGridCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: ModuloGridConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.size_x == 20
+    curriculum.increment_attr_level("size_x")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.size_x == 30

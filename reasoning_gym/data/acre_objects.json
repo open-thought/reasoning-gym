@@ -1,0 +1,290 @@
+{
+    "0": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "gray"
+    },
+    "1": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "gray"
+    },
+    "2": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "red"
+    },
+    "3": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "red"
+    },
+    "4": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "blue"
+    },
+    "5": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "blue"
+    },
+    "6": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "green"
+    },
+    "7": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "green"
+    },
+    "8": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "brown"
+    },
+    "9": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "brown"
+    },
+    "10": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "purple"
+    },
+    "11": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "purple"
+    },
+    "12": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "cyan"
+    },
+    "13": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "cyan"
+    },
+    "14": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cube",
+        "color": "yellow"
+    },
+    "15": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cube",
+        "color": "yellow"
+    },
+    "16": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "gray"
+    },
+    "17": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "gray"
+    },
+    "18": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "red"
+    },
+    "19": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "red"
+    },
+    "20": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "blue"
+    },
+    "21": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "blue"
+    },
+    "22": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "green"
+    },
+    "23": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "green"
+    },
+    "24": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "brown"
+    },
+    "25": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "brown"
+    },
+    "26": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "purple"
+    },
+    "27": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "purple"
+    },
+    "28": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "cyan"
+    },
+    "29": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "cyan"
+    },
+    "30": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "yellow"
+    },
+    "31": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "cylinder",
+        "color": "yellow"
+    },
+    "32": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "gray"
+    },
+    "33": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "gray"
+    },
+    "34": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "red"
+    },
+    "35": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "red"
+    },
+    "36": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "blue"
+    },
+    "37": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "blue"
+    },
+    "38": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "green"
+    },
+    "39": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "green"
+    },
+    "40": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "brown"
+    },
+    "41": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "brown"
+    },
+    "42": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "purple"
+    },
+    "43": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "purple"
+    },
+    "44": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "cyan"
+    },
+    "45": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "cyan"
+    },
+    "46": {
+        "material": "rubber",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "yellow"
+    },
+    "47": {
+        "material": "metal",
+        "size": "medium",
+        "shape": "sphere",
+        "color": "yellow"
+    }
+}
