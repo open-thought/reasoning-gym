@@ -187,14 +187,14 @@ class GraphColorDataset(ProceduralDataset):
 
         puzzle = None
         solution = None
-        num_vertices = (rng.randint(self.config.min_num_vertices, self.config.max_num_vertices),)
-        num_colors = (rng.randint(self.config.min_num_colors, self.config.max_num_colors),)
+        num_vertices = rng.randint(self.config.min_num_vertices, self.config.max_num_vertices)
+        num_colors = rng.randint(self.config.min_num_colors, self.config.max_num_colors)
         while solution is None:
             puzzle = generate_graph_coloring_puzzle(
                 rng=rng,
-                num_vertices=(num_vertices),
+                num_vertices=num_vertices,
                 edge_probability=self.config.edge_probability,
-                num_colors=(num_colors),
+                num_colors=num_colors,
             )
             solution = greedy_graph_coloring(puzzle)
 
