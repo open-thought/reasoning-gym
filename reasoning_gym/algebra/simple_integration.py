@@ -5,6 +5,7 @@ from typing import Any, Optional
 
 import sympy
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -108,4 +109,31 @@ When performing calculations, please follow these guidelines:
         return reward
 
 
-register_dataset("simple_integration", SimpleIntegrationDataset, SimpleIntegrationConfig)
+class SimpleIntegrationCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(SimpleIntegrationCurriculum.__name__, SimpleIntegrationConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="terms",
+                levels=[2, 3, 4, 5],
+                default_level=0,
+                min_value=2,
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+                description="The number of terms in the polynomial",
+            ),
+            RangeAttributeDefinition(
+                name="degree",
+                levels=[2, 4, 6, 8],
+                default_level=0,
+                min_value=1,
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_degree",
+                upper_field_name="max_degree",
+                description="The degree of the polynomial",
+            ),
+        )
+
+
+register_dataset("simple_integration", SimpleIntegrationDataset, SimpleIntegrationConfig, SimpleIntegrationCurriculum)
