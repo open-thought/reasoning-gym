@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -329,9 +330,10 @@ class SelfReferenceDataset(ProceduralDataset):
                 - metadata: dict with generation parameters
         """
         rng = Random(self.seed + idx)
+        difficulty = self.config.difficulty
 
         # Generate puzzle
-        puzzle = generate_dynamic_puzzle(self.config.difficulty, rng)
+        puzzle = generate_dynamic_puzzle(difficulty, rng)
         puzz_s = (
             "Given the truthfulness of these statements, please tell me the number of possible solutions: \n"
             + print_puzzle_dynamic(puzzle)
@@ -344,7 +346,7 @@ class SelfReferenceDataset(ProceduralDataset):
         return {
             "question": puzz_s,
             "answer": answer,
-            "metadata": {},
+            "metadata": {"difficulty": difficulty},
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -366,4 +368,20 @@ class SelfReferenceDataset(ProceduralDataset):
         return 0.0
 
 
-register_dataset("self_reference", SelfReferenceDataset, SelfReferenceConfig)
+class SelfReferenceCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(SelfReferenceCurriculum.__name__, SelfReferenceConfig)
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="difficulty",
+                field_name="difficulty",
+                levels=list(range(1, 11)),
+                default_level=0,
+                description="The difficulty of the puzzle",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+            )
+        )
+
+
+register_dataset("self_reference", SelfReferenceDataset, SelfReferenceConfig, SelfReferenceCurriculum)

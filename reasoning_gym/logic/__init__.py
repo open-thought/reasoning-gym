@@ -6,7 +6,7 @@ from .aiw import AliceInWonderlandConfig, AliceInWonderlandDataset
 from .circuit_logic import CircuitLogicConfig, CircuitLogicDataset
 from .knights_knaves import KnightsKnavesConfig, KnightsKnavesDataset
 from .propositional_logic import PropositionalLogicConfig, PropositionalLogicDataset
-from .self_reference import SelfReferenceConfig, SelfReferenceDataset
+from .self_reference import SelfReferenceConfig, SelfReferenceCurriculum, SelfReferenceDataset
 from .syllogisms import SyllogismConfig, SyllogismDataset
 from .zebra_puzzles import ZebraConfig, ZebraDataset
 
@@ -20,7 +20,7 @@ __all__ = [
     "syllogism_dataset",
     "ZebraConfig",
     "ZebraDataset",
-    "SelfReference",
+    "SelfReferenceCurriculum",
     "SelfReferenceConfig",
     "SelfReferenceDataset",
     "CircuitLogicConfig",
