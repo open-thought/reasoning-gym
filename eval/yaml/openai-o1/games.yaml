@@ -1,0 +1,9 @@
+model: openai/o1
+category: games
+provider: OpenAI
+datasets:
+  - emoji_mystery
+eval_dir: eval/openai-01
+dataset_size: 50
+dataset_seed: 45
+developer_role: system
