@@ -24,7 +24,7 @@ from .letter_jumble import LetterJumbleConfig, LetterJumbleCurriculum, LetterJum
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculum, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingCurriculum, NumberSortingDataset
-from .palindrome_generation import PalindromeConfig, PalindromeDataset
+from .palindrome_generation import PalindromeConfig, PalindromeCurriculum, PalindromeDataset
 from .palindrome_partitioning import (
     PalindromePartitioningConfig,
     PalindromePartitioningCurriculum,
@@ -88,6 +88,7 @@ __all__ = [
     "WordLadderDataset",
     "PalindromeConfig",
     "PalindromeDataset",
+    "PalindromeCurriculum",
     "GroupAnagramsConfig",
     "GroupAnagramsDataset",
     "GroupAnagramsCurriculum",

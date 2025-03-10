@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.algorithmic.palindrome_generation import PalindromeConfig, PalindromeDataset
+from reasoning_gym.algorithmic.palindrome_generation import PalindromeConfig, PalindromeCurriculum, PalindromeDataset
 
 
 def test_palindrome_config_validation():
@@ -89,3 +89,24 @@ def test_score_answer():
 
         # Empty input should score 0.0
         assert dataset.score_answer(None, entry=item) == 0.0
+
+
+def test_palindrome_curriculum():
+    curriculum = PalindromeCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: PalindromeConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_length == 10 and base_cfg.max_length == 50
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("length")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_length == 10 and increased_cfg.max_length == 100
+
+    # test decrementing attribute levels
+    curriculum.decrement_attr_level("length")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_length == 10 and partially_decreased_cfg.max_length == 50
