@@ -111,8 +111,8 @@ class LetterJumbleDataset(ProceduralDataset):
                 "difficulty": {
                     "word_len": (self.config.min_word_len, self.config.max_word_len),
                     "words": num_words,
-                    "corruption": corruption_level,
-                }
+                    "corruption_level": corruption_level,
+                },
             },
         }
 
@@ -178,7 +178,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="words",
-                levels=[10, 20, 50, 100],
+                levels=[10, 50, 100, 500],
                 default_level=1,
                 description="Number of words",
                 attr_type=AttributeType.APPEND,
@@ -187,7 +187,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
                 upper_field_name="max_words",
             ),
             RangeAttributeDefinition(
-                name="corruption",
+                name="corruption_level",
                 levels=[0.1, 0.3, 0.6, 0.9],
                 default_level=1,
                 description="Corruption level",
@@ -196,7 +196,6 @@ class LetterJumbleCurriculum(BaseCurriculum):
                 lower_field_name="min_corruption_level",
                 upper_field_name="max_corruption_level",
             ),
-            
         )
 
 
