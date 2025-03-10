@@ -104,7 +104,7 @@ def generate(
                     game.player.update(key=move)
                     game.print_puzzle()
 
-            difficulty = {"size": puzzle_size, "num_steps": len(solution)}
+            difficulty = {"width": width, "height": height}
             return puzzle_str, solution, difficulty
         else:
             if debug:
