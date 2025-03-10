@@ -10,6 +10,7 @@ Usage:
 Options:
     --model MODEL             Override model specified in config
     --output-dir DIR          Override output directory specified in config
+    --category CATEGORY       Evaluate only datasets from this category
     --max-concurrent NUM      Maximum number of concurrent API calls
     --base-url URL            API base URL (default: https://openrouter.ai/api/v1)
     --save-metadata           Save entry metadata in results
@@ -390,8 +391,15 @@ class AsyncModelEvaluator:
         timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
         model_name = self.config.model.replace("/", "_")
 
-        # Format directory name with model and timestamp only
-        output_dir = Path(self.config.output_dir) / f"{model_name}_{timestamp}"
+        # Format directory name with model, category (if single category), and timestamp
+        if len(self.config.categories) == 1:
+            # Include category name in the output directory when evaluating a single category
+            category_name = self.config.categories[0].category
+            output_dir = Path(self.config.output_dir) / f"{model_name}_{category_name}_{timestamp}"
+        else:
+            # Original format for multiple categories
+            output_dir = Path(self.config.output_dir) / f"{model_name}_{timestamp}"
+            
         output_dir.mkdir(parents=True, exist_ok=True)
 
         results_path = None
@@ -477,6 +485,7 @@ async def main_async():
     parser.add_argument("--config", required=True, help="Path to configuration file (YAML or JSON)")
     parser.add_argument("--model", help="Override model specified in config")
     parser.add_argument("--output-dir", help="Override output directory specified in config")
+    parser.add_argument("--category", help="Evaluate only datasets from this category")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
     parser.add_argument("--base-url", default="https://openrouter.ai/api/v1", help="API base URL")
     parser.add_argument(
@@ -523,6 +532,15 @@ async def main_async():
         config.save_metadata = True
     if args.full_results:
         config.save_full_results = True
+        
+    # Filter categories if --category is specified
+    if args.category:
+        # Keep only the specified category
+        filtered_categories = [cat for cat in config.categories if cat.category == args.category]
+        if not filtered_categories:
+            print(f"Error: Category '{args.category}' not found in configuration")
+            return 1
+        config.categories = filtered_categories
 
     # Create evaluator
     evaluator = AsyncModelEvaluator(
