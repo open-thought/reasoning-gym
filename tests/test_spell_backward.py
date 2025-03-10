@@ -2,13 +2,17 @@
 
 import pytest
 
-from reasoning_gym.algorithmic.spell_backward import SpellBackwardConfig, SpellBackwardDataset
+from reasoning_gym.algorithmic.spell_backward import SpellBackwardConfig, SpellBackwardCurriculum, SpellBackwardDataset
 
 
 def test_spell_backward_config_validation():
     """Test that invalid configs raise appropriate errors"""
     with pytest.raises(AssertionError):
         config = SpellBackwardConfig(min_word_len=0)
+        config.validate()
+
+    with pytest.raises(AssertionError):
+        config = SpellBackwardConfig(min_word_len=4, max_word_len=3)
         config.validate()
 
 
@@ -57,3 +61,24 @@ def test_spell_backward_dataset_iteration():
 
     # Test multiple iterations yield same items
     assert items == list(dataset)
+
+
+def test_spell_backward_curriculum():
+    curriculum = SpellBackwardCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: SpellBackwardConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_word_len == 5 and base_cfg.max_word_len == 10
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("word_len")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_word_len == 5 and increased_cfg.max_word_len == 20
+
+    # test decrementing attribute levels
+    curriculum.decrement_attr_level("word_len")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_word_len == 5 and partially_decreased_cfg.max_word_len == 10
