@@ -58,10 +58,10 @@ def test_futoshiki_items():
         # Verify constraints format
         constraints = metadata["constraints"]
         for ((r1, c1), (r2, c2)), rel in constraints.items():
-            assert 0 <= r1 < config.min_board_size
-            assert 0 <= c1 < config.min_board_size
-            assert 0 <= r2 < config.min_board_size
-            assert 0 <= c2 < config.min_board_size
+            assert 0 <= r1 < config.max_board_size
+            assert 0 <= c1 < config.max_board_size
+            assert 0 <= r2 < config.max_board_size
+            assert 0 <= c2 < config.max_board_size
             assert rel in ("<", ">")
 
 
