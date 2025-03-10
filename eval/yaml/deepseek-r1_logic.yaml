@@ -1,0 +1,16 @@
+model: deepseek/deepseek-r1
+provider: Nebius
+output_dir: results/deepseek-r1_logic
+max_concurrent: 10
+default_size: 50
+default_seed: 45
+categories:
+- category: logic
+  datasets:
+  - dataset: aiw
+  - dataset: circuit_logic
+  - dataset: knights_knaves
+  - dataset: propositional_logic
+  - dataset: self_reference
+  - dataset: syllogism
+  - dataset: zebra_puzzles

@@ -1,8 +1,9 @@
 # Reasoning Gym Dataset Gallery
 This gallery shows examples from all available datasets using their default configurations.
 
-## Available Datasets
+## Available Datasets (100)
 - [ab](#ab)
+- [acre](#acre)
 - [advanced_geometry](#advanced_geometry)
 - [aiw](#aiw)
 - [arc_1d](#arc_1d)
@@ -189,6 +190,96 @@ Now, consider the following program:
 Return the final state of the program.
 
 Answer: #B B# A# B# A# A#
+
+````
+
+### acre
+Default configuration:
+```python
+train = 1
+size = 500
+seed = 42
+```
+
+Example tasks:
+````
+Example 1:
+Question: You are a researcher studying causal relationships using Blicket experiments. In these experiments, certain objects (called 'blickets') have the hidden property of activating a detector, causing its light to turn on.
+
+Each example shows the results of placing different combinations of objects on the detector. Each object is described by color, material and shape. Your task is to determine whether a new combination of objects will cause the detector to activate.
+
+After observing the previous examples, respond with:
+- "on" if you can determine the detector light will turn on
+- "off" if you can determine the detector light will stay off
+- "undetermined" if there is insufficient evidence to reach a conclusion
+
+Do not use quotation marks in your answer.
+
+Previous experimental results:
+yellow rubber cylinder → on
+red rubber sphere → off
+yellow rubber cylinder, red rubber sphere → on
+yellow metal sphere, red metal cylinder, brown rubber cylinder, purple rubber sphere, yellow rubber cube → on
+yellow rubber cube, brown rubber cylinder, purple rubber sphere → off
+yellow metal sphere, red metal cylinder → on
+
+New test case:
+yellow rubber cylinder
+
+What is the detector light status?
+Answer: on
+
+Example 2:
+Question: You are a researcher studying causal relationships using Blicket experiments. In these experiments, certain objects (called 'blickets') have the hidden property of activating a detector, causing its light to turn on.
+
+Each example shows the results of placing different combinations of objects on the detector. Each object is described by color, material and shape. Your task is to determine whether a new combination of objects will cause the detector to activate.
+
+After observing the previous examples, respond with:
+- "on" if you can determine the detector light will turn on
+- "off" if you can determine the detector light will stay off
+- "undetermined" if there is insufficient evidence to reach a conclusion
+
+Do not use quotation marks in your answer.
+
+Previous experimental results:
+yellow rubber cylinder → on
+red rubber sphere → off
+yellow rubber cylinder, red rubber sphere → on
+yellow metal sphere, red metal cylinder, brown rubber cylinder, purple rubber sphere, yellow rubber cube → on
+yellow rubber cube, brown rubber cylinder, purple rubber sphere → off
+yellow metal sphere, red metal cylinder → on
+
+New test case:
+red metal cylinder
+
+What is the detector light status?
+Answer: undetermined
+
+Example 3:
+Question: You are a researcher studying causal relationships using Blicket experiments. In these experiments, certain objects (called 'blickets') have the hidden property of activating a detector, causing its light to turn on.
+
+Each example shows the results of placing different combinations of objects on the detector. Each object is described by color, material and shape. Your task is to determine whether a new combination of objects will cause the detector to activate.
+
+After observing the previous examples, respond with:
+- "on" if you can determine the detector light will turn on
+- "off" if you can determine the detector light will stay off
+- "undetermined" if there is insufficient evidence to reach a conclusion
+
+Do not use quotation marks in your answer.
+
+Previous experimental results:
+yellow rubber cylinder → on
+red rubber sphere → off
+yellow rubber cylinder, red rubber sphere → on
+yellow metal sphere, red metal cylinder, brown rubber cylinder, purple rubber sphere, yellow rubber cube → on
+yellow rubber cube, brown rubber cylinder, purple rubber sphere → off
+yellow metal sphere, red metal cylinder → on
+
+New test case:
+yellow rubber cube, brown rubber cylinder, purple rubber sphere, red metal cylinder
+
+What is the detector light status?
+Answer: undetermined
 
 ````
 
@@ -812,7 +903,7 @@ If the target base is > 10, use lowercase letters a-z for digits above 9.
 Now, convert the base-3 number 220020 to binary
 
 Answer: 1010001110
-Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '220020', 'target_repr': '1010001110'}
+Metadata: {'decimal_value': 654, 'source_base': 3, 'target_base': 2, 'source_repr': '220020', 'target_repr': '1010001110', 'difficulty': {'value': 654, 'base': (3, 2)}}
 
 Example 2:
 Question: Your task is to convert a number between two different bases.
@@ -822,7 +913,7 @@ If the target base is > 10, use lowercase letters a-z for digits above 9.
 Now, convert the base-6 number 103 to base-13
 
 Answer: 30
-Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '103', 'target_repr': '30'}
+Metadata: {'decimal_value': 39, 'source_base': 6, 'target_base': 13, 'source_repr': '103', 'target_repr': '30', 'difficulty': {'value': 39, 'base': (6, 13)}}
 
 Example 3:
 Question: Your task is to convert a number between two different bases.
@@ -832,7 +923,7 @@ If the target base is > 10, use lowercase letters a-z for digits above 9.
 Now, convert the base-10 number 418 to base-13
 
 Answer: 262
-Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '418', 'target_repr': '262'}
+Metadata: {'decimal_value': 418, 'source_base': 10, 'target_base': 13, 'source_repr': '418', 'target_repr': '262', 'difficulty': {'value': 418, 'base': (10, 13)}}
 
 ````
 
@@ -859,17 +950,17 @@ Example tasks:
 Example 1:
 Question: Calculate -5 * -6.
 Answer: 30
-Metadata: {'num_terms': 2, 'num_digits': 1, 'expression': '-5 * -6'}
+Metadata: {'expression': '-5 * -6', 'difficulty': {'num_terms': 2, 'num_digits': 1}}
 
 Example 2:
 Question: Calculate 965 / 5.
 Answer: 193
-Metadata: {'num_terms': 2, 'num_digits': 3, 'expression': '965 / 5'}
+Metadata: {'expression': '965 / 5', 'difficulty': {'num_terms': 2, 'num_digits': 3}}
 
 Example 3:
 Question: Calculate 0 + -2 + -4 * 0 * 3.
 Answer: -2
-Metadata: {'num_terms': 5, 'num_digits': 1, 'expression': '0 + -2 + -4 * 0 * 3'}
+Metadata: {'expression': '0 + -2 + -4 * 0 * 3', 'difficulty': {'num_terms': 5, 'num_digits': 1}}
 
 ````
 
@@ -892,7 +983,7 @@ Question: This is a BF (Brainf*ck) computer program. What is the output?
 
 Respond only with the exact output of the program.
 Answer: onset
-Metadata: {'bfit_code': '\nint main() {\n    print("onset");\n}\n', 'bf_program': '>[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<'}
+Metadata: {'bfit_code': '\nint main() {\n    print("onset");\n}\n', 'bf_program': '>[-]>[-]<>++++++++++[<+++++++++++>-]<+.-.+++++.--------------.+++++++++++++++.<', 'difficulty': {'difficulty': 1}}
 
 Example 2:
 Question: Consider the following BF (Brainf*ck) code. What would it output?
@@ -901,7 +992,7 @@ Question: Consider the following BF (Brainf*ck) code. What would it output?
 
 Provide only the exact output of the code.
 Answer: perch
-Metadata: {'bfit_code': '\nint main() {\n    print("perch");\n}\n', 'bf_program': '>[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<'}
+Metadata: {'bfit_code': '\nint main() {\n    print("perch");\n}\n', 'bf_program': '>[-]>[-]<>++++++++[<++++++++++++++>-]<.-----------.+++++++++++++.---------------.+++++.<', 'difficulty': {'difficulty': 1}}
 
 Example 3:
 Question: This is a BF (Brainf*ck) computer program. What is the output?
@@ -910,7 +1001,7 @@ Question: This is a BF (Brainf*ck) computer program. What is the output?
 
 Respond only with the exact output of the program.
 Answer: under
-Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program': '>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<'}
+Metadata: {'bfit_code': '\nint main() {\n    print("under");\n}\n', 'bf_program': '>[-]>[-]<>+++++++++[<+++++++++++++>-]<.-------.----------.+.+++++++++++++.<', 'difficulty': {'difficulty': 1}}
 
 ````
 
@@ -935,10 +1026,10 @@ The string is called alternating if no two adjacent characters are equal. For ex
 
 Any two characters may be swapped, even if they are not adjacent.
 
-Now, determine the minimum number of swaps to make the following binary string alternating: 0010101011
+Now, determine the minimum number of swaps to make the following binary string alternating: 011001010101010011101001010110
 
-Answer: 1
-Metadata: {'string': '0010101011', 'solution': 1, 'solvable': True}
+Answer: 5
+Metadata: {'string': '011001010101010011101001010110', 'solution': 5, 'solvable': True, 'difficulty': {'n': 30}}
 
 Example 2:
 Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
@@ -947,10 +1038,10 @@ The string is called alternating if no two adjacent characters are equal. For ex
 
 Any two characters may be swapped, even if they are not adjacent.
 
-Now, determine the minimum number of swaps to make the following binary string alternating: 00011111001010
+Now, determine the minimum number of swaps to make the following binary string alternating: 00110110100
 
 Answer: 3
-Metadata: {'string': '00011111001010', 'solution': 3, 'solvable': True}
+Metadata: {'string': '00110110100', 'solution': 3, 'solvable': True, 'difficulty': {'n': 11}}
 
 Example 3:
 Question: Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
@@ -959,10 +1050,10 @@ The string is called alternating if no two adjacent characters are equal. For ex
 
 Any two characters may be swapped, even if they are not adjacent.
 
-Now, determine the minimum number of swaps to make the following binary string alternating: 100000100111110000000111111
+Now, determine the minimum number of swaps to make the following binary string alternating: 00000001111110000111011
 
-Answer: 7
-Metadata: {'string': '100000100111110000000111111', 'solution': 7, 'solvable': True}
+Answer: 5
+Metadata: {'string': '00000001111110000111011', 'solution': 5, 'solvable': True, 'difficulty': {'n': 23}}
 
 ````
 
@@ -995,7 +1086,7 @@ Answer: 1 1 0 1
 0 0 0 0
 1 1 1 0
 1 0 1 0
-Metadata: {'matrix': [[1, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 1, 0]], 'solution': [[1, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 1, 0]]}
+Metadata: {'matrix': [[1, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 1, 0]], 'solution': [[1, 1, 0, 1], [0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 1, 0]], 'difficulty': {'n': 4, 'p_zero': 0.25}}
 
 Example 2:
 Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
@@ -1010,7 +1101,7 @@ Find the distance to the nearest 0 for each cell in the matrix below:
 Answer: 1 0 1
 2 1 2
 1 0 1
-Metadata: {'matrix': [[1, 0, 1], [1, 1, 1], [1, 0, 1]], 'solution': [[1, 0, 1], [2, 1, 2], [1, 0, 1]]}
+Metadata: {'matrix': [[1, 0, 1], [1, 1, 1], [1, 0, 1]], 'solution': [[1, 0, 1], [2, 1, 2], [1, 0, 1]], 'difficulty': {'n': 3, 'p_zero': 0.25}}
 
 Example 3:
 Question: Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
@@ -1037,7 +1128,7 @@ Answer: 0 1 1 2 1 2 1 0 1
 0 1 2 2 1 0 1 1 0
 1 1 2 3 2 1 2 2 1
 0 0 1 2 3 2 3 3 2
-Metadata: {'matrix': [[0, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [1, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 0, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 0, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 1, 1, 1, 1, 1, 1, 1]], 'solution': [[0, 1, 1, 2, 1, 2, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [2, 1, 2, 2, 1, 2, 1, 0, 1], [2, 2, 2, 1, 0, 1, 1, 0, 1], [1, 2, 3, 2, 1, 1, 2, 1, 1], [0, 1, 2, 2, 1, 0, 1, 1, 0], [1, 1, 2, 3, 2, 1, 2, 2, 1], [0, 0, 1, 2, 3, 2, 3, 3, 2]]}
+Metadata: {'matrix': [[0, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [1, 1, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 0, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 0, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 1, 1, 1, 1, 1, 1, 1]], 'solution': [[0, 1, 1, 2, 1, 2, 1, 0, 1], [1, 1, 0, 1, 0, 1, 0, 1, 1], [1, 0, 1, 1, 0, 1, 0, 1, 0], [2, 1, 2, 2, 1, 2, 1, 0, 1], [2, 2, 2, 1, 0, 1, 1, 0, 1], [1, 2, 3, 2, 1, 1, 2, 1, 1], [0, 1, 2, 2, 1, 0, 1, 1, 0], [1, 1, 2, 3, 2, 1, 2, 2, 1], [0, 0, 1, 2, 3, 2, 3, 3, 2]], 'difficulty': {'n': 9, 'p_zero': 0.25}}
 
 ````
 
@@ -1075,19 +1166,19 @@ Example 1:
 Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. If the answer is negative, reply as a negative value (ex., -0x3), not the two's-compliment form. Reply only with the final hexidecimal value.
 ((0x3a24 - 0x24b8) + (0x1741 >> 0x3))
 Answer: 0x1854
-Metadata: {'problem': '((0x3a24 - 0x24b8) + (0x1741 >> 0x3))'}
+Metadata: {'problem': '((0x3a24 - 0x24b8) + (0x1741 >> 0x3))', 'difficulty': {'difficulty': 2}}
 
 Example 2:
 Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. If the answer is negative, reply as a negative value (ex., -0x3), not the two's-compliment form. Reply only with the final hexidecimal value.
 ((0xacf1 * 0xb3cc) - (0x9a4b << 0x0))
 Answer: 0x7975b8c1
-Metadata: {'problem': '((0xacf1 * 0xb3cc) - (0x9a4b << 0x0))'}
+Metadata: {'problem': '((0xacf1 * 0xb3cc) - (0x9a4b << 0x0))', 'difficulty': {'difficulty': 2}}
 
 Example 3:
 Question: Please solve this problem. Assume there is arbitrary bit depth and that there are signed integers. If the answer is negative, reply as a negative value (ex., -0x3), not the two's-compliment form. Reply only with the final hexidecimal value.
 ((0x2e39 + 0x622b) >> 0x0)
 Answer: 0x9064
-Metadata: {'problem': '((0x2e39 + 0x622b) >> 0x0)'}
+Metadata: {'problem': '((0x2e39 + 0x622b) >> 0x0)', 'difficulty': {'difficulty': 2}}
 
 ````
 
@@ -1110,17 +1201,17 @@ Example tasks:
 Example 1:
 Question: Decrypt this Caesar cipher text: JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP. Provide only the decrypted text as your final answer.
 Answer: IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO
-Metadata: {'rotation': 1, 'cipher_text': 'JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP', 'clear_text': 'IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO'}
+Metadata: {'rotation': 1, 'cipher_text': 'JNJUBUF ZPVS BTTPDJBUF XIPN J XBT DPNQMJNFOUJOH B NPNFOU BHP', 'clear_text': 'IMITATE YOUR ASSOCIATE WHOM I WAS COMPLIMENTING A MOMENT AGO', 'difficulty': {'rotation': 1, 'words': 10}}
 
 Example 2:
 Question: Decrypt this Caesar cipher text: PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW. Provide only the decrypted text as your final answer.
 Answer: FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM
-Metadata: {'rotation': 10, 'cipher_text': 'PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW', 'clear_text': 'FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM'}
+Metadata: {'rotation': 10, 'cipher_text': 'PBSDJ XKZYVOYX CWSDR LYEQRD SD PYB K WOBO KXN YBSQSXKDON DOVOZRYXSM TYEBXKVSCW', 'clear_text': 'FRITZ NAPOLEON SMITH BOUGHT IT FOR A MERE AND ORIGINATED TELEPHONIC JOURNALISM', 'difficulty': {'rotation': 10, 'words': 12}}
 
 Example 3:
 Question: Decrypt this Caesar cipher text: ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU. Provide only the decrypted text as your final answer.
 Answer: IF YOUR STOMACH IS OUT OF IT MUST BE MENDED
-Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU', 'clear_text': 'IF YOUR STOMACH IS OUT OF IT MUST BE MENDED'}
+Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV DVEUVU', 'clear_text': 'IF YOUR STOMACH IS OUT OF IT MUST BE MENDED', 'difficulty': {'rotation': 17, 'words': 10}}
 
 ````
 
@@ -1128,7 +1219,7 @@ Metadata: {'rotation': 17, 'cipher_text': 'ZW PFLI JKFDRTY ZJ FLK FW ZK DLJK SV 
 Default configuration:
 ```python
 year = 2022
-tasks = ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_day', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year']
+tasks = ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_date', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year']
 offset_upper_bound = 100
 leap_year_range = 200
 seed = 42
@@ -1140,17 +1231,17 @@ Example tasks:
 Example 1:
 Question: Between Sunday, February 27, 2022 and Wednesday, March 2, 2022 (counting both dates), what's the total count of business days (Monday through Friday)? Give the count numerically.
 Answer: 3
-Metadata: {'task': 'count_business_days', 'start_date': '2022-02-27', 'end_date': '2022-03-02'}
+Metadata: {'task': 'count_business_days', 'start_date': '2022-02-27', 'end_date': '2022-03-02', 'difficulty': {'task_complexity': 5, 'date_range': 100}}
 
 Example 2:
 Question: Starting from Monday, May 23, 2022, which weekday was it 98 days before? Write out the full weekday name.
 Answer: Monday
-Metadata: {'task': 'weekday_offset', 'start_date': '2022-05-23', 'offset_days': -98, 'target_date': '2022-02-14'}
+Metadata: {'task': 'weekday_offset', 'start_date': '2022-05-23', 'offset_days': -98, 'target_date': '2022-02-14', 'difficulty': {'task_complexity': 0, 'date_range': 100}}
 
 Example 3:
 Question: If a meeting is scheduled on the last Saturday of September 2022, on which day of the month does it occur? Respond with just the number. Answer with -1 if the ordinal does not exist in the month.
 Answer: 24
-Metadata: {'task': 'recurring_event_day', 'year': 2022, 'month': 9, 'ordinal': 'last', 'weekday': 'Saturday'}
+Metadata: {'task': 'recurring_event_day', 'year': 2022, 'month': 9, 'ordinal': 'last', 'weekday': 'Saturday', 'difficulty': {'task_complexity': 3, 'date_range': 100}}
 
 ````
 
@@ -1617,6 +1708,7 @@ max_real = 10
 min_imag = -10
 max_imag = 10
 operations = ('+', '-', '*', '/')
+operations_weights = [0.4, 0.4, 0.1, 0.1]
 seed = 42
 size = 500
 ```
@@ -1624,19 +1716,19 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Add the complex numbers: (-10.0 - 2.0i) + (-3.0 - 3.0i)
-Answer: -13.0 - 5.0i
-Metadata: {'num1': (-10.0, -2.0), 'num2': (-3.0, -3.0), 'operation': '+', 'result': (-13, -5)}
+Question: Subtract the complex numbers: (-10.0 - 2.0i) - (-3.0 - 3.0i)
+Answer: -7.0 + 1.0i
+Metadata: {'num1': (-10.0, -2.0), 'num2': (-3.0, -3.0), 'operation': '-', 'result': (-7, 1), 'difficulty': {'min_real': -10, 'max_real': 10, 'min_imag': -10, 'max_imag': 10, 'operations_weights': [0.4, 0.4, 0.1, 0.1]}}
 
 Example 2:
-Question: Add the complex numbers: (-1.0 - 6.0i) + (4.0 + 1.0i)
-Answer: 3.0 - 5.0i
-Metadata: {'num1': (-1.0, -6.0), 'num2': (4.0, 1.0), 'operation': '+', 'result': (3, -5)}
+Question: Add the complex numbers: (-6.0 + 4.0i) + (1.0 - 7.0i)
+Answer: -5.0 - 3.0i
+Metadata: {'num1': (-6.0, 4.0), 'num2': (1.0, -7.0), 'operation': '+', 'result': (-5, -3), 'difficulty': {'min_real': -10, 'max_real': 10, 'min_imag': -10, 'max_imag': 10, 'operations_weights': [0.4, 0.4, 0.1, 0.1]}}
 
 Example 3:
-Question: Divide the complex numbers: (-7.0 - 79.0i) ÷ (-7.0 - 5.0i)
-Answer: 6.0 + 7.0i
-Metadata: {'num1': (-7.0, -79.0), 'num2': (-7.0, -5.0), 'operation': '/', 'result': (6, 7)}
+Question: Subtract the complex numbers: (7.0 - 7.0i) - (-5.0 + 2.0i)
+Answer: 12.0 - 9.0i
+Metadata: {'num1': (7.0, -7.0), 'num2': (-5.0, 2.0), 'operation': '-', 'result': (12, -9), 'difficulty': {'min_real': -10, 'max_real': 10, 'min_imag': -10, 'max_imag': 10, 'operations_weights': [0.4, 0.4, 0.1, 0.1]}}
 
 ````
 
@@ -1656,17 +1748,17 @@ Example tasks:
 Example 1:
 Question: How many 1 bits are there in the binary representation of the number 1373158607?
 Answer: 18
-Metadata: {'number': 1373158607, 'solution': 18, 'binary': '1010001110110001011110011001111'}
+Metadata: {'number': 1373158607, 'solution': 18, 'binary': '1010001110110001011110011001111', 'difficulty': {'n': 1373158607}}
 
 Example 2:
 Question: How many 1 bits are there in the binary representation of the number 82789451?
 Answer: 14
-Metadata: {'number': 82789451, 'solution': 14, 'binary': '100111011110100010001001011'}
+Metadata: {'number': 82789451, 'solution': 14, 'binary': '100111011110100010001001011', 'difficulty': {'n': 82789451}}
 
 Example 3:
 Question: How many 1 bits are there in the binary representation of the number 877324117?
 Answer: 16
-Metadata: {'number': 877324117, 'solution': 16, 'binary': '110100010010101110011101010101'}
+Metadata: {'number': 877324117, 'solution': 16, 'binary': '110100010010101110011101010101', 'difficulty': {'n': 877324117}}
 
 ````
 
@@ -1675,6 +1767,7 @@ Generates Count Primes exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_n = 1
 max_n = 10000
 size = 500
 seed = 42
@@ -1685,17 +1778,17 @@ Example tasks:
 Example 1:
 Question: Count how many prime numbers there are between 1825 and 2029 (inclusive) ?
 Answer: 27
-Metadata: {'start': 1825, 'end': 2029, 'primes': [1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999, 2003, 2011, 2017, 2027, 2029], 'solution': 27}
+Metadata: {'start': 1825, 'end': 2029, 'primes': [1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999, 2003, 2011, 2017, 2027, 2029], 'solution': 27, 'difficulty': {'n': (1825, 2029)}}
 
 Example 2:
 Question: Count how many prime numbers there are between 632 and 5319 (inclusive) ?
 Answer: 589
-Metadata: {'start': 632, 'end': 5319, 'primes': [641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999, 2003, 2011, 2017, 2027, 2029, 2039, 2053, 2063, 2069, 2081, 2083, 2087, 2089, 2099, 2111, 2113, 2129, 2131, 2137, 2141, 2143, 2153, 2161, 2179, 2203, 2207, 2213, 2221, 2237, 2239, 2243, 2251, 2267, 2269, 2273, 2281, 2287, 2293, 2297, 2309, 2311, 2333, 2339, 2341, 2347, 2351, 2357, 2371, 2377, 2381, 2383, 2389, 2393, 2399, 2411, 2417, 2423, 2437, 2441, 2447, 2459, 2467, 2473, 2477, 2503, 2521, 2531, 2539, 2543, 2549, 2551, 2557, 2579, 2591, 2593, 2609, 2617, 2621, 2633, 2647, 2657, 2659, 2663, 2671, 2677, 2683, 2687, 2689, 2693, 2699, 2707, 2711, 2713, 2719, 2729, 2731, 2741, 2749, 2753, 2767, 2777, 2789, 2791, 2797, 2801, 2803, 2819, 2833, 2837, 2843, 2851, 2857, 2861, 2879, 2887, 2897, 2903, 2909, 2917, 2927, 2939, 2953, 2957, 2963, 2969, 2971, 2999, 3001, 3011, 3019, 3023, 3037, 3041, 3049, 3061, 3067, 3079, 3083, 3089, 3109, 3119, 3121, 3137, 3163, 3167, 3169, 3181, 3187, 3191, 3203, 3209, 3217, 3221, 3229, 3251, 3253, 3257, 3259, 3271, 3299, 3301, 3307, 3313, 3319, 3323, 3329, 3331, 3343, 3347, 3359, 3361, 3371, 3373, 3389, 3391, 3407, 3413, 3433, 3449, 3457, 3461, 3463, 3467, 3469, 3491, 3499, 3511, 3517, 3527, 3529, 3533, 3539, 3541, 3547, 3557, 3559, 3571, 3581, 3583, 3593, 3607, 3613, 3617, 3623, 3631, 3637, 3643, 3659, 3671, 3673, 3677, 3691, 3697, 3701, 3709, 3719, 3727, 3733, 3739, 3761, 3767, 3769, 3779, 3793, 3797, 3803, 3821, 3823, 3833, 3847, 3851, 3853, 3863, 3877, 3881, 3889, 3907, 3911, 3917, 3919, 3923, 3929, 3931, 3943, 3947, 3967, 3989, 4001, 4003, 4007, 4013, 4019, 4021, 4027, 4049, 4051, 4057, 4073, 4079, 4091, 4093, 4099, 4111, 4127, 4129, 4133, 4139, 4153, 4157, 4159, 4177, 4201, 4211, 4217, 4219, 4229, 4231, 4241, 4243, 4253, 4259, 4261, 4271, 4273, 4283, 4289, 4297, 4327, 4337, 4339, 4349, 4357, 4363, 4373, 4391, 4397, 4409, 4421, 4423, 4441, 4447, 4451, 4457, 4463, 4481, 4483, 4493, 4507, 4513, 4517, 4519, 4523, 4547, 4549, 4561, 4567, 4583, 4591, 4597, 4603, 4621, 4637, 4639, 4643, 4649, 4651, 4657, 4663, 4673, 4679, 4691, 4703, 4721, 4723, 4729, 4733, 4751, 4759, 4783, 4787, 4789, 4793, 4799, 4801, 4813, 4817, 4831, 4861, 4871, 4877, 4889, 4903, 4909, 4919, 4931, 4933, 4937, 4943, 4951, 4957, 4967, 4969, 4973, 4987, 4993, 4999, 5003, 5009, 5011, 5021, 5023, 5039, 5051, 5059, 5077, 5081, 5087, 5099, 5101, 5107, 5113, 5119, 5147, 5153, 5167, 5171, 5179, 5189, 5197, 5209, 5227, 5231, 5233, 5237, 5261, 5273, 5279, 5281, 5297, 5303, 5309], 'solution': 589}
+Metadata: {'start': 632, 'end': 5319, 'primes': [641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999, 2003, 2011, 2017, 2027, 2029, 2039, 2053, 2063, 2069, 2081, 2083, 2087, 2089, 2099, 2111, 2113, 2129, 2131, 2137, 2141, 2143, 2153, 2161, 2179, 2203, 2207, 2213, 2221, 2237, 2239, 2243, 2251, 2267, 2269, 2273, 2281, 2287, 2293, 2297, 2309, 2311, 2333, 2339, 2341, 2347, 2351, 2357, 2371, 2377, 2381, 2383, 2389, 2393, 2399, 2411, 2417, 2423, 2437, 2441, 2447, 2459, 2467, 2473, 2477, 2503, 2521, 2531, 2539, 2543, 2549, 2551, 2557, 2579, 2591, 2593, 2609, 2617, 2621, 2633, 2647, 2657, 2659, 2663, 2671, 2677, 2683, 2687, 2689, 2693, 2699, 2707, 2711, 2713, 2719, 2729, 2731, 2741, 2749, 2753, 2767, 2777, 2789, 2791, 2797, 2801, 2803, 2819, 2833, 2837, 2843, 2851, 2857, 2861, 2879, 2887, 2897, 2903, 2909, 2917, 2927, 2939, 2953, 2957, 2963, 2969, 2971, 2999, 3001, 3011, 3019, 3023, 3037, 3041, 3049, 3061, 3067, 3079, 3083, 3089, 3109, 3119, 3121, 3137, 3163, 3167, 3169, 3181, 3187, 3191, 3203, 3209, 3217, 3221, 3229, 3251, 3253, 3257, 3259, 3271, 3299, 3301, 3307, 3313, 3319, 3323, 3329, 3331, 3343, 3347, 3359, 3361, 3371, 3373, 3389, 3391, 3407, 3413, 3433, 3449, 3457, 3461, 3463, 3467, 3469, 3491, 3499, 3511, 3517, 3527, 3529, 3533, 3539, 3541, 3547, 3557, 3559, 3571, 3581, 3583, 3593, 3607, 3613, 3617, 3623, 3631, 3637, 3643, 3659, 3671, 3673, 3677, 3691, 3697, 3701, 3709, 3719, 3727, 3733, 3739, 3761, 3767, 3769, 3779, 3793, 3797, 3803, 3821, 3823, 3833, 3847, 3851, 3853, 3863, 3877, 3881, 3889, 3907, 3911, 3917, 3919, 3923, 3929, 3931, 3943, 3947, 3967, 3989, 4001, 4003, 4007, 4013, 4019, 4021, 4027, 4049, 4051, 4057, 4073, 4079, 4091, 4093, 4099, 4111, 4127, 4129, 4133, 4139, 4153, 4157, 4159, 4177, 4201, 4211, 4217, 4219, 4229, 4231, 4241, 4243, 4253, 4259, 4261, 4271, 4273, 4283, 4289, 4297, 4327, 4337, 4339, 4349, 4357, 4363, 4373, 4391, 4397, 4409, 4421, 4423, 4441, 4447, 4451, 4457, 4463, 4481, 4483, 4493, 4507, 4513, 4517, 4519, 4523, 4547, 4549, 4561, 4567, 4583, 4591, 4597, 4603, 4621, 4637, 4639, 4643, 4649, 4651, 4657, 4663, 4673, 4679, 4691, 4703, 4721, 4723, 4729, 4733, 4751, 4759, 4783, 4787, 4789, 4793, 4799, 4801, 4813, 4817, 4831, 4861, 4871, 4877, 4889, 4903, 4909, 4919, 4931, 4933, 4937, 4943, 4951, 4957, 4967, 4969, 4973, 4987, 4993, 4999, 5003, 5009, 5011, 5021, 5023, 5039, 5051, 5059, 5077, 5081, 5087, 5099, 5101, 5107, 5113, 5119, 5147, 5153, 5167, 5171, 5179, 5189, 5197, 5209, 5227, 5231, 5233, 5237, 5261, 5273, 5279, 5281, 5297, 5303, 5309], 'solution': 589, 'difficulty': {'n': (632, 5319)}}
 
 Example 3:
 Question: Count how many prime numbers there are between 6694 and 8824 (inclusive) ?
 Answer: 236
-Metadata: {'start': 6694, 'end': 8824, 'primes': [6701, 6703, 6709, 6719, 6733, 6737, 6761, 6763, 6779, 6781, 6791, 6793, 6803, 6823, 6827, 6829, 6833, 6841, 6857, 6863, 6869, 6871, 6883, 6899, 6907, 6911, 6917, 6947, 6949, 6959, 6961, 6967, 6971, 6977, 6983, 6991, 6997, 7001, 7013, 7019, 7027, 7039, 7043, 7057, 7069, 7079, 7103, 7109, 7121, 7127, 7129, 7151, 7159, 7177, 7187, 7193, 7207, 7211, 7213, 7219, 7229, 7237, 7243, 7247, 7253, 7283, 7297, 7307, 7309, 7321, 7331, 7333, 7349, 7351, 7369, 7393, 7411, 7417, 7433, 7451, 7457, 7459, 7477, 7481, 7487, 7489, 7499, 7507, 7517, 7523, 7529, 7537, 7541, 7547, 7549, 7559, 7561, 7573, 7577, 7583, 7589, 7591, 7603, 7607, 7621, 7639, 7643, 7649, 7669, 7673, 7681, 7687, 7691, 7699, 7703, 7717, 7723, 7727, 7741, 7753, 7757, 7759, 7789, 7793, 7817, 7823, 7829, 7841, 7853, 7867, 7873, 7877, 7879, 7883, 7901, 7907, 7919, 7927, 7933, 7937, 7949, 7951, 7963, 7993, 8009, 8011, 8017, 8039, 8053, 8059, 8069, 8081, 8087, 8089, 8093, 8101, 8111, 8117, 8123, 8147, 8161, 8167, 8171, 8179, 8191, 8209, 8219, 8221, 8231, 8233, 8237, 8243, 8263, 8269, 8273, 8287, 8291, 8293, 8297, 8311, 8317, 8329, 8353, 8363, 8369, 8377, 8387, 8389, 8419, 8423, 8429, 8431, 8443, 8447, 8461, 8467, 8501, 8513, 8521, 8527, 8537, 8539, 8543, 8563, 8573, 8581, 8597, 8599, 8609, 8623, 8627, 8629, 8641, 8647, 8663, 8669, 8677, 8681, 8689, 8693, 8699, 8707, 8713, 8719, 8731, 8737, 8741, 8747, 8753, 8761, 8779, 8783, 8803, 8807, 8819, 8821], 'solution': 236}
+Metadata: {'start': 6694, 'end': 8824, 'primes': [6701, 6703, 6709, 6719, 6733, 6737, 6761, 6763, 6779, 6781, 6791, 6793, 6803, 6823, 6827, 6829, 6833, 6841, 6857, 6863, 6869, 6871, 6883, 6899, 6907, 6911, 6917, 6947, 6949, 6959, 6961, 6967, 6971, 6977, 6983, 6991, 6997, 7001, 7013, 7019, 7027, 7039, 7043, 7057, 7069, 7079, 7103, 7109, 7121, 7127, 7129, 7151, 7159, 7177, 7187, 7193, 7207, 7211, 7213, 7219, 7229, 7237, 7243, 7247, 7253, 7283, 7297, 7307, 7309, 7321, 7331, 7333, 7349, 7351, 7369, 7393, 7411, 7417, 7433, 7451, 7457, 7459, 7477, 7481, 7487, 7489, 7499, 7507, 7517, 7523, 7529, 7537, 7541, 7547, 7549, 7559, 7561, 7573, 7577, 7583, 7589, 7591, 7603, 7607, 7621, 7639, 7643, 7649, 7669, 7673, 7681, 7687, 7691, 7699, 7703, 7717, 7723, 7727, 7741, 7753, 7757, 7759, 7789, 7793, 7817, 7823, 7829, 7841, 7853, 7867, 7873, 7877, 7879, 7883, 7901, 7907, 7919, 7927, 7933, 7937, 7949, 7951, 7963, 7993, 8009, 8011, 8017, 8039, 8053, 8059, 8069, 8081, 8087, 8089, 8093, 8101, 8111, 8117, 8123, 8147, 8161, 8167, 8171, 8179, 8191, 8209, 8219, 8221, 8231, 8233, 8237, 8243, 8263, 8269, 8273, 8287, 8291, 8293, 8297, 8311, 8317, 8329, 8353, 8363, 8369, 8377, 8387, 8389, 8419, 8423, 8429, 8431, 8443, 8447, 8461, 8467, 8501, 8513, 8521, 8527, 8537, 8539, 8543, 8563, 8573, 8581, 8597, 8599, 8609, 8623, 8627, 8629, 8641, 8647, 8663, 8669, 8677, 8681, 8689, 8693, 8699, 8707, 8713, 8719, 8731, 8737, 8741, 8747, 8753, 8761, 8779, 8783, 8803, 8807, 8819, 8821], 'solution': 236, 'difficulty': {'n': (6694, 8824)}}
 
 ````
 
@@ -1789,7 +1882,7 @@ You are given the following list of prerequisites, where prerequisites[i] = (a_i
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 
 Answer: False
-Metadata: {'courses': [7, 3, 2, 8, 5, 6, 9, 4, 0, 1], 'prerequisites': [(9, 7), (8, 2), (7, 3), (8, 7), (1, 9), (1, 7), (2, 7), (5, 8), (9, 5), (2, 3), (6, 5), (3, 7), (4, 5), (3, 1), (0, 8), (5, 3)], 'solution': False, 'solvable': False}
+Metadata: {'courses': [7, 3, 2, 8, 5, 6, 9, 4, 0, 1], 'prerequisites': [(9, 7), (8, 2), (7, 3), (8, 7), (1, 9), (1, 7), (2, 7), (5, 8), (9, 5), (2, 3), (6, 5), (3, 7), (4, 5), (3, 1), (0, 8), (5, 3)], 'solution': False, 'solvable': False, 'difficulty': {'num_courses': 10}}
 
 Example 2:
 Question: There are a total of 5 courses you have to take, labeled from 0 to 4.
@@ -1800,7 +1893,7 @@ You are given the following list of prerequisites, where prerequisites[i] = (a_i
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 
 Answer: False
-Metadata: {'courses': [0, 4, 3, 1, 2], 'prerequisites': [(1, 3), (0, 2), (1, 0), (3, 4), (3, 0), (4, 0), (2, 4), (2, 1)], 'solution': False, 'solvable': False}
+Metadata: {'courses': [0, 4, 3, 1, 2], 'prerequisites': [(1, 3), (0, 2), (1, 0), (3, 4), (3, 0), (4, 0), (2, 4), (2, 1)], 'solution': False, 'solvable': False, 'difficulty': {'num_courses': 5}}
 
 Example 3:
 Question: There are a total of 8 courses you have to take, labeled from 0 to 7.
@@ -1811,7 +1904,7 @@ You are given the following list of prerequisites, where prerequisites[i] = (a_i
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 
 Answer: True
-Metadata: {'courses': [4, 5, 0, 2, 6, 3, 7, 1], 'prerequisites': [(6, 0), (2, 5), (3, 2), (3, 6), (6, 4), (5, 4), (2, 4), (1, 4), (0, 4), (7, 6)], 'solution': True, 'solvable': True}
+Metadata: {'courses': [4, 5, 0, 2, 6, 3, 7, 1], 'prerequisites': [(6, 0), (2, 5), (3, 2), (3, 6), (6, 4), (5, 4), (2, 4), (1, 4), (0, 4), (7, 6)], 'solution': True, 'solvable': True, 'difficulty': {'num_courses': 8}}
 
 ````
 
@@ -1887,8 +1980,9 @@ Default configuration:
 ```python
 min_num_decimal_places = 3
 max_num_decimal_places = 3
-precision = 6
-terms = 6
+min_terms = 2
+max_terms = 6
+precision = 12
 seed = 42
 size = 500
 ```
@@ -1896,19 +1990,22 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Please solve this problem to a maximum of 6 significant digits, rounding up from the half. Only reply with the final value.
-(0.410*3.658)-(8.936+0.521)+3.583-9.196 = ?
-Answer: -13.5702
+Question: Please solve this problem to a maximum of 12 significant digits, rounding up from the half. Only reply with the final value.
+(4.507-2.287) = ?
+Answer: 2.220
+Metadata: {'difficulty': {'decimal_places': 3, 'num_terms': 2}}
 
 Example 2:
-Question: Please solve this problem to a maximum of 6 significant digits, rounding up from the half. Only reply with the final value.
-4.688-(6.061+9.811/((8.423/8.962)/2.887)) = ?
-Answer: -31.5099
+Question: Please solve this problem to a maximum of 12 significant digits, rounding up from the half. Only reply with the final value.
+2.359/1.578 = ?
+Answer: 1.49493029151
+Metadata: {'difficulty': {'decimal_places': 3, 'num_terms': 2}}
 
 Example 3:
-Question: Please solve this problem to a maximum of 6 significant digits, rounding up from the half. Only reply with the final value.
-((8.521+6.219)-0.477-9.318+(2.568*9.683)) = ?
-Answer: 29.8109
+Question: Please solve this problem to a maximum of 12 significant digits, rounding up from the half. Only reply with the final value.
+((2.895/4.745)+1.912+2.568*9.683) = ?
+Answer: 27.3880599115
+Metadata: {'difficulty': {'decimal_places': 3, 'num_terms': 5}}
 
 ````
 
@@ -1936,9 +2033,9 @@ Answer: 8.19
 Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 1}, 'expression': '4.23 + 3.96'}
 
 Example 2:
-Question: State the final answer to the following arithmetic problem: 812.57 - 880.2580 =
-Answer: -67.6880
-Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812.57 - 880.2580'}
+Question: State the final answer to the following arithmetic problem: 812.57 - 880.2577 =
+Answer: -67.6877
+Metadata: {'difficulty': {'num_terms': 2, 'num_digits': 3}, 'expression': '812.57 - 880.2577'}
 
 Example 3:
 Question: State the final answer to the following arithmetic problem: 2.75 - 6.5 - 3.7 + 4.7 - 0.98 =
@@ -1962,15 +2059,18 @@ Example tasks:
 ````
 Example 1:
 Question: I have these dice: 1d20, 1d10, 1d5, 1d2. What are the odds of rolling 18 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
-Answer: 13/20
+Answer: (13, 20)/0.65
+Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}}
 
 Example 2:
 Question: I have these dice: 1d20, 1d11, 1d6, 1d3. What are the odds of rolling 23 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
-Answer: 19/40
+Answer: (19, 40)/0.475
+Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}}
 
 Example 3:
 Question: I have these dice: 1d20, 1d19, 1d18, 1d15. What are the odds of rolling 48 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
-Answer: 9677/51300
+Answer: (9677, 51300)/0.18863547758284602
+Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}}
 
 ````
 
@@ -2395,19 +2495,19 @@ Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapp
 
 Initial board:
 [[0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 1 1 0]
- [0 0 0 0 0 0 0 0 1 0 1 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 1 0 1 0 0 0]
- [0 0 0 0 0 0 1 1 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 1 1 0 0 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 1 0 0 0 0 0 0 0]
+ [0 0 1 1 0 0 0 1 1 1 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 1 1 1 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]]
 Answer: False
-Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'bipole', 'position': (1, 6)}], 'simulation_steps': 20, 'should_oscillate': True}
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'blinker', 'position': (7, 2)}, {'name': 'toad', 'position': (1, 1)}, {'name': 'blinker', 'position': (3, 7)}], 'simulation_steps': 20, 'should_oscillate': True}
 
 Example 2:
 Question: This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.
@@ -2417,17 +2517,17 @@ Initial board:
 [[0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 0]
- [0 0 0 0 0 1 0 0 0 0 0 0]
- [0 0 0 0 0 0 1 0 0 0 0 0]
- [0 0 0 0 0 0 0 1 0 0 0 0]
  [0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 1 0 0 0 0 0 1 0 0 0 0]
+ [0 0 1 0 0 0 1 0 0 0 0 0]
+ [0 1 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 0 0 0 0 0 0 0 1 0 0]
+ [0 0 0 0 0 0 0 0 1 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]]
 Answer: True
-Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (3, 4)}], 'simulation_steps': 20, 'should_oscillate': False}
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (8, 8)}, {'name': 'non-oscillator', 'position': (3, 6)}, {'name': 'non-oscillator', 'position': (4, 1)}], 'simulation_steps': 20, 'should_oscillate': False}
 
 Example 3:
 Question: This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.
@@ -2435,19 +2535,19 @@ Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapp
 
 Initial board:
 [[0 0 0 0 0 0 0 0 0 0 0 0]
- [0 1 0 0 0 0 0 0 1 0 0 0]
- [0 0 1 0 0 0 0 1 0 0 0 0]
- [0 1 0 0 0 0 1 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 1 0 0 0 0 0 0]
  [0 0 0 0 1 0 0 0 0 0 1 0]
- [0 0 0 0 0 1 0 0 0 1 0 0]
- [0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 0 1 0 0 0 0 0 1 0 0]
+ [0 0 0 0 1 0 0 0 1 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 1 0 0 0 0 0 0 0 0 0]
+ [0 0 0 1 0 0 0 0 0 0 0 0]
+ [0 0 0 0 1 0 0 0 0 0 0 0]
+ [0 0 0 0 0 1 0 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]]
 Answer: True
-Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (6, 3)}, {'name': 'non-oscillator', 'position': (1, 1)}, {'name': 'non-oscillator', 'position': (1, 6)}, {'name': 'non-oscillator', 'position': (7, 8)}], 'simulation_steps': 20, 'should_oscillate': False}
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (6, 2)}, {'name': 'non-oscillator', 'position': (1, 2)}, {'name': 'non-oscillator', 'position': (1, 8)}], 'simulation_steps': 20, 'should_oscillate': False}
 
 ````
 
@@ -2488,8 +2588,10 @@ Generates graph coloring problems with configurable parameters
 
 Default configuration:
 ```python
-num_colors = 4
-num_vertices = 10
+min_num_colors = 3
+max_num_colors = 3
+min_num_vertices = 10
+max_num_vertices = 10
 edge_probability = 0.4
 seed = 42
 size = 500
@@ -2501,37 +2603,37 @@ Example 1:
 Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
 
 Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Edges: [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)]
-Possible colors: [1, 2, 3, 4]
+Edges: [(0, 1), (0, 4), (0, 5), (0, 9), (1, 4), (1, 6), (1, 9), (2, 3), (2, 5), (2, 9), (3, 7), (4, 6), (4, 7), (5, 9), (6, 8), (8, 9)]
+Possible colors: [1, 2, 3]
 
 Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
-Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3, 7: 1, 8: 3, 9: 4}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 3), (0, 4), (0, 8), (1, 2), (1, 3), (1, 5), (1, 6), (1, 9), (2, 5), (2, 8), (2, 9), (3, 5), (3, 6), (3, 7), (4, 9), (6, 9), (7, 8), (7, 9), (8, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
+Metadata: {'possible_answer': {0: 1, 1: 2, 2: 1, 3: 2, 4: 3, 5: 2, 6: 1, 7: 1, 8: 2, 9: 3}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 1), (0, 4), (0, 5), (0, 9), (1, 4), (1, 6), (1, 9), (2, 3), (2, 5), (2, 9), (3, 7), (4, 6), (4, 7), (5, 9), (6, 8), (8, 9)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
 
 Example 2:
 Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
 
 Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Edges: [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)]
-Possible colors: [1, 2, 3, 4]
+Edges: [(0, 2), (0, 8), (1, 2), (1, 7), (2, 3), (2, 4), (3, 5), (3, 6), (3, 7), (4, 5), (4, 8), (5, 9), (7, 8)]
+Possible colors: [1, 2, 3]
 
 Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
-Metadata: {'possible_answer': {0: 1, 1: 2, 2: 1, 3: 3, 4: 2, 5: 2, 6: 1, 7: 2, 8: 1, 9: 3}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 1), (0, 3), (0, 9), (1, 3), (1, 8), (2, 4), (2, 5), (3, 6), (3, 7), (3, 8), (4, 6), (4, 9), (6, 7), (7, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
+Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 1, 4: 1, 5: 2, 6: 2, 7: 2, 8: 3, 9: 1}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 8), (1, 2), (1, 7), (2, 3), (2, 4), (3, 5), (3, 6), (3, 7), (4, 5), (4, 8), (5, 9), (7, 8)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
 
 Example 3:
 Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
 
 Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Edges: [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)]
-Possible colors: [1, 2, 3, 4]
+Edges: [(0, 2), (0, 6), (0, 7), (0, 8), (0, 9), (1, 4), (1, 6), (1, 7), (2, 6), (2, 7), (3, 4), (3, 5), (3, 6), (3, 9), (5, 7), (7, 9)]
+Possible colors: [1, 2, 3]
 
 Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
-Metadata: {'possible_answer': {0: 1, 1: 1, 2: 1, 3: 1, 4: 2, 5: 3, 6: 3, 7: 3, 8: 4, 9: 2}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (1, 5), (1, 8), (1, 9), (2, 5), (2, 6), (2, 7), (2, 9), (3, 6), (3, 7), (4, 5), (4, 6), (4, 7), (4, 8), (5, 8), (6, 9)], 'num_colors': 4, 'color_options': [1, 2, 3, 4]}}
+Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 1, 4: 2, 5: 2, 6: 3, 7: 3, 8: 2, 9: 2}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 6), (0, 7), (0, 8), (0, 9), (1, 4), (1, 6), (1, 7), (2, 6), (2, 7), (3, 4), (3, 5), (3, 6), (3, 9), (5, 7), (7, 9)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
 
 ````
 
@@ -2540,7 +2642,9 @@ Generates Group Anagrams exercises with configurable difficulty
 
 Default configuration:
 ```python
-anagram_groups = 10
+min_anagram_groups = 2
+max_anagram_groups = 10
+min_words_per_group = 2
 max_words_per_group = 5
 size = 500
 seed = 42
@@ -2556,10 +2660,10 @@ Your job is to group the anagrams together. You can return the answer in any ord
 The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
-["tinglers", "argonon", "ditas", "palinodist", "merocyte", "conterminal", "canny", "nancy", "outasight", "autosight", "oversauciness", "applauders", "suprapedal"]
+["ditas", "adits", "staid", "plastinoid", "palinodist", "cytomere", "merocyte"]
 
-Answer: [["applauders", "suprapedal"], ["argonon"], ["autosight", "outasight"], ["canny", "nancy"], ["conterminal"], ["ditas"], ["merocyte"], ["oversauciness"], ["palinodist"], ["tinglers"]]
-Metadata: {'words': ['tinglers', 'argonon', 'ditas', 'palinodist', 'merocyte', 'conterminal', 'canny', 'nancy', 'outasight', 'autosight', 'oversauciness', 'applauders', 'suprapedal'], 'solution': [['applauders', 'suprapedal'], ['argonon'], ['autosight', 'outasight'], ['canny', 'nancy'], ['conterminal'], ['ditas'], ['merocyte'], ['oversauciness'], ['palinodist'], ['tinglers']]}
+Answer: [["adits", "ditas", "staid"], ["cytomere", "merocyte"], ["palinodist", "plastinoid"]]
+Metadata: {'words': ['ditas', 'adits', 'staid', 'plastinoid', 'palinodist', 'cytomere', 'merocyte'], 'solution': [['adits', 'ditas', 'staid'], ['cytomere', 'merocyte'], ['palinodist', 'plastinoid']], 'difficulty': {'anagram_groups': 3}}
 
 Example 2:
 Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
@@ -2569,10 +2673,10 @@ Your job is to group the anagrams together. You can return the answer in any ord
 The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
-["regear", "escrod", "coders", "decors", "credos", "scored", "semitaur", "muriates", "peripterous", "zanies", "expatiater", "wooled", "meningomyelocele", "myelomeningocele", "vainest", "natives", "naivest", "preludes", "repulsed"]
+["escrod", "decors", "scored", "semitaur", "muriates"]
 
-Answer: [["coders", "credos", "decors", "escrod", "scored"], ["expatiater"], ["meningomyelocele", "myelomeningocele"], ["muriates", "semitaur"], ["naivest", "natives", "vainest"], ["peripterous"], ["preludes", "repulsed"], ["regear"], ["wooled"], ["zanies"]]
-Metadata: {'words': ['regear', 'escrod', 'coders', 'decors', 'credos', 'scored', 'semitaur', 'muriates', 'peripterous', 'zanies', 'expatiater', 'wooled', 'meningomyelocele', 'myelomeningocele', 'vainest', 'natives', 'naivest', 'preludes', 'repulsed'], 'solution': [['coders', 'credos', 'decors', 'escrod', 'scored'], ['expatiater'], ['meningomyelocele', 'myelomeningocele'], ['muriates', 'semitaur'], ['naivest', 'natives', 'vainest'], ['peripterous'], ['preludes', 'repulsed'], ['regear'], ['wooled'], ['zanies']]}
+Answer: [["decors", "escrod", "scored"], ["muriates", "semitaur"]]
+Metadata: {'words': ['escrod', 'decors', 'scored', 'semitaur', 'muriates'], 'solution': [['decors', 'escrod', 'scored'], ['muriates', 'semitaur']], 'difficulty': {'anagram_groups': 2}}
 
 Example 3:
 Question: An anagram is a word formed by rearranging the letters of a different word, using all the original letters exactly once.
@@ -2582,10 +2686,10 @@ Your job is to group the anagrams together. You can return the answer in any ord
 The output is a list of lists of strings, where each outer list contains a group of anagrams, e.g. [["eat", "tea"], ["tan", "nat"]].
 
 Group the following list of words into anagrams:
-["eagerest", "granitite", "helium", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "tadpolism", "canun", "cunan", "isotonic"]
+["granitite", "iterating", "helium", "humlie", "nizam", "nazim", "striplings", "slipstring", "rearrest", "arrester", "bf", "fb", "tadpolism", "diplomats", "cunan", "canun"]
 
-Answer: [["arrester", "rearrest"], ["bf"], ["canun", "cunan"], ["eagerest"], ["granitite"], ["helium"], ["isotonic"], ["nazim", "nizam"], ["slipstring", "striplings"], ["tadpolism"]]
-Metadata: {'words': ['eagerest', 'granitite', 'helium', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'tadpolism', 'canun', 'cunan', 'isotonic'], 'solution': [['arrester', 'rearrest'], ['bf'], ['canun', 'cunan'], ['eagerest'], ['granitite'], ['helium'], ['isotonic'], ['nazim', 'nizam'], ['slipstring', 'striplings'], ['tadpolism']]}
+Answer: [["arrester", "rearrest"], ["bf", "fb"], ["canun", "cunan"], ["diplomats", "tadpolism"], ["granitite", "iterating"], ["helium", "humlie"], ["nazim", "nizam"], ["slipstring", "striplings"]]
+Metadata: {'words': ['granitite', 'iterating', 'helium', 'humlie', 'nizam', 'nazim', 'striplings', 'slipstring', 'rearrest', 'arrester', 'bf', 'fb', 'tadpolism', 'diplomats', 'cunan', 'canun'], 'solution': [['arrester', 'rearrest'], ['bf', 'fb'], ['canun', 'cunan'], ['diplomats', 'tadpolism'], ['granitite', 'iterating'], ['helium', 'humlie'], ['nazim', 'nizam'], ['slipstring', 'striplings']], 'difficulty': {'anagram_groups': 8}}
 
 ````
 
@@ -2678,6 +2782,7 @@ Generates Isomorphic Strings exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_string_length = 2
 max_string_length = 10
 p_solvable = 0.5
 size = 500
@@ -2694,10 +2799,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-cc bw
+zg bn
 
-Answer: False
-Metadata: {'words': ['cc', 'bw'], 'solution': False, 'solvable': False}
+Answer: True
+Metadata: {'words': ['zg', 'bn'], 'solution': True, 'solvable': True, 'difficulty': {'string_length': 3}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -2707,10 +2812,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-nai oik
+f n
 
 Answer: True
-Metadata: {'words': ['nai', 'oik'], 'solution': True, 'solvable': True}
+Metadata: {'words': ['f', 'n'], 'solution': True, 'solvable': True, 'difficulty': {'string_length': 2}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -2720,10 +2825,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-hogtytyof kgqwfwfgh
+hogtoyty kgqwpfwf
 
-Answer: True
-Metadata: {'words': ['hogtytyof', 'kgqwfwfgh'], 'solution': True, 'solvable': True}
+Answer: False
+Metadata: {'words': ['hogtoyty', 'kgqwpfwf'], 'solution': False, 'solvable': False, 'difficulty': {'string_length': 8}}
 
 ````
 
@@ -3031,7 +3136,7 @@ The area of an island is the number of cells with a value 1 in the island.
 Return the maximum area of an island in grid. If there is no island, return 0.
 
 Answer: 0
-Metadata: {'grid': [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], 'solution': 0}
+Metadata: {'grid': [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], 'solution': 0, 'difficulty': {'rows': 10, 'cols': 5, 'num_islands': 0}}
 
 Example 2:
 Question: You are given the following 5 x 7 binary matrix grid:
@@ -3049,7 +3154,7 @@ The area of an island is the number of cells with a value 1 in the island.
 Return the maximum area of an island in grid. If there is no island, return 0.
 
 Answer: 10
-Metadata: {'grid': [[0, 0, 1, 1, 1, 0, 1], [1, 0, 0, 1, 1, 0, 1], [1, 0, 0, 0, 0, 1, 1], [1, 0, 0, 1, 1, 1, 0], [1, 0, 0, 1, 1, 1, 0]], 'solution': 10}
+Metadata: {'grid': [[0, 0, 1, 1, 1, 0, 1], [1, 0, 0, 1, 1, 0, 1], [1, 0, 0, 0, 0, 1, 1], [1, 0, 0, 1, 1, 1, 0], [1, 0, 0, 1, 1, 1, 0]], 'solution': 10, 'difficulty': {'rows': 5, 'cols': 7, 'num_islands': 5}}
 
 Example 3:
 Question: You are given the following 8 x 9 binary matrix grid:
@@ -3070,7 +3175,7 @@ The area of an island is the number of cells with a value 1 in the island.
 Return the maximum area of an island in grid. If there is no island, return 0.
 
 Answer: 6
-Metadata: {'grid': [[1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 6}
+Metadata: {'grid': [[1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': 6, 'difficulty': {'rows': 8, 'cols': 9, 'num_islands': 4}}
 
 ````
 
@@ -3113,6 +3218,7 @@ Default configuration:
 ```python
 min_animals = 3
 max_animals = 10
+min_instances = 1
 max_instances = 15
 seed = 42
 size = 500
@@ -3162,17 +3268,17 @@ Example tasks:
 Example 1:
 Question: How many times does the letter "a" appear in the text: "bed and enters his mechanical dresser Two minutes later the machine deposited him all dressed"?
 Answer: 6
-Metadata: {'span_length': 15, 'target_letter': 'a', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed']}
+Metadata: {'span_length': 15, 'target_letter': 'a', 'span': ['bed', 'and', 'enters', 'his', 'mechanical', 'dresser', 'Two', 'minutes', 'later', 'the', 'machine', 'deposited', 'him', 'all', 'dressed'], 'difficulty': {'words': 15}}
 
 Example 2:
 Question: How many times does the letter "w" appear in the text: "it into a watering place"?
 Answer: 1
-Metadata: {'span_length': 5, 'target_letter': 'w', 'span': ['it', 'into', 'a', 'watering', 'place']}
+Metadata: {'span_length': 5, 'target_letter': 'w', 'span': ['it', 'into', 'a', 'watering', 'place'], 'difficulty': {'words': 5}}
 
 Example 3:
 Question: How many times does the letter "t" appear in the text: "readable form accessible by the widest array of equipment including outdated"?
 Answer: 5
-Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated']}
+Metadata: {'span_length': 11, 'target_letter': 't', 'span': ['readable', 'form', 'accessible', 'by', 'the', 'widest', 'array', 'of', 'equipment', 'including', 'outdated'], 'difficulty': {'words': 11}}
 
 ````
 
@@ -3346,7 +3452,7 @@ Round 11: Add a F card and remove a B card.
 Round 12: Add an I card and remove a F card.
 
 Answer: Chi
-Metadata: {'rounds': [{'add': 'B', 'remove': 'V', 'cards': 'OHBRPOIGIFLBB', 'result': 'Peng'}, {'add': 'O', 'remove': 'F', 'cards': 'OHBRPOIGILBBO', 'result': 'Peng'}, {'add': 'O', 'remove': 'R', 'cards': 'OHBPOIGILBBOO', 'result': 'Peng'}, {'add': 'U', 'remove': 'O', 'cards': 'HBPOIGILBBOOU', 'result': 'Pass'}, {'add': 'N', 'remove': 'O', 'cards': 'HBPIGILBBOOUN', 'result': 'Pass'}, {'add': 'Q', 'remove': 'G', 'cards': 'HBPIILBBOOUNQ', 'result': 'Chi'}, {'add': 'B', 'remove': 'N', 'cards': 'HBPIILBBOOUQB', 'result': 'Peng'}, {'add': 'Q', 'remove': 'I', 'cards': 'HBPILBBOOUQBQ', 'result': 'Chi'}, {'add': 'B', 'remove': 'Q', 'cards': 'HBPILBBOOUBQB', 'result': 'Peng'}, {'add': 'G', 'remove': 'B', 'cards': 'HPILBBOOUBQBG', 'result': 'Chi'}, {'add': 'F', 'remove': 'B', 'cards': 'HPILBOOUBQBGF', 'result': 'Chi'}, {'add': 'I', 'remove': 'F', 'cards': 'HPILBOOUBQBGI', 'result': 'Chi'}], 'solution': 'Chi'}
+Metadata: {'rounds': [{'add': 'B', 'remove': 'V', 'cards': 'OHBRPOIGIFLBB', 'result': 'Peng'}, {'add': 'O', 'remove': 'F', 'cards': 'OHBRPOIGILBBO', 'result': 'Peng'}, {'add': 'O', 'remove': 'R', 'cards': 'OHBPOIGILBBOO', 'result': 'Peng'}, {'add': 'U', 'remove': 'O', 'cards': 'HBPOIGILBBOOU', 'result': 'Pass'}, {'add': 'N', 'remove': 'O', 'cards': 'HBPIGILBBOOUN', 'result': 'Pass'}, {'add': 'Q', 'remove': 'G', 'cards': 'HBPIILBBOOUNQ', 'result': 'Chi'}, {'add': 'B', 'remove': 'N', 'cards': 'HBPIILBBOOUQB', 'result': 'Peng'}, {'add': 'Q', 'remove': 'I', 'cards': 'HBPILBBOOUQBQ', 'result': 'Chi'}, {'add': 'B', 'remove': 'Q', 'cards': 'HBPILBBOOUBQB', 'result': 'Peng'}, {'add': 'G', 'remove': 'B', 'cards': 'HPILBBOOUBQBG', 'result': 'Chi'}, {'add': 'F', 'remove': 'B', 'cards': 'HPILBOOUBQBGF', 'result': 'Chi'}, {'add': 'I', 'remove': 'F', 'cards': 'HPILBOOUBQBGI', 'result': 'Chi'}], 'solution': 'Chi', 'difficulty': {'num_rounds': 12}}
 
 Example 2:
 Question: There are several letter cards, and the game rules are as follows:
@@ -3374,7 +3480,7 @@ Round 10: Add a B card and remove a G card.
 Round 11: Add an E card and remove a N card.
 
 Answer: Peng
-Metadata: {'rounds': [{'add': 'N', 'remove': 'U', 'cards': 'CSSWJDXQGMFPN', 'result': 'Pass'}, {'add': 'V', 'remove': 'X', 'cards': 'CSSWJDQGMFPNV', 'result': 'Chi'}, {'add': 'S', 'remove': 'S', 'cards': 'CSWJDQGMFPNVS', 'result': 'Peng'}, {'add': 'S', 'remove': 'W', 'cards': 'CSJDQGMFPNVSS', 'result': 'Peng'}, {'add': 'S', 'remove': 'P', 'cards': 'CSJDQGMFNVSSS', 'result': 'Peng'}, {'add': 'E', 'remove': 'S', 'cards': 'CJDQGMFNVSSSE', 'result': 'Chi'}, {'add': 'R', 'remove': 'V', 'cards': 'CJDQGMFNSSSER', 'result': 'Chi'}, {'add': 'P', 'remove': 'D', 'cards': 'CJQGMFNSSSERP', 'result': 'Chi'}, {'add': 'E', 'remove': 'C', 'cards': 'JQGMFNSSSERPE', 'result': 'Chi'}, {'add': 'B', 'remove': 'G', 'cards': 'JQMFNSSSERPEB', 'result': 'Pass'}, {'add': 'E', 'remove': 'N', 'cards': 'JQMFSSSERPEBE', 'result': 'Peng'}], 'solution': 'Peng'}
+Metadata: {'rounds': [{'add': 'N', 'remove': 'U', 'cards': 'CSSWJDXQGMFPN', 'result': 'Pass'}, {'add': 'V', 'remove': 'X', 'cards': 'CSSWJDQGMFPNV', 'result': 'Chi'}, {'add': 'S', 'remove': 'S', 'cards': 'CSWJDQGMFPNVS', 'result': 'Peng'}, {'add': 'S', 'remove': 'W', 'cards': 'CSJDQGMFPNVSS', 'result': 'Peng'}, {'add': 'S', 'remove': 'P', 'cards': 'CSJDQGMFNVSSS', 'result': 'Peng'}, {'add': 'E', 'remove': 'S', 'cards': 'CJDQGMFNVSSSE', 'result': 'Chi'}, {'add': 'R', 'remove': 'V', 'cards': 'CJDQGMFNSSSER', 'result': 'Chi'}, {'add': 'P', 'remove': 'D', 'cards': 'CJQGMFNSSSERP', 'result': 'Chi'}, {'add': 'E', 'remove': 'C', 'cards': 'JQGMFNSSSERPE', 'result': 'Chi'}, {'add': 'B', 'remove': 'G', 'cards': 'JQMFNSSSERPEB', 'result': 'Pass'}, {'add': 'E', 'remove': 'N', 'cards': 'JQMFSSSERPEBE', 'result': 'Peng'}], 'solution': 'Peng', 'difficulty': {'num_rounds': 11}}
 
 Example 3:
 Question: There are several letter cards, and the game rules are as follows:
@@ -3401,7 +3507,7 @@ Round 9: Add a W card and remove a W card.
 Round 10: Add a W card and remove an A card.
 
 Answer: Peng
-Metadata: {'rounds': [{'add': 'H', 'remove': 'K', 'cards': 'AHISHLYOSBWVH', 'result': 'Peng'}, {'add': 'W', 'remove': 'H', 'cards': 'AISHLYOSBWVHW', 'result': 'Pass'}, {'add': 'U', 'remove': 'O', 'cards': 'AISHLYSBWVHWU', 'result': 'Pass'}, {'add': 'M', 'remove': 'U', 'cards': 'AISHLYSBWVHWM', 'result': 'Pass'}, {'add': 'V', 'remove': 'Y', 'cards': 'AISHLSBWVHWMV', 'result': 'Pass'}, {'add': 'C', 'remove': 'S', 'cards': 'AIHLSBWVHWMVC', 'result': 'Chi'}, {'add': 'K', 'remove': 'H', 'cards': 'AILSBWVHWMVCK', 'result': 'Chi'}, {'add': 'V', 'remove': 'M', 'cards': 'AILSBWVHWVCKV', 'result': 'Peng'}, {'add': 'W', 'remove': 'W', 'cards': 'AILSBVHWVCKVW', 'result': 'Peng'}, {'add': 'W', 'remove': 'A', 'cards': 'ILSBVHWVCKVWW', 'result': 'Peng'}], 'solution': 'Peng'}
+Metadata: {'rounds': [{'add': 'H', 'remove': 'K', 'cards': 'AHISHLYOSBWVH', 'result': 'Peng'}, {'add': 'W', 'remove': 'H', 'cards': 'AISHLYOSBWVHW', 'result': 'Pass'}, {'add': 'U', 'remove': 'O', 'cards': 'AISHLYSBWVHWU', 'result': 'Pass'}, {'add': 'M', 'remove': 'U', 'cards': 'AISHLYSBWVHWM', 'result': 'Pass'}, {'add': 'V', 'remove': 'Y', 'cards': 'AISHLSBWVHWMV', 'result': 'Pass'}, {'add': 'C', 'remove': 'S', 'cards': 'AIHLSBWVHWMVC', 'result': 'Chi'}, {'add': 'K', 'remove': 'H', 'cards': 'AILSBWVHWMVCK', 'result': 'Chi'}, {'add': 'V', 'remove': 'M', 'cards': 'AILSBWVHWVCKV', 'result': 'Peng'}, {'add': 'W', 'remove': 'W', 'cards': 'AILSBVHWVCKVW', 'result': 'Peng'}, {'add': 'W', 'remove': 'A', 'cards': 'ILSBVHWVCKVWW', 'result': 'Peng'}], 'solution': 'Peng', 'difficulty': {'num_rounds': 10}}
 
 ````
 
@@ -3446,7 +3552,7 @@ Perform the following series of operations in order:
 Answer: 8 1
 2 3
 3 4
-Metadata: {'matrix': [[4, 3], [3, 2], [1, 8]], 'solution': [[8, 1], [2, 3], [3, 4]], 'operations': [{'transform': 'map', 'from': 0, 'to': 9, 'instruction': '- Map each occurrence of 0 to 9'}, {'transform': 'rotate', 'degrees': '180', 'instruction': '- Rotate the matrix 180 degrees'}]}
+Metadata: {'matrix': [[4, 3], [3, 2], [1, 8]], 'solution': [[8, 1], [2, 3], [3, 4]], 'operations': [{'transform': 'map', 'from': 0, 'to': 9, 'instruction': '- Map each occurrence of 0 to 9'}, {'transform': 'rotate', 'degrees': '180', 'instruction': '- Rotate the matrix 180 degrees'}], 'difficulty': {'rows': 3, 'cols': 2, 'num_transforms': 2}}
 
 Example 2:
 Question: For the following matrix:
@@ -3468,7 +3574,7 @@ Answer: 0
 5
 7
 2
-Metadata: {'matrix': [[2, 7, 5, 1, 7, 9], [7, 9, 0, 8, 6, 9]], 'solution': [[0], [7], [1], [5], [7], [2]], 'operations': [{'transform': 'zero_divisible', 'k': 9, 'instruction': '- Set all elements divisible by 9 to zero'}, {'transform': 'remove_every_nth_row', 'n': 2, 'instruction': '- Remove every 2-nd row (1-indexed)'}, {'transform': 'dmirror', 'instruction': '- Mirror the matrix along the diagonal'}, {'transform': 'rotate', 'degrees': '90', 'instruction': '- Rotate the matrix 90 degrees'}, {'transform': 'dmirror', 'instruction': '- Mirror the matrix along the diagonal'}, {'transform': 'rotate', 'degrees': '360', 'instruction': '- Rotate the matrix 360 degrees'}]}
+Metadata: {'matrix': [[2, 7, 5, 1, 7, 9], [7, 9, 0, 8, 6, 9]], 'solution': [[0], [7], [1], [5], [7], [2]], 'operations': [{'transform': 'zero_divisible', 'k': 9, 'instruction': '- Set all elements divisible by 9 to zero'}, {'transform': 'remove_every_nth_row', 'n': 2, 'instruction': '- Remove every 2-nd row (1-indexed)'}, {'transform': 'dmirror', 'instruction': '- Mirror the matrix along the diagonal'}, {'transform': 'rotate', 'degrees': '90', 'instruction': '- Rotate the matrix 90 degrees'}, {'transform': 'dmirror', 'instruction': '- Mirror the matrix along the diagonal'}, {'transform': 'rotate', 'degrees': '360', 'instruction': '- Rotate the matrix 360 degrees'}], 'difficulty': {'rows': 2, 'cols': 6, 'num_transforms': 6}}
 
 Example 3:
 Question: For the following matrix:
@@ -3496,7 +3602,7 @@ Answer: 0 0 0 0 0
 0 0 0 0 0
 0 0 0 0 0
 0 0 0 0 0
-Metadata: {'matrix': [[8, 1, 2, 6, 3, 4, 0, 3, 1, 9], [0, 1, 2, 8, 4, 6, 9, 6, 5, 5], [1, 5, 4, 9, 2, 1, 8, 1, 9, 1], [4, 5, 1, 4, 0, 5, 6, 1, 7, 7], [3, 3, 2, 4, 3, 0, 0, 6, 0, 5], [5, 7, 7, 9, 8, 2, 3, 7, 7, 5], [9, 0, 4, 2, 0, 3, 0, 9, 9, 8], [8, 4, 5, 9, 3, 6, 1, 5, 5, 1]], 'solution': [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], 'operations': [{'transform': 'zero_divisible', 'k': 1, 'instruction': '- Set all elements divisible by 1 to zero'}, {'transform': 'remove_every_nth_col', 'n': 2, 'instruction': '- Remove every 2-nd column (1-indexed)'}, {'transform': 'zero_divisible', 'k': 8, 'instruction': '- Set all elements divisible by 8 to zero'}, {'transform': 'hmirror', 'instruction': '- Horizontally mirror the matrix'}]}
+Metadata: {'matrix': [[8, 1, 2, 6, 3, 4, 0, 3, 1, 9], [0, 1, 2, 8, 4, 6, 9, 6, 5, 5], [1, 5, 4, 9, 2, 1, 8, 1, 9, 1], [4, 5, 1, 4, 0, 5, 6, 1, 7, 7], [3, 3, 2, 4, 3, 0, 0, 6, 0, 5], [5, 7, 7, 9, 8, 2, 3, 7, 7, 5], [9, 0, 4, 2, 0, 3, 0, 9, 9, 8], [8, 4, 5, 9, 3, 6, 1, 5, 5, 1]], 'solution': [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], 'operations': [{'transform': 'zero_divisible', 'k': 1, 'instruction': '- Set all elements divisible by 1 to zero'}, {'transform': 'remove_every_nth_col', 'n': 2, 'instruction': '- Remove every 2-nd column (1-indexed)'}, {'transform': 'zero_divisible', 'k': 8, 'instruction': '- Set all elements divisible by 8 to zero'}, {'transform': 'hmirror', 'instruction': '- Horizontally mirror the matrix'}], 'difficulty': {'rows': 8, 'cols': 10, 'num_transforms': 4}}
 
 ````
 
@@ -3606,7 +3712,7 @@ Answer: 4 2 1 3
 1 3 4 2
 2 1 3 4
 3 4 2 1
-Metadata: {'puzzle': [[4, 0, 0, 0], [0, 3, 0, 0], [0, 1, 3, 0], [0, 0, 0, 0]], 'solution': [[4, 2, 1, 3], [1, 3, 4, 2], [2, 1, 3, 4], [3, 4, 2, 1]], 'num_empty': 12}
+Metadata: {'puzzle': [[4, 0, 0, 0], [0, 3, 0, 0], [0, 1, 3, 0], [0, 0, 0, 0]], 'solution': [[4, 2, 1, 3], [1, 3, 4, 2], [2, 1, 3, 4], [3, 4, 2, 1]], 'num_empty': 12, 'difficulty': {'empty': 12}}
 
 Example 2:
 Question: In 4x4 Mini Sudoku:
@@ -3624,7 +3730,7 @@ Answer: 3 4 1 2
 2 1 4 3
 4 2 3 1
 1 3 2 4
-Metadata: {'puzzle': [[3, 0, 0, 0], [0, 0, 4, 0], [4, 2, 0, 0], [0, 0, 0, 4]], 'solution': [[3, 4, 1, 2], [2, 1, 4, 3], [4, 2, 3, 1], [1, 3, 2, 4]], 'num_empty': 11}
+Metadata: {'puzzle': [[3, 0, 0, 0], [0, 0, 4, 0], [4, 2, 0, 0], [0, 0, 0, 4]], 'solution': [[3, 4, 1, 2], [2, 1, 4, 3], [4, 2, 3, 1], [1, 3, 2, 4]], 'num_empty': 11, 'difficulty': {'empty': 11}}
 
 Example 3:
 Question: In 4x4 Mini Sudoku:
@@ -3642,7 +3748,7 @@ Answer: 2 4 1 3
 1 3 4 2
 3 1 2 4
 4 2 3 1
-Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 0, 2, 4], [4, 0, 0, 1]], 'solution': [[2, 4, 1, 3], [1, 3, 4, 2], [3, 1, 2, 4], [4, 2, 3, 1]], 'num_empty': 8}
+Metadata: {'puzzle': [[0, 0, 0, 0], [1, 3, 4, 0], [3, 0, 2, 4], [4, 0, 0, 1]], 'solution': [[2, 4, 1, 3], [1, 3, 4, 2], [3, 1, 2, 4], [4, 2, 3, 1]], 'num_empty': 8, 'difficulty': {'empty': 8}}
 
 ````
 
@@ -3714,7 +3820,7 @@ Answer: ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
 ❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌
 ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌
 ❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅❌❌❌✅
-Metadata: {'divisor': 4, 'target': 1, 'operation': 'prod'}
+Metadata: {'divisor': 4, 'target': 1, 'operation': 'prod', 'difficulty': {'holes': 1, 'size_x': 20, 'size_y': 20}}
 
 Example 2:
 Question: Identify the mathematical pattern which defines this grid, then use that pattern to fill in the question marks. Return the entire completed grid as your answer.
@@ -3759,7 +3865,7 @@ Answer: ❌❌❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌
 ❌❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌
 ❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌
 ❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌❌❌
-Metadata: {'divisor': 15, 'target': 12, 'operation': 'sum'}
+Metadata: {'divisor': 15, 'target': 12, 'operation': 'sum', 'difficulty': {'holes': 1, 'size_x': 20, 'size_y': 20}}
 
 Example 3:
 Question: Identify the mathematical pattern which defines this grid, then use that pattern to fill in the question marks. Return the entire completed grid as your answer.
@@ -3804,7 +3910,7 @@ Answer: ❌✅❌❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌
 ❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅❌
 ❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌✅
 ❌❌❌❌❌❌❌❌✅❌❌❌❌❌❌❌❌❌✅❌
-Metadata: {'divisor': 10, 'target': 1, 'operation': 'diff'}
+Metadata: {'divisor': 10, 'target': 1, 'operation': 'diff', 'difficulty': {'holes': 1, 'size_x': 20, 'size_y': 20}}
 
 ````
 
@@ -3849,7 +3955,7 @@ _ _ _ _ _ _ _ Q
 _ _ _ _ Q _ _ _
 _ _ Q _ _ _ _ _
 _ _ _ _ _ Q _ _
-Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], 'solutions': [[['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']]], 'num_removed': 1, 'valid_answers': ['_ _ _ _ _ _ Q _\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _']}
+Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], 'solutions': [[['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']]], 'num_removed': 1, 'valid_answers': ['_ _ _ _ _ _ Q _\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _'], 'difficulty': {'n': 8, 'num_removed': 1}}
 
 Example 2:
 Question: Your job is to complete an n x n chess board with n Queens in total, such that no two attack each other.
@@ -3878,7 +3984,7 @@ _ _ Q _ _ _ _ _
 Q _ _ _ _ _ _ _
 _ _ _ _ _ _ Q _
 _ _ _ _ Q _ _ _
-Metadata: {'puzzle': [['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']], 'solutions': [[['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']]], 'num_removed': 3, 'valid_answers': ['_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\n_ _ _ _ _ Q _ _\n_ _ _ _ _ _ _ Q\n_ _ Q _ _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ _ _ Q _ _ _']}
+Metadata: {'puzzle': [['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']], 'solutions': [[['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_']]], 'num_removed': 3, 'valid_answers': ['_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\n_ _ _ _ _ Q _ _\n_ _ _ _ _ _ _ Q\n_ _ Q _ _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ _ _ Q _ _ _'], 'difficulty': {'n': 8, 'num_removed': 3}}
 
 Example 3:
 Question: Your job is to complete an n x n chess board with n Queens in total, such that no two attack each other.
@@ -3907,7 +4013,7 @@ _ _ _ Q _ _ _ _
 _ _ _ _ _ _ Q _
 _ _ Q _ _ _ _ _
 _ _ _ _ _ Q _ _
-Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', '_', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], 'solutions': [[['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], [['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], [['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']]], 'num_removed': 5, 'valid_answers': ['_ _ _ _ Q _ _ _\n_ Q _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\nQ _ _ _ _ _ _ _\n_ _ _ Q _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _', '_ _ _ _ _ _ Q _\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _', '_ _ _ _ _ _ _ Q\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _']}
+Metadata: {'puzzle': [['_', '_', '_', '_', '_', '_', '_', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], 'solutions': [[['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], [['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']], [['_', '_', '_', '_', '_', '_', '_', 'Q'], ['_', 'Q', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', 'Q', '_', '_', '_', '_'], ['Q', '_', '_', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', '_', 'Q', '_'], ['_', '_', '_', '_', 'Q', '_', '_', '_'], ['_', '_', 'Q', '_', '_', '_', '_', '_'], ['_', '_', '_', '_', '_', 'Q', '_', '_']]], 'num_removed': 5, 'valid_answers': ['_ _ _ _ Q _ _ _\n_ Q _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\nQ _ _ _ _ _ _ _\n_ _ _ Q _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _', '_ _ _ _ _ _ Q _\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ _ Q\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _', '_ _ _ _ _ _ _ Q\n_ Q _ _ _ _ _ _\n_ _ _ Q _ _ _ _\nQ _ _ _ _ _ _ _\n_ _ _ _ _ _ Q _\n_ _ _ _ Q _ _ _\n_ _ Q _ _ _ _ _\n_ _ _ _ _ Q _ _'], 'difficulty': {'n': 8, 'num_removed': 5}}
 
 ````
 
@@ -4170,7 +4276,8 @@ Default configuration:
 ```python
 min_string_len = 5
 max_string_len = 15
-max_substring_palindome_len = 5
+min_substring_palindrome_len = 1
+max_substring_palindrome_len = 5
 size = 500
 seed = 42
 ```
@@ -4189,7 +4296,7 @@ Your output should be a list of lists, where each list represents a palindrome p
 Partition the following string into palindromes: agegvckakcgnnrw
 
 Answer: [["a", "g", "e", "g", "v", "c", "k", "a", "k", "c", "g", "n", "n", "r", "w"], ["a", "g", "e", "g", "v", "c", "k", "a", "k", "c", "g", "nn", "r", "w"], ["a", "g", "e", "g", "v", "c", "kak", "c", "g", "n", "n", "r", "w"], ["a", "g", "e", "g", "v", "c", "kak", "c", "g", "nn", "r", "w"], ["a", "g", "e", "g", "v", "ckakc", "g", "n", "n", "r", "w"], ["a", "g", "e", "g", "v", "ckakc", "g", "nn", "r", "w"], ["a", "geg", "v", "c", "k", "a", "k", "c", "g", "n", "n", "r", "w"], ["a", "geg", "v", "c", "k", "a", "k", "c", "g", "nn", "r", "w"], ["a", "geg", "v", "c", "kak", "c", "g", "n", "n", "r", "w"], ["a", "geg", "v", "c", "kak", "c", "g", "nn", "r", "w"], ["a", "geg", "v", "ckakc", "g", "n", "n", "r", "w"], ["a", "geg", "v", "ckakc", "g", "nn", "r", "w"]]
-Metadata: {'string': 'agegvckakcgnnrw', 'solution': [['a', 'g', 'e', 'g', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'nn', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'kak', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'kak', 'c', 'g', 'nn', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'ckakc', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'ckakc', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'c', 'kak', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'c', 'kak', 'c', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'ckakc', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'ckakc', 'g', 'nn', 'r', 'w']]}
+Metadata: {'string': 'agegvckakcgnnrw', 'solution': [['a', 'g', 'e', 'g', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'nn', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'kak', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'c', 'kak', 'c', 'g', 'nn', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'ckakc', 'g', 'n', 'n', 'r', 'w'], ['a', 'g', 'e', 'g', 'v', 'ckakc', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'c', 'k', 'a', 'k', 'c', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'c', 'kak', 'c', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'c', 'kak', 'c', 'g', 'nn', 'r', 'w'], ['a', 'geg', 'v', 'ckakc', 'g', 'n', 'n', 'r', 'w'], ['a', 'geg', 'v', 'ckakc', 'g', 'nn', 'r', 'w']], 'difficulty': {'string_len': 15}}
 
 Example 2:
 Question: Given a string, partition it such that every substring is a palindrome.
@@ -4203,7 +4310,7 @@ Your output should be a list of lists, where each list represents a palindrome p
 Partition the following string into palindromes: sesjj
 
 Answer: [["s", "e", "s", "j", "j"], ["s", "e", "s", "jj"], ["ses", "j", "j"], ["ses", "jj"]]
-Metadata: {'string': 'sesjj', 'solution': [['s', 'e', 's', 'j', 'j'], ['s', 'e', 's', 'jj'], ['ses', 'j', 'j'], ['ses', 'jj']]}
+Metadata: {'string': 'sesjj', 'solution': [['s', 'e', 's', 'j', 'j'], ['s', 'e', 's', 'jj'], ['ses', 'j', 'j'], ['ses', 'jj']], 'difficulty': {'string_len': 5}}
 
 Example 3:
 Question: Given a string, partition it such that every substring is a palindrome.
@@ -4217,7 +4324,7 @@ Your output should be a list of lists, where each list represents a palindrome p
 Partition the following string into palindromes: owfwofaafsd
 
 Answer: [["o", "w", "f", "w", "o", "f", "a", "a", "f", "s", "d"], ["o", "w", "f", "w", "o", "f", "aa", "f", "s", "d"], ["o", "w", "f", "w", "o", "faaf", "s", "d"], ["o", "wfw", "o", "f", "a", "a", "f", "s", "d"], ["o", "wfw", "o", "f", "aa", "f", "s", "d"], ["o", "wfw", "o", "faaf", "s", "d"], ["owfwo", "f", "a", "a", "f", "s", "d"], ["owfwo", "f", "aa", "f", "s", "d"], ["owfwo", "faaf", "s", "d"]]
-Metadata: {'string': 'owfwofaafsd', 'solution': [['o', 'w', 'f', 'w', 'o', 'f', 'a', 'a', 'f', 's', 'd'], ['o', 'w', 'f', 'w', 'o', 'f', 'aa', 'f', 's', 'd'], ['o', 'w', 'f', 'w', 'o', 'faaf', 's', 'd'], ['o', 'wfw', 'o', 'f', 'a', 'a', 'f', 's', 'd'], ['o', 'wfw', 'o', 'f', 'aa', 'f', 's', 'd'], ['o', 'wfw', 'o', 'faaf', 's', 'd'], ['owfwo', 'f', 'a', 'a', 'f', 's', 'd'], ['owfwo', 'f', 'aa', 'f', 's', 'd'], ['owfwo', 'faaf', 's', 'd']]}
+Metadata: {'string': 'owfwofaafsd', 'solution': [['o', 'w', 'f', 'w', 'o', 'f', 'a', 'a', 'f', 's', 'd'], ['o', 'w', 'f', 'w', 'o', 'f', 'aa', 'f', 's', 'd'], ['o', 'w', 'f', 'w', 'o', 'faaf', 's', 'd'], ['o', 'wfw', 'o', 'f', 'a', 'a', 'f', 's', 'd'], ['o', 'wfw', 'o', 'f', 'aa', 'f', 's', 'd'], ['o', 'wfw', 'o', 'faaf', 's', 'd'], ['owfwo', 'f', 'a', 'a', 'f', 's', 'd'], ['owfwo', 'f', 'aa', 'f', 's', 'd'], ['owfwo', 'faaf', 's', 'd']], 'difficulty': {'string_len': 11}}
 
 ````
 
@@ -4349,9 +4456,10 @@ Generates Pool Matrix exercises with configurable difficulty
 Default configuration:
 ```python
 min_rows = 2
-min_cols = 2
 max_rows = 10
+min_cols = 2
 max_cols = 10
+min_pool_size = 1
 max_pool_size = 3
 size = 500
 seed = 42
@@ -4373,7 +4481,7 @@ Perform max pooling on the following matrix with a kernel size of 3:
 6 9
 
 Answer: 9
-Metadata: {'matrix': [[6, 3], [7, 4], [6, 9]], 'pool_type': 'max', 'pool_size': 3, 'solution': [[9]]}
+Metadata: {'matrix': [[6, 3], [7, 4], [6, 9]], 'pool_type': 'max', 'pool_size': 3, 'solution': [[9]], 'difficulty': {'rows': 3, 'cols': 2, 'pool_size': 3}}
 
 Example 2:
 Question: Your job is to perform max/average pooling on the given matrix.
@@ -4388,7 +4496,7 @@ Perform average pooling on the following matrix with a kernel size of 3:
 1 2 7 0 3 2
 
 Answer: 2.5 2.17
-Metadata: {'matrix': [[4, 0, 1, 5, 0, 3], [1, 2, 7, 0, 3, 2]], 'pool_type': 'average', 'pool_size': 3, 'solution': [[2.5, 2.1666666666666665]]}
+Metadata: {'matrix': [[4, 0, 1, 5, 0, 3], [1, 2, 7, 0, 3, 2]], 'pool_type': 'average', 'pool_size': 3, 'solution': [[2.5, 2.1666666666666665]], 'difficulty': {'rows': 2, 'cols': 6, 'pool_size': 3}}
 
 Example 3:
 Question: Your job is to perform max/average pooling on the given matrix.
@@ -4411,7 +4519,7 @@ Perform average pooling on the following matrix with a kernel size of 3:
 Answer: 4.89 4.0 4.44 7.0
 3.67 4.33 5.0 5.67
 5.17 2.5 6.5 7.5
-Metadata: {'matrix': [[4, 3, 1, 3, 0, 4, 3, 8, 7, 7], [6, 9, 3, 7, 3, 3, 6, 5, 4, 5], [9, 1, 8, 7, 4, 5, 3, 0, 4, 9], [2, 8, 8, 6, 2, 0, 3, 4, 8, 3], [2, 2, 1, 2, 2, 9, 8, 1, 8, 9], [4, 2, 4, 6, 7, 5, 5, 6, 2, 5], [1, 8, 9, 1, 8, 0, 9, 3, 5, 9], [5, 0, 8, 0, 4, 2, 9, 7, 6, 6]], 'pool_type': 'average', 'pool_size': 3, 'solution': [[4.888888888888889, 4.0, 4.444444444444445, 7.0], [3.6666666666666665, 4.333333333333333, 5.0, 5.666666666666667], [5.166666666666667, 2.5, 6.5, 7.5]]}
+Metadata: {'matrix': [[4, 3, 1, 3, 0, 4, 3, 8, 7, 7], [6, 9, 3, 7, 3, 3, 6, 5, 4, 5], [9, 1, 8, 7, 4, 5, 3, 0, 4, 9], [2, 8, 8, 6, 2, 0, 3, 4, 8, 3], [2, 2, 1, 2, 2, 9, 8, 1, 8, 9], [4, 2, 4, 6, 7, 5, 5, 6, 2, 5], [1, 8, 9, 1, 8, 0, 9, 3, 5, 9], [5, 0, 8, 0, 4, 2, 9, 7, 6, 6]], 'pool_type': 'average', 'pool_size': 3, 'solution': [[4.888888888888889, 4.0, 4.444444444444445, 7.0], [3.6666666666666665, 4.333333333333333, 5.0, 5.666666666666667], [5.166666666666667, 2.5, 6.5, 7.5]], 'difficulty': {'rows': 8, 'cols': 10, 'pool_size': 3}}
 
 ````
 
@@ -4422,7 +4530,7 @@ Default configuration:
 ```python
 min_base = -1000.0
 max_base = 1000.0
-min_exponent = -8
+min_exponent = 0
 max_exponent = 8
 size = 500
 seed = 42
@@ -4433,29 +4541,29 @@ Example tasks:
 Example 1:
 Question: Your task is to compute an exponentiation of a number.
 
-Compute 278.8536^-8. Return your final answer correct to 3 significant figures.
+Compute 278.8536^0. Return your final answer correct to 3 significant figures.
 Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 
-Answer: 2.7352054627088526e-20
-Metadata: {'base': 278.8536, 'exponent': -8, 'solution': 2.7352054627088526e-20}
+Answer: 1.0
+Metadata: {'base': 278.8536, 'exponent': 0, 'solution': 1.0, 'difficulty': {'exponent': 0}}
 
 Example 2:
 Question: Your task is to compute an exponentiation of a number.
 
-Compute -922.8963^-4. Return your final answer correct to 3 significant figures.
+Compute -922.8963^2. Return your final answer correct to 3 significant figures.
 Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 
-Answer: 1.3784416297559e-12
-Metadata: {'base': -922.8963, 'exponent': -4, 'solution': 1.3784416297559e-12}
+Answer: 851737.58055369
+Metadata: {'base': -922.8963, 'exponent': 2, 'solution': 851737.58055369, 'difficulty': {'exponent': 2}}
 
 Example 3:
 Question: Your task is to compute an exponentiation of a number.
 
-Compute -182.9282^-5. Return your final answer correct to 3 significant figures.
+Compute -182.9282^8. Return your final answer correct to 3 significant figures.
 Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 
-Answer: -4.881987860097121e-12
-Metadata: {'base': -182.9282, 'exponent': -5, 'solution': -4.881987860097121e-12}
+Answer: 1.2538491439703905e+18
+Metadata: {'base': -182.9282, 'exponent': 8, 'solution': 1.2538491439703905e+18, 'difficulty': {'exponent': 8}}
 
 ````
 
@@ -4714,7 +4822,9 @@ Generates Ransom Note exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_note_length = 1
 max_note_length = 10
+min_magazine_length = 2
 max_magazine_length = 30
 p_solvable = 0.5
 size = 500
@@ -4728,33 +4838,33 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: c
-Magazine: kjjfnerbv
+Ransom note: gg
+Magazine: jg
 
 Answer: False
-Metadata: {'ransom_note': 'c', 'magazine': 'kjjfnerbv', 'solution': False, 'solvable': False}
+Metadata: {'ransom_note': 'gg', 'magazine': 'jg', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 2, 'magazine_length': 2}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: pan
-Magazine: pipmrxluyrkumtnaynmqosywf
+Ransom note: q
+Magazine: ishmdfkzuhv
 
-Answer: True
-Metadata: {'ransom_note': 'pan', 'magazine': 'pipmrxluyrkumtnaynmqosywf', 'solution': True, 'solvable': True}
+Answer: False
+Metadata: {'ransom_note': 'q', 'magazine': 'ishmdfkzuhv', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 1, 'magazine_length': 11}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: yuothygge
-Magazine: gpfslbehhhhagoutvejfoytuuyy
+Ransom note: otgegyu
+Magazine: ivxiiacuuagotqfppkoggge
 
-Answer: True
-Metadata: {'ransom_note': 'yuothygge', 'magazine': 'gpfslbehhhhagoutvejfoytuuyy', 'solution': True, 'solvable': True}
+Answer: False
+Metadata: {'ransom_note': 'otgegyu', 'magazine': 'ivxiiacuuagotqfppkoggge', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 7, 'magazine_length': 23}}
 
 ````
 
@@ -5339,8 +5449,10 @@ Generates Rotate Matrix exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_n = 2
 max_n = 10
-max_rotations = 4
+min_rotations = 0
+max_rotations = 10
 size = 500
 seed = 42
 ```
@@ -5352,24 +5464,28 @@ Question: Given a square matrix, your job is to rotate it clockwise.
 
 Your output should be a matrix in the same format as the input.
 
-Rotate the matrix below by 90 degrees clockwise:
-3 1
-2 0
+Rotate the matrix below by 540 degrees clockwise:
+0 4 3
+3 2 1
+8 1 9
 
-Answer: 2 3
-0 1
-Metadata: {'matrix': [[3, 1], [2, 0]], 'num_rotations': 1, 'solution': [[2, 3], [0, 1]]}
+Answer: 9 1 8
+1 2 3
+3 4 0
+Metadata: {'matrix': [[0, 4, 3], [3, 2, 1], [8, 1, 9]], 'num_rotations': 6, 'solution': [[9, 1, 8], [1, 2, 3], [3, 4, 0]], 'difficulty': {'n': 3, 'num_rotations': 6}}
 
 Example 2:
 Question: Given a square matrix, your job is to rotate it clockwise.
 
 Your output should be a matrix in the same format as the input.
 
-Rotate the matrix below by 180 degrees clockwise:
-0
+Rotate the matrix below by 900 degrees clockwise:
+4 2
+7 5
 
-Answer: 0
-Metadata: {'matrix': [[0]], 'num_rotations': 2, 'solution': [[0]]}
+Answer: 5 7
+2 4
+Metadata: {'matrix': [[4, 2], [7, 5]], 'num_rotations': 10, 'solution': [[5, 7], [2, 4]], 'difficulty': {'n': 2, 'num_rotations': 10}}
 
 Example 3:
 Question: Given a square matrix, your job is to rotate it clockwise.
@@ -5377,22 +5493,24 @@ Question: Given a square matrix, your job is to rotate it clockwise.
 Your output should be a matrix in the same format as the input.
 
 Rotate the matrix below by 180 degrees clockwise:
-28 17 38 29 8 15 26
-35 13 37 39 27 40 20
-4 30 23 16 3 5 48
-9 25 2 46 47 21 22
-31 12 41 43 19 32 10
-6 0 36 45 42 1 18
-14 24 11 7 44 34 33
+8 8 1 2 6 3 4 0
+3 1 9 0 1 2 8 4
+6 9 6 5 5 1 5 4
+9 2 1 8 1 9 1 4
+5 1 4 0 5 6 1 7
+7 3 3 2 4 3 0 0
+6 0 5 5 7 7 9 8
+2 3 7 7 5 9 0 4
 
-Answer: 33 34 44 7 11 24 14
-18 1 42 45 36 0 6
-10 32 19 43 41 12 31
-22 21 47 46 2 25 9
-48 5 3 16 23 30 4
-20 40 27 39 37 13 35
-26 15 8 29 38 17 28
-Metadata: {'matrix': [[28, 17, 38, 29, 8, 15, 26], [35, 13, 37, 39, 27, 40, 20], [4, 30, 23, 16, 3, 5, 48], [9, 25, 2, 46, 47, 21, 22], [31, 12, 41, 43, 19, 32, 10], [6, 0, 36, 45, 42, 1, 18], [14, 24, 11, 7, 44, 34, 33]], 'num_rotations': 2, 'solution': [[33, 34, 44, 7, 11, 24, 14], [18, 1, 42, 45, 36, 0, 6], [10, 32, 19, 43, 41, 12, 31], [22, 21, 47, 46, 2, 25, 9], [48, 5, 3, 16, 23, 30, 4], [20, 40, 27, 39, 37, 13, 35], [26, 15, 8, 29, 38, 17, 28]]}
+Answer: 4 0 9 5 7 7 3 2
+8 9 7 7 5 5 0 6
+0 0 3 4 2 3 3 7
+7 1 6 5 0 4 1 5
+4 1 9 1 8 1 2 9
+4 5 1 5 5 6 9 6
+4 8 2 1 0 9 1 3
+0 4 3 6 2 1 8 8
+Metadata: {'matrix': [[8, 8, 1, 2, 6, 3, 4, 0], [3, 1, 9, 0, 1, 2, 8, 4], [6, 9, 6, 5, 5, 1, 5, 4], [9, 2, 1, 8, 1, 9, 1, 4], [5, 1, 4, 0, 5, 6, 1, 7], [7, 3, 3, 2, 4, 3, 0, 0], [6, 0, 5, 5, 7, 7, 9, 8], [2, 3, 7, 7, 5, 9, 0, 4]], 'num_rotations': 2, 'solution': [[4, 0, 9, 5, 7, 7, 3, 2], [8, 9, 7, 7, 5, 5, 0, 6], [0, 0, 3, 4, 2, 3, 3, 7], [7, 1, 6, 5, 0, 4, 1, 5], [4, 1, 9, 1, 8, 1, 2, 9], [4, 5, 1, 5, 5, 6, 9, 6], [4, 8, 2, 1, 0, 9, 1, 3], [0, 4, 3, 6, 2, 1, 8, 8]], 'difficulty': {'n': 8, 'num_rotations': 2}}
 
 ````
 
@@ -5455,7 +5573,7 @@ Now, determine the minimum number of minutes that must elapse until no cell in t
 1 1 1 1 1 1 1 1 1 1 1 1 2 0 0 1 0 1 1 1 1 2 1 1 1 1 1 1 1 1
 
 Answer: 6
-Metadata: {'matrix': [[1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 0], [1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 2, 1, 1], [1, 1, 1, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 2, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1, 2, 2], [2, 1, 2, 1, 2, 0, 1, 1, 2, 1, 1, 1, 1, 1, 0, 0, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1], [1, 1, 0, 1, 0, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 0, 1, 0, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1], [1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 0, 2, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1], [1, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0, 2, 1, 1, 1, 1, 0, 2, 1, 1, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1], [2, 0, 1, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1], [2, 0, 0, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 0, 1, 2, 1, 0, 2, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], [1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 2, 1, 1, 1, 1, 1, 1, 2], [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 0, 2, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 2], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 2, 1, 1, 1, 0, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0], [2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 2, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 1, 0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1]], 'solution': 6}
+Metadata: {'matrix': [[1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 0], [1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 2, 1, 1], [1, 1, 1, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 2, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1, 2, 2], [2, 1, 2, 1, 2, 0, 1, 1, 2, 1, 1, 1, 1, 1, 0, 0, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1], [1, 1, 0, 1, 0, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 0, 1, 0, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1], [1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 0, 2, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1], [1, 1, 2, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0, 2, 1, 1, 1, 1, 0, 2, 1, 1, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1], [2, 0, 1, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1], [2, 0, 0, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 1, 1, 1, 0, 1, 1], [1, 1, 1, 0, 1, 2, 1, 0, 2, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], [1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 2, 1, 1, 1, 1, 1, 1, 2], [0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 0, 2, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 2], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 2, 1, 1, 1, 0, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0], [2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 2, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 1, 0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1]], 'solution': 6, 'difficulty': {'n': 30}}
 
 Example 2:
 Question: You are given an n x n grid where each cell can have one of three values:
@@ -5482,7 +5600,7 @@ Now, determine the minimum number of minutes that must elapse until no cell in t
 1 0 1 1 1 1 1 1 0 1 1
 
 Answer: -1
-Metadata: {'matrix': [[1, 0, 1, 1, 1, 1, 0, 0, 0, 2, 1], [1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 2], [1, 1, 1, 1, 1, 0, 1, 2, 0, 1, 0], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2], [1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1], [2, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 1, 1, 2, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1], [0, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1], [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1]], 'solution': -1}
+Metadata: {'matrix': [[1, 0, 1, 1, 1, 1, 0, 0, 0, 2, 1], [1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 2], [1, 1, 1, 1, 1, 0, 1, 2, 0, 1, 0], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2], [1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1], [2, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 0, 1, 1, 2, 1, 1, 1, 0, 1, 1], [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1], [0, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1], [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1]], 'solution': -1, 'difficulty': {'n': 11}}
 
 Example 3:
 Question: You are given an n x n grid where each cell can have one of three values:
@@ -5521,7 +5639,7 @@ Now, determine the minimum number of minutes that must elapse until no cell in t
 1 1 0 1 1 2 1 1 1 1 1 0 1 1 0 1 1 1 0 1 0 0 1
 
 Answer: 13
-Metadata: {'matrix': [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 1], [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 2, 1, 1, 0, 0], [1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1], [0, 0, 2, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 1, 2, 2, 0, 1, 1, 2, 1, 0, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1], [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1], [0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 1, 2, 1, 0, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1], [2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1], [1, 1, 1, 0, 0, 0, 1, 2, 1, 1, 1, 1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 2, 1, 1, 1, 1, 2], [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1], [2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 2, 1], [1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1], [1, 2, 1, 1, 2, 1, 0, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1]], 'solution': 13}
+Metadata: {'matrix': [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 1], [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 2, 1, 1, 0, 0], [1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1], [0, 0, 2, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 1, 2, 2, 0, 1, 1, 2, 1, 0, 1], [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1], [1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 0, 1], [1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1], [0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 2, 1, 1, 2, 1, 0, 1, 2, 0, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1], [2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1], [1, 1, 1, 0, 0, 0, 1, 2, 1, 1, 1, 1, 1, 2, 0, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 2, 1, 1, 1, 1, 2], [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1], [2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 2, 1], [1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 0, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1], [1, 2, 1, 1, 2, 1, 0, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1], [1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1]], 'solution': 13, 'difficulty': {'n': 23}}
 
 ````
 
@@ -5779,7 +5897,7 @@ O O # O O
 O X X O X
 
 Answer: up right right
-Metadata: {'matrix': [['O', 'X', 'X', 'X', 'O'], ['O', 'O', 'X', 'X', 'X'], ['O', 'O', '#', 'O', 'O'], ['*', 'X', 'O', 'O', 'X'], ['O', 'X', 'X', 'O', 'X']], 'solution': ['up', 'right', 'right']}
+Metadata: {'matrix': [['O', 'X', 'X', 'X', 'O'], ['O', 'O', 'X', 'X', 'X'], ['O', 'O', '#', 'O', 'O'], ['*', 'X', 'O', 'O', 'X'], ['O', 'X', 'X', 'O', 'X']], 'solution': ['up', 'right', 'right'], 'difficulty': {'rows': 5, 'cols': 5}}
 
 Example 2:
 Question: Your task is to find the shortest path from the start to the destination point in a grid.
@@ -5806,7 +5924,7 @@ O O O O X X X
 O O X O O * O
 
 Answer: infeasible
-Metadata: {'matrix': [['#', 'X', 'O', 'O', 'O', 'O', 'O'], ['X', 'O', 'X', 'O', 'O', 'O', 'O'], ['X', 'O', 'O', 'X', 'X', 'O', 'O'], ['O', 'O', 'O', 'O', 'X', 'X', 'X'], ['O', 'O', 'X', 'O', 'O', '*', 'O']], 'solution': []}
+Metadata: {'matrix': [['#', 'X', 'O', 'O', 'O', 'O', 'O'], ['X', 'O', 'X', 'O', 'O', 'O', 'O'], ['X', 'O', 'O', 'X', 'X', 'O', 'O'], ['O', 'O', 'O', 'O', 'X', 'X', 'X'], ['O', 'O', 'X', 'O', 'O', '*', 'O']], 'solution': [], 'difficulty': {'rows': 5, 'cols': 7}}
 
 Example 3:
 Question: Your task is to find the shortest path from the start to the destination point in a grid.
@@ -5836,7 +5954,7 @@ X O O O X
 O O O X *
 
 Answer: infeasible
-Metadata: {'matrix': [['X', 'X', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', '#', 'X', 'X', 'O'], ['O', 'X', 'X', 'X', 'O'], ['X', 'O', 'O', 'X', 'X'], ['O', 'O', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', 'O', 'O', 'X', '*']], 'solution': []}
+Metadata: {'matrix': [['X', 'X', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', '#', 'X', 'X', 'O'], ['O', 'X', 'X', 'X', 'O'], ['X', 'O', 'O', 'X', 'X'], ['O', 'O', 'X', 'X', 'X'], ['X', 'O', 'O', 'O', 'X'], ['O', 'O', 'O', 'X', '*']], 'solution': [], 'difficulty': {'rows': 8, 'cols': 5}}
 
 ````
 
@@ -6092,6 +6210,7 @@ Generates Spiral Matrix exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_n = 2
 max_n = 10
 size = 500
 seed = 42
@@ -6117,7 +6236,7 @@ For the matrix below, what is the list of elements in spiral order?
 1 0 8
 
 Answer: 3 1 3 9 8 0 1 2 4
-Metadata: {'matrix': [[3, 1, 3], [2, 4, 9], [1, 0, 8]], 'solution': [3, 1, 3, 9, 8, 0, 1, 2, 4]}
+Metadata: {'matrix': [[3, 1, 3], [2, 4, 9], [1, 0, 8]], 'solution': [3, 1, 3, 9, 8, 0, 1, 2, 4], 'difficulty': {'n': 3}}
 
 Example 2:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
@@ -6136,7 +6255,7 @@ For the matrix below, what is the list of elements in spiral order?
 2 4
 
 Answer: 5 7 4 2
-Metadata: {'matrix': [[5, 7], [2, 4]], 'solution': [5, 7, 4, 2]}
+Metadata: {'matrix': [[5, 7], [2, 4]], 'solution': [5, 7, 4, 2], 'difficulty': {'n': 2}}
 
 Example 3:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
@@ -6161,7 +6280,7 @@ For the matrix below, what is the list of elements in spiral order?
 1 6 6 0 2 8 8 5
 
 Answer: 1 9 9 5 2 9 7 3 9 4 9 8 0 3 5 8 8 2 0 6 6 1 2 8 6 6 3 1 1 5 0 7 0 4 3 1 1 4 0 4 6 5 5 1 2 7 5 5 4 7 8 4 7 4 1 0 9 5 7 3 3 2 1 0
-Metadata: {'matrix': [[1, 9, 9, 5, 2, 9, 7, 3], [1, 1, 5, 0, 7, 0, 4, 9], [3, 5, 4, 7, 8, 4, 3, 4], [6, 5, 3, 3, 2, 7, 1, 9], [6, 7, 7, 0, 1, 4, 1, 8], [8, 2, 5, 9, 0, 1, 4, 0], [2, 1, 5, 5, 6, 4, 0, 3], [1, 6, 6, 0, 2, 8, 8, 5]], 'solution': [1, 9, 9, 5, 2, 9, 7, 3, 9, 4, 9, 8, 0, 3, 5, 8, 8, 2, 0, 6, 6, 1, 2, 8, 6, 6, 3, 1, 1, 5, 0, 7, 0, 4, 3, 1, 1, 4, 0, 4, 6, 5, 5, 1, 2, 7, 5, 5, 4, 7, 8, 4, 7, 4, 1, 0, 9, 5, 7, 3, 3, 2, 1, 0]}
+Metadata: {'matrix': [[1, 9, 9, 5, 2, 9, 7, 3], [1, 1, 5, 0, 7, 0, 4, 9], [3, 5, 4, 7, 8, 4, 3, 4], [6, 5, 3, 3, 2, 7, 1, 9], [6, 7, 7, 0, 1, 4, 1, 8], [8, 2, 5, 9, 0, 1, 4, 0], [2, 1, 5, 5, 6, 4, 0, 3], [1, 6, 6, 0, 2, 8, 8, 5]], 'solution': [1, 9, 9, 5, 2, 9, 7, 3, 9, 4, 9, 8, 0, 3, 5, 8, 8, 2, 0, 6, 6, 1, 2, 8, 6, 6, 3, 1, 1, 5, 0, 7, 0, 4, 3, 1, 1, 4, 0, 4, 6, 5, 5, 1, 2, 7, 5, 5, 4, 7, 8, 4, 7, 4, 1, 0, 9, 5, 7, 3, 3, 2, 1, 0], 'difficulty': {'n': 8}}
 
 ````
 
@@ -6193,7 +6312,7 @@ Your output should be a string that has been modified according to the pattern.
 Given the following string, provide the answer after inserting the characters according to the pattern: ACBBBAEA
 
 Answer: ACBBBAEA
-Metadata: {'string': 'ACBBBAEA', 'solution': 'ACBBBAEA'}
+Metadata: {'string': 'ACBBBAEA', 'solution': 'ACBBBAEA', 'difficulty': {'string_length': 8}}
 
 Example 2:
 Question: Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
@@ -6210,7 +6329,7 @@ Your output should be a string that has been modified according to the pattern.
 Given the following string, provide the answer after inserting the characters according to the pattern: CBDCAD
 
 Answer: CBDCAD
-Metadata: {'string': 'CBDCAD', 'solution': 'CBDCAD'}
+Metadata: {'string': 'CBDCAD', 'solution': 'CBDCAD', 'difficulty': {'string_length': 6}}
 
 Example 3:
 Question: Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
@@ -6227,7 +6346,7 @@ Your output should be a string that has been modified according to the pattern.
 Given the following string, provide the answer after inserting the characters according to the pattern: EEABDBCABAEAABECDE
 
 Answer: EEABDBCABAEAABECDE
-Metadata: {'string': 'EEABDBCABAEAABECDE', 'solution': 'EEABDBCABAEAABECDE'}
+Metadata: {'string': 'EEABDBCABAEAABECDE', 'solution': 'EEABDBCABAEAABECDE', 'difficulty': {'string_length': 18}}
 
 ````
 
@@ -6268,7 +6387,7 @@ Transform the following string according to the above list of rules:
 acbaaaca
 
 Answer: zzbaacbab
-Metadata: {'string': 'acbaaaca', 'solution': 'zzbaacbab', 'states': ['acbaaaca', 'acbaaac', 'acbaacb', 'acbaacbab', 'zzbaacbab'], 'selected_rules': ["If the string contains an even number of 'b's (and at least one 'b'), append 'ab' at the end.", "If the string prefix is 'bc', delete the first two characters and append 'aa' to the end.", "If the string ends with 'ca', remove the last character.", "If the string suffix is 'ac', replace it with 'cb'.", "If the string prefix is 'ab', replace it with 'ca'.", "If the string contains 'ca' (not at the start), remove the first occurrence found after the first character.", "If the string suffix is 'bb', delete the last two characters.", "If the string starts with 'ac', replace the first two characters with 'zz'."]}
+Metadata: {'string': 'acbaaaca', 'solution': 'zzbaacbab', 'states': ['acbaaaca', 'acbaaac', 'acbaacb', 'acbaacbab', 'zzbaacbab'], 'selected_rules': ["If the string contains an even number of 'b's (and at least one 'b'), append 'ab' at the end.", "If the string prefix is 'bc', delete the first two characters and append 'aa' to the end.", "If the string ends with 'ca', remove the last character.", "If the string suffix is 'ac', replace it with 'cb'.", "If the string prefix is 'ab', replace it with 'ca'.", "If the string contains 'ca' (not at the start), remove the first occurrence found after the first character.", "If the string suffix is 'bb', delete the last two characters.", "If the string starts with 'ac', replace the first two characters with 'zz'."], 'difficulty': {'string_length': 8, 'num_rules': 8}}
 
 Example 2:
 Question: Your job is to repeatedly transform a string according to a set of rules until no further transformations can be performed, or a state is repeated.
@@ -6292,7 +6411,7 @@ Transform the following string according to the above list of rules:
 bcabbc
 
 Answer: bc
-Metadata: {'string': 'bcabbc', 'solution': 'bc', 'states': ['bcabbc', 'bbc', 'bc'], 'selected_rules': ["If the string suffix is 'bb', delete the last two characters.", "If the string starts with 'bb', remove the second character.", "If the string ends with 'aa', replace it with 'cc'.", "If the string prefix is 'ab', replace it with 'ca'.", "If the string ends with 'ca', remove the last character.", "If the string contains 'bca', delete the first occurrence entirely.", "If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.", 'If the string length is greater than 15, remove the middle character.']}
+Metadata: {'string': 'bcabbc', 'solution': 'bc', 'states': ['bcabbc', 'bbc', 'bc'], 'selected_rules': ["If the string suffix is 'bb', delete the last two characters.", "If the string starts with 'bb', remove the second character.", "If the string ends with 'aa', replace it with 'cc'.", "If the string prefix is 'ab', replace it with 'ca'.", "If the string ends with 'ca', remove the last character.", "If the string contains 'bca', delete the first occurrence entirely.", "If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.", 'If the string length is greater than 15, remove the middle character.'], 'difficulty': {'string_length': 6, 'num_rules': 8}}
 
 Example 3:
 Question: Your job is to repeatedly transform a string according to a set of rules until no further transformations can be performed, or a state is repeated.
@@ -6316,7 +6435,7 @@ Transform the following string according to the above list of rules:
 cccaababaaacaaaccb
 
 Answer: bbababcaaaccbc
-Metadata: {'string': 'cccaababaaacaaaccb', 'solution': 'bbababcaaaccbc', 'states': ['cccaababaaacaaaccb', 'cccaababaacaaaccb', 'cccaababacaaaccb', 'cccaababcaaaccb', 'caababcaaaccb', 'bbababcaaaccbc'], 'selected_rules': ["If the string contains 'acb', replace the first occurrence with its reverse ('bca').", 'If the string length is greater than 15, remove the middle character.', "If the string starts with 'ac', replace the first two characters with 'zz'.", "If the string ends with 'ba', replace it with 'ab'.", "If the string starts with 'cc', remove the first two characters.", "If the string suffix is 'ac', replace it with 'cb'.", "If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.", "If the string prefix is 'cb', replace it with 'aa' and delete the last character."]}
+Metadata: {'string': 'cccaababaaacaaaccb', 'solution': 'bbababcaaaccbc', 'states': ['cccaababaaacaaaccb', 'cccaababaacaaaccb', 'cccaababacaaaccb', 'cccaababcaaaccb', 'caababcaaaccb', 'bbababcaaaccbc'], 'selected_rules': ["If the string contains 'acb', replace the first occurrence with its reverse ('bca').", 'If the string length is greater than 15, remove the middle character.', "If the string starts with 'ac', replace the first two characters with 'zz'.", "If the string ends with 'ba', replace it with 'ab'.", "If the string starts with 'cc', remove the first two characters.", "If the string suffix is 'ac', replace it with 'cb'.", "If the string prefix is 'ca', replace it with 'bb' and append 'c' to the end.", "If the string prefix is 'cb', replace it with 'aa' and delete the last character."], 'difficulty': {'string_length': 18, 'num_rules': 8}}
 
 ````
 
@@ -6350,9 +6469,10 @@ The output should be the count of each machine and part type after the rules hav
 For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
 
 Now, you have 5 machine A, 0 machine B, and 0 machine C. Provide the count of each machine and part type after applying the above rules.
+Note: Apply the rules at most 1000 times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts of each machine and part type.
 
 Answer: 0 0 0 5 0 5
-Metadata: {'states': [[5, 0, 0, 0, 0, 0], [4, 0, 0, 2, 1, 0], [3, 0, 0, 4, 2, 0], [2, 0, 0, 6, 3, 0], [1, 0, 0, 8, 4, 0], [0, 0, 0, 10, 5, 0], [0, 0, 0, 9, 4, 1], [0, 0, 0, 8, 3, 2], [0, 0, 0, 7, 2, 3], [0, 0, 0, 6, 1, 4], [0, 0, 0, 5, 0, 5]], 'solution': [0, 0, 0, 5, 0, 5]}
+Metadata: {'states': [[5, 0, 0, 0, 0, 0], [4, 0, 0, 2, 1, 0], [3, 0, 0, 4, 2, 0], [2, 0, 0, 6, 3, 0], [1, 0, 0, 8, 4, 0], [0, 0, 0, 10, 5, 0], [0, 0, 0, 9, 4, 1], [0, 0, 0, 8, 3, 2], [0, 0, 0, 7, 2, 3], [0, 0, 0, 6, 1, 4], [0, 0, 0, 5, 0, 5]], 'solution': [0, 0, 0, 5, 0, 5], 'difficulty': {'initial_machines': (5, 0, 0)}}
 
 Example 2:
 Question: There is a dismantling engineer who has old machines A, B, and C.
@@ -6370,9 +6490,10 @@ The output should be the count of each machine and part type after the rules hav
 For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
 
 Now, you have 0 machine A, 2 machine B, and 5 machine C. Provide the count of each machine and part type after applying the above rules.
+Note: Apply the rules at most 1000 times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts of each machine and part type.
 
 Answer: 0 0 1 0 1 1
-Metadata: {'states': [[0, 2, 5, 0, 0, 0], [0, 0, 5, 1, 0, 0], [0, 0, 3, 1, 1, 0], [0, 0, 1, 1, 2, 0], [0, 0, 1, 0, 1, 1]], 'solution': [0, 0, 1, 0, 1, 1]}
+Metadata: {'states': [[0, 2, 5, 0, 0, 0], [0, 0, 5, 1, 0, 0], [0, 0, 3, 1, 1, 0], [0, 0, 1, 1, 2, 0], [0, 0, 1, 0, 1, 1]], 'solution': [0, 0, 1, 0, 1, 1], 'difficulty': {'initial_machines': (0, 2, 5)}}
 
 Example 3:
 Question: There is a dismantling engineer who has old machines A, B, and C.
@@ -6390,9 +6511,10 @@ The output should be the count of each machine and part type after the rules hav
 For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine C, 5 part X, 4 part Y, and 3 part Z.
 
 Now, you have 3 machine A, 4 machine B, and 4 machine C. Provide the count of each machine and part type after applying the above rules.
+Note: Apply the rules at most 1000 times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts of each machine and part type.
 
 Answer: 0 0 0 3 0 5
-Metadata: {'states': [[3, 4, 4, 0, 0, 0], [2, 4, 4, 2, 1, 0], [1, 4, 4, 4, 2, 0], [0, 4, 4, 6, 3, 0], [0, 2, 4, 7, 3, 0], [0, 0, 4, 8, 3, 0], [0, 0, 2, 8, 4, 0], [0, 0, 0, 8, 5, 0], [0, 0, 0, 7, 4, 1], [0, 0, 0, 6, 3, 2], [0, 0, 0, 5, 2, 3], [0, 0, 0, 4, 1, 4], [0, 0, 0, 3, 0, 5]], 'solution': [0, 0, 0, 3, 0, 5]}
+Metadata: {'states': [[3, 4, 4, 0, 0, 0], [2, 4, 4, 2, 1, 0], [1, 4, 4, 4, 2, 0], [0, 4, 4, 6, 3, 0], [0, 2, 4, 7, 3, 0], [0, 0, 4, 8, 3, 0], [0, 0, 2, 8, 4, 0], [0, 0, 0, 8, 5, 0], [0, 0, 0, 7, 4, 1], [0, 0, 0, 6, 3, 2], [0, 0, 0, 5, 2, 3], [0, 0, 0, 4, 1, 4], [0, 0, 0, 3, 0, 5]], 'solution': [0, 0, 0, 3, 0, 5], 'difficulty': {'initial_machines': (3, 4, 4)}}
 
 ````
 
@@ -6426,9 +6548,10 @@ The output should be the count of each block type after the rules have been appl
 For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
 
 Now, you have 5 [A], 0 [B], and 0 [C] blocks. Provide the count of each block type after applying the above rules.
+Note: Apply the rules at most 1000 times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts.
 
 Answer: 5 0 0 0 0 0 0 0 0
-Metadata: {'states': [[5, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': [5, 0, 0, 0, 0, 0, 0, 0, 0]}
+Metadata: {'states': [[5, 0, 0, 0, 0, 0, 0, 0, 0]], 'solution': [5, 0, 0, 0, 0, 0, 0, 0, 0], 'difficulty': {'initial_blocks': (5, 0, 0)}}
 
 Example 2:
 Question: There are nine different blocks [A] [B] [C] {A} {B} {C} (A) (B) (C)
@@ -6446,9 +6569,10 @@ The output should be the count of each block type after the rules have been appl
 For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
 
 Now, you have 0 [A], 2 [B], and 5 [C] blocks. Provide the count of each block type after applying the above rules.
+Note: Apply the rules at most 1000 times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts.
 
 Answer: 0 0 1 0 0 1 0 0 1
-Metadata: {'states': [[0, 2, 5, 0, 0, 0, 0, 0, 0], [0, 1, 4, 0, 1, 0, 0, 0, 0], [0, 0, 3, 0, 2, 0, 0, 0, 0], [0, 0, 1, 0, 2, 1, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 1]], 'solution': [0, 0, 1, 0, 0, 1, 0, 0, 1]}
+Metadata: {'states': [[0, 2, 5, 0, 0, 0, 0, 0, 0], [0, 1, 4, 0, 1, 0, 0, 0, 0], [0, 0, 3, 0, 2, 0, 0, 0, 0], [0, 0, 1, 0, 2, 1, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 1]], 'solution': [0, 0, 1, 0, 0, 1, 0, 0, 1], 'difficulty': {'initial_blocks': (0, 2, 5)}}
 
 Example 3:
 Question: There are nine different blocks [A] [B] [C] {A} {B} {C} (A) (B) (C)
@@ -6466,9 +6590,10 @@ The output should be the count of each block type after the rules have been appl
 For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {A} 2 {B} 0 {C} 0 (A) 0 (B) 1 (C).
 
 Now, you have 3 [A], 4 [B], and 4 [C] blocks. Provide the count of each block type after applying the above rules.
+Note: Apply the rules at most 1000 times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts.
 
 Answer: 0 0 0 3 1 0 0 0 0
-Metadata: {'states': [[3, 4, 4, 0, 0, 0, 0, 0, 0], [2, 3, 3, 1, 0, 0, 0, 0, 0], [1, 2, 2, 2, 0, 0, 0, 0, 0], [0, 1, 1, 3, 0, 0, 0, 0, 0], [0, 0, 0, 3, 1, 0, 0, 0, 0]], 'solution': [0, 0, 0, 3, 1, 0, 0, 0, 0]}
+Metadata: {'states': [[3, 4, 4, 0, 0, 0, 0, 0, 0], [2, 3, 3, 1, 0, 0, 0, 0, 0], [1, 2, 2, 2, 0, 0, 0, 0, 0], [0, 1, 1, 3, 0, 0, 0, 0, 0], [0, 0, 0, 3, 1, 0, 0, 0, 0]], 'solution': [0, 0, 0, 3, 1, 0, 0, 0, 0], 'difficulty': {'initial_blocks': (3, 4, 4)}}
 
 ````
 
@@ -6634,7 +6759,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 7, 9, 44), 'end_time': datetime.datetime(2025, 3, 7, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 10, 9, 44), 'end_time': datetime.datetime(2025, 3, 10, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -6926,19 +7051,34 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Solve the following problem. Provide you answer as a comma-separated list of words with a space after the comma. Reverse this list of words: bed, if, problem, but, Well, an, transmission, nutritive
+Question: Solve the following problem.
+
+Provide you answer as a comma-separated list of words with a space after the comma.
+
+Reverse this list of words: bed, if, problem, but, Well, an, transmission, nutritive
+
 Answer: nutritive, transmission, an, Well, but, problem, if, bed
-Metadata: {'num_words': 8, 'words': ['bed', 'if', 'problem', 'but', 'Well', 'an', 'transmission', 'nutritive']}
+Metadata: {'num_words': 8, 'words': ['bed', 'if', 'problem', 'but', 'Well', 'an', 'transmission', 'nutritive'], 'difficulty': {'words': 8}}
 
 Example 2:
-Question: Solve the following problem. Provide you answer as a comma-separated list of words with a space after the comma. Reverse this list of words: it, pleasure, Gutenberg
+Question: Solve the following problem.
+
+Provide you answer as a comma-separated list of words with a space after the comma.
+
+Reverse this list of words: it, pleasure, Gutenberg
+
 Answer: Gutenberg, pleasure, it
-Metadata: {'num_words': 3, 'words': ['it', 'pleasure', 'Gutenberg']}
+Metadata: {'num_words': 3, 'words': ['it', 'pleasure', 'Gutenberg'], 'difficulty': {'words': 3}}
 
 Example 3:
-Question: Solve the following problem. Provide you answer as a comma-separated list of words with a space after the comma. Reverse this list of words: readable, to, he, that, to, possession
+Question: Solve the following problem.
+
+Provide you answer as a comma-separated list of words with a space after the comma.
+
+Reverse this list of words: readable, to, he, that, to, possession
+
 Answer: possession, to, that, he, to, readable
-Metadata: {'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'possession']}
+Metadata: {'num_words': 6, 'words': ['readable', 'to', 'he', 'that', 'to', 'possession'], 'difficulty': {'words': 6}}
 
 ````
 
@@ -6966,7 +7106,7 @@ Your output should be a comma-separated list of words, e.g. word_1, word_2, word
 Now, sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: DIRECT, given, exclaims, dreaming
 
 Answer: DIRECT, dreaming, exclaims, given
-Metadata: {'original_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'transformed_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['DIRECT', 'dreaming', 'exclaims', 'given']}
+Metadata: {'difficulty': {'num_words': 4, 'word_length': 8}, 'original_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'sorted_words': ['DIRECT', 'dreaming', 'exclaims', 'given'], 'transformed_words': ['DIRECT', 'given', 'exclaims', 'dreaming'], 'direction': 'ascending'}
 
 Example 2:
 Question: Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
@@ -6976,7 +7116,7 @@ Your output should be a comma-separated list of words, e.g. word_1, word_2, word
 Now, sort these words in descending order (using ASCII/Unicode ordering) and return them as a comma-separated list: heat, begun, sometimes
 
 Answer: sometimes, heat, begun
-Metadata: {'original_words': ['heat', 'begun', 'sometimes'], 'transformed_words': ['heat', 'begun', 'sometimes'], 'direction': 'descending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['sometimes', 'heat', 'begun']}
+Metadata: {'difficulty': {'num_words': 3, 'word_length': 9}, 'original_words': ['heat', 'begun', 'sometimes'], 'sorted_words': ['sometimes', 'heat', 'begun'], 'transformed_words': ['heat', 'begun', 'sometimes'], 'direction': 'descending'}
 
 Example 3:
 Question: Your task is to sort words in ascending or descending order using ASCII/Unicode ordering.
@@ -6986,7 +7126,7 @@ Your output should be a comma-separated list of words, e.g. word_1, word_2, word
 Now, sort these words in ascending order (using ASCII/Unicode ordering) and return them as a comma-separated list: violates, yes, already, completing, pages, duty, his, EXPRESS, duly
 
 Answer: EXPRESS, already, completing, duly, duty, his, pages, violates, yes
-Metadata: {'original_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'transformed_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'direction': 'ascending', 'transformation': <TextTransformation.ORIGINAL: 'original'>, 'sorted_words': ['EXPRESS', 'already', 'completing', 'duly', 'duty', 'his', 'pages', 'violates', 'yes']}
+Metadata: {'difficulty': {'num_words': 9, 'word_length': 10}, 'original_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'sorted_words': ['EXPRESS', 'already', 'completing', 'duly', 'duty', 'his', 'pages', 'violates', 'yes'], 'transformed_words': ['violates', 'yes', 'already', 'completing', 'pages', 'duty', 'his', 'EXPRESS', 'duly'], 'direction': 'ascending'}
 
 ````
 
