@@ -20,7 +20,7 @@ from .group_anagrams import GroupAnagramsConfig, GroupAnagramsCurriculum, GroupA
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsCurriculum, IsomorphicStringsDataset
 from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingCurriculum, LetterCountingDataset
-from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
+from .letter_jumble import LetterJumbleConfig, LetterJumbleCurriculum, LetterJumbleDataset
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculum, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingDataset
@@ -69,6 +69,7 @@ __all__ = [
     "LetterCountingCurriculum",
     "LetterJumbleConfig",
     "LetterJumbleDataset",
+    "LetterJumbleCurriculum",
     "NumberFilteringConfig",
     "NumberFilteringDataset",
     "NumberSortingConfig",
