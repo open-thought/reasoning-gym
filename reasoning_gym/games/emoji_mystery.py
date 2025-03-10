@@ -189,7 +189,14 @@ class EmojiMysteryDataset(ProceduralDataset):
         secret_sentence = rng.choice(self.sentences).strip().replace("\n", " ")
         encoded_sentence = self.encode(secret_sentence, secret_emoji)
         question = QUESTION_TEMPLATE.format(sentence=encoded_sentence, hint_function=hint_function)
-        return {"question": question, "answer": secret_sentence, "metadata": {"emoji": secret_emoji}}
+        return {
+            "question": question,
+            "answer": secret_sentence,
+            "metadata": {
+                "emoji": secret_emoji,
+                "difficulty": {"num_words_in_sentence": len(re.findall(r"\b\w+\b", secret_sentence))},
+            },
+        }
 
     def variance_selector_to_byte(self, variation_selector: str) -> Optional[int]:
         variation_selector_codepoint = ord(variation_selector)
