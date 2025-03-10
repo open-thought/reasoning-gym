@@ -4,7 +4,7 @@ from random import Random
 
 import pytest
 
-from reasoning_gym.algorithmic.letter_jumble import LetterJumbleConfig, LetterJumbleDataset
+from reasoning_gym.algorithmic.letter_jumble import LetterJumbleConfig, LetterJumbleCurriculum, LetterJumbleDataset
 
 
 def test_letter_jumble_config_validation():
@@ -128,3 +128,32 @@ def test_letter_jumble_iteration():
 
     # Test multiple iterations yield same items
     assert items == list(dataset)
+
+
+def test_letter_jumble_curriculum():
+    curriculum = LetterJumbleCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: LetterJumbleConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_word_len == 5 and base_cfg.max_word_len == 15
+    assert base_cfg.min_words == 10 and base_cfg.max_words == 50
+    assert base_cfg.min_corruption_level == 0.1 and base_cfg.max_corruption_level == 0.3
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("word_len")
+    curriculum.increment_attr_level("words")
+    curriculum.increment_attr_level("corruption_level")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_word_len == 5 and increased_cfg.max_word_len == 30
+    assert increased_cfg.min_words == 10 and increased_cfg.max_words == 100
+    assert increased_cfg.min_corruption_level == 0.1 and increased_cfg.max_corruption_level == 0.6
+
+    # test decrementing attribute level for words again
+    curriculum.decrement_attr_level("words")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_word_len == 5 and partially_decreased_cfg.max_word_len == 30
+    assert partially_decreased_cfg.min_words == 10 and partially_decreased_cfg.max_words == 50
+    assert partially_decreased_cfg.min_corruption_level == 0.1 and partially_decreased_cfg.max_corruption_level == 0.6
