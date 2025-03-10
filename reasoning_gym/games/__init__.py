@@ -19,7 +19,7 @@ from .rush_hour import RushHourConfig, RushHourDataset
 from .sokoban import SokobanConfig, SokobanDataset
 from .sudoku import SudokuConfig, SudokuDataset
 from .tower_of_hanoi import HanoiConfig, HanoiDataset
-from .tsumego import TsumegoConfig, TsumegoDataset
+from .tsumego import TsumegoConfig, TsumegoCurriculum, TsumegoDataset
 
 __all__ = [
     "CountdownConfig",
@@ -47,6 +47,7 @@ __all__ = [
     "NQueensConfig",
     "NQueensCurriculum",
     "TsumegoConfig",
+    "TsumegoCurriculum",
     "TsumegoDataset",
     "KnightSwapConfig",
     "KnightSwapDataset",
