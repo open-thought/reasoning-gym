@@ -1,6 +1,10 @@
 import pytest
 
-from reasoning_gym.algorithmic.sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
+from reasoning_gym.algorithmic.sentence_reordering import (
+    SentenceReorderingConfig,
+    SentenceReorderingCurriculum,
+    SentenceReorderingDataset,
+)
 
 
 @pytest.fixture
@@ -49,3 +53,24 @@ def test_key_error_in_getitem(dataset):
 
     with pytest.raises(KeyError):
         dataset[0]
+
+
+def test_sentence_reordering_curriculum():
+    curriculum = SentenceReorderingCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: SentenceReorderingConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_words_in_sentence == 5 and base_cfg.max_words_in_sentence == 20
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("words_in_sentence")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_words_in_sentence == 5 and increased_cfg.max_words_in_sentence == 50
+
+    # test decrementing attribute level
+    curriculum.decrement_attr_level("words_in_sentence")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_words_in_sentence == 5 and partially_decreased_cfg.max_words_in_sentence == 20
