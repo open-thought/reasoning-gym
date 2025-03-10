@@ -260,3 +260,62 @@ def test_capture_verification():
 
     final_white = sum(row.count("O") for row in board_after)
     assert final_white < initial_white, "The solution move should capture at least one opponent stone."
+
+
+def test_tsumego_curriculum():
+    """Test the TsumegoCurriculum functionality"""
+    from reasoning_gym.games.tsumego import TsumegoCurriculum
+
+    curriculum = TsumegoCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    # Test initial configuration
+    base_cfg = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_board_size == 9 and base_cfg.max_board_size == 9
+    assert base_cfg.max_stones == 15  # Default value from TsumegoConfig
+
+    # Test incrementing attribute level
+    curriculum.increment_attr_level("board_size")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_board_size == 9 and increased_cfg.max_board_size == 10
+    assert increased_cfg.max_stones == 15  # Unchanged
+
+    # Test incrementing attribute level again
+    curriculum.increment_attr_level("board_size")
+    increased_cfg_2 = curriculum.generate_configuration(base_value)
+    assert increased_cfg_2.min_board_size == 9 and increased_cfg_2.max_board_size == 11
+    assert increased_cfg_2.max_stones == 15  # Unchanged
+
+    # Test decrementing attribute level
+    curriculum.decrement_attr_level("board_size")
+    decreased_cfg = curriculum.generate_configuration(base_value)
+    assert decreased_cfg.min_board_size == 9 and decreased_cfg.max_board_size == 10
+    assert decreased_cfg.max_stones == 15  # Unchanged
+
+    # Test global level adjustments
+    curriculum = TsumegoCurriculum()  # Reset curriculum
+    assert curriculum.get_attr_level("board_size") == 0
+
+    # Increase global level
+    curriculum.increment_global_level()
+    assert curriculum.get_attr_level("board_size") == 1
+
+    global_level_cfg = curriculum.generate_configuration(base_value)
+    assert global_level_cfg.min_board_size == 9 and global_level_cfg.max_board_size == 10
+
+    # Increase global level again
+    curriculum.increment_global_level()
+    assert curriculum.get_attr_level("board_size") == 2
+
+    global_level_cfg_2 = curriculum.generate_configuration(base_value)
+    assert global_level_cfg_2.min_board_size == 9 and global_level_cfg_2.max_board_size == 11
+
+    # Decrease global level
+    curriculum.decrement_global_level()
+    assert curriculum.get_attr_level("board_size") == 1
+
+    global_level_cfg_3 = curriculum.generate_configuration(base_value)
+    assert global_level_cfg_3.min_board_size == 9 and global_level_cfg_3.max_board_size == 10

@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 # Added constant to avoid repetition of adjacent directions
@@ -290,5 +291,22 @@ class TsumegoDataset(ProceduralDataset):
         return reward
 
 
+class TsumegoCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(TsumegoCurriculum.__name__, TsumegoConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="board_size",
+                levels=[9, 10, 11, 12],
+                default_level=0,
+                min_value=9,
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_board_size",
+                upper_field_name="max_board_size",
+                description="The size of the board",
+            )
+        )
+
+
 # Register the dataset
-register_dataset("tsumego", TsumegoDataset, TsumegoConfig)
+register_dataset("tsumego", TsumegoDataset, TsumegoConfig, TsumegoCurriculum)
