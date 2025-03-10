@@ -23,7 +23,7 @@ from .letter_counting import LetterCountingConfig, LetterCountingCurriculum, Let
 from .letter_jumble import LetterJumbleConfig, LetterJumbleCurriculum, LetterJumbleDataset
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculum, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
-from .number_sorting import NumberSortingConfig, NumberSortingDataset
+from .number_sorting import NumberSortingConfig, NumberSortingCurriculum, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeDataset
 from .palindrome_partitioning import (
     PalindromePartitioningConfig,
@@ -74,6 +74,7 @@ __all__ = [
     "NumberFilteringDataset",
     "NumberSortingConfig",
     "NumberSortingDataset",
+    "NumberSortingCurriculum",
     "SentenceReorderingConfig",
     "SentenceReorderingDataset",
     "WordSequenceReversalConfig",
