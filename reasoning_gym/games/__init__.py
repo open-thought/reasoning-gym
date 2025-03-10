@@ -7,7 +7,7 @@ Game tasks for training reasoning capabilities:
 """
 
 from .countdown import CountdownConfig, CountdownDataset
-from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryDataset
+from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryCurriculum, EmojiMysteryDataset
 from .futoshiki import FutoshikiConfig, FutoshikiDataset
 from .knight_swap import KnightSwapConfig, KnightSwapDataset
 from .mahjong import MahjongPuzzleConfig, MahjongPuzzleCurriculum, MahjongPuzzleDataset
@@ -25,6 +25,7 @@ __all__ = [
     "CountdownConfig",
     "CountdownDataset",
     "EmojiMysteryConfig",
+    "EmojiMysteryCurriculum",
     "EmojiMysteryDataset",
     "FutoshikiConfig",
     "FutoshikiDataset",
