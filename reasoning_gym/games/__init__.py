@@ -28,6 +28,7 @@ __all__ = [
     "EmojiMysteryCurriculum",
     "EmojiMysteryDataset",
     "FutoshikiConfig",
+    "FutoshikiCurriculum",
     "FutoshikiDataset",
     "MiniSudokuConfig",
     "MiniSudokuDataset",
