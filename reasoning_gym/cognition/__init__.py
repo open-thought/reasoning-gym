@@ -7,7 +7,7 @@ from .figlet_fonts import FigletFontConfig, FigletFontDataset
 from .modulo_grid import ModuloGridConfig, ModuloGridDataset
 from .needle_haystack import NeedleHaystackConfig, NeedleHaystackDataset
 from .number_sequences import NumberSequenceConfig, NumberSequenceDataset
-from .rectangle_count import RectangleCountConfig, RectangleCountDataset
+from .rectangle_count import RectangleCountConfig, RectangleCountCurriculum, RectangleCountDataset
 from .rubiks_cube import RubiksCubeConfig, RubiksCubeDataset
 
 __all__ = [
@@ -20,6 +20,7 @@ __all__ = [
     "RubiksCubeConfig",
     "RubiksCubeDataset",
     "RectangleCountConfig",
+    "RectangleCountCurriculum",
     "RectangleCountDataset",
     "NeedleHaystackConfig",
     "NeedleHaystackDataset",
