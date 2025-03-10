@@ -7,6 +7,7 @@ from typing import Any, Optional
 
 from reasoning_gym.data import read_data_file
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to unsramble words in a sentence.
@@ -107,6 +108,11 @@ class LetterJumbleDataset(ProceduralDataset):
                 "corruption_level": corruption_level,
                 "scrambled_words": scrambled_words,
                 "original_words": selected_words,
+                "difficulty": {
+                    "word_len": (self.config.min_word_len, self.config.max_word_len),
+                    "words": num_words,
+                    "corruption": corruption_level,
+                }
             },
         }
 
@@ -154,4 +160,44 @@ class LetterJumbleDataset(ProceduralDataset):
             return partial_score
 
 
-register_dataset("letter_jumble", LetterJumbleDataset, LetterJumbleConfig)
+class LetterJumbleCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(LetterJumbleCurriculum.__name__, LetterJumbleConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="word_len",
+                levels=[5, 15, 30, 50],
+                default_level=1,
+                description="Word length",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_word_len",
+                upper_field_name="max_word_len",
+            ),
+            RangeAttributeDefinition(
+                name="words",
+                levels=[10, 20, 50, 100],
+                default_level=1,
+                description="Number of words",
+                attr_type=AttributeType.APPEND,
+                min_value=5,
+                lower_field_name="min_words",
+                upper_field_name="max_words",
+            ),
+            RangeAttributeDefinition(
+                name="corruption",
+                levels=[0.1, 0.3, 0.6, 0.9],
+                default_level=1,
+                description="Corruption level",
+                attr_type=AttributeType.APPEND,
+                min_value=0.0,
+                lower_field_name="min_corruption_level",
+                upper_field_name="max_corruption_level",
+            ),
+            
+        )
+
+
+register_dataset("letter_jumble", LetterJumbleDataset, LetterJumbleConfig, LetterJumbleCurriculum)
