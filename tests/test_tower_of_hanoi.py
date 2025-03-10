@@ -78,7 +78,7 @@ def test_toh_dataset_items():
 
         # Verify solution_length consistency
         assert solution_length == len(
-            item["answer"].splitlines()
+            item["answer"]
         ), f"Item {i} metadata 'solution_length' does not match actual number of moves."
 
         # Optional: Additional checks like verifying that start and target pegs are distinct
@@ -94,6 +94,8 @@ def test_toh_move_validity():
         num_disks = instance["metadata"]["num_disks"]
         num_pegs = instance["metadata"]["num_pegs"]
         start_peg = instance["metadata"]["start_peg"]
+        target_peg = instance["metadata"]["target_peg"]
+        auxiliary_pegs = instance["metadata"]["auxiliary_pegs"]
         pegs = list(range(1, num_pegs + 1))
 
         # Initialize pegs_state: all disks start on the start peg
@@ -102,8 +104,7 @@ def test_toh_move_validity():
             pegs_state[start_peg].append(disk)
 
         # Iterate over each move and validate
-        moves = instance["answer"].splitlines()
-        for move_num, move in enumerate(moves, start=1):
+        for move_num, move in enumerate(instance["answer"], start=1):
             disk, from_peg, to_peg = parse_move(move)
 
             # Check that from_peg exists
@@ -156,7 +157,7 @@ def test_toh_final_state_correct():
             pegs_state[start_peg].append(disk)
 
         # Perform all moves
-        for move in instance["answer"].splitlines():
+        for move in instance["answer"]:
             disk, from_peg, to_peg = parse_move(move)
             pegs_state[from_peg].pop()
             pegs_state[to_peg].append(disk)
@@ -227,15 +228,17 @@ def is_valid_final_state(pegs_state: dict, target_peg: int, num_disks: int) -> b
     return target_stack == list(range(num_disks, 0, -1))
 
 
-def test_toh_score_answer():
+def test_score_answer():
     """
     Test that the score_answer method returns the expected reward values.
 
     Expected behavior:
       - Correct answer (i.e. equivalent in length, or better, than the one provided in the dataset item) gives 1.0.
       - A correct solution that is suboptimal length gives a proportional reward of optimal_move_count/user_move_count
+      - A badly formatted answer gives a minimal reward (0.01).
       - An answer that is syntactically valid but does not solve the puzzle gives a partial reward (0.05).
-      - A badly formatted or empty answer gives a minimal reward (0.0).
+      - An empty string gives 0.01.
+      - None gives 0.0.
     """
     # Create a dataset instance using the default configuration.
     config = HanoiConfig(min_disks=3, max_disks=5, min_pegs=3, max_pegs=4, size=5, seed=42)
@@ -250,17 +253,17 @@ def test_toh_score_answer():
 
     # 2. A badly formatted answer should yield minimal reward (0.01).
     score_bad_format = dataset.score_answer(answer="a wrong solution", entry=item)
-    assert score_bad_format == 0.0, f"Badly formatted answer score {score_bad_format} is not 0.0"
+    assert score_bad_format == 0.01, f"Badly formatted answer score {score_bad_format} is not 0.01."
 
     # 3. An answer that is validly formatted but unsolved.
     # For example, remove the last move from the correct answer.
-    unfinished_answer = "\n".join(correct_answer.splitlines()[:-1])
+    unfinished_answer = correct_answer[:-1]
     score_unsolved = dataset.score_answer(answer=unfinished_answer, entry=item)
     assert score_unsolved == 0.05, f"Unsolved answer score {score_unsolved} is not 0.05."
 
     # 4. An empty answer should yield 0.01.
     score_empty = dataset.score_answer(answer="", entry=item)
-    assert score_empty == 0.0, f"Empty answer score {score_empty} is not 0.0."
+    assert score_empty == 0.01, f"Empty answer score {score_empty} is not 0.01."
 
     # 5. A None answer should yield 0.0.
     score_none = dataset.score_answer(answer=None, entry=item)

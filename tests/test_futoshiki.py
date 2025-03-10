@@ -6,25 +6,17 @@ from reasoning_gym.games import FutoshikiConfig, FutoshikiDataset
 def test_futoshiki_config_validation():
     """Test that invalid configs raise appropriate errors"""
     with pytest.raises(AssertionError):
-        config = FutoshikiConfig(board_size=3)  # Too small
+        config = FutoshikiConfig(min_board_size=5, max_board_size=4)  # Too small
         config.validate()
 
     with pytest.raises(AssertionError):
-        config = FutoshikiConfig(board_size=10)  # Too large
-        config.validate()
-
-    with pytest.raises(AssertionError):
-        config = FutoshikiConfig(difficulty=-1)  # Invalid difficulty
-        config.validate()
-
-    with pytest.raises(AssertionError):
-        config = FutoshikiConfig(difficulty=4)  # Invalid difficulty
+        config = FutoshikiConfig(min_difficulty=2, max_difficulty=1)  # Too large
         config.validate()
 
 
 def test_futoshiki_deterministic():
     """Test that dataset generates same puzzles with same seed"""
-    config = FutoshikiConfig(seed=42, size=10)
+    config = FutoshikiConfig(seed=42, size=10, min_board_size=4, max_board_size=9, min_difficulty=0, max_difficulty=3)
     dataset1 = FutoshikiDataset(config)
     dataset2 = FutoshikiDataset(config)
 
@@ -34,7 +26,7 @@ def test_futoshiki_deterministic():
 
 def test_futoshiki_items():
     """Test basic properties of generated items"""
-    config = FutoshikiConfig(board_size=4, difficulty=1, size=10, seed=42)
+    config = FutoshikiConfig(min_difficulty=1, max_difficulty=1, min_board_size=4, max_board_size=9, size=10, seed=42)
     dataset = FutoshikiDataset(config)
 
     for i in range(len(dataset)):
@@ -49,32 +41,33 @@ def test_futoshiki_items():
         assert "puzzle" in metadata
         assert "solution" in metadata
         assert "constraints" in metadata
-        assert "board_size" in metadata
-        assert "difficulty" in metadata
 
         # Verify board dimensions
         puzzle = metadata["puzzle"]
         solution = metadata["solution"]
-        assert len(puzzle) == config.board_size
-        assert len(solution) == config.board_size
+        assert len(puzzle) >= config.min_board_size
+        assert len(solution) >= config.min_board_size
+        assert len(puzzle) <= config.max_board_size
+        assert len(solution) <= config.max_board_size
         for row in puzzle:
-            assert len(row) == config.board_size
+            assert len(row) >= config.min_board_size
+            assert len(row) <= config.max_board_size
         for row in solution:
-            assert len(row) == config.board_size
-
+            assert len(row) >= config.min_board_size
+            assert len(row) <= config.max_board_size
         # Verify constraints format
         constraints = metadata["constraints"]
         for ((r1, c1), (r2, c2)), rel in constraints.items():
-            assert 0 <= r1 < config.board_size
-            assert 0 <= c1 < config.board_size
-            assert 0 <= r2 < config.board_size
-            assert 0 <= c2 < config.board_size
+            assert 0 <= r1 < config.min_board_size
+            assert 0 <= c1 < config.min_board_size
+            assert 0 <= r2 < config.min_board_size
+            assert 0 <= c2 < config.min_board_size
             assert rel in ("<", ">")
 
 
 def test_futoshiki_solution_validity():
     """Test that solutions are valid according to Futoshiki rules"""
-    config = FutoshikiConfig(board_size=4, difficulty=1, size=10, seed=42)
+    config = FutoshikiConfig(min_board_size=4, max_board_size=4, min_difficulty=1, max_difficulty=1, size=10, seed=42)
     dataset = FutoshikiDataset(config)
 
     def is_valid_solution(solution, board_size, constraints):
@@ -105,12 +98,12 @@ def test_futoshiki_solution_validity():
         solution = metadata["solution"]
         constraints = metadata["constraints"]
 
-        assert is_valid_solution(solution, config.board_size, constraints)
+        assert is_valid_solution(solution, config.min_board_size, constraints)
 
 
 def test_futoshiki_puzzle_solvability():
     """Test that generated puzzles are solvable and have unique solutions"""
-    config = FutoshikiConfig(board_size=4, difficulty=1, size=5, seed=42)
+    config = FutoshikiConfig(min_board_size=4, max_board_size=4, min_difficulty=1, max_difficulty=1, size=5, seed=42)
     dataset = FutoshikiDataset(config)
 
     for i in range(len(dataset)):
@@ -140,7 +133,14 @@ def test_futoshiki_difficulty_levels():
         constraints_by_difficulty = []
 
         for difficulty in range(4):  # 0 to 3
-            config = FutoshikiConfig(board_size=board_size, difficulty=difficulty, size=size, seed=seed)
+            config = FutoshikiConfig(
+                min_board_size=board_size,
+                max_board_size=board_size,
+                min_difficulty=difficulty,
+                max_difficulty=difficulty,
+                size=size,
+                seed=seed,
+            )
             dataset = FutoshikiDataset(config)
 
             avg_clues = sum(count_clues(item["metadata"]["puzzle"]) for item in dataset) / size
@@ -159,7 +159,7 @@ def test_futoshiki_difficulty_levels():
 
 def test_futoshiki_answer_scoring():
     """Test the answer scoring mechanism"""
-    config = FutoshikiConfig(board_size=4, difficulty=0, size=5, seed=42)
+    config = FutoshikiConfig(min_board_size=4, max_board_size=4, min_difficulty=0, max_difficulty=0, size=5, seed=42)
     dataset = FutoshikiDataset(config)
 
     for item in dataset:
@@ -186,3 +186,65 @@ def test_futoshiki_answer_scoring():
 
         bad_answer = "\n".join(anwser_with_additional_text.split("\n")[::-1])
         assert dataset.score_answer(bad_answer, item) < 0.1
+
+
+def test_futoshiki_curriculum():
+    """Test the FutoshikiCurriculum works as expected"""
+    from reasoning_gym.games.futoshiki import FutoshikiCurriculum
+
+    curriculum = FutoshikiCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: FutoshikiConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_board_size == 4 and base_cfg.max_board_size == 4
+    assert base_cfg.min_difficulty == 0 and base_cfg.max_difficulty == 0
+
+    # Test incrementing attribute levels
+    curriculum.increment_attr_level("board_size")
+    curriculum.increment_attr_level("difficulty")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_board_size == 6 and increased_cfg.max_board_size == 6
+    assert increased_cfg.min_difficulty == 1 and increased_cfg.max_difficulty == 1
+
+    # Test incrementing again
+    curriculum.increment_attr_level("board_size")
+    curriculum.increment_attr_level("difficulty")
+    increased_cfg2 = curriculum.generate_configuration(base_value)
+    assert increased_cfg2.min_board_size == 7 and increased_cfg2.max_board_size == 7
+    assert increased_cfg2.min_difficulty == 2 and increased_cfg2.max_difficulty == 2
+
+    # Test incrementing to max levels
+    curriculum.increment_attr_level("board_size")
+    curriculum.increment_attr_level("difficulty")
+    max_cfg = curriculum.generate_configuration(base_value)
+    assert max_cfg.min_board_size == 9 and max_cfg.max_board_size == 9
+    assert max_cfg.min_difficulty == 3 and max_cfg.max_difficulty == 3
+
+    # Test that we can't go beyond max levels
+    assert not curriculum.increment_attr_level("board_size")
+    assert not curriculum.increment_attr_level("difficulty")
+    still_max_cfg = curriculum.generate_configuration(base_value)
+    assert still_max_cfg.min_board_size == 9 and still_max_cfg.max_board_size == 9
+    assert still_max_cfg.min_difficulty == 3 and still_max_cfg.max_difficulty == 3
+
+    # Test decrementing attribute levels
+    curriculum.decrement_attr_level("board_size")
+    curriculum.decrement_attr_level("difficulty")
+    decreased_cfg = curriculum.generate_configuration(base_value)
+    assert decreased_cfg.min_board_size == 7 and decreased_cfg.max_board_size == 7
+    assert decreased_cfg.min_difficulty == 2 and decreased_cfg.max_difficulty == 2
+
+    # Test global level setting
+    curriculum.set_global_level(0)
+    global_lvl0_cfg = curriculum.generate_configuration(base_value)
+    assert global_lvl0_cfg.min_board_size == 4 and global_lvl0_cfg.max_board_size == 4
+    assert global_lvl0_cfg.min_difficulty == 0 and global_lvl0_cfg.max_difficulty == 0
+
+    # Test global level increment
+    curriculum.increment_global_level()
+    global_lvl1_cfg = curriculum.generate_configuration(base_value)
+    assert global_lvl1_cfg.min_board_size == 6 and global_lvl1_cfg.max_board_size == 6
+    assert global_lvl1_cfg.min_difficulty == 1 and global_lvl1_cfg.max_difficulty == 1

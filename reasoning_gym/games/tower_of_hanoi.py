@@ -6,6 +6,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Solve the Tower of Hanoi problem with {num_disks} disks and {num_pegs} pegs.
@@ -432,5 +433,22 @@ class HanoiDataset(ProceduralDataset):
             return optimal_moves / user_moves
 
 
+class HanoiCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(HanoiCurriculum.__name__, HanoiConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_disks",
+                levels=[3, 4, 5, 7],
+                default_level=0,
+                min_disks=3,
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_disks",
+                upper_field_name="max_disks",
+                description="Number of disks in the puzzle",
+            ),
+        )
+
+
 # Register the dataset
-register_dataset("tower_of_hanoi", HanoiDataset, HanoiConfig)
+register_dataset("tower_of_hanoi", HanoiDataset, HanoiConfig, HanoiCurriculum)
