@@ -35,7 +35,7 @@ from .ransom_note import RansomNoteConfig, RansomNoteCurriculum, RansomNoteDatas
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
-from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
+from .spell_backward import SpellBackwardConfig, SpellBackwardCurriculum, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixCurriculum, SpiralMatrixDataset
 from .string_insertion import StringInsertionConfig, StringInsertionCurriculum, StringInsertionDataset
 from .string_manipulation import StringManipulationConfig, StringManipulationDataset
@@ -52,6 +52,7 @@ from .word_sorting import TextTransformation, WordSortingConfig, WordSortingCurr
 __all__ = [
     "SpellBackwardConfig",
     "SpellBackwardDataset",
+    "SpellBackwardCurriculum",
     "BaseConversionConfig",
     "BaseConversionDataset",
     "BaseConversionCurriculum",
