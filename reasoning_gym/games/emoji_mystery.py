@@ -259,4 +259,4 @@ class EmojiMysteryCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("emoji_mystery", EmojiMysteryDataset, EmojiMysteryConfig)
+register_dataset("emoji_mystery", EmojiMysteryDataset, EmojiMysteryConfig, EmojiMysteryCurriculum)
