@@ -132,36 +132,28 @@ def test_simple_integration_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
-    assert base_cfg.min_degree == 2 and base_cfg.max_degree == 2
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("terms")
-    curriculum.increment_attr_level("degree")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3
-    assert increased_cfg.min_degree == 2 and increased_cfg.max_degree == 4
 
     # test decrementing attribute level for terms
     curriculum.decrement_attr_level("terms")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_terms == 2 and partially_decreased_cfg.max_terms == 2
-    assert partially_decreased_cfg.min_degree == 2 and partially_decreased_cfg.max_degree == 4
 
     # test global level adjustments
     curriculum = SimpleIntegrationCurriculum()  # reset curriculum
     assert curriculum.get_attr_level("terms") == 0
-    assert curriculum.get_attr_level("degree") == 0
 
     # Increase global level
     curriculum.increment_global_level()
     assert curriculum.get_attr_level("terms") == 1
-    assert curriculum.get_attr_level("degree") == 1
 
     global_level_cfg = curriculum.generate_configuration(base_value)
     assert global_level_cfg.min_terms == 2 and global_level_cfg.max_terms == 3
-    assert global_level_cfg.min_degree == 2 and global_level_cfg.max_degree == 4
 
     # Increase global level again
     curriculum.increment_global_level()
     assert curriculum.get_attr_level("terms") == 2
-    assert curriculum.get_attr_level("degree") == 2

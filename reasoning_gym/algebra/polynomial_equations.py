@@ -93,7 +93,8 @@ In solving equations, please follow these instructions:
             # Get variable and generate polynomial equation in standard form
             variable = self._get_variable(rng)
             degree = rng.randint(self.config.min_degree, self.config.max_degree)
-            polynomial_expr = self._generate_polynomial_expr(rng, variable, degree)
+            num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
+            polynomial_expr = self._generate_polynomial_expr(rng, variable, degree, num_terms)
             polynomial_expanded = expand(polynomial_expr)
 
             # Solve the polynomial = 0
@@ -123,6 +124,7 @@ In solving equations, please follow these instructions:
                 "variable": variable,
                 "degree": degree,
                 "real_solutions": real_solutions,
+                "difficulty": {"terms": num_terms, "degree": degree},
             },
         }
 
@@ -130,7 +132,7 @@ In solving equations, please follow these instructions:
         """Get a random lowercase variable name"""
         return rng.choice("abcdefghklmnopqrstuvwxyz")  # remove ij to avoid confusion with complex numbers
 
-    def _generate_polynomial_expr(self, rng: random.Random, variable: Symbol, degree: int):
+    def _generate_polynomial_expr(self, rng: random.Random, variable: Symbol, degree: int, num_terms: int):
         """
         Randomly generate a polynomial expression of 'degree'.
         We'll use the config parameters:
@@ -149,7 +151,6 @@ In solving equations, please follow these instructions:
         x = Symbol(variable)
 
         # Choose the number of terms and their respective degrees
-        num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
         # Keep track of exponents, exponents can repeat or skip but we force the highest exponent
         chosen_exponents = [degree]
         # Fill the rest randomly in [0, degree]

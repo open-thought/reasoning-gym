@@ -56,12 +56,12 @@ When performing calculations, please follow these guidelines:
         denominator = rng.randint(2, 10)
         return Fraction(rng.randint(self.config.min_bounds, self.config.max_bounds), denominator)
 
-    def _generate_polynomial(self, rng: random.Random) -> tuple[sympy.Symbol, sympy.Expr]:
+    def _generate_polynomial(self, rng: random.Random, num_terms: int) -> tuple[sympy.Symbol, sympy.Expr]:
         """Generate a random polynomial with one variable"""
         terms = []
         x = sympy.Symbol(rng.choice(self.config.symbols))
 
-        for _ in range(rng.randint(self.config.min_terms, self.config.max_terms)):
+        for _ in range(num_terms):
             coefficient = self._generate_coefficient(rng)
             degree = rng.randint(self.config.min_degree, self.config.max_degree)
             operator = rng.choice(self.config.operators)
@@ -73,7 +73,8 @@ When performing calculations, please follow these guidelines:
 
     def __getitem__(self, idx: int) -> dict:
         rng = random.Random(self.seed + idx)
-        symbol, polynomial = self._generate_polynomial(rng)
+        num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
+        symbol, polynomial = self._generate_polynomial(rng, num_terms)
         derivative = sympy.diff(polynomial, symbol)
         question = rng.choice(self._prompt_templates).format(integrand=derivative) + self.added_instruction
 
@@ -84,6 +85,7 @@ When performing calculations, please follow these guidelines:
                 "integrand": str(derivative),
                 "variable": str(symbol),
                 "expected_answer_expression": polynomial,
+                "difficulty": {"terms": num_terms},
             },
         }
 
@@ -122,17 +124,7 @@ class SimpleIntegrationCurriculum(BaseCurriculum):
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
                 description="The number of terms in the polynomial",
-            ),
-            RangeAttributeDefinition(
-                name="degree",
-                levels=[2, 4, 6, 8],
-                default_level=0,
-                min_value=1,
-                attr_type=AttributeType.APPEND,
-                lower_field_name="min_degree",
-                upper_field_name="max_degree",
-                description="The degree of the polynomial",
-            ),
+            )
         )
 
 
