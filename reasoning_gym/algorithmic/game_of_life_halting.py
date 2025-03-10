@@ -263,6 +263,9 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
         },
     ]
 
+    def __init__(self, config: GameOfLifeHaltingConfig):
+        super().__init__(config=config, seed=config.seed, size=config.size)
+
     def __getitem__(self, idx: int) -> dict:
         """Generate a single GameOfLife task
 

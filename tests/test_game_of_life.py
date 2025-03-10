@@ -23,11 +23,14 @@ def test_game_of_life_config_validation():
 def test_game_of_life_deterministic():
     """Test that dataset generates same items with same seed"""
     config = GameOfLifeConfig(seed=42, size=10)
+    config2 = GameOfLifeConfig(seed=43, size=10)
     dataset1 = GameOfLifeDataset(config)
     dataset2 = GameOfLifeDataset(config)
+    dataset3 = GameOfLifeDataset(config2)
 
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
+        assert dataset1[i] != dataset3[i]
 
 
 def test_game_of_life_basic_properties():
