@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -47,14 +48,15 @@ Buttons:
                 - metadata: dict with generation parameters
         """
         rng = Random(self.seed + idx)
+        difficulty = rng.randint(1, self.config.difficulty)
 
-        puzzle_data = self.generate_quantum_puzzle(rng, self.config.difficulty)
+        puzzle_data = self.generate_quantum_puzzle(rng, difficulty)
 
         return {
             "question": self.format_puzzle(rng.choice(self._prompt_templates), puzzle=puzzle_data),
             "answer": " → ".join(puzzle_data["solution"]),
             "metadata": {
-                "difficulty": self.config.difficulty,
+                "metadata": {"difficulty": difficulty},
                 "solution_path": puzzle_data["solution"],
                 "target_value": puzzle_data["target_value"],
                 "buttons": puzzle_data["buttons"],
@@ -233,5 +235,21 @@ Buttons:
         )
 
 
+class QuantumLockCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(QuantumLockCurriculum.__name__, QuantumLockConfig)
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="difficulty",
+                field_name="difficulty",
+                levels=list(range(1, 11)),
+                default_level=0,
+                attr_type=AttributeType.STATIC,
+                description="The difficulty of the puzzle",
+                min_value=1,
+            )
+        )
+
+
 # Register the dataset
-register_dataset("quantum_lock", QuantumLockDataset, QuantumLockConfig)
+register_dataset("quantum_lock", QuantumLockDataset, QuantumLockConfig, QuantumLockCurriculum)
