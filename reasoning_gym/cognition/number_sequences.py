@@ -163,7 +163,7 @@ class NumberSequenceDataset(ProceduralDataset):
         rng = Random(self.seed + idx)
 
         # Create pattern generator with random complexity
-        complexity = rng.randint(self.config.max_complexity, self.config.max_complexity)
+        complexity = rng.randint(1, self.config.max_complexity)
         generator = PatternGenerator(rng, complexity)
 
         # Generate pattern rule and sequence
@@ -216,4 +216,4 @@ class NumberSequenceCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("number_sequence", NumberSequenceDataset, NumberSequenceConfig)
+register_dataset("number_sequence", NumberSequenceDataset, NumberSequenceConfig, NumberSequenceCurriculum)
