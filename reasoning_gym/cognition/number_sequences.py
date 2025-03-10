@@ -3,6 +3,7 @@ from enum import StrEnum
 from random import Random
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -162,7 +163,7 @@ class NumberSequenceDataset(ProceduralDataset):
         rng = Random(self.seed + idx)
 
         # Create pattern generator with random complexity
-        complexity = rng.randint(1, self.config.max_complexity)
+        complexity = rng.randint(self.config.max_complexity, self.config.max_complexity)
         generator = PatternGenerator(rng, complexity)
 
         # Generate pattern rule and sequence
@@ -196,6 +197,23 @@ class NumberSequenceDataset(ProceduralDataset):
             "answer": str(sequence[-1]),
             "metadata": {"rule": rule.to_string(), "complexity": complexity, "sequence": sequence},
         }
+
+
+class NumberSequenceCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(NumberSequenceCurriculum.__name__, NumberSequenceConfig)
+
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="max_complexity",
+                levels=[1, 2, 3, 4],
+                default_level=0,
+                description="Maximum number of operations to combine",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+                field_name="max_complexity",
+            ),
+        )
 
 
 register_dataset("number_sequence", NumberSequenceDataset, NumberSequenceConfig)
