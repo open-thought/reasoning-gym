@@ -75,14 +75,14 @@ def generate_puzzle(num_dice, max_dice_size, rng):
     high_target = min_total + 2 * (max_total - min_total) // 3
     target = rng.randint(low_target, high_target)
 
-    # Compute probability.
-    (num, den) = compute_probability(dice, target)
+    # Compute probability. Don't change this.
+    (num, den), probability = compute_probability(dice, target)
 
     # Create a string representing the dice, e.g., "1d20, 1d17, 1d6" etc.
     dice_str = ", ".join(f"1d{s}" for s in dice)
 
     # Return the puzzle.
-    return {"dice_str": dice_str, "target": target, "num": num, "den": den}
+    return {"dice_str": dice_str, "target": target, "num": num, "den": den, "probability": probability}
 
 
 @dataclass
@@ -127,7 +127,8 @@ class DiceDataset(ProceduralDataset):
                 "difficulty": {
                     "num_dice": self.config.num_dice,
                     "max_dice_size": self.config.max_dice_size,
-                }
+                },
+                "puzzle": puzzle,
             },
         }
 
