@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -92,4 +93,43 @@ Please follow the instruction below:
         }
 
 
-register_dataset("number_sorting", NumberSortingDataset, NumberSortingConfig)
+class NumberSortingCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(NumberSortingCurriculum.__name__, NumberSortingConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="numbers",
+                levels=[10, 100, 500, 1000],
+                default_level=1,
+                description="How many numbers to sort",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_numbers",
+                upper_field_name="max_numbers",
+            ),
+            RangeAttributeDefinition(
+                name="decimals",
+                levels=[0, 2, 4, 6],
+                default_level=1,
+                description="Number of decimal places",
+                attr_type=AttributeType.APPEND,
+                min_value=0,
+                lower_field_name="min_decimals",
+                upper_field_name="max_decimals",
+            ),
+            RangeAttributeDefinition(
+                name="value",
+                levels=[-10_000, 10_000],
+                default_level=1,
+                description="Range of numbers to sort",
+                attr_type=AttributeType.APPEND,
+                min_value=-10_000,
+                lower_field_name="min_value",
+                upper_field_name="max_value",
+            ),
+        )
+
+
+register_dataset("number_sorting", NumberSortingDataset, NumberSortingConfig, NumberSortingCurriculum)
