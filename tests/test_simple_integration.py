@@ -2,7 +2,11 @@ import pytest
 import sympy
 from sympy.parsing.sympy_parser import parse_expr
 
-from reasoning_gym.algebra.simple_integration import SimpleIntegrationConfig, SimpleIntegrationDataset
+from reasoning_gym.algebra.simple_integration import (
+    SimpleIntegrationConfig,
+    SimpleIntegrationCurriculum,
+    SimpleIntegrationDataset,
+)
 
 
 def test_simple_integration_config_validation():
@@ -116,3 +120,40 @@ def test_score_answer_cases():
         dummy_entry = {"metadata": metadata}
         score = dataset.score_answer(answer=answer, entry=dummy_entry)
         assert score == expected, f"Failed case: {answer} | Expected {expected}, got {score}"
+
+
+def test_simple_integration_curriculum():
+    """Test curriculum functionality for SimpleIntegration"""
+    curriculum = SimpleIntegrationCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: SimpleIntegrationConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("terms")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3
+
+    # test decrementing attribute level for terms
+    curriculum.decrement_attr_level("terms")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_terms == 2 and partially_decreased_cfg.max_terms == 2
+
+    # test global level adjustments
+    curriculum = SimpleIntegrationCurriculum()  # reset curriculum
+    assert curriculum.get_attr_level("terms") == 0
+
+    # Increase global level
+    curriculum.increment_global_level()
+    assert curriculum.get_attr_level("terms") == 1
+
+    global_level_cfg = curriculum.generate_configuration(base_value)
+    assert global_level_cfg.min_terms == 2 and global_level_cfg.max_terms == 3
+
+    # Increase global level again
+    curriculum.increment_global_level()
+    assert curriculum.get_attr_level("terms") == 2

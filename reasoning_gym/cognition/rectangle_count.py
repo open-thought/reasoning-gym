@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to count how many rectangles are present in an ASCII grid.
@@ -116,7 +117,7 @@ class RectangleCountDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(puzzle=puzzle),
             "answer": str(answer),
-            "metadata": {"puzzle": puzzle, "solution": answer},
+            "metadata": {"puzzle": puzzle, "solution": answer, "difficulty": {"max_rectangles": target}},
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -138,4 +139,22 @@ class RectangleCountDataset(ProceduralDataset):
         return 0.0
 
 
-register_dataset("rectangle_count", RectangleCountDataset, RectangleCountConfig)
+class RectangleCountCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(RectangleCountCurriculum.__name__, RectangleCountConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="max_rectangles",
+                levels=[1, 3, 5, 10],
+                default_level=0,
+                description="Number of rectangles in the grid",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+                field_name="max_rectangles",
+            ),
+        )
+
+
+register_dataset("rectangle_count", RectangleCountDataset, RectangleCountConfig, RectangleCountCurriculum)

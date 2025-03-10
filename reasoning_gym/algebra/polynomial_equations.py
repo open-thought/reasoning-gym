@@ -5,6 +5,7 @@ from typing import Any, Optional
 
 from sympy import Eq, Symbol, expand, solve
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -86,11 +87,14 @@ In solving equations, please follow these instructions:
                 - metadata: dict with details (polynomial_expr, degree, etc.)
         """
         rng = random.Random(self.seed + idx)
-        for _ in range(8):
+        for _ in range(
+            20
+        ):  # Increase the number of attempts to get a solvable polynomial - many solutions only real solution is 0
             # Get variable and generate polynomial equation in standard form
             variable = self._get_variable(rng)
             degree = rng.randint(self.config.min_degree, self.config.max_degree)
-            polynomial_expr = self._generate_polynomial_expr(rng, variable, degree)
+            num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
+            polynomial_expr = self._generate_polynomial_expr(rng, variable, degree, num_terms)
             polynomial_expanded = expand(polynomial_expr)
 
             # Solve the polynomial = 0
@@ -120,6 +124,7 @@ In solving equations, please follow these instructions:
                 "variable": variable,
                 "degree": degree,
                 "real_solutions": real_solutions,
+                "difficulty": {"terms": num_terms, "degree": degree},
             },
         }
 
@@ -127,7 +132,7 @@ In solving equations, please follow these instructions:
         """Get a random lowercase variable name"""
         return rng.choice("abcdefghklmnopqrstuvwxyz")  # remove ij to avoid confusion with complex numbers
 
-    def _generate_polynomial_expr(self, rng: random.Random, variable: Symbol, degree: int):
+    def _generate_polynomial_expr(self, rng: random.Random, variable: Symbol, degree: int, num_terms: int):
         """
         Randomly generate a polynomial expression of 'degree'.
         We'll use the config parameters:
@@ -146,7 +151,6 @@ In solving equations, please follow these instructions:
         x = Symbol(variable)
 
         # Choose the number of terms and their respective degrees
-        num_terms = rng.randint(self.config.min_terms, self.config.max_terms)
         # Keep track of exponents, exponents can repeat or skip but we force the highest exponent
         chosen_exponents = [degree]
         # Fill the rest randomly in [0, degree]
@@ -266,4 +270,33 @@ In solving equations, please follow these instructions:
         return final_reward
 
 
-register_dataset("polynomial_equations", PolynomialEquationsDataset, PolynomialEquationsConfig)
+class PolynomialEquationsCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(PolynomialEquationsCurriculum.__name__, PolynomialEquationsConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="degree",
+                levels=[1, 2, 3, 4],
+                default_level=0,
+                min_value=1,
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_degree",
+                upper_field_name="max_degree",
+                description="The degree of the polynomial equation",
+            ),
+            RangeAttributeDefinition(
+                name="terms",
+                levels=[2, 3, 4, 5],
+                default_level=0,
+                min_value=2,
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+                description="The number of terms in the polynomial equation",
+            ),
+        )
+
+
+register_dataset(
+    "polynomial_equations", PolynomialEquationsDataset, PolynomialEquationsConfig, PolynomialEquationsCurriculum
+)
