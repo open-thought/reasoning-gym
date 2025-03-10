@@ -51,8 +51,7 @@ class ZebraDataset(ProceduralDataset):
             "question": question,
             "answer": answer,
             "metadata": {
-                "num_people": K,
-                "num_characteristics": M,
+                "difficulty": {"num_people": K, "num_characteristics": M},
             },
         }
 
