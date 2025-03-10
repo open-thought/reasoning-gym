@@ -20,11 +20,11 @@ from .group_anagrams import GroupAnagramsConfig, GroupAnagramsCurriculum, GroupA
 from .isomorphic_strings import IsomorphicStringsConfig, IsomorphicStringsCurriculum, IsomorphicStringsDataset
 from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingCurriculum, LetterCountingDataset
-from .letter_jumble import LetterJumbleConfig, LetterJumbleDataset
+from .letter_jumble import LetterJumbleConfig, LetterJumbleCurriculum, LetterJumbleDataset
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculum, ManipulateMatrixDataset
 from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
-from .number_sorting import NumberSortingConfig, NumberSortingDataset
-from .palindrome_generation import PalindromeConfig, PalindromeDataset
+from .number_sorting import NumberSortingConfig, NumberSortingCurriculum, NumberSortingDataset
+from .palindrome_generation import PalindromeConfig, PalindromeCurriculum, PalindromeDataset
 from .palindrome_partitioning import (
     PalindromePartitioningConfig,
     PalindromePartitioningCurriculum,
@@ -34,7 +34,7 @@ from .pool_matrix import PoolMatrixConfig, PoolMatrixCurriculum, PoolMatrixDatas
 from .ransom_note import RansomNoteConfig, RansomNoteCurriculum, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
-from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
+from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingCurriculum, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardCurriculum, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixCurriculum, SpiralMatrixDataset
 from .string_insertion import StringInsertionConfig, StringInsertionCurriculum, StringInsertionDataset
@@ -70,12 +70,15 @@ __all__ = [
     "LetterCountingCurriculum",
     "LetterJumbleConfig",
     "LetterJumbleDataset",
+    "LetterJumbleCurriculum",
     "NumberFilteringConfig",
     "NumberFilteringDataset",
     "NumberSortingConfig",
     "NumberSortingDataset",
+    "NumberSortingCurriculum",
     "SentenceReorderingConfig",
     "SentenceReorderingDataset",
+    "SentenceReorderingCurriculum",
     "WordSequenceReversalConfig",
     "WordSequenceReversalDataset",
     "WordSequenceReversalCurriculum",
@@ -87,6 +90,7 @@ __all__ = [
     "WordLadderDataset",
     "PalindromeConfig",
     "PalindromeDataset",
+    "PalindromeCurriculum",
     "GroupAnagramsConfig",
     "GroupAnagramsDataset",
     "GroupAnagramsCurriculum",

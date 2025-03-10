@@ -3,7 +3,11 @@ from pytest import approx
 from sympy import Symbol, sympify
 
 from reasoning_gym import create_dataset
-from reasoning_gym.algebra.polynomial_equations import PolynomialEquationsConfig, PolynomialEquationsDataset
+from reasoning_gym.algebra.polynomial_equations import (
+    PolynomialEquationsConfig,
+    PolynomialEquationsCurriculum,
+    PolynomialEquationsDataset,
+)
 
 
 def test_polynomial_config_validation():
@@ -147,3 +151,27 @@ def test_polynomial_perfect_score():
 
     for item in ds:
         assert ds.score_answer(item["answer"], item) == 1.0
+
+
+def test_polynomial_equations_curriculum():
+    curriculum = PolynomialEquationsCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: PolynomialEquationsConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    # Check default values for degree attribute
+    assert base_cfg.min_degree == 1 and base_cfg.max_degree == 1
+    # Check default values for terms attribute
+    assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
+
+    # Test incrementing attribute levels
+    curriculum.increment_attr_level("degree")
+    curriculum.increment_attr_level("terms")
+
+    increased_cfg = curriculum.generate_configuration(base_value)
+    # Check increased values for degree attribute
+    assert increased_cfg.min_degree == 1 and increased_cfg.max_degree == 2
+    # Check increased values for terms attribute
+    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3

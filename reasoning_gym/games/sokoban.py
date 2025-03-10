@@ -4,6 +4,7 @@ from typing import Any, Optional
 
 import numpy as np
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -130,4 +131,31 @@ Here is your puzzle:
         return 0.0
 
 
-register_dataset("sokoban", SokobanDataset, SokobanConfig)
+class SokobanCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(SokobanCurriculum.__name__, SokobanConfig)
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="width",
+                levels=list(range(6, 11)),
+                default_level=0,
+                description="The width of the Sokoban board",
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_w",
+                upper_field_name="max_w",
+                min_value=6,
+            ),
+            RangeAttributeDefinition(
+                name="height",
+                levels=list(range(6, 11)),
+                default_level=0,
+                description="The height of the Sokoban board",
+                attr_type=AttributeType.APPEND,
+                lower_field_name="min_h",
+                upper_field_name="max_h",
+                min_value=6,
+            ),
+        )
+
+
+register_dataset("sokoban", SokobanDataset, SokobanConfig, SokobanCurriculum)
