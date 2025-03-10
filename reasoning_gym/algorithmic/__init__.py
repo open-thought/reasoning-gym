@@ -34,7 +34,7 @@ from .pool_matrix import PoolMatrixConfig, PoolMatrixCurriculum, PoolMatrixDatas
 from .ransom_note import RansomNoteConfig, RansomNoteCurriculum, RansomNoteDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
-from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingDataset
+from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingCurriculum, SentenceReorderingDataset
 from .spell_backward import SpellBackwardConfig, SpellBackwardDataset
 from .spiral_matrix import SpiralMatrixConfig, SpiralMatrixCurriculum, SpiralMatrixDataset
 from .string_insertion import StringInsertionConfig, StringInsertionCurriculum, StringInsertionDataset
@@ -75,6 +75,7 @@ __all__ = [
     "NumberSortingDataset",
     "SentenceReorderingConfig",
     "SentenceReorderingDataset",
+    "SentenceReorderingCurriculum",
     "WordSequenceReversalConfig",
     "WordSequenceReversalDataset",
     "WordSequenceReversalCurriculum",
