@@ -47,16 +47,14 @@ Please follow the instruction below:
         # Reparse to ensure exact decimal representation
         return f"{float(formatted):.{decimals}f}"
 
-    def _generate_numbers(self, rng: Random) -> tuple[list[float], list[str]]:
+    def _generate_numbers(self, rng: Random, count: int) -> tuple[list[float], list[str]]:
         """Generate list of numbers and their string representations"""
-        count = rng.randint(self.config.min_numbers, self.config.max_numbers)
-        decimals = rng.randint(self.config.min_decimals, self.config.max_decimals)
-
         numbers = []
         number_strs = []
 
         for _ in range(count):
             num = rng.uniform(self.config.min_value, self.config.max_value)
+            decimals = rng.randint(self.config.min_decimals, self.config.max_decimals)
             num_str = self._format_number(num, decimals)
             # Reparse to ensure exact value
             num = float(num_str)
@@ -69,7 +67,8 @@ Please follow the instruction below:
         """Generate a single sorting task"""
         rng = Random(self.seed + idx)
 
-        numbers, number_strs = self._generate_numbers(rng)
+        count = rng.randint(self.config.min_numbers, self.config.max_numbers)
+        numbers, number_strs = self._generate_numbers(rng, count)
 
         # Generate both ascending and descending answers
         asc_numbers = sorted(numbers)
@@ -89,7 +88,16 @@ Please follow the instruction below:
         return {
             "question": question,
             "answer": str(answer),
-            "metadata": {"original_numbers": number_strs, "direction": direction, "sorted_numbers": answer},
+            "metadata": {
+                "original_numbers": number_strs,
+                "direction": direction,
+                "sorted_numbers": answer,
+                "difficulty": {
+                    "numbers": count,
+                    "decimals": (self.config.min_decimals, self.config.max_decimals),
+                    "value": (self.config.min_value, self.config.max_value),
+                },
+            },
         }
 
 
