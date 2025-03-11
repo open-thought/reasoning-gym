@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to pick the largest/smallest number out of several options.
@@ -18,20 +19,24 @@ Now, pick the {size} number of the following candidates: {numbers}
 class NumberFormatConfig:
     """Configuration for Count Bits dataset generation"""
 
+    min_num_candidates: int = 2  # Minimum number of candidates
     max_num_candidates: int = 5  # Maximum number of candidates
     min_n: float = 1_000  # Lower bound for the numbers
     max_n: float = 1_000_000_000  # Upper bound for the numbers
-    max_delta: int = 1_000
+    max_delta: float = 10.0
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 2 <= self.max_num_candidates, "max_num_candidates must be at least 2"
+        assert 2 <= self.min_num_candidates, "min_num_candidates must be at least 2"
+        assert (
+            self.min_num_candidates <= self.max_num_candidates
+        ), "min_num_candidates must be less than max_num_candidates"
         assert 1 <= self.min_n, "min_n must be at least 1"
         assert self.min_n < self.max_n, "min_n must be less than max_n"
-        assert 1 <= self.max_delta, "max_delta must be at least 1"
+        assert 0 < self.max_delta, "max_delta must be greater than 0"
 
 
 class NumberFormatDataset(ProceduralDataset):
@@ -78,7 +83,7 @@ class NumberFormatDataset(ProceduralDataset):
         """Generate a single Count Bits question"""
         rng = Random(self.seed + idx)
 
-        num_candidates = rng.randint(2, self.config.max_num_candidates)
+        num_candidates = rng.randint(self.config.min_num_candidates, self.config.max_num_candidates)
         candidates = self._get_candidates(rng, num_candidates)
         formatted_candidates = self._transform_candidates(rng, candidates)
 
@@ -93,8 +98,50 @@ class NumberFormatDataset(ProceduralDataset):
                 "solution": answer,
                 "formatted_candidates": formatted_candidates,
                 "size": size,
+                "difficulty": {
+                    "num_candidates": num_candidates,
+                    "n": (self.config.min_n, self.config.max_n),
+                    "min_delta": self.config.max_delta,
+                },
             },
         }
 
 
-register_dataset("number_format", NumberFormatDataset, NumberFormatConfig)
+class NumberFormatCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(NumberFormatCurriculum.__name__, NumberFormatConfig)
+
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_candidates",
+                levels=[5, 25, 100, 500],
+                default_level=1,
+                description="Number of candidates",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_num_candidates",
+                upper_field_name="max_num_candidates",
+            ),
+            RangeAttributeDefinition(
+                name="n",
+                levels=[10, 1_000, 1_000_000, 1_000_000_000],
+                default_level=1,
+                description="Magnitude of the values",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_n",
+                upper_field_name="max_n",
+            ),
+            ScalarAttributeDefinition(
+                name="max_delta",
+                field_name="max_delta",
+                levels=[1e1, 1e0, 1e-3, 1e-6],
+                default_level=0,
+                description="Max delta",
+                attr_type=AttributeType.STATIC,
+                min_value=1e-6,
+            ),
+        )
+
+
+register_dataset("number_format", NumberFormatDataset, NumberFormatConfig, NumberFormatCurriculum)
