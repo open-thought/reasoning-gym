@@ -124,7 +124,6 @@ def test_simple_equations_operators():
         (("+", "-", "*"), [0.5, 0.0, 0.5]),  # 50% for +, 50% for *
         (("+", "-", "*"), [0.33, 0.33, 0.33]),  # 33% for +, 33% for -, 33% for *
     ]:
-        print(operators, operators_weights)
         config = SimpleEquationsConfig(operators=operators, operators_weights=operators_weights, size=5, seed=42)
         dataset = SimpleEquationsDataset(config)
 

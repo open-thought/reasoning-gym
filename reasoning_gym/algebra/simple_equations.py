@@ -65,6 +65,13 @@ class SimpleEquationsDataset(ProceduralDataset):
             "metadata": {
                 "equation": equation,
                 "variable": variable,
+                "difficulty": {
+                    "min_terms": self.config.min_terms,
+                    "max_terms": self.config.max_terms,
+                    "min_value": self.config.min_value,
+                    "max_value": self.config.max_value,
+                    "operators_weights": self.config.operators_weights,
+                },
             },
         }
 
