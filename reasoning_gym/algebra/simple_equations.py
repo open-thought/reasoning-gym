@@ -1,6 +1,6 @@
 import random
 import string
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 from sympy import Symbol
@@ -18,6 +18,7 @@ class SimpleEquationsConfig:
     min_value: int = 1  # Minimum value for constants
     max_value: int = 100  # Maximum value for constants
     operators: tuple = ("+", "-", "*")  # Allowed operators
+    operators_weights: list[float] = field(default_factory=lambda: [0.4, 0.4, 0.2])  # Weights for each operator
     seed: Optional[int] = None
     size: int = 500
 
@@ -29,6 +30,7 @@ class SimpleEquationsConfig:
         assert self.max_value >= self.min_value, "max_value must be >= min_value"
         assert len(self.operators) > 0, "must specify at least one operator"
         assert all(op in ("+", "-", "*") for op in self.operators), "invalid operator specified"
+        assert round(sum(self.operators_weights), 1) == 1.0, "operators_weights must sum to 1.0"
 
 
 class SimpleEquationsDataset(ProceduralDataset):
@@ -102,7 +104,7 @@ class SimpleEquationsDataset(ProceduralDataset):
         # Apply operators between terms
         expr = terms[0]
         for i in range(1, num_terms):
-            op = rng.choice(self.config.operators)
+            op = rng.choices(self.config.operators, weights=self.config.operators_weights, k=1)[0]
             if op == "+":
                 expr = expr + terms[i]
             elif op == "-":
@@ -120,7 +122,56 @@ class SimpleEquationsCurriculum(BaseCurriculum):
     """Curriculum for simple equations task"""
 
     def __init__(self):
-        pass
+        super().__init__(SimpleEquationsCurriculum.__name__, SimpleEquationsConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="min_terms",
+                field_name="min_terms",
+                levels=[2, 3, 4, 5],
+                default_level=0,
+                description="Minimum number of terms in simple equations",
+                attr_type=AttributeType.STATIC,
+                min_value=-2,
+            ),
+            ScalarAttributeDefinition(
+                name="max_terms",
+                field_name="max_terms",
+                levels=[5, 10, 15, 20],
+                default_level=0,
+                description="Maximum number of terms in simple equations",
+                attr_type=AttributeType.STATIC,
+                min_value=5,
+            ),
+            ScalarAttributeDefinition(
+                name="min_value",
+                field_name="min_value",
+                levels=[1, 10, 100, 1000],
+                default_level=0,
+                description="Minimum value for constants in simple equations",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+            ),
+            ScalarAttributeDefinition(
+                name="max_value",
+                field_name="max_value",
+                levels=[100, 10000, 1000000, 100000000],
+                default_level=0,
+                description="Maximum value for constants in simple equations",
+                attr_type=AttributeType.STATIC,
+                min_value=100,
+            ),
+            ScalarAttributeDefinition(
+                name="operators_weights",
+                field_name="operators_weights",
+                levels=[[0.4, 0.4, 0.2], [0.35, 0.35, 0.3], [0.3, 0.3, 0.4], [0.2, 0.2, 0.6]],
+                default_level=0,
+                description="Weights for each operator in simple equations",
+                attr_type=AttributeType.STATIC,
+                min_value=[0.4, 0.4, 0.2],
+            ),
+        )
 
 
 register_dataset("simple_equations", SimpleEquationsDataset, SimpleEquationsConfig)
