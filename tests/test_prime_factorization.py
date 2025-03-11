@@ -2,7 +2,11 @@
 
 import pytest
 
-from reasoning_gym.arithmetic.prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset, PrimeFactorizationCurriculum
+from reasoning_gym.arithmetic.prime_factorization import (
+    PrimeFactorizationConfig,
+    PrimeFactorizationCurriculum,
+    PrimeFactorizationDataset,
+)
 
 
 def test_prime_factorization_config_validation():
