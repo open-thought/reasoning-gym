@@ -399,7 +399,7 @@ class AsyncModelEvaluator:
         else:
             # Original format for multiple categories
             output_dir = Path(self.config.output_dir) / f"{model_name}_{timestamp}"
-            
+
         output_dir.mkdir(parents=True, exist_ok=True)
 
         results_path = None
@@ -532,7 +532,7 @@ async def main_async():
         config.save_metadata = True
     if args.full_results:
         config.save_full_results = True
-        
+
     # Filter categories if --category is specified
     if args.category:
         # Keep only the specified category
