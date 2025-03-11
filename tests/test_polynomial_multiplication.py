@@ -6,6 +6,7 @@ import sympy as sp
 from reasoning_gym import create_dataset
 from reasoning_gym.algebra.polynomial_multiplication import (
     PolynomialMultiplicationConfig,
+    PolynomialMultiplicationCurriculum,
     PolynomialMultiplicationDataset,
 )
 
@@ -236,3 +237,102 @@ def test_score_function():
         assert ds.score_answer(None, item) == 0.0
         assert ds.score_answer("Not a polynomial", item) == 0.0
         assert ds.score_answer("x**4", item) == 0.0
+
+
+def test_polynomial_multiplication_curriculum():
+    """Test curriculum for polynomial multiplication."""
+    curriculum = PolynomialMultiplicationCurriculum()
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: PolynomialMultiplicationCurriculum = curriculum.generate_configuration(base_value)
+
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_terms == 2
+    assert base_cfg.max_terms == 4
+    assert base_cfg.min_value == 1
+    assert base_cfg.max_value == 100
+    assert base_cfg.min_degree == 0
+    assert base_cfg.max_degree == 2
+    assert base_cfg.min_polynomials == 2
+    assert base_cfg.max_polynomials == 4
+
+    # Increase and validate increase in level
+    curriculum.increment_attr_level("min_terms")
+    curriculum.increment_attr_level("max_terms")
+    curriculum.increment_attr_level("min_value")
+    curriculum.increment_attr_level("max_value")
+    curriculum.increment_attr_level("min_degree")
+    curriculum.increment_attr_level("max_degree")
+    curriculum.increment_attr_level("min_polynomials")
+    curriculum.increment_attr_level("max_polynomials")
+
+    increased_cfg: PolynomialMultiplicationCurriculum = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_terms == 4
+    assert increased_cfg.max_terms == 8
+    assert increased_cfg.min_value == 10
+    assert increased_cfg.max_value == 10000
+    assert increased_cfg.min_degree == 1
+    assert increased_cfg.max_degree == 4
+    assert increased_cfg.min_polynomials == 3
+    assert increased_cfg.max_polynomials == 6
+
+    # Decrease and validate decrease in level
+    curriculum.decrement_attr_level("min_terms")
+    curriculum.decrement_attr_level("max_terms")
+    curriculum.decrement_attr_level("min_value")
+    curriculum.decrement_attr_level("max_value")
+    curriculum.decrement_attr_level("min_degree")
+    curriculum.decrement_attr_level("max_degree")
+    curriculum.decrement_attr_level("min_polynomials")
+    curriculum.decrement_attr_level("max_polynomials")
+
+    decreased_cfg: PolynomialMultiplicationCurriculum = curriculum.generate_configuration(base_value)
+    assert decreased_cfg.min_terms == 2
+    assert decreased_cfg.max_terms == 4
+    assert decreased_cfg.min_value == 1
+    assert decreased_cfg.max_value == 100
+    assert decreased_cfg.min_degree == 0
+    assert decreased_cfg.max_degree == 2
+    assert decreased_cfg.min_polynomials == 2
+    assert decreased_cfg.max_polynomials == 4
+
+    # Test upper bound boundary condition
+    for _ in range(10):
+        curriculum.increment_attr_level("min_terms")
+        curriculum.increment_attr_level("max_terms")
+        curriculum.increment_attr_level("min_value")
+        curriculum.increment_attr_level("max_value")
+        curriculum.increment_attr_level("min_degree")
+        curriculum.increment_attr_level("max_degree")
+        curriculum.increment_attr_level("min_polynomials")
+        curriculum.increment_attr_level("max_polynomials")
+    upper_bound_cfg: PolynomialMultiplicationCurriculum = curriculum.generate_configuration(base_value)
+    assert upper_bound_cfg.min_terms == 8
+    assert upper_bound_cfg.max_terms == 16
+    assert upper_bound_cfg.min_value == 1000
+    assert upper_bound_cfg.max_value == 100000000
+    assert upper_bound_cfg.min_degree == 3
+    assert upper_bound_cfg.max_degree == 10
+    assert upper_bound_cfg.min_polynomials == 5
+    assert upper_bound_cfg.max_polynomials == 10
+
+    # Test lower bound boundary condition
+    for _ in range(10):
+        curriculum.decrement_attr_level("min_terms")
+        curriculum.decrement_attr_level("max_terms")
+        curriculum.decrement_attr_level("min_value")
+        curriculum.decrement_attr_level("max_value")
+        curriculum.decrement_attr_level("min_degree")
+        curriculum.decrement_attr_level("max_degree")
+        curriculum.decrement_attr_level("min_polynomials")
+        curriculum.decrement_attr_level("max_polynomials")
+    lower_bound_cfg: PolynomialMultiplicationCurriculum = curriculum.generate_configuration(base_value)
+    assert lower_bound_cfg.min_terms == 2
+    assert lower_bound_cfg.max_terms == 4
+    assert lower_bound_cfg.min_value == 1
+    assert lower_bound_cfg.max_value == 100
+    assert lower_bound_cfg.min_degree == 0
+    assert lower_bound_cfg.max_degree == 2
+    assert lower_bound_cfg.min_polynomials == 2
+    assert lower_bound_cfg.max_polynomials == 4
