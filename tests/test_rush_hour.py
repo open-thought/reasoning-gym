@@ -30,7 +30,7 @@ def test_rush_hour_deterministic():
 
 def test_rush_hour_items():
     """Test basic properties of generated items"""
-    config = RushHourConfig(min_moves=1, max_moves=10, size=10, seed=42)
+    config = RushHourConfig(min_moves=1, max_moves=10, size=18000, seed=42)
     dataset = RushHourDataset(config)
 
     for i in range(len(dataset)):
@@ -82,6 +82,7 @@ def test_score_answer():
 
 def test_perform_moves():
     b = Board("GBBoLoGHIoLMGHIAAMCCCKoMooJKDDEEJFFo")
+
     assert not b.solved
     incomplete_moves = "F+1 K+1 M-1 C+3 H+2 J-1 E+1 G+3 B-1 I-1 A-3 I+1 L+1 B+3 I-1 A+2 G-3"
     b.perform_moves(incomplete_moves)

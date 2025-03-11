@@ -150,6 +150,7 @@ class RushHourDataset(ProceduralDataset):
             "Move the red car (AA) to the exit on the right.\n"
             "Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'\n"
             "where the letter is the vehicle and +/- number is spaces to move right/left or down/up.\n"
+            "Walls are marked with an 'x'. Cars cannot move through walls, and walls cannot be moved.\n"
             "A car oriented vertically can only move up and down, a car oriented horizontally can only move left and right."
         )
 
