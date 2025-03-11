@@ -5,6 +5,7 @@ from typing import Optional
 
 from sympy import Symbol
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -113,6 +114,13 @@ class SimpleEquationsDataset(ProceduralDataset):
         solution_value = rng.randint(self.config.min_value, self.config.max_value)
         right_side = left_side.subs(x, solution_value)
         return f"{left_side} = {right_side}", solution_value
+
+
+class SimpleEquationsCurriculum(BaseCurriculum):
+    """Curriculum for simple equations task"""
+
+    def __init__(self):
+        pass
 
 
 register_dataset("simple_equations", SimpleEquationsDataset, SimpleEquationsConfig)
