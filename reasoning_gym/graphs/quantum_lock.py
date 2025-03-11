@@ -246,7 +246,6 @@ class QuantumLockCurriculum(BaseCurriculum):
                 default_level=0,
                 attr_type=AttributeType.STATIC,
                 description="The difficulty of the puzzle",
-                min_value=1,
             )
         )
 

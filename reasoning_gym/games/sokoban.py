@@ -143,7 +143,6 @@ class SokobanCurriculum(BaseCurriculum):
                 attr_type=AttributeType.APPEND,
                 lower_field_name="min_w",
                 upper_field_name="max_w",
-                min_value=6,
             ),
             RangeAttributeDefinition(
                 name="height",
@@ -153,7 +152,6 @@ class SokobanCurriculum(BaseCurriculum):
                 attr_type=AttributeType.APPEND,
                 lower_field_name="min_h",
                 upper_field_name="max_h",
-                min_value=6,
             ),
         )
 

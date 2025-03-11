@@ -125,7 +125,6 @@ class BinaryAlternationCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of bits in the binary string",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             )

@@ -153,7 +153,6 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 default_level=0,  # Start with 5 courses
                 description="Number of courses in the schedule",
                 attr_type=AttributeType.APPEND,
-                min_value=3,  # Ensure at least 3 courses
                 lower_field_name="min_num_courses",
                 upper_field_name="max_num_courses",
             ),
@@ -163,7 +162,6 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 default_level=0,  # Start with 2 prerequisites max
                 description="Number of prerequisites per course",
                 attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_num_prerequisites",
                 upper_field_name="max_num_prerequisites",
             ),
@@ -173,7 +171,6 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 default_level=0,  # Start with 3 cycle length
                 description="Length of a cycle in the prerequisites",
                 attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_cycle_length",
                 upper_field_name="max_cycle_length",
             ),

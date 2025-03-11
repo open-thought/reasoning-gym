@@ -78,7 +78,6 @@ class WordSequenceReversalCurriculum(BaseCurriculum):
                 default_level=1,
                 description="Number of words in the list",
                 attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             ),

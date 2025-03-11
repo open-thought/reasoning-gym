@@ -151,7 +151,6 @@ class RectangleCountCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of rectangles in the grid",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="max_rectangles",
             ),
         )

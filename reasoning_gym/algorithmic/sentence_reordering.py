@@ -127,7 +127,6 @@ class SentenceReorderingCurriculum(BaseCurriculum):
                 default_level=1,
                 description="Number of words in the sentence",
                 attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",
             ),

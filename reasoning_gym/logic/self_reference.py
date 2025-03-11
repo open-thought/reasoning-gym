@@ -379,7 +379,6 @@ class SelfReferenceCurriculum(BaseCurriculum):
                 default_level=0,
                 description="The difficulty of the puzzle",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
             )
         )
 

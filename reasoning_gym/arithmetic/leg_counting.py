@@ -139,7 +139,6 @@ class LegCountingCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of animals in question",
                 attr_type=AttributeType.APPEND,
-                min_value=1,  # Ensure at least 1 animal
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",
             ),
@@ -149,7 +148,6 @@ class LegCountingCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of instances of each animal",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_instances",
                 upper_field_name="max_instances",
             ),

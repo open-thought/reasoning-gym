@@ -173,7 +173,6 @@ class DecimalChainSumCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Maximum number of terms in the expression",
                 attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
             ),
@@ -183,7 +182,6 @@ class DecimalChainSumCurriculum(BaseCurriculum):
                 default_level=0,  # Start with 1-digit numbers
                 description="Number of digits in each operand",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",
             ),
@@ -193,7 +191,6 @@ class DecimalChainSumCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of decimal places in each operand",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_decimal_places",
                 upper_field_name="max_decimal_places",
             ),

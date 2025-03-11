@@ -252,7 +252,6 @@ class EmojiMysteryCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of words in the sentence",
                 attr_type=AttributeType.STATIC,
-                min_value=3,
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",
             ),

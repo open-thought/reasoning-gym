@@ -84,7 +84,6 @@ class LetterCountingCurriculum(BaseCurriculum):
                 default_level=1,
                 description="Number of words in the span",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             ),

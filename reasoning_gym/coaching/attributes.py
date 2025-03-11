@@ -19,7 +19,6 @@ class AttributeDefinition:
     default_level: int
     description: Optional[str] = None
     attr_type: AttributeType = AttributeType.STATIC  # Default to static
-    min_value: Optional[int | float] = None  # Minimum value for numeric attributes
 
     def validate_level(self, level: int, curriculum: str) -> None:
         """
