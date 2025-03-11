@@ -119,7 +119,6 @@ class SimpleIntegrationCurriculum(BaseCurriculum):
                 name="terms",
                 levels=[2, 3, 4, 5],
                 default_level=0,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
                 description="The number of terms in the polynomial",

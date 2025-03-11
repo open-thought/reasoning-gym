@@ -513,7 +513,6 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
                 ],
                 default_level=0,
                 description="Controls which calendar tasks are included",
-                attr_type=AttributeType.STATIC,
                 field_name="tasks",
             ),
             ScalarAttributeDefinition(
@@ -521,7 +520,6 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
                 levels=[30, 100, 250, 365],
                 default_level=0,
                 description="Maximum day range for offset and counting tasks",
-                attr_type=AttributeType.STATIC,
                 field_name="offset_upper_bound",
             ),
         )

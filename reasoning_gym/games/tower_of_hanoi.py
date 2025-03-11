@@ -442,7 +442,6 @@ class HanoiCurriculum(BaseCurriculum):
                 levels=[3, 4, 5, 7],
                 default_level=0,
                 min_disks=3,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_disks",
                 upper_field_name="max_disks",
                 description="Number of disks in the puzzle",

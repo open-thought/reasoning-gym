@@ -18,7 +18,6 @@ class AttributeDefinition:
     levels: list
     default_level: int
     description: Optional[str] = None
-    attr_type: AttributeType = AttributeType.STATIC  # Default to static
 
     def validate_level(self, level: int, curriculum: str) -> None:
         """
@@ -36,7 +35,7 @@ class AttributeDefinition:
                 f"Must be between 0 and {len(self.levels)-1}"
             )
 
-    def get_level_value(self, level: int, curriculum: str) -> Any:
+    def get_level_value(self, level: int) -> Any:
         """
         Get the value for an attribute at a specific level based on its type.
         Args:
@@ -45,14 +44,7 @@ class AttributeDefinition:
         Returns:
             Value for the attribute based on its level and type
         """
-        if self.attr_type == AttributeType.STATIC:
-            return self.levels[level]
-        elif self.attr_type == AttributeType.UBOUND:
-            return self.levels[level]
-        elif self.attr_type == AttributeType.APPEND:
-            return self.levels[: level + 1]
-
-        raise ValueError(f"Unknown attribute type: {self.attr_type} for attribute '{curriculum}.{self.name}'")
+        return self.levels[level]
 
 
 @dataclass(kw_only=True)
@@ -65,8 +57,8 @@ class RangeAttributeDefinition(AttributeDefinition):
     lower_field_name: str
     upper_field_name: str
 
-    def get_level_value(self, level: int, curriculum: str) -> Any:
-        v = super().get_level_value(level, curriculum)
+    def get_level_value(self, level: int) -> Any:
+        v = super().get_level_value(level)
         if not isinstance(v, abc.Iterable):
             return [v]
         return v

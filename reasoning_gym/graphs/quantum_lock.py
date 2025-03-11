@@ -244,7 +244,6 @@ class QuantumLockCurriculum(BaseCurriculum):
                 field_name="difficulty",
                 levels=list(range(1, 11)),
                 default_level=0,
-                attr_type=AttributeType.STATIC,
                 description="The difficulty of the puzzle",
             )
         )

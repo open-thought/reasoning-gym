@@ -61,7 +61,7 @@ class BaseCurriculum:
         """
         attr = self.get_attribute(attr_name)
         level = self.get_attr_level(attr_name)
-        return attr.get_level_value(level, curriculum=self.name)
+        return attr.get_level_value(level)
 
     def set_attr_level(self, attr_name: str, level: int) -> None:
         """
