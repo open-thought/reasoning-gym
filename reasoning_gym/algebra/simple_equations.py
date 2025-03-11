@@ -181,4 +181,4 @@ class SimpleEquationsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("simple_equations", SimpleEquationsDataset, SimpleEquationsConfig)
+register_dataset("simple_equations", SimpleEquationsDataset, SimpleEquationsConfig, SimpleEquationsCurriculum)
