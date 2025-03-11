@@ -5,6 +5,7 @@ from typing import Any, Optional
 import sympy as sp
 from sympy.polys.monomials import itermonomials
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -159,4 +160,104 @@ When performing calculations, please follow these guidelines:
         return reward
 
 
-register_dataset("polynomial_multiplication", PolynomialMultiplicationDataset, PolynomialMultiplicationConfig)
+"""
+    min_terms: int = 2  # Minimum number of polynomial terms
+    max_terms: int = 4  # Maximum number of polynomial terms
+    min_value: int = 1  # Minimum value for coefficients
+    max_value: int = 100  # Maximum value for coefficients
+    min_degree: int = 0  # Minimum polynomial degree
+    max_degree: int = 3  # Maximum polynomial degree
+    min_polynomials: int = 2  # Minimum number of polynomials being multiplied
+    max_polynomials: int = 3  # Maximum number of polynomials being multiplied
+"""
+
+
+class PolynomialMultiplicationCurriculum(BaseCurriculum):
+    """Curriculum for complex number arithmetic problems."""
+
+    def __init__(self):
+        super().__init__(PolynomialMultiplicationCurriculum.__name__, PolynomialMultiplicationConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="min_terms",
+                field_name="min_terms",
+                levels=[2, 4, 6, 8],
+                default_level=0,
+                description="Minimum number of terms in polynomial expressions",
+                attr_type=AttributeType.STATIC,
+                min_value=2,
+            ),
+            ScalarAttributeDefinition(
+                name="max_terms",
+                field_name="max_terms",
+                levels=[4, 8, 12, 16],
+                default_level=0,
+                description="Maximum number of terms in polynomial expressions",
+                attr_type=AttributeType.STATIC,
+                min_value=4,
+            ),
+            ScalarAttributeDefinition(
+                name="min_value",
+                field_name="min_value",
+                levels=[1, 10, 100, 1000],
+                default_level=0,
+                description="Minimum value for coefficients",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+            ),
+            ScalarAttributeDefinition(
+                name="max_value",
+                field_name="max_value",
+                levels=[100, 10000, 1000000, 100000000],
+                default_level=0,
+                description="Maximum value for coefficients",
+                attr_type=AttributeType.STATIC,
+                min_value=100,
+            ),
+            ScalarAttributeDefinition(
+                name="min_degree",
+                field_name="min_degree",
+                levels=[0, 1, 2, 3],
+                default_level=0,
+                description="Minimum polynomial degree",
+                attr_type=AttributeType.STATIC,
+                min_value=0,
+            ),
+            ScalarAttributeDefinition(
+                name="max_degree",
+                field_name="max_degree",
+                levels=[2, 4, 8, 10],
+                default_level=0,
+                description="Maximum polynomial degree",
+                attr_type=AttributeType.STATIC,
+                min_value=2,
+            ),
+            ScalarAttributeDefinition(
+                name="min_polynomials",
+                field_name="min_polynomials",
+                levels=[2, 3, 4, 5],
+                default_level=0,
+                description="Minimum number of polynomials being multiplied",
+                attr_type=AttributeType.STATIC,
+                min_value=2,
+            ),
+            ScalarAttributeDefinition(
+                name="max_polynomials",
+                field_name="max_polynomials",
+                levels=[4, 6, 8, 10],
+                default_level=0,
+                description="Maximum number of polynomials being multiplied",
+                attr_type=AttributeType.STATIC,
+                min_value=2,
+            ),
+        )
+
+
+register_dataset(
+    "polynomial_multiplication",
+    PolynomialMultiplicationDataset,
+    PolynomialMultiplicationConfig,
+    PolynomialMultiplicationCurriculum,
+)
