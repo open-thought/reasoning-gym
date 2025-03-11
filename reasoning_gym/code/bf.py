@@ -157,7 +157,6 @@ class BFCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Difficulty level",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
             )
         )
 

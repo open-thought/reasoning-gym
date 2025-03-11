@@ -132,7 +132,6 @@ class PalindromeCurriculum(BaseCurriculum):
                 default_level=1,
                 description="Length of the generated palindrome.",
                 attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_length",
                 upper_field_name="max_length",
             )

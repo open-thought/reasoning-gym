@@ -151,7 +151,6 @@ class StringSynthesisCurriculum(BaseCurriculum):
                 default_level=1,
                 description="Number of initial blocks",
                 attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_initial_blocks",
                 upper_field_name="max_initial_blocks",
             )

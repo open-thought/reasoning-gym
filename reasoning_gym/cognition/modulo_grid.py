@@ -161,7 +161,6 @@ class ModuloGridCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Size x",
                 attr_type=AttributeType.STATIC,
-                min_value=20,
             ),
             ScalarAttributeDefinition(
                 name="size_y",
@@ -170,7 +169,6 @@ class ModuloGridCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Size y",
                 attr_type=AttributeType.STATIC,
-                min_value=20,
             ),
             ScalarAttributeDefinition(
                 name="max_holes",
@@ -179,7 +177,6 @@ class ModuloGridCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Max holes",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_divisor",
@@ -188,7 +185,6 @@ class ModuloGridCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Max divisor",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_target",
@@ -197,7 +193,6 @@ class ModuloGridCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Max target",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
         )
 

@@ -150,7 +150,6 @@ class BinaryMatrixCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Board size",
                 attr_type=AttributeType.STATIC,
-                min_value=0,
             ),
             RangeAttributeDefinition(
                 name="n",
@@ -158,7 +157,6 @@ class BinaryMatrixCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Board size",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             ),

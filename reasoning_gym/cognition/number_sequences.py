@@ -210,7 +210,6 @@ class NumberSequenceCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Maximum number of operations to combine",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="max_complexity",
             ),
         )

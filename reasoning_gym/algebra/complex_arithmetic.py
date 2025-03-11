@@ -194,7 +194,6 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Minimum real part for complex numbers",
                 attr_type=AttributeType.STATIC,
-                min_value=-10,
             ),
             ScalarAttributeDefinition(
                 name="max_real",
@@ -203,7 +202,6 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Maximum real part for complex numbers",
                 attr_type=AttributeType.STATIC,
-                min_value=10,
             ),
             ScalarAttributeDefinition(
                 name="min_imag",
@@ -212,7 +210,6 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Minimum imaginary part for complex numbers",
                 attr_type=AttributeType.STATIC,
-                min_value=-10,
             ),
             ScalarAttributeDefinition(
                 name="max_imag",
@@ -221,7 +218,6 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Maximum imaginary part for complex numbers",
                 attr_type=AttributeType.STATIC,
-                min_value=10,
             ),
             ScalarAttributeDefinition(
                 name="operations_weights",
@@ -230,7 +226,6 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Operations weights to sample operation to use for each complex arithmetic problem",
                 attr_type=AttributeType.STATIC,
-                min_value=[0.4, 0.4, 0.1, 0.1],
             ),
         )
 

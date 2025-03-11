@@ -123,7 +123,6 @@ class StringInsertionCurriculum(BaseCurriculum):
                 default_level=1,
                 description="Length of the string",
                 attr_type=AttributeType.APPEND,
-                min_value=5,
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
             ),

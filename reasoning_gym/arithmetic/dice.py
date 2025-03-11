@@ -165,7 +165,6 @@ class DiceCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of dice to roll",
                 attr_type=AttributeType.STATIC,
-                min_value=4,
                 field_name="num_dice",
             ),
             ScalarAttributeDefinition(
@@ -174,7 +173,6 @@ class DiceCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Maximum number of sides on any die",
                 attr_type=AttributeType.STATIC,
-                min_value=20,
                 field_name="max_dice_size",
             ),
         )

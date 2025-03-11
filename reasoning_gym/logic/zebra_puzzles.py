@@ -84,7 +84,6 @@ class ZebraCurriculum(BaseCurriculum):
                 default_level=0,
                 description="The number of people in the Zebra puzzle",
                 attr_type=AttributeType.STATIC,
-                min_value=2,
                 field_name="num_people",
             ),
             ScalarAttributeDefinition(
@@ -93,7 +92,6 @@ class ZebraCurriculum(BaseCurriculum):
                 default_level=0,
                 description="The number of characteristics in the Zebra puzzle",
                 attr_type=AttributeType.STATIC,
-                min_value=2,
                 field_name="num_characteristics",
             ),
         )

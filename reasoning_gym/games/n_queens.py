@@ -168,7 +168,6 @@ class NQueensCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Board size",
                 attr_type=AttributeType.STATIC,
-                min_value=4,
             ),
             RangeAttributeDefinition(
                 name="num_removed",
@@ -176,7 +175,6 @@ class NQueensCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Number of queens to remove",
                 attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_remove",
                 upper_field_name="max_remove",
             ),

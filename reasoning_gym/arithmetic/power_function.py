@@ -86,7 +86,6 @@ class PowerFunctionCurriculum(BaseCurriculum):
                 levels=[2, 4, 6, 10],
                 default_level=0,
                 attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_exponent",
                 upper_field_name="max_exponent",
             ),

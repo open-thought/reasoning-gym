@@ -189,7 +189,6 @@ class BitwiseArithmeticCurriculum(BaseCurriculum):
                 default_level=0,
                 description="Range of difficulty levels",
                 attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="difficulty",
             ),
         )
