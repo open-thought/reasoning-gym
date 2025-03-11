@@ -145,7 +145,6 @@ class StringSplittingCurriculum(BaseCurriculum):
                 levels=[10, 50, 100, 500],
                 default_level=1,
                 description="Number of initial machines",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_initial_machines",
                 upper_field_name="max_initial_machines",
             )

@@ -128,7 +128,6 @@ class IsomorphicStringsCurriculum(BaseCurriculum):
                 levels=[10, 50, 100, 1000],
                 default_level=0,
                 description="Length of the strings",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
             )

@@ -251,7 +251,6 @@ class MiniSudokuCurriculum(BaseCurriculum):
                 levels=[4, 6, 8, 10],
                 default_level=1,
                 description="Number of empty cells in the puzzle",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_empty",
                 upper_field_name="max_empty",
             )

@@ -138,7 +138,6 @@ class MahjongPuzzleCurriculum(BaseCurriculum):
                 levels=[10, 50, 100, 500],
                 default_level=0,
                 description="Number of rounds in the game",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_num_rounds",
                 upper_field_name="max_num_rounds",
             )

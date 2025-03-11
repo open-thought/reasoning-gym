@@ -257,7 +257,6 @@ class GraphColorCurriculum(BaseCurriculum):
                 levels=[10, 20, 25, 50],
                 default_level=0,
                 description="Number of vertices in the graph",
-                attr_type=AttributeType.STATIC,
                 lower_field_name="min_num_vertices",
                 upper_field_name="max_num_vertices",
             ),
@@ -267,7 +266,6 @@ class GraphColorCurriculum(BaseCurriculum):
                 levels=[5, 4, 3],
                 default_level=0,
                 description="Number of colors in the graph",
-                attr_type=AttributeType.STATIC,
             ),
         )
 
