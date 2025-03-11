@@ -1,28 +1,27 @@
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional
 
 import sympy
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
 @dataclass
 class IntermediateIntegrationConfig:
-    problem_types: tuple = ("substitution", "by_parts")
-    substitution_types: tuple = (
-        "linear",  # (ax + b)^n
-        "trigonometric",  # sin**2(x)cos(x)
-        "exponential",  # 2xe^x**2
-        "radical",  # x (3x + 2)^1/2
+    problem_types: tuple = (
+        "linear",
+        "radical",
+        "log_inverse_trig",
+        "trigonometric",
+        "polynomial_exp_trig",
+        "exponential",
+        "cyclic",
+        "repeated_parts",
     )
-
-    # Integration by parts problem categories
-    by_parts_types: tuple = (
-        "polynomial_exp_trig",  # e.g. x^2*e^x
-        "log_inverse_trig",  # e.g. ln(x)/arctan(x)
-        "cyclic",  # e.g. e^x*sinx requiring cyclic integration
-        "repeated_parts",  # Requires multiple integration by parts
+    problem_type_weights: list[float] = field(
+        default_factory=lambda: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
     )
     seed: Optional[int] = None
     size: int = 500
@@ -35,7 +34,7 @@ class IntermediateIntegrationConfig:
     outer_constant_max: int = 3
     min_poly_degree: int = 1  # degree of polynomial in by parts problem
     max_poly_degree: int = 3
-    symbols: tuple = ("x", "X")
+    symbols: tuple = "x"
     operators: tuple = (
         "+",
         "-",
@@ -43,6 +42,9 @@ class IntermediateIntegrationConfig:
 
     def validate(self) -> None:
         """Validate the configuration parameters of the integral problem"""
+        assert len(self.problem_types) == len(
+            self.problem_type_weights
+        ), "problem_types and problem_type_weights must have the same length"
         assert self.size > 0, "size must be positive"
         assert self.linear_lower_bound > 0, "linear_lower_bound must be positive"
         assert self.linear_upper_bound >= self.linear_lower_bound, "linear_upper_bound must be >= linear_lower_bound"
@@ -54,13 +56,6 @@ class IntermediateIntegrationConfig:
         assert self.max_poly_degree >= self.min_poly_degree, "max_poly_degree must be >= min_poly_degree"
         assert all(op in ("+", "-") for op in self.operators), "invalid operator specified"
         assert all(symbols in ("x", "X") for symbols in self.symbols), "invalid symbol specified"
-        assert all(t in ("substitution", "by_parts") for t in self.problem_types), "invalid problem type"
-        assert all(
-            t in ("linear", "trigonometric", "exponential", "radical") for t in self.substitution_types
-        ), "invalid substitution type"
-        assert all(
-            t in ("polynomial_exp_trig", "log_inverse_trig", "cyclic", "repeated_parts") for t in self.by_parts_types
-        ), "invalid by_parts type"
 
 
 class IntermediateIntegrationDataset(ProceduralDataset):
@@ -78,6 +73,7 @@ class IntermediateIntegrationDataset(ProceduralDataset):
         ]
         self.added_instruction = """
 When performing calculations, please follow these guidelines:
+Use same variable symbols as given in the question
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
@@ -175,13 +171,22 @@ When performing calculations, please follow these guidelines:
         """Generate logarithmic or inverse trigonometric integrand"""
         func_type = rng.choice(["log", "asin", "atan"])
 
+        coefficient = rng.randint(1, 3)
         if func_type == "log":
             log_arg = x if rng.random() < 0.8 else x ** rng.randint(2, 3)
             func = sympy.ln(log_arg)
-        else:
-            coefficient = rng.randint(1, 3)
-            func = sympy.Function(func_type)(coefficient * x)
+        elif func_type == "asin":
+            # For asin(ax), the integral is:
+            # x*asin(ax) + (1/a)*sqrt(1-(ax)^2)
+            inner_coef = coefficient
+            func = sympy.asin(inner_coef * x)
+        elif func_type == "atan":
+            # For atan(ax), the integral is:
+            # x*atan(ax) - (1/2a)*ln(1+(ax)^2)
+            inner_coef = coefficient
+            func = sympy.atan(inner_coef * x)
 
+        # The sympy.integrate will correctly handle all these cases
         return self._get_outer_constant(rng) * func
 
     def _generate_cyclic_integral(self, rng: random.Random, x: sympy.Symbol) -> sympy.Expr:
@@ -202,29 +207,25 @@ When performing calculations, please follow these guidelines:
     def __getitem__(self, index: int):
         """Generate either substitution or by-parts problem"""
         rng = random.Random(self.seed + index)
-        problem_type = rng.choice(self.config.problem_types)
+        problem_type = rng.choices(self.config.problem_types, weights=self.config.problem_type_weights, k=1)[0]
         x = sympy.Symbol(rng.choice(self.config.symbols))
 
-        if problem_type == "substitution":
-            substitution_type = rng.choice(self.config.substitution_types)
-            if substitution_type == "linear":
-                integrand = self._generate_linear_substitution_problem(rng, x)
-            elif substitution_type == "trigonometric":
-                integrand = self._generate_trigonometric_substitution(rng, x)
-            elif substitution_type == "exponential":
-                integrand = self._generate_exponential_substitution(rng, x)
-            elif substitution_type == "radical":
-                integrand = self._generate_radical_substitution(rng, x)
-        else:
-            parts_type = rng.choice(self.config.by_parts_types)
-            if parts_type == "polynomial_exp_trig":
-                integrand = self._generate_polynomial_exp_trig(rng, x)
-            elif parts_type == "log_inverse_trig":
-                integrand = self._generate_log_inverse_trig(rng, x)
-            elif parts_type == "cyclic":
-                integrand = self._generate_cyclic_integral(rng, x)
-            elif parts_type == "repeated_parts":
-                integrand = self._generate_repeated_parts(rng, x)
+        if problem_type == "linear":
+            integrand = self._generate_linear_substitution_problem(rng, x)
+        elif problem_type == "trigonometric":
+            integrand = self._generate_trigonometric_substitution(rng, x)
+        elif problem_type == "exponential":
+            integrand = self._generate_exponential_substitution(rng, x)
+        elif problem_type == "radical":
+            integrand = self._generate_radical_substitution(rng, x)
+        elif problem_type == "log_inverse_trig":
+            integrand = self._generate_log_inverse_trig(rng, x)
+        elif problem_type == "polynomial_exp_trig":
+            integrand = self._generate_polynomial_exp_trig(rng, x)
+        elif problem_type == "cyclic":
+            integrand = self._generate_cyclic_integral(rng, x)
+        elif problem_type == "repeated_parts":
+            integrand = self._generate_repeated_parts(rng, x)
 
         answer = sympy.integrate(integrand, x)
         answer_str = str(answer) + " + C"
@@ -237,8 +238,10 @@ When performing calculations, please follow these guidelines:
                 "integrand": str(integrand),
                 "problem_type": problem_type,
                 "variable": str(x),
-                "type": substitution_type if problem_type == "substitution" else parts_type,
                 "expected_answer_expression": answer,
+                "difficulty": {
+                    "problem_type_weights": self.config.problem_type_weights,
+                },
             },
         }
 
@@ -264,4 +267,36 @@ When performing calculations, please follow these guidelines:
         return reward
 
 
-register_dataset("intermediate_integration", IntermediateIntegrationDataset, IntermediateIntegrationConfig)
+class IntermediateIntegrationCurriculum(BaseCurriculum):
+    """Curriculum for intermediate integration problems"""
+
+    def __init__(self):
+        super().__init__(IntermediateIntegrationCurriculum.__name__, IntermediateIntegrationConfig)
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="problem_type_weights",
+                field_name="problem_type_weights",
+                levels=[
+                    [1, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 1, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 1, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 1, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 1, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 1, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 1, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 1],
+                ],
+                default_level=0,
+                description="The weights of the problem types",
+                attr_type=AttributeType.STATIC,
+                min_value=[1, 0, 0, 0, 0, 0, 0, 0],
+            )
+        )
+
+
+register_dataset(
+    "intermediate_integration",
+    IntermediateIntegrationDataset,
+    IntermediateIntegrationConfig,
+    IntermediateIntegrationCurriculum,
+)
