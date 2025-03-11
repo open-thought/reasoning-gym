@@ -111,6 +111,16 @@ When performing calculations, please follow these guidelines:
             "metadata": {
                 "polynomial_expr": str(polynomial_expr),
                 "variables": list(product.free_symbols),
+                "difficulty": {
+                    "min_terms": self.config.min_terms,
+                    "max_terms": self.config.max_terms,
+                    "min_value": self.config.min_value,
+                    "max_value": self.config.max_value,
+                    "min_degree": self.config.min_degree,
+                    "max_degree": self.config.max_degree,
+                    "min_polynomials": self.config.min_polynomials,
+                    "max_polynomials": self.config.max_polynomials,
+                },
             },
         }
 
@@ -158,18 +168,6 @@ When performing calculations, please follow these guidelines:
             except Exception:
                 reward = 0.0
         return reward
-
-
-"""
-    min_terms: int = 2  # Minimum number of polynomial terms
-    max_terms: int = 4  # Maximum number of polynomial terms
-    min_value: int = 1  # Minimum value for coefficients
-    max_value: int = 100  # Maximum value for coefficients
-    min_degree: int = 0  # Minimum polynomial degree
-    max_degree: int = 3  # Maximum polynomial degree
-    min_polynomials: int = 2  # Minimum number of polynomials being multiplied
-    max_polynomials: int = 3  # Maximum number of polynomials being multiplied
-"""
 
 
 class PolynomialMultiplicationCurriculum(BaseCurriculum):
