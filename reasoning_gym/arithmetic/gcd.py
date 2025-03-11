@@ -6,6 +6,7 @@ from math import gcd
 from random import Random
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -54,13 +55,50 @@ class GCDDataset(ProceduralDataset):
         rng = Random(self.seed + idx)
 
         numbers, result = self._generate_numbers(rng)
+        num_terms = len(numbers)
         numbers_str = ", ".join(str(n) for n in numbers)
 
         return {
             "question": f"Find the Greatest Common Divisor (GCD) of these numbers: {numbers_str}. Give only the GCD as your final answer.",
             "answer": str(result),
-            "metadata": {"numbers": numbers, "result": result},
+            "metadata": {
+                "numbers": numbers,
+                "result": result,
+                "difficulty": {
+                    "num_terms": num_terms,
+                    "max_value": self.config.max_value,
+                },
+            },
         }
+
+
+class GCDCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(GCDCurriculum.__name__, GCDConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_terms",
+                levels=[2, 3, 4, 5],
+                default_level=0,
+                description="number of terms",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_numbers",
+                upper_field_name="max_numbers",
+            ),
+            RangeAttributeDefinition(
+                name="max_value",
+                levels=[100, 1000, 10000, 100000],
+                default_level=0,
+                description="maximum value",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_value",
+                upper_field_name="max_value",
+            ),
+        )
 
 
 register_dataset("gcd", GCDDataset, GCDConfig)
