@@ -11,7 +11,7 @@ from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticCurric
 from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumCurriculum, DecimalChainSumDataset
 from .dice import DiceConfig, DiceCurriculum, DiceDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
-from .gcd import GCDConfig, GCDDataset
+from .gcd import GCDConfig, GCDCurriculum, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
 from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
@@ -34,6 +34,7 @@ __all__ = [
     "FractionSimplificationDataset",
     "GCDConfig",
     "GCDDataset",
+    "GCDCurriculum",
     "LCMConfig",
     "LCMDataset",
     "LegCountingConfig",
