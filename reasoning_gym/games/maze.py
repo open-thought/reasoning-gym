@@ -3,6 +3,7 @@ import string
 from dataclasses import dataclass
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -110,6 +111,10 @@ class MazeDataset(ProceduralDataset):
                         "goal": self.goal_char,
                         "wall": self.wall_char,
                         "path": self.path_char,
+                        "difficulty": {
+                            "dist": dist,
+                            "grid_size": size,
+                        },
                     },
                 }
 
@@ -184,4 +189,33 @@ class MazeDataset(ProceduralDataset):
         return "\n".join("".join(row) for row in grid)
 
 
-register_dataset("maze", MazeDataset, MazeConfig)
+class MazeCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(MazeCurriculum.__name__, MazeConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="dist",
+                levels=[10, 25, 50, 100],
+                default_level=1,
+                description="Distance from start to goal",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_dist",
+                upper_field_name="max_dist",
+            ),
+            RangeAttributeDefinition(
+                name="grid_size",
+                levels=[10, 25, 50, 100],
+                default_level=1,
+                description="Size of the square grid",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_grid_size",
+                upper_field_name="max_grid_size",
+            ),
+        )
+
+
+register_dataset("maze", MazeDataset, MazeConfig, MazeCurriculum)
