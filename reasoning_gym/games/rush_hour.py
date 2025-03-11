@@ -149,7 +149,8 @@ class RushHourDataset(ProceduralDataset):
         instructions = (
             "Move the red car (AA) to the exit on the right.\n"
             "Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'\n"
-            "where the letter is the vehicle and +/- number is spaces to move right/left or down/up."
+            "where the letter is the vehicle and +/- number is spaces to move right/left or down/up.\n"
+            "A car oriented vertically can only move up and down, a car oriented horizontally can only move left and right."
         )
 
         return {
@@ -182,7 +183,7 @@ class RushHourDataset(ProceduralDataset):
             board.perform_moves(answer)
 
             # Check if solved
-            return 1.0 if board.solved else 0.0
+            return 1.0 if board.solved else 0.01
 
         except (ValueError, IndexError, AttributeError) as e:
             # Handle malformed input gracefully
@@ -326,9 +327,7 @@ class Board:
         move_ops = [(chars, int(num) if sign == "+" else -int(num)) for chars, sign, num in matches]
 
         for target, dir in move_ops:
-            print(target, dir)
             self.move(target, dir)
-            print(self.board_str())
 
     @property
     def solved(self) -> bool:

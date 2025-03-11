@@ -73,11 +73,11 @@ def test_score_answer():
     # Test invalid answers
     assert dataset.score_answer(None, puzzle) == 0.0
     assert dataset.score_answer("", puzzle) == 0.0
-    assert dataset.score_answer("invalid", puzzle) == 0.0
-    assert dataset.score_answer("A+1 B-2 INVALID", puzzle) == 0.0
+    assert dataset.score_answer("invalid", puzzle) == 0.01
+    assert dataset.score_answer("A+1 B-2 INVALID", puzzle) == 0.01
 
     # Test incomplete solution
-    assert dataset.score_answer("A+1 B-2", puzzle) == 0.0
+    assert dataset.score_answer("A+1 B-2", puzzle) == 0.01
 
 
 def test_perform_moves():
@@ -86,14 +86,17 @@ def test_perform_moves():
     incomplete_moves = "F+1 K+1 M-1 C+3 H+2 J-1 E+1 G+3 B-1 I-1 A-3 I+1 L+1 B+3 I-1 A+2 G-3"
     b.perform_moves(incomplete_moves)
     assert not b.solved
+    incomplete_moves = "X+1 \n Y+22"
+    b.perform_moves(incomplete_moves)
+    assert not b.solved
     solution = "E-1 H-3 A-1 J+1 C-3 M+1 B+1 K-4 A+1 C+2 D-1 F-1 H+3 A-1 K+1 B-1 M-1 C+1 J-1 E+1 G+3 A-1 I+1 B-3 I-1 A+1 G-1 E-1 J+1 C-1 K-1 L-1 M+3 A+3"
     b.perform_moves(solution)
     assert b.solved
 
 
 def test_perform_moves_walls():
+    ## ?? This test is incomplete. I don't know why.
     b = Board("BBoIKxCCCIKoGAAJooGoHJDDooHEELoFFoxL")
-    print(b.board_str())
     # assert sum(1 for p in b._pieces if p.fixed) == 2, "two walls expected"
     # assert not b.solved
 
