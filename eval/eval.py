@@ -175,10 +175,23 @@ class AsyncModelEvaluator:
         Returns:
             Dict with processing results
         """
+        response = None
         try:
+            # Get model response first
             response = await self.get_model_response(entry["question"])
-            model_answer = extract_answer(response)
-            score = dataset.score_answer(answer=model_answer, entry=entry)
+
+            # Try to extract answer and score it
+            try:
+                model_answer = extract_answer(response)
+            except Exception as extract_error:
+                self.logger.error(f"Error extracting answer: {str(extract_error)}")
+                raise Exception(f"Answer extraction error: {str(extract_error)}")
+
+            try:
+                score = dataset.score_answer(answer=model_answer, entry=entry)
+            except Exception as score_error:
+                self.logger.error(f"Error scoring answer: {str(score_error)}")
+                raise Exception(f"Answer scoring error: {str(score_error)}")
 
             if self.verbose:
                 print(f"Question: {entry['question']}")
@@ -207,7 +220,7 @@ class AsyncModelEvaluator:
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
                 "model_answer": "ERROR",
-                "full_model_response": f"Error: {str(e)}",
+                "full_model_response": response if response is not None else f"Error: {str(e)}",
                 "score": 0.0,
                 "error": str(e),
             }
