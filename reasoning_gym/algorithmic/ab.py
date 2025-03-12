@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -135,5 +136,25 @@ Return the final state of the program.
         return 0.0
 
 
+class ABCurriculum(BaseCurriculum):
+    """Curriculum for A::B dataset"""
+
+    def __init__(self):
+        super().__init__(ABCurriculum.__name__, ABConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="length",
+                field_name="length",
+                levels=[1, 10, 50, 100],
+                default_level=0,
+                description="Length of the A::B program",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+            )
+        )
+
+
 # Register the dataset
-register_dataset("ab", ABDataset, ABConfig)
+register_dataset("ab", ABDataset, ABConfig, ABCurriculum)
