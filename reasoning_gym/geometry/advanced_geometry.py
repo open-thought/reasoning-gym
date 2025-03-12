@@ -89,6 +89,11 @@ class AdvancedGeometryDataset(ProceduralDataset):
 
         metadata["task_type"] = task_type
 
+        metadata["difficulty"] = {
+            "min_coord": self.config.min_coord,
+            "max_coord": self.config.max_coord,
+        }
+
         return {
             "question": question,
             "answer": answer,
