@@ -115,7 +115,11 @@ Return the final state of the program.
         return {
             "question": prompt,
             "answer": " ".join(steps[-1]),
-            "metadata": {},
+            "metadata": {
+                "difficulty": {
+                    "length": self.config.length,
+                }
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
