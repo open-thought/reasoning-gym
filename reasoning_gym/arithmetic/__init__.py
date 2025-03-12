@@ -13,7 +13,7 @@ from .dice import DiceConfig, DiceCurriculum, DiceDataset
 from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
 from .gcd import GCDConfig, GCDCurriculum, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
-from .lcm import LCMConfig, LCMDataset
+from .lcm import LCMConfig, LCMCurriculum, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
 from .number_format import NumberFormatConfig, NumberFormatDataset
 from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerFunctionDataset
