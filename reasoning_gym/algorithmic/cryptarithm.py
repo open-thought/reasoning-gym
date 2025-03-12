@@ -186,6 +186,10 @@ class CryptarithmDataset(ProceduralDataset):
                 "result_letters": result_letters,
                 "digit_to_letter": digit_to_letter,
                 "letter_to_digit": letter_to_digit,
+                "difficulty": {
+                    "min_words": self.config.min_words,
+                    "max_words": self.config.max_words,
+                },
             },
         }
 
