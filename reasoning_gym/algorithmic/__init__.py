@@ -12,7 +12,7 @@ from .binary_alternation import BinaryAlternationConfig, BinaryAlternationCurric
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixCurriculum, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherCurriculum, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesCurriculum, CountPrimesDataset
-from .cryptarithm import CryptarithmConfig, CryptarithmDataset
+from .cryptarithm import CryptarithmConfig, CryptarithmCurriculum, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 from .graph_color import GraphColorConfig, GraphColorCurriculum, GraphColorDataset
@@ -61,6 +61,7 @@ __all__ = [
     "CaesarCipherCurriculum",
     "CryptarithmConfig",
     "CryptarithmDataset",
+    "CryptarithmCurriculum",
     "GameOfLifeConfig",
     "GameOfLifeDataset",
     "GameOfLifeHaltingConfig",

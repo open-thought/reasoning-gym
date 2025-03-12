@@ -1,7 +1,7 @@
 import pytest
 
 from reasoning_gym import create_dataset
-from reasoning_gym.algorithmic.cryptarithm import CryptarithmConfig, CryptarithmDataset
+from reasoning_gym.algorithmic.cryptarithm import CryptarithmConfig, CryptarithmCurriculum, CryptarithmDataset
 
 
 def test_cryptarithm_generation():
@@ -167,3 +167,45 @@ def test_cryptarithm_score_answer():
     # The formula is (num_correct / total) * 0.7 + 0.3
     expected_score = (half / total) * 0.7 + 0.3
     assert abs(score - expected_score) < 1e-9, f"Partial correctness: expected {expected_score}, got {score}"
+
+
+def test_cryptarithm_curriculum():
+    """Test curriculum for cryptarithm dataset"""
+
+    curriculum = CryptarithmCurriculum()
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: CryptarithmCurriculum = curriculum.generate_configuration(base_value)
+
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_words == 2
+    assert base_cfg.max_words == 5
+
+    # Test and validate increase in level
+    curriculum.increment_attr_level("words")
+    increased_cfg: CryptarithmCurriculum = curriculum.generate_configuration(base_value)
+
+    assert increased_cfg.min_words == 2
+    assert increased_cfg.max_words == 10
+
+    # Test and validate decrease in level
+    curriculum.decrement_attr_level("words")
+    decreased_cfg: CryptarithmCurriculum = curriculum.generate_configuration(base_value)
+
+    assert decreased_cfg.min_words == 2
+    assert decreased_cfg.max_words == 5
+
+    # Test upper bound boundary conditions
+    for _ in range(10):
+        curriculum.increment_attr_level("words")
+    upper_bound_cfg: CryptarithmCurriculum = curriculum.generate_configuration(base_value)
+    assert upper_bound_cfg.min_words == 2
+    assert upper_bound_cfg.max_words == 50
+
+    # Test lower bound boundary conditions
+    for _ in range(10):
+        curriculum.decrement_attr_level("words")
+    lower_bound_cfg: CryptarithmCurriculum = curriculum.generate_configuration(base_value)
+    assert lower_bound_cfg.min_words == 2
+    assert lower_bound_cfg.max_words == 2
