@@ -4,6 +4,7 @@ from random import Random
 from string import Template
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -61,6 +62,7 @@ class AliceInWonderlandConfig:
     task_types: list[TaskType] = field(
         default_factory=lambda: [TaskType.SIBLINGS, TaskType.FRIENDS, TaskType.COLLEAGUES]  # Added Colleagues
     )
+    task_type_weights: list[float] = field(default_factory=lambda: [1 / 3, 1 / 3, 1 / 3])
     seed: Optional[int] = None
     size: int = 10
     max_entities: int = 6  # Added max_entities
@@ -142,7 +144,8 @@ class AliceInWonderlandDataset(ProceduralDataset):
             dict: A dictionary containing the generated question, the right answer
                 and a description of the example.
         """
-        task_type = rng.choice(self.config.task_types)
+
+        task_type = rng.choices(self.config.task_types, weights=self.config.task_type_weights, k=1)[0]
         female_name = rng.choice(self.config.female_names)
         male_name = rng.choice(self.config.male_names)
 
@@ -187,11 +190,58 @@ class AliceInWonderlandDataset(ProceduralDataset):
                 num_female_colleagues_bob_circle=num_female_colleagues_bob_circle,
             )
 
-        return {"question": question, "answer": str(answer), "metadata": {"task_type": task_type.value}}
+        return {
+            "question": question,
+            "answer": str(answer),
+            "metadata": {
+                "task_type": task_type.value,
+                "difficulty": {
+                    "task_type_weight": self.config.task_type_weights,
+                    "num_entities": self.config.max_entities,
+                },
+            },
+        }
 
     def __getitem__(self, idx: int) -> dict:
         rng = Random(self.seed + idx)
         return self._get_aiw(rng)
 
 
-register_dataset("aiw", AliceInWonderlandDataset, AliceInWonderlandConfig)
+class AliceInWonderlandCurriculum(BaseCurriculum):
+    """Curriculum for the Alice in Wonderland dataset."""
+
+    def __init__(self):
+        super().__init__(AliceInWonderlandCurriculum.__name__, AliceInWonderlandConfig)
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="task_type_weight",
+                field_name="task_type_weights",
+                attr_type=AttributeType.STATIC,
+                description="The weight of the task type",
+                levels=[
+                    [1.0, 0.0, 0.0],
+                    [0.9, 0.05, 0.05],
+                    [0.7, 0.15, 0.15],
+                    [0.6, 0.2, 0.2],
+                    [0.5, 0.25, 0.25],
+                    [0.4, 0.3, 0.3],
+                    [0.3, 0.35, 0.35],
+                    [0.2, 0.4, 0.4],
+                    [0.1, 0.45, 0.45],
+                ],
+                min_value=[1.0, 0.0, 0.0],
+                default_level=0,
+            ),
+            ScalarAttributeDefinition(
+                name="num_entities",
+                field_name="max_entities",
+                attr_type=AttributeType.STATIC,
+                description="The number of entities in the question",
+                levels=list(range(4, 18, 2)),
+                min_value=4,
+                default_level=0,
+            ),
+        )
+
+
+register_dataset("aiw", AliceInWonderlandDataset, AliceInWonderlandConfig, AliceInWonderlandCurriculum)
