@@ -6,7 +6,7 @@ Algorithmic tasks for training reasoning capabilities:
 - Pattern matching
 """
 
-from .ab import ABConfig, ABDataset
+from .ab import ABConfig, ABCurriculum, ABDataset
 from .base_conversion import BaseConversionConfig, BaseConversionCurriculum, BaseConversionDataset
 from .binary_alternation import BinaryAlternationConfig, BinaryAlternationCurriculum, BinaryAlternationDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixCurriculum, BinaryMatrixDataset
@@ -121,6 +121,7 @@ __all__ = [
     "PoolMatrixCurriculum",
     "ABConfig",
     "ABDataset",
+    "ABCurriculum",
     "CountPrimesConfig",
     "CountPrimesDataset",
     "CountPrimesCurriculum",
