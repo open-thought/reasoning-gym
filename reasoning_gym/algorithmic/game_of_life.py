@@ -85,6 +85,12 @@ class GameOfLifeDataset(ProceduralDataset):
                 "grid_size_y": self.config.grid_size_y,
                 "filled_cells": self.config.filled_cells,
                 "simulation_steps": self.config.simulation_steps,
+                "difficulty": {
+                    "grid_size_x": self.config.grid_size_x,
+                    "grid_size_y": self.config.grid_size_y,
+                    "filled_cells_weights": self.config.filled_cells_weights,
+                    "simulation_steps": self.config.simulation_steps,
+                },
             },
         }
 
