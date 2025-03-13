@@ -11,7 +11,7 @@ from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryCurriculum, EmojiMyst
 from .futoshiki import FutoshikiConfig, FutoshikiDataset
 from .knight_swap import KnightSwapConfig, KnightSwapDataset
 from .mahjong import MahjongPuzzleConfig, MahjongPuzzleCurriculum, MahjongPuzzleDataset
-from .maze import MazeConfig, MazeDataset
+from .maze import MazeConfig, MazeCurriculum, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuCurriculum, MiniSudokuDataset
 from .n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
 from .puzzle24 import Puzzle24Config, Puzzle24Dataset
@@ -44,6 +44,7 @@ __all__ = [
     "RushHourDataset",
     "MazeConfig",
     "MazeDataset",
+    "MazeCurriculum",
     "HanoiConfig",
     "HanoiDataset",
     "NQueensDataset",
