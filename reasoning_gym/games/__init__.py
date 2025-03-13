@@ -8,7 +8,7 @@ Game tasks for training reasoning capabilities:
 
 from .countdown import CountdownConfig, CountdownDataset
 from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryCurriculum, EmojiMysteryDataset
-from .futoshiki import FutoshikiConfig, FutoshikiDataset
+from .futoshiki import FutoshikiConfig, FutoshikiCurriculum, FutoshikiDataset
 from .knight_swap import KnightSwapConfig, KnightSwapDataset
 from .mahjong import MahjongPuzzleConfig, MahjongPuzzleCurriculum, MahjongPuzzleDataset
 from .maze import MazeConfig, MazeCurriculum, MazeDataset
@@ -17,7 +17,7 @@ from .n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
 from .puzzle24 import Puzzle24Config, Puzzle24Dataset
 from .rush_hour import RushHourConfig, RushHourDataset
 from .sokoban import SokobanConfig, SokobanCurriculum, SokobanDataset
-from .sudoku import SudokuConfig, SudokuDataset
+from .sudoku import SudokuConfig, SudokuCurriculum, SudokuDataset
 from .tower_of_hanoi import HanoiConfig, HanoiDataset
 from .tsumego import TsumegoConfig, TsumegoCurriculum, TsumegoDataset
 
@@ -36,6 +36,7 @@ __all__ = [
     "Puzzle24Config",
     "Puzzle24Dataset",
     "SudokuConfig",
+    "SudokuCurriculum",
     "SudokuDataset",
     "SokobanConfig",
     "SokobanCurriculum",
