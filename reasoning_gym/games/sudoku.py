@@ -267,7 +267,7 @@ class SudokuCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="empty",
-                levels=[4, 6, 8, 10],
+                levels=[20, 30, 40, 50],
                 default_level=1,
                 description="Number of empty cells in the puzzle",
                 attr_type=AttributeType.APPEND,
