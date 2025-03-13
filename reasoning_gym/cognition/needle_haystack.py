@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -9,14 +10,18 @@ from ..factory import ProceduralDataset, register_dataset
 class NeedleHaystackConfig:
     """Configuration for NeedleHaystack task generation"""
 
-    num_statements: int = 50
+    min_num_statements: int = 10
+    max_num_statements: int = 100
     seed: Optional[int] = None
     size: int = 500
 
     def validate(self) -> None:
         """Validate configuration parameters"""
-        assert self.num_statements > 0, "num_statements must be greater than 0"
-        assert self.num_statements < 168387000, f"num_statements must be less than {168387000}"
+        assert self.min_num_statements > 0, "min_num_statements must be greater than 0"
+        assert (
+            self.max_num_statements >= self.min_num_statements
+        ), "max_num_statements must be greater than min_num_statements"
+        assert self.max_num_statements < 168387000, f"max_num_statements must be less than {168387000}"
 
 
 def generate_unique_triplets(names: list[str], verbs: list[str], subjects: list[str], n: int, rng) -> dict[str, Any]:
@@ -85,7 +90,8 @@ class NeedleHaystackDataset(ProceduralDataset):
 
         rng = Random(self.seed + idx)
 
-        stack = generate_unique_triplets(NAMES, VERBS, SUBJECTS, self.config.num_statements, rng)
+        num_statements = rng.randint(self.config.min_num_statements, self.config.max_num_statements)
+        stack = generate_unique_triplets(NAMES, VERBS, SUBJECTS, num_statements, rng)
 
         stack_text = ""
         for triplet in stack["triplets"]:
@@ -97,7 +103,7 @@ class NeedleHaystackDataset(ProceduralDataset):
         return {
             "question": full_text,
             "answer": stack["needle"][0],
-            "metadata": {"question": question},
+            "metadata": {"question": question, "difficulty": {"num_statements": num_statements}},
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -123,5 +129,24 @@ class NeedleHaystackDataset(ProceduralDataset):
         return 0.0
 
 
+class NeedleHaystackCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(NeedleHaystackCurriculum.__name__, NeedleHaystackConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="num_statements",
+                levels=[10, 100, 1_000, 10_000, 100_000, 1_000_000, 168_386_000],
+                default_level=1,
+                description="Number of statements in the haystack",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_num_statements",
+                upper_field_name="max_num_statements",
+            ),
+        )
+
+
 # Register the dataset
-register_dataset("needle_haystack", NeedleHaystackDataset, NeedleHaystackConfig)
+register_dataset("needle_haystack", NeedleHaystackDataset, NeedleHaystackConfig, NeedleHaystackCurriculum)
