@@ -2,7 +2,11 @@ from math import gcd
 
 import pytest
 
-from reasoning_gym.arithmetic import FractionSimplificationConfig, FractionSimplificationDataset
+from reasoning_gym.arithmetic import (
+    FractionSimplificationConfig,
+    FractionSimplificationCurriculum,
+    FractionSimplificationDataset,
+)
 
 
 def test_fraction_config_validation():
@@ -129,3 +133,28 @@ def test_fraction_numerator_smaller():
         assert (
             metadata["simplified_numerator"] <= metadata["simplified_denominator"]
         ), f"Simplified numerator {metadata['simplified_numerator']} should be <= denominator {metadata['simplified_denominator']}"
+
+
+def test_fraction_simplification_curriculum():
+    curriculum = FractionSimplificationCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: FractionSimplificationConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_value == 1 and base_cfg.max_value == 100
+    assert base_cfg.min_factor == 1 and base_cfg.max_factor == 10
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("value")
+    curriculum.increment_attr_level("factor")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_value == 1 and increased_cfg.max_value == 1000
+    assert increased_cfg.min_factor == 1 and increased_cfg.max_factor == 100
+
+    # test decrementing attribute level for value again
+    curriculum.decrement_attr_level("value")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_value == 1 and partially_decreased_cfg.max_value == 100
+    assert partially_decreased_cfg.min_factor == 1 and partially_decreased_cfg.max_factor == 100
