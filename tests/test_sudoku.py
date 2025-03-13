@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.games.sudoku import SudokuConfig, SudokuDataset
+from reasoning_gym.games.sudoku import SudokuConfig, SudokuCurriculum, SudokuDataset
 
 
 def test_sudoku_config_validation():
@@ -120,3 +120,24 @@ def is_valid_solution(board: list[list[int]]) -> bool:
                 return False
 
     return True
+
+
+def test_sudoku_curriculum():
+    curriculum = SudokuCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: SudokuConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_empty == 20 and base_cfg.max_empty == 30
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("empty")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_empty == 20 and increased_cfg.max_empty == 40
+
+    # test decrementing attribute level for empty again
+    curriculum.decrement_attr_level("empty")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_empty == 20 and partially_decreased_cfg.max_empty == 30
