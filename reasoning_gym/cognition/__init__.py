@@ -25,6 +25,7 @@ __all__ = [
     "RectangleCountDataset",
     "NeedleHaystackConfig",
     "NeedleHaystackDataset",
+    "NeedleHaystackCurriculum",
     "ModuloGridConfig",
     "ModuloGridDataset",
 ]
