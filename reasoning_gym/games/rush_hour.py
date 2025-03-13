@@ -8,6 +8,7 @@ import re
 from dataclasses import dataclass
 from typing import Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
@@ -160,6 +161,7 @@ class RushHourDataset(ProceduralDataset):
             "metadata": {
                 "board_config": board_config,
                 "min_moves": min_moves,
+                "difficulty": {"min_moves": min_moves},
             },
         }
 
@@ -365,5 +367,24 @@ class Board:
         return "".join(s)
 
 
+class RushHourCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(RushHourCurriculum.__name__, RushHourConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="min_moves",
+                levels=[5, 20, 35, 50],
+                default_level=1,
+                description="Minimum possible number of moves",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_moves",
+                upper_field_name="max_moves",
+            )
+        )
+
+
 # Register the dataset
-register_dataset("rush_hour", RushHourDataset, RushHourConfig)
+register_dataset("rush_hour", RushHourDataset, RushHourConfig, RushHourCurriculum)
