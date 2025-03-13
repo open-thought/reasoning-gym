@@ -10,14 +10,18 @@ from .count_bits import CountBitsConfig, CountBitsCurriculum, CountBitsDataset
 from .decimal_arithmetic import DecimalArithmeticConfig, DecimalArithmeticCurriculum, DecimalArithmeticDataset
 from .decimal_chain_sum import DecimalChainSumConfig, DecimalChainSumCurriculum, DecimalChainSumDataset
 from .dice import DiceConfig, DiceCurriculum, DiceDataset
-from .fraction_simplification import FractionSimplificationConfig, FractionSimplificationDataset
+from .fraction_simplification import (
+    FractionSimplificationConfig,
+    FractionSimplificationCurriculum,
+    FractionSimplificationDataset,
+)
 from .gcd import GCDConfig, GCDCurriculum, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
-from .lcm import LCMConfig, LCMDataset
+from .lcm import LCMConfig, LCMCurriculum, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
-from .number_format import NumberFormatConfig, NumberFormatDataset
+from .number_format import NumberFormatConfig, NumberFormatCurriculum, NumberFormatDataset
 from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerFunctionDataset
-from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
+from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationCurriculum, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
 
@@ -32,6 +36,7 @@ __all__ = [
     "CalendarArithmeticCurriculum",
     "FractionSimplificationConfig",
     "FractionSimplificationDataset",
+    "FractionSimplificationCurriculum",
     "GCDConfig",
     "GCDDataset",
     "GCDCurriculum",
@@ -45,6 +50,7 @@ __all__ = [
     "PowerFunctionCurriculum",
     "PrimeFactorizationConfig",
     "PrimeFactorizationDataset",
+    "PrimeFactorizationCurriculum",
     "ProductsDataset",
     "ProductsConfig",
     "GSMSymbolicDatasetConfig",
@@ -59,6 +65,7 @@ __all__ = [
     "DiceCurriculum",
     "NumberFormatConfig",
     "NumberFormatDataset",
+    "NumberFormatCurriculum",
     "DecimalArithmeticConfig",
     "DecimalArithmeticDataset",
     "DecimalArithmeticCurriculum",

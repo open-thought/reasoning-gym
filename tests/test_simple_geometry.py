@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.geometry.simple_geometry import SimpleGeometryConfig, SimpleGeometryDataset
+from reasoning_gym.geometry.simple_geometry import SimpleGeometryConfig, SimpleGeometryCurriculum, SimpleGeometryDataset
 
 
 def test_simple_geometry_config_validation():
@@ -78,3 +78,24 @@ def test_simple_geometry_dataset_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items, "Multiple iterations should yield the same items."
+
+
+def test_simple_geometry_curriculum():
+    curriculum = SimpleGeometryCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: SimpleGeometryConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_sides == 5 and base_cfg.max_sides == 10
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("sides")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_sides == 5 and increased_cfg.max_sides == 25
+
+    # test decrementing attribute level for sides again
+    curriculum.decrement_attr_level("sides")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_sides == 5 and partially_decreased_cfg.max_sides == 10
