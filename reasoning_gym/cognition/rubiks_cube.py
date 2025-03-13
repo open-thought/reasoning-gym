@@ -26,7 +26,9 @@ class RubiksCubeConfig:
         assert self.cube_size > 1, "cube_size must be greater than 1"
         assert self.cube_size < 7, "cube_size must be less than 7"
         assert self.min_scramble_steps > 0, "min_scramble_steps must be greater than 0"
-        assert self.max_scramble_steps > self.min_scramble_steps, "max_scramble_steps must be greater than min_scramble_steps"
+        assert (
+            self.max_scramble_steps >= self.min_scramble_steps
+        ), "max_scramble_steps must be greater than min_scramble_steps"
 
 
 class RubiksCubeDataset(ProceduralDataset):
@@ -104,13 +106,13 @@ class RubiksCubeDataset(ProceduralDataset):
             "answer": None,
             "metadata": {
                 "cube_size": self.config.cube_size,
-                "scramble_steps": self.config.scramble_steps,
+                "scramble_steps": num_steps,
                 "scramble_moves": " ".join([str(move) for move in scramble_moves]),
                 "example_correct_answer": actions_string,
                 "difficulty": {
                     "scramble_steps": num_steps,
                     "cube_size": self.config.cube_size,
-                }
+                },
             },
         }
 
@@ -173,14 +175,14 @@ class RubiksCubeCurriculum(BaseCurriculum):
                 field_name="cube_size",
                 levels=[3, 4, 5, 6, 7],
                 default_level=0,
-                description="Size of the Rubik's cube",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
+                description="Board size",
+                attr_type=AttributeType.STATIC,
+                min_value=3,
             ),
             RangeAttributeDefinition(
                 name="scramble_steps",
-                levels=[5, 20, 50, 100, 500, 1000],
-                default_level=0,
+                levels=[3, 10, 50, 100, 500, 1000],
+                default_level=1,
                 description="Number of random moves to scramble the cube",
                 attr_type=AttributeType.APPEND,
                 min_value=1,

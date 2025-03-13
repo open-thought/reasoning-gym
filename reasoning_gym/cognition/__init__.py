@@ -8,7 +8,7 @@ from .modulo_grid import ModuloGridConfig, ModuloGridDataset
 from .needle_haystack import NeedleHaystackConfig, NeedleHaystackDataset
 from .number_sequences import NumberSequenceConfig, NumberSequenceCurriculum, NumberSequenceDataset
 from .rectangle_count import RectangleCountConfig, RectangleCountCurriculum, RectangleCountDataset
-from .rubiks_cube import RubiksCubeConfig, RubiksCubeDataset, RubiksCubeCurriculum
+from .rubiks_cube import RubiksCubeConfig, RubiksCubeCurriculum, RubiksCubeDataset
 
 __all__ = [
     "ColorCubeRotationConfig",

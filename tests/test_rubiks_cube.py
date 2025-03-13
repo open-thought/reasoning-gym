@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.cognition.rubiks_cube import RubiksCubeConfig, RubiksCubeDataset
+from reasoning_gym.cognition.rubiks_cube import RubiksCubeConfig, RubiksCubeCurriculum, RubiksCubeDataset
 
 
 def test_rubikscube_config_validation():
@@ -10,7 +10,7 @@ def test_rubikscube_config_validation():
         config.validate()
 
     with pytest.raises(AssertionError):
-        config = RubiksCubeConfig(scramble_steps=0)  # Don't give an unscrambled cube
+        config = RubiksCubeConfig(max_scramble_steps=0)  # Don't give an unscrambled cube
         config.validate()
 
 
@@ -30,7 +30,8 @@ def test_rubikscube_items():
     """Test basic properties and solution of generated items"""
     config = RubiksCubeConfig(
         cube_size=3,
-        scramble_steps=4,
+        min_scramble_steps=4,
+        max_scramble_steps=4,
         seed=42,
         size=100,
     )
@@ -60,3 +61,28 @@ def test_rubikscube_items():
 
         if len(item["metadata"]["example_correct_answer"]) > 0:
             assert dataset.score_answer(answer="", entry=item) == 0.01
+
+
+def test_rubiks_cube_curriculum():
+    curriculum = RubiksCubeCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: RubiksCubeConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.cube_size == 3
+    assert base_cfg.min_scramble_steps == 3 and base_cfg.max_scramble_steps == 10
+
+    # test incrementing attribute levels for cube_size & scramble_stepsd attributes
+    curriculum.increment_attr_level("cube_size")
+    curriculum.increment_attr_level("scramble_steps")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.cube_size == 4
+    assert increased_cfg.min_scramble_steps == 3 and increased_cfg.max_scramble_steps == 50
+
+    # test decrementing attribute level for cube_size again
+    curriculum.decrement_attr_level("cube_size")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.cube_size == 3
+    assert partially_decreased_cfg.min_scramble_steps == 3 and partially_decreased_cfg.max_scramble_steps == 50
