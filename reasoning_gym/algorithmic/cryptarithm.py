@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -185,6 +186,10 @@ class CryptarithmDataset(ProceduralDataset):
                 "result_letters": result_letters,
                 "digit_to_letter": digit_to_letter,
                 "letter_to_digit": letter_to_digit,
+                "difficulty": {
+                    "min_words": self.config.min_words,
+                    "max_words": self.config.max_words,
+                },
             },
         }
 
@@ -237,4 +242,25 @@ class CryptarithmDataset(ProceduralDataset):
         return (total_correct / total) * 0.7 + 0.3
 
 
-register_dataset("cryptarithm", CryptarithmDataset, CryptarithmConfig)
+class CryptarithmCurriculum(BaseCurriculum):
+    """Curriculum for Cryptarithm puzzles."""
+
+    def __init__(self):
+        super().__init__(CryptarithmCurriculum.__name__, CryptarithmConfig)
+
+        # Define the attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="words",
+                levels=[2, 5, 10, 50],
+                default_level=1,
+                description="Number of words in the cryptarithm puzzle",
+                attr_type=AttributeType.APPEND,
+                min_value=1,
+                lower_field_name="min_words",
+                upper_field_name="max_words",
+            )
+        )
+
+
+register_dataset("cryptarithm", CryptarithmDataset, CryptarithmConfig, CryptarithmCurriculum)
