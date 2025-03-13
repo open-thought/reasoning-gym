@@ -22,7 +22,7 @@ from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingCurriculum, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleCurriculum, LetterJumbleDataset
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculum, ManipulateMatrixDataset
-from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
+from .number_filtering import NumberFilteringConfig, NumberFilteringCurriculum, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingCurriculum, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeCurriculum, PalindromeDataset
 from .palindrome_partitioning import (
@@ -73,6 +73,7 @@ __all__ = [
     "LetterJumbleCurriculum",
     "NumberFilteringConfig",
     "NumberFilteringDataset",
+    "NumberFilteringCurriculum",
     "NumberSortingConfig",
     "NumberSortingDataset",
     "NumberSortingCurriculum",
