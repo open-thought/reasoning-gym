@@ -17,7 +17,7 @@ from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
 from .number_format import NumberFormatConfig, NumberFormatCurriculum, NumberFormatDataset
 from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerFunctionDataset
-from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
+from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationCurriculum, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
 
@@ -45,6 +45,7 @@ __all__ = [
     "PowerFunctionCurriculum",
     "PrimeFactorizationConfig",
     "PrimeFactorizationDataset",
+    "PrimeFactorizationCurriculum",
     "ProductsDataset",
     "ProductsConfig",
     "GSMSymbolicDatasetConfig",
