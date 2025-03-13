@@ -1,4 +1,4 @@
-from .advanced_geometry import AdvancedGeometryConfig, AdvancedGeometryDataset
+from .advanced_geometry import AdvancedGeometryConfig, AdvancedGeometryCurriculum, AdvancedGeometryDataset
 from .simple_geometry import SimpleGeometryConfig, SimpleGeometryCurriculum, SimpleGeometryDataset
 
 __all__ = [
@@ -7,4 +7,5 @@ __all__ = [
     "SimpleGeometryCurriculum",
     "AdvancedGeometryConfig",
     "AdvancedGeometryDataset",
+    "AdvancedGeometryCurriculum",
 ]

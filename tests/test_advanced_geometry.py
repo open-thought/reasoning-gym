@@ -1,6 +1,10 @@
 import pytest
 
-from reasoning_gym.geometry.advanced_geometry import AdvancedGeometryConfig, AdvancedGeometryDataset
+from reasoning_gym.geometry.advanced_geometry import (
+    AdvancedGeometryConfig,
+    AdvancedGeometryCurriculum,
+    AdvancedGeometryDataset,
+)
 
 
 def test_advanced_geometry_config_validation():
@@ -81,3 +85,28 @@ def test_advanced_geometry_dataset_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items, "Multiple iterations should yield the same items."
+
+
+def test_advanced_geometry_curriculum():
+    curriculum = AdvancedGeometryCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: AdvancedGeometryConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_coord == -10
+    assert base_cfg.max_coord == 10
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("min_coord")
+    curriculum.increment_attr_level("max_coord")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_coord == -100
+    assert increased_cfg.max_coord == 100
+
+    # test decrementing attribute level
+    curriculum.decrement_attr_level("min_coord")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_coord == -10
+    assert partially_decreased_cfg.max_coord == 100
