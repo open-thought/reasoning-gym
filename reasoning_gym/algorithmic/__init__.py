@@ -6,13 +6,13 @@ Algorithmic tasks for training reasoning capabilities:
 - Pattern matching
 """
 
-from .ab import ABConfig, ABDataset
+from .ab import ABConfig, ABCurriculum, ABDataset
 from .base_conversion import BaseConversionConfig, BaseConversionCurriculum, BaseConversionDataset
 from .binary_alternation import BinaryAlternationConfig, BinaryAlternationCurriculum, BinaryAlternationDataset
 from .binary_matrix import BinaryMatrixConfig, BinaryMatrixCurriculum, BinaryMatrixDataset
 from .caesar_cipher import CaesarCipherConfig, CaesarCipherCurriculum, CaesarCipherDataset
 from .count_primes import CountPrimesConfig, CountPrimesCurriculum, CountPrimesDataset
-from .cryptarithm import CryptarithmConfig, CryptarithmDataset
+from .cryptarithm import CryptarithmConfig, CryptarithmCurriculum, CryptarithmDataset
 from .game_of_life import GameOfLifeConfig, GameOfLifeDataset
 from .game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
 from .graph_color import GraphColorConfig, GraphColorCurriculum, GraphColorDataset
@@ -22,7 +22,7 @@ from .jugs import JugsConfig, JugsDataset
 from .letter_counting import LetterCountingConfig, LetterCountingCurriculum, LetterCountingDataset
 from .letter_jumble import LetterJumbleConfig, LetterJumbleCurriculum, LetterJumbleDataset
 from .manipulate_matrix import ManipulateMatrixConfig, ManipulateMatrixCurriculum, ManipulateMatrixDataset
-from .number_filtering import NumberFilteringConfig, NumberFilteringDataset
+from .number_filtering import NumberFilteringConfig, NumberFilteringCurriculum, NumberFilteringDataset
 from .number_sorting import NumberSortingConfig, NumberSortingCurriculum, NumberSortingDataset
 from .palindrome_generation import PalindromeConfig, PalindromeCurriculum, PalindromeDataset
 from .palindrome_partitioning import (
@@ -61,6 +61,7 @@ __all__ = [
     "CaesarCipherCurriculum",
     "CryptarithmConfig",
     "CryptarithmDataset",
+    "CryptarithmCurriculum",
     "GameOfLifeConfig",
     "GameOfLifeDataset",
     "GameOfLifeHaltingConfig",
@@ -73,6 +74,7 @@ __all__ = [
     "LetterJumbleCurriculum",
     "NumberFilteringConfig",
     "NumberFilteringDataset",
+    "NumberFilteringCurriculum",
     "NumberSortingConfig",
     "NumberSortingDataset",
     "NumberSortingCurriculum",
@@ -120,6 +122,7 @@ __all__ = [
     "PoolMatrixCurriculum",
     "ABConfig",
     "ABDataset",
+    "ABCurriculum",
     "CountPrimesConfig",
     "CountPrimesDataset",
     "CountPrimesCurriculum",

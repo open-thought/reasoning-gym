@@ -173,7 +173,7 @@ class CodeIODataset(ProceduralDataset):
                         # TODO: Consider a more sophisticated distance metric for numeric values?
                         abs1, abs2 = abs(float(value1)), abs(float(value2))
                         divisor = max(min(abs1, abs2), 10e-5)
-                        value_dist += (abs1 - abs2) / divisor
+                        value_dist = max(len(value1), len(value2)) * abs((abs1 - abs2) / divisor)
                     except ValueError:
                         # Fall back on string edit distance
                         pass
