@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
@@ -217,7 +218,16 @@ class WordLadderDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": ",".join(path),
-            "metadata": {"start_word": start, "end_word": end, "word_length": length, "chain_length": len(path)},
+            "metadata": {
+                "start_word": start,
+                "end_word": end,
+                "word_length": length,
+                "chain_length": len(path),
+                "difficulty": {
+                    "word_length": length,
+                    "chain_length": len(path),
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -259,4 +269,23 @@ class WordLadderDataset(ProceduralDataset):
         return reward
 
 
-register_dataset("word_ladder", WordLadderDataset, WordLadderConfig)
+class WordLadderCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(WordLadderCurriculum.__name__, WordLadderConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="word_length",
+                levels=[3, 4, 5, 6],
+                default_level=1,
+                description="Length of words in the puzzle",
+                attr_type=AttributeType.APPEND,
+                min_value=2,
+                lower_field_name="min_word_length",
+                upper_field_name="max_word_length",
+            )
+        )
+
+
+register_dataset("word_ladder", WordLadderDataset, WordLadderConfig, WordLadderCurriculum)
