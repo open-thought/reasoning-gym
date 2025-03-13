@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -210,7 +211,14 @@ class SudokuDataset(ProceduralDataset):
         return {
             "question": question,
             "answer": solution_str,
-            "metadata": {"puzzle": puzzle, "solution": solved_board, "num_empty": num_empty},
+            "metadata": {
+                "puzzle": puzzle,
+                "solution": solved_board,
+                "num_empty": num_empty,
+                "difficulty": {
+                    "num_empty": num_empty,
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -251,4 +259,23 @@ class SudokuDataset(ProceduralDataset):
         return reward
 
 
-register_dataset("sudoku", SudokuDataset, SudokuConfig)
+class SudokuCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(SudokuCurriculum.__name__, SudokuConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="empty",
+                levels=[4, 6, 8, 10],
+                default_level=1,
+                description="Number of empty cells in the puzzle",
+                attr_type=AttributeType.APPEND,
+                min_value=0,
+                lower_field_name="min_empty",
+                upper_field_name="max_empty",
+            )
+        )
+
+
+register_dataset("sudoku", SudokuDataset, SudokuConfig, SudokuCurriculum)
