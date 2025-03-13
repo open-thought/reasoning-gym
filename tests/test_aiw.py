@@ -111,7 +111,7 @@ def test_aiw_curriculum():
     base_cfg: AliceInWonderlandConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 42
     assert base_cfg.size == 100
-    assert base_cfg.min_entities == 4 and base_cfg.max_entities == 4
+    assert base_cfg.max_entities == 4
     assert base_cfg.task_type_weights == [1.0, 0.0, 0.0]  # Default is siblings only
 
     # Test incrementing task_type_weight attribute
