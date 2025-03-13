@@ -15,7 +15,7 @@ from .gcd import GCDConfig, GCDCurriculum, GCDDataset
 from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetConfig
 from .lcm import LCMConfig, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
-from .number_format import NumberFormatConfig, NumberFormatDataset
+from .number_format import NumberFormatConfig, NumberFormatCurriculum, NumberFormatDataset
 from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
@@ -59,6 +59,7 @@ __all__ = [
     "DiceCurriculum",
     "NumberFormatConfig",
     "NumberFormatDataset",
+    "NumberFormatCurriculum",
     "DecimalArithmeticConfig",
     "DecimalArithmeticDataset",
     "DecimalArithmeticCurriculum",
