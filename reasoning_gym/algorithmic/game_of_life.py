@@ -162,7 +162,7 @@ class GameOfLifeCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="grid_size_x",
                 field_name="grid_size_x",
-                levels=[10, 100, 1000, 10000],
+                levels=[10, 100, 500, 999],
                 default_level=0,
                 description="Grid size in the x direction",
                 attr_type=AttributeType.STATIC,
@@ -171,7 +171,7 @@ class GameOfLifeCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="grid_size_y",
                 field_name="grid_size_y",
-                levels=[10, 100, 1000, 10000],
+                levels=[10, 100, 500, 999],
                 default_level=0,
                 description="Grid size in the y direction",
                 attr_type=AttributeType.STATIC,

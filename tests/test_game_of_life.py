@@ -142,8 +142,8 @@ def test_game_of_life_curriculum():
         curriculum.increment_attr_level("filled_cells_weights")
         curriculum.increment_attr_level("simulation_steps")
     upper_bound_cfg: GameOfLifeCurriculum = curriculum.generate_configuration(base_value)
-    assert upper_bound_cfg.grid_size_x == 10000
-    assert upper_bound_cfg.grid_size_y == 10000
+    assert upper_bound_cfg.grid_size_x == 999
+    assert upper_bound_cfg.grid_size_y == 999
     assert upper_bound_cfg.filled_cells_weights == 0.8
     assert upper_bound_cfg.filled_cells <= upper_bound_cfg.grid_size_x * upper_bound_cfg.grid_size_y
     assert upper_bound_cfg.simulation_steps == 10
