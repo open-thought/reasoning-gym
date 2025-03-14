@@ -6,8 +6,8 @@ from reasoning_gym.logic.propositional_logic import (
     Expression,
     Operator,
     PropositionalLogicConfig,
+    PropositionalLogicCurriculum,
     PropositionalLogicDataset,
-    PropositionalLogicCurriculum
 )
 
 

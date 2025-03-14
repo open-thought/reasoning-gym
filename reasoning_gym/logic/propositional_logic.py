@@ -6,7 +6,6 @@ from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
-
 from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
@@ -372,5 +371,6 @@ class PropositionalLogicCurriculum(BaseCurriculum):
         )
 
 
-
-register_dataset("propositional_logic", PropositionalLogicDataset, PropositionalLogicConfig, PropositionalLogicCurriculum)
+register_dataset(
+    "propositional_logic", PropositionalLogicDataset, PropositionalLogicConfig, PropositionalLogicCurriculum
+)
