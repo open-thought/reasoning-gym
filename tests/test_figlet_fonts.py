@@ -1,6 +1,13 @@
 import pytest
 
-from reasoning_gym.cognition.figlet_fonts import FigletFontConfig, FigletFontDataset
+from reasoning_gym.cognition.figlet_fonts import FigletFontConfig, FigletFontCurriculum, FigletFontDataset
+
+
+def test_figlet_config_validation():
+    """Test that invalid configs raise appropriate errors"""
+    with pytest.raises(AssertionError):
+        config = FigletFontConfig(min_word_len=2, max_word_len=1)  # max_word_len < min_word_len
+        config.validate()
 
 
 def test_figlet_deterministic():
@@ -41,3 +48,24 @@ def test_static_figlet():
         assert dataset.score_answer(answer="TESTY", entry=item) == 1.0
         assert dataset.score_answer(answer="WESTY", entry=item) == 0.4
         assert dataset.score_answer(answer=None, entry=item) == 0
+
+
+def test_figlet_curriculum():
+    curriculum = FigletFontCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: FigletFontConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_word_len == 3 and base_cfg.max_word_len == 5
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("word_len")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_word_len == 3 and increased_cfg.max_word_len == 10
+
+    # test decrementing attribute level
+    curriculum.decrement_attr_level("word_len")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_word_len == 3 and partially_decreased_cfg.max_word_len == 5
