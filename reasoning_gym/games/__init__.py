@@ -6,6 +6,7 @@ Game tasks for training reasoning capabilities:
 - Simulation games
 """
 
+from .boxnet import BoxnetConfig, BoxnetCurriculum, BoxnetDataset
 from .countdown import CountdownConfig, CountdownDataset
 from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryCurriculum, EmojiMysteryDataset
 from .futoshiki import FutoshikiConfig, FutoshikiDataset
@@ -22,6 +23,9 @@ from .tower_of_hanoi import HanoiConfig, HanoiDataset
 from .tsumego import TsumegoConfig, TsumegoCurriculum, TsumegoDataset
 
 __all__ = [
+    "BoxnetConfig",
+    "BoxnetDataset",
+    "BoxnetCurriculum",
     "CountdownConfig",
     "CountdownDataset",
     "EmojiMysteryConfig",
