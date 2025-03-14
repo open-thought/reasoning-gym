@@ -118,6 +118,7 @@ class ReasoningGymDataset(Dataset):
             "entry_id": entry.entry_id,
             "metadata": entry.metadata,
             "index": index,
+            "raw_prompt_ids": self.tokenizer.encode(prompt, add_special_tokens=False),
         }
 
         # Add raw chat if requested

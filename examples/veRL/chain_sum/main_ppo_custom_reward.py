@@ -70,6 +70,7 @@ class ReasoningGymDataset(Dataset):
         row_dict["input_ids"] = input_ids[0]
         row_dict["attention_mask"] = attention_mask[0]
         row_dict["position_ids"] = position_ids[0]
+        row_dict["raw_prompt_ids"] = self.tokenizer.encode(prompt, add_special_tokens=False)
 
         # encode prompts without chat template
         if self.return_raw_chat:
