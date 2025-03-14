@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
@@ -122,8 +122,6 @@ class RansomNoteCurriculum(BaseCurriculum):
                 levels=[10, 50, 100, 500],
                 default_level=0,
                 description="Length of the ransom note",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_note_length",
                 upper_field_name="max_note_length",
             ),
@@ -132,8 +130,6 @@ class RansomNoteCurriculum(BaseCurriculum):
                 levels=[50, 100, 500, 1000],
                 default_level=0,
                 description="Length of the magazine",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_magazine_length",
                 upper_field_name="max_magazine_length",
             ),

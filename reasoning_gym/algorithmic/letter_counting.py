@@ -7,7 +7,7 @@ from typing import Optional
 
 from reasoning_gym.data import read_data_file
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -83,8 +83,6 @@ class LetterCountingCurriculum(BaseCurriculum):
                 levels=[10, 50, 100, 1000],
                 default_level=1,
                 description="Number of words in the span",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             ),

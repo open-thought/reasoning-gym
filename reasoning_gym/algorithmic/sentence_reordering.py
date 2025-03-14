@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -126,8 +126,6 @@ class SentenceReorderingCurriculum(BaseCurriculum):
                 levels=[5, 20, 50, 100],
                 default_level=1,
                 description="Number of words in the sentence",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",
             ),

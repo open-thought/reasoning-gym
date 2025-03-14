@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a string, partition it such that every substring is a palindrome.
@@ -158,8 +158,6 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
                 levels=[10, 100, 500, 1000],
                 default_level=0,
                 description="Length of the string",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_string_len",
                 upper_field_name="max_string_len",
             ),
@@ -168,8 +166,6 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
                 levels=[5, 10, 50, 100],
                 default_level=0,
                 description="Length of the substring palindrome",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_substring_palindrome_len",
                 upper_field_name="max_substring_palindrome_len",
             ),

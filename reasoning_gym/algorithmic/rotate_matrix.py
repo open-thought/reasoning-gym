@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to rotate it clockwise.
@@ -105,8 +105,6 @@ class RotateMatrixCurriculum(BaseCurriculum):
                 levels=[10, 25, 50, 100],
                 default_level=0,
                 description="Size of the square matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             ),
@@ -115,8 +113,6 @@ class RotateMatrixCurriculum(BaseCurriculum):
                 levels=[4, 8, 12, 16],
                 default_level=0,
                 description="Number of 90-degree rotations",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",
             ),

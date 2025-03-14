@@ -6,7 +6,7 @@ from math import gcd
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -83,8 +83,6 @@ class GCDCurriculum(BaseCurriculum):
                 levels=[2, 3, 4, 5],
                 default_level=0,
                 description="number of terms",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
             ),
@@ -93,8 +91,6 @@ class GCDCurriculum(BaseCurriculum):
                 levels=[100, 1000, 10000, 100000],
                 default_level=0,
                 description="maximum value",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
             ),

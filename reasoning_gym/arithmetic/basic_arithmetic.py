@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Literal, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -242,8 +242,6 @@ class BasicArithmeticCurriculum(BaseCurriculum):
                 levels=[2, 5, 10, 20],
                 default_level=0,
                 description="Number of terms in the expression",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
             ),
@@ -252,8 +250,6 @@ class BasicArithmeticCurriculum(BaseCurriculum):
                 levels=[1, 2, 5, 10],
                 default_level=0,
                 description="Number of digits in the numbers",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",
             ),

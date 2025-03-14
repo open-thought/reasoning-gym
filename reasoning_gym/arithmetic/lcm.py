@@ -6,7 +6,7 @@ from math import lcm
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -85,8 +85,6 @@ class LCMCurriculum(BaseCurriculum):
                 levels=[2, 4, 6, 8, 10],
                 default_level=0,
                 description="Number of integers to find LCM of",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
             ),
@@ -95,8 +93,6 @@ class LCMCurriculum(BaseCurriculum):
                 levels=[1, 100, 500, 1000, 5000],
                 default_level=1,
                 description="Range of values for each integer",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
             ),

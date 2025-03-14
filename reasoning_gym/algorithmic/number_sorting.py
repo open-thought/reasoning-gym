@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -112,8 +112,6 @@ class NumberSortingCurriculum(BaseCurriculum):
                 levels=[10, 100, 500, 1000],
                 default_level=1,
                 description="How many numbers to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
             ),
@@ -122,8 +120,6 @@ class NumberSortingCurriculum(BaseCurriculum):
                 levels=[0, 2, 4, 6],
                 default_level=1,
                 description="Number of decimal places",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_decimals",
                 upper_field_name="max_decimals",
             ),
@@ -132,8 +128,6 @@ class NumberSortingCurriculum(BaseCurriculum):
                 levels=[-10_000, 10_000],
                 default_level=1,
                 description="Range of numbers to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=-10_000,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
             ),

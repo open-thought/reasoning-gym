@@ -6,7 +6,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your job is to perform max/average pooling on the given matrix.
@@ -136,8 +136,6 @@ class PoolMatrixCurriculum(BaseCurriculum):
                 levels=[10, 25, 50, 100],
                 default_level=0,
                 description="Board size",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
             ),
@@ -146,8 +144,6 @@ class PoolMatrixCurriculum(BaseCurriculum):
                 levels=[10, 25, 50, 100],
                 default_level=0,
                 description="Board size",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
             ),
@@ -156,8 +152,6 @@ class PoolMatrixCurriculum(BaseCurriculum):
                 levels=[3, 5, 7, 9],
                 default_level=0,
                 description="Pool size",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_pool_size",
                 upper_field_name="max_pool_size",
             ),
