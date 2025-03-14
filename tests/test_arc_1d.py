@@ -41,6 +41,7 @@ def test_arc_1d_items():
         assert "question" in item
         assert "answer" in item
         assert "metadata" in item
+        assert "difficulty" in item["metadata"]
 
         # Check metadata contents
         metadata = item["metadata"]

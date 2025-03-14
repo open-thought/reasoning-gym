@@ -105,6 +105,11 @@ class Arc1DDataset(ProceduralDataset):
                 "size": size,
                 "train_examples": train_examples,
                 "test_example": test_example,
+                "difficulty": {
+                    "min_size": self.config.min_size,
+                    "max_size": self.config.max_size,
+                    "num_train": self.config.num_train,
+                },
             },
         }
 
