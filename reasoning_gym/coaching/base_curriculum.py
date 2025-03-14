@@ -1,8 +1,59 @@
+import abc
+from collections.abc import Iterable
+from enum import StrEnum
 from typing import Any, Optional, TypeVar
 
 from .attributes import AttributeDefinition, RangeAttributeDefinition, ScalarAttributeDefinition
 
 ConfigT = TypeVar("ConfigT")
+
+
+class CurriculumContext(abc.ABC):
+    @abc.abstractmethod
+    def get_attr_value(self, curriculum, attr: AttributeDefinition) -> Any:
+        pass
+
+
+class DefaultCurriculumContext(CurriculumContext):
+    def get_attr_value(self, curriculum, attr: AttributeDefinition) -> Any:
+        return curriculum.get_attr_value(attr.name)
+
+
+class RangeAttributeMode(StrEnum):
+    """Text transformation options"""
+
+    UPPER_BOUND = "upper_bound"  # only use the highest range segment
+    INCLUSIVE = "inclusive"  # include all previous levels
+
+
+class RangeCurriculumContext(CurriculumContext):
+    def __init__(self, mode: RangeAttributeMode = RangeAttributeMode.UPPER_BOUND):
+        self.mode = mode
+
+    def get_range_attr_value(self, curriculum, attr: RangeAttributeDefinition) -> Any:
+        level = curriculum.get_attr_level(attr.name)
+        v = attr.get_level_value(level)
+        if isinstance(v, Iterable):
+            return v
+
+        if self.mode == RangeAttributeMode.UPPER_BOUND:
+            hi_index = min(level + 1, len(attr.levels) - 1)
+            lo_index = max(0, hi_index - 1)
+
+        elif self.mode == RangeAttributeMode.INCLUSIVE:
+            lo_index = 0
+            hi_index = min(level + 1, len(attr.levels) - 1)
+
+        lo = attr.get_level_value(lo_index)
+        hi = attr.get_level_value(hi_index)
+
+        return [lo, hi]
+
+    def get_attr_value(self, curriculum, attr: AttributeDefinition) -> Any:
+        if isinstance(attr, RangeAttributeDefinition):
+            return self.get_range_attr_value(curriculum, attr)
+        elif isinstance(attr, ScalarAttributeDefinition):
+            return curriculum.get_attr_value(attr.name)
 
 
 class BaseCurriculum:
@@ -12,15 +63,23 @@ class BaseCurriculum:
         self._attributes: dict[str, AttributeDefinition] = {}
         self._current_levels: dict[str, int] = {}
 
-    def generate_configuration(self, defaults: Optional[dict[str, Any]] = None) -> ConfigT:
+    def generate_configuration(
+        self, defaults: Optional[dict[str, Any]] = None, context: Optional[CurriculumContext] = None
+    ) -> ConfigT:
         config_args = defaults.copy() if defaults is not None else {}
+
+        if context is None:
+            context = DefaultCurriculumContext()
+
         for attr in self._attributes.values():
             if isinstance(attr, RangeAttributeDefinition):
-                vals = self.get_attr_value(attr.name)
-                config_args[attr.lower_field_name] = min(vals)
-                config_args[attr.upper_field_name] = max(vals)
+                v = context.get_attr_value(self, attr)
+                if not isinstance(v, Iterable):
+                    v = [v]
+                config_args[attr.lower_field_name] = min(v)
+                config_args[attr.upper_field_name] = max(v)
             elif isinstance(attr, ScalarAttributeDefinition):
-                val = self.get_attr_value(attr.name)
+                val = context.get_attr_value(self, attr)
                 config_args[attr.field_name] = val
         return self._config_cls(**config_args)
 

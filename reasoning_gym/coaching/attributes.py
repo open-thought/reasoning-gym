@@ -1,15 +1,6 @@
 from collections import abc
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import Any, Optional
-
-
-class AttributeType(StrEnum):
-    """Defines how attribute levels should be interpreted"""
-
-    STATIC = "static"  # Each level is independent
-    UBOUND = "ubound"  # Each level is an upper bound
-    APPEND = "append"  # Each level includes all previous levels
 
 
 @dataclass(kw_only=True)
@@ -56,9 +47,3 @@ class ScalarAttributeDefinition(AttributeDefinition):
 class RangeAttributeDefinition(AttributeDefinition):
     lower_field_name: str
     upper_field_name: str
-
-    def get_level_value(self, level: int) -> Any:
-        v = super().get_level_value(level)
-        if not isinstance(v, abc.Iterable):
-            return [v]
-        return v
