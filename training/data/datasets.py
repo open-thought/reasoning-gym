@@ -6,6 +6,7 @@ from transformers import PreTrainedTokenizer
 from verl.utils.model import compute_position_id_with_mask
 
 import reasoning_gym
+from reasoning_gym.composite import DatasetSpec
 
 
 class ReasoningGymDataset(Dataset):
@@ -62,15 +63,12 @@ class ReasoningGymDataset(Dataset):
         row_dict["index"] = index
         return row_dict
 
-    def score_answer(self, found_answer: str, index: int) -> float:
-        return self.data.score_answer(found_answer, entry=self.data[index])
-
 
 class ReasoningGymCompositeDataset(Dataset):
     def __init__(
         self,
         tokenizer: PreTrainedTokenizer,
-        dataset_names: list[str],
+        datasets: list[dict],
         seed: int,
         size: int,
         developer_prompt: Optional[str] = None,
@@ -79,24 +77,20 @@ class ReasoningGymCompositeDataset(Dataset):
         truncation: str = "error",  ##  ['left', 'right', 'error']
     ):
         self.tokenizer = tokenizer
-        self.dataset_names = dataset_names
-        self.datasets = [
-            reasoning_gym.create_dataset(dataset_name, seed=seed, size=size) for dataset_name in dataset_names
-        ]
+        self.data = reasoning_gym.create_dataset("composite", seed=seed, size=size)
         self.developer_prompt = developer_prompt
         self.developer_role = developer_role
         self.max_prompt_length = max_prompt_length
         self.truncation = truncation
 
+        for dataset in datasets:
+            self.data.add_dataset(DatasetSpec(**dataset))
+
     def __len__(self) -> int:
         return sum(len(dataset) for dataset in self.datasets)
 
     def __getitem__(self, index):
-        dataset_idx = index % len(self.datasets)
-        data = self.datasets[dataset_idx]
-        data_idx = index // len(self.datasets)
-        row_dict = data[data_idx].copy()
-
+        row_dict = self.data[index].copy()
         q = row_dict["question"]
 
         chat = []
@@ -117,18 +111,12 @@ class ReasoningGymCompositeDataset(Dataset):
 
         position_ids = compute_position_id_with_mask(attention_mask)
 
-        row_dict["data_source"] = "reasoning_gym/" + "_".join(self.dataset_names)
+        # TODO: add data source names
+        row_dict["data_source"] = "reasoning_gym/composite"
         row_dict["input_ids"] = input_ids[0]
         row_dict["attention_mask"] = attention_mask[0]
         row_dict["position_ids"] = position_ids[0]
         row_dict["raw_prompt_ids"] = self.tokenizer.encode(prompt, add_special_tokens=False)
         row_dict["raw_prompt"] = chat.tolist()
-        row_dict["dataset_index"] = dataset_idx
         row_dict["index"] = index
         return row_dict
-
-    def score_answer(self, found_answer: str, index: int) -> float:
-        dataset_idx = index % len(self.datasets)
-        data_idx = index // len(self.datasets)
-        dataset = self.datasets[dataset_idx]
-        return dataset.score_answer(found_answer, entry=dataset[data_idx])
