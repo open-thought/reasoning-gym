@@ -83,8 +83,11 @@ actor_rollout_ref:
     enable_chunked_prefill: True # could get higher throughput
     # for hf rollout
     do_sample: True
+    use_fire_sampling: False
     # number of responses (i.e. num sample times)
     n: 16 # > 1 for grpo
+    val_kwargs:
+      do_sample: True
 
 critic:
   strategy: fsdp
