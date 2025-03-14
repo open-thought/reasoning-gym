@@ -6,6 +6,7 @@ from reasoning_gym.logic.propositional_logic import (
     Expression,
     Operator,
     PropositionalLogicConfig,
+    PropositionalLogicCurriculum,
     PropositionalLogicDataset,
 )
 
@@ -101,3 +102,32 @@ def test_propositional_logic_dataset_score_answer_incorrect():
     for i, item in enumerate(dataset):
         score = dataset.score_answer("Wrong", item)
         assert score == 0.0
+
+
+def test_propositional_logic_curriculum():
+    curriculum = PropositionalLogicCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: PropositionalLogicConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_vars == 2 and base_cfg.max_vars == 2
+    assert base_cfg.min_statements == 2 and base_cfg.max_statements == 2
+    assert base_cfg.min_complexity == 1 and base_cfg.max_complexity == 1
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("vars")
+    curriculum.increment_attr_level("statements")
+    curriculum.increment_attr_level("complexity")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_vars == 2 and increased_cfg.max_vars == 4
+    assert increased_cfg.min_statements == 2 and increased_cfg.max_statements == 4
+    assert increased_cfg.min_complexity == 1 and increased_cfg.max_complexity == 2
+
+    # test decrementing attribute level for vars again
+    curriculum.decrement_attr_level("vars")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_vars == 2 and partially_decreased_cfg.max_vars == 2
+    assert partially_decreased_cfg.min_statements == 2 and partially_decreased_cfg.max_statements == 4
+    assert partially_decreased_cfg.min_complexity == 1 and partially_decreased_cfg.max_complexity == 2
