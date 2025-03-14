@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

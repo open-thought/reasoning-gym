@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Two strings are isomorphic if the characters in one string can be replaced to get the second string.

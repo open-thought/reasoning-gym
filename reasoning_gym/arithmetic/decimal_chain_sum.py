@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

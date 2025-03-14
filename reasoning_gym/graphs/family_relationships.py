@@ -4,7 +4,7 @@ from enum import StrEnum
 from itertools import count
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

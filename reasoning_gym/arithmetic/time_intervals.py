@@ -6,7 +6,7 @@ from typing import Optional
 import pytz
 from dateutil import parser
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

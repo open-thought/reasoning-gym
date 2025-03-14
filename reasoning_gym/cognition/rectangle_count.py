@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to count how many rectangles are present in an ASCII grid.

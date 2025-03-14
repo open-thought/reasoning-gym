@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 from sympy import Eq, Symbol, expand, solve
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

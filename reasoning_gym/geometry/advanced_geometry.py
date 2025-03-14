@@ -6,7 +6,7 @@ import numpy as np
 import sympy
 from sympy.geometry import Point
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

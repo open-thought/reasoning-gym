@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 

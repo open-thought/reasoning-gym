@@ -3,7 +3,7 @@ from enum import StrEnum
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """How many 1 bits are there in the binary representation of the number {number}?"""

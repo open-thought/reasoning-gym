@@ -4,7 +4,7 @@ from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

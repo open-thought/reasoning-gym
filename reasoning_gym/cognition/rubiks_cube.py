@@ -6,7 +6,7 @@ from typing import Any, Optional
 from magiccube.cube import Cube, CubeMove, CubeMoveType
 from magiccube.solver.basic.basic_solver import BasicSolver
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

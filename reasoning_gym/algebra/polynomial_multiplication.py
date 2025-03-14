@@ -5,7 +5,7 @@ from typing import Any, Optional
 import sympy as sp
 from sympy.polys.monomials import itermonomials
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
