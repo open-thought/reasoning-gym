@@ -75,7 +75,8 @@ class RayGRPOTrainer(RayPPOTrainer):
 
     def _compute_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
-        return self.train_dataset.score_answer(found_answer, index=index)
+        data = self.train_dataset.data
+        return data.score_answer(found_answer, entry=data[index])
 
     def _create_dataloader(self):
         self.train_dataloader = DataLoader(
