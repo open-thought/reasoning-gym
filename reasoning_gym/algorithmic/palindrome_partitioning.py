@@ -180,5 +180,5 @@ register_dataset(
     "palindrome_partitioning",
     PalindromePartitioningDataset,
     PalindromePartitioningConfig,
-    PalindromePartitioningCurriculum,
+    # PalindromePartitioningCurriculum,
 )

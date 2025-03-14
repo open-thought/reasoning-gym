@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 
 import cellpylib as cpl
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -389,4 +390,60 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
         return 0.0
 
 
-register_dataset("game_of_life_halting", GameOfLifeHaltingDataset, GameOfLifeHaltingConfig)
+class GameOfLifeHaltingCurriculum(BaseCurriculum):
+    """Curriculum for Game of Life Halting dataset"""
+
+    def __init__(self):
+        super().__init__(GameOfLifeHaltingCurriculum.__name__, GameOfLifeHaltingConfig)
+
+        # Define attributes
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="grid_size_x",
+                field_name="grid_size_x",
+                levels=[12, 25, 50, 200],
+                default_level=0,
+                description="Grid size in the x direction",
+                attr_type=AttributeType.STATIC,
+                min_value=12,
+            ),
+            ScalarAttributeDefinition(
+                name="grid_size_y",
+                field_name="grid_size_y",
+                levels=[12, 25, 50, 200],
+                default_level=0,
+                description="Grid size in the y direction",
+                attr_type=AttributeType.STATIC,
+                min_value=12,
+            ),
+            ScalarAttributeDefinition(
+                name="difficulty",
+                field_name="difficulty",
+                levels=[1, 2, 3],
+                default_level=0,
+                description="Oscillator type difficulty",
+                attr_type=AttributeType.STATIC,
+                min_value=1,
+            ),
+            ScalarAttributeDefinition(
+                name="num_oscillators",
+                field_name="num_oscillators",
+                levels=[3, 7, 10, 20],
+                default_level=0,
+                description="Number of oscillators to place",
+                attr_type=AttributeType.STATIC,
+                min_value=3,
+            ),
+            ScalarAttributeDefinition(
+                name="max_simulation_steps",
+                field_name="max_simulation_steps",
+                levels=[20, 50, 100, 200],
+                default_level=0,
+                description="Number of simulation steps to query",
+                attr_type=AttributeType.STATIC,
+                min_value=20,
+            ),
+        )
+
+
+register_dataset("game_of_life_halting", GameOfLifeHaltingDataset, GameOfLifeHaltingConfig, GameOfLifeHaltingCurriculum)

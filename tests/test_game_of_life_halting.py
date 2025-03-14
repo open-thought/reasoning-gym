@@ -1,6 +1,10 @@
 import pytest
 
-from reasoning_gym.algorithmic.game_of_life_halting import GameOfLifeHaltingConfig, GameOfLifeHaltingDataset
+from reasoning_gym.algorithmic.game_of_life_halting import (
+    GameOfLifeHaltingConfig,
+    GameOfLifeHaltingCurriculum,
+    GameOfLifeHaltingDataset,
+)
 
 
 def test_game_of_life():
@@ -38,3 +42,33 @@ def test_game_of_life_halting_deterministic():
     for i in range(len(dataset1)):
         assert dataset1[i] == dataset2[i]
         assert dataset1[i] != dataset3[i]
+
+
+def test_game_of_life_halting_curriculum():
+    """Test the curriculum for complex arithmetic."""
+    curriculum = GameOfLifeHaltingCurriculum()
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: GameOfLifeHaltingCurriculum = curriculum.generate_configuration(base_value)
+
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.grid_size_x == 12
+    assert base_cfg.grid_size_y == 12
+    assert base_cfg.difficulty == 1
+    assert base_cfg.num_oscillators == 3
+    assert base_cfg.max_simulation_steps == 20
+
+    # Test and validate increase in levels
+    curriculum.increment_attr_level("grid_size_x")
+    curriculum.increment_attr_level("grid_size_y")
+    curriculum.increment_attr_level("difficulty")
+    curriculum.increment_attr_level("num_oscillators")
+    curriculum.increment_attr_level("max_simulation_steps")
+
+    increased_cfg: GameOfLifeHaltingCurriculum = curriculum.generate_configuration(base_value)
+    assert increased_cfg.grid_size_x == 25
+    assert increased_cfg.grid_size_y == 25
+    assert increased_cfg.difficulty == 2
+    assert increased_cfg.num_oscillators == 7
+    assert increased_cfg.max_simulation_steps == 50
