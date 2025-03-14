@@ -3,7 +3,7 @@ from random import Random
 
 import pytest
 
-from reasoning_gym.algorithmic.word_ladder import WordLadderConfig, WordLadderDataset
+from reasoning_gym.algorithmic.word_ladder import WordLadderConfig, WordLadderCurriculum, WordLadderDataset
 
 
 def test_word_ladder_config_validation():
@@ -397,3 +397,24 @@ def test_word_ladder_score_answer():
     # Test with unknown words (should return partial credit)
     assert dataset.score_answer("COLD,COXD,CORD,CARD,WARD,WARM", entry) < 1.0
     assert dataset.score_answer("COLD,COXD,CORD,CARD,WARD,WARM", entry) > 0.0
+
+
+def test_word_ladder_curriculum():
+    curriculum = WordLadderCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: WordLadderConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_word_length == 3 and base_cfg.max_word_length == 4
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("word_length")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_word_length == 3 and increased_cfg.max_word_length == 5
+
+    # test decrementing attribute level for word length again
+    curriculum.decrement_attr_level("word_length")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_word_length == 3 and partially_decreased_cfg.max_word_length == 4
