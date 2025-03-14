@@ -23,7 +23,7 @@ from .number_format import NumberFormatConfig, NumberFormatCurriculum, NumberFor
 from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationCurriculum, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
-from .time_intervals import TimeIntervalsConfig, TimeIntervalsDataset
+from .time_intervals import TimeIntervalsConfig, TimeIntervalsCurriculum, TimeIntervalsDataset
 
 __all__ = [
     "BasicArithmeticDataset",
@@ -57,6 +57,7 @@ __all__ = [
     "GSMSymbolicDataset",
     "TimeIntervalsConfig",
     "TimeIntervalsDataset",
+    "TimeIntervalsCurriculum",
     "CountBitsConfig",
     "CountBitsDataset",
     "CountBitsCurriculum",

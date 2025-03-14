@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 import pytest
 
-from reasoning_gym.arithmetic import TimeIntervalsConfig, TimeIntervalsDataset
+from reasoning_gym.arithmetic import TimeIntervalsConfig, TimeIntervalsCurriculum, TimeIntervalsDataset
 
 
 def test_time_intervals_config_validation():
@@ -111,3 +111,28 @@ def test_time_format_patterns():
         # Verify end is after start
         assert end_dt >= start_dt, item["question"]
         assert dataset.score_answer(item["answer"], item) == 1.0
+
+
+def test_time_intervals_curriculum():
+    curriculum = TimeIntervalsCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: TimeIntervalsConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.max_time_difference_seconds == 60
+    assert base_cfg.max_date_difference_days == 1
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("max_time_difference_seconds")
+    curriculum.increment_attr_level("max_date_difference_days")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.max_time_difference_seconds == 24 * 60 * 60
+    assert increased_cfg.max_date_difference_days == 7
+
+    # test decrementing attribute level
+    curriculum.decrement_attr_level("max_time_difference_seconds")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.max_time_difference_seconds == 60
+    assert partially_decreased_cfg.max_date_difference_days == 7
