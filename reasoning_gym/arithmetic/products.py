@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 from reasoning_gym import utils
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

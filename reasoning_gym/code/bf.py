@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 import bfi
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..data.wordle_words import wordle_words
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.bfit.Compiler import Compiler, Minify

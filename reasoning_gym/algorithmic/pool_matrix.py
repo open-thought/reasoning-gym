@@ -6,7 +6,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your job is to perform max/average pooling on the given matrix.

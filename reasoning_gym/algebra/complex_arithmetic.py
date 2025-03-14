@@ -4,7 +4,7 @@ import random
 from dataclasses import dataclass, field
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 

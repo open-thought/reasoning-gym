@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 from reasoning_gym.data import read_data_file
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to unsramble words in a sentence.
