@@ -1,16 +1,24 @@
 import pytest
 
-from reasoning_gym.logic import CircuitLogicConfig, CircuitLogicDataset
+from reasoning_gym.logic import CircuitLogicConfig, CircuitLogicCurriculum, CircuitLogicDataset
 
 
 def test_circuit_logic_config_validation():
     """Test that invalid configs raise appropriate errors"""
     with pytest.raises(AssertionError):
+        config = CircuitLogicConfig(min_inputs=0)
+        config.validate()
+
+    with pytest.raises(AssertionError):
         config = CircuitLogicConfig(min_inputs=3, max_inputs=2)
         config.validate()
 
     with pytest.raises(AssertionError):
-        config = CircuitLogicConfig(num_terms=0)
+        config = CircuitLogicConfig(min_terms=0)
+        config.validate()
+
+    with pytest.raises(AssertionError):
+        config = CircuitLogicConfig(min_terms=5, max_terms=4)
         config.validate()
 
     with pytest.raises(AssertionError):
@@ -34,7 +42,7 @@ def test_circuit_logic_deterministic():
 
 def test_circuit_logic_items():
     """Test basic properties of generated items"""
-    config = CircuitLogicConfig(num_terms=3, min_inputs=2, max_inputs=3, neg_prob=0.3, size=50, seed=42)
+    config = CircuitLogicConfig(min_terms=3, max_terms=3, min_inputs=2, max_inputs=3, neg_prob=0.3, size=50, seed=42)
     dataset = CircuitLogicDataset(config)
 
     for i in range(len(dataset)):
@@ -68,7 +76,13 @@ def test_circuit_logic_items():
 def test_circuit_logic_expression_validity():
     """Test that generated expressions follow logical circuit rules"""
     config = CircuitLogicConfig(
-        num_terms=2, min_inputs=2, max_inputs=2, neg_prob=0.0, size=20, seed=42  # Disable negation for simpler testing
+        min_terms=2,
+        max_terms=2,
+        min_inputs=2,
+        max_inputs=2,
+        neg_prob=0.0,
+        size=20,
+        seed=42,  # Disable negation for simpler testing
     )
     dataset = CircuitLogicDataset(config)
 
@@ -88,7 +102,7 @@ def test_circuit_logic_expression_validity():
 
 def test_circuit_logic_answer_verification():
     """Test that answers match logical evaluation of circuits"""
-    config = CircuitLogicConfig(num_terms=2, min_inputs=2, max_inputs=2, size=20, seed=42)
+    config = CircuitLogicConfig(min_terms=2, max_terms=2, min_inputs=2, max_inputs=2, size=20, seed=42)
     dataset = CircuitLogicDataset(config)
 
     def evaluate_term(term: str, assignments: dict) -> int:
@@ -158,7 +172,7 @@ def test_circuit_logic_answer_verification():
 
 def test_circuit_logic_ascii_diagram():
     """Test properties of the ASCII circuit diagram"""
-    config = CircuitLogicConfig(num_terms=2, min_inputs=2, max_inputs=2, size=10, seed=42)
+    config = CircuitLogicConfig(min_terms=2, max_terms=2, min_inputs=2, max_inputs=2, size=10, seed=42)
     dataset = CircuitLogicDataset(config)
 
     for i in range(len(dataset)):
@@ -222,3 +236,28 @@ def test_circuit_logic_iteration():
     first_items = list(dataset)
     second_items = list(dataset)
     assert first_items == second_items
+
+
+def test_circuit_logic_curriculum():
+    curriculum = CircuitLogicCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: CircuitLogicConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_terms == 3 and base_cfg.max_terms == 5
+    assert base_cfg.min_inputs == 2 and base_cfg.max_inputs == 4
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("terms")
+    curriculum.increment_attr_level("inputs")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_terms == 3 and increased_cfg.max_terms == 10
+    assert increased_cfg.min_inputs == 2 and increased_cfg.max_inputs == 6
+
+    # test decrementing attribute level for terms again
+    curriculum.decrement_attr_level("terms")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_terms == 3 and partially_decreased_cfg.max_terms == 5
+    assert partially_decreased_cfg.min_inputs == 2 and partially_decreased_cfg.max_inputs == 6
