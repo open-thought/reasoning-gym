@@ -1,107 +1,108 @@
 # Reasoning Gym Dataset Gallery
 This gallery shows examples from all available datasets using their default configurations.
 
-## Available Datasets (100)
-- [ab](#ab)
-- [acre](#acre)
-- [advanced_geometry](#advanced_geometry)
-- [aiw](#aiw)
-- [arc_1d](#arc_1d)
-- [arc_agi](#arc_agi)
-- [base_conversion](#base_conversion)
-- [basic_arithmetic](#basic_arithmetic)
-- [bf](#bf)
-- [binary_alternation](#binary_alternation)
-- [binary_matrix](#binary_matrix)
-- [bitwise_arithmetic](#bitwise_arithmetic)
-- [caesar_cipher](#caesar_cipher)
-- [calendar_arithmetic](#calendar_arithmetic)
-- [chain_sum](#chain_sum)
-- [circuit_logic](#circuit_logic)
-- [codeio](#codeio)
-- [color_cube_rotation](#color_cube_rotation)
-- [complex_arithmetic](#complex_arithmetic)
-- [count_bits](#count_bits)
-- [count_primes](#count_primes)
-- [countdown](#countdown)
-- [course_schedule](#course_schedule)
-- [cryptarithm](#cryptarithm)
-- [decimal_arithmetic](#decimal_arithmetic)
-- [decimal_chain_sum](#decimal_chain_sum)
-- [dice](#dice)
-- [emoji_mystery](#emoji_mystery)
-- [family_relationships](#family_relationships)
-- [figlet_font](#figlet_font)
-- [fraction_simplification](#fraction_simplification)
-- [futoshiki](#futoshiki)
-- [game_of_life](#game_of_life)
-- [game_of_life_halting](#game_of_life_halting)
-- [gcd](#gcd)
-- [graph_color](#graph_color)
-- [group_anagrams](#group_anagrams)
-- [gsm_symbolic](#gsm_symbolic)
-- [intermediate_integration](#intermediate_integration)
-- [isomorphic_strings](#isomorphic_strings)
-- [jugs](#jugs)
-- [knight_swap](#knight_swap)
-- [knights_knaves](#knights_knaves)
-- [largest_island](#largest_island)
-- [lcm](#lcm)
-- [leg_counting](#leg_counting)
-- [letter_counting](#letter_counting)
-- [letter_jumble](#letter_jumble)
-- [list_functions](#list_functions)
-- [mahjong_puzzle](#mahjong_puzzle)
-- [manipulate_matrix](#manipulate_matrix)
-- [maze](#maze)
-- [mini_sudoku](#mini_sudoku)
-- [modulo_grid](#modulo_grid)
-- [n_queens](#n_queens)
-- [needle_haystack](#needle_haystack)
-- [number_filtering](#number_filtering)
-- [number_format](#number_format)
-- [number_sequence](#number_sequence)
-- [number_sorting](#number_sorting)
-- [palindrome](#palindrome)
-- [palindrome_partitioning](#palindrome_partitioning)
-- [polynomial_equations](#polynomial_equations)
-- [polynomial_multiplication](#polynomial_multiplication)
-- [pool_matrix](#pool_matrix)
-- [power_function](#power_function)
-- [prime_factorization](#prime_factorization)
-- [products](#products)
-- [propositional_logic](#propositional_logic)
-- [puzzle24](#puzzle24)
-- [quantum_lock](#quantum_lock)
-- [ransom_note](#ransom_note)
-- [rearc](#rearc)
-- [rectangle_count](#rectangle_count)
-- [rotate_matrix](#rotate_matrix)
-- [rotten_oranges](#rotten_oranges)
-- [rubiks_cube](#rubiks_cube)
-- [rush_hour](#rush_hour)
-- [self_reference](#self_reference)
-- [sentence_reordering](#sentence_reordering)
-- [shortest_path](#shortest_path)
-- [simple_equations](#simple_equations)
-- [simple_geometry](#simple_geometry)
-- [simple_integration](#simple_integration)
-- [sokoban](#sokoban)
-- [spell_backward](#spell_backward)
-- [spiral_matrix](#spiral_matrix)
-- [string_insertion](#string_insertion)
-- [string_manipulation](#string_manipulation)
-- [string_splitting](#string_splitting)
-- [string_synthesis](#string_synthesis)
-- [sudoku](#sudoku)
-- [syllogism](#syllogism)
-- [time_intervals](#time_intervals)
-- [tower_of_hanoi](#tower_of_hanoi)
-- [tsumego](#tsumego)
-- [word_ladder](#word_ladder)
-- [word_sequence_reversal](#word_sequence_reversal)
-- [word_sorting](#word_sorting)
-- [zebra_puzzles](#zebra_puzzles)
+## Available Datasets (101)
+- [ab](#ab) ✅
+- [acre](#acre) ❌
+- [advanced_geometry](#advanced_geometry) ✅
+- [aiw](#aiw) ✅
+- [arc_1d](#arc_1d) ❌
+- [arc_agi](#arc_agi) ❌
+- [base_conversion](#base_conversion) ✅
+- [basic_arithmetic](#basic_arithmetic) ✅
+- [bf](#bf) ✅
+- [binary_alternation](#binary_alternation) ✅
+- [binary_matrix](#binary_matrix) ✅
+- [bitwise_arithmetic](#bitwise_arithmetic) ✅
+- [boxnet](#boxnet) ✅
+- [caesar_cipher](#caesar_cipher) ✅
+- [calendar_arithmetic](#calendar_arithmetic) ✅
+- [chain_sum](#chain_sum) ✅
+- [circuit_logic](#circuit_logic) ✅
+- [codeio](#codeio) ❌
+- [color_cube_rotation](#color_cube_rotation) ✅
+- [complex_arithmetic](#complex_arithmetic) ✅
+- [count_bits](#count_bits) ✅
+- [count_primes](#count_primes) ✅
+- [countdown](#countdown) ❌
+- [course_schedule](#course_schedule) ✅
+- [cryptarithm](#cryptarithm) ✅
+- [decimal_arithmetic](#decimal_arithmetic) ✅
+- [decimal_chain_sum](#decimal_chain_sum) ✅
+- [dice](#dice) ✅
+- [emoji_mystery](#emoji_mystery) ✅
+- [family_relationships](#family_relationships) ✅
+- [figlet_font](#figlet_font) ❌
+- [fraction_simplification](#fraction_simplification) ✅
+- [futoshiki](#futoshiki) ❌
+- [game_of_life](#game_of_life) ✅
+- [game_of_life_halting](#game_of_life_halting) ✅
+- [gcd](#gcd) ❌
+- [graph_color](#graph_color) ✅
+- [group_anagrams](#group_anagrams) ✅
+- [gsm_symbolic](#gsm_symbolic) ❌
+- [intermediate_integration](#intermediate_integration) ✅
+- [isomorphic_strings](#isomorphic_strings) ✅
+- [jugs](#jugs) ❌
+- [knight_swap](#knight_swap) ❌
+- [knights_knaves](#knights_knaves) ❌
+- [largest_island](#largest_island) ✅
+- [lcm](#lcm) ✅
+- [leg_counting](#leg_counting) ✅
+- [letter_counting](#letter_counting) ✅
+- [letter_jumble](#letter_jumble) ✅
+- [list_functions](#list_functions) ❌
+- [mahjong_puzzle](#mahjong_puzzle) ✅
+- [manipulate_matrix](#manipulate_matrix) ✅
+- [maze](#maze) ✅
+- [mini_sudoku](#mini_sudoku) ✅
+- [modulo_grid](#modulo_grid) ✅
+- [n_queens](#n_queens) ✅
+- [needle_haystack](#needle_haystack) ✅
+- [number_filtering](#number_filtering) ✅
+- [number_format](#number_format) ✅
+- [number_sequence](#number_sequence) ✅
+- [number_sorting](#number_sorting) ✅
+- [palindrome_generation](#palindrome_generation) ✅
+- [palindrome_partitioning](#palindrome_partitioning) ✅
+- [polynomial_equations](#polynomial_equations) ✅
+- [polynomial_multiplication](#polynomial_multiplication) ✅
+- [pool_matrix](#pool_matrix) ✅
+- [power_function](#power_function) ✅
+- [prime_factorization](#prime_factorization) ✅
+- [products](#products) ✅
+- [propositional_logic](#propositional_logic) ✅
+- [puzzle24](#puzzle24) ❌
+- [quantum_lock](#quantum_lock) ✅
+- [ransom_note](#ransom_note) ✅
+- [rearc](#rearc) ✅
+- [rectangle_count](#rectangle_count) ✅
+- [rotate_matrix](#rotate_matrix) ✅
+- [rotten_oranges](#rotten_oranges) ✅
+- [rubiks_cube](#rubiks_cube) ✅
+- [rush_hour](#rush_hour) ✅
+- [self_reference](#self_reference) ✅
+- [sentence_reordering](#sentence_reordering) ✅
+- [shortest_path](#shortest_path) ✅
+- [simple_equations](#simple_equations) ✅
+- [simple_geometry](#simple_geometry) ✅
+- [simple_integration](#simple_integration) ✅
+- [sokoban](#sokoban) ✅
+- [spell_backward](#spell_backward) ✅
+- [spiral_matrix](#spiral_matrix) ✅
+- [string_insertion](#string_insertion) ✅
+- [string_manipulation](#string_manipulation) ✅
+- [string_splitting](#string_splitting) ✅
+- [string_synthesis](#string_synthesis) ✅
+- [sudoku](#sudoku) ✅
+- [syllogism](#syllogism) ❌
+- [time_intervals](#time_intervals) ✅
+- [tower_of_hanoi](#tower_of_hanoi) ✅
+- [tsumego](#tsumego) ✅
+- [word_ladder](#word_ladder) ✅
+- [word_sequence_reversal](#word_sequence_reversal) ✅
+- [word_sorting](#word_sorting) ❌
+- [zebra_puzzles](#zebra_puzzles) ✅
 
 ## Dataset Examples
 ### ab
@@ -140,6 +141,7 @@ A# A# #A B# B# B# A# A# #B A#
 Return the final state of the program.
 
 Answer: A# B# B# A# A# A#
+Metadata: {'difficulty': {'length': 10}}
 
 Example 2:
 Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
@@ -165,6 +167,7 @@ A# #A B# #B #A A# #B #B A# #B
 Return the final state of the program.
 
 Answer: #A #B #B #B A# A#
+Metadata: {'difficulty': {'length': 10}}
 
 Example 3:
 Question: A::B is a system with 4 tokens: `A#`, `#A`, `B#` and `#B`.
@@ -190,6 +193,7 @@ Now, consider the following program:
 Return the final state of the program.
 
 Answer: #B B# A# B# A# A#
+Metadata: {'difficulty': {'length': 10}}
 
 ````
 
@@ -305,7 +309,7 @@ Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -
 4. Return only the angle, coordinates, or radius as your answer.
 
 Answer: 17.10°
-Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237, 'task_type': 'angle_measure'}
+Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237, 'task_type': 'angle_measure', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
 
 Example 2:
 Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determine the orthocenter (intersection of altitudes). For all geometry problems:
@@ -315,7 +319,7 @@ Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determ
 4. Return only the angle, coordinates, or radius as your answer.
 
 Answer: (0.304, -1.217)
-Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'ortho': (7/23, -28/23), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262), 'task_type': 'orthocenter'}
+Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'ortho': (7/23, -28/23), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262), 'task_type': 'orthocenter', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
 
 Example 3:
 Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3). For all geometry problems:
@@ -325,7 +329,7 @@ Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), 
 4. Return only the angle, coordinates, or radius as your answer.
 
 Answer: 2.176
-Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009, 'task_type': 'incircle_radius'}
+Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009, 'task_type': 'incircle_radius', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
 
 ````
 
@@ -349,6 +353,7 @@ Default configuration:
 male_names = ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Bob']
 female_names = ['Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Margaret', 'Alice']
 task_types = [<TaskType.SIBLINGS: 'siblings'>, <TaskType.FRIENDS: 'friends'>, <TaskType.COLLEAGUES: 'colleagues'>]
+task_type_weights = [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
 seed = 42
 size = 10
 max_entities = 6
@@ -357,19 +362,19 @@ max_entities = 6
 Example tasks:
 ````
 Example 1:
-Question: Patricia has 6 male colleagues and she also has 3 female colleagues. These are all colleagues that Patricia has. All these mentioned persons around Patricia are colleagues of each other. James has 2 male colleagues and 2 female colleagues in total. All these mentioned persons around James are colleagues of each other. The people in the circle around James do not have other colleagues aside - with the only exception of Matilda. She is colleague of James and she is also colleague of Patricia, being part of Patricia's circle. How many female colleagues does Matilda have?
-Answer: 4
-Metadata: {'task_type': 'colleagues'}
+Question: Mary has 2 male friends and she also has 2 female friends. They all are friends with each other and have no other friends aside. How many female friends does William, a male friend of Mary, have?
+Answer: 3
+Metadata: {'task_type': 'friends', 'difficulty': {'task_type_weight': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
 
 Example 2:
-Question: Elizabeth has 4 brothers and she also has 3 sisters. How many sisters does Elizabeth's brother have?
-Answer: 4
-Metadata: {'task_type': 'siblings'}
+Question: Jennifer has 3 brothers and she also has 6 sisters. How many sisters does Jennifer's brother have?
+Answer: 7
+Metadata: {'task_type': 'siblings', 'difficulty': {'task_type_weight': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
 
 Example 3:
-Question: Sarah has 6 male friends and she also has 1 female friends. They all are friends with each other and have no other friends aside. How many female friends does Thomas, a male friend of Sarah, have?
-Answer: 2
-Metadata: {'task_type': 'friends'}
+Question: Sarah has 2 male friends and she also has 4 female friends. They all are friends with each other and have no other friends aside. How many female friends does John, a male friend of Sarah, have?
+Answer: 5
+Metadata: {'task_type': 'friends', 'difficulty': {'task_type_weight': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
 
 ````
 
@@ -1182,6 +1187,141 @@ Metadata: {'problem': '((0x2e39 + 0x622b) >> 0x0)', 'difficulty': {'difficulty':
 
 ````
 
+### boxnet
+Default configuration:
+```python
+min_row_num = 1
+max_row_num = 4
+min_column_num = 2
+max_column_num = 4
+min_box_num = 1
+max_box_num = 1
+colour_list = ['red', 'blue', 'green']
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: 
+You are a central planner tasked with directing agents in a grid-like field to move colored boxes to their corresponding color-coded targets.
+Each agent occupies a 1x1 square and can only interact with objects within its square. Agents can move a box to an adjacent square or
+directly to a target square of the same color. A square may contain multiple boxes and targets. The squares are identified by their center
+coordinates (e.g., square[0.5, 0.5]). Actions are formatted as: move(box_color, destination), where box_color is the color of the box and
+destination is either a target of the same color or an adjacent square. Your objective is to create a sequence of action plans that instructs
+each agent to match all boxes to their color-coded targets in the most efficient manner.
+
+Please adhere to the following rules when specifying your action plan:
+1. Single Action per Agent: Assign only one action to each agent at a time. However, the final answer shoule be a list of action plans for multiple steps.
+2. Unique Agent Keys: Use unique keys for each agent in the JSON format action plan. The key should be the agent's coordinates in the format "Agent[x, y]".
+3. Prioritize Matching Boxes to Targets: Always prioritize actions that will match a box to its target over moving a box to an adjacent square.
+4. Sequential Action Planning: The whole returned answer should be a list of action plans for multiple steps, do not just return one step plan.
+5. Clear Formatting: Ensure the action plan is clearly formatted in JSON, with each agent's action specified as a key-value pair.
+6. Conflict Resolution: Ensure that no two agents are assigned actions that would interfere with each other.
+7. Optimize Efficiency: Aim to minimize the number of moves required to match all boxes with their targets.
+
+Here is the format for your action plan:
+Please provide your final answer as a list of action dictionaries.
+For example:
+```json
+[{"Agent[0.5, 0.5]":"move(box_blue, square[0.5, 1.5])", "Agent[1.5, 0.5]":"move(box_red, target_red)"}, {"Agent[0.5, 1.5]":"move(box_blue, target_blue)", "Agent[2.5, 0.5]":"move...}, {...}...]
+```
+Include an agent in the action plan only if it has a task to perform next.
+
+
+The current left boxes and agents are: Agent[0.5, 0.5]: I am in square[0.5, 0.5], I can observe ['box_red', 'target_red', 'box_blue', 'target_blue', 'box_green', 'target_green'], I can do ['move(box_red, square[0.5, 1.5])', 'move(box_red, target_red)', 'move(box_blue, square[0.5, 1.5])', 'move(box_blue, target_blue)', 'move(box_green, square[0.5, 1.5])', 'move(box_green, target_green)']
+Agent[0.5, 1.5]: I am in square[0.5, 1.5], I can observe [], I can do []
+
+
+Answer: None
+Metadata: {'difficulty': {'row_num': 1, 'column_num': 2}, 'initial_state': {'0.5_0.5': ['box_red', 'target_red', 'box_blue', 'target_blue', 'box_green', 'target_green'], '0.5_1.5': []}}
+
+Example 2:
+Question: 
+You are a central planner tasked with directing agents in a grid-like field to move colored boxes to their corresponding color-coded targets.
+Each agent occupies a 1x1 square and can only interact with objects within its square. Agents can move a box to an adjacent square or
+directly to a target square of the same color. A square may contain multiple boxes and targets. The squares are identified by their center
+coordinates (e.g., square[0.5, 0.5]). Actions are formatted as: move(box_color, destination), where box_color is the color of the box and
+destination is either a target of the same color or an adjacent square. Your objective is to create a sequence of action plans that instructs
+each agent to match all boxes to their color-coded targets in the most efficient manner.
+
+Please adhere to the following rules when specifying your action plan:
+1. Single Action per Agent: Assign only one action to each agent at a time. However, the final answer shoule be a list of action plans for multiple steps.
+2. Unique Agent Keys: Use unique keys for each agent in the JSON format action plan. The key should be the agent's coordinates in the format "Agent[x, y]".
+3. Prioritize Matching Boxes to Targets: Always prioritize actions that will match a box to its target over moving a box to an adjacent square.
+4. Sequential Action Planning: The whole returned answer should be a list of action plans for multiple steps, do not just return one step plan.
+5. Clear Formatting: Ensure the action plan is clearly formatted in JSON, with each agent's action specified as a key-value pair.
+6. Conflict Resolution: Ensure that no two agents are assigned actions that would interfere with each other.
+7. Optimize Efficiency: Aim to minimize the number of moves required to match all boxes with their targets.
+
+Here is the format for your action plan:
+Please provide your final answer as a list of action dictionaries.
+For example:
+```json
+[{"Agent[0.5, 0.5]":"move(box_blue, square[0.5, 1.5])", "Agent[1.5, 0.5]":"move(box_red, target_red)"}, {"Agent[0.5, 1.5]":"move(box_blue, target_blue)", "Agent[2.5, 0.5]":"move...}, {...}...]
+```
+Include an agent in the action plan only if it has a task to perform next.
+
+
+The current left boxes and agents are: Agent[0.5, 0.5]: I am in square[0.5, 0.5], I can observe ['target_green'], I can do []
+Agent[0.5, 1.5]: I am in square[0.5, 1.5], I can observe ['box_red', 'target_red', 'box_blue'], I can do ['move(box_red, square[0.5, 0.5])', 'move(box_red, square[0.5, 2.5])', 'move(box_red, target_red)', 'move(box_blue, square[0.5, 0.5])', 'move(box_blue, square[0.5, 2.5])']
+Agent[0.5, 2.5]: I am in square[0.5, 2.5], I can observe ['target_blue', 'box_green'], I can do ['move(box_green, square[0.5, 1.5])']
+
+
+Answer: None
+Metadata: {'difficulty': {'row_num': 1, 'column_num': 3}, 'initial_state': {'0.5_0.5': ['target_green'], '0.5_1.5': ['box_red', 'target_red', 'box_blue'], '0.5_2.5': ['target_blue', 'box_green']}}
+
+Example 3:
+Question: 
+You are a central planner tasked with directing agents in a grid-like field to move colored boxes to their corresponding color-coded targets.
+Each agent occupies a 1x1 square and can only interact with objects within its square. Agents can move a box to an adjacent square or
+directly to a target square of the same color. A square may contain multiple boxes and targets. The squares are identified by their center
+coordinates (e.g., square[0.5, 0.5]). Actions are formatted as: move(box_color, destination), where box_color is the color of the box and
+destination is either a target of the same color or an adjacent square. Your objective is to create a sequence of action plans that instructs
+each agent to match all boxes to their color-coded targets in the most efficient manner.
+
+Please adhere to the following rules when specifying your action plan:
+1. Single Action per Agent: Assign only one action to each agent at a time. However, the final answer shoule be a list of action plans for multiple steps.
+2. Unique Agent Keys: Use unique keys for each agent in the JSON format action plan. The key should be the agent's coordinates in the format "Agent[x, y]".
+3. Prioritize Matching Boxes to Targets: Always prioritize actions that will match a box to its target over moving a box to an adjacent square.
+4. Sequential Action Planning: The whole returned answer should be a list of action plans for multiple steps, do not just return one step plan.
+5. Clear Formatting: Ensure the action plan is clearly formatted in JSON, with each agent's action specified as a key-value pair.
+6. Conflict Resolution: Ensure that no two agents are assigned actions that would interfere with each other.
+7. Optimize Efficiency: Aim to minimize the number of moves required to match all boxes with their targets.
+
+Here is the format for your action plan:
+Please provide your final answer as a list of action dictionaries.
+For example:
+```json
+[{"Agent[0.5, 0.5]":"move(box_blue, square[0.5, 1.5])", "Agent[1.5, 0.5]":"move(box_red, target_red)"}, {"Agent[0.5, 1.5]":"move(box_blue, target_blue)", "Agent[2.5, 0.5]":"move...}, {...}...]
+```
+Include an agent in the action plan only if it has a task to perform next.
+
+
+The current left boxes and agents are: Agent[0.5, 0.5]: I am in square[0.5, 0.5], I can observe ['target_blue', 'target_green'], I can do []
+Agent[0.5, 1.5]: I am in square[0.5, 1.5], I can observe [], I can do []
+Agent[0.5, 2.5]: I am in square[0.5, 2.5], I can observe [], I can do []
+Agent[0.5, 3.5]: I am in square[0.5, 3.5], I can observe ['box_green'], I can do ['move(box_green, square[1.5, 3.5])', 'move(box_green, square[0.5, 2.5])']
+Agent[1.5, 0.5]: I am in square[1.5, 0.5], I can observe [], I can do []
+Agent[1.5, 1.5]: I am in square[1.5, 1.5], I can observe ['box_red'], I can do ['move(box_red, square[0.5, 1.5])', 'move(box_red, square[2.5, 1.5])', 'move(box_red, square[1.5, 0.5])', 'move(box_red, square[1.5, 2.5])']
+Agent[1.5, 2.5]: I am in square[1.5, 2.5], I can observe [], I can do []
+Agent[1.5, 3.5]: I am in square[1.5, 3.5], I can observe [], I can do []
+Agent[2.5, 0.5]: I am in square[2.5, 0.5], I can observe [], I can do []
+Agent[2.5, 1.5]: I am in square[2.5, 1.5], I can observe ['box_blue'], I can do ['move(box_blue, square[1.5, 1.5])', 'move(box_blue, square[3.5, 1.5])', 'move(box_blue, square[2.5, 0.5])', 'move(box_blue, square[2.5, 2.5])']
+Agent[2.5, 2.5]: I am in square[2.5, 2.5], I can observe [], I can do []
+Agent[2.5, 3.5]: I am in square[2.5, 3.5], I can observe [], I can do []
+Agent[3.5, 0.5]: I am in square[3.5, 0.5], I can observe ['target_red'], I can do []
+Agent[3.5, 1.5]: I am in square[3.5, 1.5], I can observe [], I can do []
+Agent[3.5, 2.5]: I am in square[3.5, 2.5], I can observe [], I can do []
+Agent[3.5, 3.5]: I am in square[3.5, 3.5], I can observe [], I can do []
+
+
+Answer: None
+Metadata: {'difficulty': {'row_num': 4, 'column_num': 4}, 'initial_state': {'0.5_0.5': ['target_blue', 'target_green'], '0.5_1.5': [], '0.5_2.5': [], '0.5_3.5': ['box_green'], '1.5_0.5': [], '1.5_1.5': ['box_red'], '1.5_2.5': [], '1.5_3.5': [], '2.5_0.5': [], '2.5_1.5': ['box_blue'], '2.5_2.5': [], '2.5_3.5': [], '3.5_0.5': ['target_red'], '3.5_1.5': [], '3.5_2.5': [], '3.5_3.5': []}}
+
+````
+
 ### caesar_cipher
 Generates Caesar cipher encryption/decryption tasks
 
@@ -1300,7 +1440,8 @@ Generates random digital logic circuits (in ASCII) together with:
 
 Default configuration:
 ```python
-num_terms = 5
+min_terms = 3
+max_terms = 5
 min_inputs = 2
 max_inputs = 4
 neg_prob = 0.3
@@ -1368,43 +1509,70 @@ Given the following input assignments:
 
 What is the final output?
 Answer: 1
-Metadata: {'expression': "(A'&A&B'&A')+(C&D&D&E')+(C'&F&A&C)+(G⊕E'⊕H)+(B'↑E↑I↑H)", 'assignments': {'A': 1, 'B': 0, 'C': 1, 'D': 1, 'E': 0, 'F': 1, 'G': 0, 'H': 0, 'I': 0}, 'term_strings': ["A'&A&B'&A'", "C&D&D&E'", "C'&F&A&C", "G⊕E'⊕H", "B'↑E↑I↑H"], 'final_gate': 'OR', 'inputs': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']}
+Metadata: {'expression': "(A'&A&B'&A')+(C&D&D&E')+(C'&F&A&C)+(G⊕E'⊕H)+(B'↑E↑I↑H)", 'assignments': {'A': 1, 'B': 0, 'C': 1, 'D': 1, 'E': 0, 'F': 1, 'G': 0, 'H': 0, 'I': 0}, 'term_strings': ["A'&A&B'&A'", "C&D&D&E'", "C'&F&A&C", "G⊕E'⊕H", "B'↑E↑I↑H"], 'final_gate': 'OR', 'inputs': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], 'difficulty': {'terms': 5, 'inputs': (2, 4)}}
 
 Example 2:
 Question: Below is a randomly generated logic circuit.
 
-A: ─────────────────────┐
-B: ───────────────────┐ │
-C: ─────────────────┐ │ │
-D: ───────────────┐ │ │ │
-E: ─────────────┐ │ │ │ │
-F: ───────────┐ │ │ │ │ │
-G: ─────────┐ │ │ │ │ │ │
-H: ───────┐ │ │ │ │ │ │ │
-I: ─────┐ │ │ │ │ │ │ │ │
-J: ───┐ │ │ │ │ │ │ │ │ │
-K: ─┐ │ │ │ │ │ │ │ │ │ │
-    │ │ │ │ │ │ │ │ │ │ ├────│↑↑
-    │ │ │ │ │ │ │ │ │ ├──────│↑↑───┐
-    │ │ │ │ │ │ │ │ └─────>o─│↑↑   │
-    │ │ │ │ │ │ │ └──────────│↑↑   │
-    │ │ │ │ │ │ │     │ │          │
-    │ │ │ │ │ │ └────────────│⊕⊕   │
-    │ │ │ │ │ └──────────────│⊕⊕──┐│
-    │ │ │ │ └────────────────│⊕⊕  ││
-    │ │ │ │           │ │         │└───│++
-    │ │ │ ├──────────────────│&&─┐└────│++
-    │ │ │ └───────────────>o─│&& └─────│++─── OUT
-    │ │ │             │ │         ┌────│++
-    │ │ └─────────────────>o─│↑↑  │┌───│++
-    │ │               ├───>o─│↑↑──┘│
-    │ │               │ └────│↑↑   │
-    │ │               └──────│↑↑   │
-    │ │                            │
-    │ ├──────────────────────│&&   │
-    │ └──────────────────────│&&───┘
-    ├────────────────────────│&&
-    └────────────────────────│&&
+A: ───────┐
+B: ─────┐ │
+C: ───┐ │ │
+D: ─┐ │ │ │
+    │ │ │ ├────│⊕⊕──┐
+    │ │ │ ├────│⊕⊕  │
+    │ │ │ │         │
+    │ │ │ ├────│↑↑  │
+    │ │ ├──────│↑↑─┐└──│⊕⊕
+    │ └────────│↑↑ └───│⊕⊕─── OUT
+    │   │ ├────│↑↑  ┌──│⊕⊕
+    │   │ │         │
+    │   │ └────│&&  │
+    │   └──────│&&──┘
+    └──────────│&&
+
+
+Legend for gates:
+&&: AND
+↑↑: NAND
+⊕⊕: XOR
+>o: Negate
+⊕⊕: XOR
+
+Given the following input assignments:
+  A = 1
+  B = 0
+  C = 0
+  D = 0
+
+What is the final output?
+Answer: 1
+Metadata: {'expression': '(A⊕A)⊕(A↑B↑C↑A)⊕(A&B&D)', 'assignments': {'A': 1, 'B': 0, 'C': 0, 'D': 0}, 'term_strings': ['A⊕A', 'A↑B↑C↑A', 'A&B&D'], 'final_gate': 'XOR', 'inputs': ['A', 'B', 'C', 'D'], 'difficulty': {'terms': 3, 'inputs': (2, 4)}}
+
+Example 3:
+Question: Below is a randomly generated logic circuit.
+
+A: ─────────┐
+B: ───────┐ │
+C: ─────┐ │ │
+D: ───┐ │ │ │
+E: ─┐ │ │ │ │
+    │ │ │ │ ├─>o─│&&
+    │ │ │ │ ├────│&&───┐
+    │ │ │ │ ├────│&&   │
+    │ │ │ │ │          │
+    │ │ │ │ ├────│↑↑   │
+    │ │ │ │ ├────│↑↑──┐│
+    │ │ │ │ ├────│↑↑  │└──│++
+    │ │ │ │ ├─>o─│↑↑  └───│++
+    │ │ │ │ │        ┌────│++─── OUT
+    │ │ │ │ ├─>o─│⊕⊕ │┌───│++
+    │ │ │ │ ├─>o─│⊕⊕─┘│
+    │ │ │ │ └────│⊕⊕  │
+    │ │ │ │           │
+    │ │ │ └──────│&&  │
+    │ │ └────────│&&──┘
+    │ └──────────│&&
+    └────────────│&&
 
 
 Legend for gates:
@@ -1415,74 +1583,15 @@ Legend for gates:
 ++: OR
 
 Given the following input assignments:
-  A = 0
-  B = 0
+  A = 1
+  B = 1
   C = 0
-  D = 1
-  E = 0
-  F = 1
-  G = 1
-  H = 0
-  I = 0
-  J = 0
-  K = 1
+  D = 0
+  E = 1
 
 What is the final output?
 Answer: 1
-Metadata: {'expression': "(A↑B↑C'↑D)+(E⊕F⊕G)+(H&H')+(I'↑B'↑A↑B)+(J&J&K&K)", 'assignments': {'A': 0, 'B': 0, 'C': 0, 'D': 1, 'E': 0, 'F': 1, 'G': 1, 'H': 0, 'I': 0, 'J': 0, 'K': 1}, 'term_strings': ["A↑B↑C'↑D", 'E⊕F⊕G', "H&H'", "I'↑B'↑A↑B", 'J&J&K&K'], 'final_gate': 'OR', 'inputs': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K']}
-
-Example 3:
-Question: Below is a randomly generated logic circuit.
-
-A: ───────────┐
-B: ─────────┐ │
-C: ───────┐ │ │
-D: ─────┐ │ │ │
-E: ───┐ │ │ │ │
-F: ─┐ │ │ │ │ │
-    │ │ │ │ │ ├────│⊕⊕
-    │ │ │ │ │ ├─>o─│⊕⊕───┐
-    │ │ │ │ │ ├────│⊕⊕   │
-    │ │ │ │ │ ├────│⊕⊕   │
-    │ │ │ │ │ │          │
-    │ │ │ │ │ ├────│↑↑   │
-    │ │ │ │ │ ├────│↑↑──┐│
-    │ │ │ │ │ ├────│↑↑  ││
-    │ │ │ │ │ ├─>o─│↑↑  ││
-    │ │ │ │ │ │         │└───│&&
-    │ │ │ │ │ ├─>o─│⊕⊕  └────│&&
-    │ │ │ │ │ ├─>o─│⊕⊕───────│&&─── OUT
-    │ │ │ │ │ ├────│⊕⊕  ┌────│&&
-    │ │ │ │ │ │         │┌───│&&
-    │ │ │ │ └──────│&&  ││
-    │ │ │ ├────────│&&──┘│
-    │ │ └──────────│&&   │
-    │ ├────────────│&&   │
-    │ │   │   │          │
-    │ └─────────>o─│↑↑   │
-    │     └────────│↑↑───┘
-    └──────────────│↑↑
-              └─>o─│↑↑
-
-
-Legend for gates:
-&&: AND
-↑↑: NAND
-⊕⊕: XOR
->o: Negate
-&&: AND
-
-Given the following input assignments:
-  A = 0
-  B = 1
-  C = 1
-  D = 0
-  E = 1
-  F = 0
-
-What is the final output?
-Answer: 0
-Metadata: {'expression': "(A⊕A'⊕A⊕A)&(A↑A↑A↑A')&(A'⊕A'⊕A)&(B&C&D&E)&(E'↑C↑F↑A')", 'assignments': {'A': 0, 'B': 1, 'C': 1, 'D': 0, 'E': 1, 'F': 0}, 'term_strings': ["A⊕A'⊕A⊕A", "A↑A↑A↑A'", "A'⊕A'⊕A", 'B&C&D&E', "E'↑C↑F↑A'"], 'final_gate': 'AND', 'inputs': ['A', 'B', 'C', 'D', 'E', 'F']}
+Metadata: {'expression': "(A'&A&A)+(A↑A↑A↑A')+(A'⊕A'⊕A)+(B&C&D&E)", 'assignments': {'A': 1, 'B': 1, 'C': 0, 'D': 0, 'E': 1}, 'term_strings': ["A'&A&A", "A↑A↑A↑A'", "A'⊕A'⊕A", 'B&C&D&E'], 'final_gate': 'OR', 'inputs': ['A', 'B', 'C', 'D', 'E'], 'difficulty': {'terms': 4, 'inputs': (2, 4)}}
 
 ````
 
@@ -1654,7 +1763,7 @@ The cube is rotated so that the side which was before at the bottom is now at th
 What is now the color of the back side of the cube?
 Provide only the color as your final answer.
 Answer: orange
-Metadata: {'initial_state': {'top': 'pink', 'right': 'gray', 'front': 'orange', 'left': 'purple', 'back': 'indigo', 'bottom': 'cyan'}, 'rotations': ['bottom'], 'target_side': 'back', 'num_rotations': 1}
+Metadata: {'initial_state': {'top': 'pink', 'right': 'gray', 'front': 'orange', 'left': 'purple', 'back': 'indigo', 'bottom': 'cyan'}, 'rotations': ['bottom'], 'target_side': 'back', 'num_rotations': 1, 'difficulty': {'rotations': 1}}
 
 Example 2:
 Question: A cube has:
@@ -1674,7 +1783,7 @@ After that the cube is turned to make the bottom face the top.
 What is now the color of the left side of the cube?
 Provide only the color as your final answer.
 Answer: yellow
-Metadata: {'initial_state': {'top': 'gray', 'right': 'brown', 'front': 'silver', 'left': 'red', 'back': 'purple', 'bottom': 'yellow'}, 'rotations': ['left', 'bottom', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
+Metadata: {'initial_state': {'top': 'gray', 'right': 'brown', 'front': 'silver', 'left': 'red', 'back': 'purple', 'bottom': 'yellow'}, 'rotations': ['left', 'bottom', 'bottom'], 'target_side': 'left', 'num_rotations': 3, 'difficulty': {'rotations': 3}}
 
 Example 3:
 Question: A cube has:
@@ -1694,7 +1803,7 @@ Now the cube is rotated to place its bottom side at the top.
 What is now the color of the left side of the cube?
 Provide only the color as your final answer.
 Answer: gold
-Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3}
+Metadata: {'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3, 'difficulty': {'rotations': 3}}
 
 ````
 
@@ -1940,7 +2049,7 @@ Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
 Answer: F=3,I=4,K=2,L=9,M=1,O=8,P=0,Z=7
-Metadata: {'letters': ['L', 'O', 'K', 'I', 'P', 'Z', 'M', 'F'], 'word_values': [381, 42098], 'sum_number': 42479, 'words_letters': ['FOM', 'IKPLO'], 'result_letters': 'IKIZL', 'digit_to_letter': {'9': 'L', '8': 'O', '2': 'K', '4': 'I', '0': 'P', '7': 'Z', '1': 'M', '3': 'F'}, 'letter_to_digit': {'L': 9, 'O': 8, 'K': 2, 'I': 4, 'P': 0, 'Z': 7, 'M': 1, 'F': 3}}
+Metadata: {'letters': ['L', 'O', 'K', 'I', 'P', 'Z', 'M', 'F'], 'word_values': [381, 42098], 'sum_number': 42479, 'words_letters': ['FOM', 'IKPLO'], 'result_letters': 'IKIZL', 'digit_to_letter': {'9': 'L', '8': 'O', '2': 'K', '4': 'I', '0': 'P', '7': 'Z', '1': 'M', '3': 'F'}, 'letter_to_digit': {'L': 9, 'O': 8, 'K': 2, 'I': 4, 'P': 0, 'Z': 7, 'M': 1, 'F': 3}, 'difficulty': {'min_words': 2, 'max_words': 3}}
 
 Example 2:
 Question: Solve this cryptarithm:
@@ -1954,7 +2063,7 @@ Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
 Answer: D=8,E=9,H=3,I=0,J=7,K=2,O=6,P=5
-Metadata: {'letters': ['O', 'K', 'H', 'P', 'I', 'D', 'E', 'J'], 'word_values': [3358, 70625], 'sum_number': 73983, 'words_letters': ['HHPD', 'JIOKP'], 'result_letters': 'JHEDH', 'digit_to_letter': {'6': 'O', '2': 'K', '3': 'H', '5': 'P', '0': 'I', '8': 'D', '9': 'E', '7': 'J'}, 'letter_to_digit': {'O': 6, 'K': 2, 'H': 3, 'P': 5, 'I': 0, 'D': 8, 'E': 9, 'J': 7}}
+Metadata: {'letters': ['O', 'K', 'H', 'P', 'I', 'D', 'E', 'J'], 'word_values': [3358, 70625], 'sum_number': 73983, 'words_letters': ['HHPD', 'JIOKP'], 'result_letters': 'JHEDH', 'digit_to_letter': {'6': 'O', '2': 'K', '3': 'H', '5': 'P', '0': 'I', '8': 'D', '9': 'E', '7': 'J'}, 'letter_to_digit': {'O': 6, 'K': 2, 'H': 3, 'P': 5, 'I': 0, 'D': 8, 'E': 9, 'J': 7}, 'difficulty': {'min_words': 2, 'max_words': 3}}
 
 Example 3:
 Question: Solve this cryptarithm:
@@ -1969,7 +2078,7 @@ Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
 Answer: A=0,G=7,H=9,N=8,P=3,R=2,X=1,Z=5
-Metadata: {'letters': ['Z', 'H', 'N', 'G', 'X', 'A', 'R', 'P'], 'word_values': [25290, 33155, 59750], 'sum_number': 118195, 'words_letters': ['RZRHA', 'PPXZZ', 'ZHGZA'], 'result_letters': 'XXNXHZ', 'digit_to_letter': {'5': 'Z', '9': 'H', '8': 'N', '7': 'G', '1': 'X', '0': 'A', '2': 'R', '3': 'P'}, 'letter_to_digit': {'Z': 5, 'H': 9, 'N': 8, 'G': 7, 'X': 1, 'A': 0, 'R': 2, 'P': 3}}
+Metadata: {'letters': ['Z', 'H', 'N', 'G', 'X', 'A', 'R', 'P'], 'word_values': [25290, 33155, 59750], 'sum_number': 118195, 'words_letters': ['RZRHA', 'PPXZZ', 'ZHGZA'], 'result_letters': 'XXNXHZ', 'digit_to_letter': {'5': 'Z', '9': 'H', '8': 'N', '7': 'G', '1': 'X', '0': 'A', '2': 'R', '3': 'P'}, 'letter_to_digit': {'Z': 5, 'H': 9, 'N': 8, 'G': 7, 'X': 1, 'A': 0, 'R': 2, 'P': 3}, 'difficulty': {'min_words': 2, 'max_words': 3}}
 
 ````
 
@@ -2059,18 +2168,18 @@ Example tasks:
 ````
 Example 1:
 Question: I have these dice: 1d20, 1d10, 1d5, 1d2. What are the odds of rolling 18 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
-Answer: (13, 20)/0.65
-Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}}
+Answer: 13/20
+Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}, 'puzzle': {'dice_str': '1d20, 1d10, 1d5, 1d2', 'target': 18, 'num': 13, 'den': 20, 'probability': 0.65}}
 
 Example 2:
 Question: I have these dice: 1d20, 1d11, 1d6, 1d3. What are the odds of rolling 23 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
-Answer: (19, 40)/0.475
-Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}}
+Answer: 19/40
+Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}, 'puzzle': {'dice_str': '1d20, 1d11, 1d6, 1d3', 'target': 23, 'num': 19, 'den': 40, 'probability': 0.475}}
 
 Example 3:
 Question: I have these dice: 1d20, 1d19, 1d18, 1d15. What are the odds of rolling 48 or higher? (Assume that all dice are rolled at once, and that '1d6' represents one roll of a 6-sided dice.) Please respond with a reduced fraction representing the probability [ex., 1/60].
-Answer: (9677, 51300)/0.18863547758284602
-Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}}
+Answer: 9677/51300
+Metadata: {'difficulty': {'num_dice': 4, 'max_dice_size': 20}, 'puzzle': {'dice_str': '1d20, 1d19, 1d18, 1d15', 'target': 48, 'num': 9677, 'den': 51300, 'probability': 0.18863547758284602}}
 
 ````
 
@@ -2115,7 +2224,7 @@ def decode(encoded_sentence):
 Return the secret sentence as your final answer.
 
 Answer: Fritz Napoleon Smith awoke in very bad humor.
-Metadata: {'emoji': '😽'}
+Metadata: {'emoji': '😽', 'difficulty': {'num_words_in_sentence': 8}}
 
 Example 2:
 Question: The following emoji is encoded with a sentence.
@@ -2147,7 +2256,7 @@ def decode(encoded_sentence):
 Return the secret sentence as your final answer.
 
 Answer: And indeed, so confident was their air, they seemed to have no doubt as to the possibility of success in such an undertaking.
-Metadata: {'emoji': '😆'}
+Metadata: {'emoji': '😆', 'difficulty': {'num_words_in_sentence': 23}}
 
 Example 3:
 Question: The following emoji is encoded with a sentence.
@@ -2179,7 +2288,7 @@ def decode(encoded_sentence):
 Return the secret sentence as your final answer.
 
 Answer: In fact, one of them wanted to revive painting, an art fallen into desuetude owing to the progress made in color-photography.
-Metadata: {'emoji': '😱'}
+Metadata: {'emoji': '😱', 'difficulty': {'num_words_in_sentence': 22}}
 
 ````
 
@@ -2203,21 +2312,21 @@ Question: John is married to Isabella. They have a child called Edward. Edward i
 
 What is Isabella to Edward? Respond only with the word that describes their relationship.
 Answer: mother
-Metadata: {'person1': 'Isabella', 'person2': 'Edward', 'relationship': 'mother', 'family_size': 4}
+Metadata: {'person1': 'Isabella', 'person2': 'Edward', 'relationship': 'mother', 'family_size': 4, 'difficulty': {'family_size': 4}}
 
 Example 2:
 Question: Henry is married to Karen. They have a child called Sebastian. Sebastian is married to Eleanor.
 
 What relation is Henry to Karen? Answer with a single word.
 Answer: husband
-Metadata: {'person1': 'Henry', 'person2': 'Karen', 'relationship': 'husband', 'family_size': 4}
+Metadata: {'person1': 'Henry', 'person2': 'Karen', 'relationship': 'husband', 'family_size': 4, 'difficulty': {'family_size': 4}}
 
 Example 3:
 Question: Liam is married to Nova. They have a child called Noah. Noah is married to Charlotte. They have a child called Patricia. Joseph is married to Lisa. They have a child called Charlotte.
 
 What is Liam to Noah? Respond only with the word that describes their relationship.
 Answer: father
-Metadata: {'person1': 'Liam', 'person2': 'Noah', 'relationship': 'father', 'family_size': 7}
+Metadata: {'person1': 'Liam', 'person2': 'Noah', 'relationship': 'father', 'family_size': 7, 'difficulty': {'family_size': 7}}
 
 ````
 
@@ -2301,17 +2410,17 @@ Example tasks:
 Example 1:
 Question: Simplify the fraction $\frac{92}{524}$ to its lowest terms. Give only the simplified fraction as your final answer.
 Answer: $\frac{23}{131}$
-Metadata: {'numerator': 92, 'denominator': 524, 'simplified_numerator': 23, 'simplified_denominator': 131, 'reduction_factor': 4, 'style': 'latex_frac'}
+Metadata: {'numerator': 92, 'denominator': 524, 'simplified_numerator': 23, 'simplified_denominator': 131, 'reduction_factor': 4, 'style': 'latex_frac', 'difficulty': {'factor': 4, 'value': (23, 131)}}
 
 Example 2:
 Question: Simplify the fraction $3600/26370$ to its lowest terms. Give only the simplified fraction as your final answer.
 Answer: $40/293$
-Metadata: {'numerator': 3600, 'denominator': 26370, 'simplified_numerator': 40, 'simplified_denominator': 293, 'reduction_factor': 90, 'style': 'latex_inline'}
+Metadata: {'numerator': 3600, 'denominator': 26370, 'simplified_numerator': 40, 'simplified_denominator': 293, 'reduction_factor': 90, 'style': 'latex_inline', 'difficulty': {'factor': 90, 'value': (40, 293)}}
 
 Example 3:
 Question: Simplify the fraction 29330/37310 to its lowest terms. Give only the simplified fraction as your final answer.
 Answer: 419/533
-Metadata: {'numerator': 29330, 'denominator': 37310, 'simplified_numerator': 419, 'simplified_denominator': 533, 'reduction_factor': 70, 'style': 'plain'}
+Metadata: {'numerator': 29330, 'denominator': 37310, 'simplified_numerator': 419, 'simplified_denominator': 533, 'reduction_factor': 70, 'style': 'plain', 'difficulty': {'factor': 70, 'value': (419, 533)}}
 
 ````
 
@@ -2320,8 +2429,10 @@ Generates Futoshiki puzzles with configurable board size and difficulty
 
 Default configuration:
 ```python
-board_size = 4
-difficulty = 1
+min_board_size = 4
+max_board_size = 9
+min_difficulty = 0
+max_difficulty = 3
 seed = 42
 size = 500
 ```
@@ -2329,73 +2440,105 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Solve the following 4x4 Futoshiki puzzle:
+Question: Solve the following 9x9 Futoshiki puzzle:
 
-_ > _   _   _
-             
-4   _   _   _
-             
-_   1   3   _
-             
-1 < _   _   _
+8   4   _   9   _   _   2   5   _
+                                 
+_   _   5   3   2   _   _   1   _
+                                 
+3   _   _   8   _   _   _   _   _
+                            ∧    
+_   _   6   4   3   2   _   _   5
+                                 
+_   _   2   7   _   1   9   6   4
+        ∧   ∨                    
+7   9   _   _   1   4   5   _   _
+                                 
+_   _   _   6   _   5   3   9   8
+                                 
+_   _   _   _   _   _   4   2   _
+                                 
+_   7   9   _   _   _   _   8   2
 
 Ensure your answer follows the same format as the puzzle above, just replace blanks (_) with the correct value for the cell.
 Use < and > for horizontal constraints. Use ∧ and ∨ for vertical constraints.
-Remember, in Futoshiki each row and column must contain each number from 1 to 4 exactly once.
-Answer: 3 > 2   4   1
-             
-4   3   1   2
-             
-2   1   3   4
-             
-1 < 4   2   3
-Metadata: {'puzzle': [[0, 0, 0, 0], [4, 0, 0, 0], [0, 1, 3, 0], [1, 0, 0, 0]], 'constraints': {((0, 0), (0, 1)): '>', ((3, 0), (3, 1)): '<'}, 'solution': [[3, 2, 4, 1], [4, 3, 1, 2], [2, 1, 3, 4], [1, 4, 2, 3]], 'board_size': 4, 'difficulty': 1}
+Remember, in Futoshiki each row and column must contain each number from 1 to 9 exactly once.
+Answer: 8   4   3   9   6   7   2   5   1
+                                 
+4   6   5   3   2   9   8   1   7
+                                 
+3   2   1   8   5   6   7   4   9
+                            ∧    
+9   8   6   4   3   2   1   7   5
+                                 
+5   3   2   7   8   1   9   6   4
+        ∧   ∨                    
+7   9   8   2   1   4   5   3   6
+                                 
+2   1   4   6   7   5   3   9   8
+                                 
+6   5   7   1   9   8   4   2   3
+                                 
+1   7   9   5   4   3   6   8   2
+Metadata: {'puzzle': [[8, 4, 0, 9, 0, 0, 2, 5, 0], [0, 0, 5, 3, 2, 0, 0, 1, 0], [3, 0, 0, 8, 0, 0, 0, 0, 0], [0, 0, 6, 4, 3, 2, 0, 0, 5], [0, 0, 2, 7, 0, 1, 9, 6, 4], [7, 9, 0, 0, 1, 4, 5, 0, 0], [0, 0, 0, 6, 0, 5, 3, 9, 8], [0, 0, 0, 0, 0, 0, 4, 2, 0], [0, 7, 9, 0, 0, 0, 0, 8, 2]], 'constraints': {((2, 7), (3, 7)): '<', ((4, 2), (5, 2)): '<', ((4, 3), (5, 3)): '>'}, 'solution': [[8, 4, 3, 9, 6, 7, 2, 5, 1], [4, 6, 5, 3, 2, 9, 8, 1, 7], [3, 2, 1, 8, 5, 6, 7, 4, 9], [9, 8, 6, 4, 3, 2, 1, 7, 5], [5, 3, 2, 7, 8, 1, 9, 6, 4], [7, 9, 8, 2, 1, 4, 5, 3, 6], [2, 1, 4, 6, 7, 5, 3, 9, 8], [6, 5, 7, 1, 9, 8, 4, 2, 3], [1, 7, 9, 5, 4, 3, 6, 8, 2]], 'difficulty': {'board_size': 9, 'difficulty': 0}}
 
 Example 2:
 Question: Solve the following 4x4 Futoshiki puzzle:
 
-_   _   _   _
-            ∧
-_   _   _   _
-             
-_   _   3   4
-    ∧       ∨
-_   2   _ < _
+_   3 < _ > _
+∧   ∨   ∨    
+_ > _   _   _
+        ∨    
+_   _ > _ < _
+∧            
+_   1   _   _
 
 Ensure your answer follows the same format as the puzzle above, just replace blanks (_) with the correct value for the cell.
 Use < and > for horizontal constraints. Use ∧ and ∨ for vertical constraints.
 Remember, in Futoshiki each row and column must contain each number from 1 to 4 exactly once.
-Answer: 3   4   2   1
-            ∧
-1   3   4   2
-             
-2   1   3   4
-    ∧       ∨
-4   2   1 < 3
-Metadata: {'puzzle': [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 3, 4], [0, 2, 0, 0]], 'constraints': {((0, 3), (1, 3)): '<', ((2, 1), (3, 1)): '<', ((2, 3), (3, 3)): '>', ((3, 2), (3, 3)): '<'}, 'solution': [[3, 4, 2, 1], [1, 3, 4, 2], [2, 1, 3, 4], [4, 2, 1, 3]], 'board_size': 4, 'difficulty': 1}
+Answer: 1   3 < 4 > 2
+∧   ∨   ∨    
+4 > 2   3   1
+        ∨    
+2   4 > 1 < 3
+∧            
+3   1   2   4
+Metadata: {'puzzle': [[0, 3, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]], 'constraints': {((0, 0), (1, 0)): '<', ((0, 1), (0, 2)): '<', ((0, 1), (1, 1)): '>', ((0, 2), (0, 3)): '>', ((0, 2), (1, 2)): '>', ((1, 0), (1, 1)): '>', ((1, 2), (2, 2)): '>', ((2, 0), (3, 0)): '<', ((2, 1), (2, 2)): '>', ((2, 2), (2, 3)): '<'}, 'solution': [[1, 3, 4, 2], [4, 2, 3, 1], [2, 4, 1, 3], [3, 1, 2, 4]], 'difficulty': {'board_size': 4, 'difficulty': 2}}
 
 Example 3:
-Question: Solve the following 4x4 Futoshiki puzzle:
+Question: Solve the following 7x7 Futoshiki puzzle:
 
-_   _   _   _
-             
-_   4   _   2
-             
-_   _   _   _
-            ∧
-1   _   4   _
+_   _   _   _   7   _   _
+                         
+3   2   _   _   _   _   _
+                        ∧
+_   _   2   5   _   _   7
+                         
+_   _   6   _   1   5   _
+                ∧        
+4   _   _   2   6   1   _
+                         
+7   _   _   _   _   3   _
+                         
+_   5   _   _   _   2   4
 
 Ensure your answer follows the same format as the puzzle above, just replace blanks (_) with the correct value for the cell.
 Use < and > for horizontal constraints. Use ∧ and ∨ for vertical constraints.
-Remember, in Futoshiki each row and column must contain each number from 1 to 4 exactly once.
-Answer: 2   1   3   4
-             
-3   4   1   2
-             
-4   3   2   1
-            ∧
-1   2   4   3
-Metadata: {'puzzle': [[0, 0, 0, 0], [0, 4, 0, 2], [0, 0, 0, 0], [1, 0, 4, 0]], 'constraints': {((2, 3), (3, 3)): '<'}, 'solution': [[2, 1, 3, 4], [3, 4, 1, 2], [4, 3, 2, 1], [1, 2, 4, 3]], 'board_size': 4, 'difficulty': 1}
+Remember, in Futoshiki each row and column must contain each number from 1 to 7 exactly once.
+Answer: 5   6   1   3   7   4   2
+                         
+3   2   4   6   5   7   1
+                        ∧
+1   3   2   5   4   6   7
+                         
+2   4   6   7   1   5   3
+                ∧        
+4   7   3   2   6   1   5
+                         
+7   1   5   4   2   3   6
+                         
+6   5   7   1   3   2   4
+Metadata: {'puzzle': [[0, 0, 0, 0, 7, 0, 0], [3, 2, 0, 0, 0, 0, 0], [0, 0, 2, 5, 0, 0, 7], [0, 0, 6, 0, 1, 5, 0], [4, 0, 0, 2, 6, 1, 0], [7, 0, 0, 0, 0, 3, 0], [0, 5, 0, 0, 0, 2, 4]], 'constraints': {((1, 6), (2, 6)): '<', ((3, 4), (4, 4)): '<'}, 'solution': [[5, 6, 1, 3, 7, 4, 2], [3, 2, 4, 6, 5, 7, 1], [1, 3, 2, 5, 4, 6, 7], [2, 4, 6, 7, 1, 5, 3], [4, 7, 3, 2, 6, 1, 5], [7, 1, 5, 4, 2, 3, 6], [6, 5, 7, 1, 3, 2, 4]], 'difficulty': {'board_size': 7, 'difficulty': 0}}
 
 ````
 
@@ -2406,7 +2549,8 @@ Default configuration:
 ```python
 grid_size_x = 10
 grid_size_y = 10
-filled_cells = 100
+filled_cells_weights = 0.1
+filled_cells = 10
 simulation_steps = 1
 seed = 42
 size = 500
@@ -2417,50 +2561,50 @@ Example tasks:
 Example 1:
 Question: What will this Game of Life board look like after 1 steps of simulation? Assume a Moore neighborhood and wrapping topology. Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
-[[0,1,0,1,1,0,0,0,1,0],
- [1,0,0,1,0,1,1,1,1,1],
- [0,0,1,1,1,1,1,1,1,0],
- [1,1,1,1,0,0,0,0,1,1],
- [1,1,1,1,0,0,1,0,1,1],
- [1,1,0,1,1,0,1,1,0,1],
- [1,0,0,1,1,0,0,0,0,1],
- [1,1,1,0,0,1,1,0,1,1],
- [1,1,1,1,1,0,0,1,0,1],
- [0,1,1,1,0,1,1,0,1,0]].
-Answer: [[0,1,0,0,0,0,0,0,0,0],[1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,0,0,0],[0,0,0,0,0,0,1,1,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,0,1,0]]
-Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
+[[0,1,0,0,0,0,0,0,1,0],
+ [1,0,0,0,0,0,0,0,1,1],
+ [0,0,0,0,0,0,0,0,0,0],
+ [0,0,1,1,0,0,0,0,0,0],
+ [0,0,0,1,0,0,0,0,0,0],
+ [0,0,0,0,0,0,0,0,0,0],
+ [1,0,0,0,0,0,0,0,0,0],
+ [0,0,0,0,0,0,0,0,0,0],
+ [0,0,0,0,0,0,0,0,0,1],
+ [0,0,0,0,0,0,0,0,0,0]].
+Answer: [[1,0,0,0,0,0,0,0,1,0],[1,0,0,0,0,0,0,0,1,1],[0,0,0,0,0,0,0,0,0,1],[0,0,1,1,0,0,0,0,0,0],[0,0,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
+Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 10, 'simulation_steps': 1, 'difficulty': {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells_weights': 0.1, 'simulation_steps': 1}}
 
 Example 2:
 Question: What will this Game of Life board look like after 1 steps of simulation? Assume a Moore neighborhood and wrapping topology. Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
-[[1,1,1,1,1,1,0,1,1,1],
- [0,0,1,1,1,1,1,1,1,1],
- [0,1,0,0,0,0,0,1,1,1],
- [1,0,0,1,1,1,1,0,0,1],
- [0,1,0,1,1,0,0,1,1,0],
- [1,1,1,1,0,1,1,0,1,1],
- [0,1,1,0,1,1,1,0,0,1],
- [0,0,1,0,1,1,0,0,1,1],
- [0,1,1,0,1,0,1,0,1,1],
- [1,1,1,0,1,1,1,0,0,1]].
-Answer: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0],[0,1,0,1,0,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
-Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
+[[0,0,0,0,1,0,0,0,1,0],
+ [0,0,0,0,0,0,0,0,0,0],
+ [0,0,0,0,0,0,0,1,0,0],
+ [0,0,0,0,0,0,0,0,0,0],
+ [0,0,0,0,0,0,0,0,0,0],
+ [0,1,0,0,0,0,0,0,0,1],
+ [0,0,1,0,0,0,0,0,0,1],
+ [0,0,0,0,0,0,0,0,0,1],
+ [0,0,0,0,0,0,1,0,0,0],
+ [0,0,0,0,0,0,0,0,0,0]].
+Answer: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,1],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]]
+Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 10, 'simulation_steps': 1, 'difficulty': {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells_weights': 0.1, 'simulation_steps': 1}}
 
 Example 3:
 Question: What will this Game of Life board look like after 1 steps of simulation? Assume a Moore neighborhood and wrapping topology. Reply as array of arrays representing rows in the grid from top to bottom in JSON format. (An empty 3x3 grid would look like this: [[0,0,0],[0,0,0],[0,0,0]])
 
-[[0,1,0,1,1,1,1,0,0,1],
- [0,1,0,0,1,1,1,0,1,1],
- [0,1,1,1,1,0,1,0,1,0],
- [1,0,0,1,1,0,1,1,1,1],
- [1,1,1,0,0,1,1,0,1,1],
- [0,1,0,0,1,1,0,1,0,1],
- [0,1,1,0,0,0,1,0,1,1],
- [0,1,1,0,1,1,1,1,0,1],
- [1,1,1,1,1,1,0,1,1,0],
- [1,1,1,0,0,1,1,0,1,0]].
-Answer: [[0,0,0,1,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,1,1],[0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0],[0,0,0,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,1,0]]
-Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 100, 'simulation_steps': 1}
+[[0,1,0,1,0,0,0,0,0,0],
+ [0,0,0,0,0,0,0,0,0,1],
+ [0,0,0,0,0,0,1,0,1,0],
+ [0,0,0,0,1,0,0,0,0,0],
+ [0,0,0,0,0,0,1,0,0,0],
+ [0,0,0,0,0,0,0,0,0,0],
+ [0,0,0,0,0,0,0,0,1,0],
+ [0,0,0,0,0,0,0,0,0,0],
+ [0,1,0,0,0,0,0,0,0,0],
+ [0,0,0,0,0,0,1,0,0,0]].
+Answer: [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,1,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]]
+Metadata: {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells': 10, 'simulation_steps': 1, 'difficulty': {'grid_size_x': 10, 'grid_size_y': 10, 'filled_cells_weights': 0.1, 'simulation_steps': 1}}
 
 ````
 
@@ -2495,19 +2639,19 @@ Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapp
 
 Initial board:
 [[0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 1 1 0 0 0 0 0 0 0 0]
- [0 1 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 0]
- [0 0 1 1 0 0 0 1 1 1 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 1 1 1 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 1 1 1 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]]
 Answer: False
-Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'blinker', 'position': (7, 2)}, {'name': 'toad', 'position': (1, 1)}, {'name': 'blinker', 'position': (3, 7)}], 'simulation_steps': 20, 'should_oscillate': True}
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'blinker', 'position': (5, 4)}], 'simulation_steps': 20, 'should_oscillate': True}
 
 Example 2:
 Question: This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.
@@ -2515,19 +2659,19 @@ Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapp
 
 Initial board:
 [[0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 1 0 0 0 0 0 0 0 0]
+ [0 1 0 1 0 0 0 0 1 1 1 0]
+ [0 0 1 0 1 0 0 0 0 0 0 0]
+ [0 0 1 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 1 0 0 0]
- [0 1 0 0 0 0 0 1 0 0 0 0]
- [0 0 1 0 0 0 1 0 0 0 0 0]
- [0 1 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 1 0 0 0]
  [0 0 0 0 0 0 0 0 0 1 0 0]
- [0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 0 1 1 0 0 0 1 0 1 0 0]
+ [0 1 0 0 0 0 0 0 1 0 1 0]
+ [0 0 0 0 1 0 0 0 1 0 0 0]
+ [0 0 1 1 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]]
-Answer: True
-Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (8, 8)}, {'name': 'non-oscillator', 'position': (3, 6)}, {'name': 'non-oscillator', 'position': (4, 1)}], 'simulation_steps': 20, 'should_oscillate': False}
+Answer: False
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'clock', 'position': (6, 7)}, {'name': 'toad', 'position': (7, 1)}, {'name': 'clock', 'position': (1, 1)}, {'name': 'blinker', 'position': (1, 8)}], 'simulation_steps': 20, 'should_oscillate': True}
 
 Example 3:
 Question: This is a 'Game of Life' grid. We consider a game halted if there are no cells alive.
@@ -2535,19 +2679,19 @@ Will this game halt at or before 20 steps? Assume a Moore neighborhood and wrapp
 
 Initial board:
 [[0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 1 0]
- [0 0 0 1 0 0 0 0 0 1 0 0]
- [0 0 0 0 1 0 0 0 1 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]
- [0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 1 0 0 0 0 0 0 0 0]
  [0 0 1 0 0 0 0 0 0 0 0 0]
  [0 0 0 1 0 0 0 0 0 0 0 0]
- [0 0 0 0 1 0 0 0 0 0 0 0]
- [0 0 0 0 0 1 0 0 0 0 0 0]
  [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 0 1 0 0 0 0]
+ [0 0 0 0 0 0 0 0 1 0 0 0]
+ [0 1 0 0 0 0 0 0 0 1 0 0]
+ [0 0 1 0 0 0 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0 0 0 0 0 0]
  [0 0 0 0 0 0 0 0 0 0 0 0]]
 Answer: True
-Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (6, 2)}, {'name': 'non-oscillator', 'position': (1, 2)}, {'name': 'non-oscillator', 'position': (1, 8)}], 'simulation_steps': 20, 'should_oscillate': False}
+Metadata: {'grid_size_x': 12, 'grid_size_y': 12, 'placed_patterns': [{'name': 'non-oscillator', 'position': (5, 6)}, {'name': 'non-oscillator', 'position': (2, 1)}, {'name': 'non-oscillator', 'position': (8, 1)}], 'simulation_steps': 20, 'should_oscillate': False}
 
 ````
 
@@ -2569,17 +2713,17 @@ Example tasks:
 Example 1:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 26, 760. Give only the GCD as your final answer.
 Answer: 2
-Metadata: {'numbers': [26, 760], 'result': 2}
+Metadata: {'numbers': [26, 760], 'result': 2, 'difficulty': {'num_terms': 2, 'max_value': 1000}}
 
 Example 2:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 688, 716. Give only the GCD as your final answer.
 Answer: 4
-Metadata: {'numbers': [688, 716], 'result': 4}
+Metadata: {'numbers': [688, 716], 'result': 4, 'difficulty': {'num_terms': 2, 'max_value': 1000}}
 
 Example 3:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 297, 30. Give only the GCD as your final answer.
 Answer: 3
-Metadata: {'numbers': [297, 30], 'result': 3}
+Metadata: {'numbers': [297, 30], 'result': 3, 'difficulty': {'num_terms': 2, 'max_value': 1000}}
 
 ````
 
@@ -2588,11 +2732,10 @@ Generates graph coloring problems with configurable parameters
 
 Default configuration:
 ```python
-min_num_colors = 3
-max_num_colors = 3
+num_colors = 3
 min_num_vertices = 10
 max_num_vertices = 10
-edge_probability = 0.4
+edge_probability = 0.1
 seed = 42
 size = 500
 ```
@@ -2603,37 +2746,37 @@ Example 1:
 Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
 
 Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Edges: [(0, 1), (0, 4), (0, 5), (0, 9), (1, 4), (1, 6), (1, 9), (2, 3), (2, 5), (2, 9), (3, 7), (4, 6), (4, 7), (5, 9), (6, 8), (8, 9)]
+Edges: [(0, 1), (0, 7), (0, 9), (1, 4), (2, 4), (3, 5), (3, 6), (6, 8), (7, 9)]
 Possible colors: [1, 2, 3]
 
 Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
-Metadata: {'possible_answer': {0: 1, 1: 2, 2: 1, 3: 2, 4: 3, 5: 2, 6: 1, 7: 1, 8: 2, 9: 3}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 1), (0, 4), (0, 5), (0, 9), (1, 4), (1, 6), (1, 9), (2, 3), (2, 5), (2, 9), (3, 7), (4, 6), (4, 7), (5, 9), (6, 8), (8, 9)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
+Metadata: {'possible_answer': {0: 1, 1: 2, 2: 1, 3: 1, 4: 3, 5: 2, 6: 2, 7: 2, 8: 1, 9: 3}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 1), (0, 7), (0, 9), (1, 4), (2, 4), (3, 5), (3, 6), (6, 8), (7, 9)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
 
 Example 2:
 Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
 
 Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Edges: [(0, 2), (0, 8), (1, 2), (1, 7), (2, 3), (2, 4), (3, 5), (3, 6), (3, 7), (4, 5), (4, 8), (5, 9), (7, 8)]
+Edges: [(0, 6), (1, 8), (3, 6), (3, 9), (4, 7), (5, 9)]
 Possible colors: [1, 2, 3]
 
 Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
-Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 1, 4: 1, 5: 2, 6: 2, 7: 2, 8: 3, 9: 1}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 8), (1, 2), (1, 7), (2, 3), (2, 4), (3, 5), (3, 6), (3, 7), (4, 5), (4, 8), (5, 9), (7, 8)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
+Metadata: {'possible_answer': {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 2, 7: 2, 8: 2, 9: 2}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 6), (1, 8), (3, 6), (3, 9), (4, 7), (5, 9)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
 
 Example 3:
 Question: Please provide a coloring for this graph such that every vertex is not connected to a vertex of the same color. The graph has these properties:
 
 Vertices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Edges: [(0, 2), (0, 6), (0, 7), (0, 8), (0, 9), (1, 4), (1, 6), (1, 7), (2, 6), (2, 7), (3, 4), (3, 5), (3, 6), (3, 9), (5, 7), (7, 9)]
+Edges: [(3, 7), (4, 8)]
 Possible colors: [1, 2, 3]
 
 Return your solution as a JSON map of vertices to colors. (For example: {"0": 1, "1": 2, "2": 3}.)
 
 Answer: None
-Metadata: {'possible_answer': {0: 1, 1: 1, 2: 2, 3: 1, 4: 2, 5: 2, 6: 3, 7: 3, 8: 2, 9: 2}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(0, 2), (0, 6), (0, 7), (0, 8), (0, 9), (1, 4), (1, 6), (1, 7), (2, 6), (2, 7), (3, 4), (3, 5), (3, 6), (3, 9), (5, 7), (7, 9)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
+Metadata: {'possible_answer': {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 2, 8: 2, 9: 1}, 'puzzle': {'vertices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'edges': [(3, 7), (4, 8)], 'num_colors': 3, 'color_options': [1, 2, 3]}, 'difficulty': {'num_vertices': 10, 'num_colors': 3}}
 
 ````
 
@@ -2726,9 +2869,8 @@ Generates intermediate integration problem - either
 
 Default configuration:
 ```python
-problem_types = ('substitution', 'by_parts')
-substitution_types = ('linear', 'trigonometric', 'exponential', 'radical')
-by_parts_types = ('polynomial_exp_trig', 'log_inverse_trig', 'cyclic', 'repeated_parts')
+problem_types = ('linear', 'radical', 'log_inverse_trig', 'trigonometric', 'polynomial_exp_trig', 'exponential', 'cyclic', 'repeated_parts')
+problem_type_weights = [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
 seed = 42
 size = 500
 linear_lower_bound = 1
@@ -2739,41 +2881,44 @@ outer_constant_min = 1
 outer_constant_max = 3
 min_poly_degree = 1
 max_poly_degree = 3
-symbols = ('x', 'X')
+symbols = x
 operators = ('+', '-')
 ```
 
 Example tasks:
 ````
 Example 1:
-Question: Find the indefinite integral: ∫ -3*exp(3*x + 9) dx
+Question: Find the indefinite integral: ∫ (16*x + 4)*exp(4*x**2 + 2*x + 10) dx
 When performing calculations, please follow these guidelines:
+Use same variable symbols as given in the question
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
-Answer: -exp(3*x + 9) + C
-Metadata: {'integrand': '-3*exp(3*x + 9)', 'problem_type': 'substitution', 'variable': 'x', 'type': 'exponential', 'expected_answer_expression': -exp(3*x + 9)}
+Answer: 2*exp(4*x**2 + 2*x + 10) + C
+Metadata: {'integrand': '(16*x + 4)*exp(4*x**2 + 2*x + 10)', 'problem_type': 'exponential', 'variable': 'x', 'expected_answer_expression': 2*exp(4*x**2 + 2*x + 10), 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
 
 Example 2:
-Question: Evaluate the indefinite integral: ∫ -6*sin(2*X + 10)*cos(2*X + 10)**4 dx
+Question: Evaluate the indefinite integral: ∫ -3*(8*x + 6)**3 dx
 When performing calculations, please follow these guidelines:
+Use same variable symbols as given in the question
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
-Answer: 3*cos(2*X + 10)**5/5 + C
-Metadata: {'integrand': '-6*sin(2*X + 10)*cos(2*X + 10)**4', 'problem_type': 'substitution', 'variable': 'X', 'type': 'trigonometric', 'expected_answer_expression': 3*cos(2*X + 10)**5/5}
+Answer: -384*x**4 - 1152*x**3 - 1296*x**2 - 648*x + C
+Metadata: {'integrand': '-3*(8*x + 6)**3', 'problem_type': 'linear', 'variable': 'x', 'expected_answer_expression': -384*x**4 - 1152*x**3 - 1296*x**2 - 648*x, 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
 
 Example 3:
-Question: Find the indefinite integral: ∫ 2*asin(x) dx
+Question: Find the indefinite integral: ∫ -4*sin(4*x + 1)**2*cos(4*x + 1) dx
 When performing calculations, please follow these guidelines:
+Use same variable symbols as given in the question
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
-Answer: 2*Integral(asin(x), x) + C
-Metadata: {'integrand': '2*asin(x)', 'problem_type': 'by_parts', 'variable': 'x', 'type': 'log_inverse_trig', 'expected_answer_expression': 2*Integral(asin(x), x)}
+Answer: -sin(4*x + 1)**3/3 + C
+Metadata: {'integrand': '-4*sin(4*x + 1)**2*cos(4*x + 1)', 'problem_type': 'trigonometric', 'variable': 'x', 'expected_answer_expression': -sin(4*x + 1)**3/3, 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
 
 ````
 
@@ -3197,17 +3342,17 @@ Example tasks:
 Example 1:
 Question: Find the Least Common Multiple (LCM) of these numbers: 95, 14
 Answer: 1330
-Metadata: {'numbers': [95, 14], 'result': 1330}
+Metadata: {'numbers': [95, 14], 'result': 1330, 'difficulty': {'numbers': 2, 'value': (1, 100)}}
 
 Example 2:
 Question: Find the Least Common Multiple (LCM) of these numbers: 60, 48
 Answer: 240
-Metadata: {'numbers': [60, 48], 'result': 240}
+Metadata: {'numbers': [60, 48], 'result': 240, 'difficulty': {'numbers': 2, 'value': (1, 100)}}
 
 Example 3:
 Question: Find the Least Common Multiple (LCM) of these numbers: 38, 4
 Answer: 76
-Metadata: {'numbers': [38, 4], 'result': 76}
+Metadata: {'numbers': [38, 4], 'result': 76, 'difficulty': {'numbers': 2, 'value': (1, 100)}}
 
 ````
 
@@ -3312,7 +3457,7 @@ Your output should be a sentence with the words unscrambled.
 Now, unscramble these words: ew hsall eb ebla ot puodrce
 
 Answer: we shall be able to produce
-Metadata: {'num_words': 6, 'corruption_level': 0.12000860417813355, 'scrambled_words': ['ew', 'hsall', 'eb', 'ebla', 'ot', 'puodrce'], 'original_words': ['we', 'shall', 'be', 'able', 'to', 'produce']}
+Metadata: {'num_words': 6, 'corruption_level': 0.12000860417813355, 'scrambled_words': ['ew', 'hsall', 'eb', 'ebla', 'ot', 'puodrce'], 'original_words': ['we', 'shall', 'be', 'able', 'to', 'produce'], 'difficulty': {'word_len': (1, 64), 'words': 6, 'corruption_level': 0.12000860417813355}}
 
 Example 2:
 Question: Your task is to unsramble words in a sentence.
@@ -3326,7 +3471,7 @@ Your output should be a sentence with the words unscrambled.
 Now, unscramble these words: ni oiurnalmsj Well Cahs
 
 Answer: in journalism Well Cash
-Metadata: {'num_words': 4, 'corruption_level': 0.3288673442377109, 'scrambled_words': ['ni', 'oiurnalmsj', 'Well', 'Cahs'], 'original_words': ['in', 'journalism', 'Well', 'Cash']}
+Metadata: {'num_words': 4, 'corruption_level': 0.3288673442377109, 'scrambled_words': ['ni', 'oiurnalmsj', 'Well', 'Cahs'], 'original_words': ['in', 'journalism', 'Well', 'Cash'], 'difficulty': {'word_len': (1, 64), 'words': 4, 'corruption_level': 0.3288673442377109}}
 
 Example 3:
 Question: Your task is to unsramble words in a sentence.
@@ -3340,7 +3485,7 @@ Your output should be a sentence with the words unscrambled.
 Now, unscramble these words: dear rchAdbali keep no nSice yrstyedae atnhks ot oyu rheet si a gain fo sucrbbisesr rM
 
 Answer: dear Archibald keep on Since yesterday thanks to you there is a gain of subscribers Mr
-Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_words': ['dear', 'rchAdbali', 'keep', 'no', 'nSice', 'yrstyedae', 'atnhks', 'ot', 'oyu', 'rheet', 'si', 'a', 'gain', 'fo', 'sucrbbisesr', 'rM'], 'original_words': ['dear', 'Archibald', 'keep', 'on', 'Since', 'yesterday', 'thanks', 'to', 'you', 'there', 'is', 'a', 'gain', 'of', 'subscribers', 'Mr']}
+Metadata: {'num_words': 16, 'corruption_level': 0.516016391169858, 'scrambled_words': ['dear', 'rchAdbali', 'keep', 'no', 'nSice', 'yrstyedae', 'atnhks', 'ot', 'oyu', 'rheet', 'si', 'a', 'gain', 'fo', 'sucrbbisesr', 'rM'], 'original_words': ['dear', 'Archibald', 'keep', 'on', 'Since', 'yesterday', 'thanks', 'to', 'you', 'there', 'is', 'a', 'gain', 'of', 'subscribers', 'Mr'], 'difficulty': {'word_len': (1, 64), 'words': 16, 'corruption_level': 0.516016391169858}}
 
 ````
 
@@ -3641,7 +3786,7 @@ Legend: '>' = Wall, 'e' = Passage
 What is the minimum number of steps to reach the goal?
 Give only the number of steps as your final answer, no other text or formatting.
 Answer: 6
-Metadata: {'grid_size': 9, 'grid': ['>>>>>>>>>', '>eeee>e>>', '>ee>>>>>>', '>eeeeee>>', '>e>ee>>e>', '>>ez>3e>>', '>eee>e>e>', '>eeeee>e>', '>>>>>>>>>'], 'shortest_path_length': 6, 'start': '3', 'goal': 'z', 'wall': '>', 'path': 'e'}
+Metadata: {'grid_size': 9, 'grid': ['>>>>>>>>>', '>eeee>e>>', '>ee>>>>>>', '>eeeeee>>', '>e>ee>>e>', '>>ez>3e>>', '>eee>e>e>', '>eeeee>e>', '>>>>>>>>>'], 'shortest_path_length': 6, 'start': '3', 'goal': 'z', 'wall': '>', 'path': 'e', 'difficulty': {'dist': 6, 'grid_size': 9}}
 
 Example 2:
 Question: Navigate from '`' (start) to 'i' (goal):
@@ -3660,7 +3805,7 @@ Legend: '4' = Wall, 'A' = Passage
 What is the minimum number of steps to reach the goal?
 Give only the number of steps as your final answer, no other text or formatting.
 Answer: 6
-Metadata: {'grid_size': 7, 'grid': ['4444444', '4AAAAi4', '4A4A4A4', '4A4AA44', '44AAAA4', '44A`444', '4444444'], 'shortest_path_length': 6, 'start': '`', 'goal': 'i', 'wall': '4', 'path': 'A'}
+Metadata: {'grid_size': 7, 'grid': ['4444444', '4AAAAi4', '4A4A4A4', '4A4AA44', '44AAAA4', '44A`444', '4444444'], 'shortest_path_length': 6, 'start': '`', 'goal': 'i', 'wall': '4', 'path': 'A', 'difficulty': {'dist': 6, 'grid_size': 7}}
 
 Example 3:
 Question: Navigate from '(' (start) to '`' (goal):
@@ -3679,7 +3824,7 @@ Legend: 'Q' = Wall, '%' = Passage
 What is the minimum number of steps to reach the goal?
 Give only the number of steps as your final answer, no other text or formatting.
 Answer: 8
-Metadata: {'grid_size': 7, 'grid': ['QQQQQQQ', 'QQ%%%%Q', 'QQ`%Q%Q', 'Q%%Q%%Q', 'Q%%%Q%Q', 'Q%QQ%(Q', 'QQQQQQQ'], 'shortest_path_length': 8, 'start': '(', 'goal': '`', 'wall': 'Q', 'path': '%'}
+Metadata: {'grid_size': 7, 'grid': ['QQQQQQQ', 'QQ%%%%Q', 'QQ`%Q%Q', 'Q%%Q%%Q', 'Q%%%Q%Q', 'Q%QQ%(Q', 'QQQQQQQ'], 'shortest_path_length': 8, 'start': '(', 'goal': '`', 'wall': 'Q', 'path': '%', 'difficulty': {'dist': 8, 'grid_size': 7}}
 
 ````
 
@@ -4022,7 +4167,8 @@ Generates "Needle in a Haystack tasks
 
 Default configuration:
 ```python
-num_statements = 50
+min_num_statements = 10
+max_num_statements = 100
 seed = 42
 size = 500
 ```
@@ -4030,22 +4176,22 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Caolain is neutral toward music. Alexx desires writing novels. Jake bears boxing. Harold gripes about dusting the furniture. Frederick disdains ironing the curtains. Cooper enjoys astronomy hobby. Caiden-Paul applauds all-terrain vehicles. Shayne delights in politics. Bradyn accepts artificial intelligence. Tyrnan supports climbing. Michal yearns for acting. Alvin deifies penguins. Allen relishes sailing. Brooke overlooks archery. Flynn prizes cleaning the patio. Grady can’t bear brewing beer. Rio ridicules acting. Wen is committed to emptying the dishwasher. Alfy execrates weeding the garden. Sweyn deifies bats. Emlyn laments bats. Shayan is passionate about snowboarding. Mehmet idolizes bird photography. Francis pines octopuses. Nikash worships ice skating. Tymom fancies motorcycles. Jaosha rejects balance. Abdur celebrates anime. Darryn bemoans logic. Michee revels in cleaning the ceiling fan. Khaleel worships trains. Jamie rails against the color amber. Daragh exults in astronomy. Finlay scoffs at minibikes. Kenyon desires collecting postcards. Caiden worships cocktails. Brodie reviles writing novels. Linton extols virtual reality. Bryson covets playing volleyball. Kyan begrudges listening to jazz. Kieran-Scott disapproves of collecting postcards. Willum esteems indie films. Isaa is addicted to ballet dancing. Arafat finds pleasure in triathlon. Oluwafemi disapproves of astronomy hobby. Seamas is keen on diving. Cian blasts playing the banjo. Liam-Stephen loathes the color sapphire. Bilal shrugs off playing the accordion. Sol is crazy about hip-hop dancing. 
-Who execrates weeding the garden? Reply only with a name.
-Answer: Alfy
-Metadata: {'question': 'Who execrates weeding the garden? Reply only with a name.'}
+Question: Caolain is neutral toward music. Alexx desires writing novels. Jake bears boxing. Harold gripes about dusting the furniture. Frederick disdains ironing the curtains. Cooper enjoys astronomy hobby. Caiden-Paul applauds all-terrain vehicles. Shayne delights in politics. Bradyn accepts artificial intelligence. Tyrnan supports climbing. Michal yearns for acting. Alvin deifies penguins. Allen relishes sailing. Brooke overlooks archery. Flynn prizes cleaning the patio. Grady can’t bear brewing beer. Rio ridicules acting. Wen is committed to emptying the dishwasher. Alfy execrates weeding the garden. Sweyn deifies bats. Emlyn laments bats. Shayan is passionate about snowboarding. Mehmet idolizes bird photography. Francis pines octopuses. Nikash worships ice skating. Tymom fancies motorcycles. Jaosha rejects balance. Abdur celebrates anime. Darryn bemoans logic. Michee revels in cleaning the ceiling fan. Khaleel worships trains. Jamie rails against the color amber. Daragh exults in astronomy. Finlay scoffs at minibikes. Kenyon desires collecting postcards. Caiden worships cocktails. Brodie reviles writing novels. Linton extols virtual reality. Bryson covets playing volleyball. Kyan begrudges listening to jazz. Kieran-Scott disapproves of collecting postcards. Willum esteems indie films. Isaa is addicted to ballet dancing. Arafat finds pleasure in triathlon. Oluwafemi disapproves of astronomy hobby. Seamas is keen on diving. Cian blasts playing the banjo. Liam-Stephen loathes the color sapphire. Bilal shrugs off playing the accordion. Sol is crazy about hip-hop dancing. Joaquin finds joy in dancing tango. Zakir idolizes rowing. Kym accepts raking the leaves. Timothy fancies beatboxing. Efe extols bats. Bailley pines for zebras. Areeb adores popcorn. Geordie deifies street art. Jerome idolizes geology. Blaike disdains landscape photography. Graeme dotes bulldozers. Caelen damns fruit salad. Lionel yearns ice cream. Jan disapproves of classic literature. Oakley appreciates reading science fiction. Laird delights in pie. Dawid ignores climbing. Leigham derides cleaning the garage. Kriss is devoted to playing violin. Farhaan tolerates skiing. Issiaka extols kayaks. Baron finds pleasure in machine learning. Yaseen glorifies tea. Derren brushes off recycling. Saunders delights in lobsters. Harold is crazy about baking cakes. Daymian abhors the color chartreuse. Orrick finds fulfillment in the color peach. Lincon rejects listening to folk music. Jacky disdains monkeys. Stewarty dismisses cows. Forgan is obsessed with manga. Kayden thrives on cryptocurrency. Ashton craves imagination. Ghyll disdains fencing. Amaan reveres electric cars. Kajetan laments playing percussion. Malakai loves burger. Izaak exults in playing bowling. Azedine regrets tacos. Fawaz regrets performing stand-up comedy. 
+Who glorifies tea? Reply only with a name.
+Answer: Yaseen
+Metadata: {'question': 'Who glorifies tea? Reply only with a name.', 'difficulty': {'num_statements': 91}}
 
 Example 2:
-Question: Angus disdains composting. Jazz adores trail running. Craig eschews ballet dancing. Orrin resents wolves. Leigh adores playing ping pong. Bryn spurns washing the dishes. Nyah dotes foxes. Vuyolwethu finds fulfillment in DJing. Rhoridh rails against baking cakes. Yaseen idolizes goats. Ajayraj lusts after visiting theme parks. Rooke damns building model airplanes. Morton approves of bird photography. Tiarnan curses trucks. Lennon endorses deer. Zidane resents turtles. Shergo stomachs curry. Muhammad rejoices in hip-hop dancing. Machlan bears curiosity. Diarmaid fancies ice skating. Asrar is apathetic about peacocks. Callan celebrates listening to jazz. Chukwuemeka glories in cycling. Levon is crazy about cleaning the microwave. Danniel rails against innovation. Bryden regrets luxury sedans. Daumantas enjoys solving crossword puzzles. Rokas finds pleasure in indie films. Reuben blasts cupcakes. Cobain derides listening to classical music. Loukas is keen on resilience. Vincenzo glorifies watering the garden. Riyaj is partial to scooters. Jagat shrugs off playing the harp. Thorben tolerates the color ruby. Dominick is committed to religion. Lex despises parrots. Ayden extols ultimate frisbee. Arlo is fond of listening to jazz. Tjay favors the color plum. Averon yearns surfing. Dylan-Patrick is nuts about dancing. Avi prefers space shuttles. Dedeniseoluwa celebrates playing the banjo. Johnathan finds fulfillment in beatboxing. Jakey is partial to optimism. Berkay approves of rhinos. Ryden is keen on playing water polo. Zhi is crazy about fishing. Caie disdains hip-hop dancing. 
-Who extols ultimate frisbee? Reply only with a name.
-Answer: Ayden
-Metadata: {'question': 'Who extols ultimate frisbee? Reply only with a name.'}
+Question: Jazz adores trail running. Craig eschews ballet dancing. Orrin resents wolves. Leigh adores playing ping pong. Bryn spurns washing the dishes. Nyah dotes foxes. Vuyolwethu finds fulfillment in DJing. Rhoridh rails against baking cakes. Yaseen idolizes goats. Ajayraj lusts after visiting theme parks. Rooke damns building model airplanes. Morton approves of bird photography. Tiarnan curses trucks. Lennon endorses deer. 
+Who lusts after visiting theme parks? Reply only with a name.
+Answer: Ajayraj
+Metadata: {'question': 'Who lusts after visiting theme parks? Reply only with a name.', 'difficulty': {'num_statements': 14}}
 
 Example 3:
-Question: Marlin pines the color teal. Rufus mocks geocaching. Sharland yearns for the color yellow. Cejay yearns exploring caves. Diarmuid reveres limousines. Lincon exults resilience. Gareth ridicules playing board games. Jerome gripes about off-road vehicles. Aliyaan loves courage. Gabriel worships trucks. Cejay craves triathlon. Taylor-Jay detests off-road vehicles. Abu adores determination. Caedyn spurns pie. Darien is indifferent to resilience. Ronnie scorns all-terrain vehicles. Josan tolerates playing saxophone. Liam scorns playing cricket. Tyson longs for scorpions. Marc-Anthony ignores making coffee. Kayne bears trail running. Kurtis blasts creativity. Beau appreciates racing cars. Kerr laments the color khaki. Jayden-Paul relishes mopping the floor. Zak appreciates metaphysics. Darroch detests beauty. Carlo regrets building model cars. Rogan stomachs listening to folk music. Baley execrates omelettes. Tyler-Jay despises washing the dishes. Bruno fancies popcorn. Jacky puts up with zoology. Kajetan mocks cleaning the oven. Calley desires the color fuchsia. Zishan supports optimism. Jeronimo can’t bear vacuuming the floor. Amolpreet mocks roller skating. Kierin regrets metaphysics. Loudon approves of ducks. Brydon despises camels. Prinay eschews roller skating. Precious reveres coffee. Edison damns playing cricket. Eason yearns ants. Codey lusts after the color ruby. Ian revels in virtual reality. Hashim respects the color blue. Armaan derides performing magic. Arafat revels in canoeing. 
-Who damns playing cricket? Reply only with a name.
-Answer: Edison
-Metadata: {'question': 'Who damns playing cricket? Reply only with a name.'}
+Question: Rufus mocks geocaching. Sharland yearns for the color yellow. Cejay yearns exploring caves. Diarmuid reveres limousines. Lincon exults resilience. Gareth ridicules playing board games. Jerome gripes about off-road vehicles. Aliyaan loves courage. Gabriel worships trucks. Cejay craves triathlon. Taylor-Jay detests off-road vehicles. Abu adores determination. Caedyn spurns pie. Darien is indifferent to resilience. Ronnie scorns all-terrain vehicles. Josan tolerates playing saxophone. Liam scorns playing cricket. Tyson longs for scorpions. Marc-Anthony ignores making coffee. Kayne bears trail running. Kurtis blasts creativity. Beau appreciates racing cars. Kerr laments the color khaki. Jayden-Paul relishes mopping the floor. Zak appreciates metaphysics. Darroch detests beauty. Carlo regrets building model cars. Rogan stomachs listening to folk music. Baley execrates omelettes. Tyler-Jay despises washing the dishes. Bruno fancies popcorn. Jacky puts up with zoology. Kajetan mocks cleaning the oven. Calley desires the color fuchsia. Zishan supports optimism. Jeronimo can’t bear vacuuming the floor. Amolpreet mocks roller skating. Kierin regrets metaphysics. Loudon approves of ducks. Brydon despises camels. Prinay eschews roller skating. Precious reveres coffee. Edison damns playing cricket. Eason yearns ants. Codey lusts after the color ruby. Ian revels in virtual reality. Hashim respects the color blue. Armaan derides performing magic. Arafat revels in canoeing. Murdo glories in pizza. Anesu exalts tea. Kedrick can’t stand whales. Layton rails against cleaning the carpets. Peirce approves of stir-fry. Oban loves filmmaking. Tyra idolizes balloons. Shadow extols playing violin. Damon shuns salad. Grahame esteems ironing clothes. Ralph desires ferries. Ohran abides vans. Kimi reviles cars. 
+Who despises camels? Reply only with a name.
+Answer: Brydon
+Metadata: {'question': 'Who despises camels? Reply only with a name.', 'difficulty': {'num_statements': 62}}
 
 ````
 
@@ -4070,19 +4216,19 @@ Example 1:
 Question: Keep all numbers larger than -90 in this list: ['-95.00', '-51.0', '47.2942', '-82.612']
 Return the new list in the same format.
 Answer: ['-51.0', '47.2942', '-82.612']
-Metadata: {'original_numbers': ['-95.00', '-51.0', '47.2942', '-82.612'], 'filter_value': '-90', 'operation': 'keep_larger', 'result': ['-51.0', '47.2942', '-82.612']}
+Metadata: {'original_numbers': ['-95.00', '-51.0', '47.2942', '-82.612'], 'filter_value': '-90', 'operation': 'keep_larger', 'result': ['-51.0', '47.2942', '-82.612'], 'difficulty': {'numbers': 4, 'decimals': (0, 4), 'value': (-100.0, 100.0)}}
 
 Example 2:
 Question: Remove all numbers larger than 18.236 in this list: ['-42.8', '91.88', '34']
 Return the new list in the same format.
 Answer: ['-42.8']
-Metadata: {'original_numbers': ['-42.8', '91.88', '34'], 'filter_value': '18.236', 'operation': 'remove_larger', 'result': ['-42.8']}
+Metadata: {'original_numbers': ['-42.8', '91.88', '34'], 'filter_value': '18.236', 'operation': 'remove_larger', 'result': ['-42.8'], 'difficulty': {'numbers': 3, 'decimals': (0, 4), 'value': (-100.0, 100.0)}}
 
 Example 3:
 Question: Keep all numbers larger than 19.8962 in this list: ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34']
 Return the new list in the same format.
 Answer: ['37.76', '38.702']
-Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34'], 'filter_value': '19.8962', 'operation': 'keep_larger', 'result': ['37.76', '38.702']}
+Metadata: {'original_numbers': ['4', '-64.7', '-42.1', '-77', '-79.9640', '37.76', '38.702', '18.20', '-28.34'], 'filter_value': '19.8962', 'operation': 'keep_larger', 'result': ['37.76', '38.702'], 'difficulty': {'numbers': 9, 'decimals': (0, 4), 'value': (-100.0, 100.0)}}
 
 ````
 
@@ -4091,10 +4237,11 @@ Generates Count Bits exercises with configurable difficulty
 
 Default configuration:
 ```python
+min_num_candidates = 2
 max_num_candidates = 5
 min_n = 1000
 max_n = 1000000000
-max_delta = 1000
+max_delta = 10.0
 size = 500
 seed = 42
 ```
@@ -4106,30 +4253,30 @@ Question: Your task is to pick the largest/smallest number out of several option
 
 Your output should be only the number of interest.
 
-Now, pick the largest number of the following candidates: 25011730.212000 25011280.271000
+Now, pick the largest number of the following candidates: 25011730.212000 25011725.713000
 
 Answer: 25011730.212
-Metadata: {'candidates': [25011730.212, 25011280.271], 'solution': 25011730.212, 'formatted_candidates': ['25011730.212000', '25011280.271000'], 'size': 'largest'}
+Metadata: {'candidates': [25011730.212, 25011725.713], 'solution': 25011730.212, 'formatted_candidates': ['25011730.212000', '25011725.713000'], 'size': 'largest', 'difficulty': {'num_candidates': 2, 'n': (1000, 1000000000), 'min_delta': 10.0}}
 
 Example 2:
 Question: Your task is to pick the largest/smallest number out of several options.
 
 Your output should be only the number of interest.
 
-Now, pick the largest number of the following candidates: 286,084,894.213 286,085,419.581
+Now, pick the largest number of the following candidates: 286,084,894.213 286,084,899.467
 
-Answer: 286085419.581
-Metadata: {'candidates': [286084894.213, 286085419.581], 'solution': 286085419.581, 'formatted_candidates': ['286,084,894.213', '286,085,419.581'], 'size': 'largest'}
+Answer: 286084899.467
+Metadata: {'candidates': [286084894.213, 286084899.467], 'solution': 286084899.467, 'formatted_candidates': ['286,084,894.213', '286,084,899.467'], 'size': 'largest', 'difficulty': {'num_candidates': 2, 'n': (1000, 1000000000), 'min_delta': 10.0}}
 
 Example 3:
 Question: Your task is to pick the largest/smallest number out of several options.
 
 Your output should be only the number of interest.
 
-Now, pick the largest number of the following candidates: 520020968.942000 520021372.170000 5.200202022530000e+08 520020728.080000 520020548.078000
+Now, pick the largest number of the following candidates: 520020968.942000 520020972.974000 5.200209612750000e+08 520020966.533000 520020964.733000
 
-Answer: 520021372.16999996
-Metadata: {'candidates': [520020968.942, 520021372.16999996, 520020202.25299996, 520020728.08, 520020548.07799995], 'solution': 520021372.16999996, 'formatted_candidates': ['520020968.942000', '520021372.170000', '5.200202022530000e+08', '520020728.080000', '520020548.078000'], 'size': 'largest'}
+Answer: 520020972.974
+Metadata: {'candidates': [520020968.942, 520020972.974, 520020961.275, 520020966.533, 520020964.733], 'solution': 520020972.974, 'formatted_candidates': ['520020968.942000', '520020972.974000', '5.200209612750000e+08', '520020966.533000', '520020964.733000'], 'size': 'largest', 'difficulty': {'num_candidates': 5, 'n': (1000, 1000000000), 'min_delta': 10.0}}
 
 ````
 
@@ -4184,35 +4331,35 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Sort these numbers in ascending order: 48, -51, -72, -80
+Question: Sort these numbers in ascending order: -95.0, -51, 47.29, 48.13
 Please follow the instruction below:
 ## 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
 ## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
 
-Answer: ['-80', '-72', '-51', '48']
-Metadata: {'original_numbers': ['48', '-51', '-72', '-80'], 'direction': 'ascending', 'sorted_numbers': ['-80', '-72', '-51', '48']}
+Answer: ['-95.0', '-51.0', '47.3', '48.1']
+Metadata: {'original_numbers': ['-95.0', '-51', '47.29', '48.13'], 'direction': 'ascending', 'sorted_numbers': ['-95.0', '-51.0', '47.3', '48.1'], 'difficulty': {'numbers': 4, 'decimals': (0, 2), 'value': (-100.0, 100.0)}}
 
 Example 2:
-Question: Sort these numbers in ascending order: 39.2, -71.2, -7.5
+Question: Sort these numbers in descending order: -43, 91.9, 34
 Please follow the instruction below:
 ## 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
 ## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
 
-Answer: ['-71.2', '-7.5', '39.2']
-Metadata: {'original_numbers': ['39.2', '-71.2', '-7.5'], 'direction': 'ascending', 'sorted_numbers': ['-71.2', '-7.5', '39.2']}
+Answer: ['92', '34', '-43']
+Metadata: {'original_numbers': ['-43', '91.9', '34'], 'direction': 'descending', 'sorted_numbers': ['92', '34', '-43'], 'difficulty': {'numbers': 3, 'decimals': (0, 2), 'value': (-100.0, 100.0)}}
 
 Example 3:
-Question: Sort these numbers in descending order: 8.39, 72.41, -64.67, -54.97, -94.18, -76.67, -98.24, -68.66, 2.74
+Question: Sort these numbers in descending order: 4.00, 72, -24.1, -94, 14, -68.66, 37.8, 38.7, 18.20
 Please follow the instruction below:
 ## 1. Let all your answers be a list of numbers. Instead of reporting your answer as -69, -13, 1, 7, 11, 43, 59, 61, use ['-69', '-13', '1', '7', '11', '43', '59', '61'] instead
 ## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
 
-Answer: ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']
-Metadata: {'original_numbers': ['8.39', '72.41', '-64.67', '-54.97', '-94.18', '-76.67', '-98.24', '-68.66', '2.74'], 'direction': 'descending', 'sorted_numbers': ['72.41', '8.39', '2.74', '-54.97', '-64.67', '-68.66', '-76.67', '-94.18', '-98.24']}
+Answer: ['72.00', '38.70', '37.80', '18.20', '14.00', '4.00', '-24.10', '-68.66', '-94.00']
+Metadata: {'original_numbers': ['4.00', '72', '-24.1', '-94', '14', '-68.66', '37.8', '38.7', '18.20'], 'direction': 'descending', 'sorted_numbers': ['72.00', '38.70', '37.80', '18.20', '14.00', '4.00', '-24.10', '-68.66', '-94.00'], 'difficulty': {'numbers': 9, 'decimals': (0, 2), 'value': (-100.0, 100.0)}}
 
 ````
 
-### palindrome
+### palindrome_generation
 Generates a set of letters that can be assembled into a palindrome.
 
 Default configuration:
@@ -4237,7 +4384,7 @@ Your output should be a single string, with no spaces or punctuation.
 Now, form a valid palindrome using the following letters: h, a, h, a
 
 Answer: ahha
-Metadata: {'letters': ['h', 'a', 'h', 'a'], 'generated_palindrome': 'ahha'}
+Metadata: {'letters': ['h', 'a', 'h', 'a'], 'generated_palindrome': 'ahha', 'difficulty': {'length': 4}}
 
 Example 2:
 Question: Your task is, given a list of letters, to form a valid palindrome.
@@ -4251,7 +4398,7 @@ Your output should be a single string, with no spaces or punctuation.
 Now, form a valid palindrome using the following letters: h, y, h
 
 Answer: hyh
-Metadata: {'letters': ['h', 'y', 'h'], 'generated_palindrome': 'hyh'}
+Metadata: {'letters': ['h', 'y', 'h'], 'generated_palindrome': 'hyh', 'difficulty': {'length': 3}}
 
 Example 3:
 Question: Your task is, given a list of letters, to form a valid palindrome.
@@ -4265,7 +4412,7 @@ Your output should be a single string, with no spaces or punctuation.
 Now, form a valid palindrome using the following letters: n, j, n, j, d, j, s, s, d
 
 Answer: nsdjjjdsn
-Metadata: {'letters': ['n', 'j', 'n', 'j', 'd', 'j', 's', 's', 'd'], 'generated_palindrome': 'nsdjjjdsn'}
+Metadata: {'letters': ['n', 'j', 'n', 'j', 'd', 'j', 's', 's', 'd'], 'generated_palindrome': 'nsdjjjdsn', 'difficulty': {'length': 9}}
 
 ````
 
@@ -4362,7 +4509,7 @@ In solving equations, please follow these instructions:
 5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 
 Answer: 0.0
-Metadata: {'polynomial_expr': '-127*w', 'variable': 'w', 'degree': 1, 'real_solutions': [0.0]}
+Metadata: {'polynomial_expr': '-127*w', 'variable': 'w', 'degree': 1, 'real_solutions': [0.0], 'difficulty': {'terms': 2, 'degree': 1}}
 
 Example 2:
 Question: Determine the real value(s) of b that satisfies: 86*b**2 - 2*b - 13 = 0
@@ -4377,7 +4524,7 @@ In solving equations, please follow these instructions:
 5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 
 Answer: -0.3773, 0.4006
-Metadata: {'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773, 0.4006]}
+Metadata: {'polynomial_expr': '86*b**2 - 2*b - 13', 'variable': 'b', 'degree': 2, 'real_solutions': [-0.3773, 0.4006], 'difficulty': {'terms': 4, 'degree': 2}}
 
 Example 3:
 Question: Determine the real value(s) of p that satisfies: 71*p**3 - 2*p - 29 = 0
@@ -4392,7 +4539,7 @@ In solving equations, please follow these instructions:
 5. Round all decimal values to 4 decimal places (rounding down when the 5th decimal place is 5 or greater).
 
 Answer: 0.7546
-Metadata: {'polynomial_expr': '71*p**3 - 2*p - 29', 'variable': 'p', 'degree': 3, 'real_solutions': [0.7546]}
+Metadata: {'polynomial_expr': '71*p**3 - 2*p - 29', 'variable': 'p', 'degree': 3, 'real_solutions': [0.7546], 'difficulty': {'terms': 4, 'degree': 3}}
 
 ````
 
@@ -4428,7 +4575,7 @@ When performing calculations, please follow these guidelines:
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z
-Metadata: {'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'variables': [z]}
+Metadata: {'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'variables': [z], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
 Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
@@ -4437,7 +4584,7 @@ When performing calculations, please follow these guidelines:
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416
-Metadata: {'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': [x]}
+Metadata: {'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': [x], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
 Question: Calculate the following: (29*y**2 - 49*y)*(21*y**3 + 49)
@@ -4446,7 +4593,7 @@ When performing calculations, please follow these guidelines:
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y
-Metadata: {'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'variables': [y]}
+Metadata: {'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'variables': [y], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -4583,17 +4730,17 @@ Example tasks:
 Example 1:
 Question: Find the prime factorization of 656. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
 Answer: 2 × 2 × 2 × 2 × 41
-Metadata: {'number': 656, 'factors': [2, 2, 2, 2, 41]}
+Metadata: {'number': 656, 'factors': [2, 2, 2, 2, 41], 'difficulty': {'value': 656}}
 
 Example 2:
 Question: Find the prime factorization of 41. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
 Answer: 41
-Metadata: {'number': 41, 'factors': [41]}
+Metadata: {'number': 41, 'factors': [41], 'difficulty': {'value': 41}}
 
 Example 3:
 Question: Find the prime factorization of 420. Write the factors separated by × (Example: for 12 the answer would be: 2 × 2 × 3)
 Answer: 2 × 2 × 3 × 5 × 7
-Metadata: {'number': 420, 'factors': [2, 2, 3, 5, 7]}
+Metadata: {'number': 420, 'factors': [2, 2, 3, 5, 7], 'difficulty': {'value': 420}}
 
 ````
 
@@ -4639,6 +4786,7 @@ min_vars = 2
 max_vars = 4
 min_statements = 2
 max_statements = 4
+min_complexity = 1
 max_complexity = 3
 seed = 42
 size = 500
@@ -4666,7 +4814,7 @@ Given:
 .2. Q
 .What can we conclude from the above statements?
 Answer: None
-Metadata: {'premises': ['R', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3, 'example_answer': '(P ∨ Q)'}
+Metadata: {'premises': ['R', 'Q'], 'variables': ['P', 'Q', 'R', 'S'], 'complexity': 3, 'example_answer': '(P ∨ Q)', 'difficulty': {'vars': 4, 'statements': 2, 'complexity': (1, 3)}}
 
 Example 2:
 Question: The following question is a propositional logic reasoning question.
@@ -4689,7 +4837,7 @@ Given:
 .3. P
 .What can we conclude from the above statements?
 Answer: None
-Metadata: {'premises': ['((Q → P) ∨ (Q → P))', '((Q ↔ Q) → (P → P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3, 'example_answer': '(Q ∨ P)'}
+Metadata: {'premises': ['((Q → P) ∨ (Q → P))', '((Q ↔ Q) → (P → P))', 'P'], 'variables': ['P', 'Q'], 'complexity': 3, 'example_answer': '(Q ∨ P)', 'difficulty': {'vars': 2, 'statements': 3, 'complexity': (1, 3)}}
 
 Example 3:
 Question: The following question is a propositional logic reasoning question.
@@ -4713,7 +4861,7 @@ Given:
 .4. ((Q ↔ R) → ¬Q)
 .What can we conclude from the above statements?
 Answer: None
-Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q ↔ R) → ¬Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3, 'example_answer': '(Q ∧ Q)'}
+Metadata: {'premises': ['((Q ∨ P) ∧ ¬P)', 'P', '((P ∧ R) ∧ ¬R)', '((Q ↔ R) → ¬Q)'], 'variables': ['P', 'Q', 'R'], 'complexity': 3, 'example_answer': '(Q ∧ Q)', 'difficulty': {'vars': 3, 'statements': 4, 'complexity': (1, 3)}}
 
 ````
 
@@ -4781,39 +4929,39 @@ Question: In front of you are some buttons, a light, and a number. The light wil
 You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
-Target: 46
+Target: 8
 Buttons:
-A: Add 3 (when any)
-B: Add 2 (when any)
-C: Multiply 2 (when any)
-Answer: A → B → C → C → A → C
-Metadata: {'difficulty': 10, 'solution_path': ['A', 'B', 'C', 'C', 'A', 'C'], 'target_value': 46, 'buttons': [{'name': 'A', 'type': 'add', 'value': 3, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 2, 'active_state': 'any'}, {'name': 'C', 'type': 'multiply', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
+A: Add 2 (when any)
+B: Add 1 (when green)
+C: Multiply 2 (when green)
+Answer: A → A → A → A
+Metadata: {'metadata': {'difficulty': 2}, 'solution_path': ['A', 'A', 'A', 'A'], 'target_value': 8, 'buttons': [{'name': 'A', 'type': 'add', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 1, 'active_state': 'green'}, {'name': 'C', 'type': 'multiply', 'value': 2, 'active_state': 'green'}], 'initial_state': 'red', 'initial_value': 0}
 
 Example 2:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
 You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
-Target: 30
+Target: 8
 Buttons:
-A: Add 2 (when green)
-B: Subtract 3 (when red)
-C: Multiply 2 (when red)
-Answer: C → A → C → A → C → A → C → A
-Metadata: {'difficulty': 10, 'solution_path': ['C', 'A', 'C', 'A', 'C', 'A', 'C', 'A'], 'target_value': 30, 'buttons': [{'name': 'A', 'type': 'add', 'value': 2, 'active_state': 'green'}, {'name': 'B', 'type': 'subtract', 'value': 3, 'active_state': 'red'}, {'name': 'C', 'type': 'multiply', 'value': 2, 'active_state': 'red'}], 'initial_state': 'red', 'initial_value': 0}
+A: Subtract 2 (when any)
+B: Multiply 2 (when any)
+C: Add 2 (when any)
+Answer: C → B → B
+Metadata: {'metadata': {'difficulty': 1}, 'solution_path': ['C', 'B', 'B'], 'target_value': 8, 'buttons': [{'name': 'A', 'type': 'subtract', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'multiply', 'value': 2, 'active_state': 'any'}, {'name': 'C', 'type': 'add', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
 
 Example 3:
 Question: In front of you are some buttons, a light, and a number. The light will toggle between red and green whenever you press a button. Each button performs a mathematical operation to the number, but the operation may depend on the state of the light.
 You must press the shortest correct sequence of buttons to reach the target value. Your answer should be a sequence of buttons separated by '→', for example: A → B → C
 
 Start: 0 (red)
-Target: 45
+Target: 27
 Buttons:
-A: Subtract 2 (when any)
+A: Multiply 2 (when any)
 B: Add 3 (when any)
 C: Add 2 (when any)
-Answer: B → B → B → B → B → B → B → B → B → B → B → B → B → B → B
-Metadata: {'difficulty': 10, 'solution_path': ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], 'target_value': 45, 'buttons': [{'name': 'A', 'type': 'subtract', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 3, 'active_state': 'any'}, {'name': 'C', 'type': 'add', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
+Answer: B → A → A → A → B
+Metadata: {'metadata': {'difficulty': 7}, 'solution_path': ['B', 'A', 'A', 'A', 'B'], 'target_value': 27, 'buttons': [{'name': 'A', 'type': 'multiply', 'value': 2, 'active_state': 'any'}, {'name': 'B', 'type': 'add', 'value': 3, 'active_state': 'any'}, {'name': 'C', 'type': 'add', 'value': 2, 'active_state': 'any'}], 'initial_state': 'red', 'initial_value': 0}
 
 ````
 
@@ -4878,6 +5026,10 @@ diff_ub = 0.2
 board_format_opts = BoardFormattingOptions(alphabet=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], col_delimiter=' ', row_delimiter='\n', array_brackets=False)
 seed = 42
 size = 500
+rng_difficulty_ranges = [(0.0, 0.025), (0.025, 0.05), (0.05, 0.075), (0.075, 0.1), (0.1, 0.125), (0.125, 0.15), (0.15, 0.2)]
+rng_difficulty_weights = [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]
+pso_difficulty_ranges = [(0.05, 0.1), (0.1, 0.15), (0.15, 0.2), (0.2, 0.25), (0.25, 0.3), (0.3, 0.35), (0.35, 1)]
+pso_difficulty_weights = [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]
 ```
 
 Example tasks:
@@ -4888,75 +5040,47 @@ Question: Find the common rule that maps an input grid to an output grid, given 
 Example 1:
 
 Input:
-1 1 1 1
-1 1 1 1
-1 1 1 1
-1 1 1 1
-1 1 1 1
-1 1 1 1
-1 1 1 9
+1 1 1
+1 3 3
+1 1 1
 Output:
-9 9 9 9
-1 1 1 1
-9 9 9 9
-1 1 1 1
-1 9 9 9
-1 9 1 1
-1 9 1 9
+3 3
 
 Example 2:
 
 Input:
-4 8 8 8 8 8 8
-8 8 8 8 8 8 8
-8 8 8 8 8 8 8
-8 8 8 8 8 8 8
-8 8 8 8 8 8 8
+4 3 8
+4 4 4
 Output:
-4 8 4 8 4 8 4
-8 8 4 8 4 8 4
-4 4 4 8 4 8 4
-8 8 8 8 4 8 4
-4 4 4 4 4 8 4
+3 8
 
 Example 3:
 
 Input:
-2 2 2 2
-2 2 2 2
-2 2 2 2
-2 2 2 2
-2 2 2 2
-2 2 2 2
-2 2 2 2
-5 2 2 2
+3 3 3 3 3 3
+3 3 3 5 2 3
+3 3 3 5 3 3
+3 3 5 3 3 3
+3 3 3 3 3 3
+3 3 3 3 3 3
 Output:
-2 2 2 2
-5 5 5 5
-2 2 2 2
-5 5 5 5
-2 2 2 2
-5 5 5 2
-2 2 5 2
-5 2 5 2
+0 5 2
+0 5 0
+5 0 0
 
 
 Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
 Your final answer should just be the text output grid itself.
 
 Input:
-3 3 3 3 3 3 3 9
-3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3
+4 4 4 4 4
+4 4 4 4 4
+4 6 8 6 4
+4 4 4 4 4
+4 4 4 4 4
 
-Answer: 3 9 3 9 3 9 3 9
-3 9 3 9 3 9 3 3
-3 9 3 9 3 9 9 9
-3 9 3 9 3 3 3 3
-3 9 3 9 9 9 9 9
-Metadata: {'input': ((3, 3, 3, 3, 3, 3, 3, 9), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3, 3, 3)), 'output': ((3, 9, 3, 9, 3, 9, 3, 9), (3, 9, 3, 9, 3, 9, 3, 3), (3, 9, 3, 9, 3, 9, 9, 9), (3, 9, 3, 9, 3, 3, 3, 3), (3, 9, 3, 9, 9, 9, 9, 9)), 'task_id': 'd22278a0', 'difficulty': {'rng': 0.07173948707162241, 'pso': 0.12314814814814816}}
+Answer: 6 8 6
+Metadata: {'input': ((4, 4, 4, 4, 4), (4, 4, 4, 4, 4), (4, 6, 8, 6, 4), (4, 4, 4, 4, 4), (4, 4, 4, 4, 4)), 'output': ((6, 8, 6),), 'task_id': 'a740d043', 'difficulty': {'rng': 0.12323282396873297, 'pso': 0.29851851851851846}}
 
 Example 2:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
@@ -4964,141 +5088,98 @@ Question: Find the common rule that maps an input grid to an output grid, given 
 Example 1:
 
 Input:
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
-6 6 9 6 6 6 9 6
-6 6 6 9 6 9 6 6
-6 6 6 6 9 6 6 6
-6 6 6 9 6 9 6 6
-6 6 9 6 6 6 9 6
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 1 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+2 2 2 2 2 2 2
+2 3 2 2 2 2 2
 Output:
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
-6 6 9 6 6 6 9 6
-6 6 6 9 6 9 6 6
-6 6 6 6 9 6 6 6
-6 6 6 9 6 9 6 6
-6 6 9 6 6 6 9 6
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
-6 6 6 6 6 6 6 6
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+8 8 8 8 8 8 8
+2 2 2 2 2 2 2
+2 2 2 2 2 2 2
 
 Example 2:
 
 Input:
-5 5 5 5 5 5 5 5 5 5
-5 5 8 5 8 5 8 5 5 5
-5 5 5 5 5 5 5 5 5 5
-5 5 8 5 2 5 8 5 5 5
-5 5 5 5 5 5 5 5 5 5
-5 5 8 5 8 5 8 5 5 5
-5 5 5 5 5 5 5 5 5 5
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 9 7 7 7 7 7 7
+7 7 7 7 7 7 7 6
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
 Output:
-5 5 5 5 5 5 5 5 5 5
-5 5 8 5 8 5 8 5 5 5
-5 5 5 5 5 5 5 5 5 5
-5 5 8 5 2 5 8 5 5 5
-5 5 5 5 5 5 5 5 5 5
-5 5 8 5 8 5 8 5 5 5
-5 5 5 5 5 5 5 5 5 5
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
+7 7 7 7 7 7 7 7
 
 Example 3:
 
 Input:
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 2 1 2 1 1 1
-1 1 1 1 2 1 1 1 1
-1 1 1 2 1 2 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
+2 9 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
 Output:
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 2 1 2 1 1 1
-1 1 1 1 2 1 1 1 1
-1 1 1 2 1 2 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
+2 2 2 2 2 2
 
 Example 4:
 
 Input:
-7 7 7 7 7 7 7 7 7 7
-7 7 7 1 7 1 7 1 7 7
-7 7 7 7 7 7 7 7 7 7
-7 7 7 1 7 1 7 1 7 7
-7 7 7 7 7 7 7 7 7 7
-7 7 7 1 7 1 7 1 7 7
-7 7 7 7 7 7 7 7 7 7
-7 7 7 7 7 7 7 7 7 7
+7 7 7 4 7 7 7
+7 7 7 7 7 7 7
+7 7 7 7 7 7 7
+7 7 7 7 7 7 7
 Output:
-7 7 7 7 7 7 7 7 7 7
-7 7 7 1 7 1 7 1 7 7
-7 7 7 7 7 7 7 7 7 7
-7 7 7 1 7 1 7 1 7 7
-7 7 7 7 7 7 7 7 7 7
-7 7 7 1 7 1 7 1 7 7
-7 7 7 7 7 7 7 7 7 7
-7 7 7 7 7 7 7 7 7 7
-
-Example 5:
-
-Input:
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 6 3 3 3 6 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 6 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 6 3 3 3 6 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
-Output:
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 6 3 3 3 6 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 6 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 6 3 3 3 6 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
-3 3 3 3 3 3 3 3 3 3 3
+7 7 7 7 7 7 7
+7 7 7 7 7 7 7
+7 7 7 7 7 7 7
+7 7 7 7 7 7 7
 
 
 Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
 Your final answer should just be the text output grid itself.
 
 Input:
-7 7 7 7 7 7 7 7 7 7 7
-7 7 7 7 7 7 7 8 7 7 7
-7 7 7 7 7 7 8 7 8 7 7
-7 7 7 7 7 8 7 8 7 8 7
-7 7 7 7 7 7 8 7 8 7 7
-7 7 7 7 7 7 7 8 7 7 7
-7 7 7 7 7 7 7 7 7 7 7
-7 7 7 7 7 7 7 7 7 7 7
+6 6 6
+6 6 6
+6 6 6
+6 6 6
+6 6 6
 
-Answer: 7 7 7 7 7 7 7 7 7 7 7
-7 7 7 7 7 7 7 8 7 7 7
-7 7 7 7 7 7 8 7 8 7 7
-7 7 7 7 7 8 7 8 7 8 7
-7 7 7 7 7 7 8 7 8 7 7
-7 7 7 7 7 7 7 8 7 7 7
-7 7 7 7 7 7 7 7 7 7 7
-7 7 7 7 7 7 7 7 7 7 7
-Metadata: {'input': ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 8, 7, 8, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)), 'output': ((7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 8, 7, 8, 7, 8, 7), (7, 7, 7, 7, 7, 7, 8, 7, 8, 7, 7), (7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7), (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7)), 'task_id': '11852cab', 'difficulty': {'rng': 0.09651305327452808, 'pso': 0.15228956228956228}}
+Answer: 6 6 6
+6 6 6
+6 6 6
+6 6 6
+6 6 6
+Metadata: {'input': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'output': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'task_id': 'e26a3af2', 'difficulty': {'rng': 0.11027040425316172, 'pso': 0.061111111111111116}}
 
 Example 3:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
@@ -5106,46 +5187,129 @@ Question: Find the common rule that maps an input grid to an output grid, given 
 Example 1:
 
 Input:
-9 9
-9 9
+0 0 0 2 0 2 2 2 4 0
+0 0 0 4 0 0 2 2 4 0
+0 0 0 2 4 4 4 4 4 0
+4 4 0 2 2 4 4 4 2 2
+4 0 4 2 2 0 4 0 2 4
+0 2 0 4 4 0 0 2 2 4
+2 0 4 2 2 0 4 4 0 2
+0 4 2 2 4 2 4 2 0 0
+4 0 4 4 0 0 2 2 0 4
 Output:
-9 9
-9 9
-9 9
-9 9
+1 1 1 2 0 2 2 2 4 0
+1 1 1 4 0 0 2 2 4 0
+1 1 1 2 4 4 4 4 4 0
+4 4 0 2 2 4 4 4 2 2
+4 0 4 2 2 0 4 0 2 4
+0 2 0 4 4 0 0 2 2 4
+2 0 4 2 2 0 4 4 0 2
+0 4 2 2 4 2 4 2 0 0
+4 0 4 4 0 0 2 2 0 4
 
 Example 2:
 
 Input:
-4 4 4 6
+9 7 0 7 7 9 9
+7 7 9 9 0 7 9
+0 0 7 0 9 9 0
+9 7 7 7 0 0 9
+0 0 0 0 7 7 7
+0 0 0 9 9 9 0
+0 0 0 9 0 9 9
 Output:
-4 4 4 6
-4 4 4 6
+9 7 0 7 7 9 9
+7 7 9 9 0 7 9
+0 0 7 0 9 9 0
+9 7 7 7 0 0 9
+1 1 1 0 7 7 7
+1 1 1 9 9 9 0
+1 1 1 9 0 9 9
 
 Example 3:
 
 Input:
-4 1 1
-4 4 4
+0 5 5 5 0 0 5 0 5
+0 0 5 5 5 5 5 5 5
+0 5 5 5 0 0 0 5 5
+0 5 5 5 0 0 0 0 5
+0 5 0 5 0 0 0 0 5
+0 0 5 5 5 5 5 5 0
+0 5 5 5 5 5 0 5 5
+5 5 5 5 5 0 5 5 0
+5 0 5 0 0 5 5 5 5
+0 5 5 5 5 5 5 0 0
 Output:
-4 1 1
-4 4 4
-4 4 4
-4 1 1
+0 5 5 5 0 0 5 0 5
+0 0 5 5 5 5 5 5 5
+0 5 5 5 1 1 1 5 5
+0 5 5 5 1 1 1 0 5
+0 5 0 5 1 1 1 0 5
+0 0 5 5 5 5 5 5 0
+0 5 5 5 5 5 0 5 5
+5 5 5 5 5 0 5 5 0
+5 0 5 0 0 5 5 5 5
+0 5 5 5 5 5 5 0 0
+
+Example 4:
+
+Input:
+2 2 0 0 2 2 5 2 5
+5 5 2 2 5 2 5 2 2
+2 0 2 2 2 0 0 0 0
+0 5 2 2 0 0 0 0 0
+2 0 5 5 0 0 0 0 5
+5 5 5 0 2 0 0 5 5
+2 5 0 5 5 5 2 5 2
+Output:
+2 2 0 0 2 2 5 2 5
+5 5 2 2 5 2 5 2 2
+2 0 2 2 2 1 1 1 0
+0 5 2 2 0 1 1 1 0
+2 0 5 5 0 1 1 1 5
+5 5 5 0 2 0 0 5 5
+2 5 0 5 5 5 2 5 2
+
+Example 5:
+
+Input:
+2 2 2 0 2 2 2 2
+2 0 0 2 0 0 0 0
+2 0 2 2 0 0 0 0
+2 2 0 0 0 0 0 0
+0 2 0 0 0 0 2 2
+2 2 0 0 0 2 0 2
+0 0 2 2 2 2 2 2
+2 2 2 2 2 2 2 0
+Output:
+2 2 2 0 2 2 2 2
+2 0 0 2 1 1 1 1
+2 0 2 2 1 1 1 1
+2 2 1 1 1 1 1 1
+0 2 1 1 1 0 2 2
+2 2 1 1 1 2 0 2
+0 0 2 2 2 2 2 2
+2 2 2 2 2 2 2 0
 
 
 Below is a test input grid. Predict the corresponding output grid by applying the rule you found.
 Your final answer should just be the text output grid itself.
 
 Input:
-1 1 1 1 1
-1 1 1 1 1
+8 8 8 0 0 0 0
+8 8 8 0 0 0 8
+0 8 8 0 0 0 0
+8 8 8 0 8 8 8
+0 8 8 8 8 8 8
+0 8 8 8 0 8 8
 
-Answer: 1 1 1 1 1
-1 1 1 1 1
-1 1 1 1 1
-1 1 1 1 1
-Metadata: {'input': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'output': ((1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1), (1, 1, 1, 1, 1)), 'task_id': '8be77c9e', 'difficulty': {'rng': 0.09322002370336528, 'pso': 0.0638888888888889}}
+Answer: 8 8 8 1 1 1 0
+8 8 8 1 1 1 8
+0 8 8 1 1 1 0
+8 8 8 0 8 8 8
+0 8 8 8 8 8 8
+0 8 8 8 0 8 8
+Metadata: {'input': ((8, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 0, 0, 8), (0, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'output': ((8, 8, 8, 1, 1, 1, 0), (8, 8, 8, 1, 1, 1, 8), (0, 8, 8, 1, 1, 1, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'task_id': '6cf79266', 'difficulty': {'rng': 0.04912998774545625, 'pso': 0.17507936507936508}}
 
 ````
 
@@ -5254,7 +5418,7 @@ Now, it's your turn. How many rectangles do you see in the grid below?
 
 
 Answer: 2
-Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                 ##################################################             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 ##################################################             \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n   ######################################                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   ######################################                                       \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n', 'solution': 2}
+Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                 ##################################################             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 #                                                #             \n                 ##################################################             \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n   ######################################                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   #                                    #                                       \n   ######################################                                       \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n', 'solution': 2, 'difficulty': {'max_rectangles': 2}}
 
 Example 2:
 Question: Your task is to count how many rectangles are present in an ASCII grid.
@@ -5347,7 +5511,7 @@ Now, it's your turn. How many rectangles do you see in the grid below?
 
 
 Answer: 1
-Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                    ############                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    ############                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n', 'solution': 1}
+Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                    ############                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    #          #                                \n                                    ############                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n', 'solution': 1, 'difficulty': {'max_rectangles': 1}}
 
 Example 3:
 Question: Your task is to count how many rectangles are present in an ASCII grid.
@@ -5440,7 +5604,7 @@ Now, it's your turn. How many rectangles do you see in the grid below?
 
 
 Answer: 7
-Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                         #########################              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       ############   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                    #####█#######################██#########█#  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #####█#######################██#########█#  \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #      ##########       ##         #   \n                                         #      #        #       ############   \n                                         #      #        #       #              \n                                         #      ##########       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #########################              \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n            #######################                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #               ######█###                                          \n            #               #     #  #                                          \n            #               ######█###                                          \n            #                     #   ###########################               \n            #                     #   #                         #               \n            #                     #   #                         #               \n            #######################   ###########################               \n                                                                                \n', 'solution': 7}
+Metadata: {'puzzle': '                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                         #########################              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       ############   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                    #####█#######################██#########█#  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #    #                       ##         ##  \n                                    #####█#######################██#########█#  \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #                       ##         #   \n                                         #      ##########       ##         #   \n                                         #      #        #       ############   \n                                         #      #        #       #              \n                                         #      ##########       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #                       #              \n                                         #########################              \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n            #######################                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #                     #                                             \n            #               ######█###                                          \n            #               #     #  #                                          \n            #               ######█###                                          \n            #                     #   ###########################               \n            #                     #   #                         #               \n            #                     #   #                         #               \n            #######################   ###########################               \n                                                                                \n', 'solution': 7, 'difficulty': {'max_rectangles': 7}}
 
 ````
 
@@ -5648,7 +5812,8 @@ Generates RubiksCube tasks
 
 Default configuration:
 ```python
-scramble_steps = 3
+min_scramble_steps = 3
+max_scramble_steps = 10
 cube_size = 3
 remove_ansi = True
 seed = 42
@@ -5658,58 +5823,58 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: You are given a 3x3x3 Rubik's cube. It looks like this:
+Question: You see a size 3 Rubik's cube. It is arranged this:
 
-          G  Y  G                   
-          G  Y  G                   
-          G  R  G                   
- W  W  W  O  G  O  Y  Y  Y  R  B  R 
- R  R  R  W  G  W  O  O  O  Y  B  Y 
- R  R  R  W  G  W  O  O  O  Y  B  Y 
-          B  O  B                   
-          B  W  B                   
-          B  W  B                   
+          G  Y  W                   
+          G  Y  W                   
+          R  R  R                   
+ R  R  B  W  W  W  G  O  O  G  B  Y 
+ R  R  W  G  G  G  Y  O  O  G  B  Y 
+ R  R  Y  B  B  B  W  O  O  G  B  Y 
+          O  O  O                   
+          B  W  Y                   
+          B  W  Y                   
  
 
 Please provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.
 Answer: None
-Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "F L' R", 'example_correct_answer': "L F' U' R D B' D' U R U' R' U B U' B' U' R' U R U B U' B' U R' U R U B U' B' U' B' U B U L U' L' U' B' U B U L U' L' U B' U B U L U' L' F R U R' U' F' U' R U R' U R U U R' F U' B' U F' U' B R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U"}
+Metadata: {'cube_size': 3, 'scramble_steps': 4, 'scramble_moves': "L' R R F", 'example_correct_answer': "U L D F' R' D' D' F' D B U' B' R' U U R U' L' U L U F U' F' U' L' U L U F U' F' U L' U L U F U' F' U F' U F U R U' R' U F R U R' U' R U R' U' F' U U R U R' U R U U R' U' R U R' U R U U R' U' R U' L' U R' U' L U R U' L' U R' U' L U R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U U", 'difficulty': {'scramble_steps': 4, 'cube_size': 3}}
 
 Example 2:
-Question: You are given a 3x3x3 Rubik's cube. It looks like this:
+Question: You see a size 3 Rubik's cube. It is arranged this:
 
-          Y  Y  R                   
-          Y  Y  R                   
-          G  G  R                   
- B  B  Y  R  R  B  W  W  W  G  O  O 
- R  R  W  G  G  G  Y  O  O  B  B  Y 
- R  R  W  G  G  G  Y  O  O  B  B  Y 
-          O  O  O                   
-          B  W  W                   
-          B  W  W                   
+          Y  Y  Y                   
+          Y  Y  Y                   
+          B  R  B                   
+ B  B  W  R  G  R  Y  G  G  O  O  O 
+ R  R  W  R  G  R  Y  O  O  B  B  B 
+ B  B  W  R  G  R  Y  G  G  O  O  O 
+          G  O  G                   
+          W  W  W                   
+          W  W  W                   
  
 
 Please provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.
 Answer: None
-Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "L' F U'", 'example_correct_answer': "U' D' B D L' U' F D R' D' U' R U' R' F' U U F U F U' F' U' L' U L U F U' F' U L' U L U F U' F' R U' R' U' F' U F R' U R U B U' B' U' U' B' U B U L U' L' F R U R' U' R U R' U' F' U R U R' U R U U R' U' R U R' U R U U R' U' R U' L' U R' U' L U F U' B' U F' U' B R' D' R D R' D' R D U U R' D' R D R' D' R D U R' D' R D R' D' R D U"}
+Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "D U' F", 'example_correct_answer': "L D L' D' L D' B D R D R' D' R D' F D B U B' U R U' R' U' B U' B' R' U U R U U L U' L' B' U U B F U' F' L' U' L U F U' F' U' R U' R' U' F' U F U B U' B' U' R' U R U' B' U B U L U' L' U' B' U B U L U' L' U B' U B U L U' L' U F R U R' U' F' U R U R' U R U U R' U' R U R' U R U U R' U' L U' R' U L' U' D' R D R' D' R D R' D' R D R' D' R D U U R' D' R D R' D' R D U U", 'difficulty': {'scramble_steps': 3, 'cube_size': 3}}
 
 Example 3:
-Question: You are given a 3x3x3 Rubik's cube. It looks like this:
+Question: You see a size 3 Rubik's cube. It is arranged this:
 
-          Y  Y  W                   
-          Y  Y  W                   
-          Y  Y  W                   
- G  G  G  O  O  B  O  O  O  G  R  R 
- R  R  R  G  G  B  O  O  O  G  B  B 
- R  R  R  G  G  R  B  B  B  O  B  B 
-          W  W  Y                   
-          W  W  Y                   
-          W  W  Y                   
+          Y  R  B                   
+          G  Y  W                   
+          W  W  W                   
+ O  R  R  B  B  B  O  O  Y  O  B  G 
+ O  R  Y  G  G  G  W  O  R  Y  B  G 
+ O  Y  G  W  W  R  B  O  R  Y  B  G 
+          R  R  Y                   
+          B  W  Y                   
+          W  O  G                   
  
 
 Please provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.
 Answer: None
-Metadata: {'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "U R' R'", 'example_correct_answer': "R R U'"}
+Metadata: {'cube_size': 3, 'scramble_steps': 9, 'scramble_moves': "B R' R' L L L B' F' B'", 'example_correct_answer': "U U B B F L D D L D D U R U' R' F' U U F U' R' U R U U L U' L' B' U U B U' U' L' U L U F U' F' U R U' R' U' F' U F R' U R U B U' B' U' B' U B U L U' L' U' F R U R' U' R U R' U' F' U R U' L' U R' U' L U L U' R' U L' U' R U L U' R' U L' U' R", 'difficulty': {'scramble_steps': 9, 'cube_size': 3}}
 
 ````
 
@@ -5730,6 +5895,8 @@ Example 1:
 Question: Move the red car (AA) to the exit on the right.
 Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'
 where the letter is the vehicle and +/- number is spaces to move right/left or down/up.
+Walls are marked with an 'x'. Cars cannot move through walls, and walls cannot be moved.
+A car oriented vertically can only move up and down, a car oriented horizontally can only move left and right.
 
 Board:
 .xBBCC
@@ -5740,12 +5907,14 @@ H.IJ..
 HEEFFF
 
 Answer: None
-Metadata: {'board_config': 'oxCCDDooxoMoIoAAMoIoKLFFJoKLooJGGHHH', 'min_moves': 10}
+Metadata: {'board_config': 'oxCCDDooxoMoIoAAMoIoKLFFJoKLooJGGHHH', 'min_moves': 10, 'difficulty': {'min_moves': 10}}
 
 Example 2:
 Question: Move the red car (AA) to the exit on the right.
 Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'
 where the letter is the vehicle and +/- number is spaces to move right/left or down/up.
+Walls are marked with an 'x'. Cars cannot move through walls, and walls cannot be moved.
+A car oriented vertically can only move up and down, a car oriented horizontally can only move left and right.
 
 Board:
 EBBCCC
@@ -5756,12 +5925,14 @@ F.G...
 ......
 
 Answer: None
-Metadata: {'board_config': 'FCCDDDFooooIGoxAAIGoHoooooHEEEoooooo', 'min_moves': 6}
+Metadata: {'board_config': 'FCCDDDFooooIGoxAAIGoHoooooHEEEoooooo', 'min_moves': 6, 'difficulty': {'min_moves': 6}}
 
 Example 3:
 Question: Move the red car (AA) to the exit on the right.
 Specify moves in the format: 'F+1 K+1 M-1 C+3 H+2 ...'
 where the letter is the vehicle and +/- number is spaces to move right/left or down/up.
+Walls are marked with an 'x'. Cars cannot move through walls, and walls cannot be moved.
+A car oriented vertically can only move up and down, a car oriented horizontally can only move left and right.
 
 Board:
 GBBIJK
@@ -5772,7 +5943,7 @@ AAHI..
 EEEFF.
 
 Answer: None
-Metadata: {'board_config': 'HBBJKLHooJKLAAIJooooICCCooxEEoFFFGGo', 'min_moves': 30}
+Metadata: {'board_config': 'HBBJKLHooJKLAAIJooooICCCooxEEoFFFGGo', 'min_moves': 30, 'difficulty': {'min_moves': 30}}
 
 ````
 
@@ -5799,6 +5970,7 @@ Question: Given the truthfulness of these statements, please tell me the number 
  - Statement 7: 'The number of false statements is a composite number.'
 
 Answer: 4
+Metadata: {'difficulty': 5}
 
 Example 2:
 Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
@@ -5811,6 +5983,7 @@ Question: Given the truthfulness of these statements, please tell me the number 
  - Statement 7: 'The number of false statements is a composite number.'
 
 Answer: 4
+Metadata: {'difficulty': 5}
 
 Example 3:
 Question: Given the truthfulness of these statements, please tell me the number of possible solutions: 
@@ -5823,6 +5996,7 @@ Question: Given the truthfulness of these statements, please tell me the number 
  - Statement 7: 'The number of false statements is a composite number.'
 
 Answer: 2
+Metadata: {'difficulty': 5}
 
 ````
 
@@ -5842,17 +6016,17 @@ Example tasks:
 Example 1:
 Question: Restore the correct order of words in the following sentence: wish could get I sleep. "I some
 Answer: "I wish I could get some sleep.
-Metadata: {'word_count': 7}
+Metadata: {'word_count': 7, 'difficulty': {'words_in_sentence': 7}}
 
 Example 2:
 Question: Restore the correct order of words in the following sentence: the high level name. itself its unable it maintain at was of to Unfortunately,
 Answer: Unfortunately, it was unable to maintain itself at the high level of its name.
-Metadata: {'word_count': 14}
+Metadata: {'word_count': 14, 'difficulty': {'words_in_sentence': 14}}
 
 Example 3:
 Question: Restore the correct order of words in the following sentence: developed by For the unutilized. energy falls ages went the
 Answer: For ages the the energy developed by falls went unutilized.
-Metadata: {'word_count': 10}
+Metadata: {'word_count': 10, 'difficulty': {'words_in_sentence': 10}}
 
 ````
 
@@ -5968,6 +6142,7 @@ max_terms = 4
 min_value = 1
 max_value = 100
 operators = ('+', '-', '*')
+operators_weights = [0.4, 0.4, 0.2]
 seed = 42
 size = 500
 ```
@@ -5975,19 +6150,19 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Determine the value of u that satisfies: 32*u + 4 = 580
-Answer: 18
-Metadata: {'equation': '32*u + 4 = 580', 'variable': 'u'}
+Question: Find the value of u in the equation: 32*u + 4 = 3044
+Answer: 95
+Metadata: {'equation': '32*u + 4 = 3044', 'variable': 'u', 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'operators_weights': [0.4, 0.4, 0.2]}}
 
 Example 2:
-Question: Solve for b: 82080*b = 1067040
-Answer: 13
-Metadata: {'equation': '82080*b = 1067040', 'variable': 'b'}
+Question: Determine the value of b that satisfies: 71 - 48*b = -2761
+Answer: 59
+Metadata: {'equation': '71 - 48*b = -2761', 'variable': 'b', 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'operators_weights': [0.4, 0.4, 0.2]}}
 
 Example 3:
-Question: Determine the value of n that satisfies: 29*n - 5 = 430
-Answer: 15
-Metadata: {'equation': '29*n - 5 = 430', 'variable': 'n'}
+Question: Find the value of n in the equation: 175 - 29*n = -202
+Answer: 13
+Metadata: {'equation': '175 - 29*n = -202', 'variable': 'n', 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'operators_weights': [0.4, 0.4, 0.2]}}
 
 ````
 
@@ -6014,17 +6189,17 @@ Example tasks:
 Example 1:
 Question: Given a convex polygon with 3 sides, its first 2 interior angles are: 16.0°, 80.0°. What is the measure of the remaining interior angle (in degrees)?Return only the angle as your answer.Do not give the units in your answer.
 Answer: 84
-Metadata: {'n_sides': 3, 'known_angles': [16.0, 80.0], 'sum_of_known_angles': 96.0, 'missing_angle_raw': 84.0, 'missing_angle_rounded': 84, 'total_interior_sum': 180}
+Metadata: {'n_sides': 3, 'known_angles': [16.0, 80.0], 'sum_of_known_angles': 96.0, 'missing_angle_raw': 84.0, 'missing_angle_rounded': 84, 'total_interior_sum': 180, 'difficulty': {'sides': 3}}
 
 Example 2:
 Question: A convex polygon has 3 sides. The measures of the first 2 interior angles are: 83.0°, 46.0°. Find the measure of the last interior angle.Return only the angle as your answer.Do not give the units in your answer.
 Answer: 51
-Metadata: {'n_sides': 3, 'known_angles': [83.0, 46.0], 'sum_of_known_angles': 129.0, 'missing_angle_raw': 51.0, 'missing_angle_rounded': 51, 'total_interior_sum': 180}
+Metadata: {'n_sides': 3, 'known_angles': [83.0, 46.0], 'sum_of_known_angles': 129.0, 'missing_angle_raw': 51.0, 'missing_angle_rounded': 51, 'total_interior_sum': 180, 'difficulty': {'sides': 3}}
 
 Example 3:
 Question: Given a convex polygon with 6 sides, its first 5 interior angles are: 143.0°, 148.0°, 39.0°, 55.0°, 107.0°. What is the measure of the remaining interior angle (in degrees)?Return only the angle as your answer.Do not give the units in your answer.
 Answer: 228
-Metadata: {'n_sides': 6, 'known_angles': [143.0, 148.0, 39.0, 55.0, 107.0], 'sum_of_known_angles': 492.0, 'missing_angle_raw': 228.0, 'missing_angle_rounded': 228, 'total_interior_sum': 720}
+Metadata: {'n_sides': 6, 'known_angles': [143.0, 148.0, 39.0, 55.0, 107.0], 'sum_of_known_angles': 492.0, 'missing_angle_raw': 228.0, 'missing_angle_rounded': 228, 'total_interior_sum': 720, 'difficulty': {'sides': 6}}
 
 ````
 
@@ -6054,25 +6229,25 @@ When performing calculations, please follow these guidelines:
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 10*x**7 + 4*x**3/5 + C
-Metadata: {'integrand': '70*x**6 + 12*x**2/5', 'variable': 'x', 'expected_answer_expression': 10*x**7 + 4*x**3/5}
+Metadata: {'integrand': '70*x**6 + 12*x**2/5', 'variable': 'x', 'expected_answer_expression': 10*x**7 + 4*x**3/5, 'difficulty': {'terms': 2}}
 
 Example 2:
-Question: Find the indefinite integral: ∫ 49*x**6/10 + 48*x**5 - 4*x - 10/9 dx
+Question: Evaluate the indefinite integral: ∫ 48*X**5 - 10/9 dx
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9 + C
-Metadata: {'integrand': '49*x**6/10 + 48*x**5 - 4*x - 10/9', 'variable': 'x', 'expected_answer_expression': 7*x**7/10 + 8*x**6 - 2*x**2 - 10*x/9}
+Answer: 8*X**6 - 10*X/9 + C
+Metadata: {'integrand': '48*X**5 - 10/9', 'variable': 'X', 'expected_answer_expression': 8*X**6 - 10*X/9, 'difficulty': {'terms': 2}}
 
 Example 3:
-Question: Find the indefinite integral: ∫ -28*X**3 + 8*X dx
+Question: Evaluate the indefinite integral: ∫ -27*x**8 + 9*x**5/2 - 28*x**3 + 5*x**2 + 8*x dx
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -7*X**4 + 4*X**2 + C
-Metadata: {'integrand': '-28*X**3 + 8*X', 'variable': 'X', 'expected_answer_expression': -7*X**4 + 4*X**2}
+Answer: -3*x**9 + 3*x**6/4 - 7*x**4 + 5*x**3/3 + 4*x**2 + C
+Metadata: {'integrand': '-27*x**8 + 9*x**5/2 - 28*x**3 + 5*x**2 + 8*x', 'variable': 'x', 'expected_answer_expression': -3*x**9 + 3*x**6/4 - 7*x**4 + 5*x**3/3 + 4*x**2, 'difficulty': {'terms': 5}}
 
 ````
 
@@ -6117,7 +6292,7 @@ Here is your puzzle:
 
 
 Answer: UURRRULDRDLDLU
-Metadata: {'gamestr': '+ + + + + +  \n+ X X @ - +  \n+ - X - - +  \n+ @ - @ - +  \n+ % @ - - +  \n+ + + + + +  \n\n', 'difficulty': {'size': (6, 6), 'num_steps': 14}}
+Metadata: {'gamestr': '+ + + + + +  \n+ X X @ - +  \n+ - X - - +  \n+ @ - @ - +  \n+ % @ - - +  \n+ + + + + +  \n\n', 'difficulty': {'width': 6, 'height': 6}}
 
 Example 2:
 Question: You are going to solve a 'sokoban' puzzle.
@@ -6144,7 +6319,7 @@ Here is your puzzle:
 
 
 Answer: DDUULDDRDLLULDURRUULDULDRRDDLURUULLDRRURDD
-Metadata: {'gamestr': '+ + + + + +  \n+ - - - * +  \n+ @ @ @ @ +  \n+ X - - - +  \n+ - - - X +  \n+ X - $ X +  \n+ + - - - +  \n+ + + + + +  \n\n', 'difficulty': {'size': (8, 6), 'num_steps': 42}}
+Metadata: {'gamestr': '+ + + + + +  \n+ - - - * +  \n+ @ @ @ @ +  \n+ X - - - +  \n+ - - - X +  \n+ X - $ X +  \n+ + - - - +  \n+ + + + + +  \n\n', 'difficulty': {'width': 6, 'height': 8}}
 
 Example 3:
 Question: You are going to solve a 'sokoban' puzzle.
@@ -6172,7 +6347,7 @@ Here is your puzzle:
 
 
 Answer: ULULULRDRDDLUUUURRRUULLDDUURDLDLDRLDDDLLULLUUDRRDRDRUUURUL
-Metadata: {'gamestr': '+ + + + + + + + + +  \n+ $ + + + X - @ - +  \n+ + + + + X @ @ - +  \n+ X + + X - - X - +  \n+ - + X @ - - X - +  \n+ @ - - X @ - - - +  \n+ - - - @ - @ - - +  \n+ - - - - - - * - +  \n+ + + + + + + + + +  \n\n', 'difficulty': {'size': (9, 10), 'num_steps': 58}}
+Metadata: {'gamestr': '+ + + + + + + + + +  \n+ $ + + + X - @ - +  \n+ + + + + X @ @ - +  \n+ X + + X - - X - +  \n+ - + X @ - - X - +  \n+ @ - - X @ - - - +  \n+ - - - @ - @ - - +  \n+ - - - - - - * - +  \n+ + + + + + + + + +  \n\n', 'difficulty': {'width': 10, 'height': 9}}
 
 ````
 
@@ -6182,6 +6357,7 @@ Generates tasks to spell words backward
 Default configuration:
 ```python
 min_word_len = 3
+max_word_len = 20
 seed = 42
 size = 500
 ```
@@ -6191,17 +6367,17 @@ Example tasks:
 Example 1:
 Question: Spell this word backward (example: sun -> nus): Project
 Answer: tcejorP
-Metadata: {'word': 'Project', 'word_len': 7}
+Metadata: {'word': 'Project', 'word_len': 7, 'difficulty': {'word_len': (3, 20)}}
 
 Example 2:
 Question: Spell this word backward (example: sun -> nus): Would
 Answer: dluoW
-Metadata: {'word': 'Would', 'word_len': 5}
+Metadata: {'word': 'Would', 'word_len': 5, 'difficulty': {'word_len': (3, 20)}}
 
 Example 3:
 Question: Spell this word backward (example: sun -> nus): One
 Answer: enO
-Metadata: {'word': 'One', 'word_len': 3}
+Metadata: {'word': 'One', 'word_len': 3, 'difficulty': {'word_len': (3, 20)}}
 
 ````
 
@@ -6631,7 +6807,7 @@ Answer: 4 7 8 1 9 2 6 3 5
 9 5 4 2 7 1 3 6 8
 3 8 1 6 4 5 9 7 2
 7 2 6 9 8 3 5 1 4
-Metadata: {'puzzle': [[4, 0, 0, 0, 9, 2, 0, 3, 0], [0, 0, 3, 4, 6, 0, 0, 0, 7], [6, 1, 2, 0, 0, 7, 8, 0, 0], [2, 0, 0, 0, 0, 0, 7, 9, 1], [8, 0, 0, 7, 1, 0, 0, 5, 6], [1, 0, 0, 5, 0, 0, 0, 0, 3], [9, 0, 4, 0, 7, 1, 0, 0, 0], [0, 8, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 9, 8, 0, 0, 0, 4]], 'solution': [[4, 7, 8, 1, 9, 2, 6, 3, 5], [5, 9, 3, 4, 6, 8, 1, 2, 7], [6, 1, 2, 3, 5, 7, 8, 4, 9], [2, 4, 5, 8, 3, 6, 7, 9, 1], [8, 3, 9, 7, 1, 4, 2, 5, 6], [1, 6, 7, 5, 2, 9, 4, 8, 3], [9, 5, 4, 2, 7, 1, 3, 6, 8], [3, 8, 1, 6, 4, 5, 9, 7, 2], [7, 2, 6, 9, 8, 3, 5, 1, 4]], 'num_empty': 48}
+Metadata: {'puzzle': [[4, 0, 0, 0, 9, 2, 0, 3, 0], [0, 0, 3, 4, 6, 0, 0, 0, 7], [6, 1, 2, 0, 0, 7, 8, 0, 0], [2, 0, 0, 0, 0, 0, 7, 9, 1], [8, 0, 0, 7, 1, 0, 0, 5, 6], [1, 0, 0, 5, 0, 0, 0, 0, 3], [9, 0, 4, 0, 7, 1, 0, 0, 0], [0, 8, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 9, 8, 0, 0, 0, 4]], 'solution': [[4, 7, 8, 1, 9, 2, 6, 3, 5], [5, 9, 3, 4, 6, 8, 1, 2, 7], [6, 1, 2, 3, 5, 7, 8, 4, 9], [2, 4, 5, 8, 3, 6, 7, 9, 1], [8, 3, 9, 7, 1, 4, 2, 5, 6], [1, 6, 7, 5, 2, 9, 4, 8, 3], [9, 5, 4, 2, 7, 1, 3, 6, 8], [3, 8, 1, 6, 4, 5, 9, 7, 2], [7, 2, 6, 9, 8, 3, 5, 1, 4]], 'num_empty': 48, 'difficulty': {'num_empty': 48}}
 
 Example 2:
 Question: Solve this Sudoku puzzle:
@@ -6654,7 +6830,7 @@ Answer: 7 9 8 1 3 2 6 4 5
 5 2 4 7 1 9 3 6 8
 9 7 6 3 8 4 5 1 2
 8 1 3 2 6 5 4 7 9
-Metadata: {'puzzle': [[0, 0, 0, 1, 3, 2, 6, 4, 5], [0, 4, 0, 8, 5, 0, 0, 9, 0], [0, 0, 1, 9, 0, 7, 0, 0, 0], [0, 8, 9, 6, 0, 0, 7, 5, 4], [0, 3, 0, 4, 0, 1, 9, 8, 0], [4, 6, 0, 5, 9, 0, 2, 3, 1], [5, 0, 4, 7, 1, 9, 3, 0, 0], [9, 7, 6, 0, 0, 4, 5, 1, 0], [8, 0, 3, 0, 0, 0, 4, 7, 0]], 'solution': [[7, 9, 8, 1, 3, 2, 6, 4, 5], [3, 4, 2, 8, 5, 6, 1, 9, 7], [6, 5, 1, 9, 4, 7, 8, 2, 3], [1, 8, 9, 6, 2, 3, 7, 5, 4], [2, 3, 5, 4, 7, 1, 9, 8, 6], [4, 6, 7, 5, 9, 8, 2, 3, 1], [5, 2, 4, 7, 1, 9, 3, 6, 8], [9, 7, 6, 3, 8, 4, 5, 1, 2], [8, 1, 3, 2, 6, 5, 4, 7, 9]], 'num_empty': 34}
+Metadata: {'puzzle': [[0, 0, 0, 1, 3, 2, 6, 4, 5], [0, 4, 0, 8, 5, 0, 0, 9, 0], [0, 0, 1, 9, 0, 7, 0, 0, 0], [0, 8, 9, 6, 0, 0, 7, 5, 4], [0, 3, 0, 4, 0, 1, 9, 8, 0], [4, 6, 0, 5, 9, 0, 2, 3, 1], [5, 0, 4, 7, 1, 9, 3, 0, 0], [9, 7, 6, 0, 0, 4, 5, 1, 0], [8, 0, 3, 0, 0, 0, 4, 7, 0]], 'solution': [[7, 9, 8, 1, 3, 2, 6, 4, 5], [3, 4, 2, 8, 5, 6, 1, 9, 7], [6, 5, 1, 9, 4, 7, 8, 2, 3], [1, 8, 9, 6, 2, 3, 7, 5, 4], [2, 3, 5, 4, 7, 1, 9, 8, 6], [4, 6, 7, 5, 9, 8, 2, 3, 1], [5, 2, 4, 7, 1, 9, 3, 6, 8], [9, 7, 6, 3, 8, 4, 5, 1, 2], [8, 1, 3, 2, 6, 5, 4, 7, 9]], 'num_empty': 34, 'difficulty': {'num_empty': 34}}
 
 Example 3:
 Question: Solve this Sudoku puzzle:
@@ -6677,7 +6853,7 @@ Answer: 5 6 1 9 2 8 4 7 3
 6 1 3 5 9 7 2 8 4
 4 7 2 6 8 3 5 9 1
 9 5 8 2 4 1 3 6 7
-Metadata: {'puzzle': [[0, 0, 1, 9, 2, 0, 0, 0, 3], [3, 0, 0, 1, 7, 5, 8, 2, 6], [0, 0, 0, 4, 3, 6, 1, 0, 0], [1, 0, 5, 7, 0, 0, 9, 3, 0], [0, 4, 0, 0, 5, 9, 7, 1, 8], [7, 0, 9, 0, 1, 0, 6, 4, 5], [0, 0, 3, 5, 9, 0, 2, 8, 4], [0, 0, 2, 6, 8, 0, 0, 9, 1], [0, 5, 0, 2, 4, 1, 3, 0, 0]], 'solution': [[5, 6, 1, 9, 2, 8, 4, 7, 3], [3, 9, 4, 1, 7, 5, 8, 2, 6], [8, 2, 7, 4, 3, 6, 1, 5, 9], [1, 8, 5, 7, 6, 4, 9, 3, 2], [2, 4, 6, 3, 5, 9, 7, 1, 8], [7, 3, 9, 8, 1, 2, 6, 4, 5], [6, 1, 3, 5, 9, 7, 2, 8, 4], [4, 7, 2, 6, 8, 3, 5, 9, 1], [9, 5, 8, 2, 4, 1, 3, 6, 7]], 'num_empty': 33}
+Metadata: {'puzzle': [[0, 0, 1, 9, 2, 0, 0, 0, 3], [3, 0, 0, 1, 7, 5, 8, 2, 6], [0, 0, 0, 4, 3, 6, 1, 0, 0], [1, 0, 5, 7, 0, 0, 9, 3, 0], [0, 4, 0, 0, 5, 9, 7, 1, 8], [7, 0, 9, 0, 1, 0, 6, 4, 5], [0, 0, 3, 5, 9, 0, 2, 8, 4], [0, 0, 2, 6, 8, 0, 0, 9, 1], [0, 5, 0, 2, 4, 1, 3, 0, 0]], 'solution': [[5, 6, 1, 9, 2, 8, 4, 7, 3], [3, 9, 4, 1, 7, 5, 8, 2, 6], [8, 2, 7, 4, 3, 6, 1, 5, 9], [1, 8, 5, 7, 6, 4, 9, 3, 2], [2, 4, 6, 3, 5, 9, 7, 1, 8], [7, 3, 9, 8, 1, 2, 6, 4, 5], [6, 1, 3, 5, 9, 7, 2, 8, 4], [4, 7, 2, 6, 8, 3, 5, 9, 1], [9, 5, 8, 2, 4, 1, 3, 6, 7]], 'num_empty': 33, 'difficulty': {'num_empty': 33}}
 
 ````
 
@@ -6754,17 +6930,17 @@ Example tasks:
 Example 1:
 Question: A system backup started at 2964-06-17 08:15:14 and completed at 2964-07-04 11:59:09. What was the total backup duration? Answer in D days, HH:MM.
 Answer: 17 days, 03:43
-Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 17, 8, 15, 14), 'end_time': datetime.datetime(2964, 7, 4, 11, 59, 9), 'format': '%Y-%m-%d %H:%M:%S', 'expected_format': 'D days, HH:MM'}
+Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 17, 8, 15, 14), 'end_time': datetime.datetime(2964, 7, 4, 11, 59, 9), 'format': '%Y-%m-%d %H:%M:%S', 'expected_format': 'D days, HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 10, 9, 44), 'end_time': datetime.datetime(2025, 3, 10, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM'}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 14, 9, 44), 'end_time': datetime.datetime(2025, 3, 14, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
 Answer: 89 days
-Metadata: {'task_type': 'date', 'start_time': datetime.datetime(2677, 12, 22, 0, 0), 'end_time': datetime.datetime(2678, 3, 21, 0, 0), 'format': '%a %b %d %Y', 'expected_format': 'D days'}
+Metadata: {'task_type': 'date', 'start_time': datetime.datetime(2677, 12, 22, 0, 0), 'end_time': datetime.datetime(2678, 3, 21, 0, 0), 'format': '%a %b %d %Y', 'expected_format': 'D days', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 ````
 
@@ -7019,21 +7195,21 @@ Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
 Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
-Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8}
+Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8, 'difficulty': {'word_length': 4, 'chain_length': 8}}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
 Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
-Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10}
+Metadata: {'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10, 'difficulty': {'word_length': 4, 'chain_length': 10}}
 
 Example 3:
 Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
 Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
-Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7}
+Metadata: {'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7, 'difficulty': {'word_length': 4, 'chain_length': 7}}
 
 ````
 
@@ -7162,7 +7338,7 @@ Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 
 
 What is Name of the person who lives in House 1?? Provide only the name of the person as your final answer.
 Answer: bob
-Metadata: {'num_people': 4, 'num_characteristics': 4}
+Metadata: {'difficulty': {'num_people': 4, 'num_characteristics': 4}}
 
 Example 2:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
@@ -7185,7 +7361,7 @@ Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 
 
 What is Name of the person who lives in House 1?? Provide only the name of the person as your final answer.
 Answer: carol
-Metadata: {'num_people': 4, 'num_characteristics': 4}
+Metadata: {'difficulty': {'num_people': 4, 'num_characteristics': 4}}
 
 Example 3:
 Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 on the right), from the perspective of someone standing across the street from them. Each has a different person in them. They have different characteristics:
@@ -7206,7 +7382,7 @@ Question: This is a logic puzzle. There are 4 houses (numbered 1 on the left, 4 
 
 What is Name of the person who lives in House 1?? Provide only the name of the person as your final answer.
 Answer: carol
-Metadata: {'num_people': 4, 'num_characteristics': 4}
+Metadata: {'difficulty': {'num_people': 4, 'num_characteristics': 4}}
 
 ````
 
