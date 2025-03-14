@@ -1,0 +1,106 @@
+"""Train an LLM using GRPO over Reasoning Gym procedural dataset(s)."""
+
+import hydra
+import ray
+from omegaconf import OmegaConf
+
+import reasoning_gym.utils
+
+from .data import ReasoningGymDataset
+from .trainers import RayGRPOTrainer
+
+
+@ray.remote
+def main_task(config):
+    from pprint import pprint
+
+    from verl.utils import hf_tokenizer
+    from verl.utils.fs import copy_local_path_from_hdfs
+
+    pprint(OmegaConf.to_container(config, resolve=True))  # resolve=True will eval symbol values
+    OmegaConf.resolve(config)
+
+    # download the checkpoint from hdfs
+    local_path = copy_local_path_from_hdfs(config.actor_rollout_ref.model.path)
+
+    # instantiate tokenizer
+    tokenizer = hf_tokenizer(local_path)
+
+    # define worker classes
+    if config.actor_rollout_ref.actor.strategy == "fsdp":
+        assert config.actor_rollout_ref.actor.strategy == config.critic.strategy
+        from verl.single_controller.ray import RayWorkerGroup
+        from verl.workers.fsdp_workers import ActorRolloutRefWorker, CriticWorker
+
+        ray_worker_group_cls = RayWorkerGroup
+    elif config.actor_rollout_ref.actor.strategy == "megatron":
+        assert config.actor_rollout_ref.actor.strategy == config.critic.strategy
+        from verl.single_controller.ray.megatron import NVMegatronRayWorkerGroup
+        from verl.workers.megatron_workers import ActorRolloutRefWorker, CriticWorker
+
+        ray_worker_group_cls = NVMegatronRayWorkerGroup
+    else:
+        raise NotImplementedError
+
+    from verl.trainer.ppo.ray_trainer import ResourcePoolManager, Role
+
+    role_worker_mapping = {
+        Role.ActorRollout: ray.remote(ActorRolloutRefWorker),
+        Role.Critic: ray.remote(CriticWorker),
+        Role.RefPolicy: ray.remote(ActorRolloutRefWorker),
+    }
+
+    global_pool_id = "global_pool"
+    resource_pool_spec = {
+        global_pool_id: [config.trainer.n_gpus_per_node] * config.trainer.nnodes,
+    }
+    mapping = {
+        Role.ActorRollout: global_pool_id,
+        Role.Critic: global_pool_id,
+        Role.RefPolicy: global_pool_id,
+    }
+
+    resource_pool_manager = ResourcePoolManager(resource_pool_spec=resource_pool_spec, mapping=mapping)
+
+    # TODO: configurable
+    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
+    dataset_name: str = "chain_sum"
+    dataset_size: int = 10000
+    train_dataset = ReasoningGymDataset(
+        tokenizer=tokenizer,
+        dataset_name=dataset_name,
+        seed=1,
+        size=dataset_size,
+        developer_prompt=developer_prompt,
+    )
+    val_dataset = ReasoningGymDataset(
+        tokenizer=tokenizer,
+        dataset_name=dataset_name,
+        seed=2,
+        size=dataset_size,
+        developer_prompt=developer_prompt,
+    )
+
+    trainer = RayGRPOTrainer(
+        config=config,
+        tokenizer=tokenizer,
+        train_dataset=train_dataset,
+        val_dataset=val_dataset,
+        role_worker_mapping=role_worker_mapping,
+        resource_pool_manager=resource_pool_manager,
+        ray_worker_group_cls=ray_worker_group_cls,
+    )
+    trainer.init_workers()
+    trainer.fit()
+
+
+@hydra.main(config_path="configs", config_name="llama3.1_1b_grpo", version_base=None)
+def main(config):
+    if not ray.is_initialized():
+        # this is for local ray cluster
+        ray.init(runtime_env={"env_vars": {"TOKENIZERS_PARALLELISM": "true", "NCCL_DEBUG": "WARN"}})
+    ray.get(main_task.remote(config))
+
+
+if __name__ == "__main__":
+    main()
