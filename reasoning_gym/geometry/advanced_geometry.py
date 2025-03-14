@@ -286,8 +286,6 @@ class AdvancedGeometryCurriculum(BaseCurriculum):
                 levels=[-10, -100, -1000, -10000],
                 default_level=0,
                 description="Minimum x/y coordinate",
-                attr_type=AttributeType.STATIC,
-                min_value=-float("inf"),
             ),
             ScalarAttributeDefinition(
                 name="max_coord",
@@ -295,8 +293,6 @@ class AdvancedGeometryCurriculum(BaseCurriculum):
                 levels=[10, 100, 1000, 10000],
                 default_level=0,
                 description="Maximum x/y coordinate",
-                attr_type=AttributeType.STATIC,
-                min_value=-float("inf"),
             ),
         )
 

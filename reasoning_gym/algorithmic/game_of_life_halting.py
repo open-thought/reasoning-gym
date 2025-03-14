@@ -404,8 +404,6 @@ class GameOfLifeHaltingCurriculum(BaseCurriculum):
                 levels=[12, 25, 50, 200],
                 default_level=0,
                 description="Grid size in the x direction",
-                attr_type=AttributeType.STATIC,
-                min_value=12,
             ),
             ScalarAttributeDefinition(
                 name="grid_size_y",
@@ -413,8 +411,6 @@ class GameOfLifeHaltingCurriculum(BaseCurriculum):
                 levels=[12, 25, 50, 200],
                 default_level=0,
                 description="Grid size in the y direction",
-                attr_type=AttributeType.STATIC,
-                min_value=12,
             ),
             ScalarAttributeDefinition(
                 name="difficulty",
@@ -422,8 +418,6 @@ class GameOfLifeHaltingCurriculum(BaseCurriculum):
                 levels=[1, 2, 3],
                 default_level=0,
                 description="Oscillator type difficulty",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="num_oscillators",
@@ -431,8 +425,6 @@ class GameOfLifeHaltingCurriculum(BaseCurriculum):
                 levels=[3, 7, 10, 20],
                 default_level=0,
                 description="Number of oscillators to place",
-                attr_type=AttributeType.STATIC,
-                min_value=3,
             ),
             ScalarAttributeDefinition(
                 name="max_simulation_steps",
@@ -440,8 +432,6 @@ class GameOfLifeHaltingCurriculum(BaseCurriculum):
                 levels=[20, 50, 100, 200],
                 default_level=0,
                 description="Number of simulation steps to query",
-                attr_type=AttributeType.STATIC,
-                min_value=20,
             ),
         )
 

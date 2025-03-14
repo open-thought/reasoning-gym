@@ -117,8 +117,6 @@ class NumberFormatCurriculum(BaseCurriculum):
                 levels=[5, 25, 100, 500],
                 default_level=1,
                 description="Number of candidates",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_num_candidates",
                 upper_field_name="max_num_candidates",
             ),
@@ -127,8 +125,6 @@ class NumberFormatCurriculum(BaseCurriculum):
                 levels=[10, 1_000, 1_000_000, 1_000_000_000],
                 default_level=1,
                 description="Magnitude of the values",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             ),
@@ -138,8 +134,6 @@ class NumberFormatCurriculum(BaseCurriculum):
                 levels=[1e1, 1e0, 1e-3, 1e-6],
                 default_level=0,
                 description="Max delta",
-                attr_type=AttributeType.STATIC,
-                min_value=1e-6,
             ),
         )
 

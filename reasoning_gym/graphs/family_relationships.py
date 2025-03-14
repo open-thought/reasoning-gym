@@ -379,8 +379,6 @@ class FamilyRelationshipsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="family_size",
                 description="The size of the family",
-                min_value=3,
-                attr_type=AttributeType.APPEND,
                 default_level=0,
                 levels=list(range(3, 12)),
                 lower_field_name="min_family_size",

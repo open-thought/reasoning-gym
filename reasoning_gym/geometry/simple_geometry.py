@@ -155,8 +155,6 @@ class SimpleGeometryCurriculum(BaseCurriculum):
                 levels=[5, 10, 25, 50],
                 default_level=1,
                 description="Number of sides in the polygon.",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_sides",
                 upper_field_name="max_sides",
             )

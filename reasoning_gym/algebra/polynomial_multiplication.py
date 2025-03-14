@@ -184,8 +184,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[2, 4, 6, 8],
                 default_level=0,
                 description="Minimum number of terms in polynomial expressions",
-                attr_type=AttributeType.STATIC,
-                min_value=2,
             ),
             ScalarAttributeDefinition(
                 name="max_terms",
@@ -193,8 +191,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[4, 8, 12, 16],
                 default_level=0,
                 description="Maximum number of terms in polynomial expressions",
-                attr_type=AttributeType.STATIC,
-                min_value=4,
             ),
             ScalarAttributeDefinition(
                 name="min_value",
@@ -202,8 +198,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[1, 10, 100, 1000],
                 default_level=0,
                 description="Minimum value for coefficients",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_value",
@@ -211,8 +205,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[100, 10000, 1000000, 100000000],
                 default_level=0,
                 description="Maximum value for coefficients",
-                attr_type=AttributeType.STATIC,
-                min_value=100,
             ),
             ScalarAttributeDefinition(
                 name="min_degree",
@@ -220,8 +212,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[0, 1, 2, 3],
                 default_level=0,
                 description="Minimum polynomial degree",
-                attr_type=AttributeType.STATIC,
-                min_value=0,
             ),
             ScalarAttributeDefinition(
                 name="max_degree",
@@ -229,8 +219,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[2, 4, 8, 10],
                 default_level=0,
                 description="Maximum polynomial degree",
-                attr_type=AttributeType.STATIC,
-                min_value=2,
             ),
             ScalarAttributeDefinition(
                 name="min_polynomials",
@@ -238,8 +226,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[2, 3, 4, 5],
                 default_level=0,
                 description="Minimum number of polynomials being multiplied",
-                attr_type=AttributeType.STATIC,
-                min_value=2,
             ),
             ScalarAttributeDefinition(
                 name="max_polynomials",
@@ -247,8 +233,6 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
                 levels=[4, 6, 8, 10],
                 default_level=0,
                 description="Maximum number of polynomials being multiplied",
-                attr_type=AttributeType.STATIC,
-                min_value=2,
             ),
         )
 

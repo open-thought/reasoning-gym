@@ -288,8 +288,6 @@ class IntermediateIntegrationCurriculum(BaseCurriculum):
                 ],
                 default_level=0,
                 description="The weights of the problem types",
-                attr_type=AttributeType.STATIC,
-                min_value=[1, 0, 0, 0, 0, 0, 0, 0],
             )
         )
 

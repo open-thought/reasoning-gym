@@ -139,8 +139,6 @@ class SimpleEquationsCurriculum(BaseCurriculum):
                 levels=[2, 3, 4, 5],
                 default_level=0,
                 description="Minimum number of terms in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=-2,
             ),
             ScalarAttributeDefinition(
                 name="max_terms",
@@ -148,8 +146,6 @@ class SimpleEquationsCurriculum(BaseCurriculum):
                 levels=[5, 10, 15, 20],
                 default_level=0,
                 description="Maximum number of terms in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=5,
             ),
             ScalarAttributeDefinition(
                 name="min_value",
@@ -157,8 +153,6 @@ class SimpleEquationsCurriculum(BaseCurriculum):
                 levels=[1, 10, 100, 1000],
                 default_level=0,
                 description="Minimum value for constants in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_value",
@@ -166,8 +160,6 @@ class SimpleEquationsCurriculum(BaseCurriculum):
                 levels=[100, 10000, 1000000, 100000000],
                 default_level=0,
                 description="Maximum value for constants in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=100,
             ),
             ScalarAttributeDefinition(
                 name="operators_weights",
@@ -175,8 +167,6 @@ class SimpleEquationsCurriculum(BaseCurriculum):
                 levels=[[0.4, 0.4, 0.2], [0.35, 0.35, 0.3], [0.3, 0.3, 0.4], [0.2, 0.2, 0.6]],
                 default_level=0,
                 description="Weights for each operator in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=[0.4, 0.4, 0.2],
             ),
         )
 
