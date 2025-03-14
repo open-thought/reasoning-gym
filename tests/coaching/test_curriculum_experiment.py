@@ -3,6 +3,7 @@ import io
 import pytest
 import yaml
 
+from reasoning_gym.coaching.base_curriculum import RangeAttributeMode, RangeCurriculumContext
 from reasoning_gym.coaching.curriculum_config import CurriculumAttributeConfig, CurriculumExperimentConfig
 from reasoning_gym.coaching.experiment import CurriculumExperiment
 
@@ -16,7 +17,13 @@ def test_curriculum_experiment_initialization():
     )
 
     # Create experiment
-    experiment = CurriculumExperiment(name="test_experiment", config=config, size=10, seed=42)
+    experiment = CurriculumExperiment(
+        name="test_experiment",
+        config=config,
+        context=RangeCurriculumContext(mode=RangeAttributeMode.INCLUSIVE),
+        size=10,
+        seed=42,
+    )
 
     # Check experiment was created correctly
     assert experiment.name == "test_experiment"
@@ -30,7 +37,7 @@ def test_curriculum_experiment_initialization():
     # Check dataset was created with correct config
     dataset = experiment.composite.datasets["leg_counting"]
     assert dataset.config.min_animals == 1
-    assert dataset.config.max_animals == 3
+    assert dataset.config.max_animals == 4
 
     # Check we can get entries from the dataset
     entry = experiment.get_dataset_entry(0)
@@ -47,7 +54,8 @@ def test_curriculum_experiment_wildcard_level():
         curricula={"leg_counting": CurriculumAttributeConfig(attribute_levels={"*": 3}, weight=1.0)}
     )
 
-    experiment = CurriculumExperiment(name="test_experiment", config=config, size=10, seed=42)
+    context = RangeCurriculumContext(mode=RangeAttributeMode.UPPER_BOUND)
+    experiment = CurriculumExperiment(name="test_experiment", config=config, context=context, size=10, seed=42)
 
     # Check all attributes were set to level 3
     curriculum = experiment.curricula["leg_counting"]
@@ -66,7 +74,8 @@ def test_curriculum_experiment_mixed_levels():
         }
     )
 
-    experiment = CurriculumExperiment(name="test_experiment", config=config, size=10, seed=42)
+    context = RangeCurriculumContext(mode=RangeAttributeMode.UPPER_BOUND)
+    experiment = CurriculumExperiment(name="test_experiment", config=config, context=context, size=10, seed=42)
 
     curriculum = experiment.curricula["leg_counting"]
     assert curriculum.get_attr_level("num_animals") == 4  # Specific override
@@ -116,7 +125,8 @@ def test_curriculum_experiment_from_yaml():
     assert chain_sum.weight == 0.8
 
     # Create experiment from the loaded config
-    experiment = CurriculumExperiment(name="yaml_test", config=config, size=10, seed=42)
+    context = RangeCurriculumContext(mode=RangeAttributeMode.UPPER_BOUND)
+    experiment = CurriculumExperiment(name="yaml_test", config=config, context=context, size=10, seed=42)
 
     # Verify experiment was created correctly
     assert "leg_counting" in experiment.curricula
