@@ -220,6 +220,11 @@ class PropositionalLogicDataset(ProceduralDataset):
                 "variables": variables,
                 "complexity": self._measure_complexity(conclusion),
                 "example_answer": str(conclusion),
+                "difficulty": {
+                    "vars": num_vars,
+                    "statements": num_statements,
+                    "complexity": (self.config.min_complexity, self.config.max_complexity),
+                },
             },
         }
 
