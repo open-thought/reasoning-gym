@@ -255,8 +255,6 @@ class CryptarithmCurriculum(BaseCurriculum):
                 levels=[2, 5, 10, 50],
                 default_level=1,
                 description="Number of words in the cryptarithm puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             )

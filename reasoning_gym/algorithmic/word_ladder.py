@@ -280,8 +280,6 @@ class WordLadderCurriculum(BaseCurriculum):
                 levels=[3, 4, 5, 6],
                 default_level=1,
                 description="Length of words in the puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
             )

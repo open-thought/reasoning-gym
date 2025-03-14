@@ -378,8 +378,6 @@ class RushHourCurriculum(BaseCurriculum):
                 levels=[5, 20, 35, 50],
                 default_level=1,
                 description="Minimum possible number of moves",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_moves",
                 upper_field_name="max_moves",
             )

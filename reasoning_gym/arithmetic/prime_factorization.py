@@ -98,8 +98,6 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
                 levels=[10, 1_000, 10_000, 50_000],
                 default_level=1,
                 description="Number to factorize",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
             )

@@ -270,8 +270,6 @@ class SudokuCurriculum(BaseCurriculum):
                 levels=[20, 30, 40, 50],
                 default_level=1,
                 description="Number of empty cells in the puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_empty",
                 upper_field_name="max_empty",
             )
