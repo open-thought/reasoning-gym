@@ -2,7 +2,7 @@ from random import Random
 
 import pytest
 
-from reasoning_gym.arc import Arc1DConfig, Arc1DDataset
+from reasoning_gym.arc import Arc1DConfig, Arc1DCurriculum, Arc1DDataset
 
 
 def test_arc_1d_config_validation():
@@ -142,3 +142,57 @@ def test_arc_1d_generate_all_tasks():
                     break
             assert i < 20
             print(task_name, j, i, x)
+
+
+def test_arc_1d_curriculum():
+    """Test the curriculum for complex arithmetic."""
+    curriculum = Arc1DCurriculum()
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_size == 10
+    assert base_cfg.max_size == 30
+    assert base_cfg.num_train == 3
+
+    # Test and validate increase in levels
+    curriculum.increment_attr_level("min_size")
+    curriculum.increment_attr_level("max_size")
+    curriculum.increment_attr_level("num_train")
+
+    increased_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_size == 50
+    assert increased_cfg.max_size == 100
+    assert increased_cfg.num_train == 4
+
+    # Test and validate decrease in levels
+    curriculum.decrement_attr_level("min_size")
+    curriculum.decrement_attr_level("max_size")
+    curriculum.decrement_attr_level("num_train")
+
+    decreased_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert decreased_cfg.min_size == 10
+    assert decreased_cfg.max_size == 30
+    assert decreased_cfg.num_train == 3
+
+    # Test upper bound boundary condition
+    for _ in range(10):
+        curriculum.increment_attr_level("min_size")
+        curriculum.increment_attr_level("max_size")
+        curriculum.increment_attr_level("num_train")
+    upper_bound_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert upper_bound_cfg.min_size == 1000
+    assert upper_bound_cfg.max_size == 10000
+    assert upper_bound_cfg.num_train == 8
+
+    # Test lower bound boundary condition
+    for _ in range(10):
+        curriculum.decrement_attr_level("min_size")
+        curriculum.decrement_attr_level("max_size")
+        curriculum.decrement_attr_level("num_train")
+    lower_bound_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert lower_bound_cfg.min_size == 10
+    assert lower_bound_cfg.max_size == 30
+    assert lower_bound_cfg.num_train == 3
