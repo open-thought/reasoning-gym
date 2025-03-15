@@ -12,7 +12,7 @@ Options:
     --output-dir DIR          Override output directory specified in config
     --category CATEGORY       Evaluate only datasets from this category
     --max-concurrent NUM      Maximum number of concurrent API calls
-    --n NUM                   Number of completions to generate per prompt (default: 1)
+    --n NUM                   Number of completions to generate per prompt (default: 1, each completion is a separate API call)
     --base-url URL            API base URL (default: https://openrouter.ai/api/v1)
     --save-metadata           Save entry metadata in results
     --full-results            Save the full results file
@@ -106,14 +106,14 @@ class AsyncModelEvaluator:
         self.git_hash = get_git_hash()
         self.start_time = datetime.now()
 
-    async def get_model_response(self, prompt: str) -> list[str]:
-        """Get multiple responses from model with retry logic via OpenRouter.
+    async def get_single_response(self, prompt: str) -> str:
+        """Get a single response from model with retry logic via OpenRouter.
 
         Args:
             prompt: The prompt to send to the model
 
         Returns:
-            A list of model response texts
+            The model's response text
 
         Raises:
             Exception: If all retries fail
@@ -142,23 +142,65 @@ class AsyncModelEvaluator:
                         params["temperature"] = self.config.temperature
                     if self.config.top_p is not None:
                         params["top_p"] = self.config.top_p
-                    
-                    # Set n parameter for multiple completions
-                    params["n"] = self.config.completions_per_prompt
 
                     # Add provider configuration if specified
                     if self.config.provider:
                         params["extra_body"] = {"provider": {"order": [self.config.provider], "allow_fallbacks": False}}
 
                     completion = await self.client.chat.completions.create(**params)
-                    responses = [choice.message.content for choice in completion.choices]
+                    response = completion.choices[0].message.content
 
                     if self.verbose:
-                        self.logger.info(f"Prompt: {prompt}")
-                        for i, response in enumerate(responses):
-                            self.logger.info(f"Response {i+1}: {response}")
+                        self.logger.info(f"Response: {response}")
 
-                    return responses
+                    return response
+
+            except Exception as e:
+                delay = min(max_delay, base_delay * (backoff_factor**attempt))
+                self.logger.warning(f"Attempt {attempt+1}/{max_retries} failed: {str(e)}")
+                self.logger.warning(f"Retrying in {delay:.2f} seconds...")
+                await asyncio.sleep(delay)
+
+        raise Exception(f"Failed to get model response after {max_retries} attempts")
+
+    async def get_model_response(self, prompt: str) -> list[str]:
+        """Get multiple responses from model by making multiple API calls.
+
+        Args:
+            prompt: The prompt to send to the model
+
+        Returns:
+            A list of model response texts
+
+        Raises:
+            Exception: If all attempts fail
+        """
+        if self.verbose:
+            self.logger.info(f"Prompt: {prompt}")
+            self.logger.info(f"Generating {self.config.completions_per_prompt} completions...")
+        
+        # Create tasks for multiple completions
+        tasks = []
+        for i in range(self.config.completions_per_prompt):
+            tasks.append(self.get_single_response(prompt))
+        
+        # Execute all tasks concurrently
+        responses = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Handle any exceptions
+        valid_responses = []
+        for i, response in enumerate(responses):
+            if isinstance(response, Exception):
+                self.logger.error(f"Completion {i+1} failed: {str(response)}")
+            else:
+                valid_responses.append(response)
+                if self.verbose:
+                    self.logger.info(f"Response {len(valid_responses)}: {response}")
+        
+        if not valid_responses:
+            raise Exception("All completion attempts failed")
+            
+        return valid_responses
 
             except Exception as e:
                 delay = min(max_delay, base_delay * (backoff_factor**attempt))
