@@ -202,14 +202,6 @@ class AsyncModelEvaluator:
             
         return valid_responses
 
-            except Exception as e:
-                delay = min(max_delay, base_delay * (backoff_factor**attempt))
-                self.logger.warning(f"Attempt {attempt+1}/{max_retries} failed: {str(e)}")
-                self.logger.warning(f"Retrying in {delay:.2f} seconds...")
-                await asyncio.sleep(delay)
-
-        raise Exception(f"Failed to get model response after {max_retries} attempts")
-
     async def process_entry(
         self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: dict[str, Any]
     ) -> dict[str, Any]:
