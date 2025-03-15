@@ -450,7 +450,7 @@ class AsyncModelEvaluator:
 
             # If we have no valid completions, log a warning instead of raising an exception
             if not best_answer:
-                self.logger.warning(f"All completions failed to process for dataset '{dataset.name}', entry index {all_entries.index(entry)}")
+                self.logger.warning(f"All completions failed to process for dataset '{dataset.name}'")
                 # Use empty string as the best answer
                 best_answer = ""
                 best_response = responses[0] if responses and len(responses) > 0 else ""
