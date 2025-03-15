@@ -4,6 +4,7 @@ import hydra
 import ray
 from omegaconf import OmegaConf
 
+import reasoning_gym
 import reasoning_gym.utils
 
 from .data import ReasoningGymDataset
@@ -63,21 +64,24 @@ def main_task(config):
     resource_pool_manager = ResourcePoolManager(resource_pool_spec=resource_pool_spec, mapping=mapping)
 
     # TODO: configurable
-    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
     dataset_name: str = "chain_sum"
     dataset_size: int = 10000
+    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
+
+    train_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=1, size=dataset_size)
+    val_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=2, size=dataset_size)
+
     train_dataset = ReasoningGymDataset(
         tokenizer=tokenizer,
+        procedural_dataset=train_procedural_dataset,
         dataset_name=dataset_name,
-        seed=1,
-        size=dataset_size,
         developer_prompt=developer_prompt,
     )
+
     val_dataset = ReasoningGymDataset(
         tokenizer=tokenizer,
+        procedural_dataset=val_procedural_dataset,
         dataset_name=dataset_name,
-        seed=2,
-        size=dataset_size,
         developer_prompt=developer_prompt,
     )
 
