@@ -178,15 +178,15 @@ class AsyncModelEvaluator:
         if self.verbose:
             self.logger.info(f"Prompt: {prompt}")
             self.logger.info(f"Generating {self.config.completions_per_prompt} completions...")
-        
+
         # Create tasks for multiple completions
         tasks = []
         for i in range(self.config.completions_per_prompt):
             tasks.append(self.get_single_response(prompt))
-        
+
         # Execute all tasks concurrently
         responses = await asyncio.gather(*tasks, return_exceptions=True)
-        
+
         # Handle any exceptions
         valid_responses = []
         for i, response in enumerate(responses):
@@ -196,10 +196,10 @@ class AsyncModelEvaluator:
                 valid_responses.append(response)
                 if self.verbose:
                     self.logger.info(f"Response {len(valid_responses)}: {response}")
-        
+
         if not valid_responses:
             raise Exception("All completion attempts failed")
-            
+
         return valid_responses
 
     async def process_entry(
@@ -218,60 +218,64 @@ class AsyncModelEvaluator:
         try:
             # Get multiple model responses
             responses = await self.get_model_response(entry["question"])
-            
+
             # Process each response
             completion_results = []
             best_score = 0.0
             total_score = 0.0
-            valid_completions = 0
             best_answer = None
             best_response = None
-            
+
+            # Count total completions for mean score calculation
+            total_completions = len(responses)
+
             for i, response in enumerate(responses):
                 try:
                     # Try to extract answer and score it
                     model_answer = extract_answer(response)
                     score = dataset.score_answer(answer=model_answer, entry=entry)
-                    
+
                     completion_result = {
                         "model_answer": model_answer,
                         "full_model_response": response,
                         "score": score,
                     }
-                    
+
                     # Track scores
                     if score > best_score:
                         best_score = score
                         best_answer = model_answer
                         best_response = response
-                    
+
                     total_score += score
-                    valid_completions += 1
-                    
+
                     completion_results.append(completion_result)
-                    
+
                     if self.verbose:
                         print(f"Question: {entry['question']}")
                         print(f"Expected: {entry['answer']}")
                         print(f"Completion {i+1} Answer: {model_answer}")
                         print(f"Completion {i+1} Score: {score}")
                         print("-" * 40)
-                        
+
                 except Exception as e:
                     self.logger.error(f"Error processing completion {i+1}: {str(e)}")
-                    completion_results.append({
-                        "model_answer": "ERROR",
-                        "full_model_response": response,
-                        "score": 0.0,
-                        "error": str(e),
-                    })
-            
+                    # Add failed completion with score 0.0 (already counted in total_completions)
+                    completion_results.append(
+                        {
+                            "model_answer": "ERROR",
+                            "full_model_response": response,
+                            "score": 0.0,
+                            "error": str(e),
+                        }
+                    )
+
             # If we have no valid completions, raise an exception
             if not best_answer:
                 raise Exception("All completions failed to process")
-                
-            # Calculate mean score
-            mean_score = total_score / valid_completions if valid_completions > 0 else 0.0
+
+            # Calculate mean score - count all completions including failures
+            mean_score = total_score / total_completions if total_completions > 0 else 0.0
 
             result = {
                 "question": entry["question"],
@@ -568,7 +572,7 @@ class AsyncModelEvaluator:
         for dataset_name in summary["dataset_best_scores"].keys():
             best_score = summary["dataset_best_scores"][dataset_name]
             mean_score = summary["dataset_mean_scores"][dataset_name]
-            
+
             # Find the number of examples for this dataset
             examples = 0
             for category in results["categories"]:
