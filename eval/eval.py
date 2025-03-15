@@ -482,7 +482,7 @@ class AsyncModelEvaluator:
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
                 "best_model_answer": None,
-                "best_full_model_response": responses[0] if responses and len(responses) > 0 else f"Error: {str(e)}",
+                "best_full_model_response": responses[0] if responses and len(responses) > 0 else None,
                 "best_score": 0.0,
                 "mean_score": 0.0,
                 "error": str(e),
