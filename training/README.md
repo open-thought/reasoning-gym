@@ -5,7 +5,7 @@ Training codebase for training LLMs using Reasoning Gym procedural dataset gener
 Example GRPO training usage:
 
 ```bash
-python3 -u train_grpo.py config_name=llama3.1_1b_grpo \
+python3 -u train_grpo.py --config-name llama3.1_1b_grpo \
     actor_rollout_ref.rollout.tensor_model_parallel_size=2 \
     trainer.project_name=verl_chain_sum_grpo \
     trainer.experiment_name=chain_sum_llama \
