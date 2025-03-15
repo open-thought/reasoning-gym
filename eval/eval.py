@@ -381,7 +381,11 @@ class AsyncModelEvaluator:
         return valid_responses
 
     async def process_entry(
-        self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: dict[str, Any], entry_index: int, dataset_name: str
+        self,
+        dataset: reasoning_gym.dataset.ProceduralDataset,
+        entry: dict[str, Any],
+        entry_index: int,
+        dataset_name: str,
     ) -> dict[str, Any]:
         """Process a single dataset entry.
 
@@ -452,7 +456,9 @@ class AsyncModelEvaluator:
 
             # If we have no valid completions, log a warning instead of raising an exception
             if not best_answer:
-                self.logger.warning(f"All completions failed to process for dataset '{dataset_name}', entry index {entry_index}")
+                self.logger.warning(
+                    f"All completions failed to process for dataset '{dataset_name}', entry index {entry_index}"
+                )
                 # Use None instead of empty string as the best answer
                 best_answer = None
                 best_response = responses[0] if responses and len(responses) > 0 else None
@@ -485,12 +491,15 @@ class AsyncModelEvaluator:
                 "best_model_answer": None,
                 # First check if we already have a best_response from partial processing
                 # If not, then fall back to the first response or None
-                "best_full_model_response": best_response if best_response is not None else 
-                                           (responses[0] if responses and len(responses) > 0 else None),
+                "best_full_model_response": (
+                    best_response
+                    if best_response is not None
+                    else (responses[0] if responses and len(responses) > 0 else None)
+                ),
                 "best_score": best_score if best_score > 0 else 0.0,
                 "mean_score": total_score / total_completions if total_completions > 0 else 0.0,
                 "error": str(e),
-                "completions": completion_results if 'completion_results' in locals() else [],
+                "completions": completion_results if "completion_results" in locals() else [],
             }
 
             # Only include metadata if configured to do so
