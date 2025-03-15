@@ -19,7 +19,6 @@ Options:
     --verbose                 Print detailed model responses
     --debug                   Enable debug logging
     --resume DIR              Resume evaluation from the specified directory
-    --resume DIR              Resume evaluation from the specified directory
 
 Environment variables:
     OPENROUTER_API_KEY        Required API key for OpenRouter
