@@ -49,52 +49,97 @@ class CheckpointManager:
 
     def __init__(self, output_dir: Path):
         """Initialize the checkpoint manager.
-        
+
         Args:
             output_dir: Directory where checkpoints and results are stored
         """
         self.output_dir = output_dir
         self.checkpoint_path = output_dir / "checkpoint.json"
         self.completed_datasets = set()
+        self.previous_category_results = {}  # Store previously completed category results
         self.load_checkpoint()
-    
+
     def load_checkpoint(self) -> None:
-        """Load existing checkpoint if available."""
+        """Load existing checkpoint and previous results if available."""
+        # Load checkpoint file
         if self.checkpoint_path.exists():
             with open(self.checkpoint_path, "r") as f:
                 checkpoint_data = json.load(f)
                 self.completed_datasets = set(checkpoint_data.get("completed_datasets", []))
-    
+
+        # Load previous category results
+        for category_dir in self.output_dir.iterdir():
+            if category_dir.is_dir():
+                category_name = category_dir.name
+                self.previous_category_results[category_name] = []
+
+                # Load each dataset result file in this category
+                for dataset_file in category_dir.glob("*.json"):
+                    try:
+                        with open(dataset_file, "r") as f:
+                            dataset_result = json.load(f)
+                            self.previous_category_results[category_name].append(dataset_result)
+                    except Exception as e:
+                        logging.warning(f"Error loading previous result {dataset_file}: {str(e)}")
+
     def is_dataset_completed(self, category: str, dataset: str) -> bool:
         """Check if a dataset has been completed.
-        
+
         Args:
             category: Category name
             dataset: Dataset name
-            
+
         Returns:
             True if the dataset has been completed, False otherwise
         """
         return f"{category}/{dataset}" in self.completed_datasets
-    
+
     def mark_dataset_completed(self, category: str, dataset: str) -> None:
         """Mark a dataset as completed and update checkpoint file.
-        
+
         Args:
             category: Category name
             dataset: Dataset name
         """
         self.completed_datasets.add(f"{category}/{dataset}")
         self._save_checkpoint()
-    
+
+    def get_dataset_result(self, category: str, dataset: str) -> Optional[dict[str, Any]]:
+        """Get previously completed dataset result if available.
+
+        Args:
+            category: Category name
+            dataset: Dataset name
+
+        Returns:
+            Dataset result dict if found, None otherwise
+        """
+        # Try to find the dataset in previously loaded results first
+        if category in self.previous_category_results:
+            for dataset_result in self.previous_category_results[category]:
+                if dataset_result["name"] == dataset:
+                    return dataset_result
+
+        # If not found in memory, try to load from file
+        dataset_path = self.output_dir / category / f"{dataset}.json"
+        if dataset_path.exists():
+            try:
+                with open(dataset_path, "r") as f:
+                    return json.load(f)
+            except Exception as e:
+                logging.error(f"Error loading dataset result from {dataset_path}: {str(e)}")
+
+        return None
+
     def _save_checkpoint(self) -> None:
         """Save checkpoint to disk."""
         checkpoint_data = {
             "completed_datasets": list(self.completed_datasets),
-            "last_updated": datetime.now().isoformat()
+            "last_updated": datetime.now().isoformat(),
         }
         with open(self.checkpoint_path, "w") as f:
             json.dump(checkpoint_data, f, indent=2)
+
 
 # Configure logging
 logging.basicConfig(
@@ -160,16 +205,15 @@ class AsyncModelEvaluator:
         # Metadata
         self.git_hash = get_git_hash()
         self.start_time = datetime.now()
-        
+
         # Checkpoint and resume related attributes
         self.resume_dir = None
         self.output_dir = None
         self.checkpoint_manager = None
-        self.previous_category_results = {}  # Store previously completed category results
 
-    def create_or_load_output_dir(self) -> Path:
-        """Create output directory or load existing one for resuming.
-        
+    def create_output_dir(self) -> Path:
+        """Create output directory or use existing one for resuming.
+
         Returns:
             Path to the output directory
         """
@@ -178,32 +222,14 @@ class AsyncModelEvaluator:
             output_dir = Path(self.resume_dir)
             if not output_dir.exists():
                 raise ValueError(f"Resume directory {output_dir} does not exist")
-            
+
             self.logger.info(f"Resuming evaluation from {output_dir}")
-            
-            # Load previous category results
-            for category_dir in output_dir.iterdir():
-                if category_dir.is_dir():
-                    category_name = category_dir.name
-                    self.previous_category_results[category_name] = []
-                    
-                    # Load each dataset result file in this category
-                    for dataset_file in category_dir.glob("*.json"):
-                        try:
-                            with open(dataset_file, "r") as f:
-                                dataset_result = json.load(f)
-                                self.previous_category_results[category_name].append(dataset_result)
-                                self.logger.debug(f"Loaded previous result for {category_name}/{dataset_result['name']}")
-                        except Exception as e:
-                            self.logger.warning(f"Error loading previous result {dataset_file}: {str(e)}")
-            
-            self.logger.info(f"Loaded previous results for {len(self.previous_category_results)} categories")
             return output_dir
-        
+
         # Create new output directory
         timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
         model_name = self.config.model.replace("/", "_")
-        
+
         if len(self.config.categories) == 1:
             # Include category name in the output directory when evaluating a single category
             category_name = self.config.categories[0].category
@@ -211,13 +237,13 @@ class AsyncModelEvaluator:
         else:
             # Original format for multiple categories
             output_dir = Path(self.config.output_dir) / f"{model_name}_{timestamp}"
-        
+
         output_dir.mkdir(parents=True, exist_ok=True)
         return output_dir
-        
+
     def _save_dataset_results(self, category_name: str, dataset_name: str, results: dict[str, Any]) -> None:
         """Save individual dataset results to file.
-        
+
         Args:
             category_name: Category name
             dataset_name: Dataset name
@@ -225,14 +251,14 @@ class AsyncModelEvaluator:
         """
         category_dir = self.output_dir / category_name
         category_dir.mkdir(exist_ok=True)
-        
+
         dataset_path = category_dir / f"{dataset_name}.json"
         with open(dataset_path, "w") as f:
             json.dump(results, f, indent=2)
-    
+
     def _update_partial_summary(self, category_results: list[dict[str, Any]]) -> None:
         """Update partial summary after each category completes.
-        
+
         Args:
             category_results: List of category results completed so far
         """
@@ -250,15 +276,15 @@ class AsyncModelEvaluator:
             },
             "categories": category_results,
         }
-        
+
         # Generate partial summary
         partial_results["summary"] = self.generate_summary(partial_results)
-        
+
         # Save partial summary
         summary_path = self.output_dir / "summary.json"
         with open(summary_path, "w") as f:
             json.dump(partial_results["summary"], f, indent=2)
-    
+
     async def get_single_response(self, prompt: str) -> str:
         """Get a single response from model with retry logic via OpenRouter.
 
@@ -476,29 +502,20 @@ class AsyncModelEvaluator:
             Dict with evaluation results
         """
         dataset_name = dataset_config.dataset
-        
+
         # Check if this dataset has already been completed
         if self.checkpoint_manager.is_dataset_completed(category_name, dataset_name):
-            self.logger.info(f"Skipping already completed dataset: {dataset_name}")
-            
-            # Try to find the dataset in previously loaded results first
-            if category_name in self.previous_category_results:
-                for dataset_result in self.previous_category_results[category_name]:
-                    if dataset_result["name"] == dataset_name:
-                        return dataset_result
-            
-            # If not found in memory, load from file
-            dataset_path = self.output_dir / category_name / f"{dataset_name}.json"
-            try:
-                with open(dataset_path, "r") as f:
-                    return json.load(f)
-            except Exception as e:
-                self.logger.error(f"Error loading dataset result from {dataset_path}: {str(e)}")
-                # If we can't load the result, we'll need to re-evaluate the dataset
-                self.logger.info(f"Re-evaluating dataset: {dataset_name}")
-                # Remove from completed datasets so it will be processed
-                self.checkpoint_manager.completed_datasets.discard(f"{category_name}/{dataset_name}")
-        
+            # Get the dataset result from checkpoint manager
+            dataset_result = self.checkpoint_manager.get_dataset_result(category_name, dataset_name)
+            if dataset_result:
+                self.logger.info(f"Skipping already completed dataset: {dataset_name}")
+                return dataset_result
+
+            # If we can't load the result, we'll need to re-evaluate the dataset
+            self.logger.info(f"Re-evaluating dataset: {dataset_name}")
+            # Remove from completed datasets so it will be processed
+            self.checkpoint_manager.completed_datasets.discard(f"{category_name}/{dataset_name}")
+
         self.logger.info(f"Evaluating dataset: {dataset_name}")
 
         try:
@@ -546,11 +563,11 @@ class AsyncModelEvaluator:
                 "completions_per_prompt": self.config.completions_per_prompt,
                 "results": results,
             }
-            
+
             # Mark dataset as completed and save results
             self.checkpoint_manager.mark_dataset_completed(category_name, dataset_name)
             self._save_dataset_results(category_name, dataset_name, dataset_results)
-            
+
             return dataset_results
 
         except Exception as e:
@@ -585,13 +602,13 @@ class AsyncModelEvaluator:
             if not self.checkpoint_manager.is_dataset_completed(category_name, dataset_config.dataset):
                 all_completed = False
                 break
-        
+
         # If all datasets are completed and we have previous results, use them
-        if all_completed and category_name in self.previous_category_results:
+        if all_completed and category_name in self.checkpoint_manager.previous_category_results:
             self.logger.info(f"Using previously completed results for category: {category_name}")
             return {
                 "name": category_name,
-                "datasets": self.previous_category_results[category_name],
+                "datasets": self.checkpoint_manager.previous_category_results[category_name],
             }
 
         # Process datasets sequentially to ensure proper checkpointing
@@ -612,17 +629,17 @@ class AsyncModelEvaluator:
             Dict with all evaluation results and summary
         """
         self.logger.info(f"Starting evaluation of {len(self.config.categories)} categories")
-        
+
         # Initialize output directory and checkpoint manager
-        self.output_dir = self.create_or_load_output_dir()
+        self.output_dir = self.create_output_dir()
         self.checkpoint_manager = CheckpointManager(self.output_dir)
-        
+
         # Process each category sequentially to ensure proper checkpointing
         category_results = []
         for category in self.config.categories:
             category_result = await self.evaluate_category(category)
             category_results.append(category_result)
-            
+
             # Update partial summary after each category
             self._update_partial_summary(category_results)
 
@@ -848,7 +865,7 @@ async def main_async():
     evaluator = AsyncModelEvaluator(
         config=config, api_key=api_key, base_url=args.base_url, verbose=args.verbose, debug=args.debug
     )
-    
+
     # Set resume directory if specified
     if args.resume:
         evaluator.resume_dir = args.resume
