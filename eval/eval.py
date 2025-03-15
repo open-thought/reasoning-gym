@@ -18,6 +18,8 @@ Options:
     --full-results            Save the full results file
     --verbose                 Print detailed model responses
     --debug                   Enable debug logging
+    --resume DIR              Resume evaluation from the specified directory
+    --resume DIR              Resume evaluation from the specified directory
 
 Environment variables:
     OPENROUTER_API_KEY        Required API key for OpenRouter
@@ -32,7 +34,7 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, Set
 
 from eval_config import CategoryConfig, DatasetConfig, EvalConfig
 from openai import AsyncOpenAI
@@ -40,6 +42,59 @@ from tqdm.asyncio import tqdm_asyncio
 
 import reasoning_gym
 from reasoning_gym.utils import extract_answer
+
+
+class CheckpointManager:
+    """Manages checkpoints for resumable evaluation."""
+
+    def __init__(self, output_dir: Path):
+        """Initialize the checkpoint manager.
+        
+        Args:
+            output_dir: Directory where checkpoints and results are stored
+        """
+        self.output_dir = output_dir
+        self.checkpoint_path = output_dir / "checkpoint.json"
+        self.completed_datasets = set()
+        self.load_checkpoint()
+    
+    def load_checkpoint(self) -> None:
+        """Load existing checkpoint if available."""
+        if self.checkpoint_path.exists():
+            with open(self.checkpoint_path, "r") as f:
+                checkpoint_data = json.load(f)
+                self.completed_datasets = set(checkpoint_data.get("completed_datasets", []))
+    
+    def is_dataset_completed(self, category: str, dataset: str) -> bool:
+        """Check if a dataset has been completed.
+        
+        Args:
+            category: Category name
+            dataset: Dataset name
+            
+        Returns:
+            True if the dataset has been completed, False otherwise
+        """
+        return f"{category}/{dataset}" in self.completed_datasets
+    
+    def mark_dataset_completed(self, category: str, dataset: str) -> None:
+        """Mark a dataset as completed and update checkpoint file.
+        
+        Args:
+            category: Category name
+            dataset: Dataset name
+        """
+        self.completed_datasets.add(f"{category}/{dataset}")
+        self._save_checkpoint()
+    
+    def _save_checkpoint(self) -> None:
+        """Save checkpoint to disk."""
+        checkpoint_data = {
+            "completed_datasets": list(self.completed_datasets),
+            "last_updated": datetime.now().isoformat()
+        }
+        with open(self.checkpoint_path, "w") as f:
+            json.dump(checkpoint_data, f, indent=2)
 
 # Configure logging
 logging.basicConfig(
@@ -105,7 +160,85 @@ class AsyncModelEvaluator:
         # Metadata
         self.git_hash = get_git_hash()
         self.start_time = datetime.now()
+        
+        # Checkpoint and resume related attributes
+        self.resume_dir = None
+        self.output_dir = None
+        self.checkpoint_manager = None
 
+    def create_or_load_output_dir(self) -> Path:
+        """Create output directory or load existing one for resuming.
+        
+        Returns:
+            Path to the output directory
+        """
+        # Check if we're resuming from a previous run
+        if self.resume_dir:
+            output_dir = Path(self.resume_dir)
+            if not output_dir.exists():
+                raise ValueError(f"Resume directory {output_dir} does not exist")
+            self.logger.info(f"Resuming evaluation from {output_dir}")
+            return output_dir
+        
+        # Create new output directory
+        timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
+        model_name = self.config.model.replace("/", "_")
+        
+        if len(self.config.categories) == 1:
+            # Include category name in the output directory when evaluating a single category
+            category_name = self.config.categories[0].category
+            output_dir = Path(self.config.output_dir) / f"{model_name}_{category_name}_{timestamp}"
+        else:
+            # Original format for multiple categories
+            output_dir = Path(self.config.output_dir) / f"{model_name}_{timestamp}"
+        
+        output_dir.mkdir(parents=True, exist_ok=True)
+        return output_dir
+        
+    def _save_dataset_results(self, category_name: str, dataset_name: str, results: dict[str, Any]) -> None:
+        """Save individual dataset results to file.
+        
+        Args:
+            category_name: Category name
+            dataset_name: Dataset name
+            results: Dataset evaluation results
+        """
+        category_dir = self.output_dir / category_name
+        category_dir.mkdir(exist_ok=True)
+        
+        dataset_path = category_dir / f"{dataset_name}.json"
+        with open(dataset_path, "w") as f:
+            json.dump(results, f, indent=2)
+    
+    def _update_partial_summary(self, category_results: list[dict[str, Any]]) -> None:
+        """Update partial summary after each category completes.
+        
+        Args:
+            category_results: List of category results completed so far
+        """
+        partial_results = {
+            "metadata": {
+                "timestamp": self.start_time.isoformat(),
+                "model": self.config.model,
+                "provider": self.config.provider,
+                "git_hash": self.git_hash,
+                "duration_seconds": (datetime.now() - self.start_time).total_seconds(),
+                "max_tokens": self.config.max_tokens,
+                "temperature": self.config.temperature,
+                "top_p": self.config.top_p,
+                "partial": True,
+            },
+            "categories": category_results,
+        }
+        
+        # Generate partial summary
+        partial_results["summary"] = self.generate_summary(partial_results)
+        
+        # Save partial summary
+        summary_path = self.output_dir / "summary.json"
+        with open(summary_path, "w") as f:
+            json.dump(partial_results["summary"], f, indent=2)
+    
     async def get_single_response(self, prompt: str) -> str:
         """Get a single response from model with retry logic via OpenRouter.
 
@@ -323,6 +456,15 @@ class AsyncModelEvaluator:
             Dict with evaluation results
         """
         dataset_name = dataset_config.dataset
+        
+        # Check if this dataset has already been completed
+        if self.checkpoint_manager.is_dataset_completed(category_name, dataset_name):
+            self.logger.info(f"Skipping already completed dataset: {dataset_name}")
+            # Load results from file
+            dataset_path = self.output_dir / category_name / f"{dataset_name}.json"
+            with open(dataset_path, "r") as f:
+                return json.load(f)
+        
         self.logger.info(f"Evaluating dataset: {dataset_name}")
 
         try:
@@ -359,7 +501,7 @@ class AsyncModelEvaluator:
             average_best_score = total_best_score / len(results) if results else 0
             average_mean_score = total_mean_score / len(results) if results else 0
 
-            return {
+            dataset_results = {
                 "name": dataset_name,
                 "category": category_name,
                 "average_best_score": average_best_score,
@@ -370,6 +512,12 @@ class AsyncModelEvaluator:
                 "completions_per_prompt": self.config.completions_per_prompt,
                 "results": results,
             }
+            
+            # Mark dataset as completed and save results
+            self.checkpoint_manager.mark_dataset_completed(category_name, dataset_name)
+            self._save_dataset_results(category_name, dataset_name, dataset_results)
+            
+            return dataset_results
 
         except Exception as e:
             self.logger.error(f"Error evaluating dataset {dataset_name}: {str(e)}")
@@ -397,9 +545,11 @@ class AsyncModelEvaluator:
         category_name = category_config.category
         self.logger.info(f"Evaluating category: {category_name}")
 
-        tasks = [self.evaluate_dataset(category_name, dataset_config) for dataset_config in category_config.datasets]
-
-        dataset_results = await asyncio.gather(*tasks)
+        # Process datasets sequentially to ensure proper checkpointing
+        dataset_results = []
+        for dataset_config in category_config.datasets:
+            result = await self.evaluate_dataset(category_name, dataset_config)
+            dataset_results.append(result)
 
         return {
             "name": category_name,
@@ -407,15 +557,25 @@ class AsyncModelEvaluator:
         }
 
     async def evaluate_all(self) -> dict[str, Any]:
-        """Evaluate all categories and datasets.
+        """Evaluate all categories and datasets, resuming from checkpoint if available.
 
         Returns:
             Dict with all evaluation results and summary
         """
         self.logger.info(f"Starting evaluation of {len(self.config.categories)} categories")
-
-        tasks = [self.evaluate_category(category) for category in self.config.categories]
-        category_results = await asyncio.gather(*tasks)
+        
+        # Initialize output directory and checkpoint manager
+        self.output_dir = self.create_or_load_output_dir()
+        self.checkpoint_manager = CheckpointManager(self.output_dir)
+        
+        # Process each category sequentially to ensure proper checkpointing
+        category_results = []
+        for category in self.config.categories:
+            category_result = await self.evaluate_category(category)
+            category_results.append(category_result)
+            
+            # Update partial summary after each category
+            self._update_partial_summary(category_results)
 
         # Generate results structure
         results = {
@@ -428,6 +588,7 @@ class AsyncModelEvaluator:
                 "max_tokens": self.config.max_tokens,
                 "temperature": self.config.temperature,
                 "top_p": self.config.top_p,
+                "partial": False,  # Mark as complete
             },
             "categories": category_results,
         }
@@ -489,26 +650,12 @@ class AsyncModelEvaluator:
         Returns:
             Tuple of (results_path, summary_path)
         """
-        # Create output directory with timestamp
-        timestamp = self.start_time.strftime("%Y%m%d_%H%M%S")
-        model_name = self.config.model.replace("/", "_")
-
-        # Format directory name with model, category (if single category), and timestamp
-        if len(self.config.categories) == 1:
-            # Include category name in the output directory when evaluating a single category
-            category_name = self.config.categories[0].category
-            output_dir = Path(self.config.output_dir) / f"{model_name}_{category_name}_{timestamp}"
-        else:
-            # Original format for multiple categories
-            output_dir = Path(self.config.output_dir) / f"{model_name}_{timestamp}"
-
-        output_dir.mkdir(parents=True, exist_ok=True)
-
+        # Output directory is already created during evaluation
         results_path = None
 
         # Save full results if configured to do so
         if self.config.save_full_results:
-            results_path = output_dir / "results.json"
+            results_path = self.output_dir / "results.json"
             with open(results_path, "w") as f:
                 json.dump(results, f, indent=2)
 
@@ -526,21 +673,14 @@ class AsyncModelEvaluator:
         summary_data["top_p"] = self.config.top_p
         summary_data["completions_per_prompt"] = self.config.completions_per_prompt
         summary_data["duration_seconds"] = results["metadata"]["duration_seconds"]
+        summary_data["partial"] = False  # Mark as complete
 
         # Save summary
-        summary_path = output_dir / "summary.json"
+        summary_path = self.output_dir / "summary.json"
         with open(summary_path, "w") as f:
             json.dump(summary_data, f, indent=2)
 
-        # Save individual dataset results
-        for category in results["categories"]:
-            category_dir = output_dir / category["name"]
-            category_dir.mkdir(exist_ok=True)
-
-            for dataset in category["datasets"]:
-                dataset_path = category_dir / f"{dataset['name']}.json"
-                with open(dataset_path, "w") as f:
-                    json.dump(dataset, f, indent=2)
+        # Individual dataset results are already saved during evaluation
 
         return str(results_path) if results_path else None, str(summary_path)
 
@@ -606,6 +746,7 @@ async def main_async():
     parser.add_argument("--full-results", action="store_true", help="Save the full results file")
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
+    parser.add_argument("--resume", help="Resume evaluation from the specified directory")
 
     args = parser.parse_args()
 
@@ -658,6 +799,10 @@ async def main_async():
     evaluator = AsyncModelEvaluator(
         config=config, api_key=api_key, base_url=args.base_url, verbose=args.verbose, debug=args.debug
     )
+    
+    # Set resume directory if specified
+    if args.resume:
+        evaluator.resume_dir = args.resume
 
     # Run evaluation
     try:
