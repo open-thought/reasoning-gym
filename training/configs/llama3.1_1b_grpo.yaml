@@ -102,8 +102,8 @@ trainer:
   balance_batch: True
   total_epochs: 10
   total_training_steps: null
-  project_name: verl_grpo_llama3.1_1b
-  experiment_name: rg-data
+  project_name: rg-test
+  experiment_name: verl_grpo_llama3.1_1b
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1

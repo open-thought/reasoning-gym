@@ -8,8 +8,8 @@ import reasoning_gym
 import reasoning_gym.utils
 from reasoning_gym.composite import DatasetSpec
 
-from .data import ReasoningGymDataset
 from .trainers import RayGRPOTrainer
+from .utils import ReasoningGymDataset
 
 
 def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
