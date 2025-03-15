@@ -12,6 +12,7 @@ Options:
     --output-dir DIR          Override output directory specified in config
     --category CATEGORY       Evaluate only datasets from this category
     --max-concurrent NUM      Maximum number of concurrent API calls
+    --n NUM                   Number of completions to generate per prompt (default: 1)
     --base-url URL            API base URL (default: https://openrouter.ai/api/v1)
     --save-metadata           Save entry metadata in results
     --full-results            Save the full results file
@@ -105,14 +106,14 @@ class AsyncModelEvaluator:
         self.git_hash = get_git_hash()
         self.start_time = datetime.now()
 
-    async def get_model_response(self, prompt: str) -> str:
-        """Get response from model with retry logic via OpenRouter.
+    async def get_model_response(self, prompt: str) -> list[str]:
+        """Get multiple responses from model with retry logic via OpenRouter.
 
         Args:
             prompt: The prompt to send to the model
 
         Returns:
-            The model's response text
+            A list of model response texts
 
         Raises:
             Exception: If all retries fail
@@ -141,19 +142,23 @@ class AsyncModelEvaluator:
                         params["temperature"] = self.config.temperature
                     if self.config.top_p is not None:
                         params["top_p"] = self.config.top_p
+                    
+                    # Set n parameter for multiple completions
+                    params["n"] = self.config.completions_per_prompt
 
                     # Add provider configuration if specified
                     if self.config.provider:
                         params["extra_body"] = {"provider": {"order": [self.config.provider], "allow_fallbacks": False}}
 
                     completion = await self.client.chat.completions.create(**params)
-                    response = completion.choices[0].message.content
+                    responses = [choice.message.content for choice in completion.choices]
 
                     if self.verbose:
                         self.logger.info(f"Prompt: {prompt}")
-                        self.logger.info(f"Response: {response}")
+                        for i, response in enumerate(responses):
+                            self.logger.info(f"Response {i+1}: {response}")
 
-                    return response
+                    return responses
 
             except Exception as e:
                 delay = min(max_delay, base_delay * (backoff_factor**attempt))
@@ -175,37 +180,64 @@ class AsyncModelEvaluator:
         Returns:
             Dict with processing results
         """
-        response = None
+        responses = None
         try:
-            # Get model response first
-            response = await self.get_model_response(entry["question"])
-
-            # Try to extract answer and score it
-            try:
-                model_answer = extract_answer(response)
-            except Exception as extract_error:
-                self.logger.error(f"Error extracting answer: {str(extract_error)}")
-                raise Exception(f"Answer extraction error: {str(extract_error)}")
-
-            try:
-                score = dataset.score_answer(answer=model_answer, entry=entry)
-            except Exception as score_error:
-                self.logger.error(f"Error scoring answer: {str(score_error)}")
-                raise Exception(f"Answer scoring error: {str(score_error)}")
-
-            if self.verbose:
-                print(f"Question: {entry['question']}")
-                print(f"Expected: {entry['answer']}")
-                print(f"Answer: {model_answer}")
-                print(f"Score: {score}")
-                print("-" * 40)
+            # Get multiple model responses
+            responses = await self.get_model_response(entry["question"])
+            
+            # Process each response
+            completion_results = []
+            best_score = 0.0
+            best_answer = None
+            best_response = None
+            
+            for i, response in enumerate(responses):
+                try:
+                    # Try to extract answer and score it
+                    model_answer = extract_answer(response)
+                    score = dataset.score_answer(answer=model_answer, entry=entry)
+                    
+                    completion_result = {
+                        "model_answer": model_answer,
+                        "full_model_response": response,
+                        "score": score,
+                    }
+                    
+                    # Track the best score
+                    if score > best_score:
+                        best_score = score
+                        best_answer = model_answer
+                        best_response = response
+                        
+                    completion_results.append(completion_result)
+                    
+                    if self.verbose:
+                        print(f"Question: {entry['question']}")
+                        print(f"Expected: {entry['answer']}")
+                        print(f"Completion {i+1} Answer: {model_answer}")
+                        print(f"Completion {i+1} Score: {score}")
+                        print("-" * 40)
+                        
+                except Exception as e:
+                    self.logger.error(f"Error processing completion {i+1}: {str(e)}")
+                    completion_results.append({
+                        "model_answer": "ERROR",
+                        "full_model_response": response,
+                        "score": 0.0,
+                        "error": str(e),
+                    })
+            
+            # If we have no valid completions, raise an exception
+            if not best_answer:
+                raise Exception("All completions failed to process")
 
             result = {
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
-                "model_answer": model_answer,
-                "full_model_response": response,
-                "score": score,
+                "best_model_answer": best_answer,
+                "best_full_model_response": best_response,
+                "best_score": best_score,
+                "completions": completion_results,
             }
 
             # Only include metadata if configured to do so
@@ -219,10 +251,11 @@ class AsyncModelEvaluator:
             result = {
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
-                "model_answer": "ERROR",
-                "full_model_response": response if response is not None else f"Error: {str(e)}",
-                "score": 0.0,
+                "best_model_answer": "ERROR",
+                "best_full_model_response": responses[0] if responses and len(responses) > 0 else f"Error: {str(e)}",
+                "best_score": 0.0,
                 "error": str(e),
+                "completions": [],
             }
 
             # Only include metadata if configured to do so
@@ -273,7 +306,7 @@ class AsyncModelEvaluator:
             results = await tqdm_asyncio.gather(*tasks, desc=f"Processing {dataset_name}", leave=True)
 
             # Calculate metrics
-            total_score = sum(r["score"] for r in results)
+            total_score = sum(r["best_score"] for r in results)
             average_score = total_score / len(results) if results else 0
 
             return {
@@ -283,6 +316,7 @@ class AsyncModelEvaluator:
                 "total_examples": len(results),
                 "config": {"size": dataset_config.size, "seed": dataset_config.seed, **dataset_config.params},
                 "system_prompt": self.config.get_system_prompt(),
+                "completions_per_prompt": self.config.completions_per_prompt,
                 "results": results,
             }
 
@@ -435,6 +469,7 @@ class AsyncModelEvaluator:
         summary_data["max_tokens"] = self.config.max_tokens
         summary_data["temperature"] = self.config.temperature
         summary_data["top_p"] = self.config.top_p
+        summary_data["completions_per_prompt"] = self.config.completions_per_prompt
         summary_data["duration_seconds"] = results["metadata"]["duration_seconds"]
 
         # Save summary
@@ -471,6 +506,7 @@ class AsyncModelEvaluator:
         print(f"Max Tokens: {self.config.max_tokens}")
         print(f"Temperature: {self.config.temperature}")
         print(f"Top-p: {self.config.top_p}")
+        print(f"Completions per prompt: {self.config.completions_per_prompt}")
         print(f"Git Hash: {self.git_hash}")
         print(f"Duration: {results['metadata']['duration_seconds']:.2f} seconds")
         print()
@@ -500,6 +536,7 @@ async def main_async():
     parser.add_argument("--output-dir", help="Override output directory specified in config")
     parser.add_argument("--category", help="Evaluate only datasets from this category")
     parser.add_argument("--max-concurrent", type=int, help="Maximum number of concurrent API calls")
+    parser.add_argument("--n", type=int, default=1, help="Number of completions to generate per prompt")
     parser.add_argument("--base-url", default="https://openrouter.ai/api/v1", help="API base URL")
     parser.add_argument(
         "--api-key",
@@ -541,6 +578,8 @@ async def main_async():
         config.output_dir = args.output_dir
     if args.max_concurrent:
         config.max_concurrent = args.max_concurrent
+    if args.n:
+        config.completions_per_prompt = args.n
     if args.save_metadata:
         config.save_metadata = True
     if args.full_results:

@@ -56,6 +56,7 @@ default_seed: 42  # Default seed for all datasets
 max_tokens: 32768  # Maximum generation length (optional)
 temperature: 0.6   # Generation temperature (optional)
 top_p: 0.95        # Top-p sampling parameter (optional)
+completions_per_prompt: 1  # Number of completions to generate per prompt (optional)
 system_prompt_id: "default"  # Use a predefined system prompt by ID (optional)
 # system_prompt: "Your custom system prompt here"  # Or specify a custom system prompt directly
 
