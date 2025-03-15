@@ -34,7 +34,7 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional, Union, Set
+from typing import Any, Optional
 
 from eval_config import CategoryConfig, DatasetConfig, EvalConfig
 from openai import AsyncOpenAI
