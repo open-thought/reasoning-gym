@@ -381,7 +381,7 @@ class AsyncModelEvaluator:
         return valid_responses
 
     async def process_entry(
-        self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: dict[str, Any], entry_index: int
+        self, dataset: reasoning_gym.dataset.ProceduralDataset, entry: dict[str, Any], entry_index: int, dataset_name: str
     ) -> dict[str, Any]:
         """Process a single dataset entry.
 
@@ -389,6 +389,7 @@ class AsyncModelEvaluator:
             dataset: The dataset instance
             entry: The entry to process
             entry_index: Index of the entry in the dataset
+            dataset_name: Name of the dataset
 
         Returns:
             Dict with processing results
@@ -451,7 +452,7 @@ class AsyncModelEvaluator:
 
             # If we have no valid completions, log a warning instead of raising an exception
             if not best_answer:
-                self.logger.warning(f"All completions failed to process for dataset '{dataset.name}', entry index {entry_index}")
+                self.logger.warning(f"All completions failed to process for dataset '{dataset_name}', entry index {entry_index}")
                 # Use None instead of empty string as the best answer
                 best_answer = None
                 best_response = responses[0] if responses and len(responses) > 0 else None
@@ -549,8 +550,8 @@ class AsyncModelEvaluator:
             # Get all entries
             all_entries = list(dataset)
 
-            # Process entries with progress bar, passing the entry index
-            tasks = [self.process_entry(dataset, entry, idx) for idx, entry in enumerate(all_entries)]
+            # Process entries with progress bar, passing the entry index and dataset name
+            tasks = [self.process_entry(dataset, entry, idx, dataset_name) for idx, entry in enumerate(all_entries)]
             results = await tqdm_asyncio.gather(*tasks, desc=f"Processing {dataset_name}", leave=True)
 
             # Calculate metrics
