@@ -57,6 +57,6 @@ class ReasoningGymDataset(Dataset):
         row_dict["attention_mask"] = attention_mask[0]
         row_dict["position_ids"] = position_ids[0]
         row_dict["raw_prompt_ids"] = self.tokenizer.encode(prompt, add_special_tokens=False)
-        row_dict["raw_prompt"] = chat.tolist()
+        row_dict["raw_prompt"] = chat
         row_dict["index"] = index
         return row_dict
