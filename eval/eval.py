@@ -165,6 +165,7 @@ class AsyncModelEvaluator:
         self.resume_dir = None
         self.output_dir = None
         self.checkpoint_manager = None
+        self.previous_category_results = {}  # Store previously completed category results
 
     def create_or_load_output_dir(self) -> Path:
         """Create output directory or load existing one for resuming.
@@ -177,7 +178,26 @@ class AsyncModelEvaluator:
             output_dir = Path(self.resume_dir)
             if not output_dir.exists():
                 raise ValueError(f"Resume directory {output_dir} does not exist")
+            
             self.logger.info(f"Resuming evaluation from {output_dir}")
+            
+            # Load previous category results
+            for category_dir in output_dir.iterdir():
+                if category_dir.is_dir():
+                    category_name = category_dir.name
+                    self.previous_category_results[category_name] = []
+                    
+                    # Load each dataset result file in this category
+                    for dataset_file in category_dir.glob("*.json"):
+                        try:
+                            with open(dataset_file, "r") as f:
+                                dataset_result = json.load(f)
+                                self.previous_category_results[category_name].append(dataset_result)
+                                self.logger.debug(f"Loaded previous result for {category_name}/{dataset_result['name']}")
+                        except Exception as e:
+                            self.logger.warning(f"Error loading previous result {dataset_file}: {str(e)}")
+            
+            self.logger.info(f"Loaded previous results for {len(self.previous_category_results)} categories")
             return output_dir
         
         # Create new output directory
@@ -460,10 +480,24 @@ class AsyncModelEvaluator:
         # Check if this dataset has already been completed
         if self.checkpoint_manager.is_dataset_completed(category_name, dataset_name):
             self.logger.info(f"Skipping already completed dataset: {dataset_name}")
-            # Load results from file
+            
+            # Try to find the dataset in previously loaded results first
+            if category_name in self.previous_category_results:
+                for dataset_result in self.previous_category_results[category_name]:
+                    if dataset_result["name"] == dataset_name:
+                        return dataset_result
+            
+            # If not found in memory, load from file
             dataset_path = self.output_dir / category_name / f"{dataset_name}.json"
-            with open(dataset_path, "r") as f:
-                return json.load(f)
+            try:
+                with open(dataset_path, "r") as f:
+                    return json.load(f)
+            except Exception as e:
+                self.logger.error(f"Error loading dataset result from {dataset_path}: {str(e)}")
+                # If we can't load the result, we'll need to re-evaluate the dataset
+                self.logger.info(f"Re-evaluating dataset: {dataset_name}")
+                # Remove from completed datasets so it will be processed
+                self.checkpoint_manager.completed_datasets.discard(f"{category_name}/{dataset_name}")
         
         self.logger.info(f"Evaluating dataset: {dataset_name}")
 
@@ -544,6 +578,21 @@ class AsyncModelEvaluator:
         """
         category_name = category_config.category
         self.logger.info(f"Evaluating category: {category_name}")
+
+        # Check if all datasets in this category are already completed
+        all_completed = True
+        for dataset_config in category_config.datasets:
+            if not self.checkpoint_manager.is_dataset_completed(category_name, dataset_config.dataset):
+                all_completed = False
+                break
+        
+        # If all datasets are completed and we have previous results, use them
+        if all_completed and category_name in self.previous_category_results:
+            self.logger.info(f"Using previously completed results for category: {category_name}")
+            return {
+                "name": category_name,
+                "datasets": self.previous_category_results[category_name],
+            }
 
         # Process datasets sequentially to ensure proper checkpointing
         dataset_results = []
