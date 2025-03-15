@@ -430,6 +430,11 @@ class AsyncModelEvaluator:
                         best_score = score
                         best_answer = model_answer
                         best_response = response
+                    # If we don't have a best answer yet, use the first non-None answer
+                    elif best_answer is None and model_answer is not None:
+                        best_answer = model_answer
+                        best_response = response
+                        best_score = score
 
                     total_score += score
 
