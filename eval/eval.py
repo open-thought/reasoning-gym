@@ -804,7 +804,8 @@ class AsyncModelEvaluator:
                         examples = dataset["total_examples"]
                         break
 
-            print(f"  {dataset_name:<30} {best_score:.1%}        {mean_score:.1%}        {examples}")
+            # Use fixed-width formatting for better alignment
+            print(f"  {dataset_name:<30} {best_score:>8.1%}    {mean_score:>8.1%}    {examples:>8}")
 
         print()
         print(f"Total datasets: {summary['total_datasets']}")
