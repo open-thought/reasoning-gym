@@ -48,6 +48,39 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
     return train_dataset, val_dataset
 
 
+def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
+    """Prepare training and validation datasets."""
+    # TODO: load these values from config
+    dataset_name = "composite"
+    dataset_names = ["mini_sudoku", "futoshiki", "sudoku"]
+    dataset_size = 10000
+    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
+
+    if dataset_name == "composite":
+        dataset_specs = [DatasetSpec(name=name, size=dataset_size, config={}) for name in dataset_names]
+        train_procedural_dataset = reasoning_gym.create_dataset("composite", seed=1, datasets=dataset_specs)
+        val_procedural_dataset = reasoning_gym.create_dataset("composite", seed=2, datasets=dataset_specs)
+    else:
+        train_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=1, size=dataset_size)
+        val_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=2, size=dataset_size)
+
+    train_dataset = ReasoningGymDataset(
+        tokenizer=tokenizer,
+        procedural_dataset=train_procedural_dataset,
+        dataset_name=dataset_name,
+        developer_prompt=developer_prompt,
+    )
+
+    val_dataset = ReasoningGymDataset(
+        tokenizer=tokenizer,
+        procedural_dataset=val_procedural_dataset,
+        dataset_name=dataset_name,
+        developer_prompt=developer_prompt,
+    )
+
+    return train_dataset, val_dataset
+
+
 @ray.remote
 def main_task(config):
     from pprint import pprint
