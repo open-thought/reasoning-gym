@@ -1,3 +1,3 @@
-from .datasets import ReasoningGymCompositeDataset, ReasoningGymDataset
+from .datasets import ReasoningGymDataset
 
-__all__ = ["ReasoningGymCompositeDataset", "ReasoningGymDataset"]
+__all__ = ["ReasoningGymDataset"]
