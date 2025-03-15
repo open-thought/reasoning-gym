@@ -482,11 +482,14 @@ class AsyncModelEvaluator:
                 "question": entry["question"],
                 "expected_answer": str(entry["answer"]),
                 "best_model_answer": None,
-                "best_full_model_response": responses[0] if responses and len(responses) > 0 else None,
-                "best_score": 0.0,
-                "mean_score": 0.0,
+                # First check if we already have a best_response from partial processing
+                # If not, then fall back to the first response or None
+                "best_full_model_response": best_response if best_response is not None else 
+                                           (responses[0] if responses and len(responses) > 0 else None),
+                "best_score": best_score if best_score > 0 else 0.0,
+                "mean_score": total_score / total_completions if total_completions > 0 else 0.0,
                 "error": str(e),
-                "completions": [],
+                "completions": completion_results if 'completion_results' in locals() else [],
             }
 
             # Only include metadata if configured to do so
