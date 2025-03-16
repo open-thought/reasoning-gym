@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from random import Random
-from typing import Optional
+from typing import Optional, Any
 
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
@@ -99,6 +99,59 @@ Please follow the instruction below:
                 },
             },
         }
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        """Score the user's answer against the expected answer.
+
+        Args:
+            answer (Optional[str]): The user's answer string.
+            entry (dict[str, Any]): The original dataset entry with the correct answer.
+
+        Returns:
+            float: 1.0 for a correct answer, 0.0 for incorrect.
+        """
+        if answer is None:
+            return 0.0
+
+        try:
+            # Try to parse the user's answer as a list of strings
+            user_answer = eval(answer)
+            if not isinstance(user_answer, list):
+                return 0.0
+
+            # Get the expected answer
+            expected_answer = eval(entry["answer"])
+
+            # Check if the lists have the same length
+            if len(user_answer) != len(expected_answer):
+                return 0.0
+
+            # Convert both answers to floats for comparison
+            user_floats = [float(num) for num in user_answer]
+            expected_floats = [float(num) for num in expected_answer]
+
+            # First, verify the user's answer is properly sorted
+            direction = entry["metadata"]["direction"]
+            is_correctly_sorted = False
+
+            if direction == "ascending":
+                is_correctly_sorted = user_floats == sorted(user_floats)
+            else:  # descending
+                is_correctly_sorted = user_floats == sorted(user_floats, reverse=True)
+
+            if not is_correctly_sorted:
+                return 0.0
+
+            # Check if the values are close enough (allowing for small rounding differences)
+            tolerance = 0.1  # Increased tolerance to handle decimal differences
+            for i in range(len(user_floats)):
+                if abs(user_floats[i] - expected_floats[i]) > tolerance:
+                    return 0.0
+
+            return 1.0
+        except Exception as e:
+            # Any parsing error means the answer is incorrect
+            return 0.0
 
 
 class NumberSortingCurriculum(BaseCurriculum):
