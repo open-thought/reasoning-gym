@@ -4,6 +4,7 @@
 import torch
 from omegaconf import OmegaConf, open_dict
 from torch.utils.data import DataLoader
+from torchdata.stateful_dataloader import StatefulDataLoader
 from verl import DataProto
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
 from verl.utils.dataset.rl_dataset import collate_fn
@@ -79,7 +80,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         return data.score_answer(found_answer, entry=data[index])
 
     def _create_dataloader(self):
-        self.train_dataloader = DataLoader(
+        self.train_dataloader = StatefulDataLoader(
             dataset=self.train_dataset,
             batch_size=self.config.data.train_batch_size,
             shuffle=True,
@@ -87,7 +88,7 @@ class RayGRPOTrainer(RayPPOTrainer):
             collate_fn=collate_fn,
         )
 
-        self.val_dataloader = DataLoader(
+        self.val_dataloader = StatefulDataLoader(
             dataset=self.val_dataset,
             batch_size=len(self.val_dataset),
             shuffle=True,
