@@ -3,6 +3,8 @@
 
 import re
 
+import re
+
 import torch
 from omegaconf import OmegaConf, open_dict
 from torchdata.stateful_dataloader import StatefulDataLoader
@@ -97,51 +99,18 @@ class RayGRPOTrainer(RayPPOTrainer):
 
         return reward_tensor
 
-    def _compute_format_reward(self, solution_str: str) -> float:
-        """Reward use of exactly one correctly structured <think> and <answer> block."""
-        scaling_factor = self.format_reward_scaling_factor
-        # check <think> and <answer> blocks are present
-        pattern = r"\s*<think>.*?</think>\s*<answer>.*?</answer>"
-        if not re.match(pattern, solution_str, re.DOTALL):
-            return 0.0
-        # check exactly one properly structured <think> block and one <answer> block
-        think_matches = list(re.finditer(r"<think>(.*?)</think>", solution_str, re.DOTALL))
-        answer_matches = list(re.finditer(r"<answer>(.*?)</answer>", solution_str, re.DOTALL))
-        if len(think_matches) != 1 or len(answer_matches) != 1:
-            return 0.0
-        # check for <think> or <answer> inside <think>
-        think_content = think_matches[0].group(1)
-        if "<think>" in think_content or "<answer>" in think_content:
-            return 0.0
-        # check for nested <think> or <answer> inside <answer>
-        answer_content = answer_matches[0].group(1)
-        if "<answer>" in answer_content or "<think>" in answer_content:
-            return 0.0
-        return 1.0 * scaling_factor
+    def _format_reward(solution_str: str):
+        """Reward use of <think> and <answer> tags."""
+        pattern = r"^<think>.*?</think>\s*<answer>.*?</answer>$"
+        match = re.match(pattern, solution_str, re.DOTALL | re.MULTILINE)
+        # Penalise if there are multiple <think> or <answer> tags
+        if match is None:
+            return 0
+        if any(solution_str.count(tag) > 1 for tag in ["<think>", "<answer>", "</think>", "</answer>"]):
+            return 0
+        return 1
 
-    def _compute_length_reward(
-        self,
-        solution_str: str,
-        correctness_score: float,
-        max_score: float = 1.0,
-    ) -> float:
-        """
-        Reward shorter solutions for perfect answers, longer solutions for imperfect answers.
-        The scaling factor for this should be set far below 1.0, to avoid dominating the reward signal over correctness.
-        """
-        epsilon = 1e-6
-        scaling_factor = self.length_reward_scaling_factor
-        generation_len = len(solution_str)
-        progress = min(generation_len / self.max_output_length, 1.0)
-        if correctness_score < max_score - epsilon:
-            # for imperfect answers, incentivise longer ones
-            length_reward = (max_score - correctness_score) * progress
-        else:
-            # for perfect answers, penalise longer ones
-            length_reward = -progress
-        return length_reward * scaling_factor
-
-    def _compute_correctness_score(self, solution_str: str, index: int) -> float:
+    def _compute_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
         data = self.train_dataset.data
         entry = data[index]
