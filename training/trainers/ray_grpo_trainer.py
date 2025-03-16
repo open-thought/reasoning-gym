@@ -1,6 +1,8 @@
 # Adapted version of Bytedance code:
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
 
+import re
+
 import torch
 from omegaconf import OmegaConf, open_dict
 from torch.utils.data import DataLoader
@@ -73,6 +75,17 @@ class RayGRPOTrainer(RayPPOTrainer):
                 num_printed += 1
 
         return reward_tensor
+
+    def _format_reward(solution_str: str):
+        """Reward use of <think> and <answer> tags."""
+        pattern = r"^<think>.*?</think>\s*<answer>.*?</answer>$"
+        match = re.match(pattern, solution_str, re.DOTALL | re.MULTILINE)
+        # Penalise if there are multiple <think> or <answer> tags
+        if match is None:
+            return 0
+        if any(solution_str.count(tag) > 1 for tag in ["<think>", "<answer>", "</think>", "</answer>"]):
+            return 0
+        return 1
 
     def _compute_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
