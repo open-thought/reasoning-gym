@@ -79,7 +79,7 @@ class RayGRPOTrainer(RayPPOTrainer):
 
         return reward_tensor
 
-    def _compute_format_reward(solution_str: str):
+    def _compute_format_reward(self, solution_str: str):
         """Reward use of <think> and <answer> tags."""
         pattern = r"^<think>.*?</think>\s*<answer>.*?</answer>$"
         match = re.match(pattern, solution_str, re.DOTALL | re.MULTILINE)
