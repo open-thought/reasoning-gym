@@ -1,4 +1,3 @@
-from collections import abc
 from dataclasses import dataclass
 from typing import Any, Optional
 
