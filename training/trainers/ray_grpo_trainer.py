@@ -68,7 +68,10 @@ class RayGRPOTrainer(RayPPOTrainer):
                 solution_str=sequences_str,
                 index=index,
             )
-            reward_tensor[i, valid_response_length - 1] = score
+            format_reward = self._compute_format_reward(sequences_str)
+
+            reward = score + format_reward
+            reward_tensor[i, valid_response_length - 1] = reward
 
             if num_printed < num_examine:
                 print(f"reward={score}, seq={sequences_str}")
@@ -76,7 +79,7 @@ class RayGRPOTrainer(RayPPOTrainer):
 
         return reward_tensor
 
-    def _format_reward(solution_str: str):
+    def _compute_format_reward(solution_str: str):
         """Reward use of <think> and <answer> tags."""
         pattern = r"^<think>.*?</think>\s*<answer>.*?</answer>$"
         match = re.match(pattern, solution_str, re.DOTALL | re.MULTILINE)
