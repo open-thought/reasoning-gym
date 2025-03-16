@@ -136,7 +136,6 @@ class LegCountingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_animals",
                 levels=list(range(1, 20)),
-                default_level=0,
                 description="Number of animals in question",
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",
@@ -144,7 +143,6 @@ class LegCountingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_instances",
                 levels=[2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
-                default_level=0,
                 description="Number of instances of each animal",
                 lower_field_name="min_instances",
                 upper_field_name="max_instances",

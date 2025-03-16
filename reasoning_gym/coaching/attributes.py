@@ -7,7 +7,7 @@ from typing import Any, Optional
 class AttributeDefinition:
     name: str
     levels: list
-    default_level: int
+    default_level: int = 0
     description: Optional[str] = None
 
     def validate_level(self, level: int, curriculum: str) -> None:
@@ -47,3 +47,4 @@ class ScalarAttributeDefinition(AttributeDefinition):
 class RangeAttributeDefinition(AttributeDefinition):
     lower_field_name: str
     upper_field_name: str
+    always_slice: bool = False

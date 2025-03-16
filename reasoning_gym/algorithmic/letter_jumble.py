@@ -169,26 +169,26 @@ class LetterJumbleCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_len",
                 levels=[5, 15, 30, 50],
-                default_level=1,
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="words",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of words",
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="corruption_level",
                 levels=[0.1, 0.3, 0.6, 0.9],
-                default_level=1,
                 description="Corruption level",
                 lower_field_name="min_corruption_level",
                 upper_field_name="max_corruption_level",
+                always_slice=True,
             ),
         )
 

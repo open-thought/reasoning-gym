@@ -122,7 +122,6 @@ class BinaryAlternationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 50, 500, 1000],
-                default_level=0,
                 description="Number of bits in the binary string",
                 lower_field_name="min_n",
                 upper_field_name="max_n",

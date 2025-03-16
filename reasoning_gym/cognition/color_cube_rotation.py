@@ -215,10 +215,10 @@ class ColorCubeRotationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rotations",
                 levels=[1, 5, 10, 50, 100],
-                default_level=1,
                 description="Number of rotations to perform on the cube",
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",
+                always_slice=True,
             )
         )
 

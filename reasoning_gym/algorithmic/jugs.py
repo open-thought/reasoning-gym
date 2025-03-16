@@ -329,14 +329,12 @@ class JugsCurriculum(BaseCurriculum):
                 name="num_jugs",
                 field_name="num_jugs",
                 levels=[3, 4, 5, 7],
-                default_level=0,
                 description="Number of jugs in the puzzle",
             ),
             ScalarAttributeDefinition(
                 name="difficulty",
                 field_name="difficulty",
                 levels=[2, 4, 6, 8],
-                default_level=0,
                 description="Minimum required moves to solve the puzzle",
             ),
         )

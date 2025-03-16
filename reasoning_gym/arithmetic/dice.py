@@ -162,14 +162,12 @@ class DiceCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="num_dice",
                 levels=[4, 5, 6, 7],
-                default_level=0,
                 description="Number of dice to roll",
                 field_name="num_dice",
             ),
             ScalarAttributeDefinition(
                 name="max_dice_size",
                 levels=[20, 25, 30, 35],
-                default_level=0,
                 description="Maximum number of sides on any die",
                 field_name="max_dice_size",
             ),

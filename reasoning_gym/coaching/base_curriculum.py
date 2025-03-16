@@ -14,11 +14,6 @@ class CurriculumContext(abc.ABC):
         pass
 
 
-class DefaultCurriculumContext(CurriculumContext):
-    def get_attr_value(self, curriculum, attr: AttributeDefinition) -> Any:
-        return curriculum.get_attr_value(attr.name)
-
-
 class RangeAttributeMode(StrEnum):
     """Text transformation options"""
 
@@ -26,8 +21,8 @@ class RangeAttributeMode(StrEnum):
     INCLUSIVE = "inclusive"  # include all previous levels
 
 
-class RangeCurriculumContext(CurriculumContext):
-    def __init__(self, mode: RangeAttributeMode = RangeAttributeMode.UPPER_BOUND):
+class DefaultCurriculumContext(CurriculumContext):
+    def __init__(self, mode: RangeAttributeMode = RangeAttributeMode.INCLUSIVE):
         self.mode = mode
 
     def get_range_attr_value(self, curriculum, attr: RangeAttributeDefinition) -> Any:
@@ -36,13 +31,22 @@ class RangeCurriculumContext(CurriculumContext):
         if isinstance(v, Iterable):
             return v
 
-        if self.mode == RangeAttributeMode.UPPER_BOUND:
-            hi_index = min(level + 1, len(attr.levels) - 1)
-            lo_index = max(0, hi_index - 1)
+        if attr.always_slice:
+            if self.mode == RangeAttributeMode.UPPER_BOUND:
+                hi_index = min(level + 1, len(attr.levels) - 1)
+                lo_index = max(0, hi_index - 1)
 
-        elif self.mode == RangeAttributeMode.INCLUSIVE:
-            lo_index = 0
-            hi_index = min(level + 1, len(attr.levels) - 1)
+            elif self.mode == RangeAttributeMode.INCLUSIVE:
+                lo_index = 0
+                hi_index = min(level + 1, len(attr.levels) - 1)
+        else:
+            if self.mode == RangeAttributeMode.UPPER_BOUND:
+                hi_index = min(level, len(attr.levels) - 1)
+                lo_index = max(0, hi_index)
+
+            elif self.mode == RangeAttributeMode.INCLUSIVE:
+                lo_index = 0
+                hi_index = min(level, len(attr.levels) - 1)
 
         lo = attr.get_level_value(lo_index)
         hi = attr.get_level_value(hi_index)
@@ -69,7 +73,7 @@ class BaseCurriculum:
         config_args = defaults.copy() if defaults is not None else {}
 
         if context is None:
-            context = DefaultCurriculumContext()
+            context = DefaultCurriculumContext(mode=RangeAttributeMode.INCLUSIVE)
 
         for attr in self._attributes.values():
             if isinstance(attr, RangeAttributeDefinition):

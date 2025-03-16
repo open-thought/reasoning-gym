@@ -126,18 +126,18 @@ class BaseConversionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="base",
                 levels=[2, 9, 18, 27, 36],
-                default_level=1,
                 description="The base of the number system",
                 lower_field_name="min_base",
                 upper_field_name="max_base",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="value",
                 levels=[1_000, 10_000, 100_000, 1_000_000],
-                default_level=0,
                 description="The value to convert",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                always_slice=True,
             ),
         )
 

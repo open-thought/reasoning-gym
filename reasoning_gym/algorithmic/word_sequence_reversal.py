@@ -75,10 +75,10 @@ class WordSequenceReversalCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of words in the list",
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                always_slice=True,
             ),
         )
 

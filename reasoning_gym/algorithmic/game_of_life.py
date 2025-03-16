@@ -163,14 +163,12 @@ class GameOfLifeCurriculum(BaseCurriculum):
                 name="grid_size_x",
                 field_name="grid_size_x",
                 levels=[10, 100, 500, 999],
-                default_level=0,
                 description="Grid size in the x direction",
             ),
             ScalarAttributeDefinition(
                 name="grid_size_y",
                 field_name="grid_size_y",
                 levels=[10, 100, 500, 999],
-                default_level=0,
                 description="Grid size in the y direction",
             ),
             # Filled cells should be 10%, 20%, 30%, 50% of the grid_size_x * grid_size_y
@@ -178,14 +176,12 @@ class GameOfLifeCurriculum(BaseCurriculum):
                 name="filled_cells_weights",
                 field_name="filled_cells_weights",
                 levels=[0.1, 0.2, 0.5, 0.8],
-                default_level=0,
                 description="Percentage of filled cells in the grid",
             ),
             ScalarAttributeDefinition(
                 name="simulation_steps",
                 field_name="simulation_steps",
                 levels=[1, 2, 5, 10],
-                default_level=0,
                 description="Number of simulation steps to run",
             ),
         )

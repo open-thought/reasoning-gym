@@ -249,7 +249,6 @@ class EmojiMysteryCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_words_in_sentence",
                 levels=[3, 10, 20, 35],
-                default_level=0,
                 description="Number of words in the sentence",
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",

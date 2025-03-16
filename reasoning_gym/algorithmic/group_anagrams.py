@@ -133,7 +133,6 @@ class GroupAnagramsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="anagram_groups",
                 levels=[10, 100, 1_000, 10_000],
-                default_level=0,
                 description="Number of anagram groups in the input",
                 lower_field_name="min_anagram_groups",
                 upper_field_name="max_anagram_groups",
@@ -141,7 +140,6 @@ class GroupAnagramsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words_per_group",
                 levels=[2, 5, 10, 20],
-                default_level=0,
                 description="Number of words in a single anagram group",
                 lower_field_name="min_words_per_group",
                 upper_field_name="max_words_per_group",

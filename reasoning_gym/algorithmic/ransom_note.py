@@ -120,7 +120,6 @@ class RansomNoteCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="note_length",
                 levels=[10, 50, 100, 500],
-                default_level=0,
                 description="Length of the ransom note",
                 lower_field_name="min_note_length",
                 upper_field_name="max_note_length",
@@ -128,7 +127,6 @@ class RansomNoteCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="magazine_length",
                 levels=[50, 100, 500, 1000],
-                default_level=0,
                 description="Length of the magazine",
                 lower_field_name="min_magazine_length",
                 upper_field_name="max_magazine_length",

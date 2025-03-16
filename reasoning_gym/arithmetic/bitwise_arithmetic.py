@@ -186,7 +186,6 @@ class BitwiseArithmeticCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="difficulty",
                 levels=[1, 2, 3, 4],
-                default_level=0,
                 description="Range of difficulty levels",
                 field_name="difficulty",
             ),

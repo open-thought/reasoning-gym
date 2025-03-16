@@ -228,14 +228,12 @@ class AliceInWonderlandCurriculum(BaseCurriculum):
                     [0.2, 0.4, 0.4],
                     [0.1, 0.45, 0.45],
                 ],
-                default_level=0,
             ),
             ScalarAttributeDefinition(
                 name="num_entities",
                 field_name="max_entities",
                 description="The number of entities in the question",
                 levels=list(range(4, 18, 2)),
-                default_level=0,
             ),
         )
 

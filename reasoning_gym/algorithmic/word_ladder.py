@@ -278,10 +278,10 @@ class WordLadderCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_length",
                 levels=[3, 4, 5, 6],
-                default_level=1,
                 description="Length of words in the puzzle",
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
+                always_slice=True,
             )
         )
 

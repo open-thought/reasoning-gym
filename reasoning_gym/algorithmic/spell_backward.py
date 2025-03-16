@@ -81,10 +81,10 @@ class SpellBackwardCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_len",
                 levels=[5, 10, 20, 30],
-                default_level=1,
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
+                always_slice=True,
             ),
         )
 

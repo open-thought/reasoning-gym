@@ -284,14 +284,12 @@ class AdvancedGeometryCurriculum(BaseCurriculum):
                 name="min_coord",
                 field_name="min_coord",
                 levels=[-10, -100, -1000, -10000],
-                default_level=0,
                 description="Minimum x/y coordinate",
             ),
             ScalarAttributeDefinition(
                 name="max_coord",
                 field_name="max_coord",
                 levels=[10, 100, 1000, 10000],
-                default_level=0,
                 description="Maximum x/y coordinate",
             ),
         )

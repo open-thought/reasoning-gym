@@ -124,10 +124,10 @@ class SentenceReorderingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words_in_sentence",
                 levels=[5, 20, 50, 100],
-                default_level=1,
                 description="Number of words in the sentence",
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",
+                always_slice=True,
             ),
         )
 

@@ -232,7 +232,6 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="decimal_places",
                 levels=[3, 5, 8, 10],
-                default_level=0,
                 description="Number of decimal places of the numbers in problem",
                 lower_field_name="min_num_decimal_places",
                 upper_field_name="max_num_decimal_places",
@@ -240,7 +239,6 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_terms",
                 levels=[2, 3, 4, 6],
-                default_level=0,
                 description="Number of terms in the arithmetic expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",

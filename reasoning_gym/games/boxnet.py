@@ -224,7 +224,7 @@ class BoxnetCurriculum(BaseCurriculum):
                 lower_field_name="min_row_num",
                 upper_field_name="max_row_num",
                 levels=list(range(1, 10)),
-                default_level=1,
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="column_num",
@@ -232,7 +232,7 @@ class BoxnetCurriculum(BaseCurriculum):
                 lower_field_name="min_column_num",
                 upper_field_name="max_column_num",
                 levels=list(range(1, 10)),
-                default_level=1,
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="box_num",
@@ -240,7 +240,7 @@ class BoxnetCurriculum(BaseCurriculum):
                 lower_field_name="min_box_num",
                 upper_field_name="max_box_num",
                 levels=list(range(1, 10)),
-                default_level=1,
+                always_slice=True,
             ),
         )
 

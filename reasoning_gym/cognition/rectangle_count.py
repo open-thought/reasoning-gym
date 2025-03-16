@@ -148,7 +148,6 @@ class RectangleCountCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_rectangles",
                 levels=[1, 3, 5, 10],
-                default_level=0,
                 description="Number of rectangles in the grid",
                 field_name="max_rectangles",
             ),

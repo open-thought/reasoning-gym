@@ -159,7 +159,6 @@ class LargestIslandCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rows",
                 levels=[5, 10, 50, 100],
-                default_level=0,
                 description="Number of rows in the grid",
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
@@ -167,7 +166,6 @@ class LargestIslandCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="cols",
                 levels=[5, 10, 50, 100],
-                default_level=0,
                 description="Number of columns in the grid",
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
@@ -175,7 +173,6 @@ class LargestIslandCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_islands",
                 levels=[2, 5, 10, 20],
-                default_level=0,
                 description="Number of islands in the grid",
                 lower_field_name="min_num_islands",
                 upper_field_name="max_num_islands",
@@ -183,7 +180,6 @@ class LargestIslandCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="island_size",
                 levels=[5, 10, 20, 30],
-                default_level=0,
                 description="Size of the islands in the grid",
                 lower_field_name="min_island_size",
                 upper_field_name="max_island_size",

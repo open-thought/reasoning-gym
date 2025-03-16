@@ -98,7 +98,6 @@ class CaesarCipherCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rotation",
                 levels=[5, 10, 15, 25],
-                default_level=0,
                 description="Max rotation for cipher",
                 lower_field_name="min_rotation",
                 upper_field_name="max_rotation",
@@ -106,7 +105,6 @@ class CaesarCipherCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words",
                 levels=[5, 10, 15, 25],
-                default_level=0,
                 description="Max number of words",
                 lower_field_name="min_words",
                 upper_field_name="max_words",

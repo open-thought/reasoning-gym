@@ -413,18 +413,18 @@ class CircuitLogicCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="terms",
                 levels=[3, 5, 10, 20, 30],
-                default_level=1,
                 description="Number of terms in the expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="inputs",
                 levels=[2, 4, 6, 8, 10],
-                default_level=1,
                 description="Number of inputs per term",
                 lower_field_name="min_inputs",
                 upper_field_name="max_inputs",
+                always_slice=True,
             ),
         )
 

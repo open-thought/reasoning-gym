@@ -207,7 +207,6 @@ class NumberSequenceCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_complexity",
                 levels=[1, 2, 3, 4],
-                default_level=0,
                 description="Maximum number of operations to combine",
                 field_name="max_complexity",
             ),

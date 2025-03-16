@@ -147,7 +147,6 @@ class ReArcCurriculum(BaseCurriculum):
                 name="pso_difficulty",
                 field_name="pso_difficulty_weights",
                 description="The range of PSO difficulty for the Arc problem",
-                default_level=0,
                 levels=[
                     [1, 0, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs PSO difficulty
                     [0, 1, 0, 0, 0, 0, 0, 0],
@@ -163,7 +162,6 @@ class ReArcCurriculum(BaseCurriculum):
                 name="rng_difficulty",
                 field_name="rng_difficulty_weights",
                 description="The range of RNG difficulty for the Arc problem",
-                default_level=0,
                 levels=[
                     [1, 0, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs RNG difficulty
                     [0, 1, 0, 0, 0, 0, 0, 0],

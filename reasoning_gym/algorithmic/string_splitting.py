@@ -143,10 +143,10 @@ class StringSplittingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="initial_machines",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of initial machines",
                 lower_field_name="min_initial_machines",
                 upper_field_name="max_initial_machines",
+                always_slice=True,
             )
         )
 

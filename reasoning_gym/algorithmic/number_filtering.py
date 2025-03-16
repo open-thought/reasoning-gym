@@ -113,26 +113,26 @@ class NumberFilteringCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="numbers",
                 levels=[10, 100, 500, 1000],
-                default_level=1,
                 description="How many numbers to sort",
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="decimals",
                 levels=[0, 2, 4, 6],
-                default_level=1,
                 description="Number of decimal places",
                 lower_field_name="min_decimals",
                 upper_field_name="max_decimals",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="value",
                 levels=[-10_000, 10_000],
-                default_level=1,
                 description="Range of numbers to sort",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                always_slice=True,
             ),
         )
 

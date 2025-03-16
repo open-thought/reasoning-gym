@@ -240,7 +240,6 @@ class BasicArithmeticCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_terms",
                 levels=[2, 5, 10, 20],
-                default_level=0,
                 description="Number of terms in the expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
@@ -248,7 +247,6 @@ class BasicArithmeticCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_digits",
                 levels=[1, 2, 5, 10],
-                default_level=0,
                 description="Number of digits in the numbers",
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",

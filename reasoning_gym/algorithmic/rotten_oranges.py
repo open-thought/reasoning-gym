@@ -136,7 +136,6 @@ class RottenOrangesCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Size of the square matrix",
                 lower_field_name="min_n",
                 upper_field_name="max_n",

@@ -170,7 +170,6 @@ class DecimalChainSumCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_terms",
                 levels=[2, 3, 4, 5],
-                default_level=0,
                 description="Maximum number of terms in the expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
@@ -186,7 +185,6 @@ class DecimalChainSumCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="decimal_places",
                 levels=[1, 2, 3, 4],
-                default_level=0,
                 description="Number of decimal places in each operand",
                 lower_field_name="min_decimal_places",
                 upper_field_name="max_decimal_places",

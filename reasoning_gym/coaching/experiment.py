@@ -43,8 +43,8 @@ class CurriculumExperiment(Experiment):
         self,
         name: str,
         config: CurriculumExperimentConfig,
-        context: CurriculumContext,
         size: int,
+        context: Optional[CurriculumContext] = None,
         seed: Optional[int] = None,
     ):
         """Initialize curriculum experiment with configured datasets and their curricula.

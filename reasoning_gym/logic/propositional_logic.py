@@ -346,7 +346,6 @@ class PropositionalLogicCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="vars",
                 levels=[2, 4, 6, 8, 10],
-                default_level=0,
                 description="Number of variables in the logical expressions",
                 lower_field_name="min_vars",
                 upper_field_name="max_vars",
@@ -354,7 +353,6 @@ class PropositionalLogicCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="statements",
                 levels=[2, 4, 6, 8, 10],
-                default_level=0,
                 description="Number of premises in the logical expressions",
                 lower_field_name="min_statements",
                 upper_field_name="max_statements",
@@ -362,7 +360,6 @@ class PropositionalLogicCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="complexity",
                 levels=[1, 2, 3, 4, 5],
-                default_level=0,
                 description="Complexity of the logical expressions",
                 lower_field_name="min_complexity",
                 upper_field_name="max_complexity",

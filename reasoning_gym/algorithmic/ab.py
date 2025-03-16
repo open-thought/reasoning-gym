@@ -152,7 +152,6 @@ class ABCurriculum(BaseCurriculum):
                 name="length",
                 field_name="length",
                 levels=[1, 10, 50, 100],
-                default_level=0,
                 description="Length of the A::B program",
             )
         )

@@ -81,14 +81,12 @@ class ZebraCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="num_people",
                 levels=list(range(2, 8)),
-                default_level=0,
                 description="The number of people in the Zebra puzzle",
                 field_name="num_people",
             ),
             ScalarAttributeDefinition(
                 name="num_characteristics",
                 levels=list(range(2, 8)),
-                default_level=0,
                 description="The number of characteristics in the Zebra puzzle",
                 field_name="num_characteristics",
             ),

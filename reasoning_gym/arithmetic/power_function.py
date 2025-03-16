@@ -84,7 +84,6 @@ class PowerFunctionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="exponent",
                 levels=[2, 4, 6, 10],
-                default_level=0,
                 lower_field_name="min_exponent",
                 upper_field_name="max_exponent",
             ),

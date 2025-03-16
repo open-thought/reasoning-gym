@@ -80,7 +80,6 @@ class CountPrimesCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[1000, 10_000, 50_000, 100_000],
-                default_level=0,
                 description="Up to which number to consider the primes",
                 lower_field_name="min_n",
                 upper_field_name="max_n",

@@ -156,7 +156,6 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="string_len",
                 levels=[10, 100, 500, 1000],
-                default_level=0,
                 description="Length of the string",
                 lower_field_name="min_string_len",
                 upper_field_name="max_string_len",
@@ -164,7 +163,6 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="substring_palindrome_len",
                 levels=[5, 10, 50, 100],
-                default_level=0,
                 description="Length of the substring palindrome",
                 lower_field_name="min_substring_palindrome_len",
                 upper_field_name="max_substring_palindrome_len",

@@ -60,7 +60,6 @@ class CountBitsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[1_000, 1_000_000, 100_000_000, 2**31 - 1],
-                default_level=0,
                 description="Number to count bits in",
                 lower_field_name="min_n",
                 upper_field_name="max_n",

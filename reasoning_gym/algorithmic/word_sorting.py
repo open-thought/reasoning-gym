@@ -137,7 +137,6 @@ class WordSortingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_words",
                 levels=[5, 10, 20, 30],
-                default_level=0,
                 description="Number of words to sort",
                 lower_field_name="min_words",
                 upper_field_name="max_words",
@@ -145,7 +144,6 @@ class WordSortingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_length",
                 levels=[3, 6, 9, 12],
-                default_level=0,
                 description="Length of words to sort",
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",

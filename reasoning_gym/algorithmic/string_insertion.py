@@ -120,10 +120,10 @@ class StringInsertionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="string_length",
                 levels=[10, 50, 100, 1000],
-                default_level=1,
                 description="Length of the string",
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
+                always_slice=True,
             ),
         )
 

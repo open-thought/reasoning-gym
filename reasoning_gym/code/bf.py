@@ -154,7 +154,6 @@ class BFCurriculum(BaseCurriculum):
                 name="difficulty",
                 field_name="difficulty",
                 levels=[1, 2, 3],
-                default_level=0,
                 description="Difficulty level",
             )
         )

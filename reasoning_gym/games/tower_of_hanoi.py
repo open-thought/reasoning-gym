@@ -440,7 +440,6 @@ class HanoiCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_disks",
                 levels=[3, 4, 5, 7],
-                default_level=0,
                 min_disks=3,
                 lower_field_name="min_disks",
                 upper_field_name="max_disks",

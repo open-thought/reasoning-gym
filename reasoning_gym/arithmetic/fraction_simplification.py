@@ -166,18 +166,18 @@ class FractionSimplificationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="value",
                 levels=[1, 100, 1000, 10000],
-                default_level=1,
                 description="Value range for numerator and denominator",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="factor",
                 levels=[1, 10, 100, 1000],
-                default_level=1,
                 description="Factor range for generating unsimplified fractions",
                 lower_field_name="min_factor",
                 upper_field_name="max_factor",
+                always_slice=True,
             ),
         )
 

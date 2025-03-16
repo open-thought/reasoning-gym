@@ -147,13 +147,11 @@ class BinaryMatrixCurriculum(BaseCurriculum):
                 name="p_zero",
                 field_name="p_zero",
                 levels=[0.5, 0.25, 0.1, 0.05],
-                default_level=0,
                 description="Board size",
             ),
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 50, 250, 1000],
-                default_level=0,
                 description="Board size",
                 lower_field_name="min_n",
                 upper_field_name="max_n",

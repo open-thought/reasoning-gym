@@ -286,7 +286,6 @@ class IntermediateIntegrationCurriculum(BaseCurriculum):
                     [0, 0, 0, 0, 0, 0, 1, 0],
                     [0, 0, 0, 0, 0, 0, 0, 1],
                 ],
-                default_level=0,
                 description="The weights of the problem types",
             )
         )

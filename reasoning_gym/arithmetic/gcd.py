@@ -81,7 +81,6 @@ class GCDCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_terms",
                 levels=[2, 3, 4, 5],
-                default_level=0,
                 description="number of terms",
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
@@ -89,7 +88,6 @@ class GCDCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="max_value",
                 levels=[100, 1000, 10000, 100000],
-                default_level=0,
                 description="maximum value",
                 lower_field_name="min_value",
                 upper_field_name="max_value",

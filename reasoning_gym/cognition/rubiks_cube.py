@@ -174,16 +174,15 @@ class RubiksCubeCurriculum(BaseCurriculum):
                 name="cube_size",
                 field_name="cube_size",
                 levels=[3, 4, 5, 6, 7],
-                default_level=0,
                 description="Board size",
             ),
             RangeAttributeDefinition(
                 name="scramble_steps",
                 levels=[3, 10, 50, 100, 500, 1000],
-                default_level=1,
                 description="Number of random moves to scramble the cube",
                 lower_field_name="min_scramble_steps",
                 upper_field_name="max_scramble_steps",
+                always_slice=True,
             ),
         )
 

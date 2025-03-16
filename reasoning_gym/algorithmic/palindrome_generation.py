@@ -129,10 +129,10 @@ class PalindromeCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="length",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Length of the generated palindrome.",
                 lower_field_name="min_length",
                 upper_field_name="max_length",
+                always_slice=True,
             )
         )
 

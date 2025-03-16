@@ -667,7 +667,6 @@ class FutoshikiCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="board_size",
                 levels=[4, 6, 7, 9],
-                default_level=0,
                 description="Board size",
                 lower_field_name="min_board_size",
                 upper_field_name="max_board_size",
@@ -675,7 +674,6 @@ class FutoshikiCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="difficulty",
                 levels=[0, 1, 2, 3],
-                default_level=0,
                 description="Difficulty",
                 lower_field_name="min_difficulty",
                 upper_field_name="max_difficulty",

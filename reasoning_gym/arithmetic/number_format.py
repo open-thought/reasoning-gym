@@ -115,24 +115,23 @@ class NumberFormatCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_candidates",
                 levels=[5, 25, 100, 500],
-                default_level=1,
                 description="Number of candidates",
                 lower_field_name="min_num_candidates",
                 upper_field_name="max_num_candidates",
+                always_slice=True,
             ),
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 1_000, 1_000_000, 1_000_000_000],
-                default_level=1,
                 description="Magnitude of the values",
                 lower_field_name="min_n",
                 upper_field_name="max_n",
+                always_slice=True,
             ),
             ScalarAttributeDefinition(
                 name="max_delta",
                 field_name="max_delta",
                 levels=[1e1, 1e0, 1e-3, 1e-6],
-                default_level=0,
                 description="Max delta",
             ),
         )

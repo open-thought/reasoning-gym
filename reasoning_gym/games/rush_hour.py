@@ -376,10 +376,10 @@ class RushHourCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="min_moves",
                 levels=[5, 20, 35, 50],
-                default_level=1,
                 description="Minimum possible number of moves",
                 lower_field_name="min_moves",
                 upper_field_name="max_moves",
+                always_slice=True,
             )
         )
 

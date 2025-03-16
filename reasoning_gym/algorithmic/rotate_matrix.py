@@ -103,7 +103,6 @@ class RotateMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Size of the square matrix",
                 lower_field_name="min_n",
                 upper_field_name="max_n",
@@ -111,7 +110,6 @@ class RotateMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_rotations",
                 levels=[4, 8, 12, 16],
-                default_level=0,
                 description="Number of 90-degree rotations",
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",

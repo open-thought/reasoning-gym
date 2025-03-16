@@ -153,10 +153,10 @@ class SimpleGeometryCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="sides",
                 levels=[5, 10, 25, 50],
-                default_level=1,
                 description="Number of sides in the polygon.",
                 lower_field_name="min_sides",
                 upper_field_name="max_sides",
+                always_slice=True,
             )
         )
 

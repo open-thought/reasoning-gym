@@ -178,7 +178,6 @@ class ShortestPathCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rows",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of rows in the grid",
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
@@ -186,7 +185,6 @@ class ShortestPathCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="cols",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of columns in the grid",
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",

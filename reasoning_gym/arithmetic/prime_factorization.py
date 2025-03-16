@@ -96,10 +96,10 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="value",
                 levels=[10, 1_000, 10_000, 50_000],
-                default_level=1,
                 description="Number to factorize",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                always_slice=True,
             )
         )
 

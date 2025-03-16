@@ -165,13 +165,11 @@ class NQueensCurriculum(BaseCurriculum):
                 name="n",
                 field_name="n",
                 levels=[4, 6, 8, 12],
-                default_level=0,
                 description="Board size",
             ),
             RangeAttributeDefinition(
                 name="num_removed",
                 levels=[2, 4, 6, 10],
-                default_level=0,
                 description="Number of queens to remove",
                 lower_field_name="min_remove",
                 upper_field_name="max_remove",
