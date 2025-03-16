@@ -46,4 +46,4 @@ class ScalarAttributeDefinition(AttributeDefinition):
 class RangeAttributeDefinition(AttributeDefinition):
     lower_field_name: str
     upper_field_name: str
-    always_slice: bool = False
+    ensure_interval: bool = False  # When True, ensures the range is always an interval between two distinct values

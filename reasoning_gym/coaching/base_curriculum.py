@@ -31,7 +31,7 @@ class DefaultCurriculumContext(CurriculumContext):
         if isinstance(v, Iterable):
             return v
 
-        if attr.always_slice:
+        if attr.ensure_interval:
             if self.mode == RangeAttributeMode.UPPER_BOUND:
                 hi_index = min(level + 1, len(attr.levels) - 1)
                 lo_index = max(0, hi_index - 1)
