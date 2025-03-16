@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 BOXNET_PROMPT = """
@@ -223,30 +223,24 @@ class BoxnetCurriculum(BaseCurriculum):
                 description="The maximum number of rows in the grid",
                 lower_field_name="min_row_num",
                 upper_field_name="max_row_num",
-                min_value=1,
                 levels=list(range(1, 10)),
-                default_level=1,
-                attr_type=AttributeType.APPEND,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="column_num",
                 description="The maximum number of columns in the grid",
                 lower_field_name="min_column_num",
                 upper_field_name="max_column_num",
-                min_value=1,
                 levels=list(range(1, 10)),
-                default_level=1,
-                attr_type=AttributeType.APPEND,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="box_num",
                 description="The maximum number of boxes in the grid",
                 lower_field_name="min_box_num",
                 upper_field_name="max_box_num",
-                min_value=1,
                 levels=list(range(1, 10)),
-                default_level=1,
-                attr_type=AttributeType.APPEND,
+                ensure_interval=True,
             ),
         )
 

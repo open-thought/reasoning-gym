@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -96,12 +96,10 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="value",
                 levels=[10, 1_000, 10_000, 50_000],
-                default_level=1,
                 description="Number to factorize",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             )
         )
 

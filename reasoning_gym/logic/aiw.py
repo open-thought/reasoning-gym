@@ -4,7 +4,7 @@ from random import Random
 from string import Template
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -216,7 +216,6 @@ class AliceInWonderlandCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="task_type_weight",
                 field_name="task_type_weights",
-                attr_type=AttributeType.STATIC,
                 description="The weight of the task type",
                 levels=[
                     [1.0, 0.0, 0.0],
@@ -229,17 +228,12 @@ class AliceInWonderlandCurriculum(BaseCurriculum):
                     [0.2, 0.4, 0.4],
                     [0.1, 0.45, 0.45],
                 ],
-                min_value=[1.0, 0.0, 0.0],
-                default_level=0,
             ),
             ScalarAttributeDefinition(
                 name="num_entities",
                 field_name="max_entities",
-                attr_type=AttributeType.STATIC,
                 description="The number of entities in the question",
                 levels=list(range(4, 18, 2)),
-                min_value=4,
-                default_level=0,
             ),
         )
 

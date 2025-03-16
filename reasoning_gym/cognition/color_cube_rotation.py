@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -215,12 +215,10 @@ class ColorCubeRotationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rotations",
                 levels=[1, 5, 10, 50, 100],
-                default_level=1,
                 description="Number of rotations to perform on the cube",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",
+                ensure_interval=True,
             )
         )
 

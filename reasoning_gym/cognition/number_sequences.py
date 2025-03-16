@@ -3,7 +3,7 @@ from enum import StrEnum
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -207,10 +207,7 @@ class NumberSequenceCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_complexity",
                 levels=[1, 2, 3, 4],
-                default_level=0,
                 description="Maximum number of operations to combine",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="max_complexity",
             ),
         )

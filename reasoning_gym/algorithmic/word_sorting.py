@@ -6,7 +6,7 @@ from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -137,20 +137,14 @@ class WordSortingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_words",
                 levels=[5, 10, 20, 30],
-                default_level=0,
                 description="Number of words to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=5,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             ),
             RangeAttributeDefinition(
                 name="word_length",
                 levels=[3, 6, 9, 12],
-                default_level=0,
                 description="Length of words to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
             ),

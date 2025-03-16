@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to count how many rectangles are present in an ASCII grid.
@@ -148,10 +148,7 @@ class RectangleCountCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_rectangles",
                 levels=[1, 3, 5, 10],
-                default_level=0,
                 description="Number of rectangles in the grid",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="max_rectangles",
             ),
         )

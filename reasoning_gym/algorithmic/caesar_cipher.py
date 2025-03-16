@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -98,18 +98,14 @@ class CaesarCipherCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rotation",
                 levels=[5, 10, 15, 25],
-                default_level=0,
                 description="Max rotation for cipher",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_rotation",
                 upper_field_name="max_rotation",
             ),
             RangeAttributeDefinition(
                 name="words",
                 levels=[5, 10, 15, 25],
-                default_level=0,
                 description="Max number of words",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             ),

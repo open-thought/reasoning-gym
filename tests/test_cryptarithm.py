@@ -208,4 +208,4 @@ def test_cryptarithm_curriculum():
         curriculum.decrement_attr_level("words")
     lower_bound_cfg: CryptarithmCurriculum = curriculum.generate_configuration(base_value)
     assert lower_bound_cfg.min_words == 2
-    assert lower_bound_cfg.max_words == 2
+    assert lower_bound_cfg.max_words == 5

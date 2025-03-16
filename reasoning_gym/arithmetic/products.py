@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 from reasoning_gym import utils
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -118,8 +118,6 @@ class ProductsCurriculum(BaseCurriculum):
                 levels=list(range(2, 13)),
                 default_level=0,  # Start with 2 terms
                 description="Maximum number of terms in the expression",
-                attr_type=AttributeType.APPEND,
-                min_value=2,  # Ensure at least 2 terms
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
             ),
@@ -128,8 +126,6 @@ class ProductsCurriculum(BaseCurriculum):
                 levels=list(range(1, 11)),
                 default_level=0,  # Start with 1-digit numbers
                 description="Number of digits in each operand",
-                attr_type=AttributeType.APPEND,
-                min_value=1,  # Ensure numbers are at least 1 digit
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",
             ),

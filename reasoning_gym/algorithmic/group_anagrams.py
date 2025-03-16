@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
@@ -133,20 +133,14 @@ class GroupAnagramsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="anagram_groups",
                 levels=[10, 100, 1_000, 10_000],
-                default_level=0,
                 description="Number of anagram groups in the input",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_anagram_groups",
                 upper_field_name="max_anagram_groups",
             ),
             RangeAttributeDefinition(
                 name="words_per_group",
                 levels=[2, 5, 10, 20],
-                default_level=0,
                 description="Number of words in a single anagram group",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_words_per_group",
                 upper_field_name="max_words_per_group",
             ),

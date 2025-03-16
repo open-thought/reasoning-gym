@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """For the following matrix:
@@ -327,30 +327,21 @@ class ManipulateMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rows",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of rows in the matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
             ),
             RangeAttributeDefinition(
                 name="cols",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of columns in the matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
             ),
             RangeAttributeDefinition(
                 name="num_transforms",
                 levels=[5, 10, 20, 30],
-                default_level=0,
                 description="Number of transformations to apply",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_transforms",
                 upper_field_name="max_transforms",
             ),

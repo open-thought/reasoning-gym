@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 from reasoning_gym.data import read_data_file
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to unsramble words in a sentence.
@@ -169,32 +169,26 @@ class LetterJumbleCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_len",
                 levels=[5, 15, 30, 50],
-                default_level=1,
                 description="Word length",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="words",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of words",
-                attr_type=AttributeType.APPEND,
-                min_value=5,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="corruption_level",
                 levels=[0.1, 0.3, 0.6, 0.9],
-                default_level=1,
                 description="Corruption level",
-                attr_type=AttributeType.APPEND,
-                min_value=0.0,
                 lower_field_name="min_corruption_level",
                 upper_field_name="max_corruption_level",
+                ensure_interval=True,
             ),
         )
 

@@ -6,7 +6,7 @@ from functools import reduce
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -329,19 +329,13 @@ class JugsCurriculum(BaseCurriculum):
                 name="num_jugs",
                 field_name="num_jugs",
                 levels=[3, 4, 5, 7],
-                default_level=0,
                 description="Number of jugs in the puzzle",
-                attr_type=AttributeType.STATIC,
-                min_value=3,
             ),
             ScalarAttributeDefinition(
                 name="difficulty",
                 field_name="difficulty",
                 levels=[2, 4, 6, 8],
-                default_level=0,
                 description="Minimum required moves to solve the puzzle",
-                attr_type=AttributeType.STATIC,
-                min_value=10,
             ),
         )
 

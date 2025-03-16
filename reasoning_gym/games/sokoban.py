@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -138,22 +138,16 @@ class SokobanCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="width",
                 levels=list(range(6, 11)),
-                default_level=0,
                 description="The width of the Sokoban board",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_w",
                 upper_field_name="max_w",
-                min_value=6,
             ),
             RangeAttributeDefinition(
                 name="height",
                 levels=list(range(6, 11)),
-                default_level=0,
                 description="The height of the Sokoban board",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_h",
                 upper_field_name="max_h",
-                min_value=6,
             ),
         )
 

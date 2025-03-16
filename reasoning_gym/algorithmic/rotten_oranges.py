@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """You are given an n x n grid where each cell can have one of three values:
@@ -136,10 +136,7 @@ class RottenOrangesCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Size of the square matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             )

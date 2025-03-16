@@ -6,7 +6,7 @@ from math import pow
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to compute an exponentiation of a number.
@@ -84,9 +84,6 @@ class PowerFunctionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="exponent",
                 levels=[2, 4, 6, 10],
-                default_level=0,
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_exponent",
                 upper_field_name="max_exponent",
             ),

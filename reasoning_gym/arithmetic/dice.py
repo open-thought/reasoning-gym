@@ -4,7 +4,7 @@ from math import gcd
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -162,19 +162,13 @@ class DiceCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="num_dice",
                 levels=[4, 5, 6, 7],
-                default_level=0,
                 description="Number of dice to roll",
-                attr_type=AttributeType.STATIC,
-                min_value=4,
                 field_name="num_dice",
             ),
             ScalarAttributeDefinition(
                 name="max_dice_size",
                 levels=[20, 25, 30, 35],
-                default_level=0,
                 description="Maximum number of sides on any die",
-                attr_type=AttributeType.STATIC,
-                min_value=20,
                 field_name="max_dice_size",
             ),
         )
