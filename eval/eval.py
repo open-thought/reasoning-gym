@@ -399,16 +399,15 @@ class AsyncModelEvaluator:
             Dict with processing results
         """
         responses = None
+        completion_results = []
+        best_score = 0.0
+        total_score = 0.0
+        best_answer = None
+        best_response = None
+
         try:
             # Get multiple model responses
             responses = await self.get_model_response(entry["question"])
-
-            # Process each response
-            completion_results = []
-            best_score = 0.0
-            total_score = 0.0
-            best_answer = None
-            best_response = None
 
             # Count total completions for mean score calculation
             total_completions = len(responses)

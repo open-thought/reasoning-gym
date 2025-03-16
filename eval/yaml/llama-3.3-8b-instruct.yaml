@@ -1,8 +1,8 @@
-model: anthropic/claude-3.7-sonnet:thinking
-provider: Anthropic
+model: meta-llama/llama-3.1-8b-instruct
+provider: Lambda
 output_dir: results
 max_concurrent: 10
-default_size: 5
+default_size: 50
 default_seed: 45
 categories:
 - category: algebra
