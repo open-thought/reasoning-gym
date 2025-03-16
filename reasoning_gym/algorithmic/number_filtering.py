@@ -116,7 +116,7 @@ class NumberFilteringCurriculum(BaseCurriculum):
                 description="How many numbers to sort",
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="decimals",
@@ -124,7 +124,7 @@ class NumberFilteringCurriculum(BaseCurriculum):
                 description="Number of decimal places",
                 lower_field_name="min_decimals",
                 upper_field_name="max_decimals",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="value",
@@ -132,7 +132,7 @@ class NumberFilteringCurriculum(BaseCurriculum):
                 description="Range of numbers to sort",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

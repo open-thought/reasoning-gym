@@ -151,7 +151,7 @@ class StringSynthesisCurriculum(BaseCurriculum):
                 description="Number of initial blocks",
                 lower_field_name="min_initial_blocks",
                 upper_field_name="max_initial_blocks",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

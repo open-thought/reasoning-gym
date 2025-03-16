@@ -118,7 +118,7 @@ class NumberFormatCurriculum(BaseCurriculum):
                 description="Number of candidates",
                 lower_field_name="min_num_candidates",
                 upper_field_name="max_num_candidates",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="n",
@@ -126,7 +126,7 @@ class NumberFormatCurriculum(BaseCurriculum):
                 description="Magnitude of the values",
                 lower_field_name="min_n",
                 upper_field_name="max_n",
-                always_slice=True,
+                ensure_interval=True,
             ),
             ScalarAttributeDefinition(
                 name="max_delta",

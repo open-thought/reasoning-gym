@@ -99,7 +99,7 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
                 description="Number to factorize",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

@@ -169,7 +169,7 @@ class FractionSimplificationCurriculum(BaseCurriculum):
                 description="Value range for numerator and denominator",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="factor",
@@ -177,7 +177,7 @@ class FractionSimplificationCurriculum(BaseCurriculum):
                 description="Factor range for generating unsimplified fractions",
                 lower_field_name="min_factor",
                 upper_field_name="max_factor",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

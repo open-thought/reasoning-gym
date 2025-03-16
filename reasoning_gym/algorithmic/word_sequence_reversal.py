@@ -78,7 +78,7 @@ class WordSequenceReversalCurriculum(BaseCurriculum):
                 description="Number of words in the list",
                 lower_field_name="min_words",
                 upper_field_name="max_words",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

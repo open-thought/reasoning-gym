@@ -156,7 +156,7 @@ class SimpleGeometryCurriculum(BaseCurriculum):
                 description="Number of sides in the polygon.",
                 lower_field_name="min_sides",
                 upper_field_name="max_sides",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

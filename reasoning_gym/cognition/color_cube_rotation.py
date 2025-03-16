@@ -218,7 +218,7 @@ class ColorCubeRotationCurriculum(BaseCurriculum):
                 description="Number of rotations to perform on the cube",
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

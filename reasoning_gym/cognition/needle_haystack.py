@@ -141,7 +141,7 @@ class NeedleHaystackCurriculum(BaseCurriculum):
                 description="Number of statements in the haystack",
                 lower_field_name="min_num_statements",
                 upper_field_name="max_num_statements",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

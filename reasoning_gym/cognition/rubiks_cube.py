@@ -182,7 +182,7 @@ class RubiksCubeCurriculum(BaseCurriculum):
                 description="Number of random moves to scramble the cube",
                 lower_field_name="min_scramble_steps",
                 upper_field_name="max_scramble_steps",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

@@ -84,7 +84,7 @@ class SpellBackwardCurriculum(BaseCurriculum):
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

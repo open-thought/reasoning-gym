@@ -271,7 +271,7 @@ class SudokuCurriculum(BaseCurriculum):
                 description="Number of empty cells in the puzzle",
                 lower_field_name="min_empty",
                 upper_field_name="max_empty",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

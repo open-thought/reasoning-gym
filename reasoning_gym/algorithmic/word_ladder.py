@@ -281,7 +281,7 @@ class WordLadderCurriculum(BaseCurriculum):
                 description="Length of words in the puzzle",
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

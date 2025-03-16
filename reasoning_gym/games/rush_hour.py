@@ -379,7 +379,7 @@ class RushHourCurriculum(BaseCurriculum):
                 description="Minimum possible number of moves",
                 lower_field_name="min_moves",
                 upper_field_name="max_moves",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

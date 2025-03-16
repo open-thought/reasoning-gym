@@ -132,7 +132,7 @@ class PalindromeCurriculum(BaseCurriculum):
                 description="Length of the generated palindrome.",
                 lower_field_name="min_length",
                 upper_field_name="max_length",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 

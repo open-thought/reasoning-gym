@@ -93,7 +93,7 @@ class LCMCurriculum(BaseCurriculum):
                 description="Range of values for each integer",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

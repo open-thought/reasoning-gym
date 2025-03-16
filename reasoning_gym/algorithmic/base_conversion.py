@@ -129,7 +129,7 @@ class BaseConversionCurriculum(BaseCurriculum):
                 description="The base of the number system",
                 lower_field_name="min_base",
                 upper_field_name="max_base",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="value",
@@ -137,7 +137,7 @@ class BaseConversionCurriculum(BaseCurriculum):
                 description="The value to convert",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

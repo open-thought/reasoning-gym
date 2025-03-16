@@ -416,7 +416,7 @@ class CircuitLogicCurriculum(BaseCurriculum):
                 description="Number of terms in the expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="inputs",
@@ -424,7 +424,7 @@ class CircuitLogicCurriculum(BaseCurriculum):
                 description="Number of inputs per term",
                 lower_field_name="min_inputs",
                 upper_field_name="max_inputs",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

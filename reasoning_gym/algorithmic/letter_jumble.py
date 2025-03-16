@@ -172,7 +172,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="words",
@@ -180,7 +180,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
                 description="Number of words",
                 lower_field_name="min_words",
                 upper_field_name="max_words",
-                always_slice=True,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="corruption_level",
@@ -188,7 +188,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
                 description="Corruption level",
                 lower_field_name="min_corruption_level",
                 upper_field_name="max_corruption_level",
-                always_slice=True,
+                ensure_interval=True,
             ),
         )
 

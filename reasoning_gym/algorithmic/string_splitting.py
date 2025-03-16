@@ -146,7 +146,7 @@ class StringSplittingCurriculum(BaseCurriculum):
                 description="Number of initial machines",
                 lower_field_name="min_initial_machines",
                 upper_field_name="max_initial_machines",
-                always_slice=True,
+                ensure_interval=True,
             )
         )
 
