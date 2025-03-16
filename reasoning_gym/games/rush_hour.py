@@ -188,7 +188,7 @@ class RushHourDataset(ProceduralDataset):
             # Check if solved
             return 1.0 if board.solved else 0.01
 
-        except (ValueError, IndexError, AttributeError) as e:
+        except:
             # Handle malformed input gracefully
             return 0.0
 
@@ -317,10 +317,10 @@ class Board:
 
     def perform_moves(self, ops: str) -> None:
         # This pattern matches:
-        # - One or more letters (captured in group 1)
+        # - One letter (captured in group 1)
         # - A plus or minus sign (captured in group 2)
         # - One or more digits (captured in group 3)
-        pattern = r"([A-Z]+)([+-])(\d+)"
+        pattern = r"([A-Z])([+-])(\d+)"
 
         # Find all matches in the string
         matches = re.findall(pattern, ops)
