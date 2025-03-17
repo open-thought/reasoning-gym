@@ -100,15 +100,15 @@ class RayGRPOTrainer(RayPPOTrainer):
         think_matches = list(re.finditer(r"<think>(.*?)</think>", solution_str, re.DOTALL))
         answer_matches = list(re.finditer(r"<answer>(.*?)</answer>", solution_str, re.DOTALL))
         if len(think_matches) != 1 or len(answer_matches) != 1:
-            return 0.0
+            return 0.2
         # check for nested <think> inside <think>
         think_content = think_matches[0].group(1)
-        if "<think>" in think_content or "</think>" in think_content:
-            return 0.1
+        if "<think>" in think_content or "<answer>" in think_content:
+            return 0.2
         # check for nested <answer> inside <answer>
         answer_content = answer_matches[0].group(1)
-        if "<answer>" in answer_content or "</answer>" in answer_content:
-            return 0.1
+        if "<answer>" in answer_content or "<think>" in answer_content:
+            return 0.2
         return 1.0
 
     def _compute_length_reward(
