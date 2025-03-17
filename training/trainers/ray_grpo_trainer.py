@@ -112,10 +112,10 @@ class RayGRPOTrainer(RayPPOTrainer):
         return 1
 
     def _compute_length_reward(
-        solution_str: str, score: float, min_value: float = -1.0, max_value: float = 1.0, max_len: int = 1024
+        self, solution_str: str, score: float, min_value: float = -1.0, max_value: float = 1.0
     ) -> float:
         generation_len = len(solution_str)
-        progress = min(generation_len / max_len, 1.0)
+        progress = min(generation_len / self.max_output_length, 1.0)
         # cosine decay function: smoothly maps progress ∈ [0,1] → [1,0]
         length_penalty = (math.cos(progress * (math.pi / 2)) + 1) / 2
         # linear interpolation based on correctness score
