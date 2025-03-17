@@ -1,33 +1,40 @@
-import os
-from argparse import Namespace
-import time
-from dataclasses import asdict, dataclass
 import json
-import ray
-from ray.util.placement_group import placement_group
-import torch
+import os
+import shutil
+import threading
+import time
+from argparse import Namespace
+from dataclasses import asdict, dataclass
+from queue import Queue
+from typing import Callable, List
+
 import numpy as np
 import pandas as pd
-from transformers import PreTrainedTokenizer, AutoTokenizer
-from vllm import SamplingParams
-from torch.utils.tensorboard import SummaryWriter
-from torch.utils.data import Dataset, DataLoader
-import threading
-import shutil
-from typing import Callable, List
-from queue import Queue
-
-from open_instruct.grpo_fast import Timer, collate_fn, Args, calculate_runtime_args, ModelGroup, PolicyTrainerRayProcess, vllm_generate_thread
+import ray
+import torch
 from open_instruct.ground_truth_utils import soft_format_reward_func
+from open_instruct.grpo_fast import (
+    Args,
+    ModelGroup,
+    PolicyTrainerRayProcess,
+    Timer,
+    calculate_runtime_args,
+    collate_fn,
+    vllm_generate_thread,
+)
 from open_instruct.model_utils import ModelConfig, push_folder_to_hub
 from open_instruct.rl_utils2 import PackedSequences, reset_position_ids
-from open_instruct.utils import get_wandb_tags, is_beaker_job, maybe_get_beaker_config, ArgumentParserPlus
+from open_instruct.utils import ArgumentParserPlus, get_wandb_tags, is_beaker_job, maybe_get_beaker_config
 from open_instruct.vllm_utils2 import create_vllm_engines
+from ray.util.placement_group import placement_group
+from torch.utils.data import DataLoader, Dataset
+from torch.utils.tensorboard import SummaryWriter
+from transformers import AutoTokenizer, PreTrainedTokenizer
+from utils import ReasoningGymDataset, list_preserving_collate, pack_sequences
+from vllm import SamplingParams
 
+from reasoning_gym.utils import SYSTEM_PROMPTS, extract_answer
 
-from reasoning_gym.utils import extract_answer, SYSTEM_PROMPTS
-
-from utils import list_preserving_collate, pack_sequences, ReasoningGymDataset
 
 @dataclass
 class GRPOArgs(Args):
@@ -36,8 +43,7 @@ class GRPOArgs(Args):
     size: int = 10000
     eval_seed: int = 42
     eval_size: int = 100
-    
-    
+
 
 def data_preparation_thread(
     reward_fn: Callable,
@@ -53,7 +59,7 @@ def data_preparation_thread(
         # Get next batch of prompts and responses
         observations = queries_prompt_Q.get()
         queries, items = observations
-        
+
         if args.num_samples_per_prompt_rollout > 1:
             queries = [item for item in queries for _ in range(args.num_samples_per_prompt_rollout)]
         with Timer("🚀 [Data Preparation Thread] Getting response ids"):
@@ -70,14 +76,14 @@ def data_preparation_thread(
                 pad_token_id=tokenizer.pad_token_id,
             )
             num_new_tokens = sum(len(seq) for seq in packed_sequences.query_responses)
-            
+
         with Timer("🔥 [Data Preparation Thread] Decoding responses", noop=True):
             decoded_responses = tokenizer.batch_decode(responses, skip_special_tokens=True)
             stop_rate = sum(int(finish_reason == "stop") for finish_reason in finish_reasons) / len(finish_reasons)
-            
+
         with Timer("💰 [Data Preparation Thread] Calculating rewards"):
             scores, reward_metrics = reward_fn(decoded_responses, items, reasoning_gym_dataset)
-            
+
         with Timer("🎆 [Data Preparation Thread] Calculating advantages"):
             # Calculate advantages
             scores = np.array(scores)
@@ -102,7 +108,7 @@ def data_preparation_thread(
                 for packed_mask in packed_sequences.response_masks
             ]
             packed_sequences.advantages = packed_advantages
-        
+
         with Timer("🔄 [Data Preparation Thread] Prepare collated data for each worker"):
             B = (
                 len(packed_sequences.query_responses) // args.world_size
@@ -166,7 +172,7 @@ def data_preparation_thread(
                 "finish_reasons": finish_reasons,
                 "responses": responses,
                 "queries": queries,
-                "ground_truths": items['answer'],
+                "ground_truths": items["answer"],
                 "datasets": reasoning_gym_dataset.dataset_name,
                 "training_step": training_step,
                 **reward_metrics,
@@ -185,20 +191,21 @@ def data_preparation_thread(
                 "B": B,
             }
         )
-    
-    
-        
+
+
 def reward_fn(responses, items, reasoning_gym_dataset):
     metrics = {}
     formatted_responses = [extract_answer(response) for response in responses]
-    correctness_rewards = [reasoning_gym_dataset.data.score_answer(formatted_response, entry) for formatted_response, entry in zip(formatted_responses, items)]
+    correctness_rewards = [
+        reasoning_gym_dataset.data.score_answer(formatted_response, entry)
+        for formatted_response, entry in zip(formatted_responses, items)
+    ]
     format_rewards = soft_format_reward_func(responses)
     rewards = correctness_rewards + format_rewards
-    metrics['correctness_rewards'] = correctness_rewards
-    metrics['format_rewards'] = format_rewards
-    metrics['rewards'] = rewards
+    metrics["correctness_rewards"] = correctness_rewards
+    metrics["format_rewards"] = format_rewards
+    metrics["rewards"] = rewards
     return rewards, metrics
-
 
 
 def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
@@ -237,11 +244,15 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
         warning = f"""Requested tokenizer revision `{tokenizer_revision}` is different
                    from the model revision `{model_config.model_revision}`."""
         print(warning)
-    
+
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, revision=tokenizer_revision)
-    reasoning_gym_dataset = ReasoningGymDataset(args.dataset_name, args.seed, args.size, tokenizer, 'system', SYSTEM_PROMPTS['DeepSeekZero'])
-    eval_dataset = ReasoningGymDataset(args.dataset_name, args.eval_seed, args.eval_size, tokenizer, 'system', SYSTEM_PROMPTS['DeepSeekZero'])
-    
+    reasoning_gym_dataset = ReasoningGymDataset(
+        args.dataset_name, args.seed, args.size, tokenizer, "system", SYSTEM_PROMPTS["DeepSeekZero"]
+    )
+    eval_dataset = ReasoningGymDataset(
+        args.dataset_name, args.eval_seed, args.eval_size, tokenizer, "system", SYSTEM_PROMPTS["DeepSeekZero"]
+    )
+
     bundles = [{"GPU": actor_num_gpus, "CPU": actor_num_gpus * 10} for actor_num_gpus in args.num_learners_per_node]
     pg = placement_group(bundles, strategy="PACK")
     ray.get(pg.ready())
@@ -252,7 +263,7 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
         args.num_learners_per_node,
         args.single_gpu_mode,
     )
-    
+
     wandb_url = wandb.run.get_url() if args.with_tracking else None
     inits.extend(
         model.from_pretrained.remote(args, model_config, beaker_config, wandb_url, tokenizer)
@@ -295,15 +306,17 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
         n=1,  # since we are doing greedy sampling, don't need to generate more
         stop=args.stop_strings,
     )
-    
-    iter_dataloader = DataLoader(reasoning_gym_dataset, batch_size=args.num_unique_prompts_rollout, collate_fn=list_preserving_collate)
+
+    iter_dataloader = DataLoader(
+        reasoning_gym_dataset, batch_size=args.num_unique_prompts_rollout, collate_fn=list_preserving_collate
+    )
     inference_results_Q = Queue(maxsize=1)
     param_prompt_Q = Queue(maxsize=1)
     evaluation_inference_results_Q = Queue(maxsize=1)
     packed_sequences_Q = Queue(maxsize=1)
     queries_prompt_Q = Queue(maxsize=1)
     num_eval_samples = 50
-    
+
     eval_prompt_token_ids = None
     eval_ground_truths = None
     if eval_dataset is not None:
@@ -325,10 +338,10 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
             resume_training_step,
         ),
     )
-    
+
     thread.start()
     print("======== ✅ vllm generate thread starts =========")
-    
+
     packing_thread = threading.Thread(
         target=data_preparation_thread,
         args=(
@@ -342,34 +355,34 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
             reasoning_gym_dataset,
         ),
     )
-    
+
     packing_thread.start()
     print("======== ✅ data preparation thread starts =========")
     model_inputs, items = next(iter(iter_dataloader))
     queries_prompt_Q.put((model_inputs, items))
     param_prompt_Q.put((None, model_inputs))
-    
+
     episode = 0
     num_total_tokens = 0
     start_time = time.time()
     for training_step in range(resume_training_step, args.num_training_steps + 1):
-        episode += (args.num_unique_prompts_rollout * args.num_samples_per_prompt_rollout)
-        
+        episode += args.num_unique_prompts_rollout * args.num_samples_per_prompt_rollout
+
         if training_step != 1:
             model_inputs, items = next(iter(iter_dataloader))
             with Timer("🔄 Loading weights using shared memory"):
                 ray.get([m.broadcast_to_vllm.remote() for m in policy_group.models])
-            
+
             queries_prompt_Q.put((model_inputs, items))
             param_prompt_Q.put((None, model_inputs))
-            
+
         with Timer("[Main Thread] 📦 Getting packed sequences from thread"):
             packed_data = packed_sequences_Q.get()
             data_thread_metrics = packed_data["metrics"]
             B = packed_data["B"]
             collated_data = packed_data["collated_data"]
             num_total_tokens += packed_data["num_new_tokens"]
-        
+
             if B == 0:
                 print("[Main Thread] 🤡 After packing, there is not enough data to train")
                 continue
@@ -397,25 +410,24 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
                     **data_thread_metrics,
                     **average_metrics,
                 }
-                    
+
                 if args.save_freq > 0 and training_step % args.save_freq == 0:
                     with Timer("[Main Thread] 🗡️ Saving model"):
                         checkpoint_dir = f"{args.output_dir}_checkpoints"
                         step_dir = os.path.join(checkpoint_dir, f"step_{training_step}")
                         print(f"Saving model at step {training_step} to {step_dir}")
                         ray.get([policy_group.models[i].save_model.remote(step_dir) for i in range(args.world_size)])
-    
-    
+
     print(f"Saving final model at step {training_step} to {args.output_dir}")
     with Timer("[Main Thread] 🗡️ Saving model"):
-            ray.get([policy_group.models[i].save_model.remote(args.output_dir) for i in range(args.world_size)])
+        ray.get([policy_group.models[i].save_model.remote(args.output_dir) for i in range(args.world_size)])
 
     thread.join()
     print("======== ✅ vllm generate thread ends =========")
     packing_thread.join()
     print("======== ✅ data preparation thread ends =========")
     ray.shutdown()
-    
+
     if (
         args.try_auto_save_to_beaker
         and is_beaker_job()
@@ -424,7 +436,7 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
     ):
         shutil.copytree(args.output_dir, "/output", dirs_exist_ok=True)
     print("finished training")
-    
+
     accelerator = Namespace()
     accelerator.is_main_process = True  # hack
     if args.push_to_hub:
@@ -435,12 +447,11 @@ def main(args: Args, model_config: ModelConfig, reward_fn: Callable):
             args.hf_repo_id,
             args.hf_repo_revision,
         )
-                        
-        
+
+
 if __name__ == "__main__":
     parser = ArgumentParserPlus((GRPOArgs, ModelConfig))
     args, model_config = parser.parse_args_into_dataclasses()
     assert isinstance(args, GRPOArgs)
     assert isinstance(model_config, ModelConfig)
     main(args, model_config, reward_fn)
-    
