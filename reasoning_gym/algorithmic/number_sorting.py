@@ -117,10 +117,10 @@ Please follow the instruction below:
         try:
             # Try to parse the user's answer as a JSON list first
             try:
+                answer = answer.replace("'", '"')
                 user_answer = json.loads(answer)
             except json.JSONDecodeError:
-                # If JSON parsing fails, fall back to eval (with caution)
-                user_answer = eval(answer)
+                return 0.0  # JSON parsing failed
 
             if not isinstance(user_answer, list):
                 return 0.0
@@ -159,7 +159,7 @@ Please follow the instruction below:
                     return 0.0
 
             return 1.0
-        except Exception as e:
+        except Exception:
             # Any parsing error means the answer is incorrect
             return 0.0
 
