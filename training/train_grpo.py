@@ -112,6 +112,7 @@ def main_task(config):
         role_worker_mapping=role_worker_mapping,
         resource_pool_manager=resource_pool_manager,
         ray_worker_group_cls=ray_worker_group_cls,
+        max_output_length=config.data.max_response_length,
     )
     trainer.init_workers()
     trainer.fit()
