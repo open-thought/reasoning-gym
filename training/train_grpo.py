@@ -50,14 +50,13 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
 
 def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare training and validation datasets."""
-    # TODO: load these values from config
-    dataset_name = "composite"
-    dataset_names = ["mini_sudoku", "futoshiki", "sudoku"]
-    dataset_weights = [0.33, 0.33, 0.34]
-    dataset_size = 10000
+    dataset_name = config.reasoning_gym.dataset_name
+    dataset_size = config.reasoning_gym.dataset_size
     developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
 
     if dataset_name == "composite":
+        dataset_names = config.reasoning_gym.dataset_names
+        dataset_weights = config.reasoning_gym.dataset_weights
         dataset_specs = [
             DatasetSpec(name=name, weight=weight, config={}) for name, weight in zip(dataset_names, dataset_weights)
         ]
