@@ -1,6 +1,7 @@
 """Number sorting task generator"""
 
 from dataclasses import dataclass
+import json
 from random import Random
 from typing import Any, Optional
 
@@ -114,13 +115,22 @@ Please follow the instruction below:
             return 0.0
 
         try:
-            # Try to parse the user's answer as a list of strings
-            user_answer = eval(answer)
+            # Try to parse the user's answer as a JSON list first
+            try:
+                user_answer = json.loads(answer)
+            except json.JSONDecodeError:
+                # If JSON parsing fails, fall back to eval (with caution)
+                user_answer = eval(answer)
+
             if not isinstance(user_answer, list):
                 return 0.0
 
             # Get the expected answer
-            expected_answer = eval(entry["answer"])
+            try:
+                expected_answer = json.loads(entry["answer"])
+            except json.JSONDecodeError:
+                # Fall back to eval if necessary
+                expected_answer = eval(entry["answer"])
 
             # Check if the lists have the same length
             if len(user_answer) != len(expected_answer):
