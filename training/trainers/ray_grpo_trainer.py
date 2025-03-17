@@ -93,7 +93,7 @@ class RayGRPOTrainer(RayPPOTrainer):
     def _compute_format_reward(self, solution_str: str) -> float:
         """Reward use of exactly one correctly structured <think> and <answer> block."""
         # check <think> and <answer> blocks are present
-        pattern = r"^\s*<think>.*?</think>\s*<answer>.*?</answer>\s*$"
+        pattern = r"^<think>.*?</think>\s*<answer>.*?</answer>$"
         if not re.match(pattern, solution_str, re.DOTALL):
             return 0.0
         # check exactly one properly structured <think> block and one <answer> block
