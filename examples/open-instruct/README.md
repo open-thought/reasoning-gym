@@ -22,7 +22,7 @@ To start training, run:
 bash grpo_config.sh
 ```
 
-This will train a DeepSeek-R1-Distill-Qwen-1.5B model using GRPO (Generative Reinforcement Policy Optimization) on reasoning tasks.
+This will train a DeepSeek-R1-Distill-Qwen-1.5B model using GRPO (Group Relative Policy Optimization) on reasoning tasks.
 
 ## Key Features
 
