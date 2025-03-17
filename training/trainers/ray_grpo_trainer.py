@@ -78,7 +78,9 @@ class RayGRPOTrainer(RayPPOTrainer):
             reward_tensor[i, valid_response_length - 1] = reward
 
             if num_printed < num_examine:
-                print(f"reward={score}, seq={sequences_str}")
+                print(
+                    f"reward={reward} (score={score}, format={format_reward}, length={length_reward}), seq={sequences_str}"
+                )
                 num_printed += 1
 
         return reward_tensor
