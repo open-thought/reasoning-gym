@@ -93,8 +93,10 @@ class RayGRPOTrainer(RayPPOTrainer):
     def _compute_format_reward(self, solution_str: str) -> float:
         """Reward use of exactly one correctly structured <think> and <answer> block."""
         # check <think> and <answer> blocks are present
-        pattern = r"^\s*<think>.*?</think>\s*<answer>.*?</answer>$"
-        if not re.match(pattern, solution_str, re.DOTALL | re.MULTILINE):
+        # it might be nice to also check that there's no content after </answer>
+        # however, if special tokens are included, this could fail due to the end of turn token
+        pattern = r"\s*<think>.*?</think>\s*<answer>.*?</answer>"
+        if not re.match(pattern, solution_str, re.DOTALL):
             return 0.0
         # check exactly one properly structured <think> block and one <answer> block
         think_matches = list(re.finditer(r"<think>(.*?)</think>", solution_str, re.DOTALL))
