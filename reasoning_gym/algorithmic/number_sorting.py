@@ -1,7 +1,7 @@
 """Number sorting task generator"""
 
-from dataclasses import dataclass
 import json
+from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
