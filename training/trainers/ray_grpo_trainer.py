@@ -104,7 +104,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         answer_content = answer_matches[0].group(1)
         if "<answer>" in answer_content or "</answer>" in answer_content:
             return 0.1
-        return 1
+        return 1.0
 
     def _compute_length_reward(
         self, solution_str: str, score: float, min_value: float = -1.0, max_value: float = 1.0
