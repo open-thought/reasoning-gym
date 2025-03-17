@@ -61,17 +61,18 @@ class RayGRPOTrainer(RayPPOTrainer):
             valid_response_ids = response_ids[:valid_response_length]
 
             # decode
-            sequences = torch.cat((valid_prompt_ids, valid_response_ids))
-            sequences_str = self.tokenizer.decode(sequences)
+            prompt_str = self.tokenizer.decode(valid_prompt_ids)
+            response_str = self.tokenizer.decode(valid_response_ids)
+            sequences_str = prompt_str + response_str
 
             index = data_item.non_tensor_batch["index"]
 
             score = self._compute_correctness_score(
-                solution_str=sequences_str,
+                solution_str=response_str,
                 index=index,
             )
-            format_reward = self._compute_format_reward(sequences_str)
-            length_reward = self._compute_length_reward(sequences_str, score)
+            format_reward = self._compute_format_reward(response_str)
+            length_reward = self._compute_length_reward(response_str, score)
 
             reward = score + format_reward + length_reward
 
