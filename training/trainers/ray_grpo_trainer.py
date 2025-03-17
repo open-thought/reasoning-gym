@@ -90,7 +90,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         """Reward use of exactly one correctly structured <think> and <answer> block."""
         # check <think> and <answer> blocks are present
         pattern = r"^\s*<think>.*?</think>\s*<answer>.*?</answer>$"
-        if not re.match(pattern, solution_str, re.DOTALL):
+        if not re.match(pattern, solution_str, re.DOTALL | re.MULTILINE):
             return 0.0
         # check exactly one properly structured <think> block and one <answer> block
         think_matches = list(re.finditer(r"<think>(.*?)</think>", solution_str, re.DOTALL))
