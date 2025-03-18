@@ -3,7 +3,7 @@ Cognition tasks for training reasoning capabilities.
 """
 
 from .color_cube_rotation import ColorCubeRotationConfig, ColorCubeRotationCurriculum, ColorCubeRotationDataset
-from .figlet_fonts import FigletFontConfig, FigletFontCurriculum, FigletFontDataset
+from .figlet_fonts import FigletFontConfig, FigletFontDataset
 from .modulo_grid import ModuloGridConfig, ModuloGridDataset
 from .needle_haystack import NeedleHaystackConfig, NeedleHaystackCurriculum, NeedleHaystackDataset
 from .number_sequences import NumberSequenceConfig, NumberSequenceCurriculum, NumberSequenceDataset
@@ -16,7 +16,6 @@ __all__ = [
     "ColorCubeRotationCurriculum",
     "FigletFontConfig",
     "FigletFontDataset",
-    "FigletFontCurriculum",
     "NumberSequenceConfig",
     "NumberSequenceDataset",
     "NumberSequenceCurriculum",
