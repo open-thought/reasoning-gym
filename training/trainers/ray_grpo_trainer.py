@@ -110,7 +110,12 @@ class RayGRPOTrainer(RayPPOTrainer):
         return 1.0
 
     def _compute_length_reward(
-        self, solution_str: str, score: float, min_value: float = -1.0, max_value: float = 1.0
+        self,
+        solution_str: str,
+        score: float,
+        min_value: float = -1.0,
+        max_value: float = 1.0,
+        scaling_factor: float = 0.5,
     ) -> float:
         generation_len = len(solution_str)
         progress = min(generation_len / self.max_output_length, 1.0)
@@ -118,7 +123,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         length_penalty = (math.cos(progress * (math.pi / 2)) + 1) / 2
         # linear interpolation based on correctness score
         reward_range = min_value + (max_value - min_value) * score
-        return float(reward_range * length_penalty)
+        return float(reward_range * length_penalty) * scaling_factor
 
     def _compute_correctness_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
