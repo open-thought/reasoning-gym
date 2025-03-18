@@ -15,9 +15,9 @@ pip install -e .
 3. Install training-specific Python package dependencies:
 
 ```bash
-pip install flash-attn --no-build-isolation
 pip install ray wandb
 pip install vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
+pip install flash-attn --no-build-isolation
 ```
 
 4. Install veRL (tested with HEAD c34206925e2a50fd452e474db857b4d488f8602d):
@@ -26,6 +26,12 @@ pip install vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
 git clone https://github.com/volcengine/verl.git
 cd verl
 pip install -e .
+```
+
+This may overwrite your vLLM with an earlier version. Reinstall vLLM if so:
+
+```bash
+pip install -U vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
 ```
 
 5. Log in to HF and W&B:
