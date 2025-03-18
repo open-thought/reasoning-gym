@@ -16,7 +16,7 @@ pip install -e .
 
 ```bash
 pip install ray wandb
-pip install vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
+pip install torch==2.6.0
 pip install flash-attn --no-build-isolation
 ```
 
@@ -28,13 +28,13 @@ cd verl
 pip install -e .
 ```
 
-This may overwrite your vLLM with an earlier version. Reinstall vLLM if so:
+5. Install vLLM:
 
 ```bash
 pip install -U vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
 ```
 
-5. Log in to HF and W&B:
+6. Log in to HF and W&B:
 
 ```bash
 huggingface-cli login
