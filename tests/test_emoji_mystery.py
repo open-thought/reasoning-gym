@@ -2,6 +2,7 @@ from random import Random
 
 import pytest
 
+from reasoning_gym.coaching.base_curriculum import DefaultCurriculumContext, RangeAttributeMode
 from reasoning_gym.games.emoji_mystery import EmojiMysteryConfig, EmojiMysteryCurriculum, EmojiMysteryDataset
 
 
@@ -110,7 +111,8 @@ def test_emoji_mystery_curriculum():
     base_value = {"size": 150, "seed": 1}
 
     # Test base configuration
-    base_cfg: EmojiMysteryConfig = curriculum.generate_configuration(base_value)
+    context = DefaultCurriculumContext(mode=RangeAttributeMode.UPPER_BOUND)
+    base_cfg: EmojiMysteryConfig = curriculum.generate_configuration(base_value, context=context)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_words_in_sentence == 3
@@ -118,18 +120,18 @@ def test_emoji_mystery_curriculum():
 
     # Test incrementing attribute level
     curriculum.increment_attr_level("num_words_in_sentence")
-    increased_cfg = curriculum.generate_configuration(base_value)
+    increased_cfg = curriculum.generate_configuration(base_value, context=context)
     assert increased_cfg.min_words_in_sentence == 10
     assert increased_cfg.max_words_in_sentence == 10
 
     # Test incrementing attribute level again
     curriculum.increment_attr_level("num_words_in_sentence")
-    double_increased_cfg = curriculum.generate_configuration(base_value)
+    double_increased_cfg = curriculum.generate_configuration(base_value, context=context)
     assert double_increased_cfg.min_words_in_sentence == 20
     assert double_increased_cfg.max_words_in_sentence == 20
 
     # Test decrementing attribute level
     curriculum.decrement_attr_level("num_words_in_sentence")
-    decreased_cfg = curriculum.generate_configuration(base_value)
+    decreased_cfg = curriculum.generate_configuration(base_value, context=context)
     assert decreased_cfg.min_words_in_sentence == 10
     assert decreased_cfg.max_words_in_sentence == 10

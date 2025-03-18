@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 import bfi
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..data.wordle_words import wordle_words
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.bfit.Compiler import Compiler, Minify
@@ -154,10 +154,7 @@ class BFCurriculum(BaseCurriculum):
                 name="difficulty",
                 field_name="difficulty",
                 levels=[1, 2, 3],
-                default_level=0,
                 description="Difficulty level",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             )
         )
 

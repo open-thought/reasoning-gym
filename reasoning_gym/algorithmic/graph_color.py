@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -255,10 +255,7 @@ class GraphColorCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_vertices",
                 levels=[10, 20, 25, 50],
-                default_level=0,
                 description="Number of vertices in the graph",
-                attr_type=AttributeType.STATIC,
-                min_value=10,
                 lower_field_name="min_num_vertices",
                 upper_field_name="max_num_vertices",
             ),
@@ -266,10 +263,7 @@ class GraphColorCurriculum(BaseCurriculum):
                 name="num_colors",
                 field_name="num_colors",
                 levels=[5, 4, 3],
-                default_level=0,
                 description="Number of colors in the graph",
-                attr_type=AttributeType.STATIC,
-                min_value=3,
             ),
         )
 

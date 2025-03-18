@@ -2,6 +2,8 @@
 This gallery shows examples from all available datasets using their default configurations.
 
 ## Available Datasets (101)
+Legend: ✅ = Has curriculum, ❌ = No curriculum
+
 - [ab](#ab) ✅
 - [acre](#acre) ❌
 - [advanced_geometry](#advanced_geometry) ✅
@@ -43,7 +45,7 @@ This gallery shows examples from all available datasets using their default conf
 - [gsm_symbolic](#gsm_symbolic) ❌
 - [intermediate_integration](#intermediate_integration) ✅
 - [isomorphic_strings](#isomorphic_strings) ✅
-- [jugs](#jugs) ❌
+- [jugs](#jugs) ✅
 - [knight_swap](#knight_swap) ❌
 - [knights_knaves](#knights_knaves) ❌
 - [largest_island](#largest_island) ✅
@@ -2944,10 +2946,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-zg bn
+cj oe
 
 Answer: True
-Metadata: {'words': ['zg', 'bn'], 'solution': True, 'solvable': True, 'difficulty': {'string_length': 3}}
+Metadata: {'words': ['cj', 'oe'], 'solution': True, 'solvable': True, 'difficulty': {'string_length': 3}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -2957,10 +2959,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-f n
+t e
 
 Answer: True
-Metadata: {'words': ['f', 'n'], 'solution': True, 'solvable': True, 'difficulty': {'string_length': 2}}
+Metadata: {'words': ['t', 'e'], 'solution': True, 'solvable': True, 'difficulty': {'string_length': 2}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -2970,10 +2972,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-hogtoyty kgqwpfwf
+sdjxdqxq lcdqmtqt
 
 Answer: False
-Metadata: {'words': ['hogtoyty', 'kgqwpfwf'], 'solution': False, 'solvable': False, 'difficulty': {'string_length': 8}}
+Metadata: {'words': ['sdjxdqxq', 'lcdqmtqt'], 'solution': False, 'solvable': False, 'difficulty': {'string_length': 8}}
 
 ````
 
@@ -3010,7 +3012,7 @@ How do you defuse the bomb?
 Reply as a JSON-parsable list of moves which result in any of the jugs being filled with the target amount.
 
 Answer: ["fill A", "pour A->C", "fill B", "empty C", "pour A->C", "empty C", "pour A->C", "empty C", "pour A->C", "pour B->C"]
-Metadata: {'puzzle': {'jug_capacities': [13, 13, 4], 'target': 10, 'min_moves': 10}}
+Metadata: {'puzzle': {'jug_capacities': [13, 13, 4], 'target': 10, 'min_moves': 10}, 'difficulty': {'num_jugs': 3, 'difficulty': 10}}
 
 Example 2:
 Question: You are a police officer. A maniac has planted a bomb next to a public fountain.
@@ -3032,7 +3034,7 @@ How do you defuse the bomb?
 Reply as a JSON-parsable list of moves which result in any of the jugs being filled with the target amount.
 
 Answer: ["fill A", "pour A->B", "fill A", "pour A->B", "pour A->C", "fill A", "pour A->C", "empty B", "pour A->B", "fill A", "pour A->B", "fill A", "pour A->B"]
-Metadata: {'puzzle': {'jug_capacities': [7, 10, 10], 'target': 5, 'min_moves': 13}}
+Metadata: {'puzzle': {'jug_capacities': [7, 10, 10], 'target': 5, 'min_moves': 13}, 'difficulty': {'num_jugs': 3, 'difficulty': 10}}
 
 Example 3:
 Question: You are a police officer. A maniac has planted a bomb next to a public fountain.
@@ -3054,7 +3056,7 @@ How do you defuse the bomb?
 Reply as a JSON-parsable list of moves which result in any of the jugs being filled with the target amount.
 
 Answer: ["fill B", "pour B->A", "empty A", "pour B->A", "fill B", "pour B->A", "empty A", "pour B->A", "fill B", "pour B->A", "pour B->C"]
-Metadata: {'puzzle': {'jug_capacities': [7, 10, 7], 'target': 2, 'min_moves': 11}}
+Metadata: {'puzzle': {'jug_capacities': [7, 10, 7], 'target': 2, 'min_moves': 11}, 'difficulty': {'num_jugs': 3, 'difficulty': 10}}
 
 ````
 
@@ -4569,31 +4571,31 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)
+Question: Calculate the following: (18*z**3 - 95*z)*(78*z**3 - 104*z**2 - 12)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z
-Metadata: {'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'variables': [z], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 1404*z**6 - 1872*z**5 - 7410*z**4 + 9664*z**3 + 1140*z
+Metadata: {'polynomial_expr': '(18*z**3 - 95*z)*(78*z**3 - 104*z**2 - 12)', 'variables': [z], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
-Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
+Question: Simplify this expression: (-49*x**3 + 8*x**2 - 163)*(8*x**3 - 49*x**2 + 77*x)*(98*x**3 + 16*x**2 + 74*x)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416
-Metadata: {'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': [x], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -38416*x**9 + 235298*x**8 - 397738*x**7 + 48346*x**6 + 463508*x**5 - 1153118*x**4 + 390222*x**3 - 928774*x**2
+Metadata: {'polynomial_expr': '(-49*x**3 + 8*x**2 - 163)*(8*x**3 - 49*x**2 + 77*x)*(98*x**3 + 16*x**2 + 74*x)', 'variables': [x], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
-Question: Calculate the following: (29*y**2 - 49*y)*(21*y**3 + 49)
+Question: Calculate the following: (49*y**2 + 21)*(29*y**3 - 49*y)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y
-Metadata: {'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'variables': [y], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 1421*y**5 - 1792*y**3 - 1029*y
+Metadata: {'polynomial_expr': '(49*y**2 + 21)*(29*y**3 - 49*y)', 'variables': [y], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -4986,33 +4988,33 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: gg
-Magazine: jg
+Ransom note: jj
+Magazine: nj
 
 Answer: False
-Metadata: {'ransom_note': 'gg', 'magazine': 'jg', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 2, 'magazine_length': 2}}
+Metadata: {'ransom_note': 'jj', 'magazine': 'nj', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 2, 'magazine_length': 2}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: q
-Magazine: ishmdfkzuhv
+Ransom note: r
+Magazine: vipyjtlzxpb
 
 Answer: False
-Metadata: {'ransom_note': 'q', 'magazine': 'ishmdfkzuhv', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 1, 'magazine_length': 11}}
+Metadata: {'ransom_note': 'r', 'magazine': 'vipyjtlzxpb', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 1, 'magazine_length': 11}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: otgegyu
-Magazine: ivxiiacuuagotqfppkoggge
+Ransom note: dxjijqv
+Magazine: vbfvvsgxvsjdxdtmmlhcjci
 
 Answer: False
-Metadata: {'ransom_note': 'otgegyu', 'magazine': 'ivxiiacuuagotqfppkoggge', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 7, 'magazine_length': 23}}
+Metadata: {'ransom_note': 'dxjijqv', 'magazine': 'vbfvvsgxvsjdxdtmmlhcjci', 'solution': False, 'solvable': False, 'difficulty': {'note_length': 7, 'magazine_length': 23}}
 
 ````
 
@@ -6935,7 +6937,7 @@ Metadata: {'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 14, 9, 44), 'end_time': datetime.datetime(2025, 3, 14, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'task_type': 'time', 'start_time': datetime.datetime(2025, 3, 16, 9, 44), 'end_time': datetime.datetime(2025, 3, 16, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -7194,7 +7196,7 @@ Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
+Answer: HAND,LAND,LEND,FEND,FEED,FLED,FLEE,GLEE
 Metadata: {'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8, 'difficulty': {'word_length': 4, 'chain_length': 8}}
 
 Example 2:

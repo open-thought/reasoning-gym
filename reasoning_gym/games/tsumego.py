@@ -21,7 +21,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 # Added constant to avoid repetition of adjacent directions
@@ -298,9 +298,6 @@ class TsumegoCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="board_size",
                 levels=[9, 10, 11, 12],
-                default_level=0,
-                min_value=9,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_board_size",
                 upper_field_name="max_board_size",
                 description="The size of the board",

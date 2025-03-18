@@ -89,7 +89,7 @@ def test_needle_haystack_curriculum():
     # test incrementing attribute levels
     curriculum.increment_attr_level("num_statements")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_num_statements == 10 and increased_cfg.max_num_statements == 1000
+    assert increased_cfg.min_num_statements == 10 and increased_cfg.max_num_statements == 500
 
     # test decrementing attribute level for num_statements again
     curriculum.decrement_attr_level("num_statements")

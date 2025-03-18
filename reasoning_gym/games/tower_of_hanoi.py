@@ -6,7 +6,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Solve the Tower of Hanoi problem with {num_disks} disks and {num_pegs} pegs.
@@ -440,9 +440,7 @@ class HanoiCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_disks",
                 levels=[3, 4, 5, 7],
-                default_level=0,
                 min_disks=3,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_disks",
                 upper_field_name="max_disks",
                 description="Number of disks in the puzzle",

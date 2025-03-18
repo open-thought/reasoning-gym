@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -667,20 +667,14 @@ class FutoshikiCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="board_size",
                 levels=[4, 6, 7, 9],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.STATIC,
-                min_value=4,
                 lower_field_name="min_board_size",
                 upper_field_name="max_board_size",
             ),
             RangeAttributeDefinition(
                 name="difficulty",
                 levels=[0, 1, 2, 3],
-                default_level=0,
                 description="Difficulty",
-                attr_type=AttributeType.STATIC,
-                min_value=0,
                 lower_field_name="min_difficulty",
                 upper_field_name="max_difficulty",
             ),

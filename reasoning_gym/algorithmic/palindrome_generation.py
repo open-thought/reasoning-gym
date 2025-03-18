@@ -3,7 +3,7 @@ import string
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPALTE = """Your task is, given a list of letters, to form a valid palindrome.
@@ -129,12 +129,10 @@ class PalindromeCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="length",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Length of the generated palindrome.",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_length",
                 upper_field_name="max_length",
+                ensure_interval=True,
             )
         )
 

@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 import sympy
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -286,10 +286,7 @@ class IntermediateIntegrationCurriculum(BaseCurriculum):
                     [0, 0, 0, 0, 0, 0, 1, 0],
                     [0, 0, 0, 0, 0, 0, 0, 1],
                 ],
-                default_level=0,
                 description="The weights of the problem types",
-                attr_type=AttributeType.STATIC,
-                min_value=[1, 0, 0, 0, 0, 0, 0, 0],
             )
         )
 

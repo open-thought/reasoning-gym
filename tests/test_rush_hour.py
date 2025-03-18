@@ -79,6 +79,9 @@ def test_score_answer():
     # Test incomplete solution
     assert dataset.score_answer("A+1 B-2", puzzle) == 0.01
 
+    # Test character duplication
+    assert dataset.score_answer("AA+3 ÜÜ-1", puzzle) == 0.01
+
 
 def test_perform_moves():
     b = Board("GBBoLoGHIoLMGHIAAMCCCKoMooJKDDEEJFFo")
@@ -96,20 +99,19 @@ def test_perform_moves():
 
 
 def test_perform_moves_walls():
-    ## ?? This test is incomplete. I don't know why.
     b = Board("BBoIKxCCCIKoGAAJooGoHJDDooHEELoFFoxL")
-    # assert sum(1 for p in b._pieces if p.fixed) == 2, "two walls expected"
-    # assert not b.solved
+    assert sum(1 for p in b._pieces if p.fixed) == 2, "two walls expected"
+    assert not b.solved
 
-    # b.perform_moves(
-    #     "F-1 G+1 A-1 H-1 E-2 J+2 D-1 L-3 D+1 J-2 E+3 H+2 A+1 J+2 D-3 I+2 K+2 B+3 L+1 C+3 G-3 A-1 D-1 H-4 A+1 D+1 F+1 G+4 A-1 D-1 H+2 B-2"
-    # )
-    # assert not b.solved
+    b.perform_moves(
+        "F-1 G+1 A-1 H-1 E-2 J+2 D-1 L-3 D+1 J-2 E+3 H+2 A+1 J+2 D-3 I+2 K+2 B+3 L+1 C+3 G-3 A-1 D-1 H-4 A+1 D+1 F+1 G+4 A-1 D-1 H+2 B-2"
+    )
+    assert not b.solved
 
-    # b.perform_moves(
-    #     "C-3 I-2 J-2 E-3 J+2 I+2 B+2 C+3 H-2 A+1 D+1 G-4 A-1 D-1 E-1 F-1 H+4 A+1 B-2 D+1 G+2 C-3 I-2 K-2 L+1 A+3"
-    # )
-    # assert b.solved
+    b.perform_moves(
+        "C-3 I-2 J-2 E-3 J+2 I+2 B+2 C+3 H-2 A+1 D+1 G-4 A-1 D-1 E-1 F-1 H+4 A+1 B-2 D+1 G+2 C-3 I-2 K-2 L+1 A+3"
+    )
+    assert b.solved
 
 
 def test_rush_hour_curriculum():

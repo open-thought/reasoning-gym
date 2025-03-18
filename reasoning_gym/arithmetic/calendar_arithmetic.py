@@ -6,7 +6,7 @@ from datetime import date, timedelta
 from enum import Enum, StrEnum, auto
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -511,17 +511,13 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
                         "recurring_event_day",
                     ],
                 ],
-                default_level=0,
                 description="Controls which calendar tasks are included",
-                attr_type=AttributeType.STATIC,
                 field_name="tasks",
             ),
             ScalarAttributeDefinition(
                 name="date_range",
                 levels=[30, 100, 250, 365],
-                default_level=0,
                 description="Maximum day range for offset and counting tasks",
-                attr_type=AttributeType.STATIC,
                 field_name="offset_upper_bound",
             ),
         )

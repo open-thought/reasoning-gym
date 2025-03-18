@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your job is to repeatedly transform a string according to a set of rules until no further transformations can be performed, or a state is repeated.
@@ -200,20 +200,14 @@ class StringManipulationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="string_length",
                 levels=[10, 50, 100, 500],
-                default_level=0,
                 description="Length of the string",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
             ),
             RangeAttributeDefinition(
                 name="num_rules",
                 levels=[5, 10, 15, 20],
-                default_level=0,
                 description="Number of rules to apply",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_num_rules",
                 upper_field_name="max_num_rules",
             ),

@@ -4,7 +4,7 @@ from enum import StrEnum
 from itertools import count
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -379,9 +379,6 @@ class FamilyRelationshipsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="family_size",
                 description="The size of the family",
-                min_value=3,
-                attr_type=AttributeType.APPEND,
-                default_level=0,
                 levels=list(range(3, 12)),
                 lower_field_name="min_family_size",
                 upper_field_name="max_family_size",

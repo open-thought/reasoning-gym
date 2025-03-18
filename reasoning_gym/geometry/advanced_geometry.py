@@ -6,7 +6,7 @@ import numpy as np
 import sympy
 from sympy.geometry import Point
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -284,19 +284,13 @@ class AdvancedGeometryCurriculum(BaseCurriculum):
                 name="min_coord",
                 field_name="min_coord",
                 levels=[-10, -100, -1000, -10000],
-                default_level=0,
                 description="Minimum x/y coordinate",
-                attr_type=AttributeType.STATIC,
-                min_value=-float("inf"),
             ),
             ScalarAttributeDefinition(
                 name="max_coord",
                 field_name="max_coord",
                 levels=[10, 100, 1000, 10000],
-                default_level=0,
                 description="Maximum x/y coordinate",
-                attr_type=AttributeType.STATIC,
-                min_value=-float("inf"),
             ),
         )
 

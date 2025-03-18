@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -249,10 +249,7 @@ class EmojiMysteryCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_words_in_sentence",
                 levels=[3, 10, 20, 35],
-                default_level=0,
                 description="Number of words in the sentence",
-                attr_type=AttributeType.STATIC,
-                min_value=3,
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",
             ),
