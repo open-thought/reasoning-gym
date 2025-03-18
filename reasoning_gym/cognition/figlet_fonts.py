@@ -185,11 +185,7 @@ class FigletFontDataset(ProceduralDataset):
         return {
             "question": rng.choice(self._prompt_templates).format(figlet_render=figlet_render),
             "answer": word,
-            "metadata": {
-                "font": chosen_font,
-                "space_letters": self.config.space_letters,
-                "difficulty": {"word_len": len(word)},
-            },
+            "metadata": {"font": chosen_font, "space_letters": self.config.space_letters},
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
