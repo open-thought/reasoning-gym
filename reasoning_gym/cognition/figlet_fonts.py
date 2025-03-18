@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 import pyfiglet
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
@@ -236,12 +236,11 @@ class FigletFontCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_len",
                 levels=[3, 5, 10, 15, 20, 30],
-                default_level=1,
+                default_level=0,
                 description="The length of the word to be displayed",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
+                ensure_interval=True
             ),
         )
 
