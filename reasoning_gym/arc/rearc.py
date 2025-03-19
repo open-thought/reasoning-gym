@@ -117,9 +117,11 @@ class ReArcDataset(ProceduralDataset):
                 "input": task["input"],
                 "output": task["output"],
                 "task_id": task_id,
+                "rng": rng_difficulty,
+                "pso": pso_difficulty,
                 "difficulty": {
-                    "rng": rng_difficulty,
-                    "pso": pso_difficulty,
+                    "rng_difficulty_weights": self.config.rng_difficulty_weights,
+                    "pso_difficulty_weights": self.config.pso_difficulty_weights,
                 },
             },
         }
