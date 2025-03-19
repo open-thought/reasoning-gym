@@ -86,28 +86,28 @@ class RayGRPOTrainer(RayPPOTrainer):
 
         return reward_tensor
 
-    def _compute_format_reward(self, solution_str: str) -> float:
+    def _compute_format_reward(self, solution_str: str, scaling_factor: float = 0.5) -> float:
         """Reward use of exactly one correctly structured <think> and <answer> block."""
         # check <think> and <answer> blocks are present
         # it might be nice to also check that there's no content after </answer>
         # however, if special tokens are included, this could fail due to the end of turn token
         pattern = r"\s*<think>.*?</think>\s*<answer>.*?</answer>"
         if not re.match(pattern, solution_str, re.DOTALL):
-            return 0.0
+            return 0.0 * scaling_factor
         # check exactly one properly structured <think> block and one <answer> block
         think_matches = list(re.finditer(r"<think>(.*?)</think>", solution_str, re.DOTALL))
         answer_matches = list(re.finditer(r"<answer>(.*?)</answer>", solution_str, re.DOTALL))
         if len(think_matches) != 1 or len(answer_matches) != 1:
-            return 0.2
-        # check for nested <think> inside <think>
+            return 0.4 * scaling_factor
+        # check for <think> or <answer> inside <think>
         think_content = think_matches[0].group(1)
         if "<think>" in think_content or "<answer>" in think_content:
-            return 0.2
-        # check for nested <answer> inside <answer>
+            return 0.4 * scaling_factor
+        # check for nested <think> or <answer> inside <answer>
         answer_content = answer_matches[0].group(1)
         if "<answer>" in answer_content or "<think>" in answer_content:
-            return 0.2
-        return 1.0
+            return 0.4 * scaling_factor
+        return 1.0 * scaling_factor
 
     def _compute_length_reward(
         self,
