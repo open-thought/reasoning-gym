@@ -56,12 +56,12 @@ Buttons:
             "question": self.format_puzzle(rng.choice(self._prompt_templates), puzzle=puzzle_data),
             "answer": " → ".join(puzzle_data["solution"]),
             "metadata": {
-                "metadata": {"difficulty": difficulty},
                 "solution_path": puzzle_data["solution"],
                 "target_value": puzzle_data["target_value"],
                 "buttons": puzzle_data["buttons"],
                 "initial_state": puzzle_data["initial_state"],
                 "initial_value": puzzle_data["initial_value"],
+                "difficulty": {"difficulty": difficulty},
             },
         }
 

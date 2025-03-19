@@ -136,7 +136,14 @@ class CourseScheduleDataset(ProceduralDataset):
                 "prerequisites": prerequisites,
                 "solution": answer,
                 "solvable": solvable,
-                "difficulty": {"num_courses": num_courses},
+                "difficulty": {
+                    "min_num_courses": self.config.min_num_courses,
+                    "max_num_courses": self.config.max_num_courses,
+                    "min_num_prerequisites": self.config.min_num_prerequisites,
+                    "max_num_prerequisites": self.config.max_num_prerequisites,
+                    "min_cycle_length": self.config.min_cycle_length,
+                    "max_cycle_length": self.config.max_cycle_length,
+                },
             },
         }
 
