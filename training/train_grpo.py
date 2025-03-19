@@ -1,52 +1,49 @@
 """Train an LLM using GRPO over Reasoning Gym procedural dataset(s)."""
 
+from dataclasses import replace
+
 import hydra
 import ray
 from omegaconf import OmegaConf
 from trainers import RayGRPOTrainer
-from utils import ReasoningGymDataset
+from utils import ReasoningGymDataset, make_dataset
 
 import reasoning_gym
 import reasoning_gym.utils
-from reasoning_gym.composite import DatasetSpec
+from reasoning_gym.coaching.curriculum_config import CurriculumAttributeConfig, CurriculumExperimentConfig
+from reasoning_gym.coaching.experiment import CurriculumExperiment
+from reasoning_gym.composite import CompositeDataset, DatasetSpec
 
 
 def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare training and validation datasets."""
-    dataset_name = config.reasoning_gym.dataset_name
     dataset_size = config.reasoning_gym.dataset_size
     developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
 
-    if dataset_name == "composite":
-        dataset_names = config.reasoning_gym.dataset_names
-        dataset_weights = config.reasoning_gym.dataset_weights
-        dataset_specs = [
-            DatasetSpec(name=name, weight=weight, config={}) for name, weight in zip(dataset_names, dataset_weights)
-        ]
-        train_procedural_dataset = reasoning_gym.create_dataset(
-            "composite", seed=1, size=dataset_size, datasets=dataset_specs
+    if config.reasoning_gym.enable_curriculum_learning:
+        curricula = config.reasoning_gym.curricula
+        curriculum_config = CurriculumExperimentConfig(
+            curricula={
+                curriculum_name: CurriculumAttributeConfig(**curriculum_config)
+                for curriculum_name, curriculum_config in curricula.items()
+            }
         )
-        val_procedural_dataset = reasoning_gym.create_dataset(
-            "composite", seed=2, size=dataset_size, datasets=dataset_specs
+        curriculum_config.validate()
+
+        train_data_source = CurriculumExperiment(
+            name=config.trainer.experiment_name, config=curriculum_config, size=dataset_size, seed=1
         )
+        val_data_source = CompositeDataset(config=replace(train_data_source.composite.config, seed=2))
     else:
-        train_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=1, size=dataset_size)
-        val_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=2, size=dataset_size)
+        dataset_specs = [
+            DatasetSpec(name=name, weight=ds.weight, config=OmegaConf.to_container(ds.config, resolve=True))
+            for name, ds in config.reasoning_gym.datasets.items()
+        ]
+        train_data_source = reasoning_gym.create_dataset("composite", seed=1, size=dataset_size, datasets=dataset_specs)
+        val_data_source = reasoning_gym.create_dataset("composite", seed=2, size=dataset_size, datasets=dataset_specs)
 
-    train_dataset = ReasoningGymDataset(
-        tokenizer=tokenizer,
-        procedural_dataset=train_procedural_dataset,
-        dataset_name=dataset_name,
-        developer_prompt=developer_prompt,
-    )
-
-    val_dataset = ReasoningGymDataset(
-        tokenizer=tokenizer,
-        procedural_dataset=val_procedural_dataset,
-        dataset_name=dataset_name,
-        developer_prompt=developer_prompt,
-    )
-
+    train_dataset = make_dataset(tokenizer, train_data_source, "composite", developer_prompt)
+    val_dataset = make_dataset(tokenizer, val_data_source, "composite", developer_prompt)
     return train_dataset, val_dataset
 
 

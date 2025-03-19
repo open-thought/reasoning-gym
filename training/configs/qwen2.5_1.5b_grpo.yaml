@@ -1,8 +1,38 @@
 reasoning_gym:
-  dataset_name: composite
   dataset_size: 10000
-  dataset_names: ["mini_sudoku", "futoshiki", "sudoku"]
-  dataset_weights: [0.33, 0.33, 0.34]
+  enable_curriculum_learning: False
+  datasets:  # Used if enable_curriculum_learning is False
+    mini_sudoku:
+      weight: 0.33
+      config:
+        min_empty: 6
+    futoshiki:
+      weight: 0.33
+      config:
+        max_board_size: 5
+    sudoku:
+      weight: 0.34
+      config:
+        min_empty: 20
+  curricula:
+    leg_counting:
+      attribute_levels:
+        num_animals: 2
+    products:
+      attribute_levels:
+        num_terms: 4
+        num_digits: 4
+    chain_sum:
+      attribute_levels:
+        num_terms: 4
+        num_digits: 4
+      weight: 1.0
+
+reward:
+  format_reward:
+    scaling_factor: 0.2
+  length_reward:
+    scaling_factor: 0.2
 
 data:
   tokenizer: null
