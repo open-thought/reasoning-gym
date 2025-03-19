@@ -66,11 +66,15 @@ class ProductsDataset(ProceduralDataset):
             "question": f"Solve the following multiplication: {expression}. Give only the result as your final answer.",
             "answer": str(result),
             "metadata": {
-                "difficulty": {
-                    "num_terms": num_terms,
-                    "num_digits": num_digits,
-                },
                 "expression": expression,
+                "num_terms": num_terms,
+                "num_digits": num_digits,
+                "difficulty": {
+                    "min_terms": self.config.min_terms,
+                    "max_terms": self.config.max_terms,
+                    "min_digits": self.config.min_digits,
+                    "max_digits": self.config.max_digits,
+                },
             },
         }
 

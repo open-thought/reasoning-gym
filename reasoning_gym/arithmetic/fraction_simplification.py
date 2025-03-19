@@ -120,9 +120,12 @@ class FractionSimplificationDataset(ProceduralDataset):
                 "simplified_denominator": simple_den,
                 "reduction_factor": num // simple_num,  # Will be same as den // simple_den
                 "style": style,
+                "factor": factor,
                 "difficulty": {
-                    "factor": factor,
-                    "value": (simple_num, simple_den),
+                    "min_value": self.config.min_value,
+                    "max_value": self.config.max_value,
+                    "min_factor": self.config.min_factor,
+                    "max_factor": self.config.max_factor,
                 },
             },
         }
