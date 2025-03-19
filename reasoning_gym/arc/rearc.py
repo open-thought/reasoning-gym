@@ -120,8 +120,8 @@ class ReArcDataset(ProceduralDataset):
                 "rng": rng_difficulty,
                 "pso": pso_difficulty,
                 "difficulty": {
-                    "rng_difficulty_weights": self.config.rng_difficulty_weights,
-                    "pso_difficulty_weights": self.config.pso_difficulty_weights,
+                    "rng_difficulty": self.config.rng_difficulty_weights,
+                    "pso_difficulty": self.config.pso_difficulty_weights,
                 },
             },
         }

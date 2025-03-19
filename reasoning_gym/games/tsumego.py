@@ -271,11 +271,10 @@ class TsumegoDataset(ProceduralDataset):
             ),
             "answer": solution_str,
             "metadata": {
-                "difficulty": {
-                    "min_board_size": self.config.min_board_size,
-                    "max_board_size": self.config.max_board_size,
-                },
                 "board": board,
+                "difficulty": {
+                    "board_size": (self.config.min_board_size, self.config.max_board_size),
+                },
             },
         }
 

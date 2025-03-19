@@ -116,8 +116,7 @@ class SimpleGeometryDataset(ProceduralDataset):
                 "missing_angle_rounded": missing_angle_rounded,
                 "total_interior_sum": total_sum,
                 "difficulty": {
-                    "min_sides": self.config.min_sides,
-                    "max_sides": self.config.max_sides,
+                    "sides": (self.config.min_sides, self.config.max_sides),
                 },
             },
         }

@@ -68,10 +68,8 @@ class ChainSumDataset(ProceduralDataset):
                 "num_digits": num_digits,
                 "expression": expression,
                 "difficulty": {
-                    "min_terms": self.config.min_terms,
-                    "max_terms": self.config.max_terms,
-                    "min_digits": self.config.min_digits,
-                    "max_digits": self.config.max_digits,
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
+                    "num_digits": (self.config.min_digits, self.config.max_digits),
                 },
             },
         }

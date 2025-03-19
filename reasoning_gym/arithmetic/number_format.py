@@ -100,10 +100,8 @@ class NumberFormatDataset(ProceduralDataset):
                 "size": size,
                 "num_candidates": num_candidates,
                 "difficulty": {
-                    "min_num_candidates": self.config.min_num_candidates,
-                    "max_num_candidates": self.config.max_num_candidates,
-                    "min_n": self.config.min_n,
-                    "max_n": self.config.max_n,
+                    "num_candidates": (self.config.min_num_candidates, self.config.max_num_candidates),
+                    "n": (self.config.min_n, self.config.max_n),
                     "min_delta": self.config.max_delta,
                 },
             },

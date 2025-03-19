@@ -122,10 +122,8 @@ class LegCountingDataset(ProceduralDataset):
                 "num_animals": len(animals),
                 "total_legs": total_legs,
                 "difficulty": {
-                    "min_animals": self.config.min_animals,
-                    "max_animals": self.config.max_animals,
-                    "min_instances": self.config.min_instances,
-                    "max_instances": self.config.max_instances,
+                    "num_animals": (self.config.min_animals, self.config.max_animals),
+                    "num_instances": (self.config.min_instances, self.config.max_instances),
                 },
             },
         }

@@ -122,10 +122,8 @@ class FractionSimplificationDataset(ProceduralDataset):
                 "style": style,
                 "factor": factor,
                 "difficulty": {
-                    "min_value": self.config.min_value,
-                    "max_value": self.config.max_value,
-                    "min_factor": self.config.min_factor,
-                    "max_factor": self.config.max_factor,
+                    "value": (self.config.min_value, self.config.max_value),
+                    "factor": (self.config.min_factor, self.config.max_factor),
                 },
             },
         }

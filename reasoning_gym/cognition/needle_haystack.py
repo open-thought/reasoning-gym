@@ -107,8 +107,7 @@ class NeedleHaystackDataset(ProceduralDataset):
                 "question": question,
                 "num_statements": num_statements,
                 "difficulty": {
-                    "min_num_statements": self.config.min_num_statements,
-                    "max_num_statements": self.config.max_num_statements,
+                    "num_statements": (self.config.min_num_statements, self.config.max_num_statements),
                 },
             },
         }

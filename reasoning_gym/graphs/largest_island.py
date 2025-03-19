@@ -142,14 +142,10 @@ class LargestIslandDataset(ProceduralDataset):
                 "grid": grid,
                 "solution": answer,
                 "difficulty": {
-                    "min_rows": self.config.min_rows,
-                    "max_rows": self.config.max_rows,
-                    "min_cols": self.config.min_cols,
-                    "max_cols": self.config.max_cols,
-                    "min_num_islands": self.config.min_num_islands,
-                    "max_num_islands": self.config.max_num_islands,
-                    "min_island_size": self.config.min_island_size,
-                    "max_island_size": self.config.max_island_size,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
+                    "num_islands": (self.config.min_num_islands, self.config.max_num_islands),
+                    "island_size": (self.config.min_island_size, self.config.max_island_size),
                 },
             },
         }

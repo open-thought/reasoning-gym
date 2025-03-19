@@ -123,8 +123,7 @@ class MahjongPuzzleDataset(ProceduralDataset):
                 "rounds": rounds,
                 "solution": answer,
                 "difficulty": {
-                    "min_num_rounds": self.config.min_num_rounds,
-                    "max_num_rounds": self.config.max_num_rounds,
+                    "num_rounds": (self.config.min_num_rounds, self.config.max_num_rounds),
                 },
             },
         }

@@ -98,10 +98,8 @@ Here is your puzzle:
                 "width": puzzle_data["width"],
                 "height": puzzle_data["height"],
                 "difficulty": {
-                    "min_w": self.config.min_w,
-                    "max_w": self.config.max_w,
-                    "min_h": self.config.min_h,
-                    "max_h": self.config.max_h,
+                    "width": (self.config.min_w, self.config.max_w),
+                    "height": (self.config.min_h, self.config.max_h),
                 },
             },
         }

@@ -87,8 +87,7 @@ class PrimeFactorizationDataset(ProceduralDataset):
                 "number": number,
                 "factors": factors,
                 "difficulty": {
-                    "min_value": self.config.min_value,
-                    "max_value": self.config.max_value,
+                    "value": (self.config.min_value, self.config.max_value),
                 },
             },
         }

@@ -276,8 +276,7 @@ class HanoiDataset(ProceduralDataset):
                 "auxiliary_pegs": auxiliary_pegs,
                 "solution_length": len(solution),
                 "difficulty": {
-                    "min_disks": self.min_disks,
-                    "max_disks": self.max_disks,
+                    "num_disks": (self.min_disks, self.max_disks),
                 },
             },
         }

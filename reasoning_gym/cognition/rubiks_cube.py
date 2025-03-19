@@ -111,8 +111,7 @@ class RubiksCubeDataset(ProceduralDataset):
                 "example_correct_answer": actions_string,
                 "difficulty": {
                     "cube_size": self.config.cube_size,
-                    "min_scramble_steps": self.config.min_scramble_steps,
-                    "max_scramble_steps": self.config.max_scramble_steps,
+                    "scramble_steps": (self.config.min_scramble_steps, self.config.max_scramble_steps),
                 },
             },
         }

@@ -78,8 +78,7 @@ class PowerFunctionDataset(ProceduralDataset):
                 "exponent": exponent,
                 "solution": answer,
                 "difficulty": {
-                    "min_exponent": self.config.min_exponent,
-                    "max_exponent": self.config.max_exponent,
+                    "exponent": (self.config.min_exponent, self.config.max_exponent),
                 },
             },
         }

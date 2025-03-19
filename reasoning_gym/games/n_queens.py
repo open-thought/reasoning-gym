@@ -137,8 +137,7 @@ class NQueensDataset(ProceduralDataset):
                 "valid_answers": valid_solutions_str,
                 "difficulty": {
                     "n": self.config.n,
-                    "min_remove": self.config.min_remove,
-                    "max_remove": self.config.max_remove,
+                    "num_removed": (self.config.min_remove, self.config.max_remove),
                 },
             },
         }

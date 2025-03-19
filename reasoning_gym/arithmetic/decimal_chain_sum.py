@@ -70,12 +70,9 @@ class DecimalChainSumDataset(ProceduralDataset):
                 "num_digits": num_digits,
                 "expression": expression,
                 "difficulty": {
-                    "min_terms": self.config.min_terms,
-                    "max_terms": self.config.max_terms,
-                    "min_digits": self.config.min_digits,
-                    "max_digits": self.config.max_digits,
-                    "min_decimal_places": self.config.min_decimal_places,
-                    "max_decimal_places": self.config.max_decimal_places,
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
+                    "num_digits": (self.config.min_digits, self.config.max_digits),
+                    "decimal_places": (self.config.min_decimal_places, self.config.max_decimal_places),
                 },
             },
         }

@@ -196,8 +196,7 @@ class EmojiMysteryDataset(ProceduralDataset):
                 "emoji": secret_emoji,
                 "num_words_in_sentence": len(re.findall(r"\b\w+\b", secret_sentence)),
                 "difficulty": {
-                    "min_words_in_sentence": self.config.min_words_in_sentence,
-                    "max_words_in_sentence": self.config.max_words_in_sentence,
+                    "num_words_in_sentence": (self.config.min_words_in_sentence, self.config.max_words_in_sentence),
                 },
             },
         }
