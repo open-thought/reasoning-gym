@@ -104,8 +104,9 @@ class StringInsertionDataset(ProceduralDataset):
             "metadata": {
                 "string": string,
                 "solution": answer,
+                "string_length": string_length,
                 "difficulty": {
-                    "string_length": string_length,
+                    "string_length": (self.config.min_string_length, self.config.max_string_length),
                 },
             },
         }

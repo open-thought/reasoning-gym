@@ -54,7 +54,9 @@ class SpellBackwardDataset(ProceduralDataset):
             "metadata": {
                 "word": word,
                 "word_len": len(word),
-                "difficulty": {"word_len": (self.config.min_word_len, self.config.max_word_len)},
+                "difficulty": {
+                    "word_len": (self.config.min_word_len, self.config.max_word_len),
+                },
             },
         }
 

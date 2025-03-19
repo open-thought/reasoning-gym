@@ -67,7 +67,9 @@ class LetterCountingDataset(ProceduralDataset):
                 "span_length": span_length,
                 "target_letter": target_letter,
                 "span": span,
-                "difficulty": {"words": span_length},
+                "difficulty": {
+                    "words": (self.config.min_words, self.config.max_words),
+                },
             },
         }
 

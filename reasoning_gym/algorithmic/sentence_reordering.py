@@ -90,7 +90,12 @@ class SentenceReorderingDataset(ProceduralDataset):
         return {
             "question": f"Restore the correct order of words in the following sentence: {question}",
             "answer": solved_sentence,
-            "metadata": {"word_count": word_count, "difficulty": {"words_in_sentence": word_count}},
+            "metadata": {
+                "word_count": word_count,
+                "difficulty": {
+                    "words_in_sentence": (self.config.min_words_in_sentence, self.config.max_words_in_sentence),
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:

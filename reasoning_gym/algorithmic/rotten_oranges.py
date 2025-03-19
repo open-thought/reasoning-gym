@@ -122,7 +122,10 @@ class RottenOrangesDataset(ProceduralDataset):
             "metadata": {
                 "matrix": matrix,
                 "solution": answer,
-                "difficulty": {"n": n},
+                "n": n,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 

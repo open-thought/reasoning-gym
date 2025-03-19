@@ -106,14 +106,16 @@ class WordSortingDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(direction=direction, words=", ".join(transformed_words)),
             "answer": ", ".join(answer),
             "metadata": {
-                "difficulty": {
-                    "num_words": len(original_words),
-                    "word_length": max(len(word) for word in original_words),
-                },
                 "original_words": original_words,
                 "sorted_words": answer,
                 "transformed_words": transformed_words,
                 "direction": direction,
+                "num_words": len(original_words),
+                "word_length": max(len(word) for word in original_words),
+                "difficulty": {
+                    "num_words": (self.config.min_words, self.config.max_words),
+                    "word_length": (self.config.min_word_length, self.config.max_word_length),
+                },
             },
         }
 

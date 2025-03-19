@@ -127,8 +127,9 @@ class StringSplittingDataset(ProceduralDataset):
             "metadata": {
                 "states": states,
                 "solution": answer,
+                "initial_machines": (A_machine, B_machine, C_machine),
                 "difficulty": {
-                    "initial_machines": (A_machine, B_machine, C_machine),
+                    "initial_machines": (self.config.min_initial_machines, self.config.max_initial_machines),
                 },
             },
         }

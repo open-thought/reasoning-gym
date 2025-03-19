@@ -108,7 +108,10 @@ class BinaryAlternationDataset(ProceduralDataset):
                 "string": string,
                 "solution": answer,
                 "solvable": solvable,
-                "difficulty": {"n": n},
+                "n": n,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 

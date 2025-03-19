@@ -132,8 +132,9 @@ class StringSynthesisDataset(ProceduralDataset):
             "metadata": {
                 "states": states,
                 "solution": answer,
+                "initial_blocks": (A_square, B_square, C_square),
                 "difficulty": {
-                    "initial_blocks": (A_square, B_square, C_square),
+                    "initial_blocks": (self.config.min_initial_blocks, self.config.max_initial_blocks),
                 },
             },
         }

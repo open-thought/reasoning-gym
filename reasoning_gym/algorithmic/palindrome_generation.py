@@ -69,8 +69,9 @@ class PalindromeDataset(ProceduralDataset):
             "metadata": {
                 "letters": scrambled_letters,
                 "generated_palindrome": palindrome,
+                "length": length,
                 "difficulty": {
-                    "length": length,
+                    "length": (self.config.min_length, self.config.max_length),
                 },
             },
         }

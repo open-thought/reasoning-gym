@@ -110,8 +110,8 @@ class BaseConversionDataset(ProceduralDataset):
                 "source_repr": source_repr,
                 "target_repr": target_repr,
                 "difficulty": {
-                    "value": value,
-                    "base": (source_base, target_base),
+                    "base": (self.config.min_base, self.config.max_base),
+                    "value": (self.config.min_value, self.config.max_value),
                 },
             },
         }

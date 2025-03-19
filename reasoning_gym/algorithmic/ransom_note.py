@@ -103,9 +103,11 @@ class RansomNoteDataset(ProceduralDataset):
                 "magazine": magazine,
                 "solution": answer,
                 "solvable": solvable,
+                "note_length": note_length,
+                "magazine_length": magazine_length,
                 "difficulty": {
-                    "note_length": note_length,
-                    "magazine_length": magazine_length,
+                    "note_length": (self.config.min_note_length, self.config.max_note_length),
+                    "magazine_length": (self.config.min_magazine_length, self.config.max_magazine_length),
                 },
             },
         }
