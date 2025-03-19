@@ -195,7 +195,14 @@ class NumberSequenceDataset(ProceduralDataset):
         return {
             "question": ", ".join(map(str, visible_terms)) + ", ?",
             "answer": str(sequence[-1]),
-            "metadata": {"rule": rule.to_string(), "complexity": complexity, "sequence": sequence},
+            "metadata": {
+                "rule": rule.to_string(),
+                "complexity": complexity,
+                "sequence": sequence,
+                "difficulty": {
+                    "max_complexity": self.config.max_complexity,
+                },
+            },
         }
 
 
