@@ -171,7 +171,7 @@ def test_coach_with_composite():
         item = coach[i + 5]  # Use different indices
         if "chain_sum" in item["metadata"]["source_dataset"]:
             metadata = item["metadata"]
-            assert metadata["difficulty"]["num_terms"] >= 4
+            assert metadata["num_terms"] >= 4
 
 
 def test_grouped_scores_str():
