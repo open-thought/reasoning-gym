@@ -13,13 +13,13 @@ from reasoning_gym.composite import DatasetSpec
 
 def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare training and validation datasets."""
-    dataset_name = config.data.reasoning_gym.dataset_name
-    dataset_size = config.data.reasoning_gym.dataset_size
+    dataset_name = config.reasoning_gym.dataset_name
+    dataset_size = config.reasoning_gym.dataset_size
     developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
 
     if dataset_name == "composite":
-        dataset_names = config.data.reasoning_gym.dataset_names
-        dataset_weights = config.data.reasoning_gym.dataset_weights
+        dataset_names = config.reasoning_gym.dataset_names
+        dataset_weights = config.reasoning_gym.dataset_weights
         dataset_specs = [
             DatasetSpec(name=name, weight=weight, config={}) for name, weight in zip(dataset_names, dataset_weights)
         ]
