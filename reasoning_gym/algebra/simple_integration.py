@@ -85,7 +85,10 @@ When performing calculations, please follow these guidelines:
                 "integrand": str(derivative),
                 "variable": str(symbol),
                 "expected_answer_expression": polynomial,
-                "difficulty": {"terms": num_terms},
+                "num_terms": num_terms,
+                "difficulty": {
+                    "terms": (self.config.min_terms, self.config.max_terms),
+                },
             },
         }
 
