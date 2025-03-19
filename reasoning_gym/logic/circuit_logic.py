@@ -387,8 +387,10 @@ class CircuitLogicDataset(ProceduralDataset):
                 "final_gate": final_gate_name,
                 "inputs": inputs_list,
                 "difficulty": {
-                    "terms": num_terms,
-                    "inputs": (self.config.min_inputs, self.config.max_inputs),
+                    "min_terms": self.config.min_terms,
+                    "max_terms": self.config.max_terms,
+                    "min_inputs": self.config.min_inputs,
+                    "max_inputs": self.config.max_inputs,
                 },
             },
         }
