@@ -270,7 +270,13 @@ class TsumegoDataset(ProceduralDataset):
                 "Specify your move in coordinates (e.g. 'C4' for column C, row 4)"
             ),
             "answer": solution_str,
-            "metadata": {"difficulty": {"board_size": size}, "board": board},
+            "metadata": {
+                "difficulty": {
+                    "min_board_size": self.config.min_board_size,
+                    "max_board_size": self.config.max_board_size,
+                },
+                "board": board,
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:

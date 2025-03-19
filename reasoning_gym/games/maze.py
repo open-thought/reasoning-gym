@@ -112,8 +112,10 @@ class MazeDataset(ProceduralDataset):
                         "wall": self.wall_char,
                         "path": self.path_char,
                         "difficulty": {
-                            "dist": dist,
-                            "grid_size": size,
+                            "min_dist": self.config.min_dist,
+                            "max_dist": self.config.max_dist,
+                            "min_grid_size": self.config.min_grid_size,
+                            "max_grid_size": self.config.max_grid_size,
                         },
                     },
                 }

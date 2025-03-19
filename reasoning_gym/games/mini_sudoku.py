@@ -197,7 +197,8 @@ class MiniSudokuDataset(ProceduralDataset):
                 "solution": solved_board,
                 "num_empty": num_empty,
                 "difficulty": {
-                    "empty": num_empty,
+                    "min_empty": self.config.min_empty,
+                    "max_empty": self.config.max_empty,
                 },
             },
         }
