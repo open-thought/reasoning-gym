@@ -2,10 +2,13 @@
 
 from dataclasses import replace
 
+from dataclasses import replace
+
 import hydra
 import ray
 from omegaconf import OmegaConf
 from trainers import RayGRPOTrainer
+from utils import ReasoningGymDataset, make_dataset
 from utils import ReasoningGymDataset, make_dataset
 
 import reasoning_gym
@@ -18,8 +21,7 @@ from reasoning_gym.composite import CompositeDataset, DatasetSpec
 def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare training and validation datasets."""
     dataset_size = config.reasoning_gym.dataset_size
-    developer_prompt_setting = config.reasoning_gym.developer_prompt
-    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS[developer_prompt_setting]
+    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
 
     if config.reasoning_gym.enable_curriculum_learning:
         curricula = config.reasoning_gym.curricula
@@ -43,47 +45,8 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
         train_data_source = reasoning_gym.create_dataset("composite", seed=1, size=dataset_size, datasets=dataset_specs)
         val_data_source = reasoning_gym.create_dataset("composite", seed=2, size=dataset_size, datasets=dataset_specs)
 
-    train_dataset = make_dataset(tokenizer, train_data_source, developer_prompt)
-    val_dataset = make_dataset(tokenizer, val_data_source, developer_prompt)
-    return train_dataset, val_dataset
-
-
-def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
-    """Prepare training and validation datasets."""
-    dataset_name = config.reasoning_gym.dataset_name
-    dataset_size = config.reasoning_gym.dataset_size
-    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
-
-    if dataset_name == "composite":
-        dataset_names = config.reasoning_gym.dataset_names
-        dataset_weights = config.reasoning_gym.dataset_weights
-        dataset_specs = [
-            DatasetSpec(name=name, weight=weight, config={}) for name, weight in zip(dataset_names, dataset_weights)
-        ]
-        train_procedural_dataset = reasoning_gym.create_dataset(
-            "composite", seed=1, size=dataset_size, datasets=dataset_specs
-        )
-        val_procedural_dataset = reasoning_gym.create_dataset(
-            "composite", seed=2, size=dataset_size, datasets=dataset_specs
-        )
-    else:
-        train_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=1, size=dataset_size)
-        val_procedural_dataset = reasoning_gym.create_dataset(dataset_name, seed=2, size=dataset_size)
-
-    train_dataset = ReasoningGymDataset(
-        tokenizer=tokenizer,
-        procedural_dataset=train_procedural_dataset,
-        dataset_name=dataset_name,
-        developer_prompt=developer_prompt,
-    )
-
-    val_dataset = ReasoningGymDataset(
-        tokenizer=tokenizer,
-        procedural_dataset=val_procedural_dataset,
-        dataset_name=dataset_name,
-        developer_prompt=developer_prompt,
-    )
-
+    train_dataset = make_dataset(tokenizer, train_data_source, "composite", developer_prompt)
+    val_dataset = make_dataset(tokenizer, val_data_source, "composite", developer_prompt)
     return train_dataset, val_dataset
 
 
