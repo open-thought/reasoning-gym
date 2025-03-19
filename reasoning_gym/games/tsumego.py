@@ -272,6 +272,7 @@ class TsumegoDataset(ProceduralDataset):
             "answer": solution_str,
             "metadata": {
                 "board": board,
+                "board_size": size,
                 "difficulty": {
                     "board_size": (self.config.min_board_size, self.config.max_board_size),
                 },

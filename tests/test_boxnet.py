@@ -78,8 +78,8 @@ def test_boxnet_grid_sizes():
 
     for i in range(len(dataset)):
         item = dataset[i]
-        row_num = item["metadata"]["difficulty"]["row_num"]
-        column_num = item["metadata"]["difficulty"]["column_num"]
+        row_num = item["metadata"]["row_num"]
+        column_num = item["metadata"]["column_num"]
 
         rows_set.add(row_num)
         columns_set.add(column_num)

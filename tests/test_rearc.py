@@ -38,12 +38,12 @@ def test_rearc_items():
         assert "input" in meta
         assert "output" in meta
         assert "task_id" in meta
-        assert "rng_difficulty" in meta["difficulty"]
-        assert "pso_difficulty" in meta["difficulty"]
+        assert "rng" in meta
+        assert "pso" in meta
 
         # Validate difficulty bounds
-        assert config.diff_lb <= meta["difficulty"]["rng_difficulty"] <= config.diff_ub
-        assert config.diff_lb <= meta["difficulty"]["pso_difficulty"] <= config.diff_ub
+        assert config.diff_lb <= meta["rng"] <= config.diff_ub
+        assert config.diff_lb <= meta["pso"] <= config.diff_ub
 
 
 def test_rearc_solution_validation():
