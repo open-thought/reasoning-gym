@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -253,12 +253,10 @@ class CryptarithmCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words",
                 levels=[2, 5, 10, 50],
-                default_level=1,
                 description="Number of words in the cryptarithm puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                ensure_interval=True,
             )
         )
 

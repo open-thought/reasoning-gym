@@ -1,4 +1,4 @@
-from .attributes import AttributeDefinition, AttributeType, RangeAttributeDefinition, ScalarAttributeDefinition
+from .attributes import AttributeDefinition, RangeAttributeDefinition, ScalarAttributeDefinition
 from .base_curriculum import BaseCurriculum
 from .coach import Coach, GroupedScores, ScoreBoard, ScoreStats
 

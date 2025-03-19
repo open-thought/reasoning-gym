@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
@@ -120,12 +120,10 @@ class StringInsertionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="string_length",
                 levels=[10, 50, 100, 1000],
-                default_level=1,
                 description="Length of the string",
-                attr_type=AttributeType.APPEND,
-                min_value=5,
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
+                ensure_interval=True,
             ),
         )
 

@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
@@ -278,12 +278,10 @@ class WordLadderCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_length",
                 levels=[3, 4, 5, 6],
-                default_level=1,
                 description="Length of words in the puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
+                ensure_interval=True,
             )
         )
 

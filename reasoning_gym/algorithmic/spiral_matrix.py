@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
@@ -148,10 +148,7 @@ class SpiralMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of rows/cols in the matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             )

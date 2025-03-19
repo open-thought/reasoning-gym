@@ -6,7 +6,7 @@ from math import gcd
 from random import Random
 from typing import Any, Optional, Sequence
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = "Simplify the fraction {question_fraction} to its lowest terms. Give only the simplified fraction as your final answer."
@@ -166,22 +166,18 @@ class FractionSimplificationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="value",
                 levels=[1, 100, 1000, 10000],
-                default_level=1,
                 description="Value range for numerator and denominator",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="factor",
                 levels=[1, 10, 100, 1000],
-                default_level=1,
                 description="Factor range for generating unsimplified fractions",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_factor",
                 upper_field_name="max_factor",
+                ensure_interval=True,
             ),
         )
 

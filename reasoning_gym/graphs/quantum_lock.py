@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -243,10 +243,7 @@ class QuantumLockCurriculum(BaseCurriculum):
                 name="difficulty",
                 field_name="difficulty",
                 levels=list(range(1, 11)),
-                default_level=0,
-                attr_type=AttributeType.STATIC,
                 description="The difficulty of the puzzle",
-                min_value=1,
             )
         )
 

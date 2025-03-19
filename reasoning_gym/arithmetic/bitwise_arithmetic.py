@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -186,10 +186,7 @@ class BitwiseArithmeticCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="difficulty",
                 levels=[1, 2, 3, 4],
-                default_level=0,
                 description="Range of difficulty levels",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="difficulty",
             ),
         )

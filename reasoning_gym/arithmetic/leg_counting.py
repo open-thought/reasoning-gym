@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 ANIMALS = {
@@ -136,20 +136,14 @@ class LegCountingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_animals",
                 levels=list(range(1, 20)),
-                default_level=0,
                 description="Number of animals in question",
-                attr_type=AttributeType.APPEND,
-                min_value=1,  # Ensure at least 1 animal
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",
             ),
             RangeAttributeDefinition(
                 name="num_instances",
                 levels=[2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
-                default_level=0,
                 description="Number of instances of each animal",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_instances",
                 upper_field_name="max_instances",
             ),

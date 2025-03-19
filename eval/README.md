@@ -56,6 +56,7 @@ default_seed: 42  # Default seed for all datasets
 max_tokens: 32768  # Maximum generation length (optional)
 temperature: 0.6   # Generation temperature (optional)
 top_p: 0.95        # Top-p sampling parameter (optional)
+completions_per_prompt: 1  # Number of completions to generate per prompt (each is a separate API call) (optional)
 system_prompt_id: "default"  # Use a predefined system prompt by ID (optional)
 # system_prompt: "Your custom system prompt here"  # Or specify a custom system prompt directly
 
@@ -159,6 +160,22 @@ You can specify a different API base URL if needed:
 ```bash
 python eval.py --config example_config.yaml --base-url "https://api.together.xyz/v1" --api-key "your-together-api-key"
 ```
+
+### Resuming Interrupted Evaluations
+
+If an evaluation is interrupted (e.g., due to a network issue or system crash), you can resume it from where it left off:
+
+```bash
+python eval.py --config example_config.yaml --resume results/model_name_20250315_123045/
+```
+
+This will:
+1. Load the checkpoint from the specified directory
+2. Skip datasets that have already been completed
+3. Continue with the remaining datasets
+4. Produce the same final output as if the evaluation had run without interruption
+
+The checkpoint system automatically saves progress after each dataset completes, so you can safely interrupt and resume evaluations at any time.
 
 
 The results will be stored in a directory named after the model and timestamp, containing:

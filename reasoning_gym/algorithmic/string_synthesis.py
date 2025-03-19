@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There are nine different blocks [A] [B] [C] {{A}} {{B}} {{C}} (A) (B) (C)
@@ -148,12 +148,10 @@ class StringSynthesisCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="initial_blocks",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of initial blocks",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_initial_blocks",
                 upper_field_name="max_initial_blocks",
+                ensure_interval=True,
             )
         )
 

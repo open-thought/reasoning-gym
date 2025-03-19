@@ -6,7 +6,7 @@ from typing import Optional
 import pytz
 from dateutil import parser
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -334,19 +334,13 @@ class TimeIntervalsCurriculum(BaseCurriculum):
                 name="max_time_difference_seconds",
                 field_name="max_time_difference_seconds",
                 levels=[60, 24 * 60 * 60, 7 * 24 * 60 * 60, 30 * 24 * 60 * 60, 365 * 24 * 60 * 60],
-                default_level=0,
                 description="Maximum time difference in seconds",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_date_difference_days",
                 field_name="max_date_difference_days",
                 levels=[1, 7, 30, 365, 5 * 365],
-                default_level=0,
                 description="Maximum date difference in days",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
         )
 

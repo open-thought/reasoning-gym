@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to convert a number between two different bases.
@@ -126,22 +126,18 @@ class BaseConversionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="base",
                 levels=[2, 9, 18, 27, 36],
-                default_level=1,
                 description="The base of the number system",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_base",
                 upper_field_name="max_base",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="value",
                 levels=[1_000, 10_000, 100_000, 1_000_000],
-                default_level=0,
                 description="The value to convert",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
         )
 

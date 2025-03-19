@@ -6,7 +6,7 @@ from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -346,30 +346,21 @@ class PropositionalLogicCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="vars",
                 levels=[2, 4, 6, 8, 10],
-                default_level=0,
                 description="Number of variables in the logical expressions",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_vars",
                 upper_field_name="max_vars",
             ),
             RangeAttributeDefinition(
                 name="statements",
                 levels=[2, 4, 6, 8, 10],
-                default_level=0,
                 description="Number of premises in the logical expressions",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_statements",
                 upper_field_name="max_statements",
             ),
             RangeAttributeDefinition(
                 name="complexity",
                 levels=[1, 2, 3, 4, 5],
-                default_level=0,
                 description="Complexity of the logical expressions",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_complexity",
                 upper_field_name="max_complexity",
             ),

@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
@@ -147,18 +147,12 @@ class BinaryMatrixCurriculum(BaseCurriculum):
                 name="p_zero",
                 field_name="p_zero",
                 levels=[0.5, 0.25, 0.1, 0.05],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.STATIC,
-                min_value=0,
             ),
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 50, 250, 1000],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             ),

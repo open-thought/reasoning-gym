@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -249,12 +249,10 @@ class MiniSudokuCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="empty",
                 levels=[4, 6, 8, 10],
-                default_level=1,
                 description="Number of empty cells in the puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_empty",
                 upper_field_name="max_empty",
+                ensure_interval=True,
             )
         )
 

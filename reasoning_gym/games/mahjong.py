@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There are several letter cards, and the game rules are as follows:
@@ -136,10 +136,7 @@ class MahjongPuzzleCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_rounds",
                 levels=[10, 50, 100, 500],
-                default_level=0,
                 description="Number of rounds in the game",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_num_rounds",
                 upper_field_name="max_num_rounds",
             )

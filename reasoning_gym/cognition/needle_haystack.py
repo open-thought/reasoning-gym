@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -137,13 +137,11 @@ class NeedleHaystackCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_statements",
-                levels=[10, 100, 1_000, 10_000, 100_000, 1_000_000, 168_386_000],
-                default_level=1,
+                levels=[10, 100, 500, 1_000, 5_000, 10_000, 50_000, 100_000],
                 description="Number of statements in the haystack",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_num_statements",
                 upper_field_name="max_num_statements",
+                ensure_interval=True,
             ),
         )
 

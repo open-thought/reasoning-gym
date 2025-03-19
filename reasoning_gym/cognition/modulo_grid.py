@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -158,46 +158,31 @@ class ModuloGridCurriculum(BaseCurriculum):
                 name="size_x",
                 field_name="size_x",
                 levels=[20, 30, 50, 75],
-                default_level=0,
                 description="Size x",
-                attr_type=AttributeType.STATIC,
-                min_value=20,
             ),
             ScalarAttributeDefinition(
                 name="size_y",
                 field_name="size_y",
                 levels=[20, 30, 50, 75],
-                default_level=0,
                 description="Size y",
-                attr_type=AttributeType.STATIC,
-                min_value=20,
             ),
             ScalarAttributeDefinition(
                 name="max_holes",
                 field_name="max_holes",
                 levels=[1, 2, 3, 5],
-                default_level=0,
                 description="Max holes",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_divisor",
                 field_name="max_divisor",
                 levels=[9, 10, 11, 48],
-                default_level=0,
                 description="Max divisor",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_target",
                 field_name="max_target",
                 levels=[7, 14, 21, 49],
-                default_level=0,
                 description="Max target",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
         )
 

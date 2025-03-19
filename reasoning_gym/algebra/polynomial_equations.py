@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 from sympy import Eq, Symbol, expand, solve
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -277,9 +277,6 @@ class PolynomialEquationsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="degree",
                 levels=[1, 2, 3, 4],
-                default_level=0,
-                min_value=1,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_degree",
                 upper_field_name="max_degree",
                 description="The degree of the polynomial equation",
@@ -287,9 +284,6 @@ class PolynomialEquationsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="terms",
                 levels=[2, 3, 4, 5],
-                default_level=0,
-                min_value=2,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
                 description="The number of terms in the polynomial equation",

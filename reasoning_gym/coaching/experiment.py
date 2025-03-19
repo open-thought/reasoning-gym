@@ -2,6 +2,8 @@
 
 from typing import Any, Optional
 
+from reasoning_gym.coaching.base_curriculum import CurriculumContext
+
 from ..composite import CompositeConfig, CompositeDataset, DatasetSpec
 from ..factory import create_curriculum
 from ..version_manager import DatasetVersionManager
@@ -37,7 +39,14 @@ class Experiment:
 
 
 class CurriculumExperiment(Experiment):
-    def __init__(self, name: str, config: CurriculumExperimentConfig, size: int, seed: Optional[int] = None):
+    def __init__(
+        self,
+        name: str,
+        config: CurriculumExperimentConfig,
+        size: int,
+        context: Optional[CurriculumContext] = None,
+        seed: Optional[int] = None,
+    ):
         """Initialize curriculum experiment with configured datasets and their curricula.
 
         Args:
@@ -68,7 +77,7 @@ class CurriculumExperiment(Experiment):
                     curriculum.set_attr_level(attr_name, level)
 
             # Generate dataset config from curriculum
-            dataset_config = curriculum.generate_configuration()
+            dataset_config = curriculum.generate_configuration(context=context)
 
             # Create dataset spec
             spec = DatasetSpec(name=dataset_name, weight=attr_config.weight, config=dataset_config.__dict__)
@@ -86,6 +95,7 @@ class CurriculumExperiment(Experiment):
 
         # Store curriculum config
         self.curriculum_config = config
+        self.context = context
 
     def update_difficulty(self):
         """Update difficulty levels based on performance metrics"""
