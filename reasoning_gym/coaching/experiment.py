@@ -27,7 +27,7 @@ class Experiment:
         entry = dataset[index]
         score = dataset.score_answer(answer, entry)
         metadata = entry["metadata"]
-        self.score_board.add_score(score, metadata, conversation)
+        self.score_board.add_score(dataset_name, score, metadata, conversation)
         return score
 
     @classmethod
@@ -97,29 +97,26 @@ class CurriculumExperiment(Experiment):
         self.curriculum_config = config
         self.context = context
 
-    def update_difficulty(self, method: Literal["increment", "decrement"]):
+    def update_difficulty(self, dataset_name: str, method: Literal["increment", "decrement"]):
         """Update difficulty levels based on performance metrics"""
         dataset_specs = []
         if method not in ["increment", "decrement"]:
             raise ValueError(f"Invalid method: {method}")
+        
+        if method == "increment":
+            self.curricula[dataset_name].increment_global_level()
+        elif method == "decrement":
+            self.curricula[dataset_name].decrement_global_level()
 
-        for dataset_name, curriculum in self.curricula.items():
-            if method == "increment":
-                curriculum.increment_global_level()
-            elif method == "decrement":
-                curriculum.decrement_global_level()
-
-            self.curricula[curriculum.name] = curriculum
-            config = curriculum.get_global_level()
-            self.composite.update_dataset_config(dataset_name, config)
-            spec = DatasetSpec(name=dataset_name, 
-                               weight=self.curriculum_config.curricula[dataset_name].weight, 
-                               config=config)
-            dataset_specs.append(spec)
+        config = self.curricula[dataset_name].get_global_level()
+        self.composite.update_dataset_config(dataset_name, config)
+        spec = DatasetSpec(name=dataset_name, 
+                            weight=self.curriculum_config.curricula[dataset_name].weight, 
+                            config=config)
+        dataset_specs.append(spec)
         
         composite_configs = CompositeConfig(size=self.composite.config.size,
                                              seed=self.composite.config.seed,
                                              datasets=dataset_specs)
         self.curriculum_config = composite_configs
-        return None
             

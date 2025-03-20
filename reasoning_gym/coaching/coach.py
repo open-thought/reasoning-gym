@@ -114,11 +114,11 @@ class GroupedScores:
 class ScoreBoard:
     """Tracks scores and metadata for coaching sessions"""
 
-    scores: list[float] = field(default_factory=list)
-    metadata: list[dict[str, Any]] = field(default_factory=list)
-    conversations: list[Optional[list[dict]]] = field(default_factory=list)
+    scores: dict[str, list[float]] = field(default_factory=dict)
+    metadata: dict[str, list[dict[str, Any]]] = field(default_factory=dict)
+    conversations: dict[str, list[Optional[list[dict]]]] = field(default_factory=dict)
 
-    def add_score(self, score: float, metadata: dict[str, Any], conversation: Optional[list[dict]] = None) -> None:
+    def add_score(self, dataset_name: str, score: float, metadata: dict[str, Any], conversation: Optional[list[dict]] = None) -> None:
         """Add a new score entry with associated metadata and optional conversation
 
         Args:
@@ -126,9 +126,13 @@ class ScoreBoard:
             metadata: Dictionary of metadata about the task/attempt
             conversation: Optional list of conversation turns as dicts
         """
-        self.scores.append(score)
-        self.metadata.append(metadata)
-        self.conversations.append(conversation)
+        if dataset_name not in self.scores:
+            self.scores[dataset_name] = []
+            self.metadata[dataset_name] = []
+            self.conversations[dataset_name] = []
+        self.scores[dataset_name].append(score)
+        self.metadata[dataset_name].append(metadata)
+        self.conversations[dataset_name].append(conversation)
 
     def clear(self) -> None:
         """Clear all stored scores, metadata and conversations"""
@@ -166,35 +170,48 @@ class ScoreBoard:
 
         return tuple(key_items)
 
-    def aggregate(self, last_n: Optional[int] = None) -> GroupedScores:
-        """Aggregate scores by difficulty parameters or full metadata if no difficulty present
+    def aggregate(self, last_n: Optional[int] = None) -> dict[str, GroupedScores]:
+        """Aggregate scores by dataset name and then by difficulty parameters
 
         Args:
             last_n: Optional number of most recent entries to consider
-                   If None, use all entries
+                If None, use all entries
 
         Returns:
-            OrderedDict mapping difficulty parameter combinations to lists of scores
-            Keys are tuples of (param_name, value) pairs, sorted by param_name
+            Dictionary mapping dataset names to their respective GroupedScores objects
+            Each GroupedScores contains scores grouped by difficulty parameters for that dataset
         """
         if not self.scores:
-            return GroupedScores(scores=OrderedDict(), total_scores=0)
+            return {}
 
-        # Determine start index for iteration
-        start_idx = max(0, len(self.scores) - last_n) if last_n is not None else 0
+        # Create a nested structure: dataset -> parameter groups -> scores
+        result = {}
+        
+        # Process each dataset
+        for dataset_name, dataset_scores in self.scores.items():
+            # Determine start index for this dataset
+            dataset_len = len(dataset_scores)
+            start_idx = max(0, dataset_len - last_n) if last_n is not None else 0
+            
+            # Create OrderedDict for this dataset's parameter groupings
+            dataset_groups = OrderedDict()
+            
+            # Process scores for this dataset
+            for i in range(start_idx, dataset_len):
+                # Get metadata for this score
+                metadata = self.metadata[dataset_name][i]
+                params = self._metadata_to_key(metadata)
+                
+                if params not in dataset_groups:
+                    dataset_groups[params] = []
+                
+                dataset_groups[params].append(dataset_scores[i])
 
-        # Group scores by difficulty parameters without creating intermediate lists
-        result = OrderedDict()
-        for i in range(start_idx, len(self.scores)):
-            key = self._metadata_to_key(self.metadata[i])
-            if key not in result:
-                result[key] = []
-            result[key].append(self.scores[i])
+            # Create a GroupedScores object for this dataset
+            total_scores = sum(len(scores) for scores in dataset_groups.values())
+            result[dataset_name] = GroupedScores(scores=dataset_groups, total_scores=total_scores)
 
-        # Count total scores
-        total_scores = sum(len(scores) for scores in result.values())
-
-        return GroupedScores(scores=result, total_scores=total_scores)
+        return result
 
 
 class Coach(ProceduralDataset):

@@ -32,7 +32,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         self.max_output_length = max_output_length
 
         self.format_reward_scaling_factor = config.reward.format_reward.scaling_factor
-        self.length_reward_scaling_factor = config.reward.length_reward.scaling_factor
+        #self.length_reward_scaling_factor = config.reward.length_reward.scaling_factor
         if config.curriculum.enabled:
             self.last_k = config.curriculum.last_k
         else:
@@ -352,8 +352,13 @@ class RayGRPOTrainer(RayPPOTrainer):
 
                 # collect metrics
                 if type(self.train_dataset.experiment):
-                    self.train_dataset.experiment.score_board.add_score(score=metric, metadata = None)
-                    if self.train_dataset.experiment.score_board.aggregate(last_n=self.last_k).
+                    grouped_scores = self.train_dataset.aggregate(last_n=self.last_k)
+                    for dataset_name in grouped_scores.keys():
+                        if (grouped_scores[dataset_name]['results'] > self.success_threshold) and (grouped_scores[dataset_name]['total_samples'] > self.last_k):
+                            self.train_dataset.experiment.update_difficulty(dataset_name, method='increment')
+                        elif (grouped_scores[dataset_name]['results'] < self.failure_threshold) and (grouped_scores[dataset_name]['total_samples'] > self.last_k):
+                            self.train_dataset.update_difficulty(dataset_name, method='decrement')
+                    
                
                 metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic))
                 metrics.update(compute_timing_metrics(batch=batch, timing_raw=timing_raw))
