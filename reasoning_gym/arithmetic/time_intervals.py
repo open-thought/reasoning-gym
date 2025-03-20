@@ -9,6 +9,8 @@ from dateutil import parser
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "time_intervals"
+
 
 @dataclass
 class TimeIntervalsConfig:
@@ -134,6 +136,8 @@ class TimeIntervalsDataset(ProceduralDataset):
             "question": question,
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "task_type": task_type,
                 "start_time": start_dt,
                 "end_time": end_dt,
@@ -346,4 +350,4 @@ class TimeIntervalsCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("time_intervals", TimeIntervalsDataset, TimeIntervalsConfig, TimeIntervalsCurriculum)
+register_dataset(DATASET_NAME, TimeIntervalsDataset, TimeIntervalsConfig, TimeIntervalsCurriculum)

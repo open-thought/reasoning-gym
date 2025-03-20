@@ -27,6 +27,8 @@ Your output should be a comma-separated list of words, e.g. word_1, word_2, word
 Now, sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {words}
 """
 
+DATASET_NAME = "word_sorting"
+
 
 @dataclass
 class WordSortingConfig:
@@ -106,6 +108,8 @@ class WordSortingDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(direction=direction, words=", ".join(transformed_words)),
             "answer": ", ".join(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "original_words": original_words,
                 "sorted_words": answer,
                 "transformed_words": transformed_words,
@@ -153,4 +157,4 @@ class WordSortingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("word_sorting", WordSortingDataset, WordSortingConfig)
+register_dataset(DATASET_NAME, WordSortingDataset, WordSortingConfig)

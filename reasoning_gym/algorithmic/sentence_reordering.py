@@ -9,6 +9,8 @@ from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "sentence_reordering"
+
 
 @dataclass
 class SentenceReorderingConfig:
@@ -91,6 +93,8 @@ class SentenceReorderingDataset(ProceduralDataset):
             "question": f"Restore the correct order of words in the following sentence: {question}",
             "answer": solved_sentence,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "word_count": word_count,
                 "difficulty": {
                     "words_in_sentence": (self.config.min_words_in_sentence, self.config.max_words_in_sentence),
@@ -137,6 +141,4 @@ class SentenceReorderingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "sentence_reordering", SentenceReorderingDataset, SentenceReorderingConfig, SentenceReorderingCurriculum
-)
+register_dataset(DATASET_NAME, SentenceReorderingDataset, SentenceReorderingConfig, SentenceReorderingCurriculum)

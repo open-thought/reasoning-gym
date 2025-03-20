@@ -9,6 +9,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "propositional_logic"
+
 
 def parse_expr(expr: str):
     expr = expr.strip()
@@ -216,6 +218,8 @@ class PropositionalLogicDataset(ProceduralDataset):
             "question": question,
             "answer": None,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "premises": [str(p) for p in premises],
                 "variables": variables,
                 "complexity": self._measure_complexity(conclusion),
@@ -367,6 +371,4 @@ class PropositionalLogicCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "propositional_logic", PropositionalLogicDataset, PropositionalLogicConfig, PropositionalLogicCurriculum
-)
+register_dataset(DATASET_NAME, PropositionalLogicDataset, PropositionalLogicConfig, PropositionalLogicCurriculum)

@@ -28,6 +28,8 @@ Now, find the length of the shortest path from * to # in the following grid:
 {grid}
 """
 
+DATASET_NAME = "shortest_path"
+
 
 @dataclass
 class ShortestPathConfig:
@@ -159,6 +161,8 @@ class ShortestPathDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(grid=matrix_str),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
                 "difficulty": {
@@ -192,4 +196,4 @@ class ShortestPathCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("shortest_path", ShortestPathDataset, ShortestPathConfig, ShortestPathCurriculum)
+register_dataset(DATASET_NAME, ShortestPathDataset, ShortestPathConfig, ShortestPathCurriculum)

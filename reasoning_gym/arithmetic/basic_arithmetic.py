@@ -5,6 +5,8 @@ from typing import Any, Literal, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "basic_arithmetic"
+
 
 @dataclass
 class BasicArithmeticDatasetConfig:
@@ -95,6 +97,8 @@ class BasicArithmeticDataset(ProceduralDataset):
             "question": question,
             "answer": str(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "expression": expression,
                 "num_terms": num_terms,
                 "num_digits": num_digits,
@@ -260,4 +264,4 @@ class BasicArithmeticCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("basic_arithmetic", BasicArithmeticDataset, BasicArithmeticDatasetConfig, BasicArithmeticCurriculum)
+register_dataset(DATASET_NAME, BasicArithmeticDataset, BasicArithmeticDatasetConfig, BasicArithmeticCurriculum)

@@ -23,6 +23,8 @@ Formatting guidelines:
 - Do not include any other text or formatting.
 """
 
+DATASET_NAME = "tower_of_hanoi"
+
 
 @dataclass
 class HanoiConfig:
@@ -269,6 +271,8 @@ class HanoiDataset(ProceduralDataset):
             ),
             "answer": "\n".join(solution),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num_disks": num_disks,
                 "num_pegs": num_pegs,
                 "start_peg": start_peg,
@@ -452,4 +456,4 @@ class HanoiCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("tower_of_hanoi", HanoiDataset, HanoiConfig, HanoiCurriculum)
+register_dataset(DATASET_NAME, HanoiDataset, HanoiConfig, HanoiCurriculum)

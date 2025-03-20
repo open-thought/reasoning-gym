@@ -8,6 +8,8 @@ import numpy as np
 
 from reasoning_gym.factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "knights_knaves"
+
 COMMON_NAMES = [
     "Emma",
     "Liam",
@@ -428,9 +430,9 @@ class KnightsKnavesDataset(ProceduralDataset):
                 - metadata: dict (additional problem details)
         """
         rng = Random(self.seed + idx if self.seed is not None else None)
-        return self.__generate_problem(rng)
+        return self.__generate_problem(rng, idx)
 
-    def __generate_problem(self, rng: Random) -> dict[str, Any]:
+    def __generate_problem(self, rng: Random, idx: int) -> dict[str, Any]:
         """
         Generate a single knights and knaves problem with a unique solution.
         """
@@ -454,6 +456,8 @@ class KnightsKnavesDataset(ProceduralDataset):
         question = formatted["quiz"]
         answer = formatted["solution_text"]
         metadata = {
+            "source_dataset": DATASET_NAME,
+            "source_index": idx,
             "statements": problem["statements"],
             "solution": problem["solution"],
             "names": formatted["names"],
@@ -511,4 +515,4 @@ class KnightsKnavesDataset(ProceduralDataset):
         return 0.0
 
 
-register_dataset("knights_knaves", KnightsKnavesDataset, KnightsKnavesConfig)
+register_dataset(DATASET_NAME, KnightsKnavesDataset, KnightsKnavesConfig)

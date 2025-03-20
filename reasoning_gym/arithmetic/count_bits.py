@@ -9,6 +9,8 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """How many 1 bits are there in the binary representation of the number {number}?"""
 
+DATASET_NAME = "count_bits"
+
 
 @dataclass
 class CountBitsConfig:
@@ -43,6 +45,8 @@ class CountBitsDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(number=number),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "number": number,
                 "solution": answer,
                 "binary": binary,
@@ -70,4 +74,4 @@ class CountBitsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("count_bits", CountBitsDataset, CountBitsConfig, CountBitsCurriculum)
+register_dataset(DATASET_NAME, CountBitsDataset, CountBitsConfig, CountBitsCurriculum)

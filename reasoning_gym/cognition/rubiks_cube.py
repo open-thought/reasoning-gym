@@ -9,6 +9,8 @@ from magiccube.solver.basic.basic_solver import BasicSolver
 from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "rubiks_cube"
+
 
 @dataclass
 class RubiksCubeConfig:
@@ -105,6 +107,8 @@ class RubiksCubeDataset(ProceduralDataset):
             ),
             "answer": None,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "cube_size": self.config.cube_size,
                 "scramble_steps": num_steps,
                 "scramble_moves": " ".join([str(move) for move in scramble_moves]),
@@ -188,4 +192,4 @@ class RubiksCubeCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("rubiks_cube", RubiksCubeDataset, RubiksCubeConfig, RubiksCubeCurriculum)
+register_dataset(DATASET_NAME, RubiksCubeDataset, RubiksCubeConfig, RubiksCubeCurriculum)

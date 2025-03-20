@@ -27,6 +27,8 @@ from ..factory import ProceduralDataset, register_dataset
 # Added constant to avoid repetition of adjacent directions
 DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
+DATASET_NAME = "tsumego"
+
 
 @dataclass
 class TsumegoConfig:
@@ -271,6 +273,8 @@ class TsumegoDataset(ProceduralDataset):
             ),
             "answer": solution_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "board": board,
                 "board_size": size,
                 "difficulty": {
@@ -312,4 +316,4 @@ class TsumegoCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("tsumego", TsumegoDataset, TsumegoConfig, TsumegoCurriculum)
+register_dataset(DATASET_NAME, TsumegoDataset, TsumegoConfig, TsumegoCurriculum)

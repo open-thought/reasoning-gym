@@ -7,6 +7,8 @@ from reasoning_gym import utils
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "chain_sum"
+
 
 @dataclass
 class ChainSumConfig:
@@ -64,6 +66,8 @@ class ChainSumDataset(ProceduralDataset):
             "question": f"State the final answer to the following arithmetic problem: {expression} =",
             "answer": str(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num_terms": num_terms,
                 "num_digits": num_digits,
                 "expression": expression,
@@ -143,4 +147,4 @@ class ChainSumCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("chain_sum", ChainSumDataset, ChainSumConfig, ChainSumCurriculum)
+register_dataset(DATASET_NAME, ChainSumDataset, ChainSumConfig, ChainSumCurriculum)

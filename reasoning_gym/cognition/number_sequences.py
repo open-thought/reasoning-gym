@@ -6,6 +6,8 @@ from typing import Optional
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "number_sequence"
+
 
 class Operation(StrEnum):
     """Basic mathematical operations that can be composed"""
@@ -196,6 +198,8 @@ class NumberSequenceDataset(ProceduralDataset):
             "question": ", ".join(map(str, visible_terms)) + ", ?",
             "answer": str(sequence[-1]),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "rule": rule.to_string(),
                 "complexity": complexity,
                 "sequence": sequence,
@@ -220,4 +224,4 @@ class NumberSequenceCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("number_sequence", NumberSequenceDataset, NumberSequenceConfig, NumberSequenceCurriculum)
+register_dataset(DATASET_NAME, NumberSequenceDataset, NumberSequenceConfig, NumberSequenceCurriculum)

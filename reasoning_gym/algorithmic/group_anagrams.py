@@ -26,6 +26,8 @@ Group the following list of words into anagrams:
 {words}
 """
 
+DATASET_NAME = "group_anagrams"
+
 
 @dataclass
 class GroupAnagramsConfig:
@@ -115,6 +117,8 @@ class GroupAnagramsDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(words=json.dumps(words)),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "words": words,
                 "solution": answer,
                 "anagram_groups": anagram_groups,
@@ -149,4 +153,4 @@ class GroupAnagramsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("group_anagrams", GroupAnagramsDataset, GroupAnagramsConfig, GroupAnagramsCurriculum)
+register_dataset(DATASET_NAME, GroupAnagramsDataset, GroupAnagramsConfig, GroupAnagramsCurriculum)

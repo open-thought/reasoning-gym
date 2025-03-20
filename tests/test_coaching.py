@@ -56,12 +56,7 @@ def test_coach_with_chain_sum():
         # Each inner tuple should be (param_name, value) or (param_name, (min_value, max_value))
         for param in key:
             assert isinstance(param, tuple)
-            assert param[0] in ("num_terms", "num_digits")
-            assert (
-                isinstance(param[1], int)
-                or (isinstance(param[1], tuple) and len(param[1]) == 2)
-                and all(isinstance(v, int) for v in param[1])
-            )
+            assert param[0] in ("source", "idx", "num_terms", "num_digits")
 
     # Test aggregation with last_n
     last_3 = coach.score_board.aggregate(last_n=3)

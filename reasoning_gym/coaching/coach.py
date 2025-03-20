@@ -147,11 +147,7 @@ class ScoreBoard:
         placed first in the tuple as ("source", dataset) and ("idx", index).
         """
         # Start with empty list
-        key_items = []
-
-        # Add source info first if present
-        if "source_dataset" in metadata and "source_index" in metadata:
-            key_items.extend([("source", metadata["source_dataset"]), ("idx", metadata["source_index"])])
+        key_items = [("source", metadata["source_dataset"]), ("idx", metadata["source_index"])]
 
         # Add difficulty parameters or other metadata
         if "difficulty" in metadata:

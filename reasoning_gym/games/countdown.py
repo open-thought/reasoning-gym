@@ -20,6 +20,9 @@ Final answer format instructions:
 """
 
 
+DATASET_NAME = "countdown"
+
+
 @dataclass
 class CountdownConfig:
     """Configuration for Countdown Number Game task generation"""
@@ -85,6 +88,8 @@ class CountdownDataset(ProceduralDataset):
             "question": QUESTION_FORMAT_TEMPLATE.format(question=question),
             "answer": expression,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "numbers": numbers,
                 "target": target,
                 "expression": expression,
@@ -195,4 +200,4 @@ class CountdownDataset(ProceduralDataset):
 
 
 # Register the dataset
-register_dataset("countdown", CountdownDataset, CountdownConfig)
+register_dataset(DATASET_NAME, CountdownDataset, CountdownConfig)

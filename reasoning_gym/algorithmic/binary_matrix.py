@@ -20,6 +20,8 @@ Find the distance to the nearest 0 for each cell in the matrix below:
 {matrix}
 """
 
+DATASET_NAME = "binary_matrix"
+
 
 @dataclass
 class BinaryMatrixConfig:
@@ -128,6 +130,8 @@ class BinaryMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
                 "n": n,
@@ -160,4 +164,4 @@ class BinaryMatrixCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("binary_matrix", BinaryMatrixDataset, BinaryMatrixConfig, BinaryMatrixCurriculum)
+register_dataset(DATASET_NAME, BinaryMatrixDataset, BinaryMatrixConfig, BinaryMatrixCurriculum)

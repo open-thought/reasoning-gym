@@ -8,6 +8,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "prime_factorization"
+
 
 @dataclass
 class PrimeFactorizationConfig:
@@ -84,6 +86,8 @@ class PrimeFactorizationDataset(ProceduralDataset):
             ),
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "number": number,
                 "factors": factors,
                 "difficulty": {
@@ -110,6 +114,4 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "prime_factorization", PrimeFactorizationDataset, PrimeFactorizationConfig, PrimeFactorizationCurriculum
-)
+register_dataset(DATASET_NAME, PrimeFactorizationDataset, PrimeFactorizationConfig, PrimeFactorizationCurriculum)

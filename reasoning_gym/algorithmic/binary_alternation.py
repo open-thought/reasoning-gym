@@ -20,6 +20,9 @@ Now, determine the minimum number of swaps to make the following binary string a
 """
 
 
+DATASET_NAME = "binary_alternation"
+
+
 @dataclass
 class BinaryAlternationConfig:
     """Configuration for Count Bits dataset generation"""
@@ -105,6 +108,8 @@ class BinaryAlternationDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
                 "solvable": solvable,
@@ -132,4 +137,4 @@ class BinaryAlternationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("binary_alternation", BinaryAlternationDataset, BinaryAlternationConfig, BinaryAlternationCurriculum)
+register_dataset(DATASET_NAME, BinaryAlternationDataset, BinaryAlternationConfig, BinaryAlternationCurriculum)

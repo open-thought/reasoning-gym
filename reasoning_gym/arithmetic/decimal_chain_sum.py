@@ -6,6 +6,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "decimal_chain_sum"
+
 
 @dataclass
 class DecimalChainSumConfig:
@@ -66,6 +68,8 @@ class DecimalChainSumDataset(ProceduralDataset):
             "question": f"State the final answer to the following arithmetic problem: {expression} =",
             "answer": str(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num_terms": num_terms,
                 "num_digits": num_digits,
                 "expression": expression,
@@ -195,4 +199,4 @@ class DecimalChainSumCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("decimal_chain_sum", DecimalChainSumDataset, DecimalChainSumConfig, DecimalChainSumCurriculum)
+register_dataset(DATASET_NAME, DecimalChainSumDataset, DecimalChainSumConfig, DecimalChainSumCurriculum)

@@ -5,6 +5,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "self_reference"
+
 
 def is_prime(n):
     """Return True if n is a prime number, False otherwise."""
@@ -347,6 +349,8 @@ class SelfReferenceDataset(ProceduralDataset):
             "question": puzz_s,
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "difficulty": {"difficulty": difficulty},
             },
         }
@@ -383,4 +387,4 @@ class SelfReferenceCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("self_reference", SelfReferenceDataset, SelfReferenceConfig, SelfReferenceCurriculum)
+register_dataset(DATASET_NAME, SelfReferenceDataset, SelfReferenceConfig, SelfReferenceCurriculum)
