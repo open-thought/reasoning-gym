@@ -30,8 +30,10 @@ reasoning_gym:
 
 reward:
   format_reward:
+    enable: True
     scaling_factor: 0.2
   length_reward:
+    enable: True
     scaling_factor: 0.2
 
 data:

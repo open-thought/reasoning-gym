@@ -70,14 +70,18 @@ class RayGRPOTrainer(RayPPOTrainer):
 
             index = data_item.non_tensor_batch["index"]
 
-            score = self._compute_correctness_score(
+            reward = score = self._compute_correctness_score(
                 solution_str=response_str,
                 index=index,
             )
-            format_reward = self._compute_format_reward(response_str)
-            length_reward = self._compute_length_reward(response_str, score)
 
-            reward = score + format_reward + length_reward
+            if self.config.reward.format_reward.enable:
+                format_reward = self._compute_format_reward(response_str)
+                reward += format_reward
+
+            if self.config.reward.length_reward.enable:
+                length_reward = self._compute_length_reward(response_str, score)
+                reward += length_reward
 
             reward_tensor[i, valid_response_length - 1] = reward
 
