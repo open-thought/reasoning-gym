@@ -7,6 +7,8 @@ from typing import Optional
 
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "syllogism"
+
 
 class Quantifier(StrEnum):
     ALL = "All"
@@ -277,7 +279,7 @@ class SyllogismDataset(ProceduralDataset):
 
         return False
 
-    def _generate_syllogism(self, rng: Random) -> dict:
+    def _generate_syllogism(self, rng: Random, idx: int) -> dict:
         """Generate a single syllogism problem"""
         # Select three different terms
         terms = rng.sample(self.terms, 3)
@@ -374,6 +376,8 @@ class SyllogismDataset(ProceduralDataset):
                 "question": question,
                 "answer": "Yes" if is_valid else "No",
                 "metadata": {
+                    "source_dataset": DATASET_NAME,
+                    "source_index": idx,
                     "premise1": premise1_text,
                     "premise2": premise2_text,
                     "selected_premise": selected_premise_num,
@@ -437,7 +441,7 @@ class SyllogismDataset(ProceduralDataset):
     def __getitem__(self, idx: int) -> dict:
         """Generate a single syllogism task"""
         rng = Random(self.seed + idx)
-        return self._generate_syllogism(rng)
+        return self._generate_syllogism(rng, idx)
 
 
-register_dataset("syllogism", SyllogismDataset, SyllogismConfig)
+register_dataset(DATASET_NAME, SyllogismDataset, SyllogismConfig)

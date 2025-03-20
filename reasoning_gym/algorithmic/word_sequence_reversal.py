@@ -17,6 +17,9 @@ Reverse this list of words: {words}
 """
 
 
+DATASET_NAME = "word_sequence_reversal"
+
+
 @dataclass
 class WordSequenceReversalConfig:
     """Configuration for word sequence reversal task generation"""
@@ -62,7 +65,15 @@ class WordSequenceReversalDataset(ProceduralDataset):
         return {
             "question": f"{QUESTION_TEMPLATE.format(words=words_str)}",
             "answer": answer,
-            "metadata": {"num_words": num_words, "words": words, "difficulty": {"words": num_words}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "num_words": num_words,
+                "words": words,
+                "difficulty": {
+                    "words": (self.config.min_words, self.config.max_words),
+                },
+            },
         }
 
 
@@ -83,6 +94,4 @@ class WordSequenceReversalCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "word_sequence_reversal", WordSequenceReversalDataset, WordSequenceReversalConfig, WordSequenceReversalCurriculum
-)
+register_dataset(DATASET_NAME, WordSequenceReversalDataset, WordSequenceReversalConfig, WordSequenceReversalCurriculum)

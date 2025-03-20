@@ -7,6 +7,8 @@ import sympy
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "intermediate_integration"
+
 
 @dataclass
 class IntermediateIntegrationConfig:
@@ -235,6 +237,8 @@ Use same variable symbols as given in the question
             "question": question,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": index,
                 "integrand": str(integrand),
                 "problem_type": problem_type,
                 "variable": str(x),
@@ -292,7 +296,7 @@ class IntermediateIntegrationCurriculum(BaseCurriculum):
 
 
 register_dataset(
-    "intermediate_integration",
+    DATASET_NAME,
     IntermediateIntegrationDataset,
     IntermediateIntegrationConfig,
     IntermediateIntegrationCurriculum,

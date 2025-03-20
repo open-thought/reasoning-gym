@@ -9,6 +9,8 @@ from ..data.wordle_words import wordle_words
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.bfit.Compiler import Compiler, Minify
 
+DATASET_NAME = "bf"
+
 
 @dataclass
 class BFConfig:
@@ -53,6 +55,8 @@ class BFDataset(ProceduralDataset):
             "question": rng.choice(self._prompt_templates).format(bf_program=bf_program),
             "answer": result,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "bfit_code": bfit_code,
                 "bf_program": bf_program,
                 "difficulty": {"difficulty": self.config.difficulty},
@@ -160,4 +164,4 @@ class BFCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("bf", BFDataset, BFConfig, BFCurriculum)
+register_dataset(DATASET_NAME, BFDataset, BFConfig, BFCurriculum)

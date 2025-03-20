@@ -6,6 +6,8 @@ from typing import Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "maze"
+
 
 @dataclass
 class MazeConfig:
@@ -104,6 +106,8 @@ class MazeDataset(ProceduralDataset):
                     "question": question_str,
                     "answer": str(dist),
                     "metadata": {
+                        "source_dataset": DATASET_NAME,
+                        "source_index": idx,
                         "grid_size": size,
                         "grid": ["".join(row) for row in maze_grid],
                         "shortest_path_length": dist,
@@ -112,8 +116,8 @@ class MazeDataset(ProceduralDataset):
                         "wall": self.wall_char,
                         "path": self.path_char,
                         "difficulty": {
-                            "dist": dist,
-                            "grid_size": size,
+                            "dist": (self.config.min_dist, self.config.max_dist),
+                            "grid_size": (self.config.min_grid_size, self.config.max_grid_size),
                         },
                     },
                 }
@@ -214,4 +218,4 @@ class MazeCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("maze", MazeDataset, MazeConfig, MazeCurriculum)
+register_dataset(DATASET_NAME, MazeDataset, MazeConfig, MazeCurriculum)

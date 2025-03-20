@@ -16,6 +16,8 @@ PSO_DIFFICULTY_RANGES = [
     (PSO_DIFFICULTY_LEVELS[i], PSO_DIFFICULTY_LEVELS[i + 1]) for i in range(len(PSO_DIFFICULTY_LEVELS) - 1)
 ]
 
+DATASET_NAME = "rearc"
+
 
 @dataclass
 class ReArcConfig:
@@ -114,12 +116,16 @@ class ReArcDataset(ProceduralDataset):
             "question": input_prompt,
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "input": task["input"],
                 "output": task["output"],
                 "task_id": task_id,
+                "rng": rng_difficulty,
+                "pso": pso_difficulty,
                 "difficulty": {
-                    "rng": rng_difficulty,
-                    "pso": pso_difficulty,
+                    "rng_difficulty": self.config.rng_difficulty_weights,
+                    "pso_difficulty": self.config.pso_difficulty_weights,
                 },
             },
         }
@@ -176,4 +182,4 @@ class ReArcCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("rearc", ReArcDataset, ReArcConfig, ReArcCurriculum)
+register_dataset(DATASET_NAME, ReArcDataset, ReArcConfig, ReArcCurriculum)

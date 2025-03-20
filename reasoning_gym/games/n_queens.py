@@ -27,6 +27,8 @@ Given the below board of size {n} x {n} your job is to place {num_removed} queen
 {puzzle}
 """
 
+DATASET_NAME = "n_queens"
+
 
 @dataclass
 class NQueensConfig:
@@ -131,13 +133,15 @@ class NQueensDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(puzzle=puzzle_str, n=len(puzzle), num_removed=num_removed),
             "answer": rng.choice(valid_solutions_str),  # choose arbitary answer (e.g. for SFT)
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "solutions": valid_solutions,
                 "num_removed": num_removed,
                 "valid_answers": valid_solutions_str,
                 "difficulty": {
                     "n": self.config.n,
-                    "num_removed": num_removed,
+                    "num_removed": (self.config.min_remove, self.config.max_remove),
                 },
             },
         }
@@ -177,4 +181,4 @@ class NQueensCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("n_queens", NQueensDataset, NQueensConfig, NQueensCurriculum)
+register_dataset(DATASET_NAME, NQueensDataset, NQueensConfig, NQueensCurriculum)

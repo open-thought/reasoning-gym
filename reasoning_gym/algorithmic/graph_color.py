@@ -6,6 +6,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "graph_color"
+
 
 def generate_random_graph(rng, num_vertices, edge_probability=0.3):
     """
@@ -213,9 +215,15 @@ Return your solution as a JSON map of vertices to colors. (For example: {{"0": 1
             "question": question,
             "answer": None,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "possible_answer": solution,
                 "puzzle": puzzle,
-                "difficulty": {"num_vertices": num_vertices, "num_colors": num_colors},
+                "num_vertices": num_vertices,
+                "difficulty": {
+                    "num_vertices": (self.config.min_num_vertices, self.config.max_num_vertices),
+                    "num_colors": num_colors,
+                },
             },
         }
 
@@ -268,4 +276,4 @@ class GraphColorCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("graph_color", GraphColorDataset, GraphColorConfig, GraphColorCurriculum)
+register_dataset(DATASET_NAME, GraphColorDataset, GraphColorConfig, GraphColorCurriculum)

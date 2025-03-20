@@ -24,6 +24,8 @@ Transform the following string according to the above list of rules:
 {string}
 """
 
+DATASET_NAME = "string_manipulation"
+
 
 @dataclass
 class StringManipulationConfig:
@@ -179,13 +181,17 @@ class StringManipulationDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string, rules=rules_str),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
                 "states": states,
                 "selected_rules": [rule for rule, _ in selected_rules],
+                "string_length": string_length,
+                "num_rules": num_rules,
                 "difficulty": {
-                    "string_length": string_length,
-                    "num_rules": num_rules,
+                    "string_length": (self.config.min_string_length, self.config.max_string_length),
+                    "num_rules": (self.config.min_num_rules, self.config.max_num_rules),
                 },
             },
         }
@@ -214,6 +220,4 @@ class StringManipulationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "string_manipulation", StringManipulationDataset, StringManipulationConfig, StringManipulationCurriculum
-)
+register_dataset(DATASET_NAME, StringManipulationDataset, StringManipulationConfig, StringManipulationCurriculum)

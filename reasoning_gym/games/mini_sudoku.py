@@ -8,6 +8,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "mini_sudoku"
+
 
 @dataclass
 class MiniSudokuConfig:
@@ -193,11 +195,13 @@ class MiniSudokuDataset(ProceduralDataset):
             "question": question,
             "answer": solution_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "solution": solved_board,
                 "num_empty": num_empty,
                 "difficulty": {
-                    "empty": num_empty,
+                    "empty": (self.config.min_empty, self.config.max_empty),
                 },
             },
         }
@@ -257,4 +261,4 @@ class MiniSudokuCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("mini_sudoku", MiniSudokuDataset, MiniSudokuConfig, MiniSudokuCurriculum)
+register_dataset(DATASET_NAME, MiniSudokuDataset, MiniSudokuConfig, MiniSudokuCurriculum)

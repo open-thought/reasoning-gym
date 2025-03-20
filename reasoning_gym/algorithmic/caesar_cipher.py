@@ -8,6 +8,8 @@ from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "caesar_cipher"
+
 
 @dataclass
 class CaesarCipherConfig:
@@ -77,12 +79,15 @@ class CaesarCipherDataset(ProceduralDataset):
             "question": f"Decrypt this Caesar cipher text: {cipher_text}. Provide only the decrypted text as your final answer.",
             "answer": sentence,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "rotation": rotation,
                 "cipher_text": cipher_text,
                 "clear_text": sentence,
+                "num_words": num_words,
                 "difficulty": {
-                    "rotation": rotation,
-                    "words": num_words,
+                    "words": (self.config.min_words, self.config.max_words),
+                    "rotation": (self.config.min_rotation, self.config.max_rotation),
                 },
             },
         }
@@ -112,4 +117,4 @@ class CaesarCipherCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("caesar_cipher", CaesarCipherDataset, CaesarCipherConfig, CaesarCipherCurriculum)
+register_dataset(DATASET_NAME, CaesarCipherDataset, CaesarCipherConfig, CaesarCipherCurriculum)

@@ -35,6 +35,8 @@ Answer Format:
   Example: ["w,A1,B3"] means white knight moves A1→B3
 """
 
+DATASET_NAME = "knight_swap"
+
 
 @dataclass
 class KnightSwapConfig:
@@ -286,6 +288,8 @@ class KnightSwapDataset(ProceduralDataset):
                                 "question": QUESTION_TEMPLATE.format(board=board_str, start_turn=start_turn),
                                 "answer": solution_str,
                                 "metadata": {
+                                    "source_dataset": DATASET_NAME,
+                                    "source_index": idx,
                                     "board": board_copy,
                                     "pieces": pieces,
                                     "start_turn": start_turn,
@@ -392,4 +396,4 @@ class KnightSwapDataset(ProceduralDataset):
             return 0.0
 
 
-register_dataset("knight_swap", KnightSwapDataset, KnightSwapConfig)
+register_dataset(DATASET_NAME, KnightSwapDataset, KnightSwapConfig)

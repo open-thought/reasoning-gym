@@ -18,6 +18,9 @@ Now, form a valid palindrome using the following letters: {letters}
 """
 
 
+DATASET_NAME = "palindrome_generation"
+
+
 @dataclass
 class PalindromeConfig:
     """
@@ -67,10 +70,13 @@ class PalindromeDataset(ProceduralDataset):
             "question": QUESTION_TEMPALTE.format(letters=", ".join(scrambled_letters)),
             "answer": palindrome,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "letters": scrambled_letters,
                 "generated_palindrome": palindrome,
+                "length": length,
                 "difficulty": {
-                    "length": length,
+                    "length": (self.config.min_length, self.config.max_length),
                 },
             },
         }
@@ -137,4 +143,4 @@ class PalindromeCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("palindrome_generation", PalindromeDataset, PalindromeConfig, PalindromeCurriculum)
+register_dataset(DATASET_NAME, PalindromeDataset, PalindromeConfig, PalindromeCurriculum)

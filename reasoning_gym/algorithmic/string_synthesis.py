@@ -29,6 +29,9 @@ Note: Apply the rules at most {max_iterations} times. If the rules cannot be app
 """
 
 
+DATASET_NAME = "string_synthesis"
+
+
 @dataclass
 class StringSynthesisConfig:
     """Configuration for String Synthesis dataset generation"""
@@ -130,10 +133,13 @@ class StringSynthesisDataset(ProceduralDataset):
             ),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "states": states,
                 "solution": answer,
+                "initial_blocks": (A_square, B_square, C_square),
                 "difficulty": {
-                    "initial_blocks": (A_square, B_square, C_square),
+                    "initial_blocks": (self.config.min_initial_blocks, self.config.max_initial_blocks),
                 },
             },
         }
@@ -156,4 +162,4 @@ class StringSynthesisCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("string_synthesis", StringSynthesisDataset, StringSynthesisConfig, StringSynthesisCurriculum)
+register_dataset(DATASET_NAME, StringSynthesisDataset, StringSynthesisConfig, StringSynthesisCurriculum)

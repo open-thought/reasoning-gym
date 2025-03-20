@@ -9,6 +9,8 @@ from typing import Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "gcd"
+
 
 @dataclass
 class GCDConfig:
@@ -62,11 +64,14 @@ class GCDDataset(ProceduralDataset):
             "question": f"Find the Greatest Common Divisor (GCD) of these numbers: {numbers_str}. Give only the GCD as your final answer.",
             "answer": str(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "numbers": numbers,
                 "result": result,
+                "num_terms": num_terms,
                 "difficulty": {
-                    "num_terms": num_terms,
-                    "max_value": self.config.max_value,
+                    "num_terms": (self.config.min_numbers, self.config.max_numbers),
+                    "max_value": (self.config.min_value, self.config.max_value),
                 },
             },
         }
@@ -95,4 +100,4 @@ class GCDCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("gcd", GCDDataset, GCDConfig)
+register_dataset(DATASET_NAME, GCDDataset, GCDConfig)

@@ -14,6 +14,8 @@ Your output should be only the number of interest.
 Now, pick the {size} number of the following candidates: {numbers}
 """
 
+DATASET_NAME = "number_format"
+
 
 @dataclass
 class NumberFormatConfig:
@@ -94,12 +96,15 @@ class NumberFormatDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(numbers=" ".join(formatted_candidates), size=size),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "candidates": candidates,
                 "solution": answer,
                 "formatted_candidates": formatted_candidates,
                 "size": size,
+                "num_candidates": num_candidates,
                 "difficulty": {
-                    "num_candidates": num_candidates,
+                    "num_candidates": (self.config.min_num_candidates, self.config.max_num_candidates),
                     "n": (self.config.min_n, self.config.max_n),
                     "min_delta": self.config.max_delta,
                 },
@@ -137,4 +142,4 @@ class NumberFormatCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("number_format", NumberFormatDataset, NumberFormatConfig, NumberFormatCurriculum)
+register_dataset(DATASET_NAME, NumberFormatDataset, NumberFormatConfig, NumberFormatCurriculum)
