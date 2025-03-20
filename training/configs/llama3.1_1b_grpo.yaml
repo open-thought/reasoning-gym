@@ -1,6 +1,8 @@
 reasoning_gym:
   dataset_size: 10000
   enable_curriculum_learning: False
+  
+  last_k: 30
   datasets:  # Used if enable_curriculum_learning is False
     mini_sudoku:
       weight: 0.33

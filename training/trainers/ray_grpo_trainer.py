@@ -2,13 +2,15 @@
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
 
 import re
+import uuid
 
 import torch
+import numpy as np
 from omegaconf import OmegaConf, open_dict
 from torchdata.stateful_dataloader import StatefulDataLoader
 from utils import ReasoningGymDataset
 from verl import DataProto
-from verl.trainer.ppo.ray_trainer import RayPPOTrainer
+from verl.trainer.ppo.ray_trainer import RayPPOTrainer, compute_advantage, apply_kl_penalty, _timer, compute_data_metrics, compute_throughout_metrics, compute_timing_metrics, reduce_metrics
 from verl.utils.dataset.rl_dataset import collate_fn
 
 from reasoning_gym.utils import extract_answer
@@ -32,7 +34,6 @@ class RayGRPOTrainer(RayPPOTrainer):
         self.max_output_length = max_output_length
 
         self.format_reward_scaling_factor = config.reward.format_reward.scaling_factor
-        #self.length_reward_scaling_factor = config.reward.length_reward.scaling_factor
         if config.curriculum.enabled:
             self.last_k = config.curriculum.last_k
         else:
@@ -80,15 +81,14 @@ class RayGRPOTrainer(RayPPOTrainer):
                 index=index,
             )
             format_reward = self._compute_format_reward(response_str)
-            #length_reward = self._compute_length_reward(response_str, score)
 
-            reward = score + format_reward #+ length_reward
+            reward = score + format_reward 
 
             reward_tensor[i, valid_response_length - 1] = reward
 
             if num_printed < num_examine:
                 print(
-                    f"reward={reward} (score={score}, format={format_reward}, length={length_reward}), seq={sequences_str}"
+                    f"reward={reward} (score={score}, format={format_reward}, seq={sequences_str}"
                 )
                 num_printed += 1
 
@@ -141,6 +141,7 @@ class RayGRPOTrainer(RayPPOTrainer):
     def _compute_correctness_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
         data = self.train_dataset.data
+        
         entry = data[index]
         if self.train_dataset.experiment:
             experiment = self.train_dataset.experiment
@@ -209,7 +210,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         # currently, we only support validation using the reward_function.
         if self.val_reward_fn is not None and self.config.trainer.get('val_before_train', True):
             val_metrics = self._validate()
-            pprint(f'Initial validation metrics: {val_metrics}')
+            print(f'Initial validation metrics: {val_metrics}')
             logger.log(data=val_metrics, step=self.global_steps)
             if self.config.trainer.get('val_only', False):
                 return
@@ -224,15 +225,8 @@ class RayGRPOTrainer(RayPPOTrainer):
                 timing_raw = {}
 
                 batch: DataProto = DataProto.from_single_dict(batch_dict)
-
-                # pop those keys for generation
-                if 'multi_modal_inputs' in batch.non_tensor_batch.keys():
-                    gen_batch = batch.pop(
-                        batch_keys=['input_ids', 'attention_mask', 'position_ids'],
-                        non_tensor_batch_keys=['raw_prompt_ids', 'multi_modal_data', 'multi_modal_inputs'],
-                    )
-                else:
-                    gen_batch = batch.pop(
+                
+                gen_batch = batch.pop(
                         batch_keys=['input_ids', 'attention_mask', 'position_ids'],
                         non_tensor_batch_keys=['raw_prompt_ids'],
                     )
@@ -243,22 +237,6 @@ class RayGRPOTrainer(RayPPOTrainer):
                     # generate a batch
                     with _timer('gen', timing_raw):
                         gen_batch_output = self.actor_rollout_wg.generate_sequences(gen_batch)
-
-                    if self.config.algorithm.adv_estimator == AdvantageEstimator.REMAX:
-                        with _timer('gen_max', timing_raw):
-                            gen_baseline_batch = deepcopy(gen_batch)
-                            gen_baseline_batch.meta_info['do_sample'] = False
-                            gen_baseline_output = self.actor_rollout_wg.generate_sequences(gen_baseline_batch)
-
-                            batch = batch.union(gen_baseline_output)
-                            reward_baseline_tensor = self.reward_fn(batch)
-                            reward_baseline_tensor = reward_baseline_tensor.sum(dim=-1)
-
-                            batch.pop(batch_keys=list(gen_baseline_output.batch.keys()))
-
-                            batch.batch['reward_baselines'] = reward_baseline_tensor
-
-                            del gen_baseline_batch, gen_baseline_output
 
                     batch.non_tensor_batch['uid'] = np.array([str(uuid.uuid4()) for _ in range(len(batch.batch))],
                                                              dtype=object)
@@ -285,12 +263,6 @@ class RayGRPOTrainer(RayPPOTrainer):
                         with _timer('ref', timing_raw):
                             ref_log_prob = self.ref_policy_wg.compute_ref_log_prob(batch)
                             batch = batch.union(ref_log_prob)
-
-                    # compute values
-                    if self.use_critic:
-                        with _timer('values', timing_raw):
-                            values = self.critic_wg.compute_values(batch)
-                            batch = batch.union(values)
 
                     with _timer('adv', timing_raw):
                         # compute scores. Support both model and function-based.
@@ -320,21 +292,6 @@ class RayGRPOTrainer(RayPPOTrainer):
                                                   gamma=self.config.algorithm.gamma,
                                                   lam=self.config.algorithm.lam,
                                                   num_repeat=self.config.actor_rollout_ref.rollout.n)
-
-                    # update critic
-                    if self.use_critic:
-                        with _timer('update_critic', timing_raw):
-                            critic_output = self.critic_wg.update_critic(batch)
-                        critic_output_metrics = reduce_metrics(critic_output.meta_info['metrics'])
-                        metrics.update(critic_output_metrics)
-
-                    # implement critic warmup
-                    if self.config.trainer.critic_warmup <= self.global_steps:
-                        # update actor
-                        with _timer('update_actor', timing_raw):
-                            actor_output = self.actor_rollout_wg.update_actor(batch)
-                        actor_output_metrics = reduce_metrics(actor_output.meta_info['metrics'])
-                        metrics.update(actor_output_metrics)
 
                     # validate
                     if self.val_reward_fn is not None and self.config.trainer.test_freq > 0 and \
@@ -370,7 +327,7 @@ class RayGRPOTrainer(RayPPOTrainer):
                 logger.log(data=metrics, step=self.global_steps)
 
                 if is_last_step:
-                    pprint(f'Final validation metrics: {last_val_metrics}')
+                    print(f'Final validation metrics: {last_val_metrics}')
                     return
 
                 self.global_steps += 1
