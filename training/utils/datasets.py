@@ -1,4 +1,5 @@
-from typing import Optional
+from typing import Literal, Optional
+import numpy as np
 
 import verl.utils.torch_functional as verl_F
 from torch.utils.data import Dataset
@@ -78,16 +79,34 @@ class ReasoningGymDataset(Dataset):
         row_dict["index"] = index
         return row_dict
     
-    def update_experiment_difficulty(self, method: Literal["increment", "decrement"]):
+    def update_experiment_difficulty(self, dataset_name: str, method: Literal["increment", "decrement"]):
         """Update the difficulty of the underlying dataset."""  
         if self.experiment is None:
             raise ValueError("Cannot update difficulty: dataset is not a CurriculumExperiment")
-        self.experiment.update_difficulty(method)
+        if method not in ["increment", "decrement"]:
+            raise ValueError("Invalid method: must be 'increment' or 'decrement'")
+        self.experiment.update_difficulty(dataset_name, method)
         self.data = self.experiment.composite
         return True
-            
-            
     
+    def aggregate(self, last_n: Optional[int] = None):
+        """Aggregate scores from the underlying experiment"""
+        if self.experiment is None:
+            raise ValueError("Cannot aggregate scores: dataset is not a CurriculumExperiment")
+        
+        results = self.experiment.score_board.aggregate(last_n=last_n)
+        output_results = {}
+        
+        for key, value in results.items():
+            output_results[key] = {}
+            scores = value.scores
+            assert len(scores.keys()) == 1, 'Maintain only one difficulty parameter at a time'
+            first_key = list(scores.keys())[0]
+            output_results[key]['results'] = np.mean(scores[first_key])
+            output_results[key]['total_samples'] = value.total_scores
+        
+        return output_results
+            
 
 def make_dataset(
     tokenizer,
