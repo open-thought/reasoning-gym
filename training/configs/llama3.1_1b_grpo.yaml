@@ -18,10 +18,12 @@ reasoning_gym:
     leg_counting:
       attribute_levels:
         num_animals: 2
+      weight: 1.0
     products:
       attribute_levels:
         num_terms: 4
         num_digits: 4
+      weight: 1.0
     chain_sum:
       attribute_levels:
         num_terms: 4
