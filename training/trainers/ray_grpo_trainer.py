@@ -308,12 +308,12 @@ class RayGRPOTrainer(RayPPOTrainer):
                             self._save_checkpoint()
 
                 # collect metrics
-                if type(self.train_dataset.experiment):
-                    grouped_scores = self.train_dataset.aggregate(last_n=self.last_k)
+                if self.config.curriculum.enabled:
+                    grouped_scores = self.train_dataset.aggregate(last_n=self.config.curriculum.last_k)
                     for dataset_name in grouped_scores.keys():
-                        if (grouped_scores[dataset_name]['results'] > self.success_threshold) and (grouped_scores[dataset_name]['total_samples'] > self.last_k):
+                        if (grouped_scores[dataset_name]['results'] > self.config.curriculum.success_threshold) and (grouped_scores[dataset_name]['total_samples'] > self.config.curriculum.last_k):
                             self.train_dataset.experiment.update_difficulty(dataset_name, method='increment')
-                        elif (grouped_scores[dataset_name]['results'] < self.failure_threshold) and (grouped_scores[dataset_name]['total_samples'] > self.last_k):
+                        elif (grouped_scores[dataset_name]['results'] < self.config.curriculum.failure_threshold) and (grouped_scores[dataset_name]['total_samples'] > self.config.curriculum.last_k):
                             self.train_dataset.update_difficulty(dataset_name, method='decrement')
                     
                
