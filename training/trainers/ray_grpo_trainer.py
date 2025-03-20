@@ -78,10 +78,14 @@ class RayGRPOTrainer(RayPPOTrainer):
             if self.config.reward.format_reward.enable:
                 format_reward = self._compute_format_reward(response_str)
                 reward += format_reward
+            else:
+                format_reward = 0.0
 
             if self.config.reward.length_reward.enable:
                 length_reward = self._compute_length_reward(response_str, score)
                 reward += length_reward
+            else:
+                length_reward = 0.0
 
             reward_tensor[i, valid_response_length - 1] = reward
 
