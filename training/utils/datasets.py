@@ -71,7 +71,6 @@ class ReasoningGymDataset(Dataset):
 def make_dataset(
     tokenizer,
     data_source: Experiment | ProceduralDataset,
-    dataset_name: str,
     developer_prompt: str,
 ) -> ReasoningGymDataset:
     """
@@ -79,7 +78,6 @@ def make_dataset(
     """
     kwargs = {
         "tokenizer": tokenizer,
-        "dataset_name": dataset_name,
         "developer_prompt": developer_prompt,
     }
     if isinstance(data_source, Experiment):
