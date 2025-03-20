@@ -77,7 +77,17 @@ class ReasoningGymDataset(Dataset):
         row_dict["raw_prompt"] = chat
         row_dict["index"] = index
         return row_dict
-
+    
+    def update_experiment_difficulty(self, method: Literal["increment", "decrement"]):
+        """Update the difficulty of the underlying dataset."""  
+        if self.experiment is None:
+            raise ValueError("Cannot update difficulty: dataset is not a CurriculumExperiment")
+        self.experiment.update_difficulty(method)
+        self.data = self.experiment.composite
+        return True
+            
+            
+    
 
 def make_dataset(
     tokenizer,

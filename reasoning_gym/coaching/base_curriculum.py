@@ -239,3 +239,10 @@ class BaseCurriculum:
                     self.set_attr_level(attr_name, target_level)
             return True
         return False
+    
+    def get_global_level(self) -> Optional[int]:
+        """ Get the global level of the curriculum."""
+        if not self._attributes:
+            return 0
+        config = {attr_name: self.get_attr_level(attr_name) for attr_name in self._attributes}
+        return config
