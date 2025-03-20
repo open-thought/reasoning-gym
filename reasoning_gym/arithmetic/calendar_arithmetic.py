@@ -9,6 +9,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "calendar_arithmetic"
+
 
 class Weekday(Enum):
     MONDAY = auto()
@@ -126,6 +128,8 @@ class CalendarArithmeticDataset(ProceduralDataset):
         rng = random.Random(self.seed + idx)
         task = rng.choice(self.tasks)
         question, answer, metadata = task(rng)
+        metadata["source_dataset"] = DATASET_NAME
+        metadata["source_index"] = idx
         metadata["difficulty"] = {
             "task_complexity": self.tasks.index(task),
             "date_range": self.config.offset_upper_bound,
@@ -523,6 +527,4 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "calendar_arithmetic", CalendarArithmeticDataset, CalendarArithmeticConfig, CalendarArithmeticCurriculum
-)
+register_dataset(DATASET_NAME, CalendarArithmeticDataset, CalendarArithmeticConfig, CalendarArithmeticCurriculum)

@@ -27,6 +27,9 @@ For the matrix below, what is the list of elements in spiral order?
 """
 
 
+DATASET_NAME = "spiral_matrix"
+
+
 @dataclass
 class SpiralMatrixConfig:
     """Configuration for Spiral Matrix dataset generation"""
@@ -111,6 +114,8 @@ class SpiralMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
                 "n": n,
@@ -158,4 +163,4 @@ class SpiralMatrixCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("spiral_matrix", SpiralMatrixDataset, SpiralMatrixConfig, SpiralMatrixCurriculum)
+register_dataset(DATASET_NAME, SpiralMatrixDataset, SpiralMatrixConfig, SpiralMatrixCurriculum)

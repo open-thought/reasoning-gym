@@ -18,6 +18,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "cryptarithm"
+
 
 @dataclass
 class CryptarithmConfig:
@@ -51,9 +53,9 @@ class CryptarithmDataset(ProceduralDataset):
 
     def __getitem__(self, idx: int) -> dict:
         rng = Random(self.seed + idx)
-        return self._create_single_puzzle(rng)
+        return self._create_single_puzzle(rng, idx)
 
-    def _create_single_puzzle(self, rng: Random) -> dict:
+    def _create_single_puzzle(self, rng: Random, idx: int) -> dict:
         """
         Creates one puzzle with N addends (2..3) plus a result.
         Ensures total distinct digits <= 10.
@@ -179,6 +181,8 @@ class CryptarithmDataset(ProceduralDataset):
             "question": question_str,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "letters": list(letter_to_digit.keys()),
                 "word_values": words_numbers,
                 "sum_number": total_sum,
@@ -260,4 +264,4 @@ class CryptarithmCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("cryptarithm", CryptarithmDataset, CryptarithmConfig, CryptarithmCurriculum)
+register_dataset(DATASET_NAME, CryptarithmDataset, CryptarithmConfig, CryptarithmCurriculum)

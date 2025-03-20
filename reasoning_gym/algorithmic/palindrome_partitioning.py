@@ -24,6 +24,8 @@ Your output should be a list of lists, where each list represents a palindrome p
 Partition the following string into palindromes: {string}
 """
 
+DATASET_NAME = "palindrome_partitioning"
+
 
 @dataclass
 class PalindromePartitioningConfig:
@@ -138,6 +140,8 @@ class PalindromePartitioningDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
                 "string_len": string_len,
@@ -176,7 +180,7 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
 
 
 register_dataset(
-    "palindrome_partitioning",
+    DATASET_NAME,
     PalindromePartitioningDataset,
     PalindromePartitioningConfig,
     PalindromePartitioningCurriculum,

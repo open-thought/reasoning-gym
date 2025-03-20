@@ -14,6 +14,8 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Count how many prime numbers there are between {start} and {end} (inclusive) ?"""
 
+DATASET_NAME = "count_primes"
+
 
 @dataclass
 class CountPrimesConfig:
@@ -60,6 +62,8 @@ class CountPrimesDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "start": start,
                 "end": end,
                 "primes": primes,
@@ -88,4 +92,4 @@ class CountPrimesCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("count_primes", CountPrimesDataset, CountPrimesConfig, CountPrimesCurriculum)
+register_dataset(DATASET_NAME, CountPrimesDataset, CountPrimesConfig, CountPrimesCurriculum)

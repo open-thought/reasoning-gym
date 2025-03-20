@@ -8,6 +8,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "sudoku"
+
 
 @dataclass
 class SudokuConfig:
@@ -212,6 +214,8 @@ class SudokuDataset(ProceduralDataset):
             "question": question,
             "answer": solution_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "solution": solved_board,
                 "num_empty": num_empty,
@@ -276,4 +280,4 @@ class SudokuCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("sudoku", SudokuDataset, SudokuConfig, SudokuCurriculum)
+register_dataset(DATASET_NAME, SudokuDataset, SudokuConfig, SudokuCurriculum)

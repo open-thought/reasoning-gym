@@ -21,6 +21,9 @@ Perform {pool_type} pooling on the following matrix with a kernel size of {pool_
 """
 
 
+DATASET_NAME = "pool_matrix"
+
+
 @dataclass
 class PoolMatrixConfig:
     """Configuration for Pool Matrix dataset generation"""
@@ -113,6 +116,8 @@ class PoolMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str, pool_type=pool_type, pool_size=pool_size),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix.tolist(),
                 "pool_type": pool_type,
                 "pool_size": pool_size,
@@ -158,4 +163,4 @@ class PoolMatrixCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("pool_matrix", PoolMatrixDataset, PoolMatrixConfig, PoolMatrixCurriculum)
+register_dataset(DATASET_NAME, PoolMatrixDataset, PoolMatrixConfig, PoolMatrixCurriculum)

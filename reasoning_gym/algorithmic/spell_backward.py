@@ -9,6 +9,8 @@ from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "spell_backward"
+
 
 @dataclass
 class SpellBackwardConfig:
@@ -52,6 +54,8 @@ class SpellBackwardDataset(ProceduralDataset):
             "question": f"Spell this word backward (example: sun -> nus): {word}",
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "word": word,
                 "word_len": len(word),
                 "difficulty": {
@@ -91,4 +95,4 @@ class SpellBackwardCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("spell_backward", SpellBackwardDataset, SpellBackwardConfig, SpellBackwardCurriculum)
+register_dataset(DATASET_NAME, SpellBackwardDataset, SpellBackwardConfig, SpellBackwardCurriculum)

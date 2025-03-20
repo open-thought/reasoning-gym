@@ -5,6 +5,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "ab"
+
 
 def generate_program(length, rng):
     """Generates a random initial program of a given length."""
@@ -116,9 +118,11 @@ Return the final state of the program.
             "question": prompt,
             "answer": " ".join(steps[-1]),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "difficulty": {
                     "length": self.config.length,
-                }
+                },
             },
         }
 
@@ -158,4 +162,4 @@ class ABCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("ab", ABDataset, ABConfig, ABCurriculum)
+register_dataset(DATASET_NAME, ABDataset, ABConfig, ABCurriculum)

@@ -25,6 +25,9 @@ Given the following string, provide the answer after inserting the characters ac
 """
 
 
+DATASET_NAME = "string_insertion"
+
+
 @dataclass
 class StringInsertionConfig:
     """Configuration for String Insertion dataset generation"""
@@ -102,6 +105,8 @@ class StringInsertionDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
                 "string_length": string_length,
@@ -129,4 +134,4 @@ class StringInsertionCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("string_insertion", StringInsertionDataset, StringInsertionConfig, StringInsertionCurriculum)
+register_dataset(DATASET_NAME, StringInsertionDataset, StringInsertionConfig, StringInsertionCurriculum)

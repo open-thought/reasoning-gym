@@ -24,6 +24,8 @@ Transform the following string according to the above list of rules:
 {string}
 """
 
+DATASET_NAME = "string_manipulation"
+
 
 @dataclass
 class StringManipulationConfig:
@@ -179,6 +181,8 @@ class StringManipulationDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string, rules=rules_str),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
                 "states": states,
@@ -216,6 +220,4 @@ class StringManipulationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "string_manipulation", StringManipulationDataset, StringManipulationConfig, StringManipulationCurriculum
-)
+register_dataset(DATASET_NAME, StringManipulationDataset, StringManipulationConfig, StringManipulationCurriculum)

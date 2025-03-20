@@ -7,6 +7,8 @@ from typing import Optional
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "complex_arithmetic"
+
 
 @dataclass
 class ComplexArithmeticConfig:
@@ -90,6 +92,8 @@ class ComplexArithmeticDataset(ProceduralDataset):
             "question": question,
             "answer": self._format_complex(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num1": (a.real, a.imag),
                 "num2": (b.real, b.imag),
                 "operation": op,
@@ -220,4 +224,4 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("complex_arithmetic", ComplexArithmeticDataset, ComplexArithmeticConfig, ComplexArithmeticCurriculum)
+register_dataset(DATASET_NAME, ComplexArithmeticDataset, ComplexArithmeticConfig, ComplexArithmeticCurriculum)

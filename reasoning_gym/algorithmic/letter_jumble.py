@@ -22,6 +22,9 @@ Now, unscramble these words: {words}
 """
 
 
+DATASET_NAME = "letter_jumble"
+
+
 @dataclass
 class LetterJumbleConfig:
     """Configuration for letter jumbling task generation"""
@@ -104,6 +107,8 @@ class LetterJumbleDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(words=" ".join(scrambled_words)),
             "answer": " ".join(selected_words),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num_words": num_words,
                 "corruption_level": corruption_level,
                 "scrambled_words": scrambled_words,
@@ -193,4 +198,4 @@ class LetterJumbleCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("letter_jumble", LetterJumbleDataset, LetterJumbleConfig, LetterJumbleCurriculum)
+register_dataset(DATASET_NAME, LetterJumbleDataset, LetterJumbleConfig, LetterJumbleCurriculum)

@@ -5,6 +5,8 @@ from typing import Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "simple_geometry"
+
 
 @dataclass
 class SimpleGeometryConfig:
@@ -109,6 +111,8 @@ class SimpleGeometryDataset(ProceduralDataset):
             "question": prompt,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "n_sides": n_sides,
                 "known_angles": known_angles,
                 "sum_of_known_angles": sum(known_angles),
@@ -164,4 +168,4 @@ class SimpleGeometryCurriculum(BaseCurriculum):
 
 
 # Register the dataset so it can be accessed similarly to the others
-register_dataset("simple_geometry", SimpleGeometryDataset, SimpleGeometryConfig, SimpleGeometryCurriculum)
+register_dataset(DATASET_NAME, SimpleGeometryDataset, SimpleGeometryConfig, SimpleGeometryCurriculum)

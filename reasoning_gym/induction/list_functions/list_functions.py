@@ -6,6 +6,8 @@ from typing import Any, Callable, Optional
 
 from reasoning_gym.factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "list_functions"
+
 
 @dataclass
 class ListFunctionsDatasetConfig:
@@ -75,7 +77,14 @@ Output:
 Output {index + 1}: {examples[key]}
 """
         question = self.prompt_template.format(examples=formatted_examples, input=input)
-        return {"question": question, "answer": output, "metadata": {}}
+        return {
+            "question": question,
+            "answer": output,
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+            },
+        }
 
 
-register_dataset("list_functions", ListFunctionsDataset, ListFunctionsDatasetConfig)
+register_dataset(DATASET_NAME, ListFunctionsDataset, ListFunctionsDatasetConfig)

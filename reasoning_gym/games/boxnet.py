@@ -36,6 +36,8 @@ For example:
 Include an agent in the action plan only if it has a task to perform next.
 """
 
+DATASET_NAME = "boxnet"
+
 
 def action_from_response(pg_dict_input, original_response_dict_list):
     pg_dict_current = copy.deepcopy(pg_dict_input)
@@ -126,6 +128,8 @@ class BoxnetDataset(ProceduralDataset):
             "question": question,
             "answer": None,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "row_num": row_num,
                 "column_num": column_num,
                 "initial_state": pg_dict,
@@ -248,4 +252,4 @@ class BoxnetCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("boxnet", BoxnetDataset, BoxnetConfig, BoxnetCurriculum)
+register_dataset(DATASET_NAME, BoxnetDataset, BoxnetConfig, BoxnetCurriculum)

@@ -20,6 +20,8 @@ Rotate the matrix below by {degrees} degrees clockwise:
 {matrix}
 """
 
+DATASET_NAME = "rotate_matrix"
+
 
 @dataclass
 class RotateMatrixConfig:
@@ -83,6 +85,8 @@ class RotateMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str, degrees=num_rotations * 90),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "num_rotations": num_rotations,
                 "solution": answer,
@@ -118,4 +122,4 @@ class RotateMatrixCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("rotate_matrix", RotateMatrixDataset, RotateMatrixConfig, RotateMatrixCurriculum)
+register_dataset(DATASET_NAME, RotateMatrixDataset, RotateMatrixConfig, RotateMatrixCurriculum)

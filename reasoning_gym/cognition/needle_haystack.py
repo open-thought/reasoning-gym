@@ -5,6 +5,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "needle_haystack"
+
 
 @dataclass
 class NeedleHaystackConfig:
@@ -104,6 +106,8 @@ class NeedleHaystackDataset(ProceduralDataset):
             "question": full_text,
             "answer": stack["needle"][0],
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "question": question,
                 "num_statements": num_statements,
                 "difficulty": {
@@ -153,4 +157,4 @@ class NeedleHaystackCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("needle_haystack", NeedleHaystackDataset, NeedleHaystackConfig, NeedleHaystackCurriculum)
+register_dataset(DATASET_NAME, NeedleHaystackDataset, NeedleHaystackConfig, NeedleHaystackCurriculum)

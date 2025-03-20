@@ -11,6 +11,8 @@ from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = "Simplify the fraction {question_fraction} to its lowest terms. Give only the simplified fraction as your final answer."
 
+DATASET_NAME = "fraction_simplification"
+
 
 @dataclass
 class FractionSimplificationConfig:
@@ -114,6 +116,8 @@ class FractionSimplificationDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(question_fraction=question_fraction),
             "answer": answer_fraction,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "numerator": num,
                 "denominator": den,
                 "simplified_numerator": simple_num,
@@ -184,7 +188,7 @@ class FractionSimplificationCurriculum(BaseCurriculum):
 
 
 register_dataset(
-    "fraction_simplification",
+    DATASET_NAME,
     FractionSimplificationDataset,
     FractionSimplificationConfig,
     FractionSimplificationCurriculum,

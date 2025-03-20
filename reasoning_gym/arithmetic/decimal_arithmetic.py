@@ -7,6 +7,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "decimal_arithmetic"
+
 
 @dataclass
 class DecimalArithmeticConfig:
@@ -189,6 +191,8 @@ class DecimalArithmeticDataset(ProceduralDataset):
             "question": problem_str,
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "decimal_places": decimal_places,
                 "num_terms": terms,
                 "difficulty": {
@@ -249,4 +253,4 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
 
 
 # Register the dataset with the factory.
-register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticConfig, DecimalArithmeticCurriculum)
+register_dataset(DATASET_NAME, DecimalArithmeticDataset, DecimalArithmeticConfig, DecimalArithmeticCurriculum)

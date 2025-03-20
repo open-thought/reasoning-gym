@@ -26,6 +26,8 @@ Now, determine the minimum number of minutes that must elapse until no cell in t
 {matrix}
 """
 
+DATASET_NAME = "rotten_oranges"
+
 
 @dataclass
 class RottenOrangesConfig:
@@ -120,6 +122,8 @@ class RottenOrangesDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
                 "n": n,
@@ -146,4 +150,4 @@ class RottenOrangesCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("rotten_oranges", RottenOrangesDataset, RottenOrangesConfig, RottenOrangesCurriculum)
+register_dataset(DATASET_NAME, RottenOrangesDataset, RottenOrangesConfig, RottenOrangesCurriculum)

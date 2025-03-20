@@ -6,6 +6,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "modulo_grid"
+
 
 @dataclass
 class ModuloGridConfig:
@@ -136,6 +138,8 @@ class ModuloGridDataset(ProceduralDataset):
             "question": question,
             "answer": flatten_grid(grid),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "divisor": divisor,
                 "target": target,
                 "operation": operation,
@@ -190,4 +194,4 @@ class ModuloGridCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("modulo_grid", ModuloGridDataset, ModuloGridConfig, ModuloGridCurriculum)
+register_dataset(DATASET_NAME, ModuloGridDataset, ModuloGridConfig, ModuloGridCurriculum)

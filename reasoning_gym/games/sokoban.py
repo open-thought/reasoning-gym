@@ -7,6 +7,8 @@ import numpy as np
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "sokoban"
+
 
 @dataclass
 class SokobanConfig:
@@ -98,6 +100,8 @@ Here is your puzzle:
                 "width": puzzle_data["width"],
                 "height": puzzle_data["height"],
                 "difficulty": {
+                    "source_dataset": DATASET_NAME,
+                    "source_index": idx,
                     "width": (self.config.min_w, self.config.max_w),
                     "height": (self.config.min_h, self.config.max_h),
                 },
@@ -160,4 +164,4 @@ class SokobanCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("sokoban", SokobanDataset, SokobanConfig, SokobanCurriculum)
+register_dataset(DATASET_NAME, SokobanDataset, SokobanConfig, SokobanCurriculum)

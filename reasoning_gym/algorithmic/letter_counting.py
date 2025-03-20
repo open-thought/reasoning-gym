@@ -10,6 +10,8 @@ from reasoning_gym.data import read_data_file
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "letter_counting"
+
 
 @dataclass
 class LetterCountingConfig:
@@ -64,6 +66,8 @@ class LetterCountingDataset(ProceduralDataset):
             "question": f'How many times does the letter "{target_letter}" appear in the text: "{" ".join(span)}"?',
             "answer": str(count),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "span_length": span_length,
                 "target_letter": target_letter,
                 "span": span,
@@ -91,4 +95,4 @@ class LetterCountingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("letter_counting", LetterCountingDataset, LetterCountingConfig, LetterCountingCurriculum)
+register_dataset(DATASET_NAME, LetterCountingDataset, LetterCountingConfig, LetterCountingCurriculum)

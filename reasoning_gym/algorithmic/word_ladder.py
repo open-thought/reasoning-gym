@@ -14,6 +14,9 @@ Provide your answer as a comma-separated sequence of uppercase letters without s
 Each step must be a valid English word."""
 
 
+DATASET_NAME = "word_ladder"
+
+
 @dataclass
 class WordLadderConfig:
     """Configuration for word ladder task generation"""
@@ -219,6 +222,8 @@ class WordLadderDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": ",".join(path),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "start_word": start,
                 "end_word": end,
                 "word_length": length,
@@ -285,4 +290,4 @@ class WordLadderCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("word_ladder", WordLadderDataset, WordLadderConfig, WordLadderCurriculum)
+register_dataset(DATASET_NAME, WordLadderDataset, WordLadderConfig, WordLadderCurriculum)

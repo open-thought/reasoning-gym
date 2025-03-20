@@ -9,6 +9,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "futoshiki"
+
 
 @dataclass
 class FutoshikiConfig:
@@ -81,6 +83,8 @@ class FutoshikiDataset(ProceduralDataset):
             "question": question,
             "answer": solution_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "constraints": constraints,
                 "solution": solution,
@@ -686,4 +690,4 @@ class FutoshikiCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("futoshiki", FutoshikiDataset, FutoshikiConfig)
+register_dataset(DATASET_NAME, FutoshikiDataset, FutoshikiConfig)
