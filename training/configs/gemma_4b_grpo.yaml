@@ -1,0 +1,118 @@
+reasoning_gym:
+  dataset_size: 10000
+  enable_curriculum_learning: False
+  datasets: 
+    mini_sudoku:
+      weight: 1
+      config:
+        min_word_length: 3
+        max_word_length: 20
+reward:
+  format_reward:
+    scaling_factor: 0.2
+data:
+  tokenizer: null
+  train_files: train.parquet
+  val_files: test.parquet
+  prompt_key: prompt
+  max_prompt_length: 256
+  max_response_length: 256
+  train_batch_size: 64
+  val_batch_size: 64
+  return_raw_input_ids: True  
+  return_raw_chat: True
+
+actor_rollout_ref:
+  hybrid_engine: True
+  model:
+    path: google/gemma-3-4b-it
+    external_lib: null
+    override_config: { }
+    enable_gradient_checkpointing: True
+    use_remove_padding: True
+  actor: 
+    ppo_mini_batch_size: 16
+    ppo_micro_batch_size_per_gpu: 4
+    use_kl_loss: true
+    kl_loss_coef: 0.001
+    kl_loss_type: low_var_kl
+    fsdp_config:
+      wrap_policy:
+        # transformer_layer_cls_to_wrap: None
+        min_num_params: 0
+      param_offload: False
+      optimizer_offload: False
+      fsdp_size: -1
+    optim:
+      lr: 1e-6
+      lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
+      min_lr_ratio: null   # only useful for warmup with cosine
+      warmup_style: constant  # select from constant/cosine
+      total_training_steps: -1  # must be override by program
+  ref:
+    fsdp_config:
+      param_offload: True
+      wrap_policy:
+        min_num_params: 0
+    log_prob_micro_batch_size_per_gpu: 160
+    log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
+    log_prob_max_token_len_per_gpu: ${actor_rollout_ref.actor.ppo_max_token_len_per_gpu}
+    ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size}
+  rollout:
+    name: vllm
+    temperature: 1.0
+    top_k: -1 # 0 for hf rollout, -1 for vllm rollout
+    top_p: 1
+    prompt_length: ${data.max_prompt_length}  # not use for opensource
+    response_length: ${data.max_response_length}
+    # for vllm rollout
+    dtype: bfloat16 # should align with FSDP
+    gpu_memory_utilization: 0.6
+    ignore_eos: False
+    enforce_eager: True
+    free_cache_engine: True
+    load_format: dummy_dtensor
+    tensor_model_parallel_size: 2
+    max_num_batched_tokens: 2048
+    max_num_seqs: 256
+    log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
+    log_prob_micro_batch_size_per_gpu: 160
+    log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
+    log_prob_max_token_len_per_gpu: ${actor_rollout_ref.actor.ppo_max_token_len_per_gpu}
+    disable_log_stats: True
+    enable_chunked_prefill: True # could get higher throughput
+    # for hf rollout
+    do_sample: True
+    use_fire_sampling: False
+    # number of responses (i.e. num sample times)
+    n: 8 # > 1 for grpo
+    val_kwargs:
+      do_sample: True
+algorithm:
+  gamma: 1.0
+  lam: 1.0
+  adv_estimator: grpo
+  kl_penalty: kl 
+  kl_ctrl:
+    type: fixed
+    kl_coef: 0.001
+trainer:
+  balance_batch: True
+  total_epochs: null
+  total_training_steps: 1000
+  project_name: rg-test
+  experiment_name: verl_grpo_gemma4.b
+  logger: [ 'console', 'wandb' ]
+  val_generations_to_log_to_wandb: 0
+  nnodes: 1
+  n_gpus_per_node: 4
+  save_freq: 50
+  # auto: find the last ckpt to resume. If can't find, start from scratch
+  resume_mode: auto # or auto or resume_path if
+  resume_from_path: False
+  test_freq: 50
+  critic_warmup: 0
+  default_hdfs_dir: null
+  remove_previous_ckpt_in_save: False
+  del_local_ckpt_after_load: False
+  default_local_dir: checkpoints/${trainer.project_name}/${trainer.experiment_name}
