@@ -27,7 +27,7 @@ Your output should be a comma-separated list of words, e.g. word_1, word_2, word
 Now, sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {words}
 """
 
-DATASET_ANEM = "word_sorting"
+DATASET_NAME = "word_sorting"
 
 
 @dataclass
