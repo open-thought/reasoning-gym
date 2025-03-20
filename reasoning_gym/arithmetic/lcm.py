@@ -67,7 +67,7 @@ class LCMDataset(ProceduralDataset):
                 "numbers": numbers,
                 "result": result,
                 "difficulty": {
-                    "numbers": len(numbers),
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "value": (self.config.min_value, self.config.max_value),
                 },
             },

@@ -53,11 +53,15 @@ def test_coach_with_chain_sum():
     # Each key should be a tuple of tuples containing difficulty parameters
     for key in aggregated.scores:
         assert isinstance(key, tuple)
-        # Each inner tuple should be (param_name, value)
+        # Each inner tuple should be (param_name, value) or (param_name, (min_value, max_value))
         for param in key:
             assert isinstance(param, tuple)
             assert param[0] in ("num_terms", "num_digits")
-            assert isinstance(param[1], int)
+            assert (
+                isinstance(param[1], int)
+                or (isinstance(param[1], tuple) and len(param[1]) == 2)
+                and all(isinstance(v, int) for v in param[1])
+            )
 
     # Test aggregation with last_n
     last_3 = coach.score_board.aggregate(last_n=3)
@@ -171,7 +175,7 @@ def test_coach_with_composite():
         item = coach[i + 5]  # Use different indices
         if "chain_sum" in item["metadata"]["source_dataset"]:
             metadata = item["metadata"]
-            assert metadata["difficulty"]["num_terms"] >= 4
+            assert metadata["num_terms"] >= 4
 
 
 def test_grouped_scores_str():

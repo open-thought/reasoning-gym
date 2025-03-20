@@ -80,9 +80,10 @@ class CaesarCipherDataset(ProceduralDataset):
                 "rotation": rotation,
                 "cipher_text": cipher_text,
                 "clear_text": sentence,
+                "num_words": num_words,
                 "difficulty": {
-                    "rotation": rotation,
-                    "words": num_words,
+                    "words": (self.config.min_words, self.config.max_words),
+                    "rotation": (self.config.min_rotation, self.config.max_rotation),
                 },
             },
         }

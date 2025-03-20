@@ -98,8 +98,9 @@ class NumberFormatDataset(ProceduralDataset):
                 "solution": answer,
                 "formatted_candidates": formatted_candidates,
                 "size": size,
+                "num_candidates": num_candidates,
                 "difficulty": {
-                    "num_candidates": num_candidates,
+                    "num_candidates": (self.config.min_num_candidates, self.config.max_num_candidates),
                     "n": (self.config.min_n, self.config.max_n),
                     "min_delta": self.config.max_delta,
                 },

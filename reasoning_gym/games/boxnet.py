@@ -126,11 +126,14 @@ class BoxnetDataset(ProceduralDataset):
             "question": question,
             "answer": None,
             "metadata": {
-                "difficulty": {
-                    "row_num": row_num,
-                    "column_num": column_num,
-                },
+                "row_num": row_num,
+                "column_num": column_num,
                 "initial_state": pg_dict,
+                "difficulty": {
+                    "row_num": (self.config.min_row_num, self.config.max_row_num),
+                    "column_num": (self.config.min_column_num, self.config.max_column_num),
+                    "box_num": (self.config.min_box_num, self.config.max_box_num),
+                },
             },
         }
 

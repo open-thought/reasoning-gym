@@ -224,8 +224,7 @@ class WordLadderDataset(ProceduralDataset):
                 "word_length": length,
                 "chain_length": len(path),
                 "difficulty": {
-                    "word_length": length,
-                    "chain_length": len(path),
+                    "word_length": (self.config.min_word_length, self.config.max_word_length),
                 },
             },
         }

@@ -86,9 +86,10 @@ class RotateMatrixDataset(ProceduralDataset):
                 "matrix": matrix,
                 "num_rotations": num_rotations,
                 "solution": answer,
+                "n": n,
                 "difficulty": {
-                    "n": n,
-                    "num_rotations": num_rotations,
+                    "n": (self.config.min_n, self.config.max_n),
+                    "num_rotations": (self.config.min_rotations, self.config.max_rotations),
                 },
             },
         }

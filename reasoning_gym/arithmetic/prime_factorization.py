@@ -83,7 +83,13 @@ class PrimeFactorizationDataset(ProceduralDataset):
                 f"(Example: for 12 the answer would be: 2 × 2 × 3)"
             ),
             "answer": answer,
-            "metadata": {"number": number, "factors": factors, "difficulty": {"value": number}},
+            "metadata": {
+                "number": number,
+                "factors": factors,
+                "difficulty": {
+                    "value": (self.config.min_value, self.config.max_value),
+                },
+            },
         }
 
 

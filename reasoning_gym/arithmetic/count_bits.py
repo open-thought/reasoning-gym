@@ -46,7 +46,10 @@ class CountBitsDataset(ProceduralDataset):
                 "number": number,
                 "solution": answer,
                 "binary": binary,
-                "difficulty": {"n": number},
+                "n": number,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 

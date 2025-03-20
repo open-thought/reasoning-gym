@@ -141,7 +141,9 @@ class ColorCubeRotationDataset(ProceduralDataset):
                 "rotations": [r.value for r in rotations],
                 "target_side": target_side.value,
                 "num_rotations": num_rotations,
-                "difficulty": {"rotations": num_rotations},
+                "difficulty": {
+                    "rotations": (self.config.min_rotations, self.config.max_rotations),
+                },
             },
         }
 

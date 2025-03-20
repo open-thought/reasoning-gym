@@ -93,8 +93,9 @@ Please follow the instruction below:
                 "original_numbers": number_strs,
                 "direction": direction,
                 "sorted_numbers": answer,
+                "numbers": count,
                 "difficulty": {
-                    "numbers": count,
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "decimals": (self.config.min_decimals, self.config.max_decimals),
                     "value": (self.config.min_value, self.config.max_value),
                 },

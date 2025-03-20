@@ -130,8 +130,9 @@ class BinaryMatrixDataset(ProceduralDataset):
             "metadata": {
                 "matrix": matrix,
                 "solution": answer,
+                "n": n,
                 "difficulty": {
-                    "n": n,
+                    "n": (self.config.min_n, self.config.max_n),
                     "p_zero": self.config.p_zero,
                 },
             },

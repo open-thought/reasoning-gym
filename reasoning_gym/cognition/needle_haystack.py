@@ -103,7 +103,13 @@ class NeedleHaystackDataset(ProceduralDataset):
         return {
             "question": full_text,
             "answer": stack["needle"][0],
-            "metadata": {"question": question, "difficulty": {"num_statements": num_statements}},
+            "metadata": {
+                "question": question,
+                "num_statements": num_statements,
+                "difficulty": {
+                    "num_statements": (self.config.min_num_statements, self.config.max_num_statements),
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:

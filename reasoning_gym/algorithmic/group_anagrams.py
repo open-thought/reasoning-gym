@@ -117,8 +117,10 @@ class GroupAnagramsDataset(ProceduralDataset):
             "metadata": {
                 "words": words,
                 "solution": answer,
+                "anagram_groups": anagram_groups,
                 "difficulty": {
-                    "anagram_groups": anagram_groups,
+                    "anagram_groups": (self.config.min_anagram_groups, self.config.max_anagram_groups),
+                    "words_per_group": (self.config.min_words_per_group, self.config.max_words_per_group),
                 },
             },
         }

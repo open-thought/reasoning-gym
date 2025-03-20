@@ -64,9 +64,10 @@ class GCDDataset(ProceduralDataset):
             "metadata": {
                 "numbers": numbers,
                 "result": result,
+                "num_terms": num_terms,
                 "difficulty": {
-                    "num_terms": num_terms,
-                    "max_value": self.config.max_value,
+                    "num_terms": (self.config.min_numbers, self.config.max_numbers),
+                    "max_value": (self.config.min_value, self.config.max_value),
                 },
             },
         }

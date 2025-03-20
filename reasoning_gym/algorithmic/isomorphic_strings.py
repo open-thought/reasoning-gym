@@ -110,8 +110,9 @@ class IsomorphicStringsDataset(ProceduralDataset):
                 "words": [s, t],
                 "solution": answer,
                 "solvable": solvable,
+                "string_length": string_length,
                 "difficulty": {
-                    "string_length": string_length,
+                    "string_length": (self.config.min_string_length, self.config.max_string_length),
                 },
             },
         }

@@ -64,8 +64,9 @@ class CountPrimesDataset(ProceduralDataset):
                 "end": end,
                 "primes": primes,
                 "solution": answer,
+                "n": (start, end),
                 "difficulty": {
-                    "n": (start, end),
+                    "n": (self.config.min_n, self.config.max_n),
                 },
             },
         }

@@ -346,7 +346,9 @@ class SelfReferenceDataset(ProceduralDataset):
         return {
             "question": puzz_s,
             "answer": answer,
-            "metadata": {"difficulty": difficulty},
+            "metadata": {
+                "difficulty": {"difficulty": difficulty},
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:

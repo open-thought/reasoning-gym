@@ -96,7 +96,12 @@ class BasicArithmeticDataset(ProceduralDataset):
             "answer": str(result),
             "metadata": {
                 "expression": expression,
-                "difficulty": {"num_terms": num_terms, "num_digits": num_digits},
+                "num_terms": num_terms,
+                "num_digits": num_digits,
+                "difficulty": {
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
+                    "num_digits": (self.config.min_digits, self.config.max_digits),
+                },
             },
         }
 

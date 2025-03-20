@@ -188,7 +188,9 @@ class FigletFontDataset(ProceduralDataset):
             "metadata": {
                 "font": chosen_font,
                 "space_letters": self.config.space_letters,
-                "difficulty": {"word_len": len(word)},
+                "difficulty": {
+                    "word_len": (self.config.min_word_len, self.config.max_word_len),
+                },
             },
         }
 

@@ -118,11 +118,13 @@ class LegCountingDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(animals=", ".join(animal_list)),
             "answer": str(total_legs),
             "metadata": {
-                "difficulty": {
-                    "num_animals": len(animals),
-                },
                 "animals": animals,
+                "num_animals": len(animals),
                 "total_legs": total_legs,
+                "difficulty": {
+                    "num_animals": (self.config.min_animals, self.config.max_animals),
+                    "num_instances": (self.config.min_instances, self.config.max_instances),
+                },
             },
         }
 

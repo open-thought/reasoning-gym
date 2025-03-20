@@ -183,9 +183,11 @@ class StringManipulationDataset(ProceduralDataset):
                 "solution": answer,
                 "states": states,
                 "selected_rules": [rule for rule, _ in selected_rules],
+                "string_length": string_length,
+                "num_rules": num_rules,
                 "difficulty": {
-                    "string_length": string_length,
-                    "num_rules": num_rules,
+                    "string_length": (self.config.min_string_length, self.config.max_string_length),
+                    "num_rules": (self.config.min_num_rules, self.config.max_num_rules),
                 },
             },
         }

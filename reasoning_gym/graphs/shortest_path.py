@@ -162,8 +162,8 @@ class ShortestPathDataset(ProceduralDataset):
                 "matrix": matrix,
                 "solution": answer,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
                 },
             },
         }

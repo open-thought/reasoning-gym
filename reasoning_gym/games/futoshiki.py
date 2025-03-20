@@ -84,7 +84,12 @@ class FutoshikiDataset(ProceduralDataset):
                 "puzzle": puzzle,
                 "constraints": constraints,
                 "solution": solution,
-                "difficulty": {"board_size": board_size, "difficulty": difficulty},
+                "board_size": board_size,
+                "difficulty_rating": difficulty,
+                "difficulty": {
+                    "board_size": (self.config.min_board_size, self.config.max_board_size),
+                    "difficulty": (self.config.min_difficulty, self.config.max_difficulty),
+                },
             },
         }
 

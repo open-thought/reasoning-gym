@@ -161,7 +161,9 @@ class RushHourDataset(ProceduralDataset):
             "metadata": {
                 "board_config": board_config,
                 "min_moves": min_moves,
-                "difficulty": {"min_moves": min_moves},
+                "difficulty": {
+                    "min_moves": (self.config.min_moves, self.config.max_moves),
+                },
             },
         }
 

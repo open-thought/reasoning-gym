@@ -140,8 +140,13 @@ class PalindromePartitioningDataset(ProceduralDataset):
             "metadata": {
                 "string": string,
                 "solution": answer,
+                "string_len": string_len,
                 "difficulty": {
-                    "string_len": string_len,
+                    "string_len": (self.config.min_string_len, self.config.max_string_len),
+                    "substring_palindrome_len": (
+                        self.config.min_substring_palindrome_len,
+                        self.config.max_substring_palindrome_len,
+                    ),
                 },
             },
         }

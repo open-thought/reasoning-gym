@@ -124,11 +124,11 @@ class DiceDataset(ProceduralDataset):
             "question": puzzle_str,
             "answer": answer_str,
             "metadata": {
+                "puzzle": puzzle,
                 "difficulty": {
                     "num_dice": self.config.num_dice,
                     "max_dice_size": self.config.max_dice_size,
                 },
-                "puzzle": puzzle,
             },
         }
 

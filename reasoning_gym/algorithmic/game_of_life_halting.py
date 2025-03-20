@@ -368,6 +368,13 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
                 "placed_patterns": placed_patterns,
                 "simulation_steps": self.config.max_simulation_steps,
                 "should_oscillate": should_oscillate,
+                "difficulty": {
+                    "grid_size_x": self.config.grid_size_x,
+                    "grid_size_y": self.config.grid_size_y,
+                    "difficulty": self.config.difficulty,
+                    "num_oscillators": self.config.num_oscillators,
+                    "max_simulation_steps": self.config.max_simulation_steps,
+                },
             },
         }
 

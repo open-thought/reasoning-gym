@@ -101,7 +101,7 @@ class SpiralMatrixDataset(ProceduralDataset):
         """Generate a single Spiral Matrix question"""
         rng = Random(self.seed + idx)
 
-        n = rng.randint(2, self.config.max_n)
+        n = rng.randint(self.config.min_n, self.config.max_n)
         matrix = self._get_matrix(rng, n)
         matrix_str = self._matrix_to_str(matrix)
         answer = self._get_spiral(matrix)
@@ -113,7 +113,10 @@ class SpiralMatrixDataset(ProceduralDataset):
             "metadata": {
                 "matrix": matrix,
                 "solution": answer,
-                "difficulty": {"n": n},
+                "n": n,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 

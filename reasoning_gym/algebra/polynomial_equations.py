@@ -124,7 +124,11 @@ In solving equations, please follow these instructions:
                 "variable": variable,
                 "degree": degree,
                 "real_solutions": real_solutions,
-                "difficulty": {"terms": num_terms, "degree": degree},
+                "num_terms": num_terms,
+                "difficulty": {
+                    "terms": (self.config.min_terms, self.config.max_terms),
+                    "degree": (self.config.min_degree, self.config.max_degree),
+                },
             },
         }
 

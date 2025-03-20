@@ -122,7 +122,9 @@ class MahjongPuzzleDataset(ProceduralDataset):
             "metadata": {
                 "rounds": rounds,
                 "solution": answer,
-                "difficulty": {"num_rounds": num_rounds},
+                "difficulty": {
+                    "num_rounds": (self.config.min_num_rounds, self.config.max_num_rounds),
+                },
             },
         }
 

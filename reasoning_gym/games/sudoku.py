@@ -216,7 +216,7 @@ class SudokuDataset(ProceduralDataset):
                 "solution": solved_board,
                 "num_empty": num_empty,
                 "difficulty": {
-                    "num_empty": num_empty,
+                    "empty": (self.config.min_empty, self.config.max_empty),
                 },
             },
         }

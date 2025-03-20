@@ -206,7 +206,7 @@ class FamilyRelationshipsDataset(ProceduralDataset):
                 "relationship": relationship.value,
                 "family_size": len(family),
                 "difficulty": {
-                    "family_size": len(family),
+                    "family_size": (self.config.min_family_size, self.config.max_family_size),
                 },
             },
         }

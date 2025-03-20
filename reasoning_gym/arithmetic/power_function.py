@@ -73,7 +73,14 @@ class PowerFunctionDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(base=base, exponent=exponent),
             "answer": str(answer),
-            "metadata": {"base": base, "exponent": exponent, "solution": answer, "difficulty": {"exponent": exponent}},
+            "metadata": {
+                "base": base,
+                "exponent": exponent,
+                "solution": answer,
+                "difficulty": {
+                    "exponent": (self.config.min_exponent, self.config.max_exponent),
+                },
+            },
         }
 
 

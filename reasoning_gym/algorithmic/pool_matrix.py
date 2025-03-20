@@ -117,10 +117,13 @@ class PoolMatrixDataset(ProceduralDataset):
                 "pool_type": pool_type,
                 "pool_size": pool_size,
                 "solution": answer.tolist(),
+                "rows": rows,
+                "cols": cols,
+                "pool_size": pool_size,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
-                    "pool_size": pool_size,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
+                    "pool_size": (self.config.min_pool_size, self.config.max_pool_size),
                 },
             },
         }

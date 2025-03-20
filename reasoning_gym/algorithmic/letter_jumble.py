@@ -110,8 +110,8 @@ class LetterJumbleDataset(ProceduralDataset):
                 "original_words": selected_words,
                 "difficulty": {
                     "word_len": (self.config.min_word_len, self.config.max_word_len),
-                    "words": num_words,
-                    "corruption_level": corruption_level,
+                    "words": (self.config.min_words, self.config.max_words),
+                    "corruption_level": (self.config.min_corruption_level, self.config.max_corruption_level),
                 },
             },
         }

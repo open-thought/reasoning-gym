@@ -117,7 +117,14 @@ class RectangleCountDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(puzzle=puzzle),
             "answer": str(answer),
-            "metadata": {"puzzle": puzzle, "solution": answer, "difficulty": {"max_rectangles": target}},
+            "metadata": {
+                "puzzle": puzzle,
+                "solution": answer,
+                "num_rectangles": target,
+                "difficulty": {
+                    "max_rectangles": self.config.max_rectangles,
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:

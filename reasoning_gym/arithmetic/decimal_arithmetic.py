@@ -189,9 +189,11 @@ class DecimalArithmeticDataset(ProceduralDataset):
             "question": problem_str,
             "answer": str(answer),
             "metadata": {
+                "decimal_places": decimal_places,
+                "num_terms": terms,
                 "difficulty": {
-                    "decimal_places": decimal_places,
-                    "num_terms": terms,
+                    "decimal_places": (self.config.min_num_decimal_places, self.config.max_num_decimal_places),
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
                 },
             },
         }

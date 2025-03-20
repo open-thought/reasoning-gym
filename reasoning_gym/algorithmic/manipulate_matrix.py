@@ -309,10 +309,13 @@ class ManipulateMatrixDataset(ProceduralDataset):
                 "matrix": matrix,
                 "solution": answer,
                 "operations": operations,
+                "rows": rows,
+                "cols": cols,
+                "num_transforms": num_transforms,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
-                    "num_transforms": num_transforms,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
+                    "num_transforms": (self.config.min_transforms, self.config.max_transforms),
                 },
             },
         }

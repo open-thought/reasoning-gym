@@ -95,8 +95,9 @@ class NumberFilteringDataset(ProceduralDataset):
                 "filter_value": filter_str,
                 "operation": f"{keep_remove}_{larger_smaller}",
                 "result": result_strs,
+                "numbers": len(numbers),
                 "difficulty": {
-                    "numbers": len(numbers),
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "decimals": (self.config.min_decimals, self.config.max_decimals),
                     "value": (self.config.min_value, self.config.max_value),
                 },
