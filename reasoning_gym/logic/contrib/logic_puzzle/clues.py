@@ -210,7 +210,7 @@ class right_of(Clue):
     houses: tuple[int, ...] = field(default_factory=lambda: (1, 2, 3, 4, 5))
 
     def as_cnf(self) -> list[tuple[str]]:
-        return sat_utils.from_dnf(
+        return from_dnf(
             (comb(self.value1, i), comb(self.value2, j)) for i, j in product(self.houses, self.houses) if i > j
         )
 
