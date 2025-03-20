@@ -9,6 +9,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "jugs"
+
 
 def min_moves_n(jug_capacities: list[int], target: int) -> Optional[int]:
     """
@@ -282,6 +284,8 @@ Reply as a JSON-parsable list of moves which result in any of the jugs being fil
             "question": question,
             "answer": json.dumps(solution),  # one possible solution
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "difficulty": {
                     "num_jugs": self.config.num_jugs,
@@ -340,4 +344,4 @@ class JugsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("jugs", JugsDataset, JugsConfig, JugsCurriculum)
+register_dataset(DATASET_NAME, JugsDataset, JugsConfig, JugsCurriculum)

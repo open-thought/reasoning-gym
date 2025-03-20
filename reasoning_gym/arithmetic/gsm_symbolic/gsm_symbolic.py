@@ -7,6 +7,8 @@ from typing import Any, Callable, Optional
 
 from reasoning_gym.factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "gsm_symbolic"
+
 tasks_ok = [
     0,
     1,
@@ -151,6 +153,8 @@ class GSMSymbolicDataset(ProceduralDataset):
         generator = self.generators[generator_idx]
         example = generator(rng, self.config.difficulty)
         example["question"] += " Give the result as your final answer. Do not include units."
+        example["metadata"]["source_dataset"] = DATASET_NAME
+        example["metadata"]["source_index"] = idx
         return example
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -174,4 +178,4 @@ class GSMSymbolicDataset(ProceduralDataset):
         return reward
 
 
-register_dataset("gsm_symbolic", GSMSymbolicDataset, GSMSymbolicDatasetConfig)
+register_dataset(DATASET_NAME, GSMSymbolicDataset, GSMSymbolicDatasetConfig)

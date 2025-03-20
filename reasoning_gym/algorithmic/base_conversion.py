@@ -14,6 +14,8 @@ If the target base is > 10, use lowercase letters a-z for digits above 9.
 Now, convert the {source_name} number {source_repr} to {target_name}
 """
 
+DATASET_NAME = "base_conversion"
+
 
 @dataclass
 class BaseConversionConfig:
@@ -104,14 +106,16 @@ class BaseConversionDataset(ProceduralDataset):
             ),
             "answer": target_repr,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "decimal_value": value,
                 "source_base": source_base,
                 "target_base": target_base,
                 "source_repr": source_repr,
                 "target_repr": target_repr,
                 "difficulty": {
-                    "value": value,
-                    "base": (source_base, target_base),
+                    "base": (self.config.min_base, self.config.max_base),
+                    "value": (self.config.min_value, self.config.max_value),
                 },
             },
         }
@@ -142,4 +146,4 @@ class BaseConversionCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("base_conversion", BaseConversionDataset, BaseConversionConfig, BaseConversionCurriculum)
+register_dataset(DATASET_NAME, BaseConversionDataset, BaseConversionConfig, BaseConversionCurriculum)

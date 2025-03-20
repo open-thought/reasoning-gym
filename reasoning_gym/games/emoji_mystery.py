@@ -152,6 +152,8 @@ Decode the following sentence from the emoji: {sentence}
 Return the secret sentence as your final answer.
 """
 
+DATASET_NAME = "emoji_mystery"
+
 
 @dataclass
 class EmojiMysteryConfig:
@@ -193,8 +195,13 @@ class EmojiMysteryDataset(ProceduralDataset):
             "question": question,
             "answer": secret_sentence,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "emoji": secret_emoji,
-                "difficulty": {"num_words_in_sentence": len(re.findall(r"\b\w+\b", secret_sentence))},
+                "num_words_in_sentence": len(re.findall(r"\b\w+\b", secret_sentence)),
+                "difficulty": {
+                    "num_words_in_sentence": (self.config.min_words_in_sentence, self.config.max_words_in_sentence),
+                },
             },
         }
 
@@ -256,4 +263,4 @@ class EmojiMysteryCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("emoji_mystery", EmojiMysteryDataset, EmojiMysteryConfig, EmojiMysteryCurriculum)
+register_dataset(DATASET_NAME, EmojiMysteryDataset, EmojiMysteryConfig, EmojiMysteryCurriculum)

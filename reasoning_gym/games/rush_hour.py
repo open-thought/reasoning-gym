@@ -42,6 +42,9 @@ H = 1  # horizontal stride
 V = BOARD_SIZE  # vertical stride
 
 
+DATASET_NAME = "rush_hour"
+
+
 # board boundary limits
 def create_row_masks() -> list[int]:
     row_masks: list[int] = []
@@ -159,9 +162,13 @@ class RushHourDataset(ProceduralDataset):
             "question": f"{instructions}\n\nBoard:\n{board_display}",
             "answer": None,  # Multiple valid solutions exist
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "board_config": board_config,
                 "min_moves": min_moves,
-                "difficulty": {"min_moves": min_moves},
+                "difficulty": {
+                    "min_moves": (self.config.min_moves, self.config.max_moves),
+                },
             },
         }
 
@@ -385,4 +392,4 @@ class RushHourCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("rush_hour", RushHourDataset, RushHourConfig, RushHourCurriculum)
+register_dataset(DATASET_NAME, RushHourDataset, RushHourConfig, RushHourCurriculum)

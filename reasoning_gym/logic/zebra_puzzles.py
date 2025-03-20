@@ -6,6 +6,8 @@ from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.logic_puzzle.generate import generate_puzzle
 
+DATASET_NAME = "zebra_puzzles"
+
 
 @dataclass
 class ZebraConfig:
@@ -51,6 +53,8 @@ class ZebraDataset(ProceduralDataset):
             "question": question,
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "difficulty": {"num_people": K, "num_characteristics": M},
             },
         }
@@ -93,4 +97,4 @@ class ZebraCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("zebra_puzzles", ZebraDataset, ZebraConfig, ZebraCurriculum)
+register_dataset(DATASET_NAME, ZebraDataset, ZebraConfig, ZebraCurriculum)

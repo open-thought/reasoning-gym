@@ -17,6 +17,8 @@ Final answer format instructions:
 4. Use '/' for division.
 """
 
+DATASET_NAME = "puzzle24"
+
 
 @dataclass
 class Puzzle24Config:
@@ -101,6 +103,8 @@ class Puzzle24Dataset(ProceduralDataset):
             "question": question,
             "answer": expr_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "numbers": numbers,
                 "expression": expr,
             },
@@ -127,4 +131,4 @@ class Puzzle24Dataset(ProceduralDataset):
         return reward
 
 
-register_dataset("puzzle24", Puzzle24Dataset, Puzzle24Config)
+register_dataset(DATASET_NAME, Puzzle24Dataset, Puzzle24Config)

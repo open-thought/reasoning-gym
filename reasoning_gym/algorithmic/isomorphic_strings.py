@@ -24,6 +24,9 @@ Return True if the following two strings are isomorphic, or False otherwise:
 """
 
 
+DATASET_NAME = "isomorphic_strings"
+
+
 @dataclass
 class IsomorphicStringsConfig:
     """Configuration for Isomorphic Strings dataset generation"""
@@ -107,11 +110,14 @@ class IsomorphicStringsDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(s=s, t=t),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "words": [s, t],
                 "solution": answer,
                 "solvable": solvable,
+                "string_length": string_length,
                 "difficulty": {
-                    "string_length": string_length,
+                    "string_length": (self.config.min_string_length, self.config.max_string_length),
                 },
             },
         }
@@ -133,4 +139,4 @@ class IsomorphicStringsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("isomorphic_strings", IsomorphicStringsDataset, IsomorphicStringsConfig, IsomorphicStringsCurriculum)
+register_dataset(DATASET_NAME, IsomorphicStringsDataset, IsomorphicStringsConfig, IsomorphicStringsCurriculum)

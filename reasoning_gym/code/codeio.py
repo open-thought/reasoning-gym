@@ -49,6 +49,8 @@ Tip: Here is a reference code snippet for this question. You can refer to this c
 {3}
 """
 
+DATASET_NAME = "codeio"
+
 
 @dataclass
 class CodeIOConfig:
@@ -117,7 +119,12 @@ class CodeIODataset(ProceduralDataset):
         return {
             "question": question,
             "answer": solution,
-            "metadata": {"input_data": input_data, "output_data": output_data},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "input_data": input_data,
+                "output_data": output_data,
+            },
         }
 
     def _json_to_tree(self, data, label="root"):
@@ -231,4 +238,4 @@ class CodeIODataset(ProceduralDataset):
 
 
 # Register the dataset
-register_dataset("codeio", CodeIODataset, CodeIOConfig)
+register_dataset(DATASET_NAME, CodeIODataset, CodeIOConfig)

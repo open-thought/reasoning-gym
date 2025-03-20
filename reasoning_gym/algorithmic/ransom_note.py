@@ -20,6 +20,8 @@ Ransom note: {ransom_note}
 Magazine: {magazine}
 """
 
+DATASET_NAME = "ransom_note"
+
 
 @dataclass
 class RansomNoteConfig:
@@ -99,13 +101,17 @@ class RansomNoteDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(ransom_note=ransom_note, magazine=magazine),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "ransom_note": ransom_note,
                 "magazine": magazine,
                 "solution": answer,
                 "solvable": solvable,
+                "note_length": note_length,
+                "magazine_length": magazine_length,
                 "difficulty": {
-                    "note_length": note_length,
-                    "magazine_length": magazine_length,
+                    "note_length": (self.config.min_note_length, self.config.max_note_length),
+                    "magazine_length": (self.config.min_magazine_length, self.config.max_magazine_length),
                 },
             },
         }
@@ -134,4 +140,4 @@ class RansomNoteCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("ransom_note", RansomNoteDataset, RansomNoteConfig, RansomNoteCurriculum)
+register_dataset(DATASET_NAME, RansomNoteDataset, RansomNoteConfig, RansomNoteCurriculum)

@@ -8,6 +8,8 @@ from sympy.polys.monomials import itermonomials
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "polynomial_multiplication"
+
 
 @dataclass
 class PolynomialMultiplicationConfig:
@@ -109,6 +111,8 @@ When performing calculations, please follow these guidelines:
             "question": question,
             "answer": str(product),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "polynomial_expr": str(polynomial_expr),
                 "variables": list(product.free_symbols),
                 "difficulty": {
@@ -230,7 +234,7 @@ class PolynomialMultiplicationCurriculum(BaseCurriculum):
 
 
 register_dataset(
-    "polynomial_multiplication",
+    DATASET_NAME,
     PolynomialMultiplicationDataset,
     PolynomialMultiplicationConfig,
     PolynomialMultiplicationCurriculum,

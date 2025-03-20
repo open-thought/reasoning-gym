@@ -28,6 +28,8 @@ Now, you have {A_machine} machine A, {B_machine} machine B, and {C_machine} mach
 Note: Apply the rules at most {max_iterations} times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts of each machine and part type.
 """
 
+DATASET_NAME = "string_splitting"
+
 
 @dataclass
 class StringSplittingConfig:
@@ -125,10 +127,13 @@ class StringSplittingDataset(ProceduralDataset):
             ),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "states": states,
                 "solution": answer,
+                "initial_machines": (A_machine, B_machine, C_machine),
                 "difficulty": {
-                    "initial_machines": (A_machine, B_machine, C_machine),
+                    "initial_machines": (self.config.min_initial_machines, self.config.max_initial_machines),
                 },
             },
         }
@@ -151,4 +156,4 @@ class StringSplittingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("string_splitting", StringSplittingDataset, StringSplittingConfig, StringSplittingCurriculum)
+register_dataset(DATASET_NAME, StringSplittingDataset, StringSplittingConfig, StringSplittingCurriculum)

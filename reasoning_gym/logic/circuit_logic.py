@@ -13,6 +13,8 @@ LDOWN = "┐"
 RUP = "└"
 RDOWN = "┌"
 
+DATASET_NAME = "circuit_logic"
+
 
 def _repeat(s: str, n: int) -> str:
     return s * n
@@ -381,13 +383,15 @@ class CircuitLogicDataset(ProceduralDataset):
             "question": question_str,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "expression": expression_for_display,
                 "assignments": assignments,
                 "term_strings": term_strings,
                 "final_gate": final_gate_name,
                 "inputs": inputs_list,
                 "difficulty": {
-                    "terms": num_terms,
+                    "terms": (self.config.min_terms, self.config.max_terms),
                     "inputs": (self.config.min_inputs, self.config.max_inputs),
                 },
             },
@@ -429,4 +433,4 @@ class CircuitLogicCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("circuit_logic", CircuitLogicDataset, CircuitLogicConfig, CircuitLogicCurriculum)
+register_dataset(DATASET_NAME, CircuitLogicDataset, CircuitLogicConfig, CircuitLogicCurriculum)

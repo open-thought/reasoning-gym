@@ -124,7 +124,7 @@ def test_score_answer():
 
     # test optimal score for answers, patching each entry
     for x in dataset:
-        assert len(x["metadata"]["board"]) == x["metadata"]["difficulty"]["board_size"]
+        assert len(x["metadata"]["board"]) == x["metadata"]["board_size"]
         assert dataset.score_answer(x["answer"], entry=x) == 1.0
 
 

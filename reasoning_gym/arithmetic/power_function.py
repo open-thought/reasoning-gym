@@ -15,6 +15,8 @@ Compute {base}^{exponent}. Return your final answer correct to 3 significant fig
 Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 """
 
+DATASET_NAME = "power_function"
+
 
 @dataclass
 class PowerFunctionConfig:
@@ -73,7 +75,16 @@ class PowerFunctionDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(base=base, exponent=exponent),
             "answer": str(answer),
-            "metadata": {"base": base, "exponent": exponent, "solution": answer, "difficulty": {"exponent": exponent}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "base": base,
+                "exponent": exponent,
+                "solution": answer,
+                "difficulty": {
+                    "exponent": (self.config.min_exponent, self.config.max_exponent),
+                },
+            },
         }
 
 
@@ -90,4 +101,4 @@ class PowerFunctionCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("power_function", PowerFunctionDataset, PowerFunctionConfig, PowerFunctionCurriculum)
+register_dataset(DATASET_NAME, PowerFunctionDataset, PowerFunctionConfig, PowerFunctionCurriculum)

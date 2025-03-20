@@ -7,6 +7,8 @@ import cellpylib as cpl
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "game_of_life_halting"
+
 
 @dataclass
 class GameOfLifeHaltingConfig:
@@ -363,11 +365,20 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
             "question": question,
             "answer": str(not should_oscillate),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "grid_size_x": grid_x,
                 "grid_size_y": grid_y,
                 "placed_patterns": placed_patterns,
                 "simulation_steps": self.config.max_simulation_steps,
                 "should_oscillate": should_oscillate,
+                "difficulty": {
+                    "grid_size_x": self.config.grid_size_x,
+                    "grid_size_y": self.config.grid_size_y,
+                    "difficulty": self.config.difficulty,
+                    "num_oscillators": self.config.num_oscillators,
+                    "max_simulation_steps": self.config.max_simulation_steps,
+                },
             },
         }
 
@@ -431,4 +442,4 @@ class GameOfLifeHaltingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("game_of_life_halting", GameOfLifeHaltingDataset, GameOfLifeHaltingConfig, GameOfLifeHaltingCurriculum)
+register_dataset(DATASET_NAME, GameOfLifeHaltingDataset, GameOfLifeHaltingConfig, GameOfLifeHaltingCurriculum)

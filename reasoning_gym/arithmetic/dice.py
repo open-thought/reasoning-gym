@@ -7,6 +7,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "dice"
+
 
 def compute_probability(dice, target):
     """
@@ -124,11 +126,13 @@ class DiceDataset(ProceduralDataset):
             "question": puzzle_str,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "puzzle": puzzle,
                 "difficulty": {
                     "num_dice": self.config.num_dice,
                     "max_dice_size": self.config.max_dice_size,
                 },
-                "puzzle": puzzle,
             },
         }
 
@@ -174,4 +178,4 @@ class DiceCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("dice", DiceDataset, DiceConfig, DiceCurriculum)
+register_dataset(DATASET_NAME, DiceDataset, DiceConfig, DiceCurriculum)

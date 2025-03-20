@@ -7,6 +7,8 @@ from reasoning_gym import utils
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "products"
+
 
 @dataclass
 class ProductsConfig:
@@ -66,11 +68,15 @@ class ProductsDataset(ProceduralDataset):
             "question": f"Solve the following multiplication: {expression}. Give only the result as your final answer.",
             "answer": str(result),
             "metadata": {
-                "difficulty": {
-                    "num_terms": num_terms,
-                    "num_digits": num_digits,
-                },
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "expression": expression,
+                "num_terms": num_terms,
+                "num_digits": num_digits,
+                "difficulty": {
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
+                    "num_digits": (self.config.min_digits, self.config.max_digits),
+                },
             },
         }
 
@@ -133,4 +139,4 @@ class ProductsCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("products", ProductsDataset, ProductsConfig, ProductsCurriculum)
+register_dataset(DATASET_NAME, ProductsDataset, ProductsConfig, ProductsCurriculum)

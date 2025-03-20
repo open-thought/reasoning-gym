@@ -120,6 +120,8 @@ BAD_FONTS = [
 ALL_FONTS = pyfiglet.FigletFont.getFonts()
 OK_FONTS = list(filter(lambda x: x not in BAD_FONTS, ALL_FONTS))
 
+DATASET_NAME = "figlet_font"
+
 
 @dataclass
 class FigletFontConfig:
@@ -186,9 +188,13 @@ class FigletFontDataset(ProceduralDataset):
             "question": rng.choice(self._prompt_templates).format(figlet_render=figlet_render),
             "answer": word,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "font": chosen_font,
                 "space_letters": self.config.space_letters,
-                "difficulty": {"word_len": len(word)},
+                "difficulty": {
+                    "word_len": (self.config.min_word_len, self.config.max_word_len),
+                },
             },
         }
 
@@ -246,4 +252,4 @@ class FigletFontCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("figlet_font", FigletFontDataset, FigletFontConfig, FigletFontCurriculum)
+register_dataset(DATASET_NAME, FigletFontDataset, FigletFontConfig, FigletFontCurriculum)

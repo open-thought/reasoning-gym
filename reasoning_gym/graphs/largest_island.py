@@ -23,6 +23,8 @@ The area of an island is the number of cells with a value 1 in the island.
 Return the maximum area of an island in grid. If there is no island, return 0.
 """
 
+DATASET_NAME = "largest_island"
+
 
 @dataclass
 class LargestIslandConfig:
@@ -139,12 +141,15 @@ class LargestIslandDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(rows=rows, cols=cols, grid=grid_str),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "grid": grid,
                 "solution": answer,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
-                    "num_islands": num_islands,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
+                    "num_islands": (self.config.min_num_islands, self.config.max_num_islands),
+                    "island_size": (self.config.min_island_size, self.config.max_island_size),
                 },
             },
         }
@@ -187,4 +192,4 @@ class LargestIslandCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("largest_island", LargestIslandDataset, LargestIslandConfig, LargestIslandCurriculum)
+register_dataset(DATASET_NAME, LargestIslandDataset, LargestIslandConfig, LargestIslandCurriculum)

@@ -15,6 +15,8 @@ Now, it's your turn. How many rectangles do you see in the grid below?
 {puzzle}
 """
 
+DATASET_NAME = "rectangle_count"
+
 
 def draw_rectangles_with_overlap(n, width, height, rng):
     # Create a grid that holds a count of how many times a cell is drawn.
@@ -117,7 +119,16 @@ class RectangleCountDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(puzzle=puzzle),
             "answer": str(answer),
-            "metadata": {"puzzle": puzzle, "solution": answer, "difficulty": {"max_rectangles": target}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "puzzle": puzzle,
+                "solution": answer,
+                "num_rectangles": target,
+                "difficulty": {
+                    "max_rectangles": self.config.max_rectangles,
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -154,4 +165,4 @@ class RectangleCountCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("rectangle_count", RectangleCountDataset, RectangleCountConfig, RectangleCountCurriculum)
+register_dataset(DATASET_NAME, RectangleCountDataset, RectangleCountConfig, RectangleCountCurriculum)
