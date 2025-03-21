@@ -7,8 +7,8 @@ from reasoning_gym.coaching.base_curriculum import CurriculumContext
 from ..composite import CompositeConfig, CompositeDataset, DatasetSpec
 from ..factory import create_curriculum
 from ..version_manager import DatasetVersionManager
-from .coach import ScoreBoard
 from .curriculum_config import CurriculumExperimentConfig
+from .score_board import ScoreBoard
 
 
 class Experiment:
