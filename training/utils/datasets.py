@@ -90,7 +90,6 @@ class ReasoningGymDataset(Dataset):
         for key, value in results.items():
             output_results[key] = {}
             scores = value.scores
-            assert len(scores.keys()) == 1, 'Maintain only one difficulty parameter at a time'
             first_key = list(scores.keys())[0]
             output_results[key]['results'] = np.mean(scores[first_key])
             output_results[key]['total_samples'] = value.total_scores
