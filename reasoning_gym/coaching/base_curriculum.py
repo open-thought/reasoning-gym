@@ -242,7 +242,14 @@ class BaseCurriculum:
     
     def get_global_level(self) -> Optional[int]:
         """ Get the global level of the curriculum."""
+        attr_dict = {}
         if not self._attributes:
             return 0
-        config = {attr_name: self.get_attr_level(attr_name) for attr_name in self._attributes}
-        return config
+        for attr_name in self._attributes:
+            attr = self.get_attribute(attr_name)
+            if isinstance(attr, RangeAttributeDefinition):
+                attr_dict[attr.upper_field_name] = self.get_attr_value(attr_name)
+            elif isinstance(attr, ScalarAttributeDefinition):
+                attr_dict[attr.field_name] = self.get_attr_value(attr_name)
+        return attr_dict
+        

@@ -1,18 +1,10 @@
 reasoning_gym:
   dataset_size: 10000
   enable_curriculum_learning: True
-  datasets: 
-      spell_backward:
-        weight: 1
-        config:
-          min_word_len: 3
-          max_word_len: 20
-
 reward:
   secondary_rewards:
    - name: format
      scaling_factor: 0.5
-
 curriculum:
     enabled: True
     last_k: 30
@@ -22,7 +14,7 @@ curriculum:
       spell_backward:
         attribute_levels:
           word_len: 0
-
+  
 data:
   tokenizer: null
   train_files: train.parquet

@@ -109,6 +109,7 @@ class CurriculumExperiment(Experiment):
             self.curricula[dataset_name].decrement_global_level()
 
         config = self.curricula[dataset_name].get_global_level()
+        print(config)
         self.composite.update_dataset_config(dataset_name, config)
         spec = DatasetSpec(name=dataset_name, 
                             weight=self.curriculum_config.curricula[dataset_name].weight, 
