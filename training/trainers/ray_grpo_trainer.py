@@ -8,9 +8,10 @@ import torch
 import numpy as np
 from omegaconf import OmegaConf, open_dict
 from torchdata.stateful_dataloader import StatefulDataLoader
+from reward import reward_registry
 from utils import ReasoningGymDataset
 from verl import DataProto
-from verl.trainer.ppo.ray_trainer import RayPPOTrainer, compute_advantage, apply_kl_penalty, _timer, compute_data_metrics, compute_throughout_metrics, compute_timing_metrics, reduce_metrics
+from verl.trainer.ppo.ray_trainer import RayPPOTrainer, compute_advantage, apply_kl_penalty, _timer, compute_data_metrics, compute_timing_metrics
 from verl.utils.dataset.rl_dataset import collate_fn
 
 from reasoning_gym.utils import extract_answer
@@ -33,11 +34,26 @@ class RayGRPOTrainer(RayPPOTrainer):
         self.val_dataset = val_dataset
         self.max_output_length = max_output_length
 
-        self.format_reward_scaling_factor = config.reward.format_reward.scaling_factor
         if config.curriculum.enabled:
             self.last_k = config.curriculum.last_k
         else:
             self.last_k = None
+            
+        self.reward_functions = []
+        if hasattr(config, 'reward') and hasattr(config.reward, 'secondary_rewards'):
+            for func_config in config.reward.secondary_rewards:
+                func_name = func_config.name
+                scaling_factor = func_config.get('scaling_factor', 1.0)
+                func = reward_registry.get(func_name)
+                if func:
+                    # Store both function and its arguments
+                    self.reward_functions.append({
+                        'function': func,
+                        'name': func_name,
+                        'scaling_factor': scaling_factor,
+                        'kwargs': func_config.get('kwargs', {})
+                    })
+            
 
         train_reward_fn = lambda data: self._score_output(data, num_examine=0)
         val_reward_fn = lambda data: self._score_output(data, num_examine=1)
@@ -76,67 +92,33 @@ class RayGRPOTrainer(RayPPOTrainer):
 
             index = data_item.non_tensor_batch["index"]
 
-            score = self._compute_correctness_score(
+            correctness_score = self._compute_correctness_score(
                 solution_str=response_str,
                 index=index,
             )
-            format_reward = self._compute_format_reward(response_str)
+            reward_components = {'correctness': correctness_score}
+            total_reward = correctness_score
+            
+            for reward_fn in self.reward_functions:
+                func = reward_fn['function']
+                name = reward_fn['name']
+                scaling_factor = reward_fn['scaling_factor']
+                kwargs = reward_fn['kwargs']
+                reward = func(response_str, scaling_factor, **kwargs)
+                reward_components[name] = reward
+                total_reward += reward
 
-            reward = score + format_reward 
-
-            reward_tensor[i, valid_response_length - 1] = reward
+            reward_tensor[i, valid_response_length - 1] = total_reward
 
             if num_printed < num_examine:
+                components = ", ".join([f"{k}={v:.2f}" for k, v in reward_components.items()])
                 print(
-                    f"reward={reward} (score={score}, format={format_reward}, seq={sequences_str}"
+                    f"reward={reward} (score={total_reward}, seq={sequences_str}, response={response_str})"
                 )
+                print(f"reward={total_reward:.2f} ({components})")
                 num_printed += 1
 
         return reward_tensor
-
-    def _compute_format_reward(self, solution_str: str) -> float:
-        """Reward use of exactly one correctly structured <think> and <answer> block."""
-        scaling_factor = self.format_reward_scaling_factor
-        # check <think> and <answer> blocks are present
-        pattern = r"\s*<think>.*?</think>\s*<answer>.*?</answer>"
-        if not re.match(pattern, solution_str, re.DOTALL):
-            return 0.0
-        # check exactly one properly structured <think> block and one <answer> block
-        think_matches = list(re.finditer(r"<think>(.*?)</think>", solution_str, re.DOTALL))
-        answer_matches = list(re.finditer(r"<answer>(.*?)</answer>", solution_str, re.DOTALL))
-        if len(think_matches) != 1 or len(answer_matches) != 1:
-            return 0.0
-        # check for <think> or <answer> inside <think>
-        think_content = think_matches[0].group(1)
-        if "<think>" in think_content or "<answer>" in think_content:
-            return 0.0
-        # check for nested <think> or <answer> inside <answer>
-        answer_content = answer_matches[0].group(1)
-        if "<answer>" in answer_content or "<think>" in answer_content:
-            return 0.0
-        return 1.0 * scaling_factor
-
-    def _compute_length_reward(
-        self,
-        solution_str: str,
-        correctness_score: float,
-        max_score: float = 1.0,
-    ) -> float:
-        """
-        Reward shorter solutions for perfect answers, longer solutions for imperfect answers.
-        The scaling factor for this should be set far below 1.0, to avoid dominating the reward signal over correctness.
-        """
-        epsilon = 1e-6
-        scaling_factor = self.length_reward_scaling_factor
-        generation_len = len(solution_str)
-        progress = min(generation_len / self.max_output_length, 1.0)
-        if correctness_score < max_score - epsilon:
-            # for imperfect answers, incentivise longer ones
-            length_reward = (max_score - correctness_score) * progress
-        else:
-            # for perfect answers, penalise longer ones
-            length_reward = -progress
-        return length_reward * scaling_factor
 
     def _compute_correctness_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
@@ -320,8 +302,6 @@ class RayGRPOTrainer(RayPPOTrainer):
                 metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic))
                 metrics.update(compute_timing_metrics(batch=batch, timing_raw=timing_raw))
                 # TODO: implement actual tflpo and theoretical tflpo
-                n_gpus = self.resource_pool_manager.get_n_gpus()
-                metrics.update(compute_throughout_metrics(batch=batch, timing_raw=timing_raw, n_gpus=n_gpus))
 
                 # TODO: make a canonical logger that supports various backend
                 logger.log(data=metrics, step=self.global_steps)
