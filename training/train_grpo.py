@@ -21,7 +21,8 @@ from reasoning_gym.composite import CompositeDataset, DatasetSpec
 def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare training and validation datasets."""
     dataset_size = config.reasoning_gym.dataset_size
-    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
+    developer_prompt_setting = config.reasoning_gym.developer_prompt
+    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS[developer_prompt_setting]
 
     if config.curriculum.enabled:
         curricula = config.curriculum.curricula
