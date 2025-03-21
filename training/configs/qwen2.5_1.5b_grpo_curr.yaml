@@ -1,6 +1,7 @@
 reasoning_gym:
   dataset_size: 10000
   enable_curriculum_learning: True
+  developer_prompt: DeepSeekZero
 reward:
   secondary_rewards:
    - name: format
