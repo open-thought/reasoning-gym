@@ -9,10 +9,9 @@ reasoning_gym:
           max_word_len: 20
 
 reward:
-  format_reward:
-    scaling_factor: 0.2
-  length_reward:
-    scaling_factor: 0.2
+  secondary_rewards:
+   - name: format
+     scaling_factor: 0.5
 
 curriculum:
     enabled: True
@@ -124,13 +123,13 @@ algorithm:
   kl_ctrl:
     type: fixed
     kl_coef: 0.001
-
+verbose: True
 trainer:
   balance_batch: True
   total_epochs: 10
   total_training_steps: null
   project_name: rg-test
-  experiment_name: verl_grpo_llama3.1_1b
+  experiment_name: verl_grpo_qwen_curr
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
