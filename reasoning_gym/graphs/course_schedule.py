@@ -21,6 +21,8 @@ You are given the following list of prerequisites, where prerequisites[i] = (a_i
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 """
 
+DATASET_NAME = "course_schedule"
+
 
 @dataclass
 class CourseScheduleConfig:
@@ -132,11 +134,17 @@ class CourseScheduleDataset(ProceduralDataset):
             ),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "courses": courses,
                 "prerequisites": prerequisites,
                 "solution": answer,
                 "solvable": solvable,
-                "difficulty": {"num_courses": num_courses},
+                "difficulty": {
+                    "num_courses": (self.config.min_num_courses, self.config.max_num_courses),
+                    "num_prerequisites": (self.config.min_num_prerequisites, self.config.max_num_prerequisites),
+                    "cycle_length": (self.config.min_cycle_length, self.config.max_cycle_length),
+                },
             },
         }
 
@@ -174,4 +182,4 @@ class CourseScheduleCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("course_schedule", CourseScheduleDataset, CourseScheduleConfig, CourseScheduleCurriculum)
+register_dataset(DATASET_NAME, CourseScheduleDataset, CourseScheduleConfig, CourseScheduleCurriculum)

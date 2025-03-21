@@ -8,6 +8,8 @@ from sympy import Symbol
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "simple_equations"
+
 
 @dataclass
 class SimpleEquationsConfig:
@@ -63,6 +65,8 @@ class SimpleEquationsDataset(ProceduralDataset):
             "question": rng.choice(self._prompt_templates).format(variable=variable, equation=equation),
             "answer": str(solution),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "equation": equation,
                 "variable": variable,
                 "difficulty": {
@@ -166,4 +170,4 @@ class SimpleEquationsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("simple_equations", SimpleEquationsDataset, SimpleEquationsConfig, SimpleEquationsCurriculum)
+register_dataset(DATASET_NAME, SimpleEquationsDataset, SimpleEquationsConfig, SimpleEquationsCurriculum)

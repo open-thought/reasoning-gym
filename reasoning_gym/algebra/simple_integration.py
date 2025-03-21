@@ -8,6 +8,8 @@ import sympy
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "simple_integration"
+
 
 @dataclass
 class SimpleIntegrationConfig:
@@ -82,10 +84,15 @@ When performing calculations, please follow these guidelines:
             "question": question,
             "answer": str(polynomial) + " + C",
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "integrand": str(derivative),
                 "variable": str(symbol),
                 "expected_answer_expression": polynomial,
-                "difficulty": {"terms": num_terms},
+                "num_terms": num_terms,
+                "difficulty": {
+                    "terms": (self.config.min_terms, self.config.max_terms),
+                },
             },
         }
 
@@ -125,4 +132,4 @@ class SimpleIntegrationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("simple_integration", SimpleIntegrationDataset, SimpleIntegrationConfig, SimpleIntegrationCurriculum)
+register_dataset(DATASET_NAME, SimpleIntegrationDataset, SimpleIntegrationConfig, SimpleIntegrationCurriculum)

@@ -26,6 +26,8 @@ Now, given the initial cards {cards}, what is the result at the end of performin
 {operations}
 """
 
+DATASET_NAME = "mahjong_puzzle"
+
 
 @dataclass
 class MahjongPuzzleConfig:
@@ -120,9 +122,13 @@ class MahjongPuzzleDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(cards=cards, operations=operations),
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "rounds": rounds,
                 "solution": answer,
-                "difficulty": {"num_rounds": num_rounds},
+                "difficulty": {
+                    "num_rounds": (self.config.min_num_rounds, self.config.max_num_rounds),
+                },
             },
         }
 
@@ -143,4 +149,4 @@ class MahjongPuzzleCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("mahjong_puzzle", MahjongPuzzleDataset, MahjongPuzzleConfig, MahjongPuzzleCurriculum)
+register_dataset(DATASET_NAME, MahjongPuzzleDataset, MahjongPuzzleConfig, MahjongPuzzleCurriculum)

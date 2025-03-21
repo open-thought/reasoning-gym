@@ -7,6 +7,8 @@ from typing import Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "number_filtering"
+
 
 @dataclass
 class NumberFilteringConfig:
@@ -91,12 +93,15 @@ class NumberFilteringDataset(ProceduralDataset):
             ),
             "answer": str(result_strs) if result_strs else "[]",
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "original_numbers": str_numbers,
                 "filter_value": filter_str,
                 "operation": f"{keep_remove}_{larger_smaller}",
                 "result": result_strs,
+                "numbers": len(numbers),
                 "difficulty": {
-                    "numbers": len(numbers),
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "decimals": (self.config.min_decimals, self.config.max_decimals),
                     "value": (self.config.min_value, self.config.max_value),
                 },
@@ -137,4 +142,4 @@ class NumberFilteringCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("number_filtering", NumberFilteringDataset, NumberFilteringConfig, NumberFilteringCurriculum)
+register_dataset(DATASET_NAME, NumberFilteringDataset, NumberFilteringConfig, NumberFilteringCurriculum)

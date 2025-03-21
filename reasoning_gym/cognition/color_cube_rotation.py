@@ -35,6 +35,9 @@ class Side(StrEnum):
     BOTTOM = "bottom"
 
 
+DATASET_NAME = "color_cube_rotation"
+
+
 @dataclass
 class Cube:
     """Represents a cube with colored sides"""
@@ -137,11 +140,15 @@ class ColorCubeRotationDataset(ProceduralDataset):
             "question": story,
             "answer": cube.colors[target_side],
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "initial_state": {k.value: v.value for k, v in initial_state.items()},
                 "rotations": [r.value for r in rotations],
                 "target_side": target_side.value,
                 "num_rotations": num_rotations,
-                "difficulty": {"rotations": num_rotations},
+                "difficulty": {
+                    "rotations": (self.config.min_rotations, self.config.max_rotations),
+                },
             },
         }
 
@@ -223,4 +230,4 @@ class ColorCubeRotationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("color_cube_rotation", ColorCubeRotationDataset, ColorCubeRotationConfig, ColorCubeRotationCurriculum)
+register_dataset(DATASET_NAME, ColorCubeRotationDataset, ColorCubeRotationConfig, ColorCubeRotationCurriculum)

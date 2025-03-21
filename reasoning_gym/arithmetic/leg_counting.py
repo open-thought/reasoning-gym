@@ -60,6 +60,8 @@ QUESTION_TEMPLATE = """Your task is to count how many legs there are in total wh
 Now, how many legs are there in total if you have {animals}?
 """
 
+DATASET_NAME = "leg_counting"
+
 
 @dataclass
 class LegCountingConfig:
@@ -118,11 +120,15 @@ class LegCountingDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(animals=", ".join(animal_list)),
             "answer": str(total_legs),
             "metadata": {
-                "difficulty": {
-                    "num_animals": len(animals),
-                },
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "animals": animals,
+                "num_animals": len(animals),
                 "total_legs": total_legs,
+                "difficulty": {
+                    "num_animals": (self.config.min_animals, self.config.max_animals),
+                    "num_instances": (self.config.min_instances, self.config.max_instances),
+                },
             },
         }
 
@@ -150,4 +156,4 @@ class LegCountingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("leg_counting", LegCountingDataset, LegCountingConfig, LegCountingCurriculum)
+register_dataset(DATASET_NAME, LegCountingDataset, LegCountingConfig, LegCountingCurriculum)

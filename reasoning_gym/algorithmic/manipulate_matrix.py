@@ -18,6 +18,8 @@ Perform the following series of operations in order:
 {operations}
 """
 
+DATASET_NAME = "manipulate_matrix"
+
 
 def num_rows(matrix: list[list[int]]) -> int:
     return len(matrix)
@@ -306,13 +308,18 @@ class ManipulateMatrixDataset(ProceduralDataset):
             ),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
                 "operations": operations,
+                "rows": rows,
+                "cols": cols,
+                "num_transforms": num_transforms,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
-                    "num_transforms": num_transforms,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
+                    "num_transforms": (self.config.min_transforms, self.config.max_transforms),
                 },
             },
         }
@@ -348,4 +355,4 @@ class ManipulateMatrixCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("manipulate_matrix", ManipulateMatrixDataset, ManipulateMatrixConfig, ManipulateMatrixCurriculum)
+register_dataset(DATASET_NAME, ManipulateMatrixDataset, ManipulateMatrixConfig, ManipulateMatrixCurriculum)

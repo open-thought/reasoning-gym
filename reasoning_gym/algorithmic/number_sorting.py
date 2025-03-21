@@ -8,6 +8,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "number_sorting"
+
 
 @dataclass
 class NumberSortingConfig:
@@ -90,11 +92,14 @@ Please follow the instruction below:
             "question": question,
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "original_numbers": number_strs,
                 "direction": direction,
                 "sorted_numbers": answer,
+                "numbers": count,
                 "difficulty": {
-                    "numbers": count,
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "decimals": (self.config.min_decimals, self.config.max_decimals),
                     "value": (self.config.min_value, self.config.max_value),
                 },
@@ -197,4 +202,4 @@ class NumberSortingCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("number_sorting", NumberSortingDataset, NumberSortingConfig, NumberSortingCurriculum)
+register_dataset(DATASET_NAME, NumberSortingDataset, NumberSortingConfig, NumberSortingCurriculum)

@@ -7,6 +7,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "family_relationships"
+
 
 class Gender(StrEnum):
     MALE = "male"
@@ -201,12 +203,14 @@ class FamilyRelationshipsDataset(ProceduralDataset):
             "question": f"{story}\n\n{question}",
             "answer": relationship.value,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "person1": person1.name,
                 "person2": person2.name,
                 "relationship": relationship.value,
                 "family_size": len(family),
                 "difficulty": {
-                    "family_size": len(family),
+                    "family_size": (self.config.min_family_size, self.config.max_family_size),
                 },
             },
         }
@@ -386,6 +390,4 @@ class FamilyRelationshipsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "family_relationships", FamilyRelationshipsDataset, FamilyRelationshipsConfig, FamilyRelationshipsCurriculum
-)
+register_dataset(DATASET_NAME, FamilyRelationshipsDataset, FamilyRelationshipsConfig, FamilyRelationshipsCurriculum)

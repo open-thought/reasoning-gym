@@ -8,6 +8,8 @@ from sympy import Eq, Symbol, expand, solve
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "polynomial_equations"
+
 
 @dataclass
 class PolynomialEquationsConfig:
@@ -120,11 +122,17 @@ In solving equations, please follow these instructions:
             "question": question,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "polynomial_expr": str(polynomial_expanded),
                 "variable": variable,
                 "degree": degree,
                 "real_solutions": real_solutions,
-                "difficulty": {"terms": num_terms, "degree": degree},
+                "num_terms": num_terms,
+                "difficulty": {
+                    "terms": (self.config.min_terms, self.config.max_terms),
+                    "degree": (self.config.min_degree, self.config.max_degree),
+                },
             },
         }
 
@@ -291,6 +299,4 @@ class PolynomialEquationsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "polynomial_equations", PolynomialEquationsDataset, PolynomialEquationsConfig, PolynomialEquationsCurriculum
-)
+register_dataset(DATASET_NAME, PolynomialEquationsDataset, PolynomialEquationsConfig, PolynomialEquationsCurriculum)

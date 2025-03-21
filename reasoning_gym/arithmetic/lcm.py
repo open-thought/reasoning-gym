@@ -9,6 +9,8 @@ from typing import Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "lcm"
+
 
 @dataclass
 class LCMConfig:
@@ -64,10 +66,12 @@ class LCMDataset(ProceduralDataset):
             "question": f"Find the Least Common Multiple (LCM) of these numbers: {numbers_str}",
             "answer": str(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "numbers": numbers,
                 "result": result,
                 "difficulty": {
-                    "numbers": len(numbers),
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "value": (self.config.min_value, self.config.max_value),
                 },
             },
@@ -98,4 +102,4 @@ class LCMCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("lcm", LCMDataset, LCMConfig, LCMCurriculum)
+register_dataset(DATASET_NAME, LCMDataset, LCMConfig, LCMCurriculum)

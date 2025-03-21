@@ -5,6 +5,8 @@ from typing import Any, Optional
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
+DATASET_NAME = "needle_haystack"
+
 
 @dataclass
 class NeedleHaystackConfig:
@@ -103,7 +105,15 @@ class NeedleHaystackDataset(ProceduralDataset):
         return {
             "question": full_text,
             "answer": stack["needle"][0],
-            "metadata": {"question": question, "difficulty": {"num_statements": num_statements}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "question": question,
+                "num_statements": num_statements,
+                "difficulty": {
+                    "num_statements": (self.config.min_num_statements, self.config.max_num_statements),
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -147,4 +157,4 @@ class NeedleHaystackCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("needle_haystack", NeedleHaystackDataset, NeedleHaystackConfig, NeedleHaystackCurriculum)
+register_dataset(DATASET_NAME, NeedleHaystackDataset, NeedleHaystackConfig, NeedleHaystackCurriculum)
