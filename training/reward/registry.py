@@ -1,4 +1,5 @@
 from typing import Dict, Callable, Any
+import math
 import re
 
 class RewardRegistry:
@@ -24,6 +25,34 @@ class RewardRegistry:
 
 
 reward_registry = RewardRegistry()
+
+
+@reward_registry.register("cosine")
+def cosine_scaled_reward(solution_str, scaling_factor, **kwargs):
+    """Reward function that scales based on completion length using a cosine schedule."""
+    min_value_wrong = -1.0
+    max_value_wrong = -0.5
+    min_value_correct = 0.5
+    max_value_correct = 1.0
+    max_len = 1000
+
+    is_correct = kwargs.get('is_correct', False)
+    gen_len = len(solution_str)
+
+    # Apply cosine scaling based on length
+    progress = gen_len / max_len
+    cosine = math.cos(progress * math.pi)
+
+    if is_correct:
+        min_value = min_value_correct
+        max_value = max_value_correct
+    else:
+        min_value = max_value_wrong
+        max_value = min_value_wrong
+
+    cosine_scaled_reward = min_value + 0.5 * (max_value - min_value) * (1.0 + cosine)
+    return cosine_scaled_reward * scaling_factor
+
 
 @reward_registry.register("format")
 def compute_format_reward(solution_str: str, scaling_factor: float = 0.2, **kwargs) -> float:

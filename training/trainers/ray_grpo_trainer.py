@@ -104,7 +104,11 @@ class RayGRPOTrainer(RayPPOTrainer):
                 name = reward_fn['name']
                 scaling_factor = reward_fn['scaling_factor']
                 kwargs = reward_fn['kwargs']
-                reward = func(response_str, scaling_factor, **kwargs)
+                if name == 'cosine':
+                    is_correct = correctness_score == 1.0
+                    reward = func(response_str, scaling_factor, is_correct=is_correct, **kwargs)
+                else:
+                    reward = func(response_str, scaling_factor, **kwargs)
                 reward_components[name] = reward
                 total_reward += reward
 
@@ -297,6 +301,7 @@ class RayGRPOTrainer(RayPPOTrainer):
                             self.train_dataset.experiment.update_difficulty(dataset_name, method='increment')
                         elif (grouped_scores[dataset_name]['results'] < self.config.curriculum.failure_threshold) and (grouped_scores[dataset_name]['total_samples'] > self.config.curriculum.last_k):
                             self.train_dataset.update_difficulty(dataset_name, method='decrement')
+
                     
                
                 metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic))
