@@ -113,7 +113,7 @@ class RayGRPOTrainer(RayPPOTrainer):
             if num_printed < num_examine:
                 components = ", ".join([f"{k}={v:.2f}" for k, v in reward_components.items()])
                 print(
-                    f"reward={reward} (score={total_reward}, seq={sequences_str}, response={response_str})"
+                    f"(score={total_reward}, seq={sequences_str}, response={response_str})"
                 )
                 print(f"reward={total_reward:.2f} ({components})")
                 num_printed += 1
