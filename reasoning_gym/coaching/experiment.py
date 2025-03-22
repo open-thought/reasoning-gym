@@ -99,7 +99,6 @@ class CurriculumExperiment(Experiment):
 
     def update_difficulty(self, dataset_name: str, method: Literal["increment", "decrement"]):
         """Update difficulty levels based on performance metrics"""
-        dataset_specs = []
         if method not in ["increment", "decrement"]:
             raise ValueError(f"Invalid method: {method}")
         
@@ -109,15 +108,4 @@ class CurriculumExperiment(Experiment):
             self.curricula[dataset_name].decrement_global_level()
 
         config = self.curricula[dataset_name].get_global_level()
-        print(config)
         self.composite.update_dataset_config(dataset_name, config)
-        spec = DatasetSpec(name=dataset_name, 
-                            weight=self.curriculum_config.curricula[dataset_name].weight, 
-                            config=config)
-        dataset_specs.append(spec)
-        
-        composite_configs = CompositeConfig(size=self.composite.config.size,
-                                             seed=self.composite.config.seed,
-                                             datasets=dataset_specs)
-        self.curriculum_config = composite_configs
-            
