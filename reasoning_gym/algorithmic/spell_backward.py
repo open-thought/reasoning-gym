@@ -17,7 +17,7 @@ class SpellBackwardConfig:
     """Configuration for spelling words backward task generation"""
 
     min_word_len: int = 3  # Minimum word length
-    max_word_len: int = 20  # Maximum word length
+    max_word_len: int = 3  # Maximum word length
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
@@ -34,12 +34,11 @@ class SpellBackwardDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
         # Load and preprocess text
-        text = read_data_file("in_the_year_2889.txt")
-        # Extract words and clean them to contain only alphanumeric characters
+        text = read_data_file("words3to10.txt")
         self.words = [
-            word
-            for word in re.findall(r"\b\w+\b", text)
-            if word.isalnum() and config.min_word_len <= len(word) <= config.max_word_len
+            word.strip()
+            for word in text.splitlines()
+            if word.strip().isalnum() and config.min_word_len <= len(word.strip()) <= config.max_word_len
         ]
 
     def __getitem__(self, idx: int) -> dict:
@@ -71,6 +70,8 @@ class SpellBackwardDataset(ProceduralDataset):
             try:
                 if expected_answer.lower() == answer.lower():
                     reward = 1.0
+                elif sorted(expected_answer.lower()) == sorted(answer.lower()):
+                    reward = 0.2
                 else:
                     reward = 0.05
             except:
@@ -86,11 +87,11 @@ class SpellBackwardCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="word_len",
-                levels=[5, 10, 20, 30],
+                levels=list(range(3, 11)),
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
-                ensure_interval=True,
+                ensure_interval=False,
             ),
         )
 
