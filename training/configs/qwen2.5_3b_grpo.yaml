@@ -1,5 +1,6 @@
 reasoning_gym:
   dataset_size: 10000
+<<<<<<<< HEAD:training/configs/qwen2.5_3b_grpo.yaml
   developer_prompt: DeepSeekZero
   datasets:  
     spell_backward:
@@ -27,6 +28,42 @@ reward:
    - name: format
      scaling_factor: 0.5
   
+========
+  enable_curriculum_learning: False
+  datasets:  # Used if enable_curriculum_learning is False
+    mini_sudoku:
+      weight: 0.33
+      config:
+        min_empty: 6
+    futoshiki:
+      weight: 0.33
+      config:
+        max_board_size: 5
+    sudoku:
+      weight: 0.34
+      config:
+        min_empty: 20
+  curricula:
+    leg_counting:
+      attribute_levels:
+        num_animals: 2
+    products:
+      attribute_levels:
+        num_terms: 4
+        num_digits: 4
+    chain_sum:
+      attribute_levels:
+        num_terms: 4
+        num_digits: 4
+      weight: 1.0
+
+reward:
+  format_reward:
+    scaling_factor: 0.2
+  length_reward:
+    scaling_factor: 0.2
+
+>>>>>>>> 58434065691f26d313a9b233ca6d6723382012d5:training/configs/qwen2.5_1.5b_grpo.yaml
 data:
   tokenizer: null
   train_files: train.parquet

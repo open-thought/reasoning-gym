@@ -1,41 +1,21 @@
 reasoning_gym:
   dataset_size: 10000
-  enable_curriculum_learning: False
-  
-  last_k: 30
-  datasets:  # Used if enable_curriculum_learning is False
-    mini_sudoku:
-      weight: 0.33
-      config:
-        min_empty: 6
-    futoshiki:
-      weight: 0.33
-      config:
-        max_board_size: 5
-    sudoku:
-      weight: 0.34
-      config:
-        min_empty: 20
-  curricula:
-    leg_counting:
-      attribute_levels:
-        num_animals: 2
-    products:
-      attribute_levels:
-        num_terms: 4
-        num_digits: 4
-    chain_sum:
-      attribute_levels:
-        num_terms: 4
-        num_digits: 4
-      weight: 1.0
-
+  enable_curriculum_learning: True
+  developer_prompt: DeepSeekZero
 reward:
-  format_reward:
-    scaling_factor: 0.2
-  length_reward:
-    scaling_factor: 0.2
-
+  secondary_rewards:
+   - name: format
+     scaling_factor: 0.5
+curriculum:
+    enabled: True
+    last_k: 30
+    success_threshold: 0.7
+    failure_threshold: 0.1
+    curricula:
+      spell_backward:
+        attribute_levels:
+          word_len: 0
+  
 data:
   tokenizer: null
   train_files: train.parquet
@@ -51,7 +31,7 @@ data:
 actor_rollout_ref:
   hybrid_engine: True
   model:
-    path: meta-llama/Llama-3.2-1B-Instruct
+    path: Qwen/Qwen2.5-1.5B-Instruct
     external_lib: null
     override_config: { }
     enable_gradient_checkpointing: True
@@ -98,6 +78,7 @@ actor_rollout_ref:
     ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size} # sp size
   rollout:
     name: vllm
+    max_model_len: 512
     temperature: 1.0
     top_k: -1 # 0 for hf rollout, -1 for vllm rollout
     top_p: 1
@@ -135,13 +116,13 @@ algorithm:
   kl_ctrl:
     type: fixed
     kl_coef: 0.001
-
+verbose: True
 trainer:
   balance_batch: True
   total_epochs: 10
   total_training_steps: null
   project_name: rg-test
-  experiment_name: verl_grpo_llama3.1_1b
+  experiment_name: verl_grpo_qwen_curr
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
