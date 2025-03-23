@@ -1,43 +1,31 @@
 reasoning_gym:
   dataset_size: 10000
   developer_prompt: DeepSeekZero
-  enable_curriculum_learning: False
-  datasets:  # Used if enable_curriculum_learning is False
-    mini_sudoku:
-      weight: 0.33
+  datasets:
+    spell_backward:
+      weight: 1
       config:
-        min_empty: 6
-    futoshiki:
-      weight: 0.33
-      config:
-        max_board_size: 5
-    sudoku:
-      weight: 0.34
-      config:
-        min_empty: 20
-  curricula:
-    leg_counting:
-      attribute_levels:
-        num_animals: 2
-      weight: 1.0
-    products:
-      attribute_levels:
-        num_terms: 4
-        num_digits: 4
-      weight: 1.0
-    chain_sum:
-      attribute_levels:
-        num_terms: 4
-        num_digits: 4
-      weight: 1.0
-
+        min_word_len: 3
+        max_word_len: 10
+curriculum:
+    enabled: False
+    schedule:
+      automatic: True
+      update_steps: 30 # automatic curriculum updating after 50 steps
+    last_k: 20
+    success_threshold: 0.7
+    failure_threshold: 0.1
+    curricula:
+      spell_backward:
+        attribute_levels:
+          word_len: 0
 reward:
-  format_reward:
-    enable: True
-    scaling_factor: 0.2
-  length_reward:
-    enable: True
-    scaling_factor: 0.2
+  use_accuracy: false
+  secondary_rewards:
+   - name: cosine
+     scaling_factor: 2
+   - name: format
+     scaling_factor: 0.5
 
 data:
   tokenizer: null
@@ -46,22 +34,22 @@ data:
   prompt_key: prompt
   max_prompt_length: 512
   max_response_length: 1024
-  train_batch_size: 16
-  val_batch_size: 16
-  return_raw_input_ids: True  # This should be set to true when the tokenizer between policy and rm differs
+  train_batch_size: 128
+  val_batch_size: 128
   return_raw_chat: True
+  return_raw_input_ids: True
 
 actor_rollout_ref:
   hybrid_engine: True
   model:
-    path: Qwen/Qwen2.5-1.5B-Instruct
+    path: Qwen/Qwen2.5-3B-Instruct
     external_lib: null
     override_config: { }
     enable_gradient_checkpointing: True
     use_remove_padding: True
   actor:
     strategy: fsdp  # This is for backward-compatibility
-    ppo_mini_batch_size: 16
+    ppo_mini_batch_size: 32
     ppo_micro_batch_size: null # will be deprecated, use ppo_micro_batch_size_per_gpu
     ppo_micro_batch_size_per_gpu: 8
     use_dynamic_bsz: False
@@ -77,9 +65,9 @@ actor_rollout_ref:
     ulysses_sequence_parallel_size: 1 # sp size
     optim:
       lr: 1e-6
-      lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
-      min_lr_ratio: null   # only useful for warmup with cosine
-      warmup_style: constant  # select from constant/cosine
+      lr_warmup_steps_ratio: 0.1  # the total steps will be injected during runtime
+      min_lr_ratio: 0.1   # only useful for warmup with cosine
+      warmup_style: cosine # select from constant/cosine
       total_training_steps: -1  # must be override by program
     fsdp_config:
       wrap_policy:
@@ -95,13 +83,14 @@ actor_rollout_ref:
         # transformer_layer_cls_to_wrap: None
         min_num_params: 0
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
-    log_prob_micro_batch_size_per_gpu: 160
+    log_prob_micro_batch_size_per_gpu: 16
     log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
     log_prob_max_token_len_per_gpu: ${actor_rollout_ref.actor.ppo_max_token_len_per_gpu}
     ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size} # sp size
   rollout:
     name: vllm
-    temperature: 1.0
+    max_model_len: 1024
+    temperature: 0.7
     top_k: -1 # 0 for hf rollout, -1 for vllm rollout
     top_p: 1
     prompt_length: ${data.max_prompt_length}  # not use for opensource
@@ -117,7 +106,7 @@ actor_rollout_ref:
     max_num_batched_tokens: 8192
     max_num_seqs: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
-    log_prob_micro_batch_size_per_gpu: 160
+    log_prob_micro_batch_size_per_gpu: 16
     log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
     log_prob_max_token_len_per_gpu: ${actor_rollout_ref.actor.ppo_max_token_len_per_gpu}
     disable_log_stats: True
@@ -138,22 +127,22 @@ algorithm:
   kl_ctrl:
     type: fixed
     kl_coef: 0.001
-
+verbose: True
 trainer:
   balance_batch: True
-  total_epochs: 10
+  total_epochs: 5
   total_training_steps: null
   project_name: rg-test
-  experiment_name: verl_grpo_llama3.1_1b
+  experiment_name: verl_grpo_qwen_curr
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
   n_gpus_per_node: 2
-  save_freq: 100
+  save_freq: 50
   # auto: find the last ckpt to resume. If can't find, start from scratch
   resume_mode: auto # or auto or resume_path if
   resume_from_path: False
-  test_freq: 100
+  test_freq: 300
   critic_warmup: 0
   default_hdfs_dir: null
   remove_previous_ckpt_in_save: False
@@ -163,10 +152,10 @@ trainer:
 critic:
   strategy: fsdp
   optim:
-    lr: 1e-5
-    lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
+    lr: 1e-6
+    lr_warmup_steps_ratio: 0.1  # the total steps will be injected during runtime
     min_lr_ratio: null   # only useful for warmup with cosine
-    warmup_style: constant  # select from constant/cosine
+    warmup_style: cosine  # select from constant/cosine
     total_training_steps: -1  # must be override by program
   model:
     path: ~/models/deepseek-llm-7b-chat

@@ -177,7 +177,7 @@ class NumberSortingCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="numbers",
-                levels=[10, 100, 500, 1000],
+                levels=list(range(5, 20, 2)),
                 description="How many numbers to sort",
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
@@ -185,7 +185,7 @@ class NumberSortingCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="decimals",
-                levels=[0, 2, 4, 6],
+                levels=list(range(0, 8)),
                 description="Number of decimal places",
                 lower_field_name="min_decimals",
                 upper_field_name="max_decimals",
