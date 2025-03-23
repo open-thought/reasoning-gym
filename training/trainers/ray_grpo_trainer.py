@@ -96,8 +96,12 @@ class RayGRPOTrainer(RayPPOTrainer):
                 solution_str=response_str,
                 index=index,
             )
-            reward_components = {'correctness': correctness_score}
-            total_reward = correctness_score
+            if self.config.reward.use_accuracy:
+                reward_components = {'correctness': correctness_score}
+                total_reward = correctness_score
+            else:
+                reward_components = {}
+                total_reward = 0
             
             for reward_fn in self.reward_functions:
                 func = reward_fn['function']

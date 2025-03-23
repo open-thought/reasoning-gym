@@ -15,9 +15,12 @@ curriculum:
         attribute_levels:
           word_len: 0
 reward:
+  use_accuracy: false
   secondary_rewards:
+   - name: cosine
+     scaling_factor: 2
    - name: format
-     scaling_factor: 1
+     scaling_factor: 0.5
   
 data:
   tokenizer: null
@@ -122,8 +125,8 @@ algorithm:
 verbose: True
 trainer:
   balance_batch: True
-  total_epochs: 1
-  total_training_steps: 300
+  total_epochs: 5
+  total_training_steps: null
   project_name: rg-test
   experiment_name: verl_grpo_qwen_curr
   logger: [ 'console', 'wandb' ]
