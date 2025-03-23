@@ -17,7 +17,6 @@ pip install -e .
 ```bash
 pip install ray wandb
 pip install torch==2.6.0
-pip install flash-attn --no-build-isolation
 ```
 
 4. Install veRL (tested with HEAD c34206925e2a50fd452e474db857b4d488f8602d):
@@ -32,6 +31,11 @@ pip install -e .
 
 ```bash
 pip install -U vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
+
+```
+6. Install flash attention
+```
+pip install flash-attn --no-build-isolation
 ```
 
 6. Log in to HF and W&B:
