@@ -1,20 +1,15 @@
 # Adapted version of Bytedance code:
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
 
-import re
-import uuid
 import uuid
 
 import torch
 import numpy as np
-import numpy as np
 from omegaconf import OmegaConf, open_dict
 from torchdata.stateful_dataloader import StatefulDataLoader
 from reward import reward_registry
-from reward import reward_registry
 from utils import ReasoningGymDataset
 from verl import DataProto
-from verl.trainer.ppo.ray_trainer import RayPPOTrainer, compute_advantage, apply_kl_penalty, _timer, compute_data_metrics, compute_timing_metrics
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer, compute_advantage, apply_kl_penalty, _timer, compute_data_metrics, compute_timing_metrics
 from verl.utils.dataset.rl_dataset import collate_fn
 
@@ -116,8 +111,6 @@ class RayGRPOTrainer(RayPPOTrainer):
             sequences_str = prompt_str + response_str
 
             index = data_item.non_tensor_batch["index"]
-
-            correctness_score = self._compute_correctness_score(
             correctness_score = self._compute_correctness_score(
                 solution_str=response_str,
                 index=index,
@@ -143,16 +136,12 @@ class RayGRPOTrainer(RayPPOTrainer):
                 total_reward += reward
 
             reward_tensor[i, valid_response_length - 1] = total_reward
-            reward_tensor[i, valid_response_length - 1] = total_reward
-
+            
             if num_printed < num_examine:
-                components = ", ".join([f"{k}={v:.2f}" for k, v in reward_components.items()])
                 components = ", ".join([f"{k}={v:.2f}" for k, v in reward_components.items()])
                 print(
                     f"(score={total_reward}, seq={sequences_str}, response={response_str})"
-                    f"(score={total_reward}, seq={sequences_str}, response={response_str})"
                 )
-                print(f"reward={total_reward:.2f} ({components})")
                 print(f"reward={total_reward:.2f} ({components})")
                 num_printed += 1
 

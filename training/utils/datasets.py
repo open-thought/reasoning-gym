@@ -7,7 +7,6 @@ from transformers import PreTrainedTokenizer
 from verl.utils.model import compute_position_id_with_mask
 
 from reasoning_gym.coaching.experiment import Experiment
-from reasoning_gym.coaching.experiment import Experiment
 from reasoning_gym.dataset import ProceduralDataset
 
 
@@ -15,8 +14,6 @@ class ReasoningGymDataset(Dataset):
     def __init__(
         self,
         tokenizer: PreTrainedTokenizer,
-        procedural_dataset: Optional[ProceduralDataset] = None,
-        experiment: Optional[Experiment] = None,
         procedural_dataset: Optional[ProceduralDataset] = None,
         experiment: Optional[Experiment] = None,
         developer_prompt: Optional[str] = None,
@@ -35,8 +32,6 @@ class ReasoningGymDataset(Dataset):
         ), "Only one of `procedural_dataset` or `experiment` may be provided"
 
         self.tokenizer = tokenizer
-        self.data = procedural_dataset or experiment.composite
-        self.experiment = experiment
         self.data = procedural_dataset or experiment.composite
         self.experiment = experiment
         self.developer_prompt = developer_prompt
@@ -69,7 +64,6 @@ class ReasoningGymDataset(Dataset):
 
         position_ids = compute_position_id_with_mask(attention_mask)
 
-        row_dict["data_source"] = "reasoning_gym"
         row_dict["data_source"] = "reasoning_gym"
         row_dict["input_ids"] = input_ids[0]
         row_dict["attention_mask"] = attention_mask[0]
