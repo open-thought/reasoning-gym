@@ -17,7 +17,7 @@ class SpellBackwardConfig:
     """Configuration for spelling words backward task generation"""
 
     min_word_len: int = 3  # Minimum word length
-    max_word_len: int = 3  # Maximum word length
+    max_word_len: int = 10  # Maximum word length
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
