@@ -21,7 +21,7 @@ reward:
      scaling_factor: 2
    - name: format
      scaling_factor: 0.5
-  
+
 data:
   tokenizer: null
   train_files: train.parquet

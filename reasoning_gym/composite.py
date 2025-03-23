@@ -46,13 +46,13 @@ class CompositeConfig:
         # Validate each dataset spec
         for ds in self.datasets:
             ds.validate()
-            
+
     def get_dataset_weight(self, dataset_name: str) -> float:
         """Get the weight for a specific dataset by name."""
         for ds in self.datasets:
             if ds.name == dataset_name:
                 return ds.weight
-                
+
         raise ValueError(f"Dataset '{dataset_name}' not found in composite configuration")
 
     @classmethod

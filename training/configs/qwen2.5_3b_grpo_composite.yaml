@@ -1,7 +1,7 @@
 reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
-  datasets:  
+  datasets:
     spell_backward:
       weight: 0.33
       config:
@@ -14,7 +14,7 @@ reasoning_gym:
             max_words: 20
     number_sorting:
         weight: 0.33
-        config: 
+        config:
             min_numbers: 5
             max_numbers: 10
             min_decimals: 0
@@ -41,7 +41,7 @@ reward:
      scaling_factor: 2
    - name: format
      scaling_factor: 0.5
-  
+
 data:
   tokenizer: null
   train_files: train.parquet

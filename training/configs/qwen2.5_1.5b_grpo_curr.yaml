@@ -15,7 +15,7 @@ curriculum:
       spell_backward:
         attribute_levels:
           word_len: 0
-  
+
 data:
   tokenizer: null
   train_files: train.parquet

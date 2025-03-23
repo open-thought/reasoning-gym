@@ -101,7 +101,7 @@ class CurriculumExperiment(Experiment):
         """Update difficulty levels based on performance metrics"""
         if method not in ["increment", "decrement"]:
             raise ValueError(f"Invalid method: {method}")
-        
+
         if method == "increment":
             self.curricula[dataset_name].increment_global_level()
         elif method == "decrement":

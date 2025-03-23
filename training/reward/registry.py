@@ -1,24 +1,27 @@
-from typing import Dict, Callable, Any
 import math
 import re
+from typing import Any, Callable, Dict
+
 
 class RewardRegistry:
     """Simple registry for secondary reward functions."""
-    
+
     def __init__(self):
         self.reward_functions = {}
-        
+
     def register(self, name: str):
         """Register a reward function."""
+
         def decorator(func):
             self.reward_functions[name] = func
             return func
+
         return decorator
-        
+
     def get(self, name: str):
         """Get a reward function by name."""
         return self.reward_functions.get(name)
-    
+
     def list_functions(self):
         """List available reward function names."""
         return list(self.reward_functions.keys())
@@ -36,7 +39,7 @@ def cosine_scaled_reward(solution_str, scaling_factor, **kwargs):
     max_value_correct = 1.0
     max_len = 1000
 
-    is_correct = kwargs.get('is_correct', False)
+    is_correct = kwargs.get("is_correct", False)
     gen_len = len(solution_str)
 
     # Apply cosine scaling based on length
@@ -77,17 +80,15 @@ def compute_format_reward(solution_str: str, scaling_factor: float = 0.2, **kwar
 def length_reward(solution_str, correctness_score, scaling_factor, **kwargs):
     """Reward length appropriately based on correctness."""
     epsilon = 1e-6
-    max_score = kwargs.get('max_score', 1.0)
-    max_output_length = kwargs.get('max_output_length', 1024)
-    
+    max_score = kwargs.get("max_score", 1.0)
+    max_output_length = kwargs.get("max_output_length", 1024)
+
     generation_len = len(solution_str)
     progress = min(generation_len / max_output_length, 1.0)
-    
+
     if correctness_score < max_score - epsilon:
         length_reward = (max_score - correctness_score) * progress
     else:
         length_reward = -progress
-    
+
     return length_reward * scaling_factor
-    
-    

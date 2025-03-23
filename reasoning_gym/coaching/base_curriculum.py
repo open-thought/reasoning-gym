@@ -239,9 +239,9 @@ class BaseCurriculum:
                     self.set_attr_level(attr_name, target_level)
             return True
         return False
-    
+
     def get_global_level(self) -> Optional[int]:
-        """ Get the global level of the curriculum."""
+        """Get the global level of the curriculum."""
         attr_dict = {}
         if not self._attributes:
             return 0
@@ -252,4 +252,3 @@ class BaseCurriculum:
             elif isinstance(attr, ScalarAttributeDefinition):
                 attr_dict[attr.field_name] = self.get_attr_value(attr_name)
         return attr_dict
-        

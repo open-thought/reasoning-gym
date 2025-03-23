@@ -118,7 +118,9 @@ class ScoreBoard:
     metadata: dict[str, list[dict[str, Any]]] = field(default_factory=dict)
     conversations: dict[str, list[Optional[list[dict]]]] = field(default_factory=dict)
 
-    def add_score(self, dataset_name: str, score: float, metadata: dict[str, Any], conversation: Optional[list[dict]] = None) -> None:
+    def add_score(
+        self, dataset_name: str, score: float, metadata: dict[str, Any], conversation: Optional[list[dict]] = None
+    ) -> None:
         """Add a new score entry with associated metadata and optional conversation
 
         Args:
@@ -182,25 +184,25 @@ class ScoreBoard:
 
         # Create a nested structure: dataset -> parameter groups -> scores
         result = {}
-        
+
         # Process each dataset
         for dataset_name, dataset_scores in self.scores.items():
             # Determine start index for this dataset
             dataset_len = len(dataset_scores)
             start_idx = max(0, dataset_len - last_n) if last_n is not None else 0
-            
+
             # Create OrderedDict for this dataset's parameter groupings
             dataset_groups = OrderedDict()
-            
+
             # Process scores for this dataset
             for i in range(start_idx, dataset_len):
                 # Get metadata for this score
                 metadata = self.metadata[dataset_name][i]
                 params = self._metadata_to_key(metadata)
-                
+
                 if params not in dataset_groups:
                     dataset_groups[params] = []
-                
+
                 dataset_groups[params].append(dataset_scores[i])
 
             # Create a GroupedScores object for this dataset
