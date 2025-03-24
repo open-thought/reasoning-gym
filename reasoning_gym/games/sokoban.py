@@ -4,8 +4,10 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "sokoban"
 
 
 @dataclass
@@ -65,7 +67,7 @@ class SokobanDataset(ProceduralDataset):
 
         # Make the Sokoban!
         rng = Random(self.seed + idx)
-        gamestr, solution, difficulty = self._generate(
+        gamestr, solution, puzzle_data = self._generate(
             rng=rng,
             min_w=self.config.min_w,
             min_h=self.config.min_h,
@@ -93,7 +95,17 @@ Here is your puzzle:
 """
             + gamestr,
             "answer": solution,
-            "metadata": {"gamestr": gamestr, "difficulty": difficulty},
+            "metadata": {
+                "gamestr": gamestr,
+                "width": puzzle_data["width"],
+                "height": puzzle_data["height"],
+                "difficulty": {
+                    "source_dataset": DATASET_NAME,
+                    "source_index": idx,
+                    "width": (self.config.min_w, self.config.max_w),
+                    "height": (self.config.min_h, self.config.max_h),
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -138,24 +150,18 @@ class SokobanCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="width",
                 levels=list(range(6, 11)),
-                default_level=0,
                 description="The width of the Sokoban board",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_w",
                 upper_field_name="max_w",
-                min_value=6,
             ),
             RangeAttributeDefinition(
                 name="height",
                 levels=list(range(6, 11)),
-                default_level=0,
                 description="The height of the Sokoban board",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_h",
                 upper_field_name="max_h",
-                min_value=6,
             ),
         )
 
 
-register_dataset("sokoban", SokobanDataset, SokobanConfig, SokobanCurriculum)
+register_dataset(DATASET_NAME, SokobanDataset, SokobanConfig, SokobanCurriculum)

@@ -2,9 +2,11 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 from .contrib.logic_puzzle.generate import generate_puzzle
+
+DATASET_NAME = "zebra_puzzles"
 
 
 @dataclass
@@ -51,6 +53,8 @@ class ZebraDataset(ProceduralDataset):
             "question": question,
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "difficulty": {"num_people": K, "num_characteristics": M},
             },
         }
@@ -81,22 +85,16 @@ class ZebraCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="num_people",
                 levels=list(range(2, 8)),
-                default_level=0,
                 description="The number of people in the Zebra puzzle",
-                attr_type=AttributeType.STATIC,
-                min_value=2,
                 field_name="num_people",
             ),
             ScalarAttributeDefinition(
                 name="num_characteristics",
                 levels=list(range(2, 8)),
-                default_level=0,
                 description="The number of characteristics in the Zebra puzzle",
-                attr_type=AttributeType.STATIC,
-                min_value=2,
                 field_name="num_characteristics",
             ),
         )
 
 
-register_dataset("zebra_puzzles", ZebraDataset, ZebraConfig, ZebraCurriculum)
+register_dataset(DATASET_NAME, ZebraDataset, ZebraConfig, ZebraCurriculum)

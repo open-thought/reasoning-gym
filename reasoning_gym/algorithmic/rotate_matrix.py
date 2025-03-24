@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to rotate it clockwise.
@@ -19,6 +19,8 @@ Your output should be a matrix in the same format as the input.
 Rotate the matrix below by {degrees} degrees clockwise:
 {matrix}
 """
+
+DATASET_NAME = "rotate_matrix"
 
 
 @dataclass
@@ -83,12 +85,15 @@ class RotateMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str, degrees=num_rotations * 90),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "num_rotations": num_rotations,
                 "solution": answer,
+                "n": n,
                 "difficulty": {
-                    "n": n,
-                    "num_rotations": num_rotations,
+                    "n": (self.config.min_n, self.config.max_n),
+                    "num_rotations": (self.config.min_rotations, self.config.max_rotations),
                 },
             },
         }
@@ -103,24 +108,18 @@ class RotateMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Size of the square matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             ),
             RangeAttributeDefinition(
                 name="num_rotations",
                 levels=[4, 8, 12, 16],
-                default_level=0,
                 description="Number of 90-degree rotations",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",
             ),
         )
 
 
-register_dataset("rotate_matrix", RotateMatrixDataset, RotateMatrixConfig, RotateMatrixCurriculum)
+register_dataset(DATASET_NAME, RotateMatrixDataset, RotateMatrixConfig, RotateMatrixCurriculum)

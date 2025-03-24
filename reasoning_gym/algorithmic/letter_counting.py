@@ -7,8 +7,10 @@ from typing import Optional
 
 from reasoning_gym.data import read_data_file
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "letter_counting"
 
 
 @dataclass
@@ -64,10 +66,14 @@ class LetterCountingDataset(ProceduralDataset):
             "question": f'How many times does the letter "{target_letter}" appear in the text: "{" ".join(span)}"?',
             "answer": str(count),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "span_length": span_length,
                 "target_letter": target_letter,
                 "span": span,
-                "difficulty": {"words": span_length},
+                "difficulty": {
+                    "words": (self.config.min_words, self.config.max_words),
+                },
             },
         }
 
@@ -81,14 +87,12 @@ class LetterCountingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words",
                 levels=[10, 50, 100, 1000],
-                default_level=1,
                 description="Number of words in the span",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("letter_counting", LetterCountingDataset, LetterCountingConfig, LetterCountingCurriculum)
+register_dataset(DATASET_NAME, LetterCountingDataset, LetterCountingConfig, LetterCountingCurriculum)

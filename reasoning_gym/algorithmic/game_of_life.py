@@ -5,8 +5,10 @@ from typing import Any, Optional
 
 import cellpylib as cpl
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "game_of_life"
 
 
 @dataclass
@@ -81,6 +83,8 @@ class GameOfLifeDataset(ProceduralDataset):
             ),
             "answer": result_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "grid_size_x": self.config.grid_size_x,
                 "grid_size_y": self.config.grid_size_y,
                 "filled_cells": self.config.filled_cells,
@@ -163,40 +167,28 @@ class GameOfLifeCurriculum(BaseCurriculum):
                 name="grid_size_x",
                 field_name="grid_size_x",
                 levels=[10, 100, 500, 999],
-                default_level=0,
                 description="Grid size in the x direction",
-                attr_type=AttributeType.STATIC,
-                min_value=10,
             ),
             ScalarAttributeDefinition(
                 name="grid_size_y",
                 field_name="grid_size_y",
                 levels=[10, 100, 500, 999],
-                default_level=0,
                 description="Grid size in the y direction",
-                attr_type=AttributeType.STATIC,
-                min_value=-10,
             ),
             # Filled cells should be 10%, 20%, 30%, 50% of the grid_size_x * grid_size_y
             ScalarAttributeDefinition(
                 name="filled_cells_weights",
                 field_name="filled_cells_weights",
                 levels=[0.1, 0.2, 0.5, 0.8],
-                default_level=0,
                 description="Percentage of filled cells in the grid",
-                attr_type=AttributeType.STATIC,
-                min_value=0.1,
             ),
             ScalarAttributeDefinition(
                 name="simulation_steps",
                 field_name="simulation_steps",
                 levels=[1, 2, 5, 10],
-                default_level=0,
                 description="Number of simulation steps to run",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
         )
 
 
-register_dataset("game_of_life", GameOfLifeDataset, GameOfLifeConfig, GameOfLifeCurriculum)
+register_dataset(DATASET_NAME, GameOfLifeDataset, GameOfLifeConfig, GameOfLifeCurriculum)

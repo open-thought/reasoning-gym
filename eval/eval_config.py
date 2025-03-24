@@ -55,6 +55,7 @@ class EvalConfig:
     default_seed: Optional[int] = None  # Default random seed if not specified for a dataset
     save_metadata: bool = False  # Whether to include dataset entry metadata in results
     save_full_results: bool = False  # Whether to save the full results file
+    completions_per_prompt: int = 1  # Number of completions to generate per prompt
     # Sampling parameters
     max_tokens: Optional[int] = 32768  # Maximum number of tokens to generate
     temperature: Optional[float] = 0.6  # Sampling temperature (higher = more random)
@@ -175,5 +176,6 @@ class EvalConfig:
             max_tokens=config_data.get("max_tokens", 32768),
             temperature=config_data.get("temperature", 0.6),
             top_p=config_data.get("top_p", 0.95),
+            completions_per_prompt=config_data.get("completions_per_prompt", 1),
             categories=categories,
         )

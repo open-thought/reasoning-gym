@@ -5,8 +5,10 @@ from typing import Any, Optional
 
 from sympy import Eq, Symbol, expand, solve
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "polynomial_equations"
 
 
 @dataclass
@@ -120,11 +122,17 @@ In solving equations, please follow these instructions:
             "question": question,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "polynomial_expr": str(polynomial_expanded),
                 "variable": variable,
                 "degree": degree,
                 "real_solutions": real_solutions,
-                "difficulty": {"terms": num_terms, "degree": degree},
+                "num_terms": num_terms,
+                "difficulty": {
+                    "terms": (self.config.min_terms, self.config.max_terms),
+                    "degree": (self.config.min_degree, self.config.max_degree),
+                },
             },
         }
 
@@ -277,9 +285,6 @@ class PolynomialEquationsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="degree",
                 levels=[1, 2, 3, 4],
-                default_level=0,
-                min_value=1,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_degree",
                 upper_field_name="max_degree",
                 description="The degree of the polynomial equation",
@@ -287,9 +292,6 @@ class PolynomialEquationsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="terms",
                 levels=[2, 3, 4, 5],
-                default_level=0,
-                min_value=2,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
                 description="The number of terms in the polynomial equation",
@@ -297,6 +299,4 @@ class PolynomialEquationsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "polynomial_equations", PolynomialEquationsDataset, PolynomialEquationsConfig, PolynomialEquationsCurriculum
-)
+register_dataset(DATASET_NAME, PolynomialEquationsDataset, PolynomialEquationsConfig, PolynomialEquationsCurriculum)

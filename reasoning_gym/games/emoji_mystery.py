@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -152,6 +152,8 @@ Decode the following sentence from the emoji: {sentence}
 Return the secret sentence as your final answer.
 """
 
+DATASET_NAME = "emoji_mystery"
+
 
 @dataclass
 class EmojiMysteryConfig:
@@ -193,8 +195,13 @@ class EmojiMysteryDataset(ProceduralDataset):
             "question": question,
             "answer": secret_sentence,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "emoji": secret_emoji,
-                "difficulty": {"num_words_in_sentence": len(re.findall(r"\b\w+\b", secret_sentence))},
+                "num_words_in_sentence": len(re.findall(r"\b\w+\b", secret_sentence)),
+                "difficulty": {
+                    "num_words_in_sentence": (self.config.min_words_in_sentence, self.config.max_words_in_sentence),
+                },
             },
         }
 
@@ -249,14 +256,11 @@ class EmojiMysteryCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_words_in_sentence",
                 levels=[3, 10, 20, 35],
-                default_level=0,
                 description="Number of words in the sentence",
-                attr_type=AttributeType.STATIC,
-                min_value=3,
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",
             ),
         )
 
 
-register_dataset("emoji_mystery", EmojiMysteryDataset, EmojiMysteryConfig, EmojiMysteryCurriculum)
+register_dataset(DATASET_NAME, EmojiMysteryDataset, EmojiMysteryConfig, EmojiMysteryCurriculum)

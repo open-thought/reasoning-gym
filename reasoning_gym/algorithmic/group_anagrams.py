@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
@@ -25,6 +25,8 @@ The output is a list of lists of strings, where each outer list contains a group
 Group the following list of words into anagrams:
 {words}
 """
+
+DATASET_NAME = "group_anagrams"
 
 
 @dataclass
@@ -115,10 +117,14 @@ class GroupAnagramsDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(words=json.dumps(words)),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "words": words,
                 "solution": answer,
+                "anagram_groups": anagram_groups,
                 "difficulty": {
-                    "anagram_groups": anagram_groups,
+                    "anagram_groups": (self.config.min_anagram_groups, self.config.max_anagram_groups),
+                    "words_per_group": (self.config.min_words_per_group, self.config.max_words_per_group),
                 },
             },
         }
@@ -133,24 +139,18 @@ class GroupAnagramsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="anagram_groups",
                 levels=[10, 100, 1_000, 10_000],
-                default_level=0,
                 description="Number of anagram groups in the input",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_anagram_groups",
                 upper_field_name="max_anagram_groups",
             ),
             RangeAttributeDefinition(
                 name="words_per_group",
                 levels=[2, 5, 10, 20],
-                default_level=0,
                 description="Number of words in a single anagram group",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_words_per_group",
                 upper_field_name="max_words_per_group",
             ),
         )
 
 
-register_dataset("group_anagrams", GroupAnagramsDataset, GroupAnagramsConfig, GroupAnagramsCurriculum)
+register_dataset(DATASET_NAME, GroupAnagramsDataset, GroupAnagramsConfig, GroupAnagramsCurriculum)

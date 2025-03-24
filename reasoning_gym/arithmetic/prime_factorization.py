@@ -5,8 +5,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "prime_factorization"
 
 
 @dataclass
@@ -83,7 +85,15 @@ class PrimeFactorizationDataset(ProceduralDataset):
                 f"(Example: for 12 the answer would be: 2 × 2 × 3)"
             ),
             "answer": answer,
-            "metadata": {"number": number, "factors": factors, "difficulty": {"value": number}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "number": number,
+                "factors": factors,
+                "difficulty": {
+                    "value": (self.config.min_value, self.config.max_value),
+                },
+            },
         }
 
 
@@ -96,16 +106,12 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="value",
                 levels=[10, 1_000, 10_000, 50_000],
-                default_level=1,
                 description="Number to factorize",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             )
         )
 
 
-register_dataset(
-    "prime_factorization", PrimeFactorizationDataset, PrimeFactorizationConfig, PrimeFactorizationCurriculum
-)
+register_dataset(DATASET_NAME, PrimeFactorizationDataset, PrimeFactorizationConfig, PrimeFactorizationCurriculum)

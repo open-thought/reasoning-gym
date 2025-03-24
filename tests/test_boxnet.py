@@ -43,8 +43,8 @@ def test_boxnet_items():
         assert "initial_state" in item["metadata"]
 
         # Verify row_num and column_num are within limits
-        row_num = item["metadata"]["difficulty"]["row_num"]
-        column_num = item["metadata"]["difficulty"]["column_num"]
+        row_num = item["metadata"]["row_num"]
+        column_num = item["metadata"]["column_num"]
         assert 1 <= row_num <= 2, f"row_num {row_num} outside valid range"
         assert 1 <= column_num <= 2, f"column_num {column_num} outside valid range"
 
@@ -78,8 +78,8 @@ def test_boxnet_grid_sizes():
 
     for i in range(len(dataset)):
         item = dataset[i]
-        row_num = item["metadata"]["difficulty"]["row_num"]
-        column_num = item["metadata"]["difficulty"]["column_num"]
+        row_num = item["metadata"]["row_num"]
+        column_num = item["metadata"]["column_num"]
 
         rows_set.add(row_num)
         columns_set.add(column_num)

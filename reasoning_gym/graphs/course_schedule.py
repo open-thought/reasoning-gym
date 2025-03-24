@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There are a total of {num_courses} courses you have to take, labeled from 0 to {last_index}.
@@ -20,6 +20,8 @@ You are given the following list of prerequisites, where prerequisites[i] = (a_i
 
 Return True if you can finish all courses considering the prerequisites, or False otherwise.
 """
+
+DATASET_NAME = "course_schedule"
 
 
 @dataclass
@@ -132,11 +134,17 @@ class CourseScheduleDataset(ProceduralDataset):
             ),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "courses": courses,
                 "prerequisites": prerequisites,
                 "solution": answer,
                 "solvable": solvable,
-                "difficulty": {"num_courses": num_courses},
+                "difficulty": {
+                    "num_courses": (self.config.min_num_courses, self.config.max_num_courses),
+                    "num_prerequisites": (self.config.min_num_prerequisites, self.config.max_num_prerequisites),
+                    "cycle_length": (self.config.min_cycle_length, self.config.max_cycle_length),
+                },
             },
         }
 
@@ -152,8 +160,6 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 levels=[10, 50, 100, 500],
                 default_level=0,  # Start with 5 courses
                 description="Number of courses in the schedule",
-                attr_type=AttributeType.APPEND,
-                min_value=3,  # Ensure at least 3 courses
                 lower_field_name="min_num_courses",
                 upper_field_name="max_num_courses",
             ),
@@ -162,8 +168,6 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 levels=[2, 3, 4, 5],
                 default_level=0,  # Start with 2 prerequisites max
                 description="Number of prerequisites per course",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_num_prerequisites",
                 upper_field_name="max_num_prerequisites",
             ),
@@ -172,12 +176,10 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 levels=[3, 4, 5, 6],
                 default_level=0,  # Start with 3 cycle length
                 description="Length of a cycle in the prerequisites",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_cycle_length",
                 upper_field_name="max_cycle_length",
             ),
         )
 
 
-register_dataset("course_schedule", CourseScheduleDataset, CourseScheduleConfig, CourseScheduleCurriculum)
+register_dataset(DATASET_NAME, CourseScheduleDataset, CourseScheduleConfig, CourseScheduleCurriculum)

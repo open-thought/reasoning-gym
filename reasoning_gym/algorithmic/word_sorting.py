@@ -6,7 +6,7 @@ from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -26,6 +26,8 @@ Your output should be a comma-separated list of words, e.g. word_1, word_2, word
 
 Now, sort these words in {direction} order (using ASCII/Unicode ordering) and return them as a comma-separated list: {words}
 """
+
+DATASET_NAME = "word_sorting"
 
 
 @dataclass
@@ -106,14 +108,18 @@ class WordSortingDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(direction=direction, words=", ".join(transformed_words)),
             "answer": ", ".join(answer),
             "metadata": {
-                "difficulty": {
-                    "num_words": len(original_words),
-                    "word_length": max(len(word) for word in original_words),
-                },
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "original_words": original_words,
                 "sorted_words": answer,
                 "transformed_words": transformed_words,
                 "direction": direction,
+                "num_words": len(original_words),
+                "word_length": max(len(word) for word in original_words),
+                "difficulty": {
+                    "num_words": (self.config.min_words, self.config.max_words),
+                    "word_length": (self.config.min_word_length, self.config.max_word_length),
+                },
             },
         }
 
@@ -137,24 +143,18 @@ class WordSortingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_words",
                 levels=[5, 10, 20, 30],
-                default_level=0,
                 description="Number of words to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=5,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             ),
             RangeAttributeDefinition(
                 name="word_length",
                 levels=[3, 6, 9, 12],
-                default_level=0,
                 description="Length of words to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
             ),
         )
 
 
-register_dataset("word_sorting", WordSortingDataset, WordSortingConfig)
+register_dataset(DATASET_NAME, WordSortingDataset, WordSortingConfig)

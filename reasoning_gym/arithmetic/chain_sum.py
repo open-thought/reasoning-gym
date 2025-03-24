@@ -4,8 +4,10 @@ from typing import Any, Optional
 
 from reasoning_gym import utils
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "chain_sum"
 
 
 @dataclass
@@ -64,11 +66,15 @@ class ChainSumDataset(ProceduralDataset):
             "question": f"State the final answer to the following arithmetic problem: {expression} =",
             "answer": str(result),
             "metadata": {
-                "difficulty": {
-                    "num_terms": num_terms,
-                    "num_digits": num_digits,
-                },
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "num_terms": num_terms,
+                "num_digits": num_digits,
                 "expression": expression,
+                "difficulty": {
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
+                    "num_digits": (self.config.min_digits, self.config.max_digits),
+                },
             },
         }
 
@@ -126,8 +132,6 @@ class ChainSumCurriculum(BaseCurriculum):
                 levels=list(range(2, 13)),
                 default_level=0,  # Start with 2 terms
                 description="Maximum number of terms in the expression",
-                attr_type=AttributeType.APPEND,
-                min_value=2,  # Ensure at least 2 terms
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
             ),
@@ -136,8 +140,6 @@ class ChainSumCurriculum(BaseCurriculum):
                 levels=list(range(1, 11)),
                 default_level=0,  # Start with 1-digit numbers
                 description="Number of digits in each operand",
-                attr_type=AttributeType.APPEND,
-                min_value=1,  # Ensure numbers are at least 1 digit
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",
             ),
@@ -145,4 +147,4 @@ class ChainSumCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("chain_sum", ChainSumDataset, ChainSumConfig, ChainSumCurriculum)
+register_dataset(DATASET_NAME, ChainSumDataset, ChainSumConfig, ChainSumCurriculum)

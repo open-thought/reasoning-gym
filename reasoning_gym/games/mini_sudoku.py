@@ -5,8 +5,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "mini_sudoku"
 
 
 @dataclass
@@ -193,11 +195,13 @@ class MiniSudokuDataset(ProceduralDataset):
             "question": question,
             "answer": solution_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "solution": solved_board,
                 "num_empty": num_empty,
                 "difficulty": {
-                    "empty": num_empty,
+                    "empty": (self.config.min_empty, self.config.max_empty),
                 },
             },
         }
@@ -249,14 +253,12 @@ class MiniSudokuCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="empty",
                 levels=[4, 6, 8, 10],
-                default_level=1,
                 description="Number of empty cells in the puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_empty",
                 upper_field_name="max_empty",
+                ensure_interval=True,
             )
         )
 
 
-register_dataset("mini_sudoku", MiniSudokuDataset, MiniSudokuConfig, MiniSudokuCurriculum)
+register_dataset(DATASET_NAME, MiniSudokuDataset, MiniSudokuConfig, MiniSudokuCurriculum)

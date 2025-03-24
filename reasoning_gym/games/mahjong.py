@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There are several letter cards, and the game rules are as follows:
@@ -25,6 +25,8 @@ Your output should be one of the following: "Peng", "Chi", or "Pass" (without qu
 Now, given the initial cards {cards}, what is the result at the end of performing the following rounds of operations:
 {operations}
 """
+
+DATASET_NAME = "mahjong_puzzle"
 
 
 @dataclass
@@ -120,9 +122,13 @@ class MahjongPuzzleDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(cards=cards, operations=operations),
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "rounds": rounds,
                 "solution": answer,
-                "difficulty": {"num_rounds": num_rounds},
+                "difficulty": {
+                    "num_rounds": (self.config.min_num_rounds, self.config.max_num_rounds),
+                },
             },
         }
 
@@ -136,14 +142,11 @@ class MahjongPuzzleCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_rounds",
                 levels=[10, 50, 100, 500],
-                default_level=0,
                 description="Number of rounds in the game",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_num_rounds",
                 upper_field_name="max_num_rounds",
             )
         )
 
 
-register_dataset("mahjong_puzzle", MahjongPuzzleDataset, MahjongPuzzleConfig, MahjongPuzzleCurriculum)
+register_dataset(DATASET_NAME, MahjongPuzzleDataset, MahjongPuzzleConfig, MahjongPuzzleCurriculum)

@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There are nine different blocks [A] [B] [C] {{A}} {{B}} {{C}} (A) (B) (C)
@@ -27,6 +27,9 @@ For example 1 0 3 0 2 0 0 0 1 means that you have 1 [A] 0 [B] 3 [C] 0 {{A}} 2 {{
 Now, you have {A_square} [A], {B_square} [B], and {C_square} [C] blocks. Provide the count of each block type after applying the above rules.
 Note: Apply the rules at most {max_iterations} times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts.
 """
+
+
+DATASET_NAME = "string_synthesis"
 
 
 @dataclass
@@ -130,10 +133,13 @@ class StringSynthesisDataset(ProceduralDataset):
             ),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "states": states,
                 "solution": answer,
+                "initial_blocks": (A_square, B_square, C_square),
                 "difficulty": {
-                    "initial_blocks": (A_square, B_square, C_square),
+                    "initial_blocks": (self.config.min_initial_blocks, self.config.max_initial_blocks),
                 },
             },
         }
@@ -148,14 +154,12 @@ class StringSynthesisCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="initial_blocks",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of initial blocks",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_initial_blocks",
                 upper_field_name="max_initial_blocks",
+                ensure_interval=True,
             )
         )
 
 
-register_dataset("string_synthesis", StringSynthesisDataset, StringSynthesisConfig, StringSynthesisCurriculum)
+register_dataset(DATASET_NAME, StringSynthesisDataset, StringSynthesisConfig, StringSynthesisCurriculum)

@@ -2,8 +2,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "bitwise_arithmetic"
 
 
 @dataclass
@@ -155,7 +157,12 @@ class BitwiseArithmeticDataset(ProceduralDataset):
         return {
             "question": problem_str,
             "answer": answer,
-            "metadata": {"problem": problem, "difficulty": {"difficulty": self.config.difficulty}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "problem": problem,
+                "difficulty": {"difficulty": self.config.difficulty},
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -186,14 +193,11 @@ class BitwiseArithmeticCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="difficulty",
                 levels=[1, 2, 3, 4],
-                default_level=0,
                 description="Range of difficulty levels",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="difficulty",
             ),
         )
 
 
 # Register the dataset with the factory.
-register_dataset("bitwise_arithmetic", BitwiseArithmeticDataset, BitwiseArithmeticConfig, BitwiseArithmeticCurriculum)
+register_dataset(DATASET_NAME, BitwiseArithmeticDataset, BitwiseArithmeticConfig, BitwiseArithmeticCurriculum)

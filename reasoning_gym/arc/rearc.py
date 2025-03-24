@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from random import Random
 from typing import Any, Callable, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 from .board_format import ARC_PROMPT_TEMPLATE, BoardFormattingOptions, format_board, format_board_pair, parse_board
 
@@ -15,6 +15,8 @@ PSO_DIFFICULTY_LEVELS = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 1]
 PSO_DIFFICULTY_RANGES = [
     (PSO_DIFFICULTY_LEVELS[i], PSO_DIFFICULTY_LEVELS[i + 1]) for i in range(len(PSO_DIFFICULTY_LEVELS) - 1)
 ]
+
+DATASET_NAME = "rearc"
 
 
 @dataclass
@@ -114,12 +116,16 @@ class ReArcDataset(ProceduralDataset):
             "question": input_prompt,
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "input": task["input"],
                 "output": task["output"],
                 "task_id": task_id,
+                "rng": rng_difficulty,
+                "pso": pso_difficulty,
                 "difficulty": {
-                    "rng": rng_difficulty,
-                    "pso": pso_difficulty,
+                    "rng_difficulty": self.config.rng_difficulty_weights,
+                    "pso_difficulty": self.config.pso_difficulty_weights,
                 },
             },
         }
@@ -147,7 +153,6 @@ class ReArcCurriculum(BaseCurriculum):
                 name="pso_difficulty",
                 field_name="pso_difficulty_weights",
                 description="The range of PSO difficulty for the Arc problem",
-                default_level=0,
                 levels=[
                     [1, 0, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs PSO difficulty
                     [0, 1, 0, 0, 0, 0, 0, 0],
@@ -163,7 +168,6 @@ class ReArcCurriculum(BaseCurriculum):
                 name="rng_difficulty",
                 field_name="rng_difficulty_weights",
                 description="The range of RNG difficulty for the Arc problem",
-                default_level=0,
                 levels=[
                     [1, 0, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs RNG difficulty
                     [0, 1, 0, 0, 0, 0, 0, 0],
@@ -178,4 +182,4 @@ class ReArcCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("rearc", ReArcDataset, ReArcConfig, ReArcCurriculum)
+register_dataset(DATASET_NAME, ReArcDataset, ReArcConfig, ReArcCurriculum)

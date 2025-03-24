@@ -4,8 +4,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "number_filtering"
 
 
 @dataclass
@@ -91,12 +93,15 @@ class NumberFilteringDataset(ProceduralDataset):
             ),
             "answer": str(result_strs) if result_strs else "[]",
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "original_numbers": str_numbers,
                 "filter_value": filter_str,
                 "operation": f"{keep_remove}_{larger_smaller}",
                 "result": result_strs,
+                "numbers": len(numbers),
                 "difficulty": {
-                    "numbers": len(numbers),
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "decimals": (self.config.min_decimals, self.config.max_decimals),
                     "value": (self.config.min_value, self.config.max_value),
                 },
@@ -113,34 +118,28 @@ class NumberFilteringCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="numbers",
                 levels=[10, 100, 500, 1000],
-                default_level=1,
                 description="How many numbers to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="decimals",
                 levels=[0, 2, 4, 6],
-                default_level=1,
                 description="Number of decimal places",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_decimals",
                 upper_field_name="max_decimals",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="value",
                 levels=[-10_000, 10_000],
-                default_level=1,
                 description="Range of numbers to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=-10_000,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("number_filtering", NumberFilteringDataset, NumberFilteringConfig, NumberFilteringCurriculum)
+register_dataset(DATASET_NAME, NumberFilteringDataset, NumberFilteringConfig, NumberFilteringCurriculum)

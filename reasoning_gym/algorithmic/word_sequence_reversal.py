@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
 
@@ -15,6 +15,9 @@ Provide you answer as a comma-separated list of words with a space after the com
 
 Reverse this list of words: {words}
 """
+
+
+DATASET_NAME = "word_sequence_reversal"
 
 
 @dataclass
@@ -62,7 +65,15 @@ class WordSequenceReversalDataset(ProceduralDataset):
         return {
             "question": f"{QUESTION_TEMPLATE.format(words=words_str)}",
             "answer": answer,
-            "metadata": {"num_words": num_words, "words": words, "difficulty": {"words": num_words}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "num_words": num_words,
+                "words": words,
+                "difficulty": {
+                    "words": (self.config.min_words, self.config.max_words),
+                },
+            },
         }
 
 
@@ -75,16 +86,12 @@ class WordSequenceReversalCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of words in the list",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset(
-    "word_sequence_reversal", WordSequenceReversalDataset, WordSequenceReversalConfig, WordSequenceReversalCurriculum
-)
+register_dataset(DATASET_NAME, WordSequenceReversalDataset, WordSequenceReversalConfig, WordSequenceReversalCurriculum)

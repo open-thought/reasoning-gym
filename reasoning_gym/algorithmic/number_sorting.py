@@ -1,11 +1,14 @@
 """Number sorting task generator"""
 
+import json
 from dataclasses import dataclass
 from random import Random
-from typing import Optional
+from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "number_sorting"
 
 
 @dataclass
@@ -89,16 +92,81 @@ Please follow the instruction below:
             "question": question,
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "original_numbers": number_strs,
                 "direction": direction,
                 "sorted_numbers": answer,
+                "numbers": count,
                 "difficulty": {
-                    "numbers": count,
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "decimals": (self.config.min_decimals, self.config.max_decimals),
                     "value": (self.config.min_value, self.config.max_value),
                 },
             },
         }
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        """Score the user's answer against the expected answer.
+
+        Args:
+            answer (Optional[str]): The user's answer string.
+            entry (dict[str, Any]): The original dataset entry with the correct answer.
+
+        Returns:
+            float: 1.0 for a correct answer, 0.0 for incorrect.
+        """
+        if answer is None:
+            return 0.0
+
+        try:
+            # Try to parse the user's answer as a JSON list first
+            try:
+                answer = answer.replace("'", '"')
+                user_answer = json.loads(answer)
+            except json.JSONDecodeError:
+                return 0.0  # JSON parsing failed
+
+            if not isinstance(user_answer, list):
+                return 0.0
+
+            # Get the expected answer
+            try:
+                expected_answer = json.loads(entry["answer"])
+            except json.JSONDecodeError:
+                # Fall back to eval if necessary
+                expected_answer = eval(entry["answer"])
+
+            # Check if the lists have the same length
+            if len(user_answer) != len(expected_answer):
+                return 0.0
+
+            # Convert both answers to floats for comparison
+            user_floats = [float(num) for num in user_answer]
+            expected_floats = [float(num) for num in expected_answer]
+
+            # First, verify the user's answer is properly sorted
+            direction = entry["metadata"]["direction"]
+            is_correctly_sorted = False
+
+            if direction == "ascending":
+                is_correctly_sorted = user_floats == sorted(user_floats)
+            else:  # descending
+                is_correctly_sorted = user_floats == sorted(user_floats, reverse=True)
+
+            if not is_correctly_sorted:
+                return 0.0
+
+            # Check if the values are close enough (allowing for small rounding differences)
+            tolerance = 0.1  # Increased tolerance to handle decimal differences
+            for i in range(len(user_floats)):
+                if abs(user_floats[i] - expected_floats[i]) > tolerance:
+                    return 0.0
+
+            return 1.0
+        except Exception:
+            # Any parsing error means the answer is incorrect
+            return 0.0
 
 
 class NumberSortingCurriculum(BaseCurriculum):
@@ -110,34 +178,28 @@ class NumberSortingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="numbers",
                 levels=[10, 100, 500, 1000],
-                default_level=1,
                 description="How many numbers to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="decimals",
                 levels=[0, 2, 4, 6],
-                default_level=1,
                 description="Number of decimal places",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_decimals",
                 upper_field_name="max_decimals",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="value",
                 levels=[-10_000, 10_000],
-                default_level=1,
                 description="Range of numbers to sort",
-                attr_type=AttributeType.APPEND,
-                min_value=-10_000,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("number_sorting", NumberSortingDataset, NumberSortingConfig, NumberSortingCurriculum)
+register_dataset(DATASET_NAME, NumberSortingDataset, NumberSortingConfig, NumberSortingCurriculum)

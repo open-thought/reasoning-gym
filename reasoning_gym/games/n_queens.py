@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 MIN_BOARD_SIZE = 4
@@ -26,6 +26,8 @@ Your output should be also a board in the same format as the input, with queens 
 Given the below board of size {n} x {n} your job is to place {num_removed} queen(s) on the board such that no two queens attack each other.
 {puzzle}
 """
+
+DATASET_NAME = "n_queens"
 
 
 @dataclass
@@ -131,13 +133,15 @@ class NQueensDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(puzzle=puzzle_str, n=len(puzzle), num_removed=num_removed),
             "answer": rng.choice(valid_solutions_str),  # choose arbitary answer (e.g. for SFT)
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "solutions": valid_solutions,
                 "num_removed": num_removed,
                 "valid_answers": valid_solutions_str,
                 "difficulty": {
                     "n": self.config.n,
-                    "num_removed": num_removed,
+                    "num_removed": (self.config.min_remove, self.config.max_remove),
                 },
             },
         }
@@ -165,22 +169,16 @@ class NQueensCurriculum(BaseCurriculum):
                 name="n",
                 field_name="n",
                 levels=[4, 6, 8, 12],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.STATIC,
-                min_value=4,
             ),
             RangeAttributeDefinition(
                 name="num_removed",
                 levels=[2, 4, 6, 10],
-                default_level=0,
                 description="Number of queens to remove",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_remove",
                 upper_field_name="max_remove",
             ),
         )
 
 
-register_dataset("n_queens", NQueensDataset, NQueensConfig, NQueensCurriculum)
+register_dataset(DATASET_NAME, NQueensDataset, NQueensConfig, NQueensCurriculum)

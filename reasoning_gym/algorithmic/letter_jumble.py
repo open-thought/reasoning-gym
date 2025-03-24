@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 from reasoning_gym.data import read_data_file
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to unsramble words in a sentence.
@@ -20,6 +20,9 @@ Your output should be a sentence with the words unscrambled.
 
 Now, unscramble these words: {words}
 """
+
+
+DATASET_NAME = "letter_jumble"
 
 
 @dataclass
@@ -104,14 +107,16 @@ class LetterJumbleDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(words=" ".join(scrambled_words)),
             "answer": " ".join(selected_words),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num_words": num_words,
                 "corruption_level": corruption_level,
                 "scrambled_words": scrambled_words,
                 "original_words": selected_words,
                 "difficulty": {
                     "word_len": (self.config.min_word_len, self.config.max_word_len),
-                    "words": num_words,
-                    "corruption_level": corruption_level,
+                    "words": (self.config.min_words, self.config.max_words),
+                    "corruption_level": (self.config.min_corruption_level, self.config.max_corruption_level),
                 },
             },
         }
@@ -169,34 +174,28 @@ class LetterJumbleCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_len",
                 levels=[5, 15, 30, 50],
-                default_level=1,
                 description="Word length",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="words",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of words",
-                attr_type=AttributeType.APPEND,
-                min_value=5,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="corruption_level",
                 levels=[0.1, 0.3, 0.6, 0.9],
-                default_level=1,
                 description="Corruption level",
-                attr_type=AttributeType.APPEND,
-                min_value=0.0,
                 lower_field_name="min_corruption_level",
                 upper_field_name="max_corruption_level",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("letter_jumble", LetterJumbleDataset, LetterJumbleConfig, LetterJumbleCurriculum)
+register_dataset(DATASET_NAME, LetterJumbleDataset, LetterJumbleConfig, LetterJumbleCurriculum)

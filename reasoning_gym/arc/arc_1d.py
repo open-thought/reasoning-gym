@@ -6,6 +6,8 @@ from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
 from ..dataset import ProceduralDataset
 from ..factory import register_dataset
 
+DATASET_NAME = "arc_1d"
+
 
 @dataclass
 class Arc1DConfig:
@@ -101,6 +103,8 @@ class Arc1DDataset(ProceduralDataset):
             "question": question,
             "answer": " ".join(str(x) for x in test_example["output"]),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "task_name": task_name,
                 "size": size,
                 "train_examples": train_examples,
@@ -153,4 +157,4 @@ class Arc1DCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("arc_1d", Arc1DDataset, Arc1DConfig, Arc1DCurriculum)
+register_dataset(DATASET_NAME, Arc1DDataset, Arc1DConfig, Arc1DCurriculum)

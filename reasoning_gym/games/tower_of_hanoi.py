@@ -6,7 +6,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Solve the Tower of Hanoi problem with {num_disks} disks and {num_pegs} pegs.
@@ -22,6 +22,8 @@ Formatting guidelines:
 - Each line should be formatted as 'Move disk X from Peg Y to Peg Z'
 - Do not include any other text or formatting.
 """
+
+DATASET_NAME = "tower_of_hanoi"
 
 
 @dataclass
@@ -269,12 +271,17 @@ class HanoiDataset(ProceduralDataset):
             ),
             "answer": "\n".join(solution),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num_disks": num_disks,
                 "num_pegs": num_pegs,
                 "start_peg": start_peg,
                 "target_peg": target_peg,
                 "auxiliary_pegs": auxiliary_pegs,
                 "solution_length": len(solution),
+                "difficulty": {
+                    "num_disks": (self.min_disks, self.max_disks),
+                },
             },
         }
 
@@ -440,9 +447,7 @@ class HanoiCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_disks",
                 levels=[3, 4, 5, 7],
-                default_level=0,
                 min_disks=3,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_disks",
                 upper_field_name="max_disks",
                 description="Number of disks in the puzzle",
@@ -451,4 +456,4 @@ class HanoiCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("tower_of_hanoi", HanoiDataset, HanoiConfig, HanoiCurriculum)
+register_dataset(DATASET_NAME, HanoiDataset, HanoiConfig, HanoiCurriculum)

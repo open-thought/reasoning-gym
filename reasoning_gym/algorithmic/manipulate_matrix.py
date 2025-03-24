@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """For the following matrix:
@@ -17,6 +17,8 @@ Perform the following series of operations in order:
 - Identity transformation, i.e. no change
 {operations}
 """
+
+DATASET_NAME = "manipulate_matrix"
 
 
 def num_rows(matrix: list[list[int]]) -> int:
@@ -306,13 +308,18 @@ class ManipulateMatrixDataset(ProceduralDataset):
             ),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
                 "operations": operations,
+                "rows": rows,
+                "cols": cols,
+                "num_transforms": num_transforms,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
-                    "num_transforms": num_transforms,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
+                    "num_transforms": (self.config.min_transforms, self.config.max_transforms),
                 },
             },
         }
@@ -327,34 +334,25 @@ class ManipulateMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rows",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of rows in the matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
             ),
             RangeAttributeDefinition(
                 name="cols",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of columns in the matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
             ),
             RangeAttributeDefinition(
                 name="num_transforms",
                 levels=[5, 10, 20, 30],
-                default_level=0,
                 description="Number of transformations to apply",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_transforms",
                 upper_field_name="max_transforms",
             ),
         )
 
 
-register_dataset("manipulate_matrix", ManipulateMatrixDataset, ManipulateMatrixConfig, ManipulateMatrixCurriculum)
+register_dataset(DATASET_NAME, ManipulateMatrixDataset, ManipulateMatrixConfig, ManipulateMatrixCurriculum)

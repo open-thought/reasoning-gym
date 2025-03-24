@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 BOXNET_PROMPT = """
@@ -35,6 +35,8 @@ For example:
 ```
 Include an agent in the action plan only if it has a task to perform next.
 """
+
+DATASET_NAME = "boxnet"
 
 
 def action_from_response(pg_dict_input, original_response_dict_list):
@@ -126,11 +128,16 @@ class BoxnetDataset(ProceduralDataset):
             "question": question,
             "answer": None,
             "metadata": {
-                "difficulty": {
-                    "row_num": row_num,
-                    "column_num": column_num,
-                },
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "row_num": row_num,
+                "column_num": column_num,
                 "initial_state": pg_dict,
+                "difficulty": {
+                    "row_num": (self.config.min_row_num, self.config.max_row_num),
+                    "column_num": (self.config.min_column_num, self.config.max_column_num),
+                    "box_num": (self.config.min_box_num, self.config.max_box_num),
+                },
             },
         }
 
@@ -223,32 +230,26 @@ class BoxnetCurriculum(BaseCurriculum):
                 description="The maximum number of rows in the grid",
                 lower_field_name="min_row_num",
                 upper_field_name="max_row_num",
-                min_value=1,
                 levels=list(range(1, 10)),
-                default_level=1,
-                attr_type=AttributeType.APPEND,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="column_num",
                 description="The maximum number of columns in the grid",
                 lower_field_name="min_column_num",
                 upper_field_name="max_column_num",
-                min_value=1,
                 levels=list(range(1, 10)),
-                default_level=1,
-                attr_type=AttributeType.APPEND,
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="box_num",
                 description="The maximum number of boxes in the grid",
                 lower_field_name="min_box_num",
                 upper_field_name="max_box_num",
-                min_value=1,
                 levels=list(range(1, 10)),
-                default_level=1,
-                attr_type=AttributeType.APPEND,
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("boxnet", BoxnetDataset, BoxnetConfig, BoxnetCurriculum)
+register_dataset(DATASET_NAME, BoxnetDataset, BoxnetConfig, BoxnetCurriculum)

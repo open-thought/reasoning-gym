@@ -17,6 +17,7 @@ def generate_gallery() -> str:
 
     # Add index
     content.append(f"## Available Datasets ({len(DATASETS)})\n")
+    content.append("Legend: ✅ = Has curriculum, ❌ = No curriculum\n\n")
     for name in sorted(DATASETS.keys()):
         # Create anchor link
         anchor = name.replace(" ", "-").lower()

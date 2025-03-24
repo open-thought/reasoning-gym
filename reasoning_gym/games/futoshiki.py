@@ -6,8 +6,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "futoshiki"
 
 
 @dataclass
@@ -81,10 +83,17 @@ class FutoshikiDataset(ProceduralDataset):
             "question": question,
             "answer": solution_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "puzzle": puzzle,
                 "constraints": constraints,
                 "solution": solution,
-                "difficulty": {"board_size": board_size, "difficulty": difficulty},
+                "board_size": board_size,
+                "difficulty_rating": difficulty,
+                "difficulty": {
+                    "board_size": (self.config.min_board_size, self.config.max_board_size),
+                    "difficulty": (self.config.min_difficulty, self.config.max_difficulty),
+                },
             },
         }
 
@@ -667,24 +676,18 @@ class FutoshikiCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="board_size",
                 levels=[4, 6, 7, 9],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.STATIC,
-                min_value=4,
                 lower_field_name="min_board_size",
                 upper_field_name="max_board_size",
             ),
             RangeAttributeDefinition(
                 name="difficulty",
                 levels=[0, 1, 2, 3],
-                default_level=0,
                 description="Difficulty",
-                attr_type=AttributeType.STATIC,
-                min_value=0,
                 lower_field_name="min_difficulty",
                 upper_field_name="max_difficulty",
             ),
         )
 
 
-register_dataset("futoshiki", FutoshikiDataset, FutoshikiConfig)
+register_dataset(DATASET_NAME, FutoshikiDataset, FutoshikiConfig)

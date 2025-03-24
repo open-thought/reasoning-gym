@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a string consisting of characters A, B, C, D, and E, your job is to insert a character according to the following pattern:
@@ -23,6 +23,9 @@ Your output should be a string that has been modified according to the pattern.
 
 Given the following string, provide the answer after inserting the characters according to the pattern: {string}
 """
+
+
+DATASET_NAME = "string_insertion"
 
 
 @dataclass
@@ -102,10 +105,13 @@ class StringInsertionDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
+                "string_length": string_length,
                 "difficulty": {
-                    "string_length": string_length,
+                    "string_length": (self.config.min_string_length, self.config.max_string_length),
                 },
             },
         }
@@ -120,14 +126,12 @@ class StringInsertionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="string_length",
                 levels=[10, 50, 100, 1000],
-                default_level=1,
                 description="Length of the string",
-                attr_type=AttributeType.APPEND,
-                min_value=5,
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("string_insertion", StringInsertionDataset, StringInsertionConfig, StringInsertionCurriculum)
+register_dataset(DATASET_NAME, StringInsertionDataset, StringInsertionConfig, StringInsertionCurriculum)

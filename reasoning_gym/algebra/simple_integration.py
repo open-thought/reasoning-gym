@@ -5,8 +5,10 @@ from typing import Any, Optional
 
 import sympy
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "simple_integration"
 
 
 @dataclass
@@ -82,10 +84,15 @@ When performing calculations, please follow these guidelines:
             "question": question,
             "answer": str(polynomial) + " + C",
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "integrand": str(derivative),
                 "variable": str(symbol),
                 "expected_answer_expression": polynomial,
-                "difficulty": {"terms": num_terms},
+                "num_terms": num_terms,
+                "difficulty": {
+                    "terms": (self.config.min_terms, self.config.max_terms),
+                },
             },
         }
 
@@ -118,9 +125,6 @@ class SimpleIntegrationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="terms",
                 levels=[2, 3, 4, 5],
-                default_level=0,
-                min_value=2,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
                 description="The number of terms in the polynomial",
@@ -128,4 +132,4 @@ class SimpleIntegrationCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("simple_integration", SimpleIntegrationDataset, SimpleIntegrationConfig, SimpleIntegrationCurriculum)
+register_dataset(DATASET_NAME, SimpleIntegrationDataset, SimpleIntegrationConfig, SimpleIntegrationCurriculum)

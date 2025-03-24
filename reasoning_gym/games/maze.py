@@ -3,8 +3,10 @@ import string
 from dataclasses import dataclass
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "maze"
 
 
 @dataclass
@@ -104,6 +106,8 @@ class MazeDataset(ProceduralDataset):
                     "question": question_str,
                     "answer": str(dist),
                     "metadata": {
+                        "source_dataset": DATASET_NAME,
+                        "source_index": idx,
                         "grid_size": size,
                         "grid": ["".join(row) for row in maze_grid],
                         "shortest_path_length": dist,
@@ -112,8 +116,8 @@ class MazeDataset(ProceduralDataset):
                         "wall": self.wall_char,
                         "path": self.path_char,
                         "difficulty": {
-                            "dist": dist,
-                            "grid_size": size,
+                            "dist": (self.config.min_dist, self.config.max_dist),
+                            "grid_size": (self.config.min_grid_size, self.config.max_grid_size),
                         },
                     },
                 }
@@ -198,24 +202,20 @@ class MazeCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="dist",
                 levels=[10, 25, 50, 100],
-                default_level=1,
                 description="Distance from start to goal",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_dist",
                 upper_field_name="max_dist",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="grid_size",
                 levels=[10, 25, 50, 100],
-                default_level=1,
                 description="Size of the square grid",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_grid_size",
                 upper_field_name="max_grid_size",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("maze", MazeDataset, MazeConfig, MazeCurriculum)
+register_dataset(DATASET_NAME, MazeDataset, MazeConfig, MazeCurriculum)

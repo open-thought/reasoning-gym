@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a binary string, return the minimum number of character swaps to make it alternating, or -1 if it is impossible.
@@ -18,6 +18,9 @@ Any two characters may be swapped, even if they are not adjacent.
 
 Now, determine the minimum number of swaps to make the following binary string alternating: {string}
 """
+
+
+DATASET_NAME = "binary_alternation"
 
 
 @dataclass
@@ -105,10 +108,15 @@ class BinaryAlternationDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
                 "solvable": solvable,
-                "difficulty": {"n": n},
+                "n": n,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 
@@ -122,14 +130,11 @@ class BinaryAlternationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 50, 500, 1000],
-                default_level=0,
                 description="Number of bits in the binary string",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             )
         )
 
 
-register_dataset("binary_alternation", BinaryAlternationDataset, BinaryAlternationConfig, BinaryAlternationCurriculum)
+register_dataset(DATASET_NAME, BinaryAlternationDataset, BinaryAlternationConfig, BinaryAlternationCurriculum)

@@ -7,7 +7,8 @@ import ray
 import torch
 import verl.utils.torch_functional as verl_F
 from omegaconf import OmegaConf, open_dict
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
+from torchdata.stateful_dataloader import StatefulDataLoader
 from transformers import PreTrainedTokenizer
 from verl import DataProto
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
@@ -70,6 +71,7 @@ class ReasoningGymDataset(Dataset):
         row_dict["input_ids"] = input_ids[0]
         row_dict["attention_mask"] = attention_mask[0]
         row_dict["position_ids"] = position_ids[0]
+        row_dict["raw_prompt_ids"] = self.tokenizer.encode(prompt, add_special_tokens=False)
 
         # encode prompts without chat template
         if self.return_raw_chat:
@@ -169,7 +171,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         return reward
 
     def _create_dataloader(self):
-        self.train_dataloader = DataLoader(
+        self.train_dataloader = StatefulDataLoader(
             dataset=self.train_dataset,
             batch_size=self.config.data.train_batch_size,
             shuffle=True,
@@ -177,7 +179,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
             collate_fn=collate_fn,
         )
 
-        self.val_dataloader = DataLoader(
+        self.val_dataloader = StatefulDataLoader(
             dataset=self.val_dataset,
             batch_size=len(self.val_dataset),
             shuffle=True,

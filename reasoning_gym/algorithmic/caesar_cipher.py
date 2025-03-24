@@ -4,9 +4,11 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "caesar_cipher"
 
 
 @dataclass
@@ -77,12 +79,15 @@ class CaesarCipherDataset(ProceduralDataset):
             "question": f"Decrypt this Caesar cipher text: {cipher_text}. Provide only the decrypted text as your final answer.",
             "answer": sentence,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "rotation": rotation,
                 "cipher_text": cipher_text,
                 "clear_text": sentence,
+                "num_words": num_words,
                 "difficulty": {
-                    "rotation": rotation,
-                    "words": num_words,
+                    "words": (self.config.min_words, self.config.max_words),
+                    "rotation": (self.config.min_rotation, self.config.max_rotation),
                 },
             },
         }
@@ -98,22 +103,18 @@ class CaesarCipherCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rotation",
                 levels=[5, 10, 15, 25],
-                default_level=0,
                 description="Max rotation for cipher",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_rotation",
                 upper_field_name="max_rotation",
             ),
             RangeAttributeDefinition(
                 name="words",
                 levels=[5, 10, 15, 25],
-                default_level=0,
                 description="Max number of words",
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_words",
                 upper_field_name="max_words",
             ),
         )
 
 
-register_dataset("caesar_cipher", CaesarCipherDataset, CaesarCipherConfig, CaesarCipherCurriculum)
+register_dataset(DATASET_NAME, CaesarCipherDataset, CaesarCipherConfig, CaesarCipherCurriculum)

@@ -4,8 +4,10 @@ from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "decimal_arithmetic"
 
 
 @dataclass
@@ -189,9 +191,13 @@ class DecimalArithmeticDataset(ProceduralDataset):
             "question": problem_str,
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "decimal_places": decimal_places,
+                "num_terms": terms,
                 "difficulty": {
-                    "decimal_places": decimal_places,
-                    "num_terms": terms,
+                    "decimal_places": (self.config.min_num_decimal_places, self.config.max_num_decimal_places),
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
                 },
             },
         }
@@ -232,20 +238,14 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="decimal_places",
                 levels=[3, 5, 8, 10],
-                default_level=0,
                 description="Number of decimal places of the numbers in problem",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_num_decimal_places",
                 upper_field_name="max_num_decimal_places",
             ),
             RangeAttributeDefinition(
                 name="num_terms",
                 levels=[2, 3, 4, 6],
-                default_level=0,
                 description="Number of terms in the arithmetic expression",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
             ),
@@ -253,4 +253,4 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
 
 
 # Register the dataset with the factory.
-register_dataset("decimal_arithmetic", DecimalArithmeticDataset, DecimalArithmeticConfig, DecimalArithmeticCurriculum)
+register_dataset(DATASET_NAME, DecimalArithmeticDataset, DecimalArithmeticConfig, DecimalArithmeticCurriculum)

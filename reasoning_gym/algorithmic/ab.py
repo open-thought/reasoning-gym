@@ -2,8 +2,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "ab"
 
 
 def generate_program(length, rng):
@@ -116,9 +118,11 @@ Return the final state of the program.
             "question": prompt,
             "answer": " ".join(steps[-1]),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "difficulty": {
                     "length": self.config.length,
-                }
+                },
             },
         }
 
@@ -152,13 +156,10 @@ class ABCurriculum(BaseCurriculum):
                 name="length",
                 field_name="length",
                 levels=[1, 10, 50, 100],
-                default_level=0,
                 description="Length of the A::B program",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             )
         )
 
 
 # Register the dataset
-register_dataset("ab", ABDataset, ABConfig, ABCurriculum)
+register_dataset(DATASET_NAME, ABDataset, ABConfig, ABCurriculum)

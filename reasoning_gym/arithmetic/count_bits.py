@@ -4,10 +4,12 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """How many 1 bits are there in the binary representation of the number {number}?"""
+
+DATASET_NAME = "count_bits"
 
 
 @dataclass
@@ -43,10 +45,15 @@ class CountBitsDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(number=number),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "number": number,
                 "solution": answer,
                 "binary": binary,
-                "difficulty": {"n": number},
+                "n": number,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 
@@ -60,14 +67,11 @@ class CountBitsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[1_000, 1_000_000, 100_000_000, 2**31 - 1],
-                default_level=0,
                 description="Number to count bits in",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             ),
         )
 
 
-register_dataset("count_bits", CountBitsDataset, CountBitsConfig, CountBitsCurriculum)
+register_dataset(DATASET_NAME, CountBitsDataset, CountBitsConfig, CountBitsCurriculum)

@@ -3,8 +3,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "graph_color"
 
 
 def generate_random_graph(rng, num_vertices, edge_probability=0.3):
@@ -213,9 +215,15 @@ Return your solution as a JSON map of vertices to colors. (For example: {{"0": 1
             "question": question,
             "answer": None,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "possible_answer": solution,
                 "puzzle": puzzle,
-                "difficulty": {"num_vertices": num_vertices, "num_colors": num_colors},
+                "num_vertices": num_vertices,
+                "difficulty": {
+                    "num_vertices": (self.config.min_num_vertices, self.config.max_num_vertices),
+                    "num_colors": num_colors,
+                },
             },
         }
 
@@ -255,10 +263,7 @@ class GraphColorCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_vertices",
                 levels=[10, 20, 25, 50],
-                default_level=0,
                 description="Number of vertices in the graph",
-                attr_type=AttributeType.STATIC,
-                min_value=10,
                 lower_field_name="min_num_vertices",
                 upper_field_name="max_num_vertices",
             ),
@@ -266,12 +271,9 @@ class GraphColorCurriculum(BaseCurriculum):
                 name="num_colors",
                 field_name="num_colors",
                 levels=[5, 4, 3],
-                default_level=0,
                 description="Number of colors in the graph",
-                attr_type=AttributeType.STATIC,
-                min_value=3,
             ),
         )
 
 
-register_dataset("graph_color", GraphColorDataset, GraphColorConfig, GraphColorCurriculum)
+register_dataset(DATASET_NAME, GraphColorDataset, GraphColorConfig, GraphColorCurriculum)

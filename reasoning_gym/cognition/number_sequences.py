@@ -3,8 +3,10 @@ from enum import StrEnum
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "number_sequence"
 
 
 class Operation(StrEnum):
@@ -195,7 +197,16 @@ class NumberSequenceDataset(ProceduralDataset):
         return {
             "question": ", ".join(map(str, visible_terms)) + ", ?",
             "answer": str(sequence[-1]),
-            "metadata": {"rule": rule.to_string(), "complexity": complexity, "sequence": sequence},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "rule": rule.to_string(),
+                "complexity": complexity,
+                "sequence": sequence,
+                "difficulty": {
+                    "max_complexity": self.config.max_complexity,
+                },
+            },
         }
 
 
@@ -207,13 +218,10 @@ class NumberSequenceCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_complexity",
                 levels=[1, 2, 3, 4],
-                default_level=0,
                 description="Maximum number of operations to combine",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="max_complexity",
             ),
         )
 
 
-register_dataset("number_sequence", NumberSequenceDataset, NumberSequenceConfig, NumberSequenceCurriculum)
+register_dataset(DATASET_NAME, NumberSequenceDataset, NumberSequenceConfig, NumberSequenceCurriculum)

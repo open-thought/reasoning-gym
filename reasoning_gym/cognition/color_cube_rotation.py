@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 
@@ -33,6 +33,9 @@ class Side(StrEnum):
     LEFT = "left"
     BACK = "back"
     BOTTOM = "bottom"
+
+
+DATASET_NAME = "color_cube_rotation"
 
 
 @dataclass
@@ -137,11 +140,15 @@ class ColorCubeRotationDataset(ProceduralDataset):
             "question": story,
             "answer": cube.colors[target_side],
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "initial_state": {k.value: v.value for k, v in initial_state.items()},
                 "rotations": [r.value for r in rotations],
                 "target_side": target_side.value,
                 "num_rotations": num_rotations,
-                "difficulty": {"rotations": num_rotations},
+                "difficulty": {
+                    "rotations": (self.config.min_rotations, self.config.max_rotations),
+                },
             },
         }
 
@@ -215,14 +222,12 @@ class ColorCubeRotationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rotations",
                 levels=[1, 5, 10, 50, 100],
-                default_level=1,
                 description="Number of rotations to perform on the cube",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",
+                ensure_interval=True,
             )
         )
 
 
-register_dataset("color_cube_rotation", ColorCubeRotationDataset, ColorCubeRotationConfig, ColorCubeRotationCurriculum)
+register_dataset(DATASET_NAME, ColorCubeRotationDataset, ColorCubeRotationConfig, ColorCubeRotationCurriculum)

@@ -4,8 +4,10 @@ from enum import StrEnum
 from itertools import count
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "family_relationships"
 
 
 class Gender(StrEnum):
@@ -201,12 +203,14 @@ class FamilyRelationshipsDataset(ProceduralDataset):
             "question": f"{story}\n\n{question}",
             "answer": relationship.value,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "person1": person1.name,
                 "person2": person2.name,
                 "relationship": relationship.value,
                 "family_size": len(family),
                 "difficulty": {
-                    "family_size": len(family),
+                    "family_size": (self.config.min_family_size, self.config.max_family_size),
                 },
             },
         }
@@ -379,9 +383,6 @@ class FamilyRelationshipsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="family_size",
                 description="The size of the family",
-                min_value=3,
-                attr_type=AttributeType.APPEND,
-                default_level=0,
                 levels=list(range(3, 12)),
                 lower_field_name="min_family_size",
                 upper_field_name="max_family_size",
@@ -389,6 +390,4 @@ class FamilyRelationshipsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    "family_relationships", FamilyRelationshipsDataset, FamilyRelationshipsConfig, FamilyRelationshipsCurriculum
-)
+register_dataset(DATASET_NAME, FamilyRelationshipsDataset, FamilyRelationshipsConfig, FamilyRelationshipsCurriculum)

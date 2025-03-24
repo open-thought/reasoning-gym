@@ -6,8 +6,10 @@ import numpy as np
 import sympy
 from sympy.geometry import Point
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "advanced_geometry"
 
 
 @dataclass
@@ -87,8 +89,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
         else:
             raise ValueError(f"Unknown task_type: {task_type}")
 
+        metadata["source_dataset"] = DATASET_NAME
+        metadata["source_index"] = idx
         metadata["task_type"] = task_type
-
         metadata["difficulty"] = {
             "min_coord": self.config.min_coord,
             "max_coord": self.config.max_coord,
@@ -284,22 +287,16 @@ class AdvancedGeometryCurriculum(BaseCurriculum):
                 name="min_coord",
                 field_name="min_coord",
                 levels=[-10, -100, -1000, -10000],
-                default_level=0,
                 description="Minimum x/y coordinate",
-                attr_type=AttributeType.STATIC,
-                min_value=-float("inf"),
             ),
             ScalarAttributeDefinition(
                 name="max_coord",
                 field_name="max_coord",
                 levels=[10, 100, 1000, 10000],
-                default_level=0,
                 description="Maximum x/y coordinate",
-                attr_type=AttributeType.STATIC,
-                min_value=-float("inf"),
             ),
         )
 
 
 # Register the dataset
-register_dataset("advanced_geometry", AdvancedGeometryDataset, AdvancedGeometryConfig, AdvancedGeometryCurriculum)
+register_dataset(DATASET_NAME, AdvancedGeometryDataset, AdvancedGeometryConfig, AdvancedGeometryCurriculum)

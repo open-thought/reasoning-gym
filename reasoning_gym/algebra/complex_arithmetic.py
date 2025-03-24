@@ -4,8 +4,10 @@ import random
 from dataclasses import dataclass, field
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "complex_arithmetic"
 
 
 @dataclass
@@ -90,6 +92,8 @@ class ComplexArithmeticDataset(ProceduralDataset):
             "question": question,
             "answer": self._format_complex(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "num1": (a.real, a.imag),
                 "num2": (b.real, b.imag),
                 "operation": op,
@@ -191,48 +195,33 @@ class ComplexArithmeticCurriculum(BaseCurriculum):
                 name="min_real",
                 field_name="min_real",
                 levels=[-10, -100, -10000, -100000000],
-                default_level=0,
                 description="Minimum real part for complex numbers",
-                attr_type=AttributeType.STATIC,
-                min_value=-10,
             ),
             ScalarAttributeDefinition(
                 name="max_real",
                 field_name="max_real",
                 levels=[10, 100, 10000, 100000000],
-                default_level=0,
                 description="Maximum real part for complex numbers",
-                attr_type=AttributeType.STATIC,
-                min_value=10,
             ),
             ScalarAttributeDefinition(
                 name="min_imag",
                 field_name="min_imag",
                 levels=[-10, -100, -10000, -100000000],
-                default_level=0,
                 description="Minimum imaginary part for complex numbers",
-                attr_type=AttributeType.STATIC,
-                min_value=-10,
             ),
             ScalarAttributeDefinition(
                 name="max_imag",
                 field_name="max_imag",
                 levels=[10, 100, 10000, 100000000],
-                default_level=0,
                 description="Maximum imaginary part for complex numbers",
-                attr_type=AttributeType.STATIC,
-                min_value=10,
             ),
             ScalarAttributeDefinition(
                 name="operations_weights",
                 field_name="operations_weights",
                 levels=[[0.4, 0.4, 0.1, 0.1], [0.25, 0.25, 0.25, 0.25], [0.2, 0.2, 0.3, 0.3], [0.1, 0.1, 0.4, 0.4]],
-                default_level=0,
                 description="Operations weights to sample operation to use for each complex arithmetic problem",
-                attr_type=AttributeType.STATIC,
-                min_value=[0.4, 0.4, 0.1, 0.1],
             ),
         )
 
 
-register_dataset("complex_arithmetic", ComplexArithmeticDataset, ComplexArithmeticConfig, ComplexArithmeticCurriculum)
+register_dataset(DATASET_NAME, ComplexArithmeticDataset, ComplexArithmeticConfig, ComplexArithmeticCurriculum)

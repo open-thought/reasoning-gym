@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to count how many rectangles are present in an ASCII grid.
@@ -14,6 +14,8 @@ Your output should be a single number, representing the total count of rectangle
 Now, it's your turn. How many rectangles do you see in the grid below?
 {puzzle}
 """
+
+DATASET_NAME = "rectangle_count"
 
 
 def draw_rectangles_with_overlap(n, width, height, rng):
@@ -117,7 +119,16 @@ class RectangleCountDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(puzzle=puzzle),
             "answer": str(answer),
-            "metadata": {"puzzle": puzzle, "solution": answer, "difficulty": {"max_rectangles": target}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "puzzle": puzzle,
+                "solution": answer,
+                "num_rectangles": target,
+                "difficulty": {
+                    "max_rectangles": self.config.max_rectangles,
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -148,13 +159,10 @@ class RectangleCountCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_rectangles",
                 levels=[1, 3, 5, 10],
-                default_level=0,
                 description="Number of rectangles in the grid",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
                 field_name="max_rectangles",
             ),
         )
 
 
-register_dataset("rectangle_count", RectangleCountDataset, RectangleCountConfig, RectangleCountCurriculum)
+register_dataset(DATASET_NAME, RectangleCountDataset, RectangleCountConfig, RectangleCountCurriculum)

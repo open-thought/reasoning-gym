@@ -14,6 +14,8 @@ from reasoning_gym.arc.board_format import (
 from reasoning_gym.dataset import ProceduralDataset
 from reasoning_gym.factory import register_dataset
 
+DATASET_NAME = "arc_agi"
+
 
 @dataclass
 class ArcAgiConfig:
@@ -182,6 +184,8 @@ class ArcAgiDataset(ProceduralDataset):
             "question": input_prompt,
             "answer": test_output,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "input": totuple(augmented_test_input),
                 "output": totuple(augmented_test_output),
                 "task_id": task_id,
@@ -203,4 +207,4 @@ class ArcAgiDataset(ProceduralDataset):
         return reward
 
 
-register_dataset("arc_agi", ArcAgiDataset, ArcAgiConfig)
+register_dataset(DATASET_NAME, ArcAgiDataset, ArcAgiConfig)
