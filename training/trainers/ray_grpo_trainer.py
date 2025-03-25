@@ -6,7 +6,7 @@ import uuid
 import numpy as np
 import torch
 from omegaconf import OmegaConf, open_dict
-from reward import reward_registry
+from rewards import reward_registry
 from torchdata.stateful_dataloader import StatefulDataLoader
 from utils import ReasoningGymDataset
 from verl import DataProto
