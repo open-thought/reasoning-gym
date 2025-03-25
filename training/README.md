@@ -30,8 +30,7 @@ pip install -e .
 5. Install vLLM:
 
 ```bash
-pip install -U vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
-
+pip install vllm==0.6.3
 ```
 6. Install flash attention
 ```
