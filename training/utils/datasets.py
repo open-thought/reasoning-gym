@@ -105,7 +105,6 @@ class ReasoningGymDataset(Dataset):
 def make_dataset(
     tokenizer,
     data_source: Experiment | ProceduralDataset,
-    dataset_name: str,
     developer_prompt: str,
 ) -> ReasoningGymDataset:
     """
