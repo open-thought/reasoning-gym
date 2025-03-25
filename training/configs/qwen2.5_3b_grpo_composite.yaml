@@ -2,26 +2,18 @@ reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
-    spell_backward:
+    mini_sudoku:
       weight: 0.33
       config:
-        min_word_len: 3
-        max_word_len: 10
-    letter_counting:
-        weight: 0.33
-        config:
-            min_words: 5
-            max_words: 20
-    number_sorting:
-        weight: 0.33
-        config:
-            min_numbers: 5
-            max_numbers: 10
-            min_decimals: 0
-            max_decimals: 8
-            min_value: -10000
-            max_value: 10000
-
+        min_empty: 6
+    futoshiki:
+      weight: 0.33
+      config:
+        max_board_size: 5
+    sudoku:
+      weight: 0.34
+      config:
+        min_empty: 20
 curriculum:
     enabled: False
     schedule:
@@ -35,10 +27,8 @@ curriculum:
         attribute_levels:
           word_len: 0
 reward:
-  use_accuracy: false
+  use_accuracy: True
   secondary_rewards:
-   - name: cosine
-     scaling_factor: 2
    - name: format
      scaling_factor: 0.5
 
@@ -104,8 +94,7 @@ actor_rollout_ref:
     ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size} # sp size
   rollout:
     name: vllm
-    max_model_len: 1024
-    temperature: 0.7
+    temperature: 1.0
     top_k: -1 # 0 for hf rollout, -1 for vllm rollout
     top_p: 1
     prompt_length: ${data.max_prompt_length}  # not use for opensource
@@ -117,11 +106,11 @@ actor_rollout_ref:
     enforce_eager: True
     free_cache_engine: True
     load_format: dummy_dtensor
-    tensor_model_parallel_size: 4
+    tensor_model_parallel_size: 2
     max_num_batched_tokens: 8192
     max_num_seqs: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
-    log_prob_micro_batch_size_per_gpu: 16
+    log_prob_micro_batch_size_per_gpu: 160
     log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
     log_prob_max_token_len_per_gpu: ${actor_rollout_ref.actor.ppo_max_token_len_per_gpu}
     disable_log_stats: True
@@ -168,7 +157,7 @@ critic:
   strategy: fsdp
   optim:
     lr: 1e-6
-    lr_warmup_steps_ratio: 0.1  # the total steps will be injected during runtime
+    lr_warmup_steps_ratio: 0  # the total steps will be injected during runtime
     min_lr_ratio: null   # only useful for warmup with cosine
     warmup_style: cosine  # select from constant/cosine
     total_training_steps: -1  # must be override by program
@@ -199,6 +188,7 @@ critic:
   shuffle: ${actor_rollout_ref.actor.shuffle}
   grad_clip: 1.0
   cliprange_value: 0.5
+  max_model_len: 4096
 
 # Reward model not used for GRPO
 reward_model:

@@ -2,7 +2,7 @@ reasoning_gym:
   dataset_size: 10000
   developer_prompt: DeepSeekZero
   datasets:
-    spell_backward:
+    figlet_font:
       weight: 1
       config:
         min_word_len: 3
@@ -20,10 +20,8 @@ curriculum:
         attribute_levels:
           word_len: 0
 reward:
-  use_accuracy: false
+  use_accuracy: true
   secondary_rewards:
-   - name: cosine
-     scaling_factor: 2
    - name: format
      scaling_factor: 0.5
 
@@ -32,8 +30,8 @@ data:
   train_files: train.parquet
   val_files: test.parquet
   prompt_key: prompt
-  max_prompt_length: 512
-  max_response_length: 1024
+  max_prompt_length: 2048
+  max_response_length: 4096
   train_batch_size: 128
   val_batch_size: 128
   return_raw_chat: True
@@ -64,7 +62,7 @@ actor_rollout_ref:
     shuffle: False
     ulysses_sequence_parallel_size: 1 # sp size
     optim:
-      lr: 1e-6
+      lr: 3e-4
       lr_warmup_steps_ratio: 0.1  # the total steps will be injected during runtime
       min_lr_ratio: 0.1   # only useful for warmup with cosine
       warmup_style: cosine # select from constant/cosine
@@ -89,11 +87,10 @@ actor_rollout_ref:
     ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size} # sp size
   rollout:
     name: vllm
-    max_model_len: 1024
-    temperature: 0.7
+    temperature: 1.0
     top_k: -1 # 0 for hf rollout, -1 for vllm rollout
     top_p: 1
-    prompt_length: ${data.max_prompt_length}  # not use for opensource
+    prompt_length: ${data.max_prompt_length} # not use for opensource
     response_length: ${data.max_response_length}
     # for vllm rollout
     dtype: bfloat16 # should align with FSDP
@@ -103,10 +100,11 @@ actor_rollout_ref:
     free_cache_engine: True
     load_format: dummy_dtensor
     tensor_model_parallel_size: 2
-    max_num_batched_tokens: 8192
+    max_model_len: 32768
+    max_num_batched_tokens: 32768
     max_num_seqs: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
-    log_prob_micro_batch_size_per_gpu: 16
+    log_prob_micro_batch_size_per_gpu: 160
     log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
     log_prob_max_token_len_per_gpu: ${actor_rollout_ref.actor.ppo_max_token_len_per_gpu}
     disable_log_stats: True
@@ -133,7 +131,7 @@ trainer:
   total_epochs: 5
   total_training_steps: null
   project_name: rg-test
-  experiment_name: verl_grpo_qwen_curr
+  experiment_name: verl_grpo_qwen_figlet
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
