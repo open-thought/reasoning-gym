@@ -34,7 +34,7 @@ class SpellBackwardDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
         # Load and preprocess text
-        text = read_data_file("in_the_year_2889.txt")
+        text = read_data_file("words3to10.txt")
         self.words = [
             word.strip()
             for word in text.splitlines()
