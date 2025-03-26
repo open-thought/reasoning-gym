@@ -129,16 +129,11 @@ class RayGRPOTrainer(RayPPOTrainer):
         Reward shorter solutions for perfect answers, longer solutions for imperfect answers.
         The scaling factor for this should be set far below 1.0, to avoid dominating the reward signal over correctness.
         """
-        epsilon = 1e-6
         scaling_factor = self.length_reward_scaling_factor
         generation_len = len(solution_str)
         progress = min(generation_len / self.max_output_length, 1.0)
-        if correctness_score < max_score - epsilon:
-            # for imperfect answers, incentivise longer ones
-            length_reward = (max_score - correctness_score) * progress
-        else:
-            # for perfect answers, penalise longer ones
-            length_reward = -progress
+        # for imperfect answers, incentivise longer ones
+        length_reward = (max_score - correctness_score) * progress
         return length_reward * scaling_factor
 
     def _compute_correctness_score(self, solution_str: str, index: int) -> float:
