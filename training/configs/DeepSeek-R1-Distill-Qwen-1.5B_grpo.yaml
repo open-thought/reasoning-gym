@@ -5,6 +5,8 @@ reasoning_gym:
   datasets:  # Used if enable_curriculum_learning is False
     polynomial_multiplication:
       weight: 1.0       #0.2
+      config:
+        min_terms: 2
     # complex_arithmetic:
     #   weight: 0.16
     # intermediate_integration:
