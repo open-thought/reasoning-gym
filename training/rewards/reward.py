@@ -33,9 +33,9 @@ reward_registry = RewardRegistry()
 @reward_registry.register("cosine")
 def cosine_scaled_reward(solution_str, scaling_factor, **kwargs):
     """Reward function that scales based on completion length using a cosine schedule."""
-    min_value_wrong = -1.0
-    max_value_wrong = -0.5
-    min_value_correct = 0.5
+    min_value_wrong = 0
+    max_value_wrong = 0.7
+    min_value_correct = 0.95
     max_value_correct = 1.0
     max_len = 1000
 
@@ -77,8 +77,9 @@ def compute_format_reward(solution_str: str, scaling_factor: float = 0.2, **kwar
 
 
 @reward_registry.register("length")
-def length_reward(solution_str, correctness_score, scaling_factor, **kwargs):
+def length_reward(solution_str, scaling_factor, **kwargs):
     """Reward length appropriately based on correctness."""
+    correctness_score = kwargs.get("correctness_score", 0.0)
     epsilon = 1e-6
     max_score = kwargs.get("max_score", 1.0)
     max_output_length = kwargs.get("max_output_length", 1024)
