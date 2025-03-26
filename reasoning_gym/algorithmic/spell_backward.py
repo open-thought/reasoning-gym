@@ -68,12 +68,21 @@ class SpellBackwardDataset(ProceduralDataset):
         expected_answer = entry["answer"]
         if isinstance(answer, str):
             try:
-                if expected_answer.lower() == answer.lower():
+                expected_answer = expected_answer.lower()
+                answer = answer.lower()
+                if expected_answer == answer:
                     reward = 1.0
-                elif sorted(expected_answer.lower()) == sorted(answer.lower()):
-                    reward = 0.2
                 else:
-                    reward = 0.05
+                    answer_len = len(answer)
+                    for i in range(len(expected_answer)):
+                        if (i < len(expected_answer) and i < len(answer)) and expected_answer[i] == answer[i]:
+                            if expected_answer[i] == answer[i]:
+                                reward += 1 / answer_len
+                            else:
+                                continue
+                        else:
+                            break
+
             except:
                 reward = 0.0
         return reward
