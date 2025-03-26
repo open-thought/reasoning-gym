@@ -48,10 +48,10 @@ First, activate the virtual environment you prepared.
 Example GRPO training usage:
 
 ```bash
-python3 -u train_grpo.py --config-name llama3.1_1b_grpo \
+python3 -u train_grpo.py --config-name DeepSeek-R1-Distill-Qwen-1.5B_grpo \
     actor_rollout_ref.rollout.tensor_model_parallel_size=2 \
     trainer.project_name=rg-test \
-    trainer.experiment_name=verl_grpo_llama3.1_1b \
+    trainer.experiment_name=verl_grpo_DeepSeek-R1-Distill-Qwen-1.5B \
     trainer.n_gpus_per_node=2 $@ 2>&1 | tee verl_output.log
 ```
 
