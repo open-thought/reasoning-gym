@@ -131,8 +131,8 @@ verbose: True
 
 trainer:
   balance_batch: True
-  total_epochs: 5
-  total_training_steps: null
+  total_epochs: 2
+  total_training_steps: 200
   project_name: rg-test
   experiment_name: verl_grpo_algebra_deepseek_qwen_distill_1.5b
   logger: [ 'console', 'wandb' ]
