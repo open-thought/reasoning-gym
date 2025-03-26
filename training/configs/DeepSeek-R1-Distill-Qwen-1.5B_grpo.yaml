@@ -67,7 +67,7 @@ actor_rollout_ref:
       lr_warmup_steps_ratio: 0.1  # the total steps will be injected during runtime
       min_lr_ratio: 0.1   # only useful for warmup with cosine
       warmup_style: cosine  # select from constant/cosine
-      total_training_steps: -1  # must be override by program
+      total_training_steps: 200  # must be override by program
     fsdp_config:
       wrap_policy:
         # transformer_layer_cls_to_wrap: None
@@ -112,6 +112,7 @@ actor_rollout_ref:
     # for hf rollout
     do_sample: True
     use_fire_sampling: False
+    max_model_len: 16384
     # number of responses (i.e. num sample times)
     n: 8 # > 1 for grpo
     val_kwargs:
