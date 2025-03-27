@@ -3,20 +3,11 @@ reasoning_gym:
   developer_prompt: DeepSeekZero
   enable_curriculum_learning: False
   datasets:  # Used if enable_curriculum_learning is False
-    polynomial_multiplication:
-      weight: 1.0       #0.2
+    arc_agi:
+      weight: 1.0
       config:
-        min_terms: 2
-    # complex_arithmetic:
-    #   weight: 0.16
-    # intermediate_integration:
-    #   weight: 0.16
-    # polynomial_equations:
-    #   weight: 0.16
-    # simple_equations:
-    #   weight: 0.16
-    # simple_integration:
-    #   weight: 0.16
+        use_color_permutation: True
+        shuffle_example_order: True
 
 reward:
   format_reward:
