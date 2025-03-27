@@ -22,7 +22,7 @@ data:
   train_files: train.parquet
   val_files: test.parquet
   prompt_key: prompt
-  max_prompt_length: 512
+  max_prompt_length: 4096
   max_response_length: 4096
   train_batch_size: 64 # maybe use a smaller batch size(6)
   val_batch_size: 64
