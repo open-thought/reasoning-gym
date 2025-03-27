@@ -35,6 +35,7 @@ reward:
   format_reward:
     enable: True
     scaling_factor: 0.2
+    prepend_think_token: False  # Set to True only when the tokenizer's prompt template pre-fills the generation with <think>, such as in the case of (distilled) r1 models
   length_reward:
     enable: True
     scaling_factor: 0.2
@@ -116,6 +117,8 @@ actor_rollout_ref:
     tensor_model_parallel_size: 2
     max_num_batched_tokens: 8192
     max_num_seqs: 1024
+    max_model_len: 32768
+    max_num_batched_tokens: 32768
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
     log_prob_micro_batch_size_per_gpu: 160
     log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}

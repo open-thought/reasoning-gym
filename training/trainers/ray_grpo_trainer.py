@@ -31,6 +31,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         self.max_output_length = max_output_length
 
         self.format_reward_scaling_factor = config.reward.format_reward.scaling_factor
+        self.format_reward_prepend_think_token = config.reward.format_reward.prepend_think_token
         self.length_reward_scaling_factor = config.reward.length_reward.scaling_factor
 
         train_reward_fn = lambda data: self._score_output(data, num_examine=0)
@@ -99,6 +100,8 @@ class RayGRPOTrainer(RayPPOTrainer):
 
     def _compute_format_reward(self, solution_str: str) -> float:
         """Reward use of exactly one correctly structured <think> and <answer> block."""
+        if self.format_reward_prepend_think_token:
+            solution_str = "<think>" + solution_str
         scaling_factor = self.format_reward_scaling_factor
         # check <think> and <answer> blocks are present
         pattern = r"\s*<think>.*?</think>\s*<answer>.*?</answer>"

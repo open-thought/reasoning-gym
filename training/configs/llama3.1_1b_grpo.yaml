@@ -35,6 +35,7 @@ reward:
   format_reward:
     enable: True
     scaling_factor: 0.2
+    prepend_think_token: False  # Set to True only when the tokenizer's prompt template pre-fills the generation with <think>, such as in the case of (distilled) r1 models
   length_reward:
     enable: True
     scaling_factor: 0.2
