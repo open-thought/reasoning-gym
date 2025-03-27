@@ -3,11 +3,12 @@ reasoning_gym:
   developer_prompt: DeepSeekZero
   enable_curriculum_learning: False
   datasets:  # Used if enable_curriculum_learning is False
-    arc_agi:
+    rush_hour:
       weight: 1.0
       config:
-        use_color_permutation: True
-        shuffle_example_order: True
+        min_moves: 5
+        max_moves: 50
+
 
 reward:
   format_reward:
@@ -22,7 +23,7 @@ data:
   train_files: train.parquet
   val_files: test.parquet
   prompt_key: prompt
-  max_prompt_length: 4096
+  max_prompt_length: 1024
   max_response_length: 4096
   train_batch_size: 64 # maybe use a smaller batch size(6)
   val_batch_size: 64
