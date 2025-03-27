@@ -16,8 +16,7 @@ pip install -e .
 
 ```bash
 pip install ray wandb
-pip install torch==2.6.0
-pip install flash-attn --no-build-isolation
+pip install torch==2.4.0
 ```
 
 4. Install veRL (tested with HEAD c34206925e2a50fd452e474db857b4d488f8602d):
@@ -32,6 +31,8 @@ pip install -e .
 
 ```bash
 pip install -U vllm --pre --extra-index-url https://wheels.vllm.ai/nightly
+pip install wheel
+pip install flash-attn==2.7.0.post2 --no-build-isolation
 ```
 
 6. Log in to HF and W&B:
@@ -48,10 +49,10 @@ First, activate the virtual environment you prepared.
 Example GRPO training usage:
 
 ```bash
-python3 -u train_grpo.py --config-name llama3.1_1b_grpo \
+python3 -u train_grpo.py --config-name DeepSeek-R1-Distill-Qwen-1.5B_grpo \
     actor_rollout_ref.rollout.tensor_model_parallel_size=2 \
     trainer.project_name=rg-test \
-    trainer.experiment_name=verl_grpo_llama3.1_1b \
+    trainer.experiment_name=verl_grpo_DeepSeek-R1-Distill-Qwen-1.5B \
     trainer.n_gpus_per_node=2 $@ 2>&1 | tee verl_output.log
 ```
 
