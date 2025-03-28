@@ -35,6 +35,7 @@ reward:
   format_reward:
     enable: True
     scaling_factor: 0.2
+    prepend_think_token: False  # Set to True only when the tokenizer's prompt template pre-fills the generation with <think>, such as in the case of (distilled) r1 models
   length_reward:
     enable: True
     scaling_factor: 0.2
@@ -75,6 +76,8 @@ actor_rollout_ref:
     ppo_epochs: 1
     shuffle: False
     ulysses_sequence_parallel_size: 1 # sp size
+    checkpoint:
+      contents: ['model', 'hf_model', 'optimizer', 'extra']
     optim:
       lr: 1e-6
       lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
@@ -116,6 +119,7 @@ actor_rollout_ref:
     tensor_model_parallel_size: 2
     max_num_batched_tokens: 8192
     max_num_seqs: 1024
+    max_model_len: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
     log_prob_micro_batch_size_per_gpu: 160
     log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
@@ -144,7 +148,7 @@ trainer:
   total_epochs: 10
   total_training_steps: null
   project_name: rg-test
-  experiment_name: verl_grpo_llama3.1_1b
+  experiment_name: verl_grpo_qwen2.5_1.5b
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
