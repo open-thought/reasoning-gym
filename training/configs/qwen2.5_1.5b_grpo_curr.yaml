@@ -1,20 +1,31 @@
 reasoning_gym:
-  dataset_size: 10000
-  enable_curriculum_learning: True
+  dataset_size: 20000
   developer_prompt: DeepSeekZero
-reward:
-  secondary_rewards:
-   - name: format
-     scaling_factor: 0.5
+  datasets:
+    spell_backward:
+        weight: 1
+        config:
+          min_word_len: 3
+          max_word_len: 10
 curriculum:
     enabled: True
-    last_k: 30
-    success_threshold: 0.7
-    failure_threshold: 0.1
+    schedule:
+      automatic: False
+      update_steps: 30 # automatic curriculum updating after 50 steps
+    last_k: 5120 # Minimum number of samples needed for model to exceeded specific threshold - 20*num_generations*batch_size
+    success_threshold: 0.70
+    failure_threshold: 0.10
     curricula:
       spell_backward:
         attribute_levels:
           word_len: 0
+reward:
+  use_accuracy: True
+  secondary_rewards:
+   - name: cosine
+     scaling_factor: 0.3
+   - name: format
+     scaling_factor: 0.2
 
 data:
   tokenizer: null
@@ -23,11 +34,10 @@ data:
   prompt_key: prompt
   max_prompt_length: 512
   max_response_length: 1024
-  train_batch_size: 64
+  train_batch_size: 32
   val_batch_size: 64
-  return_raw_input_ids: True  # This should be set to true when the tokenizer between policy and rm differs
   return_raw_chat: True
-
+  return_raw_input_ids: True
 actor_rollout_ref:
   hybrid_engine: True
   model:
@@ -38,9 +48,9 @@ actor_rollout_ref:
     use_remove_padding: True
   actor:
     strategy: fsdp  # This is for backward-compatibility
-    ppo_mini_batch_size: 32
+    ppo_mini_batch_size: 16
     ppo_micro_batch_size: null # will be deprecated, use ppo_micro_batch_size_per_gpu
-    ppo_micro_batch_size_per_gpu: 16
+    ppo_micro_batch_size_per_gpu: 8
     use_dynamic_bsz: False
     ppo_max_token_len_per_gpu: 12288 # n * ${data.max_prompt_length} + ${data.max_response_length}
     grad_clip: 1.0
@@ -57,7 +67,7 @@ actor_rollout_ref:
       lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
       min_lr_ratio: null   # only useful for warmup with cosine
       warmup_style: constant  # select from constant/cosine
-      total_training_steps: -1  # must be override by program
+      total_training_steps: 200  # must be override by program
     fsdp_config:
       wrap_policy:
         # transformer_layer_cls_to_wrap: None
@@ -78,7 +88,6 @@ actor_rollout_ref:
     ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size} # sp size
   rollout:
     name: vllm
-    max_model_len: 512
     temperature: 1.0
     top_k: -1 # 0 for hf rollout, -1 for vllm rollout
     top_p: 1
@@ -86,13 +95,13 @@ actor_rollout_ref:
     response_length: ${data.max_response_length}
     # for vllm rollout
     dtype: bfloat16 # should align with FSDP
-    gpu_memory_utilization: 0.6
+    gpu_memory_utilization: 0.7
     ignore_eos: False
     enforce_eager: True
     free_cache_engine: True
     load_format: dummy_dtensor
     tensor_model_parallel_size: 2
-    max_num_batched_tokens: 8192
+    max_num_batched_tokens: 12288
     max_num_seqs: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
     log_prob_micro_batch_size_per_gpu: 160
@@ -103,6 +112,7 @@ actor_rollout_ref:
     # for hf rollout
     do_sample: True
     use_fire_sampling: False
+    max_model_len: 12288
     # number of responses (i.e. num sample times)
     n: 8 # > 1 for grpo
     val_kwargs:
@@ -119,15 +129,15 @@ algorithm:
 verbose: True
 trainer:
   balance_batch: True
-  total_epochs: 10
+  total_epochs: 1
   total_training_steps: null
   project_name: rg-test
-  experiment_name: verl_grpo_qwen_curr
+  experiment_name: verl_grpo_qwen_3b_curr
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
   n_gpus_per_node: 2
-  save_freq: 100
+  save_freq: 50
   # auto: find the last ckpt to resume. If can't find, start from scratch
   resume_mode: auto # or auto or resume_path if
   resume_from_path: False
@@ -136,7 +146,8 @@ trainer:
   default_hdfs_dir: null
   remove_previous_ckpt_in_save: False
   del_local_ckpt_after_load: False
-  default_local_dir: checkpoints/${trainer.project_name}/${trainer.experiment_name}
+  default_local_dir: /workspace/joe/checkpoints/checkpoints/${trainer.project_name}/${trainer.experiment_name}
+
 
 critic:
   strategy: fsdp
