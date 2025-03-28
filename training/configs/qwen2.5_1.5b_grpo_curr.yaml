@@ -1,5 +1,5 @@
 reasoning_gym:
-  dataset_size: 10000
+  dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
     spell_backward:
@@ -8,11 +8,11 @@ reasoning_gym:
           min_word_len: 3
           max_word_len: 10
 curriculum:
-    enabled: False
+    enabled: True
     schedule:
-      automatic: True
+      automatic: False
       update_steps: 30 # automatic curriculum updating after 50 steps
-    last_k: 20
+    last_k: 5120 # Minimum number of samples needed for model to exceeded specific threshold - 20*num_generations*batch_size
     success_threshold: 0.70
     failure_threshold: 0.10
     curricula:
@@ -132,7 +132,7 @@ trainer:
   total_epochs: 1
   total_training_steps: null
   project_name: rg-test
-  experiment_name: verl_grpo_qwen_3b
+  experiment_name: verl_grpo_qwen_3b_curr
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
@@ -146,7 +146,7 @@ trainer:
   default_hdfs_dir: null
   remove_previous_ckpt_in_save: False
   del_local_ckpt_after_load: False
-  default_local_dir: checkpoints/${trainer.project_name}/${trainer.experiment_name}
+  default_local_dir: /workspace/joe/checkpoints/checkpoints/${trainer.project_name}/${trainer.experiment_name}
 
 
 critic:

@@ -71,14 +71,14 @@ def test_spell_backward_curriculum():
     base_cfg: SpellBackwardConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_word_len == 5 and base_cfg.max_word_len == 10
+    assert base_cfg.min_word_len == 3 and base_cfg.max_word_len == 3
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("word_len")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_word_len == 5 and increased_cfg.max_word_len == 20
+    assert increased_cfg.min_word_len == 3 and increased_cfg.max_word_len == 4
 
     # test decrementing attribute levels
     curriculum.decrement_attr_level("word_len")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_word_len == 5 and partially_decreased_cfg.max_word_len == 10
+    assert partially_decreased_cfg.min_word_len == 3 and partially_decreased_cfg.max_word_len == 3
