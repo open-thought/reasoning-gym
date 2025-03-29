@@ -79,7 +79,7 @@ class ReasoningGymDataset(Dataset):
             raise ValueError("Cannot update difficulty: dataset is not a CurriculumExperiment")
         if method not in ["increment", "decrement"]:
             raise ValueError("Invalid method: must be 'increment' or 'decrement'")
-        self.experiment.score_board.clear()
+        self.experiment.score_board.clear(dataset_name)
         self.experiment.update_difficulty(dataset_name, method)
         self.data = self.experiment.composite
         return True
@@ -98,7 +98,6 @@ class ReasoningGymDataset(Dataset):
             first_key = list(scores.keys())[0]
             output_results[key]["results"] = np.mean(scores[first_key])
             output_results[key]["total_samples"] = value.total_scores
-
         return output_results
 
 
@@ -119,5 +118,4 @@ def make_dataset(
         kwargs["experiment"] = data_source
     else:
         kwargs["procedural_dataset"] = data_source
-    print(type(data_source))
     return ReasoningGymDataset(**kwargs)

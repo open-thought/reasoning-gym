@@ -1,6 +1,5 @@
 # Model configuration
-model: Qwen/Qwen2.5-0.5B-Instruct  # Change to the smaller model
-hf_path: /workspace/joe/verl_grpo_qwen_3b_curr
+model_path: utils/qwen2.5_1.5b_curr_step_400  # Change to the smaller model
 max_tokens: 1024  # From max_response_length in training config
 temperature: 0.7  # Lower temperature for more focused responses
 top_p: 0.9  # From rollout top_p
@@ -11,13 +10,14 @@ developer_role: system  # Standard role for system prompts
 output_dir: eval_results
 save_metadata: true
 save_full_results: true
+eval_repeats: 3
 
 # Categories and datasets to evaluate
 categories:
   - category: reasoning
     datasets:
       - dataset: spell_backward
-        size: 1000  # From training dataset_size
+        size: 100
         seed: 42
         params:
           min_word_len: 3  # From training config

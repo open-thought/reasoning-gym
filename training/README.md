@@ -22,9 +22,7 @@ pip install torch==2.6.0
 4. Install veRL (tested with HEAD c34206925e2a50fd452e474db857b4d488f8602d):
 
 ```bash
-git clone https://github.com/volcengine/verl.git
-cd verl
-pip install -e .
+pip install git+https://github.com/volcengine/verl.git@c6dc8b73cf011aa75b8c6a47b0322f50aed800ad#egg=verl
 ```
 
 5. Install vLLM:
