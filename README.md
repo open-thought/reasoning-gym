@@ -24,7 +24,7 @@ _Note that this project is currently under active development, and the version p
 
 ## 🛠️ Development
 
-For development setup, see [CONTRIBUTING.md](CONTRIBUTING.md#delevloper-setup).
+For development setup, see [CONTRIBUTING.md](CONTRIBUTING.md#development-setup).
 
 ## ✨ Example Usage
 
