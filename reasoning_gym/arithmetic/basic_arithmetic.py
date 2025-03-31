@@ -167,8 +167,7 @@ class BasicArithmeticDataset(ProceduralDataset):
                             divisor = rng.randint(1, 10**num_digits - 1)
                             left_parts.append(str(divisor))
                             left_parts.append("+")
-
-                        left_parts.extend(right_parts)
+                    left_parts.extend(right_parts)
                 else:
                     if dividend != 0:
                         divisor = rng.choice(find_common_divisors(dividend, 0))
