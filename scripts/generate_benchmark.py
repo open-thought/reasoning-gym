@@ -43,9 +43,10 @@ def generate_questions(seed: int = 123, num: int = 1) -> str:
             for item in dataset:
                 row = {
                     "_rgid": item.get("metadata", {}).get("_rgid", ""),
+                    "_rgidx": item.get("metadata", {}).get("_rgidx", ""),
                     "source_dataset": item.get("metadata", {}).get("source_dataset", ""),
                     "question": item.get("question", ""),
-                    "answer": "",  # leave this column empty
+                    "answer": item.get("answer", ""),
                 }
                 rows.append(row)
         except Exception as e:
@@ -59,6 +60,7 @@ def main():
     parser = argparse.ArgumentParser(description="Generate a seeded benchmark.")
     parser.add_argument("--num-per-dataset", type=int, default=10, help="Number of items per dataset (default: 10).")
     parser.add_argument("--output", type=str, default="output.csv", help="Output filename")
+    parser.add_argument("--answers", action="store_true", help="Include answers in output CSV")
     args = parser.parse_args()
 
     seed_str = os.getenv("RNG_SEED")
@@ -82,6 +84,8 @@ def main():
         writer.writeheader()
 
         for row in rows:
+            if not args.answers: 
+                row['answer'] = ''
             writer.writerow(row)
 
 
