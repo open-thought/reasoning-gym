@@ -2049,7 +2049,7 @@ def generate_27(rng: Random, difficulty: float = 1.0) -> dict[str, Any]:
         third_complex = int(first_two * percent_bigger / 100)
         total_apartments = first_two + third_complex + first_two
         weekly_visits = total_apartments * freq
-        weekly_earnings = weekly_visits * rate
+        weekly_earnings = round(weekly_visits * rate, 2)
 
         question = f"{name} collects garbage from {n} different apartment complexes. The first {n_first} have {apartments_each} apartments each and the last one is {percent_bigger}% bigger than the other {n_first} combined. {name} collects garbage {freq} times a week from each place and he gets paid {currency}{rate:.2f} per collection for each apartment. How much money does he make in a week?"
 
