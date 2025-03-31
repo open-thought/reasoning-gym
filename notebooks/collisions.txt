@@ -41,3 +41,13 @@ word_sorting, 0
 arc_1d, 0
 arc_agi, 0
 rearc, 0
+basic_arithmetic, 0
+bitwise_arithmetic, 0
+calendar_arithmetic, 0
+chain_sum, 0
+count_bits, 0
+decimal_arithmetic, 0
+decimal_chain_sum, 0
+dice, 0
+fraction_simplification, 0
+gcd, 0
