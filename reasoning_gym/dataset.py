@@ -1,5 +1,6 @@
 """Base class for procedural dataset generators"""
 
+import uuid
 from abc import ABC, abstractmethod
 from collections.abc import Iterable, Sized
 from copy import deepcopy
@@ -43,7 +44,13 @@ class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
             raise StopIteration
         item = self[self._current_idx]
         self._current_idx += 1
+        item["metadata"]["_rgid"] = self._generate_id()
+        item["metadata"]["_rgidx"] = self._current_idx
         return item
+
+    def _generate_id(self) -> str:
+        """Generates a unique identifier using a UUID4. Should maybe be based on the content/RG version?"""
+        return str(uuid.uuid4())
 
     @abstractmethod
     def __getitem__(self, idx: int) -> dict[str, Any]:
