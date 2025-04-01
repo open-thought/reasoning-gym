@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..dataset import ProceduralDataset
 from ..factory import register_dataset
 
@@ -110,9 +110,7 @@ class Arc1DDataset(ProceduralDataset):
                 "train_examples": train_examples,
                 "test_example": test_example,
                 "difficulty": {
-                    "min_size": self.config.min_size,
-                    "max_size": self.config.max_size,
-                    "num_train": self.config.num_train,
+                    "size": (self.config.min_size, self.config.max_size),
                 },
             },
         }
@@ -126,33 +124,14 @@ class Arc1DCurriculum(BaseCurriculum):
 
         # Define attributes
         self._define_attributes(
-            ScalarAttributeDefinition(
-                name="min_size",
-                field_name="min_size",
-                levels=[10, 50, 100, 1000],
-                default_level=0,
-                description="Minimum grid size",
-                attr_type=AttributeType.STATIC,
-                min_value=10,
-            ),
-            ScalarAttributeDefinition(
-                name="max_size",
-                field_name="max_size",
-                levels=[30, 100, 1000, 10000],
-                default_level=0,
-                description="Maximum grid size",
-                attr_type=AttributeType.STATIC,
-                min_value=30,
-            ),
-            ScalarAttributeDefinition(
-                name="num_train",
-                field_name="num_train",
-                levels=[3, 4, 6, 8],
-                default_level=0,
-                description="Number of training examples",
-                attr_type=AttributeType.STATIC,
-                min_value=3,
-            ),
+            RangeAttributeDefinition(
+                name="size",
+                levels=[10, 25, 50, 100],
+                lower_field_name="min_size",
+                upper_field_name="max_size",
+                description="Grid size",
+                ensure_interval=True,
+            )
         )
 
 
