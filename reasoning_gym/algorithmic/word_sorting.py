@@ -142,10 +142,11 @@ class WordSortingCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_words",
-                levels=[10, 25, 50, 100],
+                levels=[5, 10, 25, 50, 100],
                 description="Number of words to sort",
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="word_length",
@@ -153,6 +154,7 @@ class WordSortingCurriculum(BaseCurriculum):
                 description="Length of words to sort",
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
+                ensure_interval=True,
             ),
         )
 

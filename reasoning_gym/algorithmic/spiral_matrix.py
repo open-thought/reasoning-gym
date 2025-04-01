@@ -159,7 +159,6 @@ class SpiralMatrixCurriculum(BaseCurriculum):
                 description="Number of rows/cols in the matrix",
                 lower_field_name="min_n",
                 upper_field_name="max_n",
-                ensure_interval=True,
             )
         )
 

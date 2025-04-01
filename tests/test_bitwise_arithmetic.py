@@ -140,7 +140,7 @@ def test_bitwise_arithmetic_curriculum():
 
     curriculum.increment_attr_level("difficulty")
     cfg: BitwiseArithmeticConfig = curriculum.generate_configuration()
-    assert cfg.difficulty == 3
+    assert cfg.difficulty == 4
 
     curriculum.decrement_attr_level("difficulty")
     cfg: BitwiseArithmeticConfig = curriculum.generate_configuration()

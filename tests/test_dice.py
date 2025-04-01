@@ -50,5 +50,5 @@ def test_dice_curriculum():
     curriculum.increment_attr_level("num_dice")
     curriculum.increment_attr_level("max_dice_size")
     increased_cfg: DiceConfig = curriculum.generate_configuration()
-    assert increased_cfg.num_dice == 5
+    assert increased_cfg.num_dice == 6
     assert increased_cfg.max_dice_size == 25

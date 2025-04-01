@@ -103,7 +103,7 @@ def test_count_primes_list():
             assert dataset.primes[p] == True
 
 
-def test_shortest_path_curriculum():
+def test_color_cube_curriculum():
     curriculum = CountPrimesCurriculum()
 
     base_value = {"size": 150, "seed": 1}
@@ -111,9 +111,9 @@ def test_shortest_path_curriculum():
     base_cfg: CountPrimesConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_n == 1000 and base_cfg.max_n == 1000
+    assert base_cfg.min_n == 10 and base_cfg.max_n == 1000
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("n")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_n == 1000 and increased_cfg.max_n == 10000
+    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 10000

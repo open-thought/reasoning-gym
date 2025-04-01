@@ -84,12 +84,14 @@ def test_graph_color_curriculum():
     base_cfg: GraphColorConfig = curriculum.generate_configuration(base_value, context=context)
     assert base_cfg.size == 150
     assert base_cfg.seed == 1
-    assert base_cfg.min_num_vertices == base_cfg.max_num_vertices == 10
-    assert base_cfg.num_colors == base_cfg.num_colors == 5
+    assert base_cfg.min_num_vertices == 6
+    assert base_cfg.max_num_vertices == 10
+    assert base_cfg.num_colors == 5
 
     curriculum.increment_attr_level("num_vertices")
     cfg = curriculum.generate_configuration(base_value, context=context)
-    assert cfg.min_num_vertices == 20
+    assert cfg.min_num_vertices == 10
+    assert cfg.max_num_vertices == 20
 
     curriculum.increment_attr_level("num_colors")
     cfg = curriculum.generate_configuration(base_value)

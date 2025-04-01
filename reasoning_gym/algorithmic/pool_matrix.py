@@ -145,7 +145,6 @@ class PoolMatrixCurriculum(BaseCurriculum):
                 description="Board size",
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
-                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="cols",
@@ -153,7 +152,6 @@ class PoolMatrixCurriculum(BaseCurriculum):
                 description="Board size",
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
-                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="pool_size",
@@ -161,7 +159,6 @@ class PoolMatrixCurriculum(BaseCurriculum):
                 description="Pool size",
                 lower_field_name="min_pool_size",
                 upper_field_name="max_pool_size",
-                ensure_interval=True,
             ),
         )
 

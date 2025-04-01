@@ -114,8 +114,8 @@ def test_aiw_curriculum():
     assert base_cfg.max_entities == 4
     assert base_cfg.task_type_weights == [1.0, 0.0, 0.0]  # Default is siblings only
 
-    # Test incrementing task_type_weight attribute
-    curriculum.increment_attr_level("task_type_weight")
+    # Test incrementing task_type_weights attribute
+    curriculum.increment_attr_level("task_type_weights")
     task_weight_cfg = curriculum.generate_configuration(base_value)
     assert task_weight_cfg.task_type_weights == [0.9, 0.05, 0.05]  # Second level adds some friends/colleagues
 
@@ -125,8 +125,8 @@ def test_aiw_curriculum():
     assert entities_cfg.max_entities == 6  # Increased max entities
     assert entities_cfg.task_type_weights == [0.9, 0.05, 0.05]  # Should preserve task weight level
 
-    # Test decrementing task_type_weight attribute
-    curriculum.decrement_attr_level("task_type_weight")
+    # Test decrementing task_type_weights attribute
+    curriculum.decrement_attr_level("task_type_weights")
     updated_cfg = curriculum.generate_configuration(base_value)
     assert updated_cfg.task_type_weights == [1.0, 0.0, 0.0]  # Back to default weights
     assert updated_cfg.max_entities == 6  # Should preserve entities level

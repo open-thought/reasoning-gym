@@ -255,7 +255,6 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
                 description="Number of terms in the arithmetic expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
-                ensure_interval=True,
             ),
         )
 

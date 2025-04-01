@@ -213,7 +213,7 @@ class StringManipulationCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="num_rules",
-                levels=[5, 10, 15, 20],
+                levels=[3, 5, 10, 15, 20],
                 description="Number of rules to apply",
                 lower_field_name="min_num_rules",
                 upper_field_name="max_num_rules",

@@ -235,7 +235,7 @@ def test_manipulate_matrix_curriculum():
     assert base_cfg.size == 150
     assert base_cfg.min_rows == 10 and base_cfg.max_rows == 10
     assert base_cfg.min_cols == 10 and base_cfg.max_cols == 10
-    assert base_cfg.min_transforms == 5 and base_cfg.max_transforms == 5
+    assert base_cfg.min_transforms == 1 and base_cfg.max_transforms == 1
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("rows")
@@ -244,11 +244,11 @@ def test_manipulate_matrix_curriculum():
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_rows == 10 and increased_cfg.max_rows == 25
     assert increased_cfg.min_cols == 10 and increased_cfg.max_cols == 25
-    assert increased_cfg.min_transforms == 5 and increased_cfg.max_transforms == 10
+    assert increased_cfg.min_transforms == 1 and increased_cfg.max_transforms == 3
 
     # test decrementing attribute level for rows again
     curriculum.decrement_attr_level("rows")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_rows == 10 and partially_decreased_cfg.max_rows == 10
     assert partially_decreased_cfg.min_cols == 10 and partially_decreased_cfg.max_cols == 25
-    assert increased_cfg.min_transforms == 5 and increased_cfg.max_transforms == 10
+    assert increased_cfg.min_transforms == 1 and increased_cfg.max_transforms == 3

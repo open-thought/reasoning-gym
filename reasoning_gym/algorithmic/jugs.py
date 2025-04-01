@@ -338,7 +338,7 @@ class JugsCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="difficulty",
                 field_name="difficulty",
-                levels=[10, 50, 100, 199],
+                levels=[5, 10, 50, 100, 199],
                 description="Minimum required moves to solve the puzzle",
             ),
         )

@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.games.countdown import CountdownConfig, CountdownDataset, CountdownCurriculum
+from reasoning_gym.games.countdown import CountdownConfig, CountdownCurriculum, CountdownDataset
 
 
 def test_countdown_game_config_validation():
@@ -126,7 +126,6 @@ def test_countdown_curriculum():
     curriculum = CountdownCurriculum()
 
     base_value = {"size": 150, "seed": 1}
-    
 
     print(base_value)
 

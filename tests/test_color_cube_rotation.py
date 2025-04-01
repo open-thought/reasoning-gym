@@ -91,7 +91,7 @@ def test_cube_rotations():
     assert cube.colors[Side.LEFT] == original[Side.LEFT]  # Unchanged
 
 
-def test_shortest_path_curriculum():
+def test_color_cube_curriculum():
     curriculum = ColorCubeRotationCurriculum()
 
     base_value = {"size": 150, "seed": 1}

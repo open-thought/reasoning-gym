@@ -108,7 +108,7 @@ def test_binary_alternation_answer():
     assert dataset._get_answer(string) == 1
 
 
-def test_chain_sum_curriculum():
+def test_binary_alternation_curriculum():
     curriculum = BinaryAlternationCurriculum()
 
     base_value = {"size": 150, "seed": 1}
@@ -116,14 +116,14 @@ def test_chain_sum_curriculum():
     base_cfg: BinaryAlternationConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_n == 10 and base_cfg.max_n == 10
+    assert base_cfg.min_n == 10 and base_cfg.max_n == 50
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("n")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 50
+    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 500
 
     # test decrementing attribute levels
     curriculum.decrement_attr_level("n")
     decreased_cfg = curriculum.generate_configuration(base_value)
-    assert decreased_cfg.min_n == 10 and decreased_cfg.max_n == 10
+    assert decreased_cfg.min_n == 10 and decreased_cfg.max_n == 50

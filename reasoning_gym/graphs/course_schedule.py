@@ -157,7 +157,7 @@ class CourseScheduleCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_courses",
-                levels=[10, 25, 50, 100],
+                levels=[5, 10, 25, 50, 100],
                 default_level=0,  # Start with 5 courses
                 description="Number of courses in the schedule",
                 lower_field_name="min_num_courses",

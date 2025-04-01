@@ -126,28 +126,22 @@ def test_gcd_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_numbers == 2 and base_cfg.max_numbers == 2
-    assert base_cfg.min_value == 100 and base_cfg.max_value == 100
+    assert base_cfg.min_value == 100 and base_cfg.max_value == 1000
 
     curriculum.increment_attr_level("num_terms")
-    curriculum.increment_attr_level("max_value")
+    curriculum.increment_attr_level("value")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_numbers == 2 and increased_cfg.max_numbers == 3
-    assert increased_cfg.min_value == 100 and increased_cfg.max_value == 1000
-
-    curriculum.increment_attr_level("num_terms")
-    curriculum.increment_attr_level("max_value")
-    increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_numbers == 2 and increased_cfg.max_numbers == 4
     assert increased_cfg.min_value == 100 and increased_cfg.max_value == 10000
 
     curriculum.increment_attr_level("num_terms")
-    curriculum.increment_attr_level("max_value")
+    curriculum.increment_attr_level("value")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_numbers == 2 and increased_cfg.max_numbers == 5
+    assert increased_cfg.min_numbers == 2 and increased_cfg.max_numbers == 4
     assert increased_cfg.min_value == 100 and increased_cfg.max_value == 100000
 
     curriculum.decrement_attr_level("num_terms")
-    curriculum.decrement_attr_level("max_value")
+    curriculum.decrement_attr_level("value")
     decreased_cfg = curriculum.generate_configuration(base_value)
-    assert decreased_cfg.min_numbers == 2 and decreased_cfg.max_numbers == 4
+    assert decreased_cfg.min_numbers == 2 and decreased_cfg.max_numbers == 3
     assert decreased_cfg.min_value == 100 and decreased_cfg.max_value == 10000

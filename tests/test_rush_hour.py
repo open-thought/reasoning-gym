@@ -122,14 +122,14 @@ def test_rush_hour_curriculum():
     base_cfg: RushHourConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_moves == 5 and base_cfg.max_moves == 20
+    assert base_cfg.min_moves == 5 and base_cfg.max_moves == 25
 
     # test incrementing attribute levels
-    curriculum.increment_attr_level("min_moves")
+    curriculum.increment_attr_level("moves")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_moves == 5 and increased_cfg.max_moves == 35
+    assert increased_cfg.min_moves == 5 and increased_cfg.max_moves == 50
 
     # test decrementing attribute level for min moves again
-    curriculum.decrement_attr_level("min_moves")
+    curriculum.decrement_attr_level("moves")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_moves == 5 and partially_decreased_cfg.max_moves == 20
+    assert partially_decreased_cfg.min_moves == 5 and partially_decreased_cfg.max_moves == 25

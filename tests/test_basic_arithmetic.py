@@ -144,5 +144,5 @@ def test_basic_arithmetic_curriculum():
         curriculum.increment_attr_level("num_terms")
         curriculum.increment_attr_level("num_digits")
     upper_bound_cfg = curriculum.generate_configuration(base_value)
-    assert upper_bound_cfg.min_terms == 2 and upper_bound_cfg.max_terms == 20
+    assert upper_bound_cfg.min_terms == 2 and upper_bound_cfg.max_terms == 15
     assert upper_bound_cfg.min_digits == 1 and upper_bound_cfg.max_digits == 10

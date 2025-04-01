@@ -98,7 +98,7 @@ class CountdownDataset(ProceduralDataset):
                     "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "target": (self.config.min_target, self.config.max_target),
                     "value": (self.config.min_value, self.config.max_value),
-                }
+                },
             },
         }
 

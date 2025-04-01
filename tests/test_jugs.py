@@ -51,7 +51,7 @@ def test_jugs():
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
 
-def test_game_of_life_curriculum():
+def test_jugs_curriculum():
     """Test the curriculum for complex arithmetic."""
     curriculum = JugsCurriculum()
     base_value = {"size": 150, "seed": 1}
@@ -61,23 +61,21 @@ def test_game_of_life_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.num_jugs == 3
-    assert base_cfg.difficulty == 2
+    assert base_cfg.difficulty == 5
 
     # Test and validate increase in levels
     curriculum.increment_attr_level("num_jugs")
     curriculum.increment_attr_level("difficulty")
-
     increased_cfg: JugsCurriculum = curriculum.generate_configuration(base_value)
     assert increased_cfg.num_jugs == 4
-    assert increased_cfg.difficulty == 4
+    assert increased_cfg.difficulty == 10
 
     # Test and validate decrease in levels
     curriculum.decrement_attr_level("num_jugs")
     curriculum.decrement_attr_level("difficulty")
-
     decreased_cfg: JugsCurriculum = curriculum.generate_configuration(base_value)
     assert decreased_cfg.num_jugs == 3
-    assert decreased_cfg.difficulty == 2
+    assert decreased_cfg.difficulty == 5
 
     # Test upper bound boundary condition
     for _ in range(10):
@@ -85,7 +83,7 @@ def test_game_of_life_curriculum():
         curriculum.increment_attr_level("difficulty")
     upper_bound_cfg: JugsCurriculum = curriculum.generate_configuration(base_value)
     assert upper_bound_cfg.num_jugs == 7
-    assert upper_bound_cfg.difficulty == 8
+    assert upper_bound_cfg.difficulty == 199
 
     # Test lower bound boundary condition
     for _ in range(10):
@@ -93,4 +91,4 @@ def test_game_of_life_curriculum():
         curriculum.decrement_attr_level("difficulty")
     lower_bound_cfg: JugsCurriculum = curriculum.generate_configuration(base_value)
     assert lower_bound_cfg.num_jugs == 3
-    assert lower_bound_cfg.difficulty == 2
+    assert lower_bound_cfg.difficulty == 5

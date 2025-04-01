@@ -48,4 +48,4 @@ def test_mg_curriculum():
     assert base_cfg.size_x == 20
     curriculum.increment_attr_level("size_x")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.size_x == 30
+    assert increased_cfg.size_x == 40

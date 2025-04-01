@@ -137,18 +137,18 @@ def test_group_anagrams_curriculum():
     base_cfg: GroupAnagramsConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_anagram_groups == 10 and base_cfg.max_anagram_groups == 10
+    assert base_cfg.min_anagram_groups == 5 and base_cfg.max_anagram_groups == 10
     assert base_cfg.min_words_per_group == 2 and base_cfg.max_words_per_group == 2
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("anagram_groups")
     curriculum.increment_attr_level("words_per_group")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_anagram_groups == 10 and increased_cfg.max_anagram_groups == 100
+    assert increased_cfg.min_anagram_groups == 5 and increased_cfg.max_anagram_groups == 100
     assert increased_cfg.min_words_per_group == 2 and increased_cfg.max_words_per_group == 5
 
     # test decrementing attribute level partially
     curriculum.decrement_attr_level("anagram_groups")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_anagram_groups == 10 and partially_decreased_cfg.max_anagram_groups == 10
+    assert partially_decreased_cfg.min_anagram_groups == 5 and partially_decreased_cfg.max_anagram_groups == 10
     assert partially_decreased_cfg.min_words_per_group == 2 and partially_decreased_cfg.max_words_per_group == 5

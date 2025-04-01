@@ -131,17 +131,17 @@ def test_lcm_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_numbers == 2 and base_cfg.max_numbers == 2
-    assert base_cfg.min_value == 1 and base_cfg.max_value == 100
+    assert base_cfg.min_value == 100 and base_cfg.max_value == 1000
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("numbers")
     curriculum.increment_attr_level("value")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_numbers == 2 and increased_cfg.max_numbers == 4
-    assert increased_cfg.min_value == 1 and increased_cfg.max_value == 500
+    assert increased_cfg.min_numbers == 2 and increased_cfg.max_numbers == 3
+    assert increased_cfg.min_value == 100 and increased_cfg.max_value == 10000
 
     # test decrementing attribute level for numbers again
     curriculum.decrement_attr_level("numbers")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_numbers == 2 and partially_decreased_cfg.max_numbers == 2
-    assert partially_decreased_cfg.min_value == 1 and partially_decreased_cfg.max_value == 500
+    assert partially_decreased_cfg.min_value == 100 and partially_decreased_cfg.max_value == 10000

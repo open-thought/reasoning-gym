@@ -21,7 +21,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 # Added constant to avoid repetition of adjacent directions
@@ -307,11 +307,17 @@ class TsumegoCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="board_size",
-                levels=[3, 5, 10, 15, 19],
+                levels=[5, 10, 15, 19],
                 lower_field_name="min_board_size",
                 upper_field_name="max_board_size",
                 description="The size of the board",
-            )
+            ),
+            ScalarAttributeDefinition(
+                name="max_stones",
+                field_name="max_stones",
+                levels=[5, 10, 13, 15],
+                description="The maximum number of stones on the board",
+            ),
         )
 
 

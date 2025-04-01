@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.logic.syllogisms import Quantifier, SyllogismConfig, SyllogismDataset, Term, SyllogismCurriculum
+from reasoning_gym.logic.syllogisms import Quantifier, SyllogismConfig, SyllogismCurriculum, SyllogismDataset, Term
 
 
 def test_syllogism_config_validation():

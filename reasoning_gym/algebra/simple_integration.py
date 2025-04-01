@@ -128,7 +128,6 @@ class SimpleIntegrationCurriculum(BaseCurriculum):
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
                 description="The number of terms in the polynomial",
-                ensure_interval=True,
             )
         )
 

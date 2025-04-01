@@ -78,7 +78,7 @@ class LegCountingConfig:
         """Validate configuration parameters"""
         assert self.min_animals > 0, "min_animals must be positive"
         assert self.max_animals >= self.min_animals, "max_animals must be >= min_animals"
-        assert self.max_animals <= len(ANIMALS), "max_animals must be <= number of available animals" # 37
+        assert self.max_animals <= len(ANIMALS), "max_animals must be <= number of available animals"  # 37
         assert self.min_instances > 0, "min_instances must be positive"
         assert self.max_instances >= self.min_instances, "max_instances must be >= min_instances"
 
@@ -146,7 +146,6 @@ class LegCountingCurriculum(BaseCurriculum):
                 description="Number of animals in question",
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",
-                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="num_instances",
