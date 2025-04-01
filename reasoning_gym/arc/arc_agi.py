@@ -18,6 +18,8 @@ from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 
 DATASET_NAME = "arc_agi"
 
+from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+
 
 @dataclass
 class ArcAgiConfig:
@@ -239,7 +241,7 @@ class ArcAgiCurriculum(BaseCurriculum):
                 field_name="rotations_weights",
                 # ROTATION_AUGMENTATIONS = [identity, rot90, rot180, rot270]
                 levels=[[0.3, 0.2, 0.3, 0.2], [0.15, 0.3, 0.25, 0.3], [0.1, 0.35, 0.2, 0.35], [0.0, 0.4, 0.2, 0.4]],
-                description="Rotation augmentation weights"
+                description="Rotation augmentation weights",
             ),
             ScalarAttributeDefinition(
                 name="mirrors_weights",
@@ -251,7 +253,7 @@ class ArcAgiCurriculum(BaseCurriculum):
                     [0.1, 0.1, 0.2, 0.3, 0.3],
                     [0.05, 0.05, 0.1, 0.4, 0.4],
                 ],
-                description="Mirror augmentation weights"
+                description="Mirror augmentation weights",
             ),
         )
 
