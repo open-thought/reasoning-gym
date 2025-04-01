@@ -18,8 +18,6 @@ from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 
 DATASET_NAME = "arc_agi"
 
-from ..coaching import BaseCurriculum, ScalarAttributeDefinition
-
 
 @dataclass
 class ArcAgiConfig:
