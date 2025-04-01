@@ -4,7 +4,7 @@ Logic tasks for training reasoning capabilities.
 
 from .aiw import AliceInWonderlandConfig, AliceInWonderlandCurriculum, AliceInWonderlandDataset
 from .circuit_logic import CircuitLogicConfig, CircuitLogicCurriculum, CircuitLogicDataset
-from .knights_knaves import KnightsKnavesConfig, KnightsKnavesDataset
+from .knights_knaves import KnightsKnavesConfig, KnightsKnavesCurriculum, KnightsKnavesDataset
 from .propositional_logic import PropositionalLogicConfig, PropositionalLogicCurriculum, PropositionalLogicDataset
 from .self_reference import SelfReferenceConfig, SelfReferenceCurriculum, SelfReferenceDataset
 from .syllogisms import SyllogismConfig, SyllogismCurriculum, SyllogismDataset
@@ -32,4 +32,5 @@ __all__ = [
     "CircuitLogicCurriculum",
     "KnightsKnavesConfig",
     "KnightsKnavesDataset",
+    "KnightsKnavesCurriculum",
 ]
