@@ -8,6 +8,8 @@ import numpy as np
 
 from reasoning_gym.factory import ProceduralDataset, register_dataset
 
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
+
 DATASET_NAME = "knights_knaves"
 
 COMMON_NAMES = [
@@ -515,4 +517,26 @@ class KnightsKnavesDataset(ProceduralDataset):
         return 0.0
 
 
-register_dataset(DATASET_NAME, KnightsKnavesDataset, KnightsKnavesConfig)
+class KnightsKnavesCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(KnightsKnavesCurriculum.__name__, KnightsKnavesConfig)
+
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="n_people",
+                levels=[2, 3, 4, 5],
+                description="Number of people in the problem",
+                lower_field_name="n_people",
+                upper_field_name="n_people",
+            ),
+            RangeAttributeDefinition(
+                name="depth_constraint",
+                levels=[2, 3, 4, 5],
+                description="Depth of the problem",
+                lower_field_name="depth_constraint",
+                upper_field_name="depth_constraint",
+            ),
+        )
+
+
+register_dataset(DATASET_NAME, KnightsKnavesDataset, KnightsKnavesConfig, KnightsKnavesCurriculum)
