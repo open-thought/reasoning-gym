@@ -64,28 +64,6 @@ class RayGRPOTrainer(RayPPOTrainer):
                         }
                     )
 
-        if config.curriculum.enabled:
-            self.last_k = config.curriculum.last_k
-        else:
-            self.last_k = None
-
-        self.reward_functions = []
-        if hasattr(config, "reward") and hasattr(config.reward, "secondary_rewards"):
-            for func_config in config.reward.secondary_rewards:
-                func_name = func_config.name
-                scaling_factor = func_config.get("scaling_factor", 1.0)
-                func = reward_registry.get(func_name)
-                if func:
-                    # Store both function and its arguments
-                    self.reward_functions.append(
-                        {
-                            "function": func,
-                            "name": func_name,
-                            "scaling_factor": scaling_factor,
-                            "kwargs": func_config.get("kwargs", {}),
-                        }
-                    )
-
         train_reward_fn = lambda data: self._score_output(data, num_examine=0)
         val_reward_fn = lambda data: self._score_output(data, num_examine=1)
 
