@@ -256,4 +256,4 @@ class ArcAgiCurriculum(BaseCurriculum):
         )
 
 
-register_dataset("arc_agi", ArcAgiDataset, ArcAgiConfig, ArcAgiCurriculum)
+register_dataset(DATASET_NAME, ArcAgiDataset, ArcAgiConfig, ArcAgiCurriculum)
