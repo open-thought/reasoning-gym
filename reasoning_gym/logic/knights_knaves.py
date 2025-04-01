@@ -8,7 +8,7 @@ import numpy as np
 
 from reasoning_gym.factory import ProceduralDataset, register_dataset
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 
 DATASET_NAME = "knights_knaves"
 
@@ -464,6 +464,11 @@ class KnightsKnavesDataset(ProceduralDataset):
             "solution": problem["solution"],
             "names": formatted["names"],
             "knight_knave_terms": formatted["knight_knave"],
+            "difficulty": {
+                "n_people": self.config.n_people,
+                "depth_constraint": self.config.depth_constraint,
+                "width_constraint": self.config.width_constraint,
+            },
         }
 
         return {"question": question, "answer": answer, "metadata": metadata}
@@ -522,19 +527,23 @@ class KnightsKnavesCurriculum(BaseCurriculum):
         super().__init__(KnightsKnavesCurriculum.__name__, KnightsKnavesConfig)
 
         self._define_attributes(
-            RangeAttributeDefinition(
+            ScalarAttributeDefinition(
                 name="n_people",
                 levels=[2, 3, 4, 5],
                 description="Number of people in the problem",
-                lower_field_name="n_people",
-                upper_field_name="n_people",
+                field_name="n_people",
             ),
-            RangeAttributeDefinition(
+            ScalarAttributeDefinition(
                 name="depth_constraint",
                 levels=[2, 3, 4, 5],
                 description="Depth of the problem",
-                lower_field_name="depth_constraint",
-                upper_field_name="depth_constraint",
+                field_name="depth_constraint",
+            ),
+            ScalarAttributeDefinition(
+                name="width_constraint",
+                levels=[2, 3, 4, 5],
+                description="Width of the problem",
+                field_name="width_constraint",
             ),
         )
 

@@ -239,7 +239,7 @@ def test_depth_constraint_specific_problem():
 def test_curriculum():
     curriculum = KnightsKnavesCurriculum()
 
-    assert len(curriculum.attributes) == 2
+    assert len(curriculum.attributes) == 3
 
     base_value = {"size": 150, "seed": 1}
 
@@ -253,19 +253,23 @@ def test_curriculum():
     # test incrementing attribute levels
     curriculum.increment_attr_level("n_people")
     curriculum.increment_attr_level("depth_constraint")
+    curriculum.increment_attr_level("width_constraint")
 
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.n_people == 3
     assert increased_cfg.depth_constraint == 3
-
+    assert increased_cfg.width_constraint == 3
     # test decrementing attribute level
     curriculum.decrement_attr_level("n_people")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.n_people == 2
     assert partially_decreased_cfg.depth_constraint == 3
+    assert partially_decreased_cfg.width_constraint == 3
 
     curriculum.increment_attr_level("n_people")
     curriculum.increment_attr_level("depth_constraint")
+    curriculum.increment_attr_level("width_constraint")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.n_people == 3
     assert increased_cfg.depth_constraint == 4
+    assert increased_cfg.width_constraint == 4
