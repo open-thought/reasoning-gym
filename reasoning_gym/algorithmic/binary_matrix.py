@@ -160,6 +160,7 @@ class BinaryMatrixCurriculum(BaseCurriculum):
                 description="Board size",
                 lower_field_name="min_n",
                 upper_field_name="max_n",
+                ensure_interval=True,
             ),
         )
 

@@ -127,7 +127,7 @@ class NumberFormatCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="n",
-                levels=[10, 1_000, 1_000_000, 1_000_000_000],
+                levels=[1_000, 100_000, 1_000_000, 1_000_000_000],
                 description="Magnitude of the values",
                 lower_field_name="min_n",
                 upper_field_name="max_n",

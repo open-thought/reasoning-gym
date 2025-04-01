@@ -7,7 +7,7 @@ from .circuit_logic import CircuitLogicConfig, CircuitLogicCurriculum, CircuitLo
 from .knights_knaves import KnightsKnavesConfig, KnightsKnavesDataset
 from .propositional_logic import PropositionalLogicConfig, PropositionalLogicCurriculum, PropositionalLogicDataset
 from .self_reference import SelfReferenceConfig, SelfReferenceCurriculum, SelfReferenceDataset
-from .syllogisms import SyllogismConfig, SyllogismDataset
+from .syllogisms import SyllogismConfig, SyllogismDataset, SyllogismCurriculum
 from .zebra_puzzles import ZebraConfig, ZebraCurriculum, ZebraDataset
 
 __all__ = [
@@ -19,6 +19,7 @@ __all__ = [
     "PropositionalLogicCurriculum",
     "SyllogismConfig",
     "SyllogismDataset",
+    "SyllogismCurriculum",
     "syllogism_dataset",
     "ZebraConfig",
     "ZebraCurriculum",

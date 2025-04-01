@@ -337,6 +337,7 @@ class ManipulateMatrixCurriculum(BaseCurriculum):
                 description="Number of rows in the matrix",
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="cols",
@@ -344,13 +345,15 @@ class ManipulateMatrixCurriculum(BaseCurriculum):
                 description="Number of columns in the matrix",
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="num_transforms",
-                levels=[5, 10, 20, 30],
+                levels=[3, 5, 10, 15],
                 description="Number of transformations to apply",
                 lower_field_name="min_transforms",
                 upper_field_name="max_transforms",
+                ensure_interval=True,
             ),
         )
 

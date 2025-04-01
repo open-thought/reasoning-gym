@@ -70,6 +70,7 @@ class CountBitsCurriculum(BaseCurriculum):
                 description="Number to count bits in",
                 lower_field_name="min_n",
                 upper_field_name="max_n",
+                ensure_interval=True,
             ),
         )
 

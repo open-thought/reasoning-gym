@@ -85,7 +85,7 @@ class WordSequenceReversalCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="words",
-                levels=[10, 50, 100, 500],
+                levels=[10, 25, 50, 100],
                 description="Number of words in the list",
                 lower_field_name="min_words",
                 upper_field_name="max_words",

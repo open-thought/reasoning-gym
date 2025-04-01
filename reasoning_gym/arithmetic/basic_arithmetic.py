@@ -248,10 +248,11 @@ class BasicArithmeticCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_terms",
-                levels=[2, 5, 10, 20],
+                levels=[2, 5, 10, 15],
                 description="Number of terms in the expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="num_digits",
@@ -259,6 +260,7 @@ class BasicArithmeticCurriculum(BaseCurriculum):
                 description="Number of digits in the numbers",
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",
+                ensure_interval=True,
             ),
         )
 

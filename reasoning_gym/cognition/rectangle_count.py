@@ -158,7 +158,7 @@ class RectangleCountCurriculum(BaseCurriculum):
         self._define_attributes(
             ScalarAttributeDefinition(
                 name="max_rectangles",
-                levels=[1, 3, 5, 10],
+                levels=[5, 10, 15, 20, 25],
                 description="Number of rectangles in the grid",
                 field_name="max_rectangles",
             ),

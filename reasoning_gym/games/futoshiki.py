@@ -679,6 +679,7 @@ class FutoshikiCurriculum(BaseCurriculum):
                 description="Board size",
                 lower_field_name="min_board_size",
                 upper_field_name="max_board_size",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="difficulty",
@@ -686,8 +687,9 @@ class FutoshikiCurriculum(BaseCurriculum):
                 description="Difficulty",
                 lower_field_name="min_difficulty",
                 upper_field_name="max_difficulty",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset(DATASET_NAME, FutoshikiDataset, FutoshikiConfig)
+register_dataset(DATASET_NAME, FutoshikiDataset, FutoshikiConfig, FutoshikiCurriculum)

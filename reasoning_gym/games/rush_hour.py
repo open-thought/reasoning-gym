@@ -167,7 +167,7 @@ class RushHourDataset(ProceduralDataset):
                 "board_config": board_config,
                 "min_moves": min_moves,
                 "difficulty": {
-                    "min_moves": (self.config.min_moves, self.config.max_moves),
+                    "moves": (self.config.min_moves, self.config.max_moves),
                 },
             },
         }
@@ -381,8 +381,8 @@ class RushHourCurriculum(BaseCurriculum):
         # Define attributes
         self._define_attributes(
             RangeAttributeDefinition(
-                name="min_moves",
-                levels=[5, 20, 35, 50],
+                name="moves",
+                levels=[5, 25, 50, 100],
                 description="Minimum possible number of moves",
                 lower_field_name="min_moves",
                 upper_field_name="max_moves",

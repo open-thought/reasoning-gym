@@ -4,7 +4,7 @@ from decimal import ROUND_HALF_UP, Decimal, getcontext
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "decimal_arithmetic"
@@ -241,13 +241,21 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
                 description="Number of decimal places of the numbers in problem",
                 lower_field_name="min_num_decimal_places",
                 upper_field_name="max_num_decimal_places",
+                ensure_interval=True,
+            ),
+            ScalarAttributeDefinition(
+                name="precision",
+                field_name="precision",
+                description="Precision of the Decimal arithmetic operations",
+                levels=[5, 7, 10, 12],
             ),
             RangeAttributeDefinition(
                 name="num_terms",
-                levels=[2, 3, 4, 6],
+                levels=[2, 5, 8, 10],
                 description="Number of terms in the arithmetic expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
+                ensure_interval=True,
             ),
         )
 

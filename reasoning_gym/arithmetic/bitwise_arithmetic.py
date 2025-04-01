@@ -192,7 +192,7 @@ class BitwiseArithmeticCurriculum(BaseCurriculum):
         self._define_attributes(
             ScalarAttributeDefinition(
                 name="difficulty",
-                levels=[1, 2, 3, 4],
+                levels=[2, 4, 6, 8, 10],
                 description="Range of difficulty levels",
                 field_name="difficulty",
             ),

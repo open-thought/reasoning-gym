@@ -105,7 +105,7 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="value",
-                levels=[10, 1_000, 10_000, 50_000],
+                levels=[10, 1_000, 5_000, 10_000],
                 description="Number to factorize",
                 lower_field_name="min_value",
                 upper_field_name="max_value",

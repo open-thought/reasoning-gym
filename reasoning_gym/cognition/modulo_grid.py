@@ -163,19 +163,19 @@ class ModuloGridCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="size_x",
                 field_name="size_x",
-                levels=[20, 30, 50, 75],
+                levels=[20, 40, 60, 80],
                 description="Size x",
             ),
             ScalarAttributeDefinition(
                 name="size_y",
                 field_name="size_y",
-                levels=[20, 30, 50, 75],
+                levels=[20, 40, 60, 80],
                 description="Size y",
             ),
             ScalarAttributeDefinition(
                 name="max_holes",
                 field_name="max_holes",
-                levels=[1, 2, 3, 5],
+                levels=[1, 2, 4, 6],
                 description="Max holes",
             ),
             ScalarAttributeDefinition(

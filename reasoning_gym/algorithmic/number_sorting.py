@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "number_sorting"
@@ -177,7 +177,7 @@ class NumberSortingCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="numbers",
-                levels=[10, 100, 500, 1000],
+                levels=[10, 50, 100, 200],
                 description="How many numbers to sort",
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
@@ -191,13 +191,17 @@ class NumberSortingCurriculum(BaseCurriculum):
                 upper_field_name="max_decimals",
                 ensure_interval=True,
             ),
-            RangeAttributeDefinition(
-                name="value",
-                levels=[-10_000, 10_000],
-                description="Range of numbers to sort",
-                lower_field_name="min_value",
-                upper_field_name="max_value",
-                ensure_interval=True,
+            ScalarAttributeDefinition(
+                name="min_value",
+                field_name="min_value",
+                levels=[-100, -500, -1000, -10000],
+                description="Minimum number value",
+            ),
+            ScalarAttributeDefinition(
+                name="max_value",
+                field_name="max_value",
+                levels=[100, 500, 1000, 10000],
+                description="Maximum number value",
             ),
         )
 

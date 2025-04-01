@@ -266,6 +266,7 @@ class GraphColorCurriculum(BaseCurriculum):
                 description="Number of vertices in the graph",
                 lower_field_name="min_num_vertices",
                 upper_field_name="max_num_vertices",
+                ensure_interval=True,
             ),
             ScalarAttributeDefinition(
                 name="num_colors",

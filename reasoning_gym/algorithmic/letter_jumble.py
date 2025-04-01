@@ -181,7 +181,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="words",
-                levels=[10, 50, 100, 500],
+                levels=[10, 25, 50, 100],
                 description="Number of words",
                 lower_field_name="min_words",
                 upper_field_name="max_words",

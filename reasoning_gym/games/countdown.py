@@ -7,6 +7,7 @@ import sympy
 from sympy import Symbol, symbols
 from sympy.parsing.sympy_parser import parse_expr
 
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_FORMAT_TEMPLATE = """{question}
@@ -93,6 +94,11 @@ class CountdownDataset(ProceduralDataset):
                 "numbers": numbers,
                 "target": target,
                 "expression": expression,
+                "difficulty": {
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
+                    "target": (self.config.min_target, self.config.max_target),
+                    "value": (self.config.min_value, self.config.max_value),
+                }
             },
         }
 
@@ -199,5 +205,38 @@ class CountdownDataset(ProceduralDataset):
             return 0.01
 
 
+class CountdownCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(CountdownCurriculum.__name__, CountdownConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="numbers",
+                levels=[3, 6, 9, 12, 15],
+                description="Number of rows in the grid",
+                lower_field_name="min_numbers",
+                upper_field_name="max_numbers",
+                ensure_interval=True,
+            ),
+            RangeAttributeDefinition(
+                name="target",
+                levels=[100, 500, 1000, 5000, 10000],
+                description="Target number to reach",
+                lower_field_name="min_target",
+                upper_field_name="max_target",
+                ensure_interval=True,
+            ),
+            RangeAttributeDefinition(
+                name="value",
+                levels=[1, 100, 250, 500, 1000],
+                description="Value of numbers",
+                lower_field_name="min_value",
+                upper_field_name="max_value",
+                ensure_interval=True,
+            ),
+        )
+
+
 # Register the dataset
-register_dataset(DATASET_NAME, CountdownDataset, CountdownConfig)
+register_dataset(DATASET_NAME, CountdownDataset, CountdownConfig, CountdownCurriculum)
