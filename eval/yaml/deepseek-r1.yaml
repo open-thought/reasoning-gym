@@ -89,6 +89,7 @@ categories:
   - dataset: rubiks_cube
 - category: games
   datasets:
+  - dataset: boxnet
   - dataset: countdown
   - dataset: emoji_mystery
   - dataset: futoshiki

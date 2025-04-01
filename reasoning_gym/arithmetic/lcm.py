@@ -6,8 +6,10 @@ from math import lcm
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "lcm"
 
 
 @dataclass
@@ -64,10 +66,12 @@ class LCMDataset(ProceduralDataset):
             "question": f"Find the Least Common Multiple (LCM) of these numbers: {numbers_str}",
             "answer": str(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "numbers": numbers,
                 "result": result,
                 "difficulty": {
-                    "numbers": len(numbers),
+                    "numbers": (self.config.min_numbers, self.config.max_numbers),
                     "value": (self.config.min_value, self.config.max_value),
                 },
             },
@@ -83,24 +87,19 @@ class LCMCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="numbers",
                 levels=[2, 4, 6, 8, 10],
-                default_level=0,
                 description="Number of integers to find LCM of",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
             ),
             RangeAttributeDefinition(
                 name="value",
                 levels=[1, 100, 500, 1000, 5000],
-                default_level=1,
                 description="Range of values for each integer",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("lcm", LCMDataset, LCMConfig, LCMCurriculum)
+register_dataset(DATASET_NAME, LCMDataset, LCMConfig, LCMCurriculum)

@@ -14,7 +14,9 @@ from reasoning_gym.arc.board_format import (
 from reasoning_gym.dataset import ProceduralDataset
 from reasoning_gym.factory import register_dataset
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
+
+DATASET_NAME = "arc_agi"
 
 
 @dataclass
@@ -197,6 +199,8 @@ class ArcAgiDataset(ProceduralDataset):
             "question": input_prompt,
             "answer": test_output,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "input": totuple(augmented_test_input),
                 "output": totuple(augmented_test_output),
                 "task_id": task_id,
@@ -235,10 +239,7 @@ class ArcAgiCurriculum(BaseCurriculum):
                 field_name="rotations_weights",
                 # ROTATION_AUGMENTATIONS = [identity, rot90, rot180, rot270]
                 levels=[[0.3, 0.2, 0.3, 0.2], [0.15, 0.3, 0.25, 0.3], [0.1, 0.35, 0.2, 0.35], [0.0, 0.4, 0.2, 0.4]],
-                default_level=0,
-                description="Rotation augmentation weights",
-                attr_type=AttributeType.STATIC,
-                min_value=[0.3, 0.2, 0.3, 0.2],
+                description="Rotation augmentation weights"
             ),
             ScalarAttributeDefinition(
                 name="mirrors_weights",
@@ -250,10 +251,7 @@ class ArcAgiCurriculum(BaseCurriculum):
                     [0.1, 0.1, 0.2, 0.3, 0.3],
                     [0.05, 0.05, 0.1, 0.4, 0.4],
                 ],
-                default_level=0,
-                description="Mirror augmentation weights",
-                attr_type=AttributeType.STATIC,
-                min_value=[0.3, 0.3, 0.2, 0.1, 0.1],
+                description="Mirror augmentation weights"
             ),
         )
 

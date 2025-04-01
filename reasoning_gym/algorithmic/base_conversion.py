@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to convert a number between two different bases.
@@ -13,6 +13,8 @@ If the target base is > 10, use lowercase letters a-z for digits above 9.
 
 Now, convert the {source_name} number {source_repr} to {target_name}
 """
+
+DATASET_NAME = "base_conversion"
 
 
 @dataclass
@@ -104,14 +106,16 @@ class BaseConversionDataset(ProceduralDataset):
             ),
             "answer": target_repr,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "decimal_value": value,
                 "source_base": source_base,
                 "target_base": target_base,
                 "source_repr": source_repr,
                 "target_repr": target_repr,
                 "difficulty": {
-                    "value": value,
-                    "base": (source_base, target_base),
+                    "base": (self.config.min_base, self.config.max_base),
+                    "value": (self.config.min_value, self.config.max_value),
                 },
             },
         }
@@ -126,24 +130,20 @@ class BaseConversionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="base",
                 levels=[2, 9, 18, 27, 36],
-                default_level=1,
                 description="The base of the number system",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_base",
                 upper_field_name="max_base",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="value",
                 levels=[1_000, 10_000, 100_000, 1_000_000],
-                default_level=0,
                 description="The value to convert",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("base_conversion", BaseConversionDataset, BaseConversionConfig, BaseConversionCurriculum)
+register_dataset(DATASET_NAME, BaseConversionDataset, BaseConversionConfig, BaseConversionCurriculum)

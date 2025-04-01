@@ -6,7 +6,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your job is to perform max/average pooling on the given matrix.
@@ -19,6 +19,9 @@ Give elements in the output matrix correct to 2 decimal places.
 Perform {pool_type} pooling on the following matrix with a kernel size of {pool_size}:
 {matrix}
 """
+
+
+DATASET_NAME = "pool_matrix"
 
 
 @dataclass
@@ -113,14 +116,19 @@ class PoolMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str, pool_type=pool_type, pool_size=pool_size),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix.tolist(),
                 "pool_type": pool_type,
                 "pool_size": pool_size,
                 "solution": answer.tolist(),
+                "rows": rows,
+                "cols": cols,
+                "pool_size": pool_size,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
-                    "pool_size": pool_size,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
+                    "pool_size": (self.config.min_pool_size, self.config.max_pool_size),
                 },
             },
         }
@@ -134,34 +142,25 @@ class PoolMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rows",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
             ),
             RangeAttributeDefinition(
                 name="cols",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
             ),
             RangeAttributeDefinition(
                 name="pool_size",
                 levels=[3, 5, 7, 9],
-                default_level=0,
                 description="Pool size",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_pool_size",
                 upper_field_name="max_pool_size",
             ),
         )
 
 
-register_dataset("pool_matrix", PoolMatrixDataset, PoolMatrixConfig, PoolMatrixCurriculum)
+register_dataset(DATASET_NAME, PoolMatrixDataset, PoolMatrixConfig, PoolMatrixCurriculum)

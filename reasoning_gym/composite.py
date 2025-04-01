@@ -126,10 +126,6 @@ class CompositeDataset(ProceduralDataset):
         # Get item from selected dataset
         item = dataset[idx]
 
-        # Add source dataset info to metadata
-        item["metadata"]["source_dataset"] = dataset_name
-        item["metadata"]["source_index"] = idx
-
         # Add version info if tracking enabled
         if self.version_manager is not None:
             version_id = self.dataset_versions[dataset_name]

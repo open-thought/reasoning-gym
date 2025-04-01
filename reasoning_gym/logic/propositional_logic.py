@@ -6,8 +6,10 @@ from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "propositional_logic"
 
 
 def parse_expr(expr: str):
@@ -216,13 +218,15 @@ class PropositionalLogicDataset(ProceduralDataset):
             "question": question,
             "answer": None,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "premises": [str(p) for p in premises],
                 "variables": variables,
                 "complexity": self._measure_complexity(conclusion),
                 "example_answer": str(conclusion),
                 "difficulty": {
-                    "vars": num_vars,
-                    "statements": num_statements,
+                    "vars": (self.config.min_vars, self.config.max_vars),
+                    "statements": (self.config.min_statements, self.config.max_statements),
                     "complexity": (self.config.min_complexity, self.config.max_complexity),
                 },
             },
@@ -346,36 +350,25 @@ class PropositionalLogicCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="vars",
                 levels=[2, 4, 6, 8, 10],
-                default_level=0,
                 description="Number of variables in the logical expressions",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_vars",
                 upper_field_name="max_vars",
             ),
             RangeAttributeDefinition(
                 name="statements",
                 levels=[2, 4, 6, 8, 10],
-                default_level=0,
                 description="Number of premises in the logical expressions",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_statements",
                 upper_field_name="max_statements",
             ),
             RangeAttributeDefinition(
                 name="complexity",
                 levels=[1, 2, 3, 4, 5],
-                default_level=0,
                 description="Complexity of the logical expressions",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_complexity",
                 upper_field_name="max_complexity",
             ),
         )
 
 
-register_dataset(
-    "propositional_logic", PropositionalLogicDataset, PropositionalLogicConfig, PropositionalLogicCurriculum
-)
+register_dataset(DATASET_NAME, PropositionalLogicDataset, PropositionalLogicConfig, PropositionalLogicCurriculum)

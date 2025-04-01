@@ -5,9 +5,11 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "spell_backward"
 
 
 @dataclass
@@ -52,9 +54,13 @@ class SpellBackwardDataset(ProceduralDataset):
             "question": f"Spell this word backward (example: sun -> nus): {word}",
             "answer": answer,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "word": word,
                 "word_len": len(word),
-                "difficulty": {"word_len": (self.config.min_word_len, self.config.max_word_len)},
+                "difficulty": {
+                    "word_len": (self.config.min_word_len, self.config.max_word_len),
+                },
             },
         }
 
@@ -81,14 +87,12 @@ class SpellBackwardCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_len",
                 levels=[5, 10, 20, 30],
-                default_level=1,
                 description="Word length",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("spell_backward", SpellBackwardDataset, SpellBackwardConfig, SpellBackwardCurriculum)
+register_dataset(DATASET_NAME, SpellBackwardDataset, SpellBackwardConfig, SpellBackwardCurriculum)

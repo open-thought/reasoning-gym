@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """There is a dismantling engineer who has old machines A, B, and C.
@@ -27,6 +27,8 @@ For example 1 0 1 5 4 3 means that you have 1 machine A, 0 machine B, 1 machine 
 Now, you have {A_machine} machine A, {B_machine} machine B, and {C_machine} machine C. Provide the count of each machine and part type after applying the above rules.
 Note: Apply the rules at most {max_iterations} times. If the rules cannot be applied anymore, or if you have reached the maximum number of iterations, stop and provide the current counts of each machine and part type.
 """
+
+DATASET_NAME = "string_splitting"
 
 
 @dataclass
@@ -125,10 +127,13 @@ class StringSplittingDataset(ProceduralDataset):
             ),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "states": states,
                 "solution": answer,
+                "initial_machines": (A_machine, B_machine, C_machine),
                 "difficulty": {
-                    "initial_machines": (A_machine, B_machine, C_machine),
+                    "initial_machines": (self.config.min_initial_machines, self.config.max_initial_machines),
                 },
             },
         }
@@ -143,14 +148,12 @@ class StringSplittingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="initial_machines",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Number of initial machines",
-                attr_type=AttributeType.APPEND,
-                min_value=0,
                 lower_field_name="min_initial_machines",
                 upper_field_name="max_initial_machines",
+                ensure_interval=True,
             )
         )
 
 
-register_dataset("string_splitting", StringSplittingDataset, StringSplittingConfig, StringSplittingCurriculum)
+register_dataset(DATASET_NAME, StringSplittingDataset, StringSplittingConfig, StringSplittingCurriculum)

@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
@@ -19,6 +19,8 @@ Each letter in the magazine string can only be used once in your ransom note.
 Ransom note: {ransom_note}
 Magazine: {magazine}
 """
+
+DATASET_NAME = "ransom_note"
 
 
 @dataclass
@@ -99,13 +101,17 @@ class RansomNoteDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(ransom_note=ransom_note, magazine=magazine),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "ransom_note": ransom_note,
                 "magazine": magazine,
                 "solution": answer,
                 "solvable": solvable,
+                "note_length": note_length,
+                "magazine_length": magazine_length,
                 "difficulty": {
-                    "note_length": note_length,
-                    "magazine_length": magazine_length,
+                    "note_length": (self.config.min_note_length, self.config.max_note_length),
+                    "magazine_length": (self.config.min_magazine_length, self.config.max_magazine_length),
                 },
             },
         }
@@ -120,24 +126,18 @@ class RansomNoteCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="note_length",
                 levels=[10, 50, 100, 500],
-                default_level=0,
                 description="Length of the ransom note",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_note_length",
                 upper_field_name="max_note_length",
             ),
             RangeAttributeDefinition(
                 name="magazine_length",
                 levels=[50, 100, 500, 1000],
-                default_level=0,
                 description="Length of the magazine",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_magazine_length",
                 upper_field_name="max_magazine_length",
             ),
         )
 
 
-register_dataset("ransom_note", RansomNoteDataset, RansomNoteConfig, RansomNoteCurriculum)
+register_dataset(DATASET_NAME, RansomNoteDataset, RansomNoteConfig, RansomNoteCurriculum)

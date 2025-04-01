@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -22,6 +22,9 @@ No two characters may map to the same character, but a character may map to itse
 Return True if the following two strings are isomorphic, or False otherwise:
 {s} {t}
 """
+
+
+DATASET_NAME = "isomorphic_strings"
 
 
 @dataclass
@@ -107,11 +110,14 @@ class IsomorphicStringsDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(s=s, t=t),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "words": [s, t],
                 "solution": answer,
                 "solvable": solvable,
+                "string_length": string_length,
                 "difficulty": {
-                    "string_length": string_length,
+                    "string_length": (self.config.min_string_length, self.config.max_string_length),
                 },
             },
         }
@@ -126,14 +132,11 @@ class IsomorphicStringsCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="string_length",
                 levels=[10, 50, 100, 1000],
-                default_level=0,
                 description="Length of the strings",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
             )
         )
 
 
-register_dataset("isomorphic_strings", IsomorphicStringsDataset, IsomorphicStringsConfig, IsomorphicStringsCurriculum)
+register_dataset(DATASET_NAME, IsomorphicStringsDataset, IsomorphicStringsConfig, IsomorphicStringsCurriculum)

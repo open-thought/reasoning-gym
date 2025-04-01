@@ -12,6 +12,8 @@ from reasoning_gym.factory import ProceduralDataset, register_dataset
 from .blicket import config_control, dist_control, final_parse, serialize
 from .const import ALL_CONFIG_SIZE, ATTR_CONFIG_SIZE
 
+DATASET_NAME = "acre"
+
 
 # Create blicket questions
 @dataclass
@@ -88,7 +90,14 @@ What is the detector light status?"""
         prompt_input = ", ".join(" ".join(x) for x in input["question"]["input"])
         answer = input["question"]["output"]
         question = self.prompt_template.format(examples=formatted_examples, input=prompt_input)
-        return {"question": question, "answer": answer, "metadata": {}}
+        return {
+            "question": question,
+            "answer": answer,
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+            },
+        }
 
 
-register_dataset("acre", ACREDataset, ACREDatasetConfig)
+register_dataset(DATASET_NAME, ACREDataset, ACREDatasetConfig)

@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
@@ -25,6 +25,9 @@ Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 For the matrix below, what is the list of elements in spiral order?
 {matrix}
 """
+
+
+DATASET_NAME = "spiral_matrix"
 
 
 @dataclass
@@ -101,7 +104,7 @@ class SpiralMatrixDataset(ProceduralDataset):
         """Generate a single Spiral Matrix question"""
         rng = Random(self.seed + idx)
 
-        n = rng.randint(2, self.config.max_n)
+        n = rng.randint(self.config.min_n, self.config.max_n)
         matrix = self._get_matrix(rng, n)
         matrix_str = self._matrix_to_str(matrix)
         answer = self._get_spiral(matrix)
@@ -111,9 +114,14 @@ class SpiralMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
-                "difficulty": {"n": n},
+                "n": n,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 
@@ -148,14 +156,11 @@ class SpiralMatrixCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of rows/cols in the matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             )
         )
 
 
-register_dataset("spiral_matrix", SpiralMatrixDataset, SpiralMatrixConfig, SpiralMatrixCurriculum)
+register_dataset(DATASET_NAME, SpiralMatrixDataset, SpiralMatrixConfig, SpiralMatrixCurriculum)

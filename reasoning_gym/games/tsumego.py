@@ -21,11 +21,13 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 # Added constant to avoid repetition of adjacent directions
 DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+DATASET_NAME = "tsumego"
 
 
 @dataclass
@@ -270,7 +272,15 @@ class TsumegoDataset(ProceduralDataset):
                 "Specify your move in coordinates (e.g. 'C4' for column C, row 4)"
             ),
             "answer": solution_str,
-            "metadata": {"difficulty": {"board_size": size}, "board": board},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "board": board,
+                "board_size": size,
+                "difficulty": {
+                    "board_size": (self.config.min_board_size, self.config.max_board_size),
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -298,9 +308,6 @@ class TsumegoCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="board_size",
                 levels=[9, 10, 11, 12],
-                default_level=0,
-                min_value=9,
-                attr_type=AttributeType.APPEND,
                 lower_field_name="min_board_size",
                 upper_field_name="max_board_size",
                 description="The size of the board",
@@ -309,4 +316,4 @@ class TsumegoCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("tsumego", TsumegoDataset, TsumegoConfig, TsumegoCurriculum)
+register_dataset(DATASET_NAME, TsumegoDataset, TsumegoConfig, TsumegoCurriculum)

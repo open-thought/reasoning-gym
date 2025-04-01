@@ -6,10 +6,12 @@ from math import gcd
 from random import Random
 from typing import Any, Optional, Sequence
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = "Simplify the fraction {question_fraction} to its lowest terms. Give only the simplified fraction as your final answer."
+
+DATASET_NAME = "fraction_simplification"
 
 
 @dataclass
@@ -114,15 +116,18 @@ class FractionSimplificationDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(question_fraction=question_fraction),
             "answer": answer_fraction,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "numerator": num,
                 "denominator": den,
                 "simplified_numerator": simple_num,
                 "simplified_denominator": simple_den,
                 "reduction_factor": num // simple_num,  # Will be same as den // simple_den
                 "style": style,
+                "factor": factor,
                 "difficulty": {
-                    "factor": factor,
-                    "value": (simple_num, simple_den),
+                    "value": (self.config.min_value, self.config.max_value),
+                    "factor": (self.config.min_factor, self.config.max_factor),
                 },
             },
         }
@@ -166,28 +171,24 @@ class FractionSimplificationCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="value",
                 levels=[1, 100, 1000, 10000],
-                default_level=1,
                 description="Value range for numerator and denominator",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="factor",
                 levels=[1, 10, 100, 1000],
-                default_level=1,
                 description="Factor range for generating unsimplified fractions",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_factor",
                 upper_field_name="max_factor",
+                ensure_interval=True,
             ),
         )
 
 
 register_dataset(
-    "fraction_simplification",
+    DATASET_NAME,
     FractionSimplificationDataset,
     FractionSimplificationConfig,
     FractionSimplificationCurriculum,

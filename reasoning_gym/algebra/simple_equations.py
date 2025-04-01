@@ -5,8 +5,10 @@ from typing import Optional
 
 from sympy import Symbol
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "simple_equations"
 
 
 @dataclass
@@ -63,6 +65,8 @@ class SimpleEquationsDataset(ProceduralDataset):
             "question": rng.choice(self._prompt_templates).format(variable=variable, equation=equation),
             "answer": str(solution),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "equation": equation,
                 "variable": variable,
                 "difficulty": {
@@ -137,48 +141,33 @@ class SimpleEquationsCurriculum(BaseCurriculum):
                 name="min_terms",
                 field_name="min_terms",
                 levels=[2, 3, 4, 5],
-                default_level=0,
                 description="Minimum number of terms in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=-2,
             ),
             ScalarAttributeDefinition(
                 name="max_terms",
                 field_name="max_terms",
                 levels=[5, 10, 15, 20],
-                default_level=0,
                 description="Maximum number of terms in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=5,
             ),
             ScalarAttributeDefinition(
                 name="min_value",
                 field_name="min_value",
                 levels=[1, 10, 100, 1000],
-                default_level=0,
                 description="Minimum value for constants in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=1,
             ),
             ScalarAttributeDefinition(
                 name="max_value",
                 field_name="max_value",
                 levels=[100, 10000, 1000000, 100000000],
-                default_level=0,
                 description="Maximum value for constants in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=100,
             ),
             ScalarAttributeDefinition(
                 name="operators_weights",
                 field_name="operators_weights",
                 levels=[[0.4, 0.4, 0.2], [0.35, 0.35, 0.3], [0.3, 0.3, 0.4], [0.2, 0.2, 0.6]],
-                default_level=0,
                 description="Weights for each operator in simple equations",
-                attr_type=AttributeType.STATIC,
-                min_value=[0.4, 0.4, 0.2],
             ),
         )
 
 
-register_dataset("simple_equations", SimpleEquationsDataset, SimpleEquationsConfig, SimpleEquationsCurriculum)
+register_dataset(DATASET_NAME, SimpleEquationsDataset, SimpleEquationsConfig, SimpleEquationsCurriculum)

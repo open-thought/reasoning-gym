@@ -147,11 +147,7 @@ class ScoreBoard:
         placed first in the tuple as ("source", dataset) and ("idx", index).
         """
         # Start with empty list
-        key_items = []
-
-        # Add source info first if present
-        if "source_dataset" in metadata and "source_index" in metadata:
-            key_items.extend([("source", metadata["source_dataset"]), ("idx", metadata["source_index"])])
+        key_items = [("source", metadata["source_dataset"]), ("idx", metadata["source_index"])]
 
         # Add difficulty parameters or other metadata
         if "difficulty" in metadata:
@@ -195,63 +191,3 @@ class ScoreBoard:
         total_scores = sum(len(scores) for scores in result.values())
 
         return GroupedScores(scores=result, total_scores=total_scores)
-
-
-class Coach(ProceduralDataset):
-    """A dataset wrapper that tracks performance and adjusts difficulty
-
-    The Coach wraps a ProceduralDataset (typically a CompositeDataset) and:
-    1. Tracks scores and metadata in a ScoreBoard
-    2. Adjusts difficulty based on performance (to be implemented)
-    """
-
-    def __init__(self, dataset: ProceduralDataset, score_log: Optional[Union[str, Path]] = None):
-        """Initialize with inner dataset
-
-        Args:
-            dataset: The ProceduralDataset to wrap
-            score_log: Optional path to jsonl file for logging scores
-        """
-        super().__init__(config=dataset.config, seed=dataset.seed, size=dataset.size)
-        self.dataset = dataset
-        self.score_board = ScoreBoard()
-        self.score_log = Path(score_log) if score_log else None
-
-    def __getitem__(self, idx: int) -> dict:
-        """Forward item generation to inner dataset"""
-        return self.dataset[idx]
-
-    def score_answer(
-        self, answer: Optional[str], entry: dict[str, Any], conversation: Optional[list[dict]] = None
-    ) -> float:
-        """Score answer and track results
-
-        Args:
-            answer: The answer to score
-            entry: The task entry containing question/answer/metadata
-            conversation: Optional conversation history as list of message dicts
-
-        Returns:
-            float: Score between 0.0 and 1.0
-        """
-        # Get score from inner dataset
-        score = self.dataset.score_answer(answer, entry)
-
-        # Track score and metadata
-        self.score_board.add_score(score=score, metadata=entry["metadata"], conversation=conversation)
-
-        # Log score if logging is enabled
-        if self.score_log is not None:
-            log_entry = {"score": score, "answer": answer, "entry": entry, "conversation": conversation}
-            with self.score_log.open("a") as f:
-                json.dump(log_entry, f)
-                f.write("\n")
-
-        return score
-
-    def update_difficulty(self) -> None:
-        """Update difficulty based on recent performance
-
-        To be implemented in future versions.
-        """
-        pass  # Placeholder for future difficulty adjustment logic

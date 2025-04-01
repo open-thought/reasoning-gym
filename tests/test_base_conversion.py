@@ -169,7 +169,7 @@ def test_base_conversion_formatting():
         assert "use lowercase letters" in item["question"]
 
 
-def test_base_conversion__curriculum():
+def test_base_conversion_curriculum():
     curriculum = BaseConversionCurriculum()
 
     base_value = {"size": 150, "seed": 1}
@@ -178,17 +178,17 @@ def test_base_conversion__curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_base == 2 and base_cfg.max_base == 9
-    assert base_cfg.min_value == 1000 and base_cfg.max_value == 1000
+    assert base_cfg.min_value == 1000 and base_cfg.max_value == 10_000
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("base")
     curriculum.increment_attr_level("value")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_base == 2 and increased_cfg.max_base == 18
-    assert increased_cfg.min_value == 1000 and increased_cfg.max_value == 10000
+    assert increased_cfg.min_value == 1000 and increased_cfg.max_value == 100_000
 
     # test decrementing attribute level for base again
     curriculum.decrement_attr_level("base")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_base == 2 and partially_decreased_cfg.max_base == 9
-    assert partially_decreased_cfg.min_value == 1000 and partially_decreased_cfg.max_value == 10000
+    assert partially_decreased_cfg.min_value == 1000 and partially_decreased_cfg.max_value == 100_000

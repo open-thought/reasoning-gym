@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 VERT = "│"
@@ -12,6 +12,8 @@ LUP = "┘"
 LDOWN = "┐"
 RUP = "└"
 RDOWN = "┌"
+
+DATASET_NAME = "circuit_logic"
 
 
 def _repeat(s: str, n: int) -> str:
@@ -381,13 +383,15 @@ class CircuitLogicDataset(ProceduralDataset):
             "question": question_str,
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "expression": expression_for_display,
                 "assignments": assignments,
                 "term_strings": term_strings,
                 "final_gate": final_gate_name,
                 "inputs": inputs_list,
                 "difficulty": {
-                    "terms": num_terms,
+                    "terms": (self.config.min_terms, self.config.max_terms),
                     "inputs": (self.config.min_inputs, self.config.max_inputs),
                 },
             },
@@ -413,24 +417,20 @@ class CircuitLogicCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="terms",
                 levels=[3, 5, 10, 20, 30],
-                default_level=1,
                 description="Number of terms in the expression",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="inputs",
                 levels=[2, 4, 6, 8, 10],
-                default_level=1,
                 description="Number of inputs per term",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_inputs",
                 upper_field_name="max_inputs",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset("circuit_logic", CircuitLogicDataset, CircuitLogicConfig, CircuitLogicCurriculum)
+register_dataset(DATASET_NAME, CircuitLogicDataset, CircuitLogicConfig, CircuitLogicCurriculum)

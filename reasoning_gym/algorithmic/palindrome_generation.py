@@ -3,7 +3,7 @@ import string
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPALTE = """Your task is, given a list of letters, to form a valid palindrome.
@@ -16,6 +16,9 @@ Your output should be a single string, with no spaces or punctuation.
 
 Now, form a valid palindrome using the following letters: {letters}
 """
+
+
+DATASET_NAME = "palindrome_generation"
 
 
 @dataclass
@@ -67,10 +70,13 @@ class PalindromeDataset(ProceduralDataset):
             "question": QUESTION_TEMPALTE.format(letters=", ".join(scrambled_letters)),
             "answer": palindrome,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "letters": scrambled_letters,
                 "generated_palindrome": palindrome,
+                "length": length,
                 "difficulty": {
-                    "length": length,
+                    "length": (self.config.min_length, self.config.max_length),
                 },
             },
         }
@@ -129,14 +135,12 @@ class PalindromeCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="length",
                 levels=[10, 50, 100, 500],
-                default_level=1,
                 description="Length of the generated palindrome.",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_length",
                 upper_field_name="max_length",
+                ensure_interval=True,
             )
         )
 
 
-register_dataset("palindrome_generation", PalindromeDataset, PalindromeConfig, PalindromeCurriculum)
+register_dataset(DATASET_NAME, PalindromeDataset, PalindromeConfig, PalindromeCurriculum)

@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a string, partition it such that every substring is a palindrome.
@@ -23,6 +23,8 @@ Your output should be a list of lists, where each list represents a palindrome p
 
 Partition the following string into palindromes: {string}
 """
+
+DATASET_NAME = "palindrome_partitioning"
 
 
 @dataclass
@@ -138,10 +140,17 @@ class PalindromePartitioningDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(string=string),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "string": string,
                 "solution": answer,
+                "string_len": string_len,
                 "difficulty": {
-                    "string_len": string_len,
+                    "string_len": (self.config.min_string_len, self.config.max_string_len),
+                    "substring_palindrome_len": (
+                        self.config.min_substring_palindrome_len,
+                        self.config.max_substring_palindrome_len,
+                    ),
                 },
             },
         }
@@ -156,20 +165,14 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="string_len",
                 levels=[10, 100, 500, 1000],
-                default_level=0,
                 description="Length of the string",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_string_len",
                 upper_field_name="max_string_len",
             ),
             RangeAttributeDefinition(
                 name="substring_palindrome_len",
                 levels=[5, 10, 50, 100],
-                default_level=0,
                 description="Length of the substring palindrome",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_substring_palindrome_len",
                 upper_field_name="max_substring_palindrome_len",
             ),
@@ -177,7 +180,7 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
 
 
 register_dataset(
-    "palindrome_partitioning",
+    DATASET_NAME,
     PalindromePartitioningDataset,
     PalindromePartitioningConfig,
     PalindromePartitioningCurriculum,

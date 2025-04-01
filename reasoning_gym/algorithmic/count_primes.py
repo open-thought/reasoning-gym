@@ -9,10 +9,12 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Count how many prime numbers there are between {start} and {end} (inclusive) ?"""
+
+DATASET_NAME = "count_primes"
 
 
 @dataclass
@@ -60,12 +62,15 @@ class CountPrimesDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "start": start,
                 "end": end,
                 "primes": primes,
                 "solution": answer,
+                "n": (start, end),
                 "difficulty": {
-                    "n": (start, end),
+                    "n": (self.config.min_n, self.config.max_n),
                 },
             },
         }
@@ -80,14 +85,11 @@ class CountPrimesCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[1000, 10_000, 50_000, 100_000],
-                default_level=0,
                 description="Up to which number to consider the primes",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             )
         )
 
 
-register_dataset("count_primes", CountPrimesDataset, CountPrimesConfig, CountPrimesCurriculum)
+register_dataset(DATASET_NAME, CountPrimesDataset, CountPrimesConfig, CountPrimesCurriculum)

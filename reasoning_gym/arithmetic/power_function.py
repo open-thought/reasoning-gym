@@ -6,7 +6,7 @@ from math import pow
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to compute an exponentiation of a number.
@@ -14,6 +14,8 @@ QUESTION_TEMPLATE = """Your task is to compute an exponentiation of a number.
 Compute {base}^{exponent}. Return your final answer correct to 3 significant figures.
 Provide your answer in scientific notation using 'e' notation (e.g., 1.23e+4).
 """
+
+DATASET_NAME = "power_function"
 
 
 @dataclass
@@ -73,7 +75,16 @@ class PowerFunctionDataset(ProceduralDataset):
         return {
             "question": QUESTION_TEMPLATE.format(base=base, exponent=exponent),
             "answer": str(answer),
-            "metadata": {"base": base, "exponent": exponent, "solution": answer, "difficulty": {"exponent": exponent}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "base": base,
+                "exponent": exponent,
+                "solution": answer,
+                "difficulty": {
+                    "exponent": (self.config.min_exponent, self.config.max_exponent),
+                },
+            },
         }
 
 
@@ -84,13 +95,10 @@ class PowerFunctionCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="exponent",
                 levels=[2, 4, 6, 10],
-                default_level=0,
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_exponent",
                 upper_field_name="max_exponent",
             ),
         )
 
 
-register_dataset("power_function", PowerFunctionDataset, PowerFunctionConfig, PowerFunctionCurriculum)
+register_dataset(DATASET_NAME, PowerFunctionDataset, PowerFunctionConfig, PowerFunctionCurriculum)

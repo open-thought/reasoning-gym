@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Your task is to find the shortest path from the start to the destination point in a grid.
@@ -27,6 +27,8 @@ Your output should be a sequence of directions that leads from * to #, e.g. righ
 Now, find the length of the shortest path from * to # in the following grid:
 {grid}
 """
+
+DATASET_NAME = "shortest_path"
 
 
 @dataclass
@@ -159,11 +161,13 @@ class ShortestPathDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(grid=matrix_str),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
                 "difficulty": {
-                    "rows": rows,
-                    "cols": cols,
+                    "rows": (self.config.min_rows, self.config.max_rows),
+                    "cols": (self.config.min_cols, self.config.max_cols),
                 },
             },
         }
@@ -178,24 +182,18 @@ class ShortestPathCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="rows",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of rows in the grid",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
             ),
             RangeAttributeDefinition(
                 name="cols",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Number of columns in the grid",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",
             ),
         )
 
 
-register_dataset("shortest_path", ShortestPathDataset, ShortestPathConfig, ShortestPathCurriculum)
+register_dataset(DATASET_NAME, ShortestPathDataset, ShortestPathConfig, ShortestPathCurriculum)

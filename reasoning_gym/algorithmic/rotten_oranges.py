@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """You are given an n x n grid where each cell can have one of three values:
@@ -25,6 +25,8 @@ If this is impossible, return -1.
 Now, determine the minimum number of minutes that must elapse until no cell in the grid below has a fresh orange:
 {matrix}
 """
+
+DATASET_NAME = "rotten_oranges"
 
 
 @dataclass
@@ -120,9 +122,14 @@ class RottenOrangesDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str),
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
-                "difficulty": {"n": n},
+                "n": n,
+                "difficulty": {
+                    "n": (self.config.min_n, self.config.max_n),
+                },
             },
         }
 
@@ -136,14 +143,11 @@ class RottenOrangesCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 25, 50, 100],
-                default_level=0,
                 description="Size of the square matrix",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             )
         )
 
 
-register_dataset("rotten_oranges", RottenOrangesDataset, RottenOrangesConfig, RottenOrangesCurriculum)
+register_dataset(DATASET_NAME, RottenOrangesDataset, RottenOrangesConfig, RottenOrangesCurriculum)

@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Given a square matrix, your job is to find the taxicab (Manhattan) distance of the nearest 0 for each cell.
@@ -19,6 +19,8 @@ The output should be a matrix of the same size as the input matrix, where each c
 Find the distance to the nearest 0 for each cell in the matrix below:
 {matrix}
 """
+
+DATASET_NAME = "binary_matrix"
 
 
 @dataclass
@@ -128,10 +130,13 @@ class BinaryMatrixDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(matrix=matrix_str),
             "answer": answer_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "matrix": matrix,
                 "solution": answer,
+                "n": n,
                 "difficulty": {
-                    "n": n,
+                    "n": (self.config.min_n, self.config.max_n),
                     "p_zero": self.config.p_zero,
                 },
             },
@@ -147,22 +152,16 @@ class BinaryMatrixCurriculum(BaseCurriculum):
                 name="p_zero",
                 field_name="p_zero",
                 levels=[0.5, 0.25, 0.1, 0.05],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.STATIC,
-                min_value=0,
             ),
             RangeAttributeDefinition(
                 name="n",
                 levels=[10, 50, 250, 1000],
-                default_level=0,
                 description="Board size",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_n",
                 upper_field_name="max_n",
             ),
         )
 
 
-register_dataset("binary_matrix", BinaryMatrixDataset, BinaryMatrixConfig, BinaryMatrixCurriculum)
+register_dataset(DATASET_NAME, BinaryMatrixDataset, BinaryMatrixConfig, BinaryMatrixCurriculum)

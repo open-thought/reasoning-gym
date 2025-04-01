@@ -15,7 +15,7 @@ Regarding vllm>0.7 see: [docs](https://verl.readthedocs.io/en/latest/README_vllm
 
 ### clone and install veRL
 
-tested with verl HEAD 0dfcb7f99e299940e1792a386df13c7591df351a
+tested with verl HEAD c34206925e2a50fd452e474db857b4d488f8602d
 
 ```
 git clone https://github.com/volcengine/verl.git

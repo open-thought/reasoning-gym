@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 ANIMALS = {
@@ -59,6 +59,8 @@ QUESTION_TEMPLATE = """Your task is to count how many legs there are in total wh
 
 Now, how many legs are there in total if you have {animals}?
 """
+
+DATASET_NAME = "leg_counting"
 
 
 @dataclass
@@ -118,11 +120,15 @@ class LegCountingDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(animals=", ".join(animal_list)),
             "answer": str(total_legs),
             "metadata": {
-                "difficulty": {
-                    "num_animals": len(animals),
-                },
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "animals": animals,
+                "num_animals": len(animals),
                 "total_legs": total_legs,
+                "difficulty": {
+                    "num_animals": (self.config.min_animals, self.config.max_animals),
+                    "num_instances": (self.config.min_instances, self.config.max_instances),
+                },
             },
         }
 
@@ -136,24 +142,18 @@ class LegCountingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_animals",
                 levels=list(range(1, 20)),
-                default_level=0,
                 description="Number of animals in question",
-                attr_type=AttributeType.APPEND,
-                min_value=1,  # Ensure at least 1 animal
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",
             ),
             RangeAttributeDefinition(
                 name="num_instances",
                 levels=[2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
-                default_level=0,
                 description="Number of instances of each animal",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_instances",
                 upper_field_name="max_instances",
             ),
         )
 
 
-register_dataset("leg_counting", LegCountingDataset, LegCountingConfig, LegCountingCurriculum)
+register_dataset(DATASET_NAME, LegCountingDataset, LegCountingConfig, LegCountingCurriculum)

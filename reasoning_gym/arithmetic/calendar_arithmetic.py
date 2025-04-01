@@ -6,8 +6,10 @@ from datetime import date, timedelta
 from enum import Enum, StrEnum, auto
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "calendar_arithmetic"
 
 
 class Weekday(Enum):
@@ -126,6 +128,8 @@ class CalendarArithmeticDataset(ProceduralDataset):
         rng = random.Random(self.seed + idx)
         task = rng.choice(self.tasks)
         question, answer, metadata = task(rng)
+        metadata["source_dataset"] = DATASET_NAME
+        metadata["source_index"] = idx
         metadata["difficulty"] = {
             "task_complexity": self.tasks.index(task),
             "date_range": self.config.offset_upper_bound,
@@ -511,22 +515,16 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
                         "recurring_event_day",
                     ],
                 ],
-                default_level=0,
                 description="Controls which calendar tasks are included",
-                attr_type=AttributeType.STATIC,
                 field_name="tasks",
             ),
             ScalarAttributeDefinition(
                 name="date_range",
                 levels=[30, 100, 250, 365],
-                default_level=0,
                 description="Maximum day range for offset and counting tasks",
-                attr_type=AttributeType.STATIC,
                 field_name="offset_upper_bound",
             ),
         )
 
 
-register_dataset(
-    "calendar_arithmetic", CalendarArithmeticDataset, CalendarArithmeticConfig, CalendarArithmeticCurriculum
-)
+register_dataset(DATASET_NAME, CalendarArithmeticDataset, CalendarArithmeticConfig, CalendarArithmeticCurriculum)

@@ -4,8 +4,10 @@ from random import Random
 from string import Template
 from typing import Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "aiw"
 
 
 class TaskType(StrEnum):
@@ -134,7 +136,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
             ],
         }
 
-    def _get_aiw(self, rng: Random) -> dict:
+    def _get_aiw(self, rng: Random, idx: int) -> dict:
         """Generates a single Alice in Wonderland question.
 
         Args:
@@ -194,6 +196,8 @@ class AliceInWonderlandDataset(ProceduralDataset):
             "question": question,
             "answer": str(answer),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "task_type": task_type.value,
                 "difficulty": {
                     "task_type_weight": self.config.task_type_weights,
@@ -204,7 +208,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
 
     def __getitem__(self, idx: int) -> dict:
         rng = Random(self.seed + idx)
-        return self._get_aiw(rng)
+        return self._get_aiw(rng, idx)
 
 
 class AliceInWonderlandCurriculum(BaseCurriculum):
@@ -216,7 +220,6 @@ class AliceInWonderlandCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="task_type_weight",
                 field_name="task_type_weights",
-                attr_type=AttributeType.STATIC,
                 description="The weight of the task type",
                 levels=[
                     [1.0, 0.0, 0.0],
@@ -229,19 +232,14 @@ class AliceInWonderlandCurriculum(BaseCurriculum):
                     [0.2, 0.4, 0.4],
                     [0.1, 0.45, 0.45],
                 ],
-                min_value=[1.0, 0.0, 0.0],
-                default_level=0,
             ),
             ScalarAttributeDefinition(
                 name="num_entities",
                 field_name="max_entities",
-                attr_type=AttributeType.STATIC,
                 description="The number of entities in the question",
                 levels=list(range(4, 18, 2)),
-                min_value=4,
-                default_level=0,
             ),
         )
 
 
-register_dataset("aiw", AliceInWonderlandDataset, AliceInWonderlandConfig, AliceInWonderlandCurriculum)
+register_dataset(DATASET_NAME, AliceInWonderlandDataset, AliceInWonderlandConfig, AliceInWonderlandCurriculum)

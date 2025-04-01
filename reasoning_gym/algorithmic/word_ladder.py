@@ -5,13 +5,16 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Transform the word ladder '{start}' to '{end}' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word."""
+
+
+DATASET_NAME = "word_ladder"
 
 
 @dataclass
@@ -219,13 +222,14 @@ class WordLadderDataset(ProceduralDataset):
             "question": QUESTION_TEMPLATE.format(start=start, end=end),
             "answer": ",".join(path),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "start_word": start,
                 "end_word": end,
                 "word_length": length,
                 "chain_length": len(path),
                 "difficulty": {
-                    "word_length": length,
-                    "chain_length": len(path),
+                    "word_length": (self.config.min_word_length, self.config.max_word_length),
                 },
             },
         }
@@ -278,14 +282,12 @@ class WordLadderCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="word_length",
                 levels=[3, 4, 5, 6],
-                default_level=1,
                 description="Length of words in the puzzle",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
+                ensure_interval=True,
             )
         )
 
 
-register_dataset("word_ladder", WordLadderDataset, WordLadderConfig, WordLadderCurriculum)
+register_dataset(DATASET_NAME, WordLadderDataset, WordLadderConfig, WordLadderCurriculum)

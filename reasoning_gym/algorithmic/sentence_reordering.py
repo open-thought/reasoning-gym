@@ -5,9 +5,11 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "sentence_reordering"
 
 
 @dataclass
@@ -90,7 +92,14 @@ class SentenceReorderingDataset(ProceduralDataset):
         return {
             "question": f"Restore the correct order of words in the following sentence: {question}",
             "answer": solved_sentence,
-            "metadata": {"word_count": word_count, "difficulty": {"words_in_sentence": word_count}},
+            "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
+                "word_count": word_count,
+                "difficulty": {
+                    "words_in_sentence": (self.config.min_words_in_sentence, self.config.max_words_in_sentence),
+                },
+            },
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
@@ -124,16 +133,12 @@ class SentenceReorderingCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="words_in_sentence",
                 levels=[5, 20, 50, 100],
-                default_level=1,
                 description="Number of words in the sentence",
-                attr_type=AttributeType.APPEND,
-                min_value=3,
                 lower_field_name="min_words_in_sentence",
                 upper_field_name="max_words_in_sentence",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset(
-    "sentence_reordering", SentenceReorderingDataset, SentenceReorderingConfig, SentenceReorderingCurriculum
-)
+register_dataset(DATASET_NAME, SentenceReorderingDataset, SentenceReorderingConfig, SentenceReorderingCurriculum)

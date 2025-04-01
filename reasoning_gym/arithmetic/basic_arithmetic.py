@@ -2,8 +2,10 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Literal, Optional
 
-from ..coaching import AttributeType, BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+
+DATASET_NAME = "basic_arithmetic"
 
 
 @dataclass
@@ -95,8 +97,15 @@ class BasicArithmeticDataset(ProceduralDataset):
             "question": question,
             "answer": str(result),
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "expression": expression,
-                "difficulty": {"num_terms": num_terms, "num_digits": num_digits},
+                "num_terms": num_terms,
+                "num_digits": num_digits,
+                "difficulty": {
+                    "num_terms": (self.config.min_terms, self.config.max_terms),
+                    "num_digits": (self.config.min_digits, self.config.max_digits),
+                },
             },
         }
 
@@ -240,20 +249,14 @@ class BasicArithmeticCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="num_terms",
                 levels=[2, 5, 10, 20],
-                default_level=0,
                 description="Number of terms in the expression",
-                attr_type=AttributeType.APPEND,
-                min_value=2,
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
             ),
             RangeAttributeDefinition(
                 name="num_digits",
                 levels=[1, 2, 5, 10],
-                default_level=0,
                 description="Number of digits in the numbers",
-                attr_type=AttributeType.APPEND,
-                min_value=1,
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",
             ),
@@ -261,4 +264,4 @@ class BasicArithmeticCurriculum(BaseCurriculum):
 
 
 # Register the dataset
-register_dataset("basic_arithmetic", BasicArithmeticDataset, BasicArithmeticDatasetConfig, BasicArithmeticCurriculum)
+register_dataset(DATASET_NAME, BasicArithmeticDataset, BasicArithmeticDatasetConfig, BasicArithmeticCurriculum)
