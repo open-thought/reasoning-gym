@@ -72,7 +72,7 @@ class SpellBackwardDataset(ProceduralDataset):
                 expected_answer = expected_answer.lower()
                 answer = answer.lower()
                 if expected_answer == answer:
-                    reward = 1.0
+                    return 1.0
                 else:
                     answer_len = len(expected_answer)
                     for i in range(len(expected_answer)):
@@ -83,7 +83,8 @@ class SpellBackwardDataset(ProceduralDataset):
                                 continue
                         else:
                             break
-
+                    if reward == 1.0:
+                        reward -= 0.2
             except:
                 reward = 0.0
         return reward

@@ -125,14 +125,25 @@ class WordSortingDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         oracle_answer = entry["metadata"]["sorted_words"]
-        if answer is not None and len(answer) > 0:
-            parsed_answer = [word.strip() for word in re.split(r",\s*", answer)]
-            if parsed_answer == oracle_answer:
-                return 1.0
-            elif sorted(parsed_answer) == oracle_answer:
-                return 0.2
 
-        return 0.0
+        if not answer:
+            return 0.0
+
+        parsed_answer = [word.strip() for word in re.split(r",\s*", answer)]
+
+        if parsed_answer == oracle_answer:
+            return 1.0
+
+        correct_positions = sum(
+            1 for i, word in enumerate(parsed_answer) if i < len(oracle_answer) and word == oracle_answer[i]
+        )
+
+        partial_score = correct_positions / len(oracle_answer)
+
+        if sorted(parsed_answer) == sorted(oracle_answer):
+            partial_score = max(partial_score, 0.2)
+
+        return partial_score
 
 
 class WordSortingCurriculum(BaseCurriculum):

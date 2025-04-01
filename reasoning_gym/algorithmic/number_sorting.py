@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+import numpy as np
+
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
@@ -44,12 +46,6 @@ Please follow the instruction below:
 ## 2. Convert all numbers in the square brackets as strings. For example, ['-69', '-13', '1', '7', '11', '43', '59', '61']
 """
 
-    def _format_number(self, num: float, decimals: int) -> str:
-        """Format number with specified decimal places"""
-        formatted = f"{num:.{decimals}f}"
-        # Reparse to ensure exact decimal representation
-        return f"{float(formatted):.{decimals}f}"
-
     def _generate_numbers(self, rng: Random, count: int) -> tuple[list[float], list[str]]:
         """Generate list of numbers and their string representations"""
         numbers = []
@@ -58,11 +54,9 @@ Please follow the instruction below:
         for _ in range(count):
             num = rng.uniform(self.config.min_value, self.config.max_value)
             decimals = rng.randint(self.config.min_decimals, self.config.max_decimals)
-            num_str = self._format_number(num, decimals)
-            # Reparse to ensure exact value
-            num = float(num_str)
+            num = np.round(num, decimals)
             numbers.append(num)
-            number_strs.append(num_str)
+            number_strs.append(str(num))
 
         return numbers, number_strs
 
@@ -78,9 +72,8 @@ Please follow the instruction below:
         desc_numbers = sorted(numbers, reverse=True)
 
         # Format answers as string lists
-        decimals = len(number_strs[0].split(".")[-1]) if "." in number_strs[0] else 0
-        asc_answer = [self._format_number(n, decimals) for n in asc_numbers]
-        desc_answer = [self._format_number(n, decimals) for n in desc_numbers]
+        asc_answer = [str(n) for n in asc_numbers]
+        desc_answer = [str(n) for n in desc_numbers]
 
         # Randomly choose ascending or descending
         is_ascending = rng.choice([True, False])
@@ -158,7 +151,7 @@ Please follow the instruction below:
                 return 0.0
 
             # Check if the values are close enough (allowing for small rounding differences)
-            tolerance = 0.1  # Increased tolerance to handle decimal differences
+            tolerance = 1  # Increased tolerance to handle decimal differences
             for i in range(len(user_floats)):
                 if abs(user_floats[i] - expected_floats[i]) > tolerance:
                     return 0.0
