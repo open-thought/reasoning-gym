@@ -60,6 +60,10 @@ def cosine_scaled_reward(solution_str, scaling_factor, **kwargs):
 @reward_registry.register("format")
 def compute_format_reward(solution_str: str, scaling_factor: float = 0.2, **kwargs) -> float:
     """Reward use of exactly one correctly structured <think> and <answer> block."""
+    preappend_thinking_token = kwargs.get("preappend_thinking_token", False)
+    if preappend_thinking_token:
+        solution_str = "<think>" + solution_str
+
     pattern = r"\s*<think>.*?</think>\s*<answer>.*?</answer>"
     if not re.match(pattern, solution_str, re.DOTALL):
         return 0.0

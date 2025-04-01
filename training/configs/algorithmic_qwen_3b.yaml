@@ -41,6 +41,8 @@ reward:
      scaling_factor: 0.3
    - name: format
      scaling_factor: 0.2
+     kwargs:
+        preappend_thinking_token: False
 
 data:
   tokenizer: null
