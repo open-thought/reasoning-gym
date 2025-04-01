@@ -26,11 +26,6 @@ class ReasoningGymDataset(Dataset):
             procedural_dataset is None or experiment is None
         ), "Only one of `procedural_dataset` or `experiment` may be provided"
 
-        assert procedural_dataset or experiment, "One of `procedural_dataset` or `experiment` must be provided"
-        assert (
-            procedural_dataset is None or experiment is None
-        ), "Only one of `procedural_dataset` or `experiment` may be provided"
-
         self.tokenizer = tokenizer
         self.data = procedural_dataset or experiment.composite
         self.experiment = experiment
