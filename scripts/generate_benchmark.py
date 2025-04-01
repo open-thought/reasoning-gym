@@ -44,7 +44,7 @@ def generate_questions(seed: int = 123, num: int = 1) -> str:
                 row = {
                     "_rgid": item.get("metadata", {}).get("_rgid", ""),
                     "_rgidx": item.get("metadata", {}).get("_rgidx", ""),
-                    "source_dataset": item.get("metadata", {}).get("source_dataset", ""),
+                    "source_dataset": name,
                     "question": item.get("question", ""),
                     "answer": item.get("answer", ""),
                 }
@@ -84,8 +84,8 @@ def main():
         writer.writeheader()
 
         for row in rows:
-            if not args.answers: 
-                row['answer'] = ''
+            if not args.answers:
+                row["answer"] = ""
             writer.writerow(row)
 
 
