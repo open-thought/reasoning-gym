@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Optional
 
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..dataset import ProceduralDataset
 from ..factory import register_dataset
 
@@ -108,9 +109,31 @@ class Arc1DDataset(ProceduralDataset):
                 "size": size,
                 "train_examples": train_examples,
                 "test_example": test_example,
+                "difficulty": {
+                    "size": (self.config.min_size, self.config.max_size),
+                },
             },
         }
 
 
+class Arc1DCurriculum(BaseCurriculum):
+    """Curriculum for ARC 1D tasks"""
+
+    def __init__(self):
+        super().__init__(Arc1DCurriculum.__name__, Arc1DConfig)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="size",
+                levels=[10, 25, 50, 100],
+                lower_field_name="min_size",
+                upper_field_name="max_size",
+                description="Grid size",
+                ensure_interval=True,
+            )
+        )
+
+
 # Register the dataset
-register_dataset(DATASET_NAME, Arc1DDataset, Arc1DConfig)
+register_dataset(DATASET_NAME, Arc1DDataset, Arc1DConfig, Arc1DCurriculum)

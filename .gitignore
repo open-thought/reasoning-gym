@@ -45,3 +45,8 @@ htmlcov/
 # Jupyter Notebook
 .ipynb_checkpoints/
 .virtual_documents/
+
+# logs
+wandb/
+outputs/
+*.log

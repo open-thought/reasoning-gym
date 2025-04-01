@@ -385,7 +385,12 @@ def create_performance_heatmap(summaries: Dict[str, Dict[str, Any]], categories:
     for category, datasets in sorted(categories.items()):
         all_datasets.extend(sorted(datasets))
 
-    models = list(summaries.keys())
+    # Sort models by overall performance
+    overall_scores = {}
+    for model_name, summary in summaries.items():
+        scores = list(summary["dataset_best_scores"].values())
+        overall_scores[model_name] = np.mean(scores)
+    models = [item[0] for item in sorted(overall_scores.items(), key=lambda x: x[1], reverse=True)]
 
     # Create score matrix
     score_matrix = np.zeros((len(models), len(all_datasets)))

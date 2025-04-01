@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.logic.knights_knaves import KnightsKnavesConfig, KnightsKnavesDataset
+from reasoning_gym.logic.knights_knaves import KnightsKnavesConfig, KnightsKnavesCurriculum, KnightsKnavesDataset
 
 
 def test_config_validation():
@@ -234,3 +234,42 @@ def test_depth_constraint_specific_problem():
     solutions = KnightsKnavesDataset.find_solution(test_statements)
     assert len(solutions) == 1, "Should have exactly one solution"
     assert solutions[0] == (True, False, False)
+
+
+def test_curriculum():
+    curriculum = KnightsKnavesCurriculum()
+
+    assert len(curriculum.attributes) == 3
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg = curriculum.generate_configuration(base_value)
+
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.n_people == 2
+    assert base_cfg.depth_constraint == 2
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("n_people")
+    curriculum.increment_attr_level("depth_constraint")
+    curriculum.increment_attr_level("width_constraint")
+
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.n_people == 3
+    assert increased_cfg.depth_constraint == 3
+    assert increased_cfg.width_constraint == 3
+    # test decrementing attribute level
+    curriculum.decrement_attr_level("n_people")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.n_people == 2
+    assert partially_decreased_cfg.depth_constraint == 3
+    assert partially_decreased_cfg.width_constraint == 3
+
+    curriculum.increment_attr_level("n_people")
+    curriculum.increment_attr_level("depth_constraint")
+    curriculum.increment_attr_level("width_constraint")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.n_people == 3
+    assert increased_cfg.depth_constraint == 4
+    assert increased_cfg.width_constraint == 4
