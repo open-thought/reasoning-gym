@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+import numpy as np
+
 from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
