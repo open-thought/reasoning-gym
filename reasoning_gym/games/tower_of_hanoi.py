@@ -281,6 +281,7 @@ class HanoiDataset(ProceduralDataset):
                 "solution_length": len(solution),
                 "difficulty": {
                     "num_disks": (self.min_disks, self.max_disks),
+                    "num_pegs": (self.min_pegs, self.max_pegs),
                 },
             },
         }
@@ -450,6 +451,13 @@ class HanoiCurriculum(BaseCurriculum):
                 lower_field_name="min_disks",
                 upper_field_name="max_disks",
                 description="Number of disks in the puzzle",
+            ),
+            RangeAttributeDefinition(
+                name="num_pegs",
+                levels=[3, 4, 5],
+                lower_field_name="min_pegs",
+                upper_field_name="max_pegs",
+                description="Number of pegs in the puzzle",
             ),
         )
 

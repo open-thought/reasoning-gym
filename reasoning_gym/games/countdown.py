@@ -214,7 +214,7 @@ class CountdownCurriculum(BaseCurriculum):
             RangeAttributeDefinition(
                 name="numbers",
                 levels=[3, 6, 9, 12, 15],
-                description="Number of rows in the grid",
+                description="Number of source numbers",
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
                 ensure_interval=True,

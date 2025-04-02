@@ -155,21 +155,21 @@ def test_arc_1d_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_size == 10
-    assert base_cfg.max_size == 25
+    assert base_cfg.max_size == 10
 
     # Test and validate increase in levels
     curriculum.increment_attr_level("size")
 
     increased_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_size == 10
-    assert increased_cfg.max_size == 50
+    assert increased_cfg.max_size == 25
 
     # Test and validate decrease in levels
     curriculum.decrement_attr_level("size")
 
     decreased_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
     assert decreased_cfg.min_size == 10
-    assert decreased_cfg.max_size == 25
+    assert decreased_cfg.max_size == 10
 
     # Test upper bound boundary condition
     for _ in range(10):
@@ -183,4 +183,4 @@ def test_arc_1d_curriculum():
         curriculum.decrement_attr_level("size")
     lower_bound_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
     assert lower_bound_cfg.min_size == 10
-    assert lower_bound_cfg.max_size == 25
+    assert lower_bound_cfg.max_size == 10

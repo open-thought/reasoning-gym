@@ -130,7 +130,6 @@ class Arc1DCurriculum(BaseCurriculum):
                 lower_field_name="min_size",
                 upper_field_name="max_size",
                 description="Grid size",
-                ensure_interval=True,
             )
         )
 

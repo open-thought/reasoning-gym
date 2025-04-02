@@ -262,7 +262,7 @@ class GraphColorCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_vertices",
-                levels=[6, 10, 20, 25, 50],
+                levels=[6, 10, 20, 25],
                 description="Number of vertices in the graph",
                 lower_field_name="min_num_vertices",
                 upper_field_name="max_num_vertices",

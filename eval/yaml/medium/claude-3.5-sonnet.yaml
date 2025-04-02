@@ -51,8 +51,8 @@ categories:
       length: 25
   - dataset: base_conversion
     params:
-      min_base: 18
-      max_base: 27
+      min_base: 9
+      max_base: 18
       min_value: 10000
       max_value: 100000
   - dataset: binary_alternation
@@ -62,8 +62,8 @@ categories:
   - dataset: binary_matrix
     params:
       p_zero: 0.25
-      min_n: 50
-      max_n: 250
+      min_n: 25
+      max_n: 50
   - dataset: caesar_cipher
     params:
       min_rotation: 15
@@ -80,26 +80,26 @@ categories:
       max_words: 10
   - dataset: game_of_life
     params:
-      grid_size_x: 100
-      grid_size_y: 100
+      grid_size_x: 50
+      grid_size_y: 50
       filled_cells_weights: 0.2
       simulation_steps: 2
   - dataset: game_of_life_halting
     params:
-      grid_size_x: 25
-      grid_size_y: 25
+      grid_size_x: 50
+      grid_size_y: 50
       difficulty: 2
       num_oscillators: 7
       max_simulation_steps: 50
   - dataset: graph_color
     params:
-      min_num_vertices: 20
-      max_num_vertices: 25
+      min_num_vertices: 10
+      max_num_vertices: 20
       num_colors: 4
   - dataset: group_anagrams
     params:
       min_anagram_groups: 10
-      max_anagram_groups: 100
+      max_anagram_groups: 50
       min_words_per_group: 2
       max_words_per_group: 5
   - dataset: isomorphic_strings
@@ -116,7 +116,7 @@ categories:
       max_words: 50
   - dataset: letter_jumble
     params:
-      min_word_len: 15
+      min_word_len: 5
       max_word_len: 30
       min_words: 25
       max_words: 50
@@ -127,7 +127,7 @@ categories:
       max_rows: 50
       min_cols: 25
       max_cols: 50
-      min_transforms: 5
+      min_transforms: 3
       max_transforms: 10
   - dataset: number_filtering
     params:
@@ -153,8 +153,8 @@ categories:
     params:
       min_string_len: 50
       max_string_len: 100
-      min_substring_palindrome_len: 10
-      max_substring_palindrome_len: 20
+      min_substring_palindrome_len: 5
+      max_substring_palindrome_len: 10
   - dataset: pool_matrix
     params:
       min_rows: 25
@@ -173,7 +173,7 @@ categories:
     params:
       min_n: 25
       max_n: 50
-      min_rotations: 10
+      min_rotations: 5
       max_rotations: 15
   - dataset: rotten_oranges
     params:
@@ -185,7 +185,7 @@ categories:
       max_words_in_sentence: 50
   - dataset: spell_backward
     params:
-      min_word_len: 10
+      min_word_len: 5
       max_word_len: 20
   - dataset: spiral_matrix
     params:
@@ -209,7 +209,7 @@ categories:
       max_initial_blocks: 100
   - dataset: word_ladder
     params:
-      min_word_length: 4
+      min_word_length: 3
       max_word_length: 5
   - dataset: word_sequence_reversal
     params:
@@ -227,7 +227,10 @@ categories:
     params:
       min_size: 25
       max_size: 50
-  - dataset: arc_agi # TODO
+  - dataset: arc_agi
+    params:
+      rotations_weights: [0.15, 0.3, 0.25, 0.3]
+      mirrors_weights: [0.2, 0.2, 0.2, 0.2, 0.2]
   - dataset: rearc
     params:
       pso_difficulty: [0, 0, 0, 1, 0, 0, 0, 0]
@@ -242,7 +245,7 @@ categories:
       max_digits: 5
   - dataset: bitwise_arithmetic
     params:
-      difficulty: 6
+      difficulty: 5
   - dataset: calendar_arithmetic
     params:
       task_complexity: ["weekday_of_date", "is_leap_year", "weekday_offset", "count_days", "count_business_days"]
@@ -330,8 +333,10 @@ categories:
   datasets:
   - dataset: bf
     params:
-      length: 25
+      difficulty: 2
   - dataset: codeio
+    params:
+      difficulty: 7
 - category: cognition
   datasets:
   - dataset: color_cube_rotation
@@ -341,14 +346,14 @@ categories:
   - dataset: figlet_font
     params:
       min_word_len: 5
-      max_word_len: 15
+      max_word_len: 10
   - dataset: modulo_grid
     params:
       size_x: 40
       size_y: 40
-      max_holes: 3
-      max_divisor: 10
-      max_target: 14
+      max_holes: 5
+      max_divisor: 7
+      max_target: 3
   - dataset: needle_haystack
     params:
       min_num_statements: 100
@@ -359,7 +364,7 @@ categories:
       max_terms: 12
       min_value: -500
       max_value: 500
-      max_complexity: 4
+      max_complexity: 3
   - dataset: rectangle_count
     params:
       max_rectangles: 15
@@ -379,7 +384,8 @@ categories:
       max_value: 250
   - dataset: emoji_mystery
     params:
-      num_words_in_sentence: 30
+      min_words_in_sentence: 20
+      max_words_in_sentence: 40
   - dataset: futoshiki
     params:
       min_board_size: 6
@@ -425,10 +431,13 @@ categories:
     params:
       min_disks: 5
       max_disks: 10
+      min_pegs: 3
+      max_pegs: 4
   - dataset: tsumego
     params:
       min_board_size: 5
       max_board_size: 15
+      max_stones: 10
 - category: geometry
   datasets:
   - dataset: advanced_geometry
@@ -448,7 +457,7 @@ categories:
       min_num_prerequisites: 3
       max_num_prerequisites: 4
       min_cycle_length: 3
-      max_cycle_length: 5
+      max_cycle_length: 4
   - dataset: family_relationships
     params:
       min_family_size: 5
@@ -486,9 +495,13 @@ categories:
     params:
       min_terms: 10
       max_terms: 20
-      min_inputs: 6
+      min_inputs: 4
       max_inputs: 8
-  - dataset: knights_knaves # TODO
+  - dataset: knights_knaves
+    params:
+      n_people: 3
+      depth_constraint: 3
+      width_constraint: 3
   - dataset: propositional_logic
     params:
       min_vars: 4

@@ -175,19 +175,19 @@ class ModuloGridCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_holes",
                 field_name="max_holes",
-                levels=[1, 2, 4, 6],
+                levels=[1, 5, 10, 15],
                 description="Max holes",
             ),
             ScalarAttributeDefinition(
                 name="max_divisor",
                 field_name="max_divisor",
-                levels=[9, 10, 11, 48],
+                levels=[3, 5, 7, 15, 17, 49],
                 description="Max divisor",
             ),
             ScalarAttributeDefinition(
                 name="max_target",
                 field_name="max_target",
-                levels=[7, 14, 21, 49],
+                levels=[1, 0, 3, 7, 9, 21],
                 description="Max target",
             ),
         )

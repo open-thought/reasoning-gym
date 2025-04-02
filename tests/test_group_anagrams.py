@@ -144,7 +144,7 @@ def test_group_anagrams_curriculum():
     curriculum.increment_attr_level("anagram_groups")
     curriculum.increment_attr_level("words_per_group")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_anagram_groups == 5 and increased_cfg.max_anagram_groups == 100
+    assert increased_cfg.min_anagram_groups == 5 and increased_cfg.max_anagram_groups == 50
     assert increased_cfg.min_words_per_group == 2 and increased_cfg.max_words_per_group == 5
 
     # test decrementing attribute level partially
