@@ -19,6 +19,7 @@ class SpellBackwardConfig:
     min_word_len: int = 3  # Minimum word length
     max_word_len: int = 10  # Maximum word length
     seed: Optional[int] = None
+    data_file: str = "words3to10.txt"
     size: int = 500  # Virtual dataset size
 
     def validate(self) -> None:
@@ -34,12 +35,11 @@ class SpellBackwardDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
         # Load and preprocess text
-        text = read_data_file("in_the_year_2889.txt")
-        # Extract words and clean them to contain only alphanumeric characters
+        text = read_data_file(self.config.data_file)
         self.words = [
-            word
-            for word in re.findall(r"\b\w+\b", text)
-            if word.isalnum() and config.min_word_len <= len(word) <= config.max_word_len
+            word.strip()
+            for word in text.splitlines()
+            if word.strip().isalnum() and config.min_word_len <= len(word.strip()) <= config.max_word_len
         ]
 
     def __getitem__(self, idx: int) -> dict:
@@ -69,10 +69,22 @@ class SpellBackwardDataset(ProceduralDataset):
         expected_answer = entry["answer"]
         if isinstance(answer, str):
             try:
-                if expected_answer.lower() == answer.lower():
-                    reward = 1.0
+                expected_answer = expected_answer.lower()
+                answer = answer.lower()
+                if expected_answer == answer:
+                    return 1.0
                 else:
-                    reward = 0.05
+                    answer_len = len(expected_answer)
+                    for i in range(len(expected_answer)):
+                        if i < len(expected_answer) and i < len(answer):
+                            if expected_answer[i] == answer[i]:
+                                reward += 1 / answer_len
+                            else:
+                                continue
+                        else:
+                            break
+                    if reward == 1.0:
+                        reward -= 0.2
             except:
                 reward = 0.0
         return reward
@@ -86,11 +98,11 @@ class SpellBackwardCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="word_len",
-                levels=[5, 10, 20, 30],
+                levels=list(range(3, 11, 1)),
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
-                ensure_interval=True,
+                ensure_interval=False,
             ),
         )
 

@@ -54,7 +54,6 @@ class CurriculumExperimentConfig:
 
         if not isinstance(data, dict):
             raise ValueError("YAML data must contain a dictionary")
-
         if "curricula" not in data:
             raise ValueError("YAML data must contain a 'curricula' key")
 

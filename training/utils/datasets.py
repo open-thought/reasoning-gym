@@ -1,5 +1,6 @@
-from typing import Optional
+from typing import Literal, Optional
 
+import numpy as np
 import verl.utils.torch_functional as verl_F
 from torch.utils.data import Dataset
 from transformers import PreTrainedTokenizer
@@ -67,6 +68,33 @@ class ReasoningGymDataset(Dataset):
         row_dict["index"] = index
         return row_dict
 
+    def update_experiment_difficulty(self, dataset_name: str, method: Literal["increment", "decrement"]):
+        """Update the difficulty of the underlying dataset."""
+        if self.experiment is None:
+            raise ValueError("Cannot update difficulty: dataset is not a CurriculumExperiment")
+        if method not in ["increment", "decrement"]:
+            raise ValueError("Invalid method: must be 'increment' or 'decrement'")
+        self.experiment.score_board.clear(dataset_name)
+        self.experiment.update_difficulty(dataset_name, method)
+        self.data = self.experiment.composite
+        return True
+
+    def aggregate(self, last_n: Optional[int] = None):
+        """Aggregate scores from the underlying experiment"""
+        if self.experiment is None:
+            raise ValueError("Cannot aggregate scores: dataset is not a CurriculumExperiment")
+
+        results = self.experiment.score_board.aggregate(last_n=last_n)
+        output_results = {}
+
+        for key, value in results.items():
+            output_results[key] = {}
+            scores = value.scores
+            first_key = list(scores.keys())[0]
+            output_results[key]["results"] = np.mean(scores[first_key])
+            output_results[key]["total_samples"] = value.total_scores
+        return output_results
+
 
 def make_dataset(
     tokenizer,
@@ -78,6 +106,7 @@ def make_dataset(
     """
     kwargs = {
         "tokenizer": tokenizer,
+        # "dataset_name": dataset_name,
         "developer_prompt": developer_prompt,
     }
     if isinstance(data_source, Experiment):
