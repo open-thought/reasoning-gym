@@ -17,9 +17,9 @@ class FutoshikiConfig:
     """Configuration for Futoshiki puzzle generation"""
 
     min_board_size: int = 4  # Board will be NxN where N is this value
-    max_board_size: int = 9
+    max_board_size: int = 7
     min_difficulty: int = 0
-    max_difficulty: int = 3
+    max_difficulty: int = 1
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
 
