@@ -90,14 +90,14 @@ def test_letter_counting_curriculum():
     base_cfg: LetterCountingConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_words == 10 and base_cfg.max_words == 50
+    assert base_cfg.min_words == 5 and base_cfg.max_words == 7
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("words")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_words == 10 and increased_cfg.max_words == 100
+    assert increased_cfg.min_words == 5 and increased_cfg.max_words == 9
 
     # test decrementing attribute level for words again
     curriculum.decrement_attr_level("words")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_words == 10 and partially_decreased_cfg.max_words == 50
+    assert partially_decreased_cfg.min_words == 5 and partially_decreased_cfg.max_words == 7
