@@ -15,11 +15,11 @@ from .mahjong import MahjongPuzzleConfig, MahjongPuzzleCurriculum, MahjongPuzzle
 from .maze import MazeConfig, MazeCurriculum, MazeDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuCurriculum, MiniSudokuDataset
 from .n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
-from .puzzle24 import Puzzle24Config, Puzzle24Dataset
+from .puzzle24 import Puzzle24Config, Puzzle24Curriculum, Puzzle24Dataset
 from .rush_hour import RushHourConfig, RushHourCurriculum, RushHourDataset
 from .sokoban import SokobanConfig, SokobanCurriculum, SokobanDataset
 from .sudoku import SudokuConfig, SudokuCurriculum, SudokuDataset
-from .tower_of_hanoi import HanoiConfig, HanoiDataset
+from .tower_of_hanoi import HanoiConfig, HanoiCurriculum, HanoiDataset
 from .tsumego import TsumegoConfig, TsumegoCurriculum, TsumegoDataset
 
 __all__ = [
@@ -40,6 +40,7 @@ __all__ = [
     "MiniSudokuCurriculum",
     "Puzzle24Config",
     "Puzzle24Dataset",
+    "Puzzle24Curriculum",
     "SudokuConfig",
     "SudokuCurriculum",
     "SudokuDataset",
@@ -54,6 +55,7 @@ __all__ = [
     "MazeCurriculum",
     "HanoiConfig",
     "HanoiDataset",
+    "HanoiCurriculum",
     "NQueensDataset",
     "NQueensConfig",
     "NQueensCurriculum",

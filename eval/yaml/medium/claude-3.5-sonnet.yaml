@@ -412,7 +412,10 @@ categories:
       n: 8
       min_remove: 4
       max_remove: 6
-  - dataset: puzzle24 # TODO
+  - dataset: puzzle24
+    params:
+      min_value: 1
+      max_value: 6
   - dataset: rush_hour
     params:
       min_moves: 25
