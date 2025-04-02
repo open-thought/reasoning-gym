@@ -392,7 +392,14 @@ categories:
       max_board_size: 7
       min_difficulty: 1
       max_difficulty: 2
-  - dataset: knight_swap # TODO
+  - dataset: knight_swap
+    params:
+      min_nodes: 6
+      max_nodes: 8
+      min_pieces: 3
+      max_pieces: 4
+      min_steps: 1
+      max_steps: 20
   - dataset: mahjong_puzzle
     params:
       min_num_rounds: 50

@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import FrozenSet, Optional
 
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Knight Swap Challenge:
@@ -297,6 +298,11 @@ class KnightSwapDataset(ProceduralDataset):
                                     "is_possible": solution is not None,
                                     "num_steps": len(solution) if solution else 0,
                                     "board_states": board_states if solution is not None else None,
+                                    "difficulty": {
+                                        "nodes": (self.config.min_nodes, self.config.max_nodes),
+                                        "pieces": (self.config.min_pieces, self.config.max_pieces),
+                                        "steps": (self.config.min_steps, self.config.max_steps),
+                                    },
                                 },
                             }
 
@@ -396,4 +402,34 @@ class KnightSwapDataset(ProceduralDataset):
             return 0.0
 
 
-register_dataset(DATASET_NAME, KnightSwapDataset, KnightSwapConfig)
+class KnightSwapCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(KnightSwapCurriculum.__name__, KnightSwapConfig)
+
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="nodes",
+                levels=[4, 6, 8, 10, 12],
+                description="Number of nodes (board size)",
+                lower_field_name="min_nodes",
+                upper_field_name="max_nodes",
+            ),
+            RangeAttributeDefinition(
+                name="pieces",
+                levels=[2, 3, 4, 5, 6],
+                description="Number of pieces per color",
+                lower_field_name="min_pieces",
+                upper_field_name="max_pieces",
+            ),
+            RangeAttributeDefinition(
+                name="steps",
+                levels=[1, 10, 20, 30],
+                description="Number of steps in the solution",
+                lower_field_name="min_steps",
+                upper_field_name="max_steps",
+                ensure_interval=True,
+            ),
+        )
+
+
+register_dataset(DATASET_NAME, KnightSwapDataset, KnightSwapConfig, KnightSwapCurriculum)

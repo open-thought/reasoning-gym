@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.games.knight_swap import KnightSwapConfig, KnightSwapDataset, KnightSwapLogic
+from reasoning_gym.games.knight_swap import KnightSwapConfig, KnightSwapCurriculum, KnightSwapDataset, KnightSwapLogic
 
 
 def test_default_config_validation():
@@ -160,3 +160,32 @@ def test_score_calculation():
 
     # Test correct answer
     assert dataset.score_answer(puzzle["answer"], puzzle) == 1.0
+
+
+def test_knight_swap_curriculum():
+    curriculum = KnightSwapCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: KnightSwapConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_nodes == 4 and base_cfg.max_nodes == 4
+    assert base_cfg.min_pieces == 2 and base_cfg.max_pieces == 2
+    assert base_cfg.min_steps == 1 and base_cfg.max_steps == 10
+
+    # Test incrementing attribute levels
+    curriculum.increment_attr_level("nodes")
+    curriculum.increment_attr_level("pieces")
+    curriculum.increment_attr_level("steps")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_nodes == 4 and increased_cfg.max_nodes == 6
+    assert increased_cfg.min_pieces == 2 and increased_cfg.max_pieces == 3
+    assert increased_cfg.min_steps == 1 and increased_cfg.max_steps == 20
+
+    # Test decrementing attribute level for nodes again
+    curriculum.decrement_attr_level("nodes")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_nodes == 4 and partially_decreased_cfg.max_nodes == 4
+    assert partially_decreased_cfg.min_pieces == 2 and partially_decreased_cfg.max_pieces == 3
+    assert partially_decreased_cfg.min_steps == 1 and partially_decreased_cfg.max_steps == 20
