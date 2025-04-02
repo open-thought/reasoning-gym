@@ -6,6 +6,7 @@ from typing import Any, Optional
 
 import zss
 
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..data import get_data_file_path
 from ..factory import ProceduralDataset, register_dataset
 
@@ -59,10 +60,13 @@ class CodeIOConfig:
     seed: Optional[int] = None
     size: int = 500
     input_prediction_probability: float = 0.5
+    difficulty: Optional[int] = None
 
     def validate(self) -> None:
         """Validate configuration parameters"""
         assert 0.0 <= self.input_prediction_probability <= 1.0, "input_prediction_probability must be in [0, 1]"
+        if self.difficulty is not None:
+            assert 1 <= self.difficulty <= 10, "difficulty must be in [1, 10]"
 
 
 class CodeIODataset(ProceduralDataset):
@@ -80,18 +84,30 @@ class CodeIODataset(ProceduralDataset):
         self._data_path = get_data_file_path("codeio.jsonl.gz")
 
         with gzip.open(self._data_path, "rt", encoding="utf-8") as f:
-            CodeIODataset._jsonl_data = [json.loads(line) for line in f]
+            data = [json.loads(line) for line in f]
+            if self.config.difficulty is not None:
+                data = [entry for entry in data if entry.get("difficulty", -1) == self.config.difficulty]
+            assert len(data) > 0, "No data found for the specified difficulty level"
+            CodeIODataset._jsonl_data = data
 
-    def _generate_io_pair(self, main_code: str, input_generator_code: str, rng: Random, max_retries: int = 3):
-        local_vars = {}
-        exec(main_code, {"Random": Random}, local_vars)
-        exec(input_generator_code, {"Random": Random}, local_vars)
+    def _generate_io_pair(self, main_code: str, input_generator_code: str, rng: Random, max_retries: int = 1):
+        local_vars = {"Random": Random}
+
+        full_code = f"{main_code}\n\n{input_generator_code}"
+        try:
+            exec(full_code, local_vars, local_vars)
+        except Exception as e:
+            print(f"Error executing code:\n{full_code}")
+            print(f"---------------------\nException: {e}\n---------------------")
+            return {}, {}
+
         for _ in range(max_retries):
             try:
                 inputs = local_vars["generate_inputs"](rng)
                 outputs = local_vars["main_solution"](**inputs)
-            except Exception:
+            except Exception as e:
                 # Retry
+                print(f"Error generating I/O pair: {e}")
                 continue
             return inputs, outputs
         return {}, {}
@@ -124,6 +140,7 @@ class CodeIODataset(ProceduralDataset):
                 "source_index": idx,
                 "input_data": input_data,
                 "output_data": output_data,
+                "difficulty": {"difficulty": self.config.difficulty},
             },
         }
 
@@ -237,5 +254,19 @@ class CodeIODataset(ProceduralDataset):
         return reward
 
 
+class CodeIOCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(CodeIOCurriculum.__name__, CodeIOConfig)
+
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="difficulty",
+                field_name="difficulty",
+                levels=[6, 7, 8, 9],
+                description="Difficulty level of the task",
+            ),
+        )
+
+
 # Register the dataset
-register_dataset(DATASET_NAME, CodeIODataset, CodeIOConfig)
+register_dataset(DATASET_NAME, CodeIODataset, CodeIOConfig, CodeIOCurriculum)

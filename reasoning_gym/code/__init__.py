@@ -2,7 +2,14 @@
 Code reasing tasks
 """
 
-from .bf import BFConfig, BFDataset
-from .codeio import CodeIOConfig, CodeIODataset
+from .bf import BFConfig, BFCurriculum, BFDataset
+from .codeio import CodeIOConfig, CodeIOCurriculum, CodeIODataset
 
-__all__ = ["BFConfig", "BFDataset", "CodeIOConfig", "CodeIODataset"]
+__all__ = [
+    "BFConfig",
+    "BFDataset",
+    "BFCurriculum",
+    "CodeIOConfig",
+    "CodeIODataset",
+    "CodeIOCurriculum",
+]
