@@ -116,10 +116,8 @@ class Puzzle24Dataset(ProceduralDataset):
             try:
                 answer = answer.strip()
                 user_answer = int(parse_expr(answer))
-                print(f"User answer: {user_answer}")
                 solved = user_answer == 24
                 used_numbers = [int(num) for num in re.findall(r"\b\d+\b", answer)]
-                print(f"Used numbers: {used_numbers}")
                 if len(used_numbers) != 4:
                     reward = 0.01
                 elif any(num > self.config.max_value or num < self.config.min_value for num in used_numbers):
