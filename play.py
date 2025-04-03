@@ -16,7 +16,7 @@ def timer():
 # Usage
 with timer():
     # Your code here
-    data = reasoning_gym.create_dataset("knight_swap", size=10000, seed=1)
+    data = reasoning_gym.create_dataset("puzzle24", size=10000, seed=1)
     for i, x in enumerate(data):
         # print(f"{i}: q={x['question']}, a={x['answer']}")
         # print('metadata:', x['metadata'])

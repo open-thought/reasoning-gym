@@ -24,7 +24,7 @@ DATASET_NAME = "puzzle24"
 class Puzzle24Config:
     operators: tuple = ("+", "-", "*", "/")
     min_value: int = 1
-    max_value: int = 10
+    max_value: int = 6
     seed: Optional[int] = None
     size: int = 500
 
