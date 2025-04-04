@@ -131,8 +131,8 @@ class CalendarArithmeticDataset(ProceduralDataset):
         metadata["source_dataset"] = DATASET_NAME
         metadata["source_index"] = idx
         metadata["difficulty"] = {
-            "task_complexity": self.tasks.index(task),
-            "date_range": self.config.offset_upper_bound,
+            "tasks": self.config.tasks,
+            "offset_upper_bound": self.config.offset_upper_bound,
         }
         return {
             "question": question,
@@ -500,7 +500,7 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
         # Define attributes
         self._define_attributes(
             ScalarAttributeDefinition(
-                name="task_complexity",
+                name="tasks",
                 levels=[
                     ["weekday_of_date"],
                     ["weekday_of_date", "is_leap_year", "weekday_offset"],
@@ -519,7 +519,7 @@ class CalendarArithmeticCurriculum(BaseCurriculum):
                 field_name="tasks",
             ),
             ScalarAttributeDefinition(
-                name="date_range",
+                name="offset_upper_bound",
                 levels=[30, 100, 250, 365],
                 description="Maximum day range for offset and counting tasks",
                 field_name="offset_upper_bound",

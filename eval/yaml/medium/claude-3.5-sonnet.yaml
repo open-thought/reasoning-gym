@@ -120,7 +120,8 @@ categories:
       max_word_len: 30
       min_words: 25
       max_words: 50
-      corruption_level: 0.5
+      min_corruption_level: 0.3
+      max_corruption_level: 0.6
   - dataset: manipulate_matrix
     params:
       min_rows: 25
@@ -233,8 +234,8 @@ categories:
       mirrors_weights: [0.2, 0.2, 0.2, 0.2, 0.2]
   - dataset: rearc
     params:
-      pso_difficulty: [0, 0, 0, 1, 0, 0, 0, 0]
-      rng_difficulty: [0, 0, 0, 1, 0, 0, 0, 0]
+      pso_difficulty_weights: [0, 0, 0, 1, 0, 0, 0, 0]
+      rng_difficulty_weights: [0, 0, 0, 1, 0, 0, 0, 0]
 - category: arithmetic
   datasets:
   - dataset: basic_arithmetic
@@ -248,8 +249,8 @@ categories:
       difficulty: 5
   - dataset: calendar_arithmetic
     params:
-      task_complexity: ["weekday_of_date", "is_leap_year", "weekday_offset", "count_days", "count_business_days"]
-      date_range: 200
+      tasks: ["weekday_of_date", "is_leap_year", "weekday_offset", "count_days", "count_business_days"]
+      offset_upper_bound: 200
   - dataset: chain_sum
     params:
       min_terms: 5
@@ -300,8 +301,8 @@ categories:
       max_value: 10000
   - dataset: leg_counting
     params:
-      min_num_animals: 20
-      max_num_animals: 30
+      min_animals: 20
+      max_animals: 30
       min_instances: 64
       max_instances: 256
   - dataset: number_format
@@ -321,8 +322,8 @@ categories:
       max_value: 5000
   - dataset: products
     params:
-      min_num_terms: 4
-      max_num_terms: 8
+      min_terms: 4
+      max_terms: 8
       min_digits: 4
       max_digits: 8
   - dataset: time_intervals
@@ -371,7 +372,8 @@ categories:
   - dataset: rubiks_cube
     params:
       cube_size: 5
-      scramble_steps: 50
+      min_scramble_steps: 25
+      max_scramble_steps: 50
 - category: games
   datasets:
   - dataset: countdown

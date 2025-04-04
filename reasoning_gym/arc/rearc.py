@@ -124,8 +124,8 @@ class ReArcDataset(ProceduralDataset):
                 "rng": rng_difficulty,
                 "pso": pso_difficulty,
                 "difficulty": {
-                    "rng_difficulty": self.config.rng_difficulty_weights,
-                    "pso_difficulty": self.config.pso_difficulty_weights,
+                    "rng_difficulty_weights": self.config.rng_difficulty_weights,
+                    "pso_difficulty_weights": self.config.pso_difficulty_weights,
                 },
             },
         }
@@ -150,7 +150,7 @@ class ReArcCurriculum(BaseCurriculum):
         super().__init__(ReArcCurriculum.__name__, ReArcConfig)
         self._define_attributes(
             ScalarAttributeDefinition(
-                name="pso_difficulty",
+                name="pso_difficulty_weights",
                 field_name="pso_difficulty_weights",
                 description="The range of PSO difficulty for the Arc problem",
                 levels=[
@@ -165,7 +165,7 @@ class ReArcCurriculum(BaseCurriculum):
                 ],  # only sample/generate the hardest tasks PSO difficulty
             ),
             ScalarAttributeDefinition(
-                name="rng_difficulty",
+                name="rng_difficulty_weights",
                 field_name="rng_difficulty_weights",
                 description="The range of RNG difficulty for the Arc problem",
                 levels=[

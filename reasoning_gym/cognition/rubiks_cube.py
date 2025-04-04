@@ -182,7 +182,7 @@ class RubiksCubeCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="scramble_steps",
-                levels=[3, 10, 50, 100, 250],
+                levels=[3, 10, 25, 50, 100],
                 description="Number of random moves to scramble the cube",
                 lower_field_name="min_scramble_steps",
                 upper_field_name="max_scramble_steps",
