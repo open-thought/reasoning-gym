@@ -103,19 +103,19 @@ def test_rearc_curriculum():
     assert base_cfg.rng_difficulty_weights == [1, 0, 0, 0, 0, 0, 0, 0]
 
     # Test incrementing pso_difficulty attribute
-    curriculum.increment_attr_level("pso_difficulty")
+    curriculum.increment_attr_level("pso_difficulty_weights")
     pso_cfg = curriculum.generate_configuration(base_value)
     assert pso_cfg.pso_difficulty_weights == [0, 1, 0, 0, 0, 0, 0, 0]  # Level 1: second difficulty range
     assert pso_cfg.rng_difficulty_weights == [1, 0, 0, 0, 0, 0, 0, 0]  # RNG unchanged
 
     # Test incrementing rng_difficulty attribute
-    curriculum.increment_attr_level("rng_difficulty")
+    curriculum.increment_attr_level("rng_difficulty_weights")
     rng_cfg = curriculum.generate_configuration(base_value)
     assert rng_cfg.pso_difficulty_weights == [0, 1, 0, 0, 0, 0, 0, 0]  # PSO unchanged
     assert rng_cfg.rng_difficulty_weights == [0, 1, 0, 0, 0, 0, 0, 0]  # Level 1: second difficulty range
 
     # Test decrementing pso_difficulty attribute
-    curriculum.decrement_attr_level("pso_difficulty")
+    curriculum.decrement_attr_level("pso_difficulty_weights")
     decr_cfg = curriculum.generate_configuration(base_value)
     assert decr_cfg.pso_difficulty_weights == [1, 0, 0, 0, 0, 0, 0, 0]  # Back to level 0
     assert decr_cfg.rng_difficulty_weights == [0, 1, 0, 0, 0, 0, 0, 0]  # RNG unchanged

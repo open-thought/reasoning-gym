@@ -211,8 +211,8 @@ def test_calendar_curriculum():
     assert base_cfg.tasks == ["weekday_of_date"]
     assert base_cfg.offset_upper_bound == 30
 
-    curriculum.increment_attr_level("task_complexity")
-    curriculum.increment_attr_level("date_range")
+    curriculum.increment_attr_level("tasks")
+    curriculum.increment_attr_level("offset_upper_bound")
     increased_cfg: CalendarArithmeticConfig = curriculum.generate_configuration()
     assert increased_cfg.tasks == ["weekday_of_date", "is_leap_year", "weekday_offset"]
     assert increased_cfg.offset_upper_bound == 100
