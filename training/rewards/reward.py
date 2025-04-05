@@ -84,16 +84,10 @@ def compute_format_reward(solution_str: str, scaling_factor: float = 0.2, **kwar
 def length_reward(solution_str, scaling_factor, **kwargs):
     """Reward length appropriately based on correctness."""
     correctness_score = kwargs.get("correctness_score", 0.0)
-    epsilon = 1e-6
     max_score = kwargs.get("max_score", 1.0)
     max_output_length = kwargs.get("max_output_length", 1024)
 
-    generation_len = len(solution_str)
-    progress = min(generation_len / max_output_length, 1.0)
-
-    if correctness_score < max_score - epsilon:
-        length_reward = (max_score - correctness_score) * progress
-    else:
-        length_reward = -progress
-
+    progress = min(len(solution_str) / max_output_length, 1.0)
+    # for imperfect answers, incentivise longer ones
+    length_reward = (max_score - correctness_score) * progress
     return length_reward * scaling_factor
