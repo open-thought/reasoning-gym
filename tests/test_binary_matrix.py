@@ -123,7 +123,7 @@ def test_binary_matrix_answer():
     assert dataset.score_answer(answer, entry) == 0.0
 
 
-def test_n_queens_curriculum():
+def test_binary_matrix_curriculum():
     curriculum = BinaryMatrixCurriculum()
 
     base_value = {"size": 150, "seed": 1}
@@ -139,7 +139,7 @@ def test_n_queens_curriculum():
     curriculum.increment_attr_level("p_zero")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.p_zero == 0.25
-    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 50
+    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 25
 
     # test decrementing attribute level for n again
     curriculum.decrement_attr_level("n")

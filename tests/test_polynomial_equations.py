@@ -162,7 +162,7 @@ def test_polynomial_equations_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     # Check default values for degree attribute
-    assert base_cfg.min_degree == 1 and base_cfg.max_degree == 1
+    assert base_cfg.min_degree == 1 and base_cfg.max_degree == 2
     # Check default values for terms attribute
     assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
 
@@ -172,6 +172,6 @@ def test_polynomial_equations_curriculum():
 
     increased_cfg = curriculum.generate_configuration(base_value)
     # Check increased values for degree attribute
-    assert increased_cfg.min_degree == 1 and increased_cfg.max_degree == 2
+    assert increased_cfg.min_degree == 1 and increased_cfg.max_degree == 3
     # Check increased values for terms attribute
     assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3

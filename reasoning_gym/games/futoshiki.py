@@ -690,4 +690,4 @@ class FutoshikiCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(DATASET_NAME, FutoshikiDataset, FutoshikiConfig)
+register_dataset(DATASET_NAME, FutoshikiDataset, FutoshikiConfig, FutoshikiCurriculum)

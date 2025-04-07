@@ -86,14 +86,14 @@ class LCMCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="numbers",
-                levels=[2, 4, 6, 8, 10],
+                levels=[2, 3, 4, 5],
                 description="Number of integers to find LCM of",
                 lower_field_name="min_numbers",
                 upper_field_name="max_numbers",
             ),
             RangeAttributeDefinition(
                 name="value",
-                levels=[1, 100, 500, 1000, 5000],
+                levels=[100, 1000, 10000, 100000],
                 description="Range of values for each integer",
                 lower_field_name="min_value",
                 upper_field_name="max_value",

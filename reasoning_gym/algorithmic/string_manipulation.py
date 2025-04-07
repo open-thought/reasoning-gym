@@ -209,13 +209,15 @@ class StringManipulationCurriculum(BaseCurriculum):
                 description="Length of the string",
                 lower_field_name="min_string_length",
                 upper_field_name="max_string_length",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="num_rules",
-                levels=[5, 10, 15, 20],
+                levels=[3, 5, 10, 15, 20],
                 description="Number of rules to apply",
                 lower_field_name="min_num_rules",
                 upper_field_name="max_num_rules",
+                ensure_interval=True,
             ),
         )
 

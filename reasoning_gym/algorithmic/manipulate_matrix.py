@@ -347,7 +347,7 @@ class ManipulateMatrixCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="num_transforms",
-                levels=[5, 10, 20, 30],
+                levels=[1, 3, 5, 10, 15],
                 description="Number of transformations to apply",
                 lower_field_name="min_transforms",
                 upper_field_name="max_transforms",

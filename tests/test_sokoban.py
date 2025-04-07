@@ -125,13 +125,13 @@ def test_sokoban_curriculum():
 
     # Test upper bound
     curriculum = SokobanCurriculum()  # Reset curriculum
-    for _ in range(10):  # Try going beyond max level
+    for _ in range(20):  # Try going beyond max level
         curriculum.increment_attr_level("width")
         curriculum.increment_attr_level("height")
 
     max_cfg = curriculum.generate_configuration(base_value)
-    assert max_cfg.min_w == 6 and max_cfg.max_w == 10  # Width capped at 10
-    assert max_cfg.min_h == 6 and max_cfg.max_h == 10  # Height capped at 10
+    assert max_cfg.min_w == 6 and max_cfg.max_w == 19
+    assert max_cfg.min_h == 6 and max_cfg.max_h == 19
 
     # Test lower bound
     curriculum = SokobanCurriculum()  # Reset curriculum

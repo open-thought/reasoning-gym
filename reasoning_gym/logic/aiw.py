@@ -200,7 +200,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
                 "source_index": idx,
                 "task_type": task_type.value,
                 "difficulty": {
-                    "task_type_weight": self.config.task_type_weights,
+                    "task_type_weights": self.config.task_type_weights,
                     "num_entities": self.config.max_entities,
                 },
             },
@@ -218,7 +218,7 @@ class AliceInWonderlandCurriculum(BaseCurriculum):
         super().__init__(AliceInWonderlandCurriculum.__name__, AliceInWonderlandConfig)
         self._define_attributes(
             ScalarAttributeDefinition(
-                name="task_type_weight",
+                name="task_type_weights",
                 field_name="task_type_weights",
                 description="The weight of the task type",
                 levels=[

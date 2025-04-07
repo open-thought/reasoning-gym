@@ -71,7 +71,7 @@ class GCDDataset(ProceduralDataset):
                 "num_terms": num_terms,
                 "difficulty": {
                     "num_terms": (self.config.min_numbers, self.config.max_numbers),
-                    "max_value": (self.config.min_value, self.config.max_value),
+                    "value": (self.config.min_value, self.config.max_value),
                 },
             },
         }
@@ -91,13 +91,14 @@ class GCDCurriculum(BaseCurriculum):
                 upper_field_name="max_numbers",
             ),
             RangeAttributeDefinition(
-                name="max_value",
+                name="value",
                 levels=[100, 1000, 10000, 100000],
                 description="maximum value",
                 lower_field_name="min_value",
                 upper_field_name="max_value",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset(DATASET_NAME, GCDDataset, GCDConfig)
+register_dataset(DATASET_NAME, GCDDataset, GCDConfig, GCDCurriculum)

@@ -158,15 +158,15 @@ def test_largest_island_curriculum():
     curriculum.increment_attr_level("num_islands")
     curriculum.increment_attr_level("island_size")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_rows == 5 and increased_cfg.max_rows == 10
-    assert increased_cfg.min_cols == 5 and increased_cfg.max_cols == 10
+    assert increased_cfg.min_rows == 5 and increased_cfg.max_rows == 25
+    assert increased_cfg.min_cols == 5 and increased_cfg.max_cols == 25
     assert increased_cfg.min_num_islands == 2 and increased_cfg.max_num_islands == 5
     assert increased_cfg.min_island_size == 5 and increased_cfg.max_island_size == 10
 
     # test decrementing attribute level for num_islands again
     curriculum.decrement_attr_level("num_islands")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_rows == 5 and partially_decreased_cfg.max_rows == 10
-    assert partially_decreased_cfg.min_cols == 5 and partially_decreased_cfg.max_cols == 10
+    assert partially_decreased_cfg.min_rows == 5 and partially_decreased_cfg.max_rows == 25
+    assert partially_decreased_cfg.min_cols == 5 and partially_decreased_cfg.max_cols == 25
     assert partially_decreased_cfg.min_num_islands == 2 and partially_decreased_cfg.max_num_islands == 2
     assert partially_decreased_cfg.min_island_size == 5 and partially_decreased_cfg.max_island_size == 10

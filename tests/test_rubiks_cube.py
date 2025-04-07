@@ -79,10 +79,10 @@ def test_rubiks_cube_curriculum():
     curriculum.increment_attr_level("scramble_steps")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.cube_size == 4
-    assert increased_cfg.min_scramble_steps == 3 and increased_cfg.max_scramble_steps == 50
+    assert increased_cfg.min_scramble_steps == 3 and increased_cfg.max_scramble_steps == 25
 
     # test decrementing attribute level for cube_size again
     curriculum.decrement_attr_level("cube_size")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.cube_size == 3
-    assert partially_decreased_cfg.min_scramble_steps == 3 and partially_decreased_cfg.max_scramble_steps == 50
+    assert partially_decreased_cfg.min_scramble_steps == 3 and partially_decreased_cfg.max_scramble_steps == 25

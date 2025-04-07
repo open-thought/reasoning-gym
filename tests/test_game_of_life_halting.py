@@ -53,8 +53,8 @@ def test_game_of_life_halting_curriculum():
 
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.grid_size_x == 12
-    assert base_cfg.grid_size_y == 12
+    assert base_cfg.grid_size_x == 10
+    assert base_cfg.grid_size_y == 10
     assert base_cfg.difficulty == 1
     assert base_cfg.num_oscillators == 3
     assert base_cfg.max_simulation_steps == 20

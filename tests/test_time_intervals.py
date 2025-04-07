@@ -128,7 +128,7 @@ def test_time_intervals_curriculum():
     curriculum.increment_attr_level("max_time_difference_seconds")
     curriculum.increment_attr_level("max_date_difference_days")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.max_time_difference_seconds == 24 * 60 * 60
+    assert increased_cfg.max_time_difference_seconds == 60 * 60
     assert increased_cfg.max_date_difference_days == 7
 
     # test decrementing attribute level

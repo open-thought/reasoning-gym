@@ -288,6 +288,7 @@ class PolynomialEquationsCurriculum(BaseCurriculum):
                 lower_field_name="min_degree",
                 upper_field_name="max_degree",
                 description="The degree of the polynomial equation",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="terms",

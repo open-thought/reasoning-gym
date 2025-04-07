@@ -3,7 +3,7 @@ from enum import StrEnum
 from random import Random
 from typing import Optional
 
-from ..coaching import BaseCurriculum, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "number_sequence"
@@ -205,6 +205,7 @@ class NumberSequenceDataset(ProceduralDataset):
                 "sequence": sequence,
                 "difficulty": {
                     "max_complexity": self.config.max_complexity,
+                    "terms": (self.config.min_terms, self.config.max_terms),
                 },
             },
         }
@@ -215,9 +216,29 @@ class NumberSequenceCurriculum(BaseCurriculum):
         super().__init__(NumberSequenceCurriculum.__name__, NumberSequenceConfig)
 
         self._define_attributes(
+            RangeAttributeDefinition(
+                name="terms",
+                lower_field_name="min_terms",
+                upper_field_name="max_terms",
+                levels=[4, 8, 12, 16],
+                description="Number of visible terms",
+                ensure_interval=True,
+            ),
+            ScalarAttributeDefinition(
+                name="min_value",
+                field_name="min_value",
+                levels=[-100, -500, -1000, -10000],
+                description="Minimum allowed number",
+            ),
+            ScalarAttributeDefinition(
+                name="max_value",
+                field_name="max_value",
+                levels=[100, 500, 1000, 10000],
+                description="Maximum allowed number",
+            ),
             ScalarAttributeDefinition(
                 name="max_complexity",
-                levels=[1, 2, 3, 4],
+                levels=[2, 3, 4, 5],
                 description="Maximum number of operations to combine",
                 field_name="max_complexity",
             ),

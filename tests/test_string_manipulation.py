@@ -269,18 +269,18 @@ def test_string_manipulation_curriculum():
     base_cfg: StringManipulationConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_string_length == 10 and base_cfg.max_string_length == 10
-    assert base_cfg.min_num_rules == 5 and base_cfg.max_num_rules == 5
+    assert base_cfg.min_string_length == 10 and base_cfg.max_string_length == 50
+    assert base_cfg.min_num_rules == 3 and base_cfg.max_num_rules == 5
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("string_length")
     curriculum.increment_attr_level("num_rules")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_string_length == 10 and increased_cfg.max_string_length == 50
-    assert increased_cfg.min_num_rules == 5 and increased_cfg.max_num_rules == 10
+    assert increased_cfg.min_string_length == 10 and increased_cfg.max_string_length == 100
+    assert increased_cfg.min_num_rules == 3 and increased_cfg.max_num_rules == 10
 
     # test decrementing attribute level for string_length again
     curriculum.decrement_attr_level("string_length")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_string_length == 10 and partially_decreased_cfg.max_string_length == 10
-    assert partially_decreased_cfg.min_num_rules == 5 and partially_decreased_cfg.max_num_rules == 10
+    assert partially_decreased_cfg.min_string_length == 10 and partially_decreased_cfg.max_string_length == 50
+    assert partially_decreased_cfg.min_num_rules == 3 and partially_decreased_cfg.max_num_rules == 10

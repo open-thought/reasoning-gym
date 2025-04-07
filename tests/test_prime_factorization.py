@@ -143,7 +143,7 @@ def test_prime_factorization_curriculum():
     # test incrementing attribute levels
     curriculum.increment_attr_level("value")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_value == 10 and increased_cfg.max_value == 10_000
+    assert increased_cfg.min_value == 10 and increased_cfg.max_value == 5_000
 
     # test decrementing attribute level for value again
     curriculum.decrement_attr_level("value")

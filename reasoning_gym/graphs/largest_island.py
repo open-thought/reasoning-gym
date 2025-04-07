@@ -163,14 +163,14 @@ class LargestIslandCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="rows",
-                levels=[5, 10, 50, 100],
+                levels=[5, 25, 50, 100],
                 description="Number of rows in the grid",
                 lower_field_name="min_rows",
                 upper_field_name="max_rows",
             ),
             RangeAttributeDefinition(
                 name="cols",
-                levels=[5, 10, 50, 100],
+                levels=[5, 25, 50, 100],
                 description="Number of columns in the grid",
                 lower_field_name="min_cols",
                 upper_field_name="max_cols",

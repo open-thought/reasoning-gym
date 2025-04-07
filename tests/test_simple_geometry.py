@@ -93,7 +93,7 @@ def test_simple_geometry_curriculum():
     # test incrementing attribute levels
     curriculum.increment_attr_level("sides")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_sides == 5 and increased_cfg.max_sides == 25
+    assert increased_cfg.min_sides == 5 and increased_cfg.max_sides == 15
 
     # test decrementing attribute level for sides again
     curriculum.decrement_attr_level("sides")

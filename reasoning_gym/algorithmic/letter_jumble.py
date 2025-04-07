@@ -173,7 +173,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="word_len",
-                levels=[5, 15, 30, 50],
+                levels=[5, 10, 15, 30, 50],
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
@@ -181,7 +181,7 @@ class LetterJumbleCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="words",
-                levels=[10, 50, 100, 500],
+                levels=[5, 10, 25, 50, 100],
                 description="Number of words",
                 lower_field_name="min_words",
                 upper_field_name="max_words",

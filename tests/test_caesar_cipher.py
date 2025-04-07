@@ -107,39 +107,33 @@ def test_caesar_cipher_curriculum():
     base_cfg: CaesarCipherConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_rotation == base_cfg.max_rotation == 5
-    assert base_cfg.min_words == base_cfg.max_words == 5
+    assert base_cfg.min_rotation == 5
+    assert base_cfg.max_rotation == 15
+    assert base_cfg.min_words == 5
+    assert base_cfg.max_words == 15
 
     curriculum.increment_attr_level("rotation")
-    cfg = curriculum.generate_configuration(base_value)
-    assert cfg.min_rotation == 5
-    assert cfg.max_rotation == 10
-
-    curriculum.increment_attr_level("words")
-    cfg = curriculum.generate_configuration(base_value)
-    assert cfg.min_words == 5
-    assert cfg.max_words == 10
-
-    curriculum.increment_attr_level("rotation")
-    curriculum.increment_attr_level("words")
-    cfg = curriculum.generate_configuration(base_value)
-    assert cfg.min_rotation == 5
-    assert cfg.max_rotation == 15
-    assert cfg.min_words == 5
-    assert cfg.max_words == 15
-
-    curriculum.increment_attr_level("rotation")
-    curriculum.increment_attr_level("words")
     cfg = curriculum.generate_configuration(base_value)
     assert cfg.min_rotation == 5
     assert cfg.max_rotation == 25
+
+    curriculum.increment_attr_level("words")
+    cfg = curriculum.generate_configuration(base_value)
     assert cfg.min_words == 5
     assert cfg.max_words == 25
+
+    curriculum.increment_attr_level("rotation")
+    curriculum.increment_attr_level("words")
+    cfg = curriculum.generate_configuration(base_value)
+    assert cfg.min_rotation == 5
+    assert cfg.max_rotation == 50
+    assert cfg.min_words == 5
+    assert cfg.max_words == 50
 
     curriculum.decrement_attr_level("rotation")
     curriculum.decrement_attr_level("words")
     cfg = curriculum.generate_configuration(base_value)
     assert cfg.min_rotation == 5
-    assert cfg.max_rotation == 15
+    assert cfg.max_rotation == 25
     assert cfg.min_words == 5
-    assert cfg.max_words == 15
+    assert cfg.max_words == 25

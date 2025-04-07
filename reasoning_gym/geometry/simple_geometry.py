@@ -158,7 +158,7 @@ class SimpleGeometryCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="sides",
-                levels=[5, 10, 25, 50],
+                levels=[5, 10, 15, 30],
                 description="Number of sides in the polygon.",
                 lower_field_name="min_sides",
                 upper_field_name="max_sides",

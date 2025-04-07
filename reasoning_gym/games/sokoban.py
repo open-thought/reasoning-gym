@@ -150,14 +150,14 @@ class SokobanCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="width",
-                levels=list(range(6, 11)),
+                levels=list(range(6, 20)),
                 description="The width of the Sokoban board",
                 lower_field_name="min_w",
                 upper_field_name="max_w",
             ),
             RangeAttributeDefinition(
                 name="height",
-                levels=list(range(6, 11)),
+                levels=list(range(6, 20)),
                 description="The height of the Sokoban board",
                 lower_field_name="min_h",
                 upper_field_name="max_h",

@@ -67,6 +67,8 @@ def create_dataset(name: str, **kwargs) -> ProceduralDataset:
     dataset_cls, config_cls = DATASETS[name]
 
     config = config_cls(**kwargs)
+    if hasattr(config, "validate"):
+        config.validate()
 
     return dataset_cls(config=config)
 

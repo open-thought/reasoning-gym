@@ -165,7 +165,7 @@ class DiceCurriculum(BaseCurriculum):
         self._define_attributes(
             ScalarAttributeDefinition(
                 name="num_dice",
-                levels=[4, 5, 6, 7],
+                levels=[4, 6, 8, 10],
                 description="Number of dice to roll",
                 field_name="num_dice",
             ),

@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.games.countdown import CountdownConfig, CountdownDataset
+from reasoning_gym.games.countdown import CountdownConfig, CountdownCurriculum, CountdownDataset
 
 
 def test_countdown_game_config_validation():
@@ -120,3 +120,34 @@ def test_countdown_game_randomization():
         int(n) for n in first_item["metadata"]["expression"].replace("(", "").replace(")", "").split(" ") if n.isdigit()
     ]
     assert sorted(expr_nums) == sorted(first_item["metadata"]["numbers"])
+
+
+def test_countdown_curriculum():
+    curriculum = CountdownCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    print(base_value)
+
+    base_cfg: CountdownConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_numbers == 3 and base_cfg.max_numbers == 6
+    assert base_cfg.min_target == 100 and base_cfg.max_target == 500
+    assert base_cfg.min_value == 1 and base_cfg.max_value == 100
+
+    # Test incrementing attribute levels
+    curriculum.increment_attr_level("numbers")
+    curriculum.increment_attr_level("target")
+    curriculum.increment_attr_level("value")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_numbers == 3 and increased_cfg.max_numbers == 9
+    assert increased_cfg.min_target == 100 and increased_cfg.max_target == 1000
+    assert increased_cfg.min_value == 1 and increased_cfg.max_value == 250
+
+    # Test decrementing attribute level for numbers again
+    curriculum.decrement_attr_level("numbers")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.min_numbers == 3 and partially_decreased_cfg.max_numbers == 6
+    assert partially_decreased_cfg.min_target == 100 and partially_decreased_cfg.max_target == 1000
+    assert partially_decreased_cfg.min_value == 1 and partially_decreased_cfg.max_value == 250

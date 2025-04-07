@@ -156,7 +156,7 @@ class BinaryMatrixCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="n",
-                levels=[10, 50, 250, 1000],
+                levels=[10, 25, 50, 100],
                 description="Board size",
                 lower_field_name="min_n",
                 upper_field_name="max_n",

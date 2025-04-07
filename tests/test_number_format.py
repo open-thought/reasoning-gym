@@ -134,7 +134,7 @@ def test_number_format_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_num_candidates == 5 and base_cfg.max_num_candidates == 25
-    assert base_cfg.min_n == 10 and base_cfg.max_n == 1_000
+    assert base_cfg.min_n == 1000 and base_cfg.max_n == 100_000
     assert base_cfg.max_delta == 1e1
 
     # test incrementing attribute levels
@@ -143,12 +143,12 @@ def test_number_format_curriculum():
     curriculum.increment_attr_level("max_delta")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_num_candidates == 5 and increased_cfg.max_num_candidates == 100
-    assert increased_cfg.min_n == 10 and increased_cfg.max_n == 1_000_000
+    assert increased_cfg.min_n == 1000 and increased_cfg.max_n == 1_000_000
     assert increased_cfg.max_delta == 1e0
 
     # test decrementing attribute level
     curriculum.decrement_attr_level("num_candidates")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_num_candidates == 5 and partially_decreased_cfg.max_num_candidates == 25
-    assert partially_decreased_cfg.min_n == 10 and partially_decreased_cfg.max_n == 1_000_000
+    assert partially_decreased_cfg.min_n == 1000 and partially_decreased_cfg.max_n == 1_000_000
     assert partially_decreased_cfg.max_delta == 1e0
