@@ -6,7 +6,7 @@ reasoning_gym:
       weight: 1
     base_conversion:
       weight: 1
-    binary_alteration:
+    binary_alternation:
       weight: 1
     binary_matrix:
       weight: 1
