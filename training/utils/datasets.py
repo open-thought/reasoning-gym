@@ -100,17 +100,26 @@ def make_dataset(
     tokenizer,
     data_source: Experiment | ProceduralDataset,
     developer_prompt: str,
+    max_prompt_length: int = 2048,
 ) -> ReasoningGymDataset:
     """
     Create ReasoningGymDataset object using either a ProceduralDataset or Experiment as the underlying data source.
     """
-    kwargs = {
-        "tokenizer": tokenizer,
-        # "dataset_name": dataset_name,
-        "developer_prompt": developer_prompt,
-    }
     if isinstance(data_source, Experiment):
-        kwargs["experiment"] = data_source
+        return ReasoningGymDataset(
+            tokenizer=tokenizer,
+            experiment=data_source,
+            developer_prompt=developer_prompt,
+            developer_role="system",
+            max_prompt_length=max_prompt_length,
+            truncation="error",
+        )
     else:
-        kwargs["procedural_dataset"] = data_source
-    return ReasoningGymDataset(**kwargs)
+        return ReasoningGymDataset(
+            tokenizer=tokenizer,
+            procedural_dataset=data_source,
+            developer_prompt=developer_prompt,
+            developer_role="system",
+            max_prompt_length=max_prompt_length,
+            truncation="error",
+        )

@@ -45,8 +45,12 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
         ]
         train_data_source = reasoning_gym.create_dataset("composite", seed=1, size=dataset_size, datasets=dataset_specs)
         val_data_source = reasoning_gym.create_dataset("composite", seed=2, size=dataset_size, datasets=dataset_specs)
-    train_dataset = make_dataset(tokenizer, train_data_source, developer_prompt)
-    val_dataset = make_dataset(tokenizer, val_data_source, developer_prompt)
+    train_dataset = make_dataset(
+        tokenizer, train_data_source, developer_prompt, max_prompt_length=config.data.max_prompt_length
+    )
+    val_dataset = make_dataset(
+        tokenizer, val_data_source, developer_prompt, max_prompt_length=config.data.max_prompt_length
+    )
     return train_dataset, val_dataset
 
 
