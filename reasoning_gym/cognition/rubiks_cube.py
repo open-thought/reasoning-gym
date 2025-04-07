@@ -120,29 +120,49 @@ class RubiksCubeDataset(ProceduralDataset):
             },
         }
 
+    def partial_score(self, cube: Cube) -> float:
+        """
+        Returns a fraction between 0 and 1, indicating how many stickers are
+        correctly positioned (i.e., match the solved color for that face).
+        """
+        total_stickers = 6 * (cube.size**2)
+        correct_stickers = 0
+
+        for face_index in range(6):
+            face = cube.faces[face_index]
+
+            solved_color = face[cube.size // 2][cube.size // 2].color
+            for row in range(cube.size):
+                for col in range(cube.size):
+                    sticker = face[row][col]
+                    if sticker.color == solved_color:
+                        correct_stickers += 1
+
+        return correct_stickers / total_stickers
+
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        """Determine if the solution provided solves the cube"""
-        reward = 0.0  # default reward
+        """Determine if the solution provided solves the cube, with partial rewards."""
+        reward = 0.0  # default
         if answer is not None:
-            # Reconstruct the test cube
             eval_cube = Cube(entry["metadata"]["cube_size"])
             eval_cube.rotate(entry["metadata"]["scramble_moves"])
-
-            # Test the solution
             try:
                 expanded_answer = self.expand_moves(answer)
                 eval_cube.rotate(expanded_answer)
-                solved = eval_cube.is_done()
 
+                # 3) Check if fully solved
+                solved = eval_cube.is_done()
                 if solved:
                     reward = 1.0
-                elif len(answer.strip()) > 0:  # encourage non-empty answers
-                    reward = 0.05  # Incorrect, but rotate could parse the answer
                 else:
-                    reward = 0.01
-            except:
-                reward = 0.01  # At least you tried
+                    partial = self.partial_score(eval_cube)
 
+                    if len(answer.strip()) > 0:
+                        reward = max(0.05, partial)
+                    else:
+                        reward = max(0.01, partial)
+            except:
+                reward = 0.01
         return reward
 
     def remove_ansi(self, line):

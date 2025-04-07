@@ -97,6 +97,7 @@ Here is your puzzle:
             "answer": solution,
             "metadata": {
                 "gamestr": gamestr,
+                "source_dataset": DATASET_NAME,
                 "width": puzzle_data["width"],
                 "height": puzzle_data["height"],
                 "difficulty": {
