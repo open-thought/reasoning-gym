@@ -1,0 +1,36 @@
+# Model configuration
+model_path: ../utils/qwen3b_cognition
+max_tokens: 1024
+temperature: 0.7  # Lower temperature for more focused responses
+top_p: 0.9  # From rollout top_p
+developer_prompt: DeepSeekZero
+developer_role: system  # Standard role for system prompts
+
+# Output configuration
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+# Categories and datasets to evaluate
+categories:
+  - category: reasoning
+    datasets:
+    - dataset: number_sequence
+      size: 100
+      seed: 42
+      params:
+        min_terms: 4  # Minimum visible terms
+        max_terms:  8  # Maximum visible terms
+        min_value: -100  # Minimum allowed number
+        max_value: 100  # Maximum allowed number
+        max_complexity: 3  # Maximum number of operations to combine
+    - dataset: modulo_grid
+      size: 100
+      seed: 42
+      params:
+        size_x: 20
+        size_y: 20
+        max_divisor: 20
+        max_target: 20
+        max_holes: 1

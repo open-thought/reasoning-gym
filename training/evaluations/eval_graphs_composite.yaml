@@ -1,5 +1,5 @@
 # Model configuration
-model_path: ../utils/qwen3b_algorithmic_500
+model_path: ../utils/qwen3b_graphs
 max_tokens: 1024
 temperature: 0.7  # Lower temperature for more focused responses
 top_p: 0.9  # From rollout top_p
@@ -16,13 +16,14 @@ eval_repeats: 3
 categories:
   - category: reasoning
     datasets:
-      - dataset: number_sorting
-        size: 100
-        seed: 42
-        params:
-          min_numbers: 3
-          max_numbers: 10
-          min_decimals: 0
-          max_decimals: 2
-          min_value: -100.0
-          max_value: 100.0
+    - dataset: course_schedule
+      size: 100
+      seed: 42
+      params:
+        min_num_courses: 5  #
+        max_num_courses: 10
+        min_num_prerequisites: 1
+        max_num_prerequisites: 2
+        min_cycle_length: 3
+        max_cycle_length: 5
+        p_solvable: 0.5
