@@ -149,8 +149,8 @@ trainer:
   balance_batch: True
   total_epochs: 1
   total_training_steps: 500
-  project_name: rg-test
-  experiment_name: intra_reasoning_algorithmic_qwen_3b_composite
+  project_name: inter-domain-generalisation
+  experiment_name: inter_reasoning_algorithmic_qwen_3b_composite
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
