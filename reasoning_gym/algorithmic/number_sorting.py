@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 import numpy as np
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "number_sorting"
@@ -56,7 +56,6 @@ Please follow the instruction below:
             decimals = rng.randint(self.config.min_decimals, self.config.max_decimals)
             num = np.round(num, decimals)
             numbers.append(num)
-            number_strs.append(str(num))
             number_strs.append(str(num))
 
         return numbers, number_strs
