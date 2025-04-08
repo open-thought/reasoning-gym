@@ -20,8 +20,6 @@ reasoning_gym:
       weight: 1
     rotate_matrix:
       weight: 1
-    rotten_oranges:
-      weight: 1
     string_manipulation:
       weight: 1
 
@@ -44,6 +42,8 @@ reward:
      scaling_factor: 0.2
      kwargs:
         preappend_thinking_token: False
+   - name: length
+     scaling_factor: 0.2
 
 data:
   tokenizer: null
