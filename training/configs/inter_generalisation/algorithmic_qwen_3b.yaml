@@ -8,20 +8,37 @@ reasoning_gym:
       weight: 1
     binary_alternation:
       weight: 1
+      config:
+        p_solvable: 0.9
     binary_matrix:
       weight: 1
+      config:
+        min_n: 2
+        max_n: 6
     caesar_cipher:
       weight: 1
+      config:
+        max_words: 10
     cryptarithm:
       weight: 1
     isomorphic_strings:
       weight: 1
+      config:
+        max_string_length: 8
     jugs:
       weight: 1
+      config:
+        difficulty: 6
     rotate_matrix:
       weight: 1
+      config:
+        min_n: 2
+        max_n: 6
     string_manipulation:
       weight: 1
+      config:
+        max_string_length: 15
+        max_num_rules: 6
 
 curriculum:
     enabled: False
