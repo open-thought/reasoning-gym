@@ -7,13 +7,13 @@ reasoning_gym:
     intermediate_integration:
       weight: 1
     polynomial_equations:
-      weight: 2
+      weight: 1
     polynomial_multiplication:
-      weight: 2
+      weight: 1
     simple_equations:
-      weight: 3
+      weight: 1
     simple_integration:
-      weight: 3
+      weight: 1
 
 curriculum:
     enabled: False
