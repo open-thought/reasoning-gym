@@ -12,7 +12,7 @@ reasoning_gym:
       weight: 1
     self_reference:
       weight: 1
-    syllogisms:
+    syllogism:
       weight: 1
     zebra_puzzles:
       weight: 1
