@@ -1,5 +1,5 @@
-model: anthropic/claude-3.5-sonnet
-provider: Anthropic
+model: deepseek/deepseek-r1
+provider: Nebius
 output_dir: results
 max_concurrent: 10
 default_size: 50
