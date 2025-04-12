@@ -431,6 +431,8 @@ class SyllogismDataset(ProceduralDataset):
             "question": question,
             "answer": "Yes" if is_valid else "No",
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "premise1": premise1_text,
                 "premise2": premise2_text,
                 "conclusion": conclusion_text,
