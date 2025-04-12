@@ -100,6 +100,7 @@ class RubiksCubeDataset(ProceduralDataset):
             actions_string = " ".join([str(move) for move in actions])
         else:
             actions = None
+            actions_string = ""
 
         return {
             "question": rng.choice(self._prompt_templates).format(

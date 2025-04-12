@@ -164,7 +164,7 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="string_len",
-                levels=[5, 10, 50, 100],
+                levels=[1, 5, 10, 15],
                 description="Length of the string",
                 lower_field_name="min_string_len",
                 upper_field_name="max_string_len",
@@ -172,7 +172,7 @@ class PalindromePartitioningCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="substring_palindrome_len",
-                levels=[3, 5, 10, 20],
+                levels=[1, 3, 5, 7],
                 description="Length of the substring palindrome",
                 lower_field_name="min_substring_palindrome_len",
                 upper_field_name="max_substring_palindrome_len",

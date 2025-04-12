@@ -229,7 +229,7 @@ class CountdownCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="value",
-                levels=[1, 100, 250, 500, 1000],
+                levels=[1, 100, 200, 300],
                 description="Value of numbers",
                 lower_field_name="min_value",
                 upper_field_name="max_value",

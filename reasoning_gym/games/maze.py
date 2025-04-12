@@ -201,7 +201,7 @@ class MazeCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="dist",
-                levels=[10, 25, 50, 100],
+                levels=[5, 10, 15, 20],
                 description="Distance from start to goal",
                 lower_field_name="min_dist",
                 upper_field_name="max_dist",
