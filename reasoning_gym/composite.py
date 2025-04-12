@@ -200,6 +200,7 @@ class CompositeDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Forward scoring to appropriate dataset"""
+        print(entry)
         dataset_name = entry["metadata"]["source_dataset"]
         return self.datasets[dataset_name].score_answer(answer, entry)
 
