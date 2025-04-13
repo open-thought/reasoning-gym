@@ -1,6 +1,7 @@
 # Adapted version of Bytedance code:
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
 
+import gc
 import uuid
 from copy import deepcopy
 
@@ -385,3 +386,4 @@ class RayGRPOTrainer(RayPPOTrainer):
                     return
 
                 self.global_steps += 1
+                gc.collect()
