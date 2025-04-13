@@ -8,7 +8,7 @@ reasoning_gym:
       weight: 1
     knight_swap:
       weight: 1
-    mahjong:
+    mahjong_puzzle:
       weight: 1
     maze:
       weight: 1
