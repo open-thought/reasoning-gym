@@ -96,12 +96,12 @@ Here is your puzzle:
             + gamestr,
             "answer": solution,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "gamestr": gamestr,
                 "width": puzzle_data["width"],
                 "height": puzzle_data["height"],
                 "difficulty": {
-                    "source_dataset": DATASET_NAME,
-                    "source_index": idx,
                     "width": (self.config.min_w, self.config.max_w),
                     "height": (self.config.min_h, self.config.max_h),
                 },
