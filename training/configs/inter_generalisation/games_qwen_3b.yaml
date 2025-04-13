@@ -154,7 +154,7 @@ trainer:
   total_epochs: 1
   total_training_steps: 500
   project_name: inter-domain-generalisation
-  experiment_name: inter_reasoning_algebra_qwen_3b_composite
+  experiment_name: inter_reasoning_games_qwen_3b_composite
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
