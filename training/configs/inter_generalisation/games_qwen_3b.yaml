@@ -2,8 +2,6 @@ reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
-    boxnet:
-      weight: 1
     futoshiki:
       weight: 1
     knight_swap:
