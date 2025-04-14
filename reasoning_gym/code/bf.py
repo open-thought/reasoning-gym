@@ -117,6 +117,7 @@ int main() {{
         # bf = Minify.minify(bf) # Is this necessary?
         return bf
 
+
 class BFCurriculum(BaseCurriculum):
     def __init__(self):
         super().__init__(BFCurriculum.__name__, BFConfig)
