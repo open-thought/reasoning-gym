@@ -83,7 +83,7 @@ def test_jugs_curriculum():
         curriculum.increment_attr_level("difficulty")
     upper_bound_cfg: JugsCurriculum = curriculum.generate_configuration(base_value)
     assert upper_bound_cfg.num_jugs == 7
-    assert upper_bound_cfg.difficulty == 199
+    assert upper_bound_cfg.difficulty == 20
 
     # Test lower bound boundary condition
     for _ in range(10):

@@ -120,21 +120,21 @@ def test_palindrome_partitioning_curriculum():
     base_cfg: PalindromePartitioningConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_string_len == 5 and base_cfg.max_string_len == 10
-    assert base_cfg.min_substring_palindrome_len == 3 and base_cfg.max_substring_palindrome_len == 5
+    assert base_cfg.min_string_len == 1 and base_cfg.max_string_len == 5
+    assert base_cfg.min_substring_palindrome_len == 1 and base_cfg.max_substring_palindrome_len == 3
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("string_len")
     curriculum.increment_attr_level("substring_palindrome_len")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_string_len == 5 and increased_cfg.max_string_len == 50
-    assert increased_cfg.min_substring_palindrome_len == 3 and increased_cfg.max_substring_palindrome_len == 10
+    assert increased_cfg.min_string_len == 1 and increased_cfg.max_string_len == 10
+    assert increased_cfg.min_substring_palindrome_len == 1 and increased_cfg.max_substring_palindrome_len == 5
 
     # test decrementing attribute level for substring_palindrome_len again
     curriculum.decrement_attr_level("substring_palindrome_len")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_string_len == 5 and partially_decreased_cfg.max_string_len == 50
+    assert partially_decreased_cfg.min_string_len == 1 and partially_decreased_cfg.max_string_len == 10
     assert (
-        partially_decreased_cfg.min_substring_palindrome_len == 3
-        and partially_decreased_cfg.max_substring_palindrome_len == 5
+        partially_decreased_cfg.min_substring_palindrome_len == 1
+        and partially_decreased_cfg.max_substring_palindrome_len == 3
     )

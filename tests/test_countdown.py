@@ -143,11 +143,11 @@ def test_countdown_curriculum():
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_numbers == 3 and increased_cfg.max_numbers == 9
     assert increased_cfg.min_target == 100 and increased_cfg.max_target == 1000
-    assert increased_cfg.min_value == 1 and increased_cfg.max_value == 250
+    assert increased_cfg.min_value == 1 and increased_cfg.max_value == 200
 
     # Test decrementing attribute level for numbers again
     curriculum.decrement_attr_level("numbers")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_numbers == 3 and partially_decreased_cfg.max_numbers == 6
     assert partially_decreased_cfg.min_target == 100 and partially_decreased_cfg.max_target == 1000
-    assert partially_decreased_cfg.min_value == 1 and partially_decreased_cfg.max_value == 250
+    assert partially_decreased_cfg.min_value == 1 and partially_decreased_cfg.max_value == 200
