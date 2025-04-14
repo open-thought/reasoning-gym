@@ -343,9 +343,14 @@ class HanoiDataset(ProceduralDataset):
             if len(parts) != 9:
                 # print(f"Unexpected move format: '{move}'")
                 return False
-            disk = int(parts[2])
-            from_peg = int(parts[5])
-            to_peg = int(parts[8])
+
+            try:
+                disk = int(parts[2])
+                from_peg = int(parts[5])
+                to_peg = int(parts[8])
+            except ValueError:
+                # print(f"Invalid move format, or bad disk or peg number in move: '{move}'")
+                return False
 
             # Check if the disk to move is the top disk on the from_peg
             if not pegs_state[from_peg] or pegs_state[from_peg][-1] != disk:
