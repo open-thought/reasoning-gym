@@ -6,6 +6,7 @@ from reasoning_gym.arithmetic.basic_arithmetic import (
     BasicArithmeticDatasetConfig,
     eval_floordiv,
 )
+from reasoning_gym.coaching.base_curriculum import DefaultCurriculumContext, RangeAttributeMode
 
 
 def test_arithmetic_dataset_config_validation():
@@ -103,7 +104,7 @@ def test_basic_arithmetic_curriculum():
     """Test the BasicArithmeticCurriculum functionality"""
     curriculum = BasicArithmeticCurriculum()
 
-    base_value = {"size": 150, "seed": 1}
+    base_value = {"size": 150, "seed": 1, "min_terms": 2, "max_terms": 2, "min_digits": 1, "max_digits": 1}
 
     base_cfg: BasicArithmeticDatasetConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
@@ -115,7 +116,7 @@ def test_basic_arithmetic_curriculum():
     curriculum.increment_attr_level("num_terms")
     curriculum.increment_attr_level("num_digits")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 5
+    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3
     assert increased_cfg.min_digits == 1 and increased_cfg.max_digits == 2
 
     # Test decrementing attribute level for num_terms
@@ -128,7 +129,7 @@ def test_basic_arithmetic_curriculum():
     curriculum.increment_attr_level("num_terms")
     curriculum.increment_attr_level("num_terms")
     higher_level_cfg = curriculum.generate_configuration(base_value)
-    assert higher_level_cfg.min_terms == 2 and higher_level_cfg.max_terms == 10
+    assert higher_level_cfg.min_terms == 2 and higher_level_cfg.max_terms == 4
     assert higher_level_cfg.min_digits == 1 and higher_level_cfg.max_digits == 2
 
     # Test boundary conditions - trying to decrement below level 0
@@ -144,5 +145,26 @@ def test_basic_arithmetic_curriculum():
         curriculum.increment_attr_level("num_terms")
         curriculum.increment_attr_level("num_digits")
     upper_bound_cfg = curriculum.generate_configuration(base_value)
-    assert upper_bound_cfg.min_terms == 2 and upper_bound_cfg.max_terms == 15
-    assert upper_bound_cfg.min_digits == 1 and upper_bound_cfg.max_digits == 10
+    assert upper_bound_cfg.min_terms == 2 and upper_bound_cfg.max_terms == 6
+    assert upper_bound_cfg.min_digits == 1 and upper_bound_cfg.max_digits == 4
+
+
+def test_basic_arithmetic_curriculum_upper_bound():
+    curriculum = BasicArithmeticCurriculum()
+
+    base_value = {"size": 150, "seed": 1, "min_terms": 2, "max_terms": 2, "min_digits": 1, "max_digits": 1}
+
+    base_cfg: BasicArithmeticDatasetConfig = curriculum.generate_configuration(
+        base_value, context=DefaultCurriculumContext(mode=RangeAttributeMode.UPPER_BOUND)
+    )
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_terms == 2 and base_cfg.max_terms == 2
+    assert base_cfg.min_digits == 1 and base_cfg.max_digits == 1
+
+    # Test incrementing attribute levels
+    curriculum.increment_attr_level("num_terms")
+    curriculum.increment_attr_level("num_digits")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3
+    assert increased_cfg.min_digits == 1 and increased_cfg.max_digits == 2

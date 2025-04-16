@@ -17,6 +17,7 @@ Now, it's your turn. How many rectangles do you see in the grid below?
 
 DATASET_NAME = "rectangle_count"
 CONST_TERM = 0.8
+D = 5
 
 
 def draw_rectangles_with_overlap(n, width, height, rng):
@@ -146,8 +147,6 @@ class RectangleCountDataset(ProceduralDataset):
             user_val = int(answer.strip())
         except (ValueError, TypeError, AttributeError):
             return 0.0
-
-        D = 5
         distance = abs(user_val - correct_val)
 
         if distance == 0:

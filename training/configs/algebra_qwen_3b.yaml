@@ -2,32 +2,29 @@ reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
-    fraction_simplification:
-      weight: 0.33
-      config:
-        min_value: 1
-        max_value: 1000
-        min_factor: 1
-        max_factor: 100
-    gcd:
-        weight: 0.34
+    simple_equations:
+        weight: 0.5
         config:
-          min_numbers: 2  # Minimum numbers to find GCD of
-          max_numbers: 2  # Maximum numbers to find GCD of
-          min_value: 1  # Minimum value for each number
-          max_value: 1000  # Maximum value for each number
-    lcm:
-       weight: 0.33
-       config:
-          min_numbers: 2
-          max_numbers: 2
+          min_terms: 2
+          max_terms: 4
           min_value: 1
           max_value: 100
+    polynomial_multiplication:
+        weight: 0.5
+        config:
+          min_terms: 2
+          max_terms: 4
+          min_value: 1
+          max_value: 100
+          min_degree: 0
+          max_degree: 3
+          min_polynomials: 2
+          max_polynomials: 3
 curriculum:
     enabled: False
     schedule:
       automatic: True
-      update_steps: 30
+      update_steps: 30 # automatic curriculum updating after 50 steps
     last_k: 20
     success_threshold: 0.70
     failure_threshold: 0.10
@@ -150,7 +147,7 @@ trainer:
   total_epochs: 1
   total_training_steps: 500
   project_name: rg-test
-  experiment_name: intra_reasoning_arithmetic_qwen_3b_composite
+  experiment_name: intra_reasoning_algebra_qwen_3b_composite
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
