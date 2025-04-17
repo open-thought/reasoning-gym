@@ -35,12 +35,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
 
+from dotenv import load_dotenv
 from eval_config import CategoryConfig, DatasetConfig, EvalConfig
 from openai import AsyncOpenAI
 from tqdm.asyncio import tqdm_asyncio
 
 import reasoning_gym
 from reasoning_gym.utils import extract_answer
+
+load_dotenv()
 
 
 class CheckpointManager:
