@@ -83,6 +83,7 @@ class LocalModelEvaluator:
 
         # Load model and tokenizer
         self.llm = LLM(model=model_path)
+        self.tokenizer = self.llm.get_tokenizer()
         self.sampling_params = SamplingParams(
             temperature=config.temperature,
             top_p=config.top_p,
