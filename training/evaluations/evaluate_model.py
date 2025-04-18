@@ -111,7 +111,7 @@ class LocalModelEvaluator:
         # Some Hugging Face chat-friendly models use a convenience method like below:
         prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
-        response = self.llm.generate(prompt, self.sampling_params)
+        response = self.llm.generate(prompt, self.sampling_params, use_tqdm=False)
         # Extract the text from the response
         response = response[0].outputs[0].text
 
