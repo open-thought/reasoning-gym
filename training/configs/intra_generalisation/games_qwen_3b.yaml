@@ -2,11 +2,11 @@ reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
-    sudoku:
+    mini_sudoku:
       weight: 0.33
       config:
-        min_empty: 30
-        max_empty: 50
+        min_empty: 8
+        max_empty: 12
     futoshiki:
       weight: 0.34
       config:
