@@ -19,7 +19,7 @@ save_full_results: true
 eval_repeats: 3
 
 categories:
-  - category: algorithmic
+  - category: arithmetic
     datasets:
       - dataset: basic_arithmetic
         size: 100
