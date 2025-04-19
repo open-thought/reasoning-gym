@@ -11,7 +11,7 @@ from typing import Any, Dict, List, Optional
 import torch
 import yaml
 from tqdm import tqdm
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from vllm import LLM, SamplingParams
 
 import reasoning_gym
 from reasoning_gym.utils import SYSTEM_PROMPTS, extract_answer
@@ -82,12 +82,13 @@ class LocalModelEvaluator:
         self.verbose = verbose
 
         # Load model and tokenizer
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_path,
-            torch_dtype=torch.bfloat16 if "cuda" in device else torch.float32,
+        self.llm = LLM(model=model_path)
+        self.tokenizer = self.llm.get_tokenizer()
+        self.sampling_params = SamplingParams(
+            temperature=config.temperature,
+            top_p=config.top_p,
+            max_tokens=config.max_tokens,
         )
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-        self.model.to(device)
 
         self.start_time = datetime.now()
         # If you have a system prompt, retrieve it from SYSTEM_PROMPTS
@@ -110,18 +111,9 @@ class LocalModelEvaluator:
         # Some Hugging Face chat-friendly models use a convenience method like below:
         prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
-        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
-        with torch.no_grad():
-            outputs = self.model.generate(
-                **inputs,
-                max_new_tokens=self.config.max_tokens,
-                temperature=self.config.temperature,
-                top_p=self.config.top_p,
-                do_sample=True if self.config.temperature > 0 else False,
-                pad_token_id=self.tokenizer.eos_token_id,
-            )
-        # Decode the *new* tokens only:
-        response = self.tokenizer.decode(outputs[0][inputs.input_ids.shape[1] :], skip_special_tokens=True).strip()
+        response = self.llm.generate(prompt, self.sampling_params, use_tqdm=False)
+        # Extract the text from the response
+        response = response[0].outputs[0].text
 
         if self.verbose:
             print(f"[Prompt]\n{question}\n[Response]\n{response}\n{'-'*60}")

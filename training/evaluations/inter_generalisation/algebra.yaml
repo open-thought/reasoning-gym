@@ -1,0 +1,41 @@
+# Config used for evaluating inter-domain generalisation experiment models on algebra test data
+
+# Models evaluated on this config:
+# Qwen/Qwen2.5-3B-Instruct (original model)
+# inter_algorithmic_qwen_3b_500 (original + 500 GRPO steps on algorithmic RG data)
+# ../models/inter_algorithmic_qwen_3b_500
+model_path: Qwen/Qwen2.5-3B-Instruct  # Change to the model to be evaluated
+
+max_tokens: 2048  # From max_response_length in training config
+top_p: 0.9  # From rollout top_p
+temperature: 0.6  # Lower temperature for more focused responses
+
+developer_prompt: DeepSeekZero
+developer_role: system
+
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+categories:
+  - category: algebra
+    datasets:
+      - dataset: complex_arithmetic
+        size: 100
+        seed: 42
+      - dataset: intermediate_integration
+        size: 100
+        seed: 42
+      - dataset: polynomial_equations
+        size: 100
+        seed: 42
+      - dataset: polynomial_multiplication
+        size: 100
+        seed: 42
+      - dataset: simple_equations
+        size: 100
+        seed: 42
+      - dataset: simple_integration
+        size: 100
+        seed: 42

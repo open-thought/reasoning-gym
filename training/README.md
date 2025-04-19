@@ -84,10 +84,15 @@ python utils/load_fsdp_to_hf.py checkpoints/rg-test/intra_reasoning_algorithmic_
 ```
 
 # Run evaluations
+
 From here you may to run evaluations of your trained model. In the `training/evaluation` directory there is a script `evaluate_model.py` which you csn run to evaluate your trained model on a specific dataset. You specify evaluation parameters in a yaml file. This evaluation can point to either a local or remote model. For example the configuration file `training/evaluation/eval_algorithmic_composite.yaml` specifies the path to a local model which is stored as a hugginface checkpoint at `training/utils/qwen3b_500` (note that you have to convert to fsdp checkpoint to hf checkpoint for evaluation script to work as shown in the previous step).
 
 ## Run the script
+
+```
 export VLLM_ATTENTION_BACKEND=XFORMERS
+```
+
 Navigate to evaluations directory:
 ```
 python evaluate_model.py --config path-to-yaml
