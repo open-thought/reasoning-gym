@@ -85,7 +85,6 @@ class LocalModelEvaluator:
         self.llm = LLM(model=model_path)
         self.tokenizer = self.llm.get_tokenizer()
         self.sampling_params = SamplingParams(
-            n=self.config.eval_repeats,
             temperature=config.temperature,
             top_p=config.top_p,
             max_tokens=config.max_tokens,
@@ -98,10 +97,10 @@ class LocalModelEvaluator:
             self.developer_prompt = SYSTEM_PROMPTS[self.config.developer_prompt]
         self.developer_role = self.config.developer_role
 
-    def get_model_responses(self, question: str) -> list[str]:
+    def get_model_response(self, question: str) -> str:
         """
-        Generates `self.config.eval_repeats` responses to the given question and returns the
-        raw texts of those response.
+        Generates a single response to the given question and returns the
+        raw text of that response.
         """
         # Build a "chat" prompt if developer_prompt is available
         chat = []
@@ -113,15 +112,13 @@ class LocalModelEvaluator:
         prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
 
         response = self.llm.generate(prompt, self.sampling_params, use_tqdm=False)
-
         # Extract the text from the response
-        texts = [response[0].outputs[n].text for n in range(len(response[0].outputs))]
+        response = response[0].outputs[0].text
 
         if self.verbose:
-            for text in texts:
-                print(f"[Prompt]\n{question}\n[Response]\n{text}\n{'-'*60}")
+            print(f"[Prompt]\n{question}\n[Response]\n{response}\n{'-'*60}")
 
-        return texts
+        return response
 
     def process_entry(self, dataset, entry: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -130,10 +127,9 @@ class LocalModelEvaluator:
         and store each completion for potential debugging.
         """
         all_completions = []
-        model_responses = self.get_model_responses(entry["question"])
-        for raw_response in model_responses:
+        for _ in range(self.config.eval_repeats):
             try:
-                raw_response = self.get_model_responses(entry["question"])
+                raw_response = self.get_model_response(entry["question"])
                 model_answer = extract_answer(raw_response)
                 score = dataset.score_answer(answer=model_answer, entry=entry)
                 score = 0.0 if score < 1 else score
