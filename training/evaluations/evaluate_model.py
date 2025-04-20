@@ -117,8 +117,6 @@ class LocalModelEvaluator:
         # Extract the text from the response
         texts = [response[0].outputs[n].text for n in range(len(response[0].outputs))]
 
-        print(len(texts))
-
         if self.verbose:
             for text in texts:
                 print(f"[Prompt]\n{question}\n[Response]\n{text}\n{'-'*60}")
