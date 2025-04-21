@@ -1,12 +1,10 @@
-# Model configuration
-model_path: ../utils/qwen3b_games
-max_tokens: 1024
+model_path: ../utils/games
+max_tokens: 2048
 temperature: 0.6  # Lower temperature for more focused responses
 top_p: 0.9  # From rollout top_p
 developer_prompt: DeepSeekZero
 developer_role: system  # Standard role for system prompts
 
-# Output configuration
 output_dir: results
 save_metadata: true
 save_full_results: true
@@ -16,9 +14,11 @@ eval_repeats: 3
 categories:
   - category: reasoning
     datasets:
-      - dataset: mahjong_puzzle
+      - dataset: tower_of_hanoi
         size: 100
         seed: 42
         params:
-          min_num_rounds: 10
-          max_num_rounds:  50
+          min_disks: 3
+          max_disks: 4
+          min_pegs: 3
+          max_pegs: 4
