@@ -1,0 +1,28 @@
+# Model configuration
+model_path: ../utils/qwen3b_algebraic
+max_tokens: 1024
+temperature: 0.6
+top_p: 0.9
+developer_prompt: DeepSeekZero
+developer_role: system  # Standard role for system prompts
+
+# Output configuration
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+# Categories and datasets to evaluate
+categories:
+  - category: reasoning
+    datasets:
+      - dataset: simple_integration
+        size: 100
+        seed: 42
+        params:
+          min_terms: 2
+          max_terms: 5
+          min_degree: 1
+          max_degree: 10
+          min_bounds: 1
+          max_bounds: 10
