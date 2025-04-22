@@ -166,8 +166,8 @@ trainer:
   balance_batch: True
   total_epochs: 1
   total_training_steps: 1500
-  project_name: inter-domain-generalisation
-  experiment_name: inter_reasoning_algebra_qwen_3b_composite
+  project_name: external-generalisation
+  experiment_name: math_qwen_3b
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
