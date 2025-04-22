@@ -16,40 +16,76 @@ curriculum:
     curricula:
       complex_arithmetic:
         weight: 1
+        attribute_levels:
+          '*': 0
       intermediate_integration:
         weight: 1
+        attribute_levels:
+          '*': 0
       polynomial_equations:
         weight: 1
+        attribute_levels:
+          '*': 0
       polynomial_multiplication:
         weight: 1
+        attribute_levels:
+          '*': 0
       simple_equations:
         weight: 1
+        attribute_levels:
+          '*': 0
       simple_integration:
         weight: 1
+        attribute_levels:
+          '*': 0
       propositional_logic:
         weight: 1
+        attribute_levels:
+          '*': 0
       advanced_geometry:
         weight: 1
+        attribute_levels:
+          '*': 0
       simple_geometry:
         weight: 1
+        attribute_levels:
+          '*': 0
       basic_arithmetic:
         weight: 1
+        attribute_levels:
+          '*': 0
       bitwise_arithmetic:
         weight: 1
+        attribute_levels:
+          '*': 0
       chain_sum:
         weight: 1
+        attribute_levels:
+          '*': 0
       decimal_arithmetic:
         weight: 1
+        attribute_levels:
+          '*': 0
       decimal_chain_sum:
         weight: 1
+        attribute_levels:
+          '*': 0
       fraction_simplification:
         weight: 1
+        attribute_levels:
+          '*': 0
       gcd:
         weight: 1
+        attribute_levels:
+          '*': 0
       lcm:
         weight: 1
+        attribute_levels:
+          '*': 0
       prime_factorization:
         weight: 1
+        attribute_levels:
+          '*': 0
 reward:
   use_accuracy: True
   secondary_rewards:
@@ -136,7 +172,7 @@ actor_rollout_ref:
     enforce_eager: True
     free_cache_engine: True
     load_format: dummy_dtensor
-    tensor_model_parallel_size: 2
+    tensor_model_parallel_size: 1
     max_num_batched_tokens: 12288
     max_num_seqs: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
@@ -172,7 +208,7 @@ trainer:
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
-  n_gpus_per_node: 2
+  n_gpus_per_node: 1
   save_freq: 100
   # auto: find the last ckpt to resume. If can't find, start from scratch
   resume_mode: auto # or auto or resume_path if
