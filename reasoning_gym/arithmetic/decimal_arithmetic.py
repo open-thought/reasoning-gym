@@ -237,7 +237,7 @@ class DecimalArithmeticCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="decimal_places",
-                levels=[3, 5, 8, 10],
+                levels=[2, 4, 7, 9],
                 description="Number of decimal places of the numbers in problem",
                 lower_field_name="min_num_decimal_places",
                 upper_field_name="max_num_decimal_places",
