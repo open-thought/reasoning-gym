@@ -1,27 +1,27 @@
-import sympy
 import re
-from sympy import matrix_symbols, simplify, factor, expand, apart, expand_trig
-from antlr4 import InputStream, CommonTokenStream
+
+import sympy
+from antlr4 import CommonTokenStream, InputStream
 from antlr4.error.ErrorListener import ErrorListener
+from sympy import apart, expand, expand_trig, factor, matrix_symbols, simplify
 
 try:
-    from gen.PSParser import PSParser
     from gen.PSLexer import PSLexer
     from gen.PSListener import PSListener
+    from gen.PSParser import PSParser
 except Exception:
     from .gen.PSParser import PSParser
     from .gen.PSLexer import PSLexer
     from .gen.PSListener import PSListener
 
-from sympy.printing.str import StrPrinter
+import hashlib
 
 from sympy.parsing.sympy_parser import parse_expr
-
-import hashlib
+from sympy.printing.str import StrPrinter
 
 is_real = None
 
-frac_type = r'\frac'
+frac_type = r"\frac"
 
 variances = {}
 var = {}
@@ -46,28 +46,30 @@ def set_variances(vars):
 def latex2sympy(sympy: str, variable_values={}):
     # record frac
     global frac_type
-    if sympy.find(r'\frac') != -1:
-        frac_type = r'\frac'
-    if sympy.find(r'\dfrac') != -1:
-        frac_type = r'\dfrac'
-    if sympy.find(r'\tfrac') != -1:
-        frac_type = r'\tfrac'
-    sympy = sympy.replace(r'\dfrac', r'\frac')
-    sympy = sympy.replace(r'\tfrac', r'\frac')
+    if sympy.find(r"\frac") != -1:
+        frac_type = r"\frac"
+    if sympy.find(r"\dfrac") != -1:
+        frac_type = r"\dfrac"
+    if sympy.find(r"\tfrac") != -1:
+        frac_type = r"\tfrac"
+    sympy = sympy.replace(r"\dfrac", r"\frac")
+    sympy = sympy.replace(r"\tfrac", r"\frac")
     # Translate Transpose
-    sympy = sympy.replace(r'\mathrm{T}', 'T', -1)
+    sympy = sympy.replace(r"\mathrm{T}", "T", -1)
     # Translate Derivative
-    sympy = sympy.replace(r'\mathrm{d}', 'd', -1).replace(r'{\rm d}', 'd', -1)
+    sympy = sympy.replace(r"\mathrm{d}", "d", -1).replace(r"{\rm d}", "d", -1)
     # Translate Matrix
-    sympy = sympy.replace(r'\left[\begin{matrix}', r'\begin{bmatrix}', -1).replace(r'\end{matrix}\right]', r'\end{bmatrix}', -1)
+    sympy = sympy.replace(r"\left[\begin{matrix}", r"\begin{bmatrix}", -1).replace(
+        r"\end{matrix}\right]", r"\end{bmatrix}", -1
+    )
     # Translate Permutation
     sympy = re.sub(r"\(([a-zA-Z0-9+\-*/\\ ]+?)\)_{([a-zA-Z0-9+\-*/\\ ]+?)}", r"\\frac{(\1)!}{((\1)-(\2))!}", sympy)
     # Remove \displaystyle
-    sympy = sympy.replace(r'\displaystyle', ' ', -1)
+    sympy = sympy.replace(r"\displaystyle", " ", -1)
     # Remove \quad
-    sympy = sympy.replace(r'\quad', ' ', -1).replace(r'\qquad', ' ', -1).replace(r'~', ' ', -1).replace(r'\,', ' ', -1)
+    sympy = sympy.replace(r"\quad", " ", -1).replace(r"\qquad", " ", -1).replace(r"~", " ", -1).replace(r"\,", " ", -1)
     # Remove $
-    sympy = sympy.replace(r'$', ' ', -1)
+    sympy = sympy.replace(r"$", " ", -1)
 
     # variable values
     global VARIABLE_VALUES
@@ -132,10 +134,9 @@ class MathErrorListener(ErrorListener):
             expected = [names[i] for i in e.getExpectedTokens() if i < len(names)]
             if len(expected) < 10:
                 expected = " ".join(expected)
-                err = (fmt % ("I expected one of these: " + expected,
-                              self.src, marker))
+                err = fmt % ("I expected one of these: " + expected, self.src, marker)
             else:
-                err = (fmt % ("I expected something else here", self.src, marker))
+                err = fmt % ("I expected something else here", self.src, marker)
         else:
             err = fmt % ("I don't understand this", self.src, marker)
         raise Exception(err)
@@ -180,7 +181,7 @@ def convert_relation(rel):
                 return sympy.Eq(lh, rh, evaluate=False)
     elif rel.IN():
         # !Use Global variances
-        if hasattr(rh, 'is_Pow') and rh.is_Pow and hasattr(rh.exp, 'is_Mul'):
+        if hasattr(rh, "is_Pow") and rh.is_Pow and hasattr(rh.exp, "is_Mul"):
             n = rh.exp.args[0]
             m = rh.exp.args[1]
             if n in variances:
@@ -216,12 +217,12 @@ def convert_elementary_transform(matrix, transform):
             k = -1
         else:
             k = 1
-        if transform_atom.LETTER_NO_E().getText() == 'r':
-            matrix = matrix.elementary_row_op(op='n->kn', row=num, k=k)
-        elif transform_atom.LETTER_NO_E().getText() == 'c':
-            matrix = matrix.elementary_col_op(op='n->kn', col=num, k=k)
+        if transform_atom.LETTER_NO_E().getText() == "r":
+            matrix = matrix.elementary_row_op(op="n->kn", row=num, k=k)
+        elif transform_atom.LETTER_NO_E().getText() == "c":
+            matrix = matrix.elementary_col_op(op="n->kn", col=num, k=k)
         else:
-            raise Exception('Row and col don\'s match')
+            raise Exception("Row and col don's match")
 
     elif transform.transform_swap():
         first_atom = transform.transform_swap().transform_atom()[0]
@@ -229,13 +230,13 @@ def convert_elementary_transform(matrix, transform):
         first_num = int(first_atom.NUMBER().getText()) - 1
         second_num = int(second_atom.NUMBER().getText()) - 1
         if first_atom.LETTER_NO_E().getText() != second_atom.LETTER_NO_E().getText():
-            raise Exception('Row and col don\'s match')
-        elif first_atom.LETTER_NO_E().getText() == 'r':
-            matrix = matrix.elementary_row_op(op='n<->m', row1=first_num, row2=second_num)
-        elif first_atom.LETTER_NO_E().getText() == 'c':
-            matrix = matrix.elementary_col_op(op='n<->m', col1=first_num, col2=second_num)
+            raise Exception("Row and col don's match")
+        elif first_atom.LETTER_NO_E().getText() == "r":
+            matrix = matrix.elementary_row_op(op="n<->m", row1=first_num, row2=second_num)
+        elif first_atom.LETTER_NO_E().getText() == "c":
+            matrix = matrix.elementary_col_op(op="n<->m", col1=first_num, col2=second_num)
         else:
-            raise Exception('Row and col don\'s match')
+            raise Exception("Row and col don's match")
 
     elif transform.transform_assignment():
         first_atom = transform.transform_assignment().transform_atom()
@@ -253,13 +254,13 @@ def convert_elementary_transform(matrix, transform):
         first_num = int(first_atom.NUMBER().getText()) - 1
         second_num = int(second_atom.NUMBER().getText()) - 1
         if first_atom.LETTER_NO_E().getText() != second_atom.LETTER_NO_E().getText():
-            raise Exception('Row and col don\'s match')
-        elif first_atom.LETTER_NO_E().getText() == 'r':
-            matrix = matrix.elementary_row_op(op='n->n+km', k=k, row1=first_num, row2=second_num)
-        elif first_atom.LETTER_NO_E().getText() == 'c':
-            matrix = matrix.elementary_col_op(op='n->n+km', k=k, col1=first_num, col2=second_num)
+            raise Exception("Row and col don's match")
+        elif first_atom.LETTER_NO_E().getText() == "r":
+            matrix = matrix.elementary_row_op(op="n->n+km", k=k, row1=first_num, row2=second_num)
+        elif first_atom.LETTER_NO_E().getText() == "c":
+            matrix = matrix.elementary_col_op(op="n->n+km", k=k, col1=first_num, col2=second_num)
         else:
-            raise Exception('Row and col don\'s match')
+            raise Exception("Row and col don's match")
 
     return matrix
 
@@ -279,7 +280,7 @@ def convert_matrix(matrix):
 
     mat = sympy.Matrix(tmp)
 
-    if hasattr(matrix, 'MATRIX_XRIGHTARROW') and matrix.MATRIX_XRIGHTARROW():
+    if hasattr(matrix, "MATRIX_XRIGHTARROW") and matrix.MATRIX_XRIGHTARROW():
         transforms_list = matrix.elementary_transforms()
         if len(transforms_list) == 1:
             for transform in transforms_list[0].elementary_transform():
@@ -296,13 +297,13 @@ def convert_matrix(matrix):
 
 
 def add_flat(lh, rh):
-    if hasattr(lh, 'is_Add') and lh.is_Add or hasattr(rh, 'is_Add') and rh.is_Add:
+    if hasattr(lh, "is_Add") and lh.is_Add or hasattr(rh, "is_Add") and rh.is_Add:
         args = []
-        if hasattr(lh, 'is_Add') and lh.is_Add:
+        if hasattr(lh, "is_Add") and lh.is_Add:
             args += list(lh.args)
         else:
             args += [lh]
-        if hasattr(rh, 'is_Add') and rh.is_Add:
+        if hasattr(rh, "is_Add") and rh.is_Add:
             args = args + list(rh.args)
         else:
             args += [rh]
@@ -312,13 +313,13 @@ def add_flat(lh, rh):
 
 
 def mat_add_flat(lh, rh):
-    if hasattr(lh, 'is_MatAdd') and lh.is_MatAdd or hasattr(rh, 'is_MatAdd') and rh.is_MatAdd:
+    if hasattr(lh, "is_MatAdd") and lh.is_MatAdd or hasattr(rh, "is_MatAdd") and rh.is_MatAdd:
         args = []
-        if hasattr(lh, 'is_MatAdd') and lh.is_MatAdd:
+        if hasattr(lh, "is_MatAdd") and lh.is_MatAdd:
             args += list(lh.args)
         else:
             args += [lh]
-        if hasattr(rh, 'is_MatAdd') and rh.is_MatAdd:
+        if hasattr(rh, "is_MatAdd") and rh.is_MatAdd:
             args = args + list(rh.args)
         else:
             args += [rh]
@@ -328,13 +329,13 @@ def mat_add_flat(lh, rh):
 
 
 def mul_flat(lh, rh):
-    if hasattr(lh, 'is_Mul') and lh.is_Mul or hasattr(rh, 'is_Mul') and rh.is_Mul:
+    if hasattr(lh, "is_Mul") and lh.is_Mul or hasattr(rh, "is_Mul") and rh.is_Mul:
         args = []
-        if hasattr(lh, 'is_Mul') and lh.is_Mul:
+        if hasattr(lh, "is_Mul") and lh.is_Mul:
             args += list(lh.args)
         else:
             args += [lh]
-        if hasattr(rh, 'is_Mul') and rh.is_Mul:
+        if hasattr(rh, "is_Mul") and rh.is_Mul:
             args = args + list(rh.args)
         else:
             args += [rh]
@@ -344,23 +345,23 @@ def mul_flat(lh, rh):
 
 
 def mat_mul_flat(lh, rh):
-    if hasattr(lh, 'is_MatMul') and lh.is_MatMul or hasattr(rh, 'is_MatMul') and rh.is_MatMul:
+    if hasattr(lh, "is_MatMul") and lh.is_MatMul or hasattr(rh, "is_MatMul") and rh.is_MatMul:
         args = []
-        if hasattr(lh, 'is_MatMul') and lh.is_MatMul:
+        if hasattr(lh, "is_MatMul") and lh.is_MatMul:
             args += list(lh.args)
         else:
             args += [lh]
-        if hasattr(rh, 'is_MatMul') and rh.is_MatMul:
+        if hasattr(rh, "is_MatMul") and rh.is_MatMul:
             args = args + list(rh.args)
         else:
             args += [rh]
         return sympy.MatMul(*[arg.doit() for arg in args], evaluate=False)
     else:
-        if hasattr(lh, 'doit') and hasattr(rh, 'doit'):
+        if hasattr(lh, "doit") and hasattr(rh, "doit"):
             return sympy.MatMul(lh.doit(), rh.doit(), evaluate=False)
-        elif hasattr(lh, 'doit') and not hasattr(rh, 'doit'):
+        elif hasattr(lh, "doit") and not hasattr(rh, "doit"):
             return sympy.MatMul(lh.doit(), rh, evaluate=False)
-        elif not hasattr(lh, 'doit') and hasattr(rh, 'doit'):
+        elif not hasattr(lh, "doit") and hasattr(rh, "doit"):
             return sympy.MatMul(lh, rh.doit(), evaluate=False)
         else:
             return sympy.MatMul(lh, rh, evaluate=False)
@@ -394,7 +395,7 @@ def convert_add(add):
 
 
 def convert_mp(mp):
-    if hasattr(mp, 'mp'):
+    if hasattr(mp, "mp"):
         mp_left = mp.mp(0)
         mp_right = mp.mp(1)
     else:
@@ -424,18 +425,18 @@ def convert_mp(mp):
         else:
             return sympy.Mod(lh, rh, evaluate=False)
     else:
-        if hasattr(mp, 'unary'):
+        if hasattr(mp, "unary"):
             return convert_unary(mp.unary())
         else:
             return convert_unary(mp.unary_nofunc())
 
 
 def convert_unary(unary):
-    if hasattr(unary, 'unary'):
+    if hasattr(unary, "unary"):
         nested_unary = unary.unary()
     else:
         nested_unary = unary.unary_nofunc()
-    if hasattr(unary, 'postfix_nofunc'):
+    if hasattr(unary, "postfix_nofunc"):
         first = unary.postfix()
         tail = unary.postfix_nofunc()
         postfix = [first] + tail
@@ -501,7 +502,7 @@ def do_subs(expr, at):
 
 
 def convert_postfix(postfix):
-    if hasattr(postfix, 'exp'):
+    if hasattr(postfix, "exp"):
         exp_nested = postfix.exp()
     else:
         exp_nested = postfix.exp_nofunc()
@@ -540,7 +541,7 @@ def convert_postfix(postfix):
 
 
 def convert_exp(exp):
-    if hasattr(exp, 'exp'):
+    if hasattr(exp, "exp"):
         exp_nested = exp.exp()
     else:
         exp_nested = exp.exp_nofunc()
@@ -555,7 +556,7 @@ def convert_exp(exp):
             exponent = convert_expr(exp.expr())
         return sympy.Pow(base, exponent, evaluate=False)
     else:
-        if hasattr(exp, 'comp'):
+        if hasattr(exp, "comp"):
             return convert_comp(exp.comp())
         else:
             return convert_comp(exp.comp_nofunc())
@@ -592,7 +593,7 @@ def convert_atom(atom):
         atom_expr = atom.atom_expr()
 
         # find the atom's text
-        atom_text = ''
+        atom_text = ""
         if atom_expr.LETTER_NO_E():
             atom_text = atom_expr.LETTER_NO_E().getText()
             if atom_text == "I":
@@ -616,10 +617,10 @@ def convert_atom(atom):
             # get the base (variable)
             base = atom_accent.base.getText()
             # set string to base+name
-            atom_text = name + '{' + base + '}'
+            atom_text = name + "{" + base + "}"
 
         # find atom's subscript, if any
-        subscript_text = ''
+        subscript_text = ""
         if atom_expr.subexpr():
             subexpr = atom_expr.subexpr()
             subscript = None
@@ -631,9 +632,9 @@ def convert_atom(atom):
                 subscript = subexpr.args().getText().strip()
             subscript_inner_text = StrPrinter().doprint(subscript)
             if len(subscript_inner_text) > 1:
-                subscript_text = '_{' + subscript_inner_text + '}'
+                subscript_text = "_{" + subscript_inner_text + "}"
             else:
-                subscript_text = '_' + subscript_inner_text
+                subscript_text = "_" + subscript_inner_text
 
         # construct the symbol using the text and optional subscript
         atom_symbol = sympy.Symbol(atom_text + subscript_text, real=is_real)
@@ -664,9 +665,9 @@ def convert_atom(atom):
         s = atom.SYMBOL().getText().replace("\\$", "").replace("\\%", "")
         if s == "\\infty":
             return sympy.oo
-        elif s == '\\pi':
+        elif s == "\\pi":
             return sympy.pi
-        elif s == '\\emptyset':
+        elif s == "\\emptyset":
             return sympy.S.EmptySet
         else:
             raise Exception("Unrecognized symbol")
@@ -686,7 +687,7 @@ def convert_atom(atom):
             return sympy.Number(s)
     elif atom.DIFFERENTIAL():
         var = get_differential_var(atom.DIFFERENTIAL())
-        return sympy.Symbol('d' + var.name, real=is_real)
+        return sympy.Symbol("d" + var.name, real=is_real)
     elif atom.mathit():
         text = rule2text(atom.mathit().mathit_text())
         return sympy.Symbol(text, real=is_real)
@@ -695,7 +696,7 @@ def convert_atom(atom):
         is_percent = text.endswith("\\%")
         trim_amount = 3 if is_percent else 1
         name = text[10:]
-        name = name[0:len(name) - trim_amount]
+        name = name[0 : len(name) - trim_amount]
 
         # add hash to distinguish from regular symbols
         hash = hashlib.md5(name.encode()).hexdigest()
@@ -744,14 +745,15 @@ def convert_frac(frac):
     partial_op = False
     lower_itv = frac.lower.getSourceInterval()
     lower_itv_len = lower_itv[1] - lower_itv[0] + 1
-    if (frac.lower.start == frac.lower.stop and
-            frac.lower.start.type == PSLexer.DIFFERENTIAL):
+    if frac.lower.start == frac.lower.stop and frac.lower.start.type == PSLexer.DIFFERENTIAL:
         wrt = get_differential_var_str(frac.lower.start.text)
         diff_op = True
-    elif (lower_itv_len == 2 and
-          frac.lower.start.type == PSLexer.SYMBOL and
-          frac.lower.start.text == '\\partial' and
-          (frac.lower.stop.type == PSLexer.LETTER_NO_E or frac.lower.stop.type == PSLexer.SYMBOL)):
+    elif (
+        lower_itv_len == 2
+        and frac.lower.start.type == PSLexer.SYMBOL
+        and frac.lower.start.text == "\\partial"
+        and (frac.lower.stop.type == PSLexer.LETTER_NO_E or frac.lower.stop.type == PSLexer.SYMBOL)
+    ):
         partial_op = True
         wrt = frac.lower.stop.text
         if frac.lower.stop.type == PSLexer.SYMBOL:
@@ -759,21 +761,27 @@ def convert_frac(frac):
 
     if diff_op or partial_op:
         wrt = sympy.Symbol(wrt, real=is_real)
-        if (diff_op and frac.upper.start == frac.upper.stop and
-            frac.upper.start.type == PSLexer.LETTER_NO_E and
-                frac.upper.start.text == 'd'):
+        if (
+            diff_op
+            and frac.upper.start == frac.upper.stop
+            and frac.upper.start.type == PSLexer.LETTER_NO_E
+            and frac.upper.start.text == "d"
+        ):
             return [wrt]
-        elif (partial_op and frac.upper.start == frac.upper.stop and
-              frac.upper.start.type == PSLexer.SYMBOL and
-              frac.upper.start.text == '\\partial'):
+        elif (
+            partial_op
+            and frac.upper.start == frac.upper.stop
+            and frac.upper.start.type == PSLexer.SYMBOL
+            and frac.upper.start.text == "\\partial"
+        ):
             return [wrt]
         upper_text = rule2text(frac.upper)
 
         expr_top = None
-        if diff_op and upper_text.startswith('d'):
+        if diff_op and upper_text.startswith("d"):
             expr_top = latex2sympy(upper_text[1:])
-        elif partial_op and frac.upper.start.text == '\\partial':
-            expr_top = latex2sympy(upper_text[len('\\partial'):])
+        elif partial_op and frac.upper.start.text == "\\partial":
+            expr_top = latex2sympy(upper_text[len("\\partial") :])
         if expr_top:
             return sympy.Derivative(expr_top, wrt)
 
@@ -801,8 +809,7 @@ def convert_func(func):
         name = func.func_normal_single_arg().start.text[1:]
 
         # change arc<trig> -> a<trig>
-        if name in ["arcsin", "arccos", "arctan", "arccsc", "arcsec",
-                    "arccot"]:
+        if name in ["arcsin", "arccos", "arctan", "arccsc", "arcsec", "arccot"]:
             name = "a" + name[3:]
             expr = getattr(sympy.functions, name)(arg, evaluate=False)
         elif name in ["arsinh", "arcosh", "artanh"]:
@@ -824,29 +831,29 @@ def convert_func(func):
                 expr = handle_floor(arg)
             elif operatorname == "ceil":
                 expr = handle_ceil(arg)
-            elif operatorname == 'eye':
+            elif operatorname == "eye":
                 expr = sympy.eye(arg)
-            elif operatorname == 'rank':
+            elif operatorname == "rank":
                 expr = sympy.Integer(arg.rank())
-            elif operatorname in ['trace', 'tr']:
+            elif operatorname in ["trace", "tr"]:
                 expr = arg.trace()
-            elif operatorname == 'rref':
+            elif operatorname == "rref":
                 expr = arg.rref()[0]
-            elif operatorname == 'nullspace':
+            elif operatorname == "nullspace":
                 expr = arg.nullspace()
-            elif operatorname == 'norm':
+            elif operatorname == "norm":
                 expr = arg.norm()
-            elif operatorname == 'cols':
+            elif operatorname == "cols":
                 expr = [arg.col(i) for i in range(arg.cols)]
-            elif operatorname == 'rows':
+            elif operatorname == "rows":
                 expr = [arg.row(i) for i in range(arg.rows)]
-            elif operatorname in ['eig', 'eigen', 'diagonalize']:
+            elif operatorname in ["eig", "eigen", "diagonalize"]:
                 expr = arg.diagonalize()
-            elif operatorname in ['eigenvals', 'eigenvalues']:
+            elif operatorname in ["eigenvals", "eigenvalues"]:
                 expr = arg.eigenvals()
-            elif operatorname in ['eigenvects', 'eigenvectors']:
+            elif operatorname in ["eigenvects", "eigenvectors"]:
                 expr = arg.eigenvects()
-            elif operatorname in ['svd', 'SVD']:
+            elif operatorname in ["svd", "SVD"]:
                 expr = arg.singular_value_decomposition()
         elif name in ["log", "ln"]:
             if func.subexpr():
@@ -865,7 +872,7 @@ def convert_func(func):
             expr = handle_floor(arg)
         elif name == "ceil":
             expr = handle_ceil(arg)
-        elif name == 'det':
+        elif name == "det":
             expr = arg.det()
 
         func_pow = None
@@ -900,17 +907,17 @@ def convert_func(func):
             operatorname = func.func_normal_multi_arg().func_operator_name.getText()
             if operatorname in ["gcd", "lcm"]:
                 expr = handle_gcd_lcm(operatorname, args)
-            elif operatorname == 'zeros':
+            elif operatorname == "zeros":
                 expr = sympy.zeros(*args)
-            elif operatorname == 'ones':
+            elif operatorname == "ones":
                 expr = sympy.ones(*args)
-            elif operatorname == 'diag':
+            elif operatorname == "diag":
                 expr = sympy.diag(*args)
-            elif operatorname == 'hstack':
+            elif operatorname == "hstack":
                 expr = sympy.Matrix.hstack(*args)
-            elif operatorname == 'vstack':
+            elif operatorname == "vstack":
                 expr = sympy.Matrix.vstack(*args)
-            elif operatorname in ['orth', 'ortho', 'orthogonal', 'orthogonalize']:
+            elif operatorname in ["orth", "ortho", "orthogonal", "orthogonalize"]:
                 if len(args) == 1:
                     arg = args[0]
                     expr = sympy.matrices.GramSchmidt([arg.col(i) for i in range(arg.cols)], True)
@@ -939,7 +946,7 @@ def convert_func(func):
         f = sympy.Function(func.atom_expr_no_supexpr().getText())
         # args
         args = func.func_common_args().getText().split(",")
-        if args[-1] == '':
+        if args[-1] == "":
             args = args[:-1]
         args = [latex2sympy(arg, VARIABLE_VALUES) for arg in args]
         # supexpr
@@ -971,7 +978,7 @@ def convert_func(func):
 
 
 def convert_func_arg(arg):
-    if hasattr(arg, 'expr'):
+    if hasattr(arg, "expr"):
         return convert_expr(arg.expr())
     else:
         return convert_mp(arg.mp_nofunc())
@@ -991,8 +998,8 @@ def handle_integral(func):
     else:
         for sym in integrand.atoms(sympy.Symbol):
             s = str(sym)
-            if len(s) > 1 and s[0] == 'd':
-                if s[1] == '\\':
+            if len(s) > 1 and s[0] == "d":
+                if s[1] == "\\":
                     int_var = sympy.Symbol(s[2:], real=is_real)
                 else:
                     int_var = sympy.Symbol(s[1:], real=is_real)
@@ -1001,7 +1008,7 @@ def handle_integral(func):
             integrand = integrand.subs(int_sym, 1)
         else:
             # Assume dx by default
-            int_var = sympy.Symbol('x', real=is_real)
+            int_var = sympy.Symbol("x", real=is_real)
 
     if func.subexpr():
         if func.subexpr().atom():
@@ -1041,7 +1048,7 @@ def handle_limit(func):
     elif sub.OTHER_SYMBOL_CMD():
         var = sympy.Symbol(sub.OTHER_SYMBOL_CMD().getText().strip(), real=is_real)
     else:
-        var = sympy.Symbol('x', real=is_real)
+        var = sympy.Symbol("x", real=is_real)
     if sub.SUB():
         direction = "-"
     else:
@@ -1115,11 +1122,13 @@ def get_differential_var_str(text):
 def latex(tex):
     global frac_type
     result = sympy.latex(tex)
-    result = result.replace(r'\frac', frac_type, -1).replace(r'\dfrac', frac_type, -1).replace(r'\tfrac', frac_type, -1)
-    result = result.replace(r'\left[\begin{matrix}', r'\begin{bmatrix}', -1).replace(r'\end{matrix}\right]', r'\end{bmatrix}', -1)
-    result = result.replace(r'\left', r'', -1).replace(r'\right', r'', -1)
-    result = result.replace(r' )', r')', -1)
-    result = result.replace(r'\log', r'\ln', -1)
+    result = result.replace(r"\frac", frac_type, -1).replace(r"\dfrac", frac_type, -1).replace(r"\tfrac", frac_type, -1)
+    result = result.replace(r"\left[\begin{matrix}", r"\begin{bmatrix}", -1).replace(
+        r"\end{matrix}\right]", r"\end{bmatrix}", -1
+    )
+    result = result.replace(r"\left", r"", -1).replace(r"\right", r"", -1)
+    result = result.replace(r" )", r")", -1)
+    result = result.replace(r"\log", r"\ln", -1)
     return result
 
 
@@ -1133,18 +1142,18 @@ def latex2latex(tex):
 
 
 # Set image value
-latex2latex('i=I')
-latex2latex('j=I')
+latex2latex("i=I")
+latex2latex("j=I")
 # set Identity(i)
 for i in range(1, 10):
-    lh = sympy.Symbol(r'\bm{I}_' + str(i), real=False)
-    lh_m = sympy.MatrixSymbol(r'\bm{I}_' + str(i), i, i)
+    lh = sympy.Symbol(r"\bm{I}_" + str(i), real=False)
+    lh_m = sympy.MatrixSymbol(r"\bm{I}_" + str(i), i, i)
     rh = sympy.Identity(i).as_mutable()
     variances[lh] = rh
     variances[lh_m] = rh
     var[str(lh)] = rh
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # latex2latex(r'A_1=\begin{bmatrix}1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8\end{bmatrix}')
     # latex2latex(r'b_1=\begin{bmatrix}1 \\ 2 \\ 3 \\ 4\end{bmatrix}')
     # tex = r"(x+2)|_{x=y+1}"

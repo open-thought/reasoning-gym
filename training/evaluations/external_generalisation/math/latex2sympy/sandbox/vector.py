@@ -1,6 +1,8 @@
+import sys
+
 import numpy as np
 from sympy import *
-import sys
+
 sys.path.append("..")
 
 # row column matrix = vector
@@ -23,8 +25,8 @@ m = Matrix([[1, 1], [2, 2]])
 print(m.det())
 
 # determinant of lin dep system = 0
-x = Symbol('x')
-y = Symbol('y')
+x = Symbol("x")
+y = Symbol("y")
 m = Matrix([[x, y], [x, y]])
 print(m.det())
 # Reduced Row-Echelon Form
@@ -45,9 +47,9 @@ _, ind = m.rref()
 # Reduced Row-Echelon Form
 print(len(ind))
 
-#==================#
-#===== Numpy ======#
-#==================#
+# ==================#
+# ===== Numpy ======#
+# ==================#
 # http://kitchingroup.cheme.cmu.edu/blog/2013/03/01/Determining-linear-independence-of-a-set-of-vectors/
 # Lin Indp of set of numerical vectors
 TOLERANCE = 1e-14

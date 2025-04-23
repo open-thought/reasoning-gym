@@ -1,8 +1,9 @@
-import os
 import json
+import os
 import random
+
 import datasets
-from datasets import load_dataset, Dataset, concatenate_datasets
+from datasets import Dataset, concatenate_datasets, load_dataset
 from utils import load_jsonl, lower_keys
 
 
@@ -23,14 +24,10 @@ def load_data(data_name, split, data_dir="./data"):
         elif data_name == "svamp":
             # evaluate on training set + test set
             dataset = load_dataset("ChilleD/SVAMP", split="train")
-            dataset = concatenate_datasets(
-                [dataset, load_dataset("ChilleD/SVAMP", split="test")]
-            )
+            dataset = concatenate_datasets([dataset, load_dataset("ChilleD/SVAMP", split="test")])
         elif data_name == "asdiv":
             dataset = load_dataset("EleutherAI/asdiv", split="validation")
-            dataset = dataset.filter(
-                lambda x: ";" not in x["answer"]
-            )  # remove multi-answer examples
+            dataset = dataset.filter(lambda x: ";" not in x["answer"])  # remove multi-answer examples
         elif data_name == "mawps":
             examples = []
             # four sub-tasks

@@ -1,6 +1,5 @@
-from sympy import *
 from latex2sympy import process_sympy
-
+from sympy import *
 
 # latex = '\\variable{a}^{\\variable{b}}'
 # variables = {'a': process_sympy('658.95998'), 'b': process_sympy('185083.8060')}

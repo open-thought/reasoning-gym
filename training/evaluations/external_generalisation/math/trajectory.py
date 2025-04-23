@@ -1,4 +1,5 @@
 import re
+
 """
 trajcectory:
 [
@@ -10,9 +11,9 @@ trajcectory:
 ]
 """
 
+
 def text_to_trajectory(traj_str: str) -> None:
-    """
-    """
+    """ """
     # parse the above interleaved string of raionale, program, output, raionale, program, output, ...
     # output a list of dict
     trajectory = []
@@ -21,24 +22,24 @@ def text_to_trajectory(traj_str: str) -> None:
 
     # print(traj_str)
     for i, line in enumerate(traj_str.split("\n")):
-        if line == "```python": # program begin
+        if line == "```python":  # program begin
             assert cur_role == "rationale"
             if cur_content:
                 trajectory.append({"role": cur_role, "content": cur_content})
                 cur_content = ""
             cur_role = "program"
-        elif cur_role == "program" and line == "```": # program end
+        elif cur_role == "program" and line == "```":  # program end
             assert cur_content
-            trajectory.append({"role": cur_role, "content": cur_content}) 
+            trajectory.append({"role": cur_role, "content": cur_content})
             cur_content = ""
             cur_role = "output"
-        elif cur_role == "output" and line.startswith("```output"): # output begin
+        elif cur_role == "output" and line.startswith("```output"):  # output begin
             assert cur_content == ""
-        elif cur_role == "output" and line == "```": # output end
+        elif cur_role == "output" and line == "```":  # output end
             trajectory.append({"role": cur_role, "content": cur_content})
             cur_content = ""
             cur_role = "rationale"
-        else: # content
+        else:  # content
             cur_content += line
             if i < len(traj_str.split("\n")) - 1:
                 cur_content += "\n"
@@ -66,7 +67,7 @@ def is_execution_success(output):
     return success
 
 
-def extract_program(text:str=None, trajectory:list=None, last_only=False) -> str:
+def extract_program(text: str = None, trajectory: list = None, last_only=False) -> str:
     assert text is not None or trajectory is not None, "Either text or trajectory should be provided."
     if trajectory is None:
         try:
@@ -80,8 +81,8 @@ def extract_program(text:str=None, trajectory:list=None, last_only=False) -> str
         if item["role"] == "program":
             cur_program = item["content"]
             if i < len(trajectory) - 1:
-                assert trajectory[i+1]["role"] == "output"
-                output = trajectory[i+1]["content"].strip()
+                assert trajectory[i + 1]["role"] == "output"
+                output = trajectory[i + 1]["content"].strip()
                 if is_execution_success(output):
                     program_list.append(cur_program)
                 else:
@@ -183,6 +184,7 @@ print(result)
 ```"""
 
     import pprint
+
     trajectory = text_to_trajectory(traj_text)
     pprint.pprint(trajectory)
 

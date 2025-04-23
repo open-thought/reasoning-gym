@@ -590,7 +590,7 @@ func:
     func_normal_single_arg
     (subexpr? supexpr? | supexpr? subexpr?)
     (L_LEFT? L_PAREN func_single_arg R_RIGHT? R_PAREN | ML_LEFT? L_PAREN func_single_arg MR_RIGHT? R_PAREN | func_single_arg_noparens)
-    
+
     | func_normal_multi_arg
     (subexpr? supexpr? | supexpr? subexpr?)
     (L_LEFT? L_PAREN func_multi_arg R_RIGHT? R_PAREN | ML_LEFT? L_PAREN func_multi_arg MR_RIGHT? R_PAREN | func_multi_arg_noparens)

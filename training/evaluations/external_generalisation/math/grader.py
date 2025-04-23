@@ -6,17 +6,17 @@ This logic is largely copied from the Hendrycks' MATH release (math_equivalence)
 - https://github.com/deepseek-ai/DeepSeek-Math/blob/main/evaluation/eval/eval_utils.py
 """
 
-import re
-import regex
 import multiprocessing
+import re
+from collections import defaultdict
 from math import isclose
 from typing import Union
-from collections import defaultdict
 
-from sympy import simplify, N
-from sympy.parsing.sympy_parser import parse_expr
-from sympy.parsing.latex import parse_latex
+import regex
 from latex2sympy2 import latex2sympy
+from sympy import N, simplify
+from sympy.parsing.latex import parse_latex
+from sympy.parsing.sympy_parser import parse_expr
 
 # from .parser import choice_answer_clean, strip_string
 # from parser import choice_answer_clean
@@ -87,10 +87,7 @@ def math_equal(
         return False
     if str(prediction.strip().lower()) == str(reference.strip().lower()):
         return True
-    if (
-        reference in ["A", "B", "C", "D", "E"]
-        and choice_answer_clean(prediction) == reference
-    ):
+    if reference in ["A", "B", "C", "D", "E"] and choice_answer_clean(prediction) == reference:
         return True
 
     try:  # 1. numerical equal
@@ -129,14 +126,8 @@ def math_equal(
 
     ## deal with [], (), {}
     pred_str, ref_str = prediction, reference
-    if (
-        prediction.startswith("[")
-        and prediction.endswith("]")
-        and not reference.startswith("(")
-    ) or (
-        prediction.startswith("(")
-        and prediction.endswith(")")
-        and not reference.startswith("[")
+    if (prediction.startswith("[") and prediction.endswith("]") and not reference.startswith("(")) or (
+        prediction.startswith("(") and prediction.endswith(")") and not reference.startswith("[")
     ):
         pred_str = pred_str.strip("[]()")
         ref_str = ref_str.strip("[]()")
@@ -155,43 +146,23 @@ def math_equal(
         ref_parts = reference[1:-1].split(",")
         if len(pred_parts) == len(ref_parts):
             if all(
-                [
-                    math_equal(
-                        pred_parts[i], ref_parts[i], include_percentage, is_close
-                    )
-                    for i in range(len(pred_parts))
-                ]
+                [math_equal(pred_parts[i], ref_parts[i], include_percentage, is_close) for i in range(len(pred_parts))]
             ):
                 return True
     if (
-        (
-            prediction.startswith("\\begin{pmatrix}")
-            or prediction.startswith("\\begin{bmatrix}")
-        )
-        and (
-            prediction.endswith("\\end{pmatrix}")
-            or prediction.endswith("\\end{bmatrix}")
-        )
-        and (
-            reference.startswith("\\begin{pmatrix}")
-            or reference.startswith("\\begin{bmatrix}")
-        )
-        and (
-            reference.endswith("\\end{pmatrix}") or reference.endswith("\\end{bmatrix}")
-        )
+        (prediction.startswith("\\begin{pmatrix}") or prediction.startswith("\\begin{bmatrix}"))
+        and (prediction.endswith("\\end{pmatrix}") or prediction.endswith("\\end{bmatrix}"))
+        and (reference.startswith("\\begin{pmatrix}") or reference.startswith("\\begin{bmatrix}"))
+        and (reference.endswith("\\end{pmatrix}") or reference.endswith("\\end{bmatrix}"))
     ):
         pred_lines = [
             line.strip()
-            for line in prediction[
-                len("\\begin{pmatrix}") : -len("\\end{pmatrix}")
-            ].split("\\\\")
+            for line in prediction[len("\\begin{pmatrix}") : -len("\\end{pmatrix}")].split("\\\\")
             if line.strip()
         ]
         ref_lines = [
             line.strip()
-            for line in reference[
-                len("\\begin{pmatrix}") : -len("\\end{pmatrix}")
-            ].split("\\\\")
+            for line in reference[len("\\begin{pmatrix}") : -len("\\end{pmatrix}")].split("\\\\")
             if line.strip()
         ]
         matched = True
@@ -229,23 +200,11 @@ def math_equal(
         ref = f"{ref[0].strip()} - ({ref[1].strip()})"
         if symbolic_equal(pred, ref) or symbolic_equal(f"-({pred})", ref):
             return True
-    elif (
-        prediction.count("=") == 1
-        and len(prediction.split("=")[0].strip()) <= 2
-        and "=" not in reference
-    ):
-        if math_equal(
-            prediction.split("=")[1], reference, include_percentage, is_close
-        ):
+    elif prediction.count("=") == 1 and len(prediction.split("=")[0].strip()) <= 2 and "=" not in reference:
+        if math_equal(prediction.split("=")[1], reference, include_percentage, is_close):
             return True
-    elif (
-        reference.count("=") == 1
-        and len(reference.split("=")[0].strip()) <= 2
-        and "=" not in prediction
-    ):
-        if math_equal(
-            prediction, reference.split("=")[1], include_percentage, is_close
-        ):
+    elif reference.count("=") == 1 and len(reference.split("=")[0].strip()) <= 2 and "=" not in prediction:
+        if math_equal(prediction, reference.split("=")[1], include_percentage, is_close):
             return True
 
     # symbolic equal with sympy
@@ -347,6 +306,7 @@ def call_with_timeout(func, *args, timeout=1, **kwargs):
         return False
 
     return output_queue.get()
+
 
 def _test_math_equal():
     # print(math_equal("0.0833333333333333", "\\frac{1}{12}"))

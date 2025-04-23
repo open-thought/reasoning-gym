@@ -1,26 +1,76 @@
-from .context import assert_equal, process_sympy, _Add, _Mul, _Pow
-import pytest
 import hashlib
+
+import pytest
 from sympy import (
-    E, I, oo, pi, sqrt, root, Symbol, Add, Mul, Pow, Abs, factorial, log, Eq, Ne, S, Rational, Integer, UnevaluatedExpr,
-    sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, asinh, acosh, atanh,
-    csc, sec, Sum, Product, Limit, Integral, Derivative,
-    LessThan, StrictLessThan, GreaterThan, StrictGreaterThan,
-    exp, binomial, Matrix, MatMul, MatAdd,
-    Mod, gcd, lcm, floor, ceiling, Max, Min
+    Abs,
+    Add,
+    Derivative,
+    E,
+    Eq,
+    GreaterThan,
+    I,
+    Integer,
+    Integral,
+    LessThan,
+    Limit,
+    MatAdd,
+    MatMul,
+    Matrix,
+    Max,
+    Min,
+    Mod,
+    Mul,
+    Ne,
+    Pow,
+    Product,
+    Rational,
+    S,
+    StrictGreaterThan,
+    StrictLessThan,
+    Sum,
+    Symbol,
+    UnevaluatedExpr,
+    acos,
+    acosh,
+    asin,
+    asinh,
+    atan,
+    atanh,
+    binomial,
+    ceiling,
+    cos,
+    cosh,
+    csc,
+    exp,
+    factorial,
+    floor,
+    gcd,
+    lcm,
+    log,
+    oo,
+    pi,
+    root,
+    sec,
+    sin,
+    sinh,
+    sqrt,
+    tan,
+    tanh,
 )
 
-x = Symbol('x', real=True)
-y = Symbol('y', real=True)
-z = Symbol('z', real=True)
-a = Symbol('a', real=True)
-b = Symbol('b', real=True)
-c = Symbol('c', real=True)
-f = Symbol('f', real=True)
-t = Symbol('t', real=True)
-k = Symbol('k', real=True)
-n = Symbol('n', real=True)
-theta = Symbol('theta', real=True)
+from .context import _Add, _Mul, _Pow, assert_equal, process_sympy
+
+x = Symbol("x", real=True)
+y = Symbol("y", real=True)
+z = Symbol("z", real=True)
+a = Symbol("a", real=True)
+b = Symbol("b", real=True)
+c = Symbol("c", real=True)
+f = Symbol("f", real=True)
+t = Symbol("t", real=True)
+k = Symbol("k", real=True)
+n = Symbol("n", real=True)
+theta = Symbol("theta", real=True)
 
 # shorthand definitions
 
@@ -38,7 +88,7 @@ def _log(a, b):
 
 
 def pytest_generate_tests(metafunc):
-    metafunc.parametrize('s, eq', metafunc.cls.GOOD_PAIRS)
+    metafunc.parametrize("s, eq", metafunc.cls.GOOD_PAIRS)
 
 
 class TestAllGood(object):
@@ -48,13 +98,13 @@ class TestAllGood(object):
         ("1", 1),
         ("-3.14", -3.14),
         ("5-3", _Add(5, -3)),
-        ("(-7.13)(1.5)", _Mul(Rational('-7.13'), Rational('1.5'))),
-        ("\\left(-7.13\\right)\\left(1.5\\right)", _Mul(Rational('-7.13'), Rational('1.5'))),
+        ("(-7.13)(1.5)", _Mul(Rational("-7.13"), Rational("1.5"))),
+        ("\\left(-7.13\\right)\\left(1.5\\right)", _Mul(Rational("-7.13"), Rational("1.5"))),
         ("x", x),
         ("2x", 2 * x),
         ("x^2", x**2),
-        ("x^{3 + 1}", x**_Add(3, 1)),
-        ("x^{\\left\\{3 + 1\\right\\}}", x**_Add(3, 1)),
+        ("x^{3 + 1}", x ** _Add(3, 1)),
+        ("x^{\\left\\{3 + 1\\right\\}}", x ** _Add(3, 1)),
         ("-3y + 2x", _Add(_Mul(2, x), Mul(-1, 3, y, evaluate=False))),
         ("-c", -c),
         ("a \\cdot b", a * b),
@@ -99,8 +149,8 @@ class TestAllGood(object):
         ("\\operatorname{lcm}(a,b)", UnevaluatedExpr(lcm(a, b))),
         ("\\operatorname{floor}(a)", floor(a)),
         ("\\operatorname{ceil}(b)", ceiling(b)),
-        ("\\cos^2(x)", cos(x)**2),
-        ("\\cos(x)^2", cos(x)**2),
+        ("\\cos^2(x)", cos(x) ** 2),
+        ("\\cos(x)^2", cos(x) ** 2),
         ("\\gcd(a, b)", UnevaluatedExpr(gcd(a, b))),
         ("\\lcm(a, b)", UnevaluatedExpr(lcm(a, b))),
         ("\\gcd(a,b)", UnevaluatedExpr(gcd(a, b))),
@@ -118,8 +168,8 @@ class TestAllGood(object):
         ("\\lim_{x \\Rightarrow 3} a", Limit(a, x, 3)),
         ("\\lim_{x \\longrightarrow 3} a", Limit(a, x, 3)),
         ("\\lim_{x \\Longrightarrow 3} a", Limit(a, x, 3)),
-        ("\\lim_{x \\to 3^{+}} a", Limit(a, x, 3, dir='+')),
-        ("\\lim_{x \\to 3^{-}} a", Limit(a, x, 3, dir='-')),
+        ("\\lim_{x \\to 3^{+}} a", Limit(a, x, 3, dir="+")),
+        ("\\lim_{x \\to 3^{-}} a", Limit(a, x, 3, dir="-")),
         ("\\infty", oo),
         ("\\infty\\%", oo),
         ("\\$\\infty", oo),
@@ -141,7 +191,7 @@ class TestAllGood(object):
         ("||x||y||", _Abs(_Abs(x) * _Abs(y))),
         ("\\lfloor x\\rfloor", floor(x)),
         ("\\lceil y\\rceil", ceiling(y)),
-        ("\\pi^{|xy|}", pi**_Abs(x * y)),
+        ("\\pi^{|xy|}", pi ** _Abs(x * y)),
         ("\\frac{\\pi}{3}", _Mul(pi, _Pow(3, -1))),
         ("\\sin{\\frac{\\pi}{2}}", sin(_Mul(pi, _Pow(2, -1)), evaluate=False)),
         ("a+bI", a + I * b),
@@ -169,13 +219,13 @@ class TestAllGood(object):
         ("\\int \\frac{1}{a} + \\frac{1}{b} dx", Integral(_Add(_Pow(a, -1), Pow(b, -1)), x)),
         ("\\int \\frac{3 \\cdot d\\theta}{\\theta}", Integral(3 * _Pow(theta, -1), theta)),
         ("\\int \\frac{1}{x} + 1 dx", Integral(_Add(_Pow(x, -1), 1), x)),
-        ("x_0", Symbol('x_0', real=True)),
-        ("x_{1}", Symbol('x_1', real=True)),
-        ("x_a", Symbol('x_a', real=True)),
-        ("x_{b}", Symbol('x_b', real=True)),
-        ("h_\\theta", Symbol('h_{\\theta}', real=True)),
-        ("h_\\theta ", Symbol('h_{\\theta}', real=True)),
-        ("h_{\\theta}", Symbol('h_{\\theta}', real=True)),
+        ("x_0", Symbol("x_0", real=True)),
+        ("x_{1}", Symbol("x_1", real=True)),
+        ("x_a", Symbol("x_a", real=True)),
+        ("x_{b}", Symbol("x_b", real=True)),
+        ("h_\\theta", Symbol("h_{\\theta}", real=True)),
+        ("h_\\theta ", Symbol("h_{\\theta}", real=True)),
+        ("h_{\\theta}", Symbol("h_{\\theta}", real=True)),
         # ("h_{\\theta}(x_0, x_1)", Symbol('h_{theta}', real=True)(Symbol('x_{0}', real=True), Symbol('x_{1}', real=True))),
         ("x!", _factorial(x)),
         ("100!", _factorial(100)),
@@ -217,12 +267,12 @@ class TestAllGood(object):
         ("[x]", x),
         ("[a + b]", _Add(a, b)),
         ("\\frac{d}{dx} [ \\tan x ]", Derivative(tan(x), x)),
-        ("2\\overline{x}", 2 * Symbol('xbar', real=True)),
-        ("2\\overline{x}_n", 2 * Symbol('xbar_n', real=True)),
-        ("\\frac{x}{\\overline{x}_n}", x / Symbol('xbar_n', real=True)),
-        ("\\frac{\\sin(x)}{\\overline{x}_n}", sin(Symbol('x', real=True)) / Symbol('xbar_n', real=True)),
-        ("2\\bar{x}", 2 * Symbol('xbar', real=True)),
-        ("2\\bar{x}_n", 2 * Symbol('xbar_n', real=True)),
+        ("2\\overline{x}", 2 * Symbol("xbar", real=True)),
+        ("2\\overline{x}_n", 2 * Symbol("xbar_n", real=True)),
+        ("\\frac{x}{\\overline{x}_n}", x / Symbol("xbar_n", real=True)),
+        ("\\frac{\\sin(x)}{\\overline{x}_n}", sin(Symbol("x", real=True)) / Symbol("xbar_n", real=True)),
+        ("2\\bar{x}", 2 * Symbol("xbar", real=True)),
+        ("2\\bar{x}_n", 2 * Symbol("xbar_n", real=True)),
         ("\\sin\\left(\\theta\\right) \\cdot4", sin(theta) * 4),
         ("\\ln\\left(\\theta\\right)", _log(theta, E)),
         ("\\ln\\left(x-\\theta\\right)", _log(x - theta, E)),
@@ -233,51 +283,68 @@ class TestAllGood(object):
         ("\\frac{1}{2}xy(x+y)", Mul(_Pow(2, -1), x, y, (x + y), evaluate=False)),
         ("\\frac{1}{2}\\theta(x+y)", Mul(_Pow(2, -1), theta, (x + y), evaluate=False)),
         ("1-f(x)", 1 - f * x),
-
         ("\\begin{matrix}1&2\\\\3&4\\end{matrix}", Matrix([[1, 2], [3, 4]])),
         ("\\begin{matrix}x&x^2\\\\\\sqrt{x}&x\\end{matrix}", Matrix([[x, x**2], [_Pow(x, S.Half), x]])),
         ("\\begin{matrix}\\sqrt{x}\\\\\\sin(\\theta)\\end{matrix}", Matrix([_Pow(x, S.Half), sin(theta)])),
         ("\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}", Matrix([[1, 2], [3, 4]])),
         ("\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}", Matrix([[1, 2], [3, 4]])),
-
         # scientific notation
         ("2.5\\times 10^2", 250),
         ("1,500\\times 10^{-1}", 150),
-
         # e notation
         ("2.5E2", 250),
         ("1,500E-1", 150),
-
         # multiplication without cmd
         ("2x2y", Mul(2, x, 2, y, evaluate=False)),
         ("2x2", Mul(2, x, 2, evaluate=False)),
         ("x2", x * 2),
-
         # lin alg processing
         ("\\theta\\begin{matrix}1&2\\\\3&4\\end{matrix}", MatMul(theta, Matrix([[1, 2], [3, 4]]), evaluate=False)),
-        ("\\theta\\begin{matrix}1\\\\3\\end{matrix} - \\begin{matrix}-1\\\\2\\end{matrix}", MatAdd(MatMul(theta, Matrix([[1], [3]]), evaluate=False), MatMul(-1, Matrix([[-1], [2]]), evaluate=False), evaluate=False)),
-        ("\\theta\\begin{matrix}1&0\\\\0&1\\end{matrix}*\\begin{matrix}3\\\\-2\\end{matrix}", MatMul(theta, Matrix([[1, 0], [0, 1]]), Matrix([3, -2]), evaluate=False)),
-        ("\\frac{1}{9}\\theta\\begin{matrix}1&2\\\\3&4\\end{matrix}", MatMul(Pow(9, -1, evaluate=False), theta, Matrix([[1, 2], [3, 4]]), evaluate=False)),
-        ("\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix},\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix}", [Matrix([1, 2, 3]), Matrix([4, 3, 1])]),
-        ("\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix};\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix}", [Matrix([1, 2, 3]), Matrix([4, 3, 1])]),
-        ("\\left\\{\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix},\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix}\\right\\}", [Matrix([1, 2, 3]), Matrix([4, 3, 1])]),
-        ("\\left\\{\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix},\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix},\\begin{pmatrix}1\\\\1\\\\1\\end{pmatrix}\\right\\}", [Matrix([1, 2, 3]), Matrix([4, 3, 1]), Matrix([1, 1, 1])]),
+        (
+            "\\theta\\begin{matrix}1\\\\3\\end{matrix} - \\begin{matrix}-1\\\\2\\end{matrix}",
+            MatAdd(
+                MatMul(theta, Matrix([[1], [3]]), evaluate=False),
+                MatMul(-1, Matrix([[-1], [2]]), evaluate=False),
+                evaluate=False,
+            ),
+        ),
+        (
+            "\\theta\\begin{matrix}1&0\\\\0&1\\end{matrix}*\\begin{matrix}3\\\\-2\\end{matrix}",
+            MatMul(theta, Matrix([[1, 0], [0, 1]]), Matrix([3, -2]), evaluate=False),
+        ),
+        (
+            "\\frac{1}{9}\\theta\\begin{matrix}1&2\\\\3&4\\end{matrix}",
+            MatMul(Pow(9, -1, evaluate=False), theta, Matrix([[1, 2], [3, 4]]), evaluate=False),
+        ),
+        (
+            "\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix},\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix}",
+            [Matrix([1, 2, 3]), Matrix([4, 3, 1])],
+        ),
+        (
+            "\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix};\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix}",
+            [Matrix([1, 2, 3]), Matrix([4, 3, 1])],
+        ),
+        (
+            "\\left\\{\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix},\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix}\\right\\}",
+            [Matrix([1, 2, 3]), Matrix([4, 3, 1])],
+        ),
+        (
+            "\\left\\{\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix},\\begin{pmatrix}4\\\\3\\\\1\\end{pmatrix},\\begin{pmatrix}1\\\\1\\\\1\\end{pmatrix}\\right\\}",
+            [Matrix([1, 2, 3]), Matrix([4, 3, 1]), Matrix([1, 1, 1])],
+        ),
         ("\\left\\{\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix}\\right\\}", Matrix([1, 2, 3])),
         ("\\left{\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix}\\right}", Matrix([1, 2, 3])),
         ("{\\begin{pmatrix}1\\\\2\\\\3\\end{pmatrix}}", Matrix([1, 2, 3])),
-
         # us dollars
         ("\\$1,000.00", 1000),
         ("\\$543.21", 543.21),
         ("\\$0.009", 0.009),
-
         # percentages
         ("100\\%", 1),
         ("1.5\\%", 0.015),
         ("0.05\\%", 0.0005),
-
         # empty set
-        ("\\emptyset", S.EmptySet)
+        ("\\emptyset", S.EmptySet),
     ]
 
     def test_good_pair(self, s, eq):

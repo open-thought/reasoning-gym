@@ -1,8 +1,9 @@
-from .context import assert_equal
 import pytest
-from sympy import sin, Symbol
+from sympy import Symbol, sin
 
-x = Symbol('x', real=True)
+from .context import assert_equal
+
+x = Symbol("x", real=True)
 
 
 def test_left_right_cdot():

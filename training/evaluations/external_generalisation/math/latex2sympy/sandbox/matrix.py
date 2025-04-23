@@ -1,9 +1,11 @@
+import sys
+
 from latex2sympy import process_sympy
 from sympy import *
-import sys
+
 sys.path.append("..")
 
-theta = Symbol('theta', real=True)
+theta = Symbol("theta", real=True)
 
 latex = "\\begin{matrix}1&2\\\\3&4\\end{matrix}"
 math = process_sympy(latex)

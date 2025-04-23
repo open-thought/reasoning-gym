@@ -1,11 +1,10 @@
-import os
 import json
+import os
 import random
-import json
-import os
-import numpy as np
 from pathlib import Path
-from typing import Iterable, Union, Any
+from typing import Any, Iterable, Union
+
+import numpy as np
 
 from examples import get_examples
 
@@ -95,8 +94,7 @@ PROMPT_TEMPLATES = {
         "\n\n\n",
     ),
     "deepseek-math": (
-        "User: {input}\nPlease reason step by step, "
-        "and put your final answer within \\boxed{{}}.\n\nAssistant:",
+        "User: {input}\nPlease reason step by step, " "and put your final answer within \\boxed{{}}.\n\nAssistant:",
         "{output}",
         "\n\n\n",
     ),
@@ -146,7 +144,7 @@ PROMPT_TEMPLATES = {
         "\n\n",
     ),
     "qwen25-rg-cot": (
-"""<|im_start|>system
+        """<|im_start|>system
 A conversation between User and Assistant. The user asks a question, and the Assistant solves it.
 The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think>
 <answer>\\boxed{{answer here}}</answer>
@@ -207,15 +205,10 @@ def construct_prompt(example, data_name, args):
         demo_prompt = splitter.join([q + "\n" + a for q, a in demos])
     else:
         demo_prompt = splitter.join(
-            [
-                input_template.format(input=q) + output_template.format(output=a)
-                for q, a in demos
-            ]
+            [input_template.format(input=q) + output_template.format(output=a) for q, a in demos]
         )
     context = input_template.format(input=example["question"])
-    if len(demo_prompt) == 0 or (
-        args.adapt_few_shot and example["gt_ans"] not in ["A", "B", "C", "D", "E"]
-    ):
+    if len(demo_prompt) == 0 or (args.adapt_few_shot and example["gt_ans"] not in ["A", "B", "C", "D", "E"]):
         full_prompt = context
     else:
         if args.prompt_type == "qwen25-math-cot":

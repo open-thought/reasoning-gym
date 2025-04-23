@@ -1,5 +1,6 @@
-from sympy.printing.str import StrPrinter
 from sympy.core import S
+from sympy.printing.str import StrPrinter
+
 
 class AsciiMathPrinter(StrPrinter):
 
@@ -11,17 +12,32 @@ class AsciiMathPrinter(StrPrinter):
     def _print_Integral(self, expr):
         e, lims = expr.args
         if len(lims) > 1:
-            return "int_(%s)^(%s) %s d%s" % (self._print(lims[1]), self._print(lims[2]), self._print(e), self._print(lims[0]))
+            return "int_(%s)^(%s) %s d%s" % (
+                self._print(lims[1]),
+                self._print(lims[2]),
+                self._print(e),
+                self._print(lims[0]),
+            )
         else:
             return "int %s d%s" % (self._print(e), self._print(lims))
-    
+
     def _print_Sum(self, expr):
         e, lims = expr.args
-        return "sum_(%s = %s)^(%s) %s" % (self._print(lims[0]), self._print(lims[1]), self._print(lims[2]), self._print(e))
+        return "sum_(%s = %s)^(%s) %s" % (
+            self._print(lims[0]),
+            self._print(lims[1]),
+            self._print(lims[2]),
+            self._print(e),
+        )
 
     def _print_Product(self, expr):
         e, lims = expr.args
-        return "prod_(%s = %s)^(%s) %s" % (self._print(lims[0]), self._print(lims[1]), self._print(lims[2]), self._print(e))
+        return "prod_(%s = %s)^(%s) %s" % (
+            self._print(lims[0]),
+            self._print(lims[1]),
+            self._print(lims[2]),
+            self._print(e),
+        )
 
     def _print_factorial(self, expr):
         return "%s!" % self._print(expr.args[0])
@@ -47,4 +63,4 @@ class AsciiMathPrinter(StrPrinter):
         if expr.exp is -S.One:
             return "1/%s" % b
 
-        return "%s^(%s)" % (b, self._print(expr.exp)) 
+        return "%s^(%s)" % (b, self._print(expr.exp))

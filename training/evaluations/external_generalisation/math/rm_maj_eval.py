@@ -1,7 +1,8 @@
-from grader import math_equal
+from collections import Counter, defaultdict
 from parser import strip_string
+
 import timeout_decorator
-from collections import defaultdict, Counter
+from grader import math_equal
 from utils import load_jsonl
 
 
@@ -53,9 +54,9 @@ def eval_rm_k_metrics(data_path, k=8):
 
     count, right_count = 0, 0
     for sample in data_list:
-        assert len(sample['pred_score']) >= k, sample['data_source']
-        pred_score = sample['pred_score'][:k]
-        pred = sample['score'][:k]
+        assert len(sample["pred_score"]) >= k, sample["data_source"]
+        pred_score = sample["pred_score"][:k]
+        pred = sample["score"][:k]
         assert len(pred_score) == len(pred), f"{len(pred_score)}, {len(pred)}"
 
         rm_score = pred_score
@@ -79,10 +80,10 @@ def eval_maj_k_metrics(data_path, k=8):
     data_list = load_jsonl(data_path)
     count, right_count = 0, 0
     for sample in data_list:
-        assert len(sample['score']) >= k, sample
-        groups, majority_pred = group_pred(sample['pred'][:k], strip=False, use_symbol=False)
+        assert len(sample["score"]) >= k, sample
+        groups, majority_pred = group_pred(sample["pred"][:k], strip=False, use_symbol=False)
         idx = groups[majority_pred][0]
-        right_count += sample['score'][idx]
+        right_count += sample["score"][idx]
         count += 1
 
     task_acc = right_count / count * 100
@@ -95,6 +96,6 @@ if __name__ == "__main__":
 
     candidate = 8
     all_result = {}
-    all_result[f'maj@{candidate}'] = eval_maj_k_metrics(data_path, k=candidate)
-    all_result[f'rm@{candidate}'] = eval_rm_k_metrics(data_path, k=candidate)
+    all_result[f"maj@{candidate}"] = eval_maj_k_metrics(data_path, k=candidate)
+    all_result[f"rm@{candidate}"] = eval_rm_k_metrics(data_path, k=candidate)
     print(all_result)

@@ -1,29 +1,25 @@
-import re
-import time
-import os
-import json
-import random
-import string
-from enum import Enum, auto
-from tqdm import tqdm
-from collections import OrderedDict
 import dataclasses
-import pandas as pd
-import timeout_decorator
+import json
+import os
+import random
+import re
+import string
+import time
+from collections import OrderedDict
+from enum import Enum, auto
+
 import mpmath
+import pandas as pd
 import sympy as sp
-from sympy.parsing.latex import parse_latex
-import sympy as sp
+import timeout_decorator
 from sympy import simplify
-from sympy.printing import latex
 from sympy.core.relational import Relational
-from sympy.solvers.solveset import solvify
+from sympy.parsing.latex import parse_latex
+from sympy.parsing.sympy_parser import implicit_multiplication, parse_expr, standard_transformations
+from sympy.printing import latex
 from sympy.solvers.inequalities import reduce_inequalities
-from sympy.parsing.sympy_parser import (
-    parse_expr,
-    standard_transformations,
-    implicit_multiplication,
-)
+from sympy.solvers.solveset import solvify
+from tqdm import tqdm
 
 
 def compare_numerical_ans(ans_p, ans_l):
@@ -107,9 +103,7 @@ def clean_expr_str(expr_str):
     expr_str = re.sub(r"sqrt\s?\((\d+)\)", r"\\sqrt{\1}", expr_str)
     expr_str = re.sub(r"sqrt\s?\((.*?)\)", r"\\sqrt{\1}", expr_str)
     expr_str = expr_str.replace(" sqrt", "\\sqrt")
-    expr_str = (
-        expr_str.replace("\\left", "").replace("\\right.", "").replace("\\right", "")
-    )
+    expr_str = expr_str.replace("\\left", "").replace("\\right.", "").replace("\\right", "")
     return expr_str
 
 
@@ -149,11 +143,7 @@ def is_expr_equal(ans_p, ans_l, is_strict=False):
     if isinstance(ans_l, str):
         return ans_p == ans_l
 
-    if (
-        not is_strict
-        and is_equ_num_equal(ans_l, ans_p)
-        or is_equ_num_equal(ans_p, ans_l)
-    ):
+    if not is_strict and is_equ_num_equal(ans_l, ans_p) or is_equ_num_equal(ans_p, ans_l):
         return True
 
     if ans_p.free_symbols != ans_l.free_symbols:
@@ -164,11 +154,7 @@ def is_expr_equal(ans_p, ans_l, is_strict=False):
 
     if isinstance(ans_l, sp.core.relational.Relational):
         try:
-            if (
-                type(ans_l) == type(ans_p)
-                and my_equals(ans_p.lhs, ans_l.lhs)
-                and my_equals(ans_p.rhs, ans_l.rhs)
-            ):
+            if type(ans_l) == type(ans_p) and my_equals(ans_p.lhs, ans_l.lhs) and my_equals(ans_p.rhs, ans_l.rhs):
                 return True
         except Exception as e:
             print(ans_p, ans_l, e)
@@ -254,9 +240,7 @@ def rough_compare_ans(generation, answer):
             continue
         if not contains_number(w):
             continue
-        if compare_numerical_ans(w.replace("$", ""), answer) and "=" not in " ".join(
-            w[i:]
-        ):
+        if compare_numerical_ans(w.replace("$", ""), answer) and "=" not in " ".join(w[i:]):
             return 1
     return 0
 

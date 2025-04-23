@@ -1,9 +1,10 @@
-from .context import assert_equal
 import pytest
-from sympy import exp, sin, Symbol, E
+from sympy import E, Symbol, exp, sin
 
-x = Symbol('x', real=True)
-y = Symbol('y', real=True)
+from .context import assert_equal
+
+x = Symbol("x", real=True)
+y = Symbol("y", real=True)
 
 
 def test_exp_letter():
@@ -29,9 +30,9 @@ def test_exp_command_symbol_expression():
 
 
 def test_exp_command_symbol_multiplied():
-    '''
+    """
     \\exponentialE is NOT a function, so using the following notation equates to multiplication
-    '''
+    """
     assert_equal("\\exponentialE (3)", E * 3)
     assert_equal("\\exponentialE \\left( 3\\right)", E * 3)
     assert_equal("\\exponentialE \\times 3", E * 3)

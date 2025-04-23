@@ -3,7 +3,7 @@
 branch = True
 include =
     latex2sympy.py
-omit = 
+omit =
     sandbox/*
     gen/*
     asciimath_printer.py

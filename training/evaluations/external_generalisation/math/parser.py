@@ -1,11 +1,12 @@
 import random
-import regex
 import re
+from typing import Any, Dict, Iterable, List, TypeVar, Union
+
+import regex
 import sympy
 from latex2sympy2 import latex2sympy
-from typing import TypeVar, Iterable, List, Union, Any, Dict
-from word2number import w2n
 from utils import *
+from word2number import w2n
 
 
 def _fix_fracs(string):
@@ -231,11 +232,7 @@ def strip_string(string, skip_unit=False):
     # replace tfrac and dfrac with frac
     string = string.replace("tfrac", "frac")
     string = string.replace("dfrac", "frac")
-    string = (
-        string.replace("\\neq", "\\ne")
-        .replace("\\leq", "\\le")
-        .replace("\\geq", "\\ge")
-    )
+    string = string.replace("\\neq", "\\ne").replace("\\leq", "\\le").replace("\\geq", "\\ge")
 
     # remove \left and \right
     string = string.replace("\\left", "")
@@ -461,12 +458,7 @@ def extract_theoremqa_answer(pred: str, answer_flag: bool = True):
         pred = "True"
     elif any([option in pred.lower() for option in ["no", "false"]]):
         pred = "False"
-    elif any(
-        [
-            option in pred.lower()
-            for option in ["(a)", "(b)", "(c)", "(d)", "(e)", "(f)"]
-        ]
-    ):
+    elif any([option in pred.lower() for option in ["(a)", "(b)", "(c)", "(d)", "(e)", "(f)"]]):
         pass
     else:
         # Some of the models somehow get used to boxed output from pre-training
@@ -546,10 +538,7 @@ def extract_answer(pred_str, data_name, use_last_number=True):
             pred = ""
 
     # choice answer
-    if (
-        data_name in ["sat_math", "aqua"]
-        or "mmlu" in data_name
-    ):
+    if data_name in ["sat_math", "aqua"] or "mmlu" in data_name:
         tmp = re.findall(r"\b(A|B|C|D|E)\b", pred.upper())
         if tmp:
             pred = tmp[-1]
@@ -643,11 +632,7 @@ def parse_ground_truth(example: Dict[str, Any], data_name):
     if data_name not in STRIP_EXCEPTIONS:
         gt_ans = strip_string(gt_ans, skip_unit=data_name == "carp_en")
     else:
-        gt_ans = (
-            gt_ans.replace("\\neq", "\\ne")
-            .replace("\\leq", "\\le")
-            .replace("\\geq", "\\ge")
-        )
+        gt_ans = gt_ans.replace("\\neq", "\\ne").replace("\\leq", "\\le").replace("\\geq", "\\ge")
     return gt_cot, gt_ans
 
 
@@ -661,15 +646,11 @@ def parse_question(example, data_name):
             body = body + "."
         question = f'{body} {example["Question"].strip()}'
     elif data_name == "tabmwp":
-        title_str = (
-            f'regarding "{example["table_title"]}" ' if example["table_title"] else ""
-        )
+        title_str = f'regarding "{example["table_title"]}" ' if example["table_title"] else ""
         question = f"Read the following table {title_str}and answer a question:\n"
         question += f'{example["table"]}\n{example["question"]}'
         if example["choices"]:
-            question += (
-                f' Please select from the following options: {example["choices"]}'
-            )
+            question += f' Please select from the following options: {example["choices"]}'
     elif data_name == "carp_en":
         question = example["content"]
     elif data_name == "mmlu_stem":
