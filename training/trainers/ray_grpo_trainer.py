@@ -2,6 +2,7 @@
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
 
 import gc
+import re
 import uuid
 from copy import deepcopy
 
@@ -105,27 +106,30 @@ class RayGRPOTrainer(RayPPOTrainer):
                 solution_str=response_str,
                 index=index,
             )
-            if self.config.reward.use_accuracy:
-                reward_components = {"correctness": correctness_score}
-                total_reward = correctness_score
-            else:
-                reward_components = {}
-                total_reward = 0
 
-            for reward_fn in self.reward_functions:
-                func = reward_fn["function"]
-                name = reward_fn["name"]
-                scaling_factor = reward_fn["scaling_factor"]
-                kwargs = reward_fn["kwargs"]
-                if name == "cosine":
-                    is_correct = correctness_score == 1.0
-                    reward = func(response_str, scaling_factor, is_correct=is_correct, **kwargs)
-                elif name == "length":
-                    reward = func(response_str, scaling_factor, correctness_score=correctness_score, **kwargs)
-                else:
-                    reward = func(response_str, scaling_factor, **kwargs)
-                reward_components[name] = reward
-                total_reward += reward
+            assign_reward = (not self.config.conditional_reward) or self._check_format(response_str)
+            reward_components = {}
+            total_reward = 0
+
+            if assign_reward:
+                if self.config.reward.use_accuracy:
+                    reward_components["correctness"] = correctness_score
+                    total_reward += correctness_score
+
+                for reward_fn in self.reward_functions:
+                    func = reward_fn["function"]
+                    name = reward_fn["name"]
+                    scaling_factor = reward_fn["scaling_factor"]
+                    kwargs = reward_fn["kwargs"]
+                    if name == "cosine":
+                        is_correct = correctness_score == 1.0
+                        reward = func(response_str, scaling_factor, is_correct=is_correct, **kwargs)
+                    elif name == "length":
+                        reward = func(response_str, scaling_factor, correctness_score=correctness_score, **kwargs)
+                    else:
+                        reward = func(response_str, scaling_factor, **kwargs)
+                    reward_components[name] = reward
+                    total_reward += reward
 
             reward_tensor[i, valid_response_length - 1] = total_reward
 
@@ -136,6 +140,22 @@ class RayGRPOTrainer(RayPPOTrainer):
                 num_printed += 1
 
         return reward_tensor
+
+    def _check_format(self, solution_str: str) -> bool:
+        pattern = r"\s*<think>.*?</think>\s*<answer>.*?</answer>"
+        if not re.match(pattern, solution_str, re.DOTALL):
+            return False
+        think_matches = list(re.finditer(r"<think>(.*?)</think>", solution_str, re.DOTALL))
+        answer_matches = list(re.finditer(r"<answer>(.*?)</answer>", solution_str, re.DOTALL))
+        if len(think_matches) != 1 or len(answer_matches) != 1:
+            return False
+        think_content = think_matches[0].group(1)
+        if "<think>" in think_content or "<answer>" in think_content:
+            return False
+        answer_content = answer_matches[0].group(1)
+        if "<answer>" in answer_content or "<think>" in answer_content:
+            return False
+        return True
 
     def _compute_correctness_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")

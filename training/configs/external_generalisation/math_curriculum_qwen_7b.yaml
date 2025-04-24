@@ -52,11 +52,8 @@ curriculum:
           '*': 0
 reward:
   use_accuracy: True
+  conditional_reward: True  # Only provide a reward at all if the response format is correct
   secondary_rewards:
-   - name: format
-     scaling_factor: 0.2
-     kwargs:
-        preappend_thinking_token: False
    - name: length
      scaling_factor: 0.2
 

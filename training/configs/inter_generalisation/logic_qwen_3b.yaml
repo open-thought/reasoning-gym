@@ -31,6 +31,7 @@ curriculum:
           word_len: 0
 reward:
   use_accuracy: True
+  conditional_reward: False
   secondary_rewards:
    - name: format
      scaling_factor: 0.2
