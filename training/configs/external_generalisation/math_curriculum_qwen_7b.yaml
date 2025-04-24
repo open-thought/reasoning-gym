@@ -30,27 +30,7 @@ curriculum:
         weight: 1
         attribute_levels:
           '*': 0
-      simple_equations:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      simple_integration:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      propositional_logic:
-        weight: 1
-        attribute_levels:
-          '*': 0
       advanced_geometry:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      simple_geometry:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      basic_arithmetic:
         weight: 1
         attribute_levels:
           '*': 0
@@ -67,22 +47,6 @@ curriculum:
         attribute_levels:
           '*': 0
       decimal_chain_sum:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      fraction_simplification:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      gcd:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      lcm:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      prime_factorization:
         weight: 1
         attribute_levels:
           '*': 0
