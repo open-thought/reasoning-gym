@@ -17,23 +17,22 @@ pip install -e .
 ```bash
 pip install ray wandb
 pip install torch==2.6.0
+pip install flash-attn==2.7.3 --no-build-isolation
 ```
 
-4. Install veRL (tested with HEAD c34206925e2a50fd452e474db857b4d488f8602d):
+4. Install veRL (tested with the below commit hash):
 
 ```bash
-pip install git+https://github.com/volcengine/verl.git@c6dc8b73cf011aa75b8c6a47b0322f50aed800ad#egg=verl
+pip install git+https://github.com/volcengine/verl.git@7341f52ca5b497811f9b468c5797189e6c7952a0#egg=verl
 ```
 
 5. Install vLLM:
 
 ```bash
-pip install vllm==0.6.3 transformers==4.50.3 fire==0.7.0
+pip install vllm==0.8.4 transformers==4.51.3 fire==0.7.0
 ```
-6. Install flash attention
-```
-pip install flash-attn --no-build-isolation
-```
+
+You may need to reinstall torch if 2.6.0 is overwritten by another version.
 
 6. Log in to HF and W&B:
 
@@ -59,10 +58,12 @@ python3 -u train_grpo.py --config-name llama3.1_1b_grpo \
 Then, having saved this as a bash script such as `train.sh`, run it:
 
 ```bash
-CUDA_VISIBLE_DEVICES=0,1 bash train.sh
+VLLM_ATTENTION_BACKEND=xformers CUDA_VISIBLE_DEVICES=0,1 bash train.sh
 ```
 
 CUDA_VISIBLE_DEVICES is set to 0,1 to use the first two GPUs on the machine (see `nvidia-smi` output). This can be adjusted as needed. `tensor_model_parallel_size` and `n_gpus_per_node` should also be set to the number of GPUs you are using.
+
+VLLM_ATTENTION_BACKEND being set to xformers avoids an occasional crash due to illegal CUDA memory accesses during training.
 
 You can change all configuration options by either modifying the config YAML (in this case, `config/llama3.1_1b_grpo.yaml`) or providing them as arguments to the Python script. Note that the batch sizes set in the Llama 1B and Qwen 1.5B configs are as high as it was possible for me to set them for the puzzles dataset mix on 2xA6000 GPUs without OOMs. Depending on the hardware you use and the datasets you train on, you may need to adjust these.
 
