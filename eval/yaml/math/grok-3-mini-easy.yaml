@@ -1,0 +1,86 @@
+model: x-ai/grok-3-mini-beta
+provider: xAI
+output_dir: math-traces
+save_metadata: true
+system_prompt_id: DeepSeekZero
+max_concurrent: 10
+default_size: 1000
+default_seed: 45
+categories:
+- category: algebra
+  datasets:
+  - dataset: complex_arithmetic
+    params:
+      min_real: -10
+      max_real: 10
+      min_imag: -10
+      max_imag: 10
+      operations_weights: [0.4, 0.4, 0.1, 0.1]
+  - dataset: intermediate_integration
+    params:
+      problem_type_weights: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
+  - dataset: polynomial_equations
+    params:
+      min_degree: 2
+      max_degree: 3
+      min_terms: 3
+      max_terms: 4
+  - dataset: polynomial_multiplication
+    params:
+      min_terms: 2
+      max_terms: 4
+      min_value: 1
+      max_value: 100
+      min_degree: 0
+      max_degree: 3
+      min_polynomials: 2
+      max_polynomials: 3
+- category: arithmetic
+  datasets:
+  - dataset: basic_arithmetic
+    params:
+      min_terms: 2
+      max_terms: 6
+      min_digits: 1
+      max_digits: 4
+  - dataset: bitwise_arithmetic
+    params:
+      difficulty: 2
+  - dataset: chain_sum
+    params:
+      min_terms: 2
+      max_terms: 6
+      min_digits: 1
+      max_digits: 4
+  - dataset: decimal_arithmetic
+    params:
+      min_num_decimal_places: 3
+      max_num_decimal_places: 3
+      precision: 10
+      min_terms: 2
+      max_terms: 6
+  - dataset: decimal_chain_sum
+    params:
+      min_terms: 2
+      max_terms: 6
+      min_digits: 1
+      max_digits: 4
+      min_decimal_places: 1
+      max_decimal_places: 4
+  - dataset: gsm_symbolic # difficulty is fixated on 1.0
+- category: logic
+  datasets:
+  - dataset: propositional_logic
+    params:
+      min_vars: 2
+      max_vars: 4
+      min_statements: 2
+      max_statements: 4
+      min_complexity: 1
+      max_complexity: 3
+- category: geometry
+  datasets:
+  - dataset: advanced_geometry
+    params:
+      min_coord: -10
+      max_coord: 10

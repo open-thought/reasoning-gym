@@ -159,6 +159,15 @@ def get_git_hash() -> str:
     except Exception:
         return "unknown"
 
+def serialize_non_primitive_leaves(data: Any) -> Any:
+    """Recursively converts all non-primitive leaf nodes in a dictionary or list to strings."""
+    if isinstance(data, dict):
+        return {key: serialize_non_primitive_leaves(value) for key, value in data.items()}
+    elif isinstance(data, (list, tuple)):
+        return [serialize_non_primitive_leaves(item) for item in data]
+    elif not isinstance(data, (str, int, float, bool, type(None))):
+        return str(data)
+    return data
 
 class AsyncModelEvaluator:
     """Evaluates models on reasoning datasets with async API calls via OpenRouter."""
@@ -473,9 +482,9 @@ class AsyncModelEvaluator:
 
             result = {
                 "question": entry["question"],
-                "expected_answer": str(entry["answer"]),
-                "best_model_answer": best_answer,
-                "best_full_model_response": best_response,
+                "answer": str(entry["answer"]),
+                "best_model_answer": str(best_answer) if best_answer is not None else None,
+                "best_full_model_response": str(best_response) if best_response is not None else None,
                 "best_score": best_score,
                 "mean_score": mean_score,
                 "completions": completion_results,
@@ -483,7 +492,7 @@ class AsyncModelEvaluator:
 
             # Only include metadata if configured to do so
             if self.config.save_metadata:
-                result["metadata"] = entry["metadata"]
+                result["metadata"] = serialize_non_primitive_leaves(entry["metadata"])
 
             return result
 
@@ -491,7 +500,7 @@ class AsyncModelEvaluator:
             self.logger.error(f"Error processing entry: {str(e)}")
             result = {
                 "question": entry["question"],
-                "expected_answer": str(entry["answer"]),
+                "answer": str(entry["answer"]),
                 "best_model_answer": None,
                 # First check if we already have a best_response from partial processing
                 # If not, then fall back to the first response or None
@@ -508,7 +517,7 @@ class AsyncModelEvaluator:
 
             # Only include metadata if configured to do so
             if self.config.save_metadata:
-                result["metadata"] = entry["metadata"]
+                result["metadata"] = serialize_non_primitive_leaves(entry["metadata"])
 
             return result
 

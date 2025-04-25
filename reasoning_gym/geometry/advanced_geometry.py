@@ -150,9 +150,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
         question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y), a="a", b="b")
         answer_str = f"({x_ortho_approx:.3f}, {y_ortho_approx:.3f})"
         metadata = {
-            "A": (A.x, A.y),
-            "B": (B.x, B.y),
-            "C": (C.x, C.y),
+            "A": (str(A.x), str(A.y)),
+            "B": (str(B.x), str(B.y)),
+            "C": (str(C.x), str(C.y)),
             "ortho": (ortho.x, ortho.y),
             "orthocenter_exact": (str(ortho.x), str(ortho.y)),
             "orthocenter_approx": (x_ortho_approx, y_ortho_approx),
@@ -185,9 +185,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
         answer_str = f"{radius_approx:.3f}"
 
         metadata = {
-            "A": (A.x, A.y),
-            "B": (B.x, B.y),
-            "C": (C.x, C.y),
+            "A": (str(A.x), str(A.y)),
+            "B": (str(B.x), str(B.y)),
+            "C": (str(C.x), str(C.y)),
             "incircle_radius_exact": str(radius),
             "incircle_radius_approx": radius_approx,
         }
@@ -224,9 +224,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
 
         answer_str = f"{angle_deg:.2f}°"
         metadata = {
-            "A": (A.x, A.y),
-            "B": (B.x, B.y),
-            "C": (C.x, C.y),
+            "A": (str(A.x), str(A.y)),
+            "B": (str(B.x), str(B.y)),
+            "C": (str(C.x), str(C.y)),
             "angle_ABC_degrees": angle_deg,
         }
         return question, answer_str, metadata
