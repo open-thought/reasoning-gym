@@ -1,49 +1,17 @@
 reasoning_gym:
   dataset_size: 50000
   developer_prompt: DeepSeekZero
-  datasets:
-    complex_arithmetic:
-      weight: 1
-    intermediate_integration:
-      weight: 1
-    polynomial_equations:
-      weight: 1
-    polynomial_multiplication:
-      weight: 1
-    simple_equations:
-      weight: 1
-    simple_integration:
-      weight: 1
-    propositional_logic:
-      weight: 1
-    advanced_geometry:
-      weight: 1
-    simple_geometry:
-      weight: 1
-    basic_arithmetic:
-      weight: 1
-    bitwise_arithmetic:
-      weight: 1
-    chain_sum:
-      weight: 1
-    decimal_arithmetic:
-      weight: 1
-    decimal_chain_sum:
-      weight: 1
-    fraction_simplification:
-      weight: 1
-    gcd:
-      weight: 1
-    lcm:
-      weight: 1
-    prime_factorization:
-      weight: 1
+  datasets: null
+
+static_datasets:
+  train: null  # train path to already instantiated dataset
+  val: null  # val path to already instantiated dataset
 
 curriculum:
     enabled: False
     schedule:
       automatic: True
-      update_steps: 30 # automatic curriculum updating after 50 steps
+      update_steps: 30 # automatic curriculum updating after 30 steps
     last_k: 20
     success_threshold: 0.70
     failure_threshold: 0.10
@@ -51,6 +19,7 @@ curriculum:
       spell_backward:
         attribute_levels:
           word_len: 0
+
 reward:
   use_accuracy: True
   secondary_rewards:

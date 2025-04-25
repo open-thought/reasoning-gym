@@ -1,6 +1,8 @@
 """Train an LLM using GRPO over Reasoning Gym procedural dataset(s)."""
 
 from dataclasses import replace
+import json
+from pathlib import Path
 
 import hydra
 import ray
@@ -14,14 +16,39 @@ from reasoning_gym.coaching.curriculum_config import CurriculumAttributeConfig, 
 from reasoning_gym.coaching.experiment import CurriculumExperiment
 from reasoning_gym.composite import CompositeDataset, DatasetSpec
 
+def _validate_static_dataset(dataset_path: Path) -> None:
+    """Validate the static dataset path."""
+    if not dataset_path.exists():
+        raise FileNotFoundError(f"Dataset path {dataset_path} does not exist.")
+    if not dataset_path.is_file():
+        raise ValueError(f"Dataset path {dataset_path} is not a file.")
+    if dataset_path.suffix != ".jsonl":
+        raise ValueError(f"Dataset path {dataset_path} is not a jsonl file.")
+
 
 def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare training and validation datasets."""
-    dataset_size = config.reasoning_gym.dataset_size
+    
     developer_prompt_setting = config.reasoning_gym.developer_prompt
     developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS[developer_prompt_setting]
+    dataset_size = config.reasoning_gym.dataset_size
 
-    if config.curriculum.enabled:
+    if config.static_datasets.train:
+        print("Using static dataset for training")
+        train_data_path = Path(config.static_datasets.train)
+        _validate_static_dataset(train_data_path)
+        with open(train_data_path, "r") as f:
+            train_data_source = [json.loads(line) for line in f.readlines() if line.strip()]
+
+        if config.static_datasets.val:
+            val_data_path = Path(config.static_datasets.val)
+            _validate_static_dataset(val_data_path)
+            with open(val_data_path, "r") as f:
+                val_data_source = [json.loads(line) for line in f.readlines() if line.strip()]
+        else:
+            val_data_source = []
+    elif config.curriculum.enabled:
+        print("Using curriculum dataset for training")
         curricula = config.curriculum.curricula
         curriculum_config = CurriculumExperimentConfig(
             curricula={
@@ -35,6 +62,7 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
         )
         val_data_source = CompositeDataset(config=replace(train_data_source.composite.config, seed=2))
     else:
+        print("Using composite dataset for training")
         dataset_specs = [
             DatasetSpec(
                 name=name,
@@ -45,6 +73,7 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
         ]
         train_data_source = reasoning_gym.create_dataset("composite", seed=1, size=dataset_size, datasets=dataset_specs)
         val_data_source = reasoning_gym.create_dataset("composite", seed=2, size=dataset_size, datasets=dataset_specs)
+    
     train_dataset = make_dataset(
         tokenizer, train_data_source, developer_prompt, max_prompt_length=config.data.max_prompt_length
     )

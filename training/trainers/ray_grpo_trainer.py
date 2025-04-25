@@ -139,14 +139,7 @@ class RayGRPOTrainer(RayPPOTrainer):
 
     def _compute_correctness_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
-        data = self.train_dataset.data
-
-        entry = data[index]
-        if self.train_dataset.experiment:
-            experiment = self.train_dataset.experiment
-            return experiment.score_answer_with_id(found_answer, entry["metadata"]["entry_id"])
-        else:
-            return data.score_answer(found_answer, entry=entry)
+        return self.train_dataset.score_answer(found_answer, index=index)
 
     def _create_dataloader(self):
         self.train_dataloader = StatefulDataLoader(
