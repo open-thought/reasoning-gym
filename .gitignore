@@ -50,6 +50,7 @@ htmlcov/
 wandb/
 outputs/
 *.log
+training/logs/
 
 # datasets
 training/data/
