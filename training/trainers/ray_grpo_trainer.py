@@ -107,7 +107,7 @@ class RayGRPOTrainer(RayPPOTrainer):
                 index=index,
             )
 
-            assign_reward = (not self.config.conditional_reward) or self._check_format(response_str)
+            assign_reward = (not self.config.reward.conditional_reward) or self._check_format(response_str)
             reward_components = {}
             total_reward = 0
 
