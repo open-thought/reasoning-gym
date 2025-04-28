@@ -161,9 +161,7 @@ class ScoreBoard:
             items = metadata["difficulty"].items()
         else:
             # Use all metadata except source info
-            items = (
-                (k, tuple(v) if isinstance(v, list) else v) for k, v in metadata.items() if k not in ("source_dataset")
-            )
+            items = ((k, v) for k, v in metadata.items() if k not in ("source_dataset"))
 
         # Add remaining items in sorted order
         key_items.extend(sorted((str(k), v) for k, v in items))
