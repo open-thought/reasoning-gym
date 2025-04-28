@@ -86,6 +86,8 @@ actor_rollout_ref:
     ppo_max_token_len_per_gpu: 49152 # n * ${data.max_prompt_length} + ${data.max_response_length}
     grad_clip: 1.0
     clip_ratio: 0.2
+    clip_ratio_low: 0.2
+    clip_ratio_high: 0.2
     loss_agg_mode: "token-mean" # / "seq-mean-token-sum" / "seq-mean-token-mean"
     entropy_coeff: 0.001
     use_kl_loss: False # True for GRPO
