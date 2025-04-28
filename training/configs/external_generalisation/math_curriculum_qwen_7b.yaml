@@ -122,6 +122,7 @@ actor_rollout_ref:
     ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size} # sp size
   rollout:
     name: vllm
+    mode: sync
     temperature: 1.0
     top_k: -1 # 0 for hf rollout, -1 for vllm rollout
     top_p: 1

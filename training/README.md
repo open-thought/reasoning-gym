@@ -12,8 +12,7 @@ NOTE: There seem to be some hanging issues with verl on older-gen hardware. Test
 
 ```bash
 git clone https://github.com/open-thought/reasoning-gym.git
-cd reasoning-gym
-pip install -e .
+pip install -e ./reasoning-gym
 ```
 
 3. Install training dependencies (tested with verl @ f9dae2bb118f9fec36aaf99953dee77db6881052):
@@ -22,8 +21,7 @@ pip install -e .
 pip install wheel "torch==2.6.0" torchvision
 pip install flash-attn --no-build-isolation
 git clone https://github.com/volcengine/verl.git
-cd verl
-pip install -e .[vllm]
+pip install -e ./verl[vllm]
 ```
 
 4. Log in to HF and W&B:
