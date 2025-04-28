@@ -47,10 +47,13 @@ class ReasoningGymDataset(Dataset):
         chat.append({"role": "user", "content": q})
 
         prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+        model_inputs = self.tokenizer(prompt, return_tensors="pt", add_special_tokens=False)
+        input_ids = model_inputs.pop("input_ids")
+        attention_mask = model_inputs.pop("attention_mask")
 
-        input_ids, attention_mask = verl_F.tokenize_and_postprocess_data(
-            prompt=prompt,
-            tokenizer=self.tokenizer,
+        input_ids, attention_mask = verl_F.postprocess_data(
+            input_ids=input_ids,
+            attention_mask=attention_mask,
             max_length=self.max_prompt_length,
             pad_token_id=self.tokenizer.pad_token_id,
             left_pad=True,
