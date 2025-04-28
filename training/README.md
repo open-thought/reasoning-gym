@@ -5,36 +5,26 @@ Training codebase for training LLMs using Reasoning Gym procedural dataset gener
 ### Requirements
 
 1. Prepare and activate a Python 3.11 virtual environment however you prefer.
+
 2. Install Reasoning Gym:
 
 ```bash
-cd reasoning-gym/
+git clone https://github.com/open-thought/reasoning-gym.git
+cd reasoning-gym
 pip install -e .
 ```
 
-3. Install training-specific Python package dependencies:
+3. Install training dependencies (tested with verl @ f9dae2bb118f9fec36aaf99953dee77db6881052):
 
 ```bash
-pip install ray wandb
-pip install torch==2.6.0
-pip install flash-attn==2.7.3 --no-build-isolation
+pip install wheel "torch==2.6.0" torchvision
+pip install flash-attn --no-build-isolation
+git clone https://github.com/volcengine/verl.git
+cd verl
+pip install -e .[vllm]
 ```
 
-4. Install veRL (tested with the below commit hash):
-
-```bash
-pip install git+https://github.com/volcengine/verl.git@7341f52ca5b497811f9b468c5797189e6c7952a0#egg=verl
-```
-
-5. Install vLLM:
-
-```bash
-pip install vllm==0.8.4 transformers==4.51.3 fire==0.7.0
-```
-
-You may need to reinstall torch if 2.6.0 is overwritten by another version.
-
-6. Log in to HF and W&B:
+4. Log in to HF and W&B:
 
 ```bash
 huggingface-cli login
