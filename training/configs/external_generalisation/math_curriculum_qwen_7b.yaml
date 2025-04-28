@@ -64,8 +64,8 @@ data:
   prompt_key: prompt
   max_prompt_length: 4096
   max_response_length: 2048
-  train_batch_size: 8
-  val_batch_size: 8
+  train_batch_size: 4
+  val_batch_size: 4
   return_raw_chat: True
   return_raw_input_ids: True
 
