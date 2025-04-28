@@ -1,12 +1,26 @@
 reasoning_gym:
-  dataset_size: 50000
+  dataset_size: 30000
   developer_prompt: DeepSeekZero
   datasets:
-    dummy:
+    complex_arithmetic:
+      weight: 1
+    intermediate_integration:
+      weight: 1
+    polynomial_equations:
+      weight: 1
+    polynomial_multiplication:
+      weight: 1
+    advanced_geometry:
+      weight: 1
+    bitwise_arithmetic:
+      weight: 1
+    chain_sum:
+      weight: 1
+    decimal_chain_sum:
       weight: 1
 
 curriculum:
-    enabled: True
+    enabled: False
     schedule:
       automatic: True
       update_steps: 30 # automatic curriculum updating after 30 steps
@@ -15,38 +29,6 @@ curriculum:
     failure_threshold: 0.10
     curricula:
       complex_arithmetic:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      intermediate_integration:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      polynomial_equations:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      polynomial_multiplication:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      advanced_geometry:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      bitwise_arithmetic:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      chain_sum:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      decimal_arithmetic:
-        weight: 1
-        attribute_levels:
-          '*': 0
-      decimal_chain_sum:
         weight: 1
         attribute_levels:
           '*': 0
@@ -170,7 +152,7 @@ verbose: True
 trainer:
   balance_batch: True
   total_epochs: 1
-  total_training_steps: 1500
+  total_training_steps: 500
   project_name: external-generalisation
   experiment_name: math_curriculum_qwen_7b
   logger: [ 'console', 'wandb' ]
