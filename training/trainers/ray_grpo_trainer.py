@@ -172,6 +172,7 @@ class RayGRPOTrainer(RayPPOTrainer):
         self.train_dataloader = StatefulDataLoader(
             dataset=self.train_dataset,
             batch_size=self.config.data.train_batch_size,
+            num_workers=8,
             shuffle=True,
             drop_last=True,
             collate_fn=collate_fn,
@@ -180,8 +181,9 @@ class RayGRPOTrainer(RayPPOTrainer):
         self.val_dataloader = StatefulDataLoader(
             dataset=self.val_dataset,
             batch_size=len(self.val_dataset),
-            shuffle=True,
-            drop_last=True,
+            num_workers=8,
+            shuffle=False,
+            drop_last=False,
             collate_fn=collate_fn,
         )
 
