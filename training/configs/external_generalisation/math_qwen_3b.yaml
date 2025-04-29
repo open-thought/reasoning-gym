@@ -54,7 +54,7 @@ data:
 actor_rollout_ref:
   hybrid_engine: True
   model:
-    path: Qwen/Qwen2.5-7B-Instruct
+    path: Qwen/Qwen2.5-3B-Instruct
     external_lib: null
     override_config: { }
     enable_gradient_checkpointing: True

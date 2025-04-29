@@ -38,7 +38,7 @@ First, activate the virtual environment you prepared.
 Example GRPO training usage:
 
 ```bash
-python3 -u train_grpo.py --config-path configs/external_generalisation --config-name math_curriculum_qwen_7b $@ 2>&1 | tee verl_output.log
+python3 -u train_grpo.py --config-path configs/external_generalisation --config-name math_qwen_3b $@ 2>&1 | tee verl_output.log
 ```
 
 Then, having saved this as a bash script such as `train.sh`, run it:
