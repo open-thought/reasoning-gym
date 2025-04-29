@@ -4,8 +4,6 @@ Training codebase for training LLMs using Reasoning Gym procedural dataset gener
 
 ### Requirements
 
-NOTE: There seem to be some hanging issues with verl on older-gen hardware. Tested on RTX 6000 Ada.
-
 1. Prepare and activate a Python 3.11 virtual environment however you prefer.
 
 2. Install Reasoning Gym:
