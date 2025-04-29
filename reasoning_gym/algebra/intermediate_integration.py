@@ -242,7 +242,7 @@ Use same variable symbols as given in the question
                 "integrand": str(integrand),
                 "problem_type": problem_type,
                 "variable": str(x),
-                "expected_answer_expression": answer,
+                "expected_answer_expression": str(answer),
                 "difficulty": {
                     "problem_type_weights": self.config.problem_type_weights,
                 },

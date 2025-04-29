@@ -88,7 +88,7 @@ When performing calculations, please follow these guidelines:
                 "source_index": idx,
                 "integrand": str(derivative),
                 "variable": str(symbol),
-                "expected_answer_expression": polynomial,
+                "expected_answer_expression": str(polynomial),
                 "num_terms": num_terms,
                 "difficulty": {
                     "terms": (self.config.min_terms, self.config.max_terms),
