@@ -3,8 +3,9 @@
 # Models evaluated on this config:
 # Qwen/Qwen2.5-3B-Instruct (original model)
 # inter_algorithmic_qwen_3b_500 (original + 500 GRPO steps on algorithmic RG data)
+# inter_algebra_qwen_3b_500 (original + 500 GRPO steps on algebra RG data)
 
-model_path: ../models/inter_algorithmic_qwen_3b_500  # Change to the model to be evaluated
+model_path: ../models/inter_algebra_qwen_3b_500  # Change to the model to be evaluated
 
 max_tokens: 2048  # From max_response_length in training config
 top_p: 0.9  # From rollout top_p
