@@ -584,6 +584,83 @@ def create_dashboard(summaries: Dict[str, Dict[str, Any]], categories: Dict[str,
     return fig
 
 
+def create_comparison_plot(
+    summaries: Dict[str, Dict[str, Any]],
+    other_summaries: Dict[str, Dict[str, Any]],
+    model_id: str,
+    categories: Optional[Dict[str, List[str]]] = None,
+) -> Figure:
+    """Create a comparison plot between two models.
+
+    Args:
+        summaries: Dictionary of model summaries
+        other_summaries: Dictionary of other model summaries for comparison
+        model_id: Model ID to compare with
+        categories: Dictionary mapping categories to dataset lists
+
+    Returns:
+        Matplotlib figure
+    """
+    if not summaries or not other_summaries:
+        logger.error("No summaries provided for comparison")
+        return plt.figure()
+
+    current_scores, baseline_scores = {}, {}
+
+    for model_name, summary in summaries.items():
+        if model_name == model_id:
+            for category, datasets in categories.items():
+                datasets_scores = [summary["dataset_best_scores"].get(dataset, 0) for dataset in datasets]
+                if datasets_scores:  # Avoid division by zero
+                    current_scores[category] = np.mean(datasets_scores)
+                else:
+                    current_scores[category] = 0
+
+    for model_name, summary in other_summaries.items():
+        if model_name == model_id:
+            for category, datasets in categories.items():
+                datasets_scores = [summary["dataset_best_scores"].get(dataset, 0) for dataset in datasets]
+                if datasets_scores:
+                    baseline_scores[category] = np.mean(datasets_scores)
+                else:
+                    baseline_scores[category] = 0
+
+    logger.debug(f"Current scores: {current_scores}")
+    logger.debug(f"Baseline scores: {baseline_scores}")
+
+    # Create a bar chart for comparison
+    fig, ax = plt.subplots(figsize=(20, 10))
+    categories_list = sorted(current_scores.keys())
+    current_values = [round(current_scores[cat] * 100, 2) for cat in categories_list]
+    baseline_values = [round(baseline_scores[cat] * 100, 2) for cat in categories_list]
+
+    x = np.arange(len(categories_list))
+    width = 0.35
+    colors = plt.cm.tab10.colors
+    bars1 = ax.bar(x - width / 2, baseline_values, width, label="Baseline", color=colors[1])
+    bars2 = ax.bar(x + width / 2, current_values, width, label="Difficult", color=colors[0])
+    ax.set_ylabel("Average Score")
+    ax.set_title(f"Performance of {model_id} when increasing difficulty", size=15)
+    ax.set_xticks(x)
+    ax.set_xticklabels(categories_list, rotation=45, ha="right")
+    ax.legend()
+    ax.set_ylim(0, max(max(current_values), max(baseline_values)) * 1.1)
+    plt.tight_layout()
+    plt.grid(axis="y")
+
+    # Add value labels on top of bars
+    for bar in bars1:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width() / 2.0, height + 0.01, f"{height:.2f}", ha="center", va="bottom")
+    for bar in bars2:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width() / 2.0, height + 0.01, f"{height:.2f}", ha="center", va="bottom")
+
+    plt.title(f"Performance of {model_id.split('/')[-1]} on Increasing Difficulty", size=15)
+    plt.tight_layout()
+    return fig
+
+
 def save_figure(fig: Figure, output_dir: str, name: str, fmt: str = "png", dpi: int = 300) -> str:
     """Save a figure to a file.
 
@@ -597,12 +674,10 @@ def save_figure(fig: Figure, output_dir: str, name: str, fmt: str = "png", dpi: 
     Returns:
         Path to the saved file
     """
-    # Create output directory if it doesn't exist
-    os.makedirs(output_dir, exist_ok=True)
 
     # Create filename
-    filename = f"{name}.{fmt}"
-    filepath = os.path.join(output_dir, filename)
+    filename = f"{name.replace('/', '-')}.{fmt}"
+    filepath = output_dir / filename
 
     # Save figure
     fig.savefig(filepath, dpi=dpi, bbox_inches="tight")
@@ -621,6 +696,7 @@ def main():
     parser.add_argument(
         "--top-mode", default="hardest", choices=["hardest", "easiest", "variable"], help="Mode for top datasets plot"
     )
+    parser.add_argument("--compare-results-dir", help="Directory to compare results with", default=None)
     parser.add_argument("--format", default="png", choices=["png", "pdf", "svg"], help="Output format for plots")
     parser.add_argument("--dpi", type=int, default=300, help="DPI for output images")
     parser.add_argument("--no-show", action="store_true", help="Don't display plots, just save them")
@@ -636,6 +712,11 @@ def main():
     logger.info(f"Loading summaries from {args.results_dir}")
     summaries = load_summaries(args.results_dir)
 
+    args.output_dir = Path(args.output_dir)
+    if not args.output_dir.exists():
+        logger.info(f"Creating output directory {args.output_dir}")
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+
     if not summaries:
         logger.error("No valid summaries found. Exiting.")
         return 1
@@ -648,7 +729,7 @@ def main():
 
     # Determine which plots to generate
     if args.plots.lower() == "all":
-        plots_to_generate = ["radar", "bar", "violin", "heatmap", "dashboard", "top_datasets"]
+        plots_to_generate = ["radar", "bar", "violin", "heatmap", "dashboard", "top_datasets", "compare"]
     else:
         plots_to_generate = [p.strip().lower() for p in args.plots.split(",")]
 
@@ -680,6 +761,25 @@ def main():
             elif plot_type == "top_datasets":
                 fig = create_top_datasets_comparison(summaries, args.top_n, args.top_mode)
                 save_figure(fig, args.output_dir, f"top_{args.top_n}_{args.top_mode}_datasets", args.format, args.dpi)
+
+            elif plot_type == "compare":
+                assert args.compare_results_dir, "Comparison directory is required for compare plot"
+                other_summaries = load_summaries(args.compare_results_dir)
+                if not other_summaries:
+                    logger.error("No valid summaries found in comparison directory. Exiting.")
+                    return 1
+
+                comparison_output_dir = args.output_dir / "comparison"
+                if not comparison_output_dir.exists():
+                    logger.info(f"Creating comparison output directory {comparison_output_dir}")
+                    comparison_output_dir.mkdir(parents=True, exist_ok=True)
+
+                for model_name in summaries.keys():
+                    if model_name not in other_summaries:
+                        logger.warning(f"Model {model_name} not found in comparison directory. Skippping...")
+                        continue
+                    fig = create_comparison_plot(summaries, other_summaries, model_name, categories)
+                    save_figure(fig, comparison_output_dir, model_name, args.format, args.dpi)
 
             else:
                 logger.warning(f"Unknown plot type: {plot_type}")
