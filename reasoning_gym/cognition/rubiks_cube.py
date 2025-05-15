@@ -39,7 +39,7 @@ class RubiksCubeDataset(ProceduralDataset):
     def __init__(self, config: RubiksCubeConfig):
         self._prompt_templates = [
             "You are given a {cube_size}x{cube_size}x{cube_size} Rubik's cube. It looks like this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.",
-            "You see a size {cube_size} Rubik's cube. It is arranged this:\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.",
+            "You see a size {cube_size} Rubik's cube arranged as follows::\n\n{cube_render} \n\nPlease provide a solution to solve this cube using Singmaster notation. Do not combine any steps, for instance, do not write 'U2', and instead write 'U U'.",
         ]
         super().__init__(config=config, seed=config.seed, size=config.size)
 
