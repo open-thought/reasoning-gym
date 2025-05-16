@@ -14,9 +14,7 @@
 
 """Custom evaluation tasks for LightEval."""
 
-import numpy as np 
-
-from lighteval.metrics.metrics import Metrics
+import numpy as np
 from lighteval.metrics.dynamic_metrics import (
     ExprExtractionConfig,
     LatexExtractionConfig,
@@ -24,16 +22,12 @@ from lighteval.metrics.dynamic_metrics import (
     extract_target_from_pred,
     get_extraction_regexes,
 )
+from lighteval.metrics.metrics import Metrics
 from lighteval.metrics.metrics_sample import PassAtK
-from lighteval.metrics.utils.metric_utils import (
-    MetricCategory,
-    MetricUseCase,
-    SampleLevelMetric,
-)
+from lighteval.metrics.utils.metric_utils import MetricCategory, MetricUseCase, SampleLevelMetric
 from lighteval.tasks.lighteval_task import LightevalTaskConfig
 from lighteval.tasks.requests import Doc
 from lighteval.utils.language import Language
-
 
 # Prompt template adapted from
 # - simple-evals: https://github.com/openai/simple-evals/blob/6e84f4e2aed6b60f6a0c7b8f06bbbf4bfde72e58/math_eval.py#L17

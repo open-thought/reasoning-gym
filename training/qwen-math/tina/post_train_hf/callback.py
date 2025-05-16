@@ -1,23 +1,26 @@
 import copy
 import logging
+import shutil
+
 import numpy as np
 import pandas as pd
-import shutil
 import torch
-from transformers import TrainerCallback
 import wandb
-
-from tina.utils.prompt import FIXED_PROMPT_FOR_EVALUATION, OPEN_R1_SYSTEM_PROMPT
 from tina.post_train_hf.hub import push_to_hub_revision
+from tina.utils.prompt import FIXED_PROMPT_FOR_EVALUATION, OPEN_R1_SYSTEM_PROMPT
+from transformers import TrainerCallback
 
 logger = logging.getLogger(__name__)
 
 
 class FixedPromptEvaluationCallback(TrainerCallback):
-    def __init__(self,
-                 system_prompt=OPEN_R1_SYSTEM_PROMPT,
-                 prompt=FIXED_PROMPT_FOR_EVALUATION,
-                 max_generation_length=4096, eval_steps=100):
+    def __init__(
+        self,
+        system_prompt=OPEN_R1_SYSTEM_PROMPT,
+        prompt=FIXED_PROMPT_FOR_EVALUATION,
+        max_generation_length=4096,
+        eval_steps=100,
+    ):
 
         self.system_prompt = system_prompt
         self.prompt = prompt
@@ -31,8 +34,7 @@ class FixedPromptEvaluationCallback(TrainerCallback):
 
     def on_init_end(self, args, state, control, processing_class=None, **kwargs):
         tokenizer = processing_class
-        messages = [{"role": "system", "content": self.system_prompt},
-                    {"role": "user", "content": self.prompt}]
+        messages = [{"role": "system", "content": self.system_prompt}, {"role": "user", "content": self.prompt}]
         input_text = tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
         self.tokenized_prompt = tokenizer(input_text, return_tensors="pt")
 
@@ -48,7 +50,7 @@ class FixedPromptEvaluationCallback(TrainerCallback):
 
     def eval_prompt(self, model, tokenizer):
         if hasattr(model, "peft_config"):
-            model.peft_config['default'].inference_mode = True
+            model.peft_config["default"].inference_mode = True
 
         self.tokenized_prompt.to(model.device)
         outputs = model.generate(
@@ -61,14 +63,16 @@ class FixedPromptEvaluationCallback(TrainerCallback):
         completion = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
         if hasattr(model, "peft_config"):
-            model.peft_config['default'].inference_mode = False
+            model.peft_config["default"].inference_mode = False
 
         return completion
 
 
 class GradientClippingLoggerCallback(TrainerCallback):
     def on_step_end(self, args, state, control, model=None, processing_class=None, **kwargs):
-        self.clipped_grad_norm = np.sqrt(sum(p.grad.data.norm(2).item() ** 2 for p in model.parameters() if p.grad is not None))
+        self.clipped_grad_norm = np.sqrt(
+            sum(p.grad.data.norm(2).item() ** 2 for p in model.parameters() if p.grad is not None)
+        )
         if state.is_world_process_zero:
             wandb.log({"clipped_grad_norm": self.clipped_grad_norm})
 
@@ -81,6 +85,7 @@ class DummyConfig:
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
+
 
 class PushToHubRevisionCallback(TrainerCallback):
     def __init__(self, dataset_name, use_peft):
@@ -117,9 +122,7 @@ class PushToHubRevisionCallback(TrainerCallback):
             )
 
             # Start the push operation
-            future = push_to_hub_revision(
-                dummy_config, extra_ignore_patterns=["*.pt"]
-            )
+            future = push_to_hub_revision(dummy_config, extra_ignore_patterns=["*.pt"])
 
             # Store the future and directory path for cleanup later
             self.pending_futures.append((future, ckpt_model_dir))

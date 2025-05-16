@@ -1,26 +1,37 @@
-import datasets
-from datasets import Dataset, load_dataset
-from datetime import datetime
 import logging
 import os
-from peft import get_peft_model, LoraConfig, TaskType
 import sys
+from datetime import datetime
+
+import datasets
 import torch
 import transformers
-from transformers import set_seed, AutoModelForCausalLM, AutoTokenizer
-from transformers.trainer_utils import get_last_checkpoint
-
-from trl import ModelConfig, TrlParser # GRPOTrainer, GRPOConfig
-from tina.post_train_hf.grpo_trainer import GRPOTrainer # use this new one for Dr.GRPO
-from tina.post_train_hf.grpo_config import GRPOConfig # use this new one for Dr.GRPO
-
+from datasets import Dataset, load_dataset
+from peft import LoraConfig, TaskType, get_peft_model
 from tina.config import ModelPTConfig
-from tina.post_train_hf.callback import FixedPromptEvaluationCallback, PushToHubRevisionCallback, GradientClippingLoggerCallback
+from tina.post_train_hf.callback import (
+    FixedPromptEvaluationCallback,
+    GradientClippingLoggerCallback,
+    PushToHubRevisionCallback,
+)
+from tina.post_train_hf.grpo_config import GRPOConfig  # use this new one for Dr.GRPO
+from tina.post_train_hf.grpo_trainer import GRPOTrainer  # use this new one for Dr.GRPO
 from tina.post_train_hf.preprocess import make_conv_for_grpo
-from tina.post_train_hf.rewards import accuracy_reward, format_reward, tag_count_reward, len_reward, reasoning_steps_reward, get_cosine_scaled_reward, get_repetition_penalty_reward
+from tina.post_train_hf.rewards import (
+    accuracy_reward,
+    format_reward,
+    get_cosine_scaled_reward,
+    get_repetition_penalty_reward,
+    len_reward,
+    reasoning_steps_reward,
+    tag_count_reward,
+)
 from tina.utils.chat_template import DEFAULT_CHAT_TEMPLATE, REASON_CHAT_TEMPLATE
 from tina.utils.constant import RL_POST_TRAIN_DATASET_MAP
 from tina.utils.prompt import OPEN_R1_SYSTEM_PROMPT, OPEN_RS_SYSTEM_PROMPT
+from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
+from transformers.trainer_utils import get_last_checkpoint
+from trl import ModelConfig, TrlParser  # GRPOTrainer, GRPOConfig
 
 
 def main():
@@ -38,7 +49,8 @@ def main():
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
-        handlers=[logging.StreamHandler(sys.stdout)])
+        handlers=[logging.StreamHandler(sys.stdout)],
+    )
     log_level = training_args.get_process_log_level()
     logger.setLevel(log_level)
     datasets.utils.logging.set_verbosity(log_level)
@@ -49,7 +61,8 @@ def main():
     # Log on each process a small summary
     logger.warning(
         f"Process rank: {training_args.local_rank}, device: {training_args.device}, n_gpu: {training_args.n_gpu}"
-        + f" distributed training: {bool(training_args.local_rank != -1)}, 16-bits training: {training_args.fp16}")
+        + f" distributed training: {bool(training_args.local_rank != -1)}, 16-bits training: {training_args.fp16}"
+    )
     logger.info(f"Model parameters {model_args}")
     logger.info(f"Post training parameters {pt_args}")
     logger.info(f"Training parameters {training_args}")
@@ -89,12 +102,14 @@ def main():
 
     model_post_train_dataset_name = RL_POST_TRAIN_DATASET_MAP[pt_args.model_post_train_dataset_name]
     if pt_args.model_post_train_dataset_config is not None:
-        train_dataset = load_dataset(model_post_train_dataset_name, split="train", name=pt_args.model_post_train_dataset_config)
+        train_dataset = load_dataset(
+            model_post_train_dataset_name, split="train", name=pt_args.model_post_train_dataset_config
+        )
     else:
         train_dataset = load_dataset(model_post_train_dataset_name, split="train")
     # required by GRPOTrainer: (prompt, solution) columns
-    if 'solution' not in train_dataset.column_names and 'answer' in train_dataset.column_names:
-        train_dataset = train_dataset.rename_column('answer', 'solution')
+    if "solution" not in train_dataset.column_names and "answer" in train_dataset.column_names:
+        train_dataset = train_dataset.rename_column("answer", "solution")
 
         # Wrap the 'solution' values in $...$
         def wrap_in_math(example):
@@ -102,17 +117,17 @@ def main():
 
         # Apply the transformation to the entire dataset
         train_dataset = train_dataset.map(wrap_in_math)
-    if 'problem' not in train_dataset.column_names and 'question' in train_dataset.column_names:
-        train_dataset = train_dataset.rename_column('question', 'problem')
-    if 'problem' not in train_dataset.column_names and 'prompt' in train_dataset.column_names:
-        train_dataset = train_dataset.rename_column('prompt', 'problem')
+    if "problem" not in train_dataset.column_names and "question" in train_dataset.column_names:
+        train_dataset = train_dataset.rename_column("question", "problem")
+    if "problem" not in train_dataset.column_names and "prompt" in train_dataset.column_names:
+        train_dataset = train_dataset.rename_column("prompt", "problem")
     if "messages" in train_dataset.column_names:
         train_dataset = train_dataset.remove_columns("messages")
 
     # handle deepscaler separately
     if "deepscaler" in pt_args.model_post_train_dataset_name:
-        train_dataset = train_dataset.rename_column('solution', 'solution_archive')
-        train_dataset = train_dataset.rename_column('answer', 'solution')
+        train_dataset = train_dataset.rename_column("solution", "solution_archive")
+        train_dataset = train_dataset.rename_column("answer", "solution")
 
         # Wrap the 'solution' values in $...$
         def wrap_in_math(example):
@@ -122,9 +137,7 @@ def main():
         train_dataset = train_dataset.map(wrap_in_math)
 
     SYSTEM_PROMPT = OPEN_RS_SYSTEM_PROMPT if "open-rs" in model_post_train_dataset_name else OPEN_R1_SYSTEM_PROMPT
-    train_dataset = train_dataset.map(
-        make_conv_for_grpo,
-        fn_kwargs={"system_prompt": SYSTEM_PROMPT})
+    train_dataset = train_dataset.map(make_conv_for_grpo, fn_kwargs={"system_prompt": SYSTEM_PROMPT})
 
     ######################
     # Initialize the model
@@ -134,10 +147,13 @@ def main():
         model_args.model_name_or_path,
         torch_dtype=torch.bfloat16,
         attn_implementation=model_args.attn_implementation,
-        use_cache=False if training_args.gradient_checkpointing else True)
+        use_cache=False if training_args.gradient_checkpointing else True,
+    )
 
     if model_args.use_peft:
-        logger.info(f"\n Using PEFT with {model_args.lora_r} rank, {model_args.lora_alpha} alpha, {model_args.lora_dropout} dropout.")
+        logger.info(
+            f"\n Using PEFT with {model_args.lora_r} rank, {model_args.lora_alpha} alpha, {model_args.lora_dropout} dropout."
+        )
         peft_config = LoraConfig(
             r=model_args.lora_r,
             lora_alpha=model_args.lora_alpha,
@@ -145,7 +161,8 @@ def main():
             target_modules=model_args.lora_target_modules,
             inference_mode=False,
             bias="none",
-            task_type=TaskType.CAUSAL_LM)
+            task_type=TaskType.CAUSAL_LM,
+        )
         model = get_peft_model(model, peft_config)
 
     #############################
@@ -191,7 +208,8 @@ def main():
         reward_funcs=rl_reward_funcs,
         args=training_args,
         train_dataset=train_dataset,
-        callbacks=callbacks)
+        callbacks=callbacks,
+    )
 
     #########################
     # Training and Evaluation
@@ -215,7 +233,9 @@ def main():
     trainer.log_metrics("train", train_metrics)
     trainer.save_metrics("train", train_metrics)
     trainer.save_state()
-    trainer.push_to_hub(commit_message=f"Add checkpoint {training_args.max_steps} post-trained on {pt_args.model_post_train_dataset_name}")
+    trainer.push_to_hub(
+        commit_message=f"Add checkpoint {training_args.max_steps} post-trained on {pt_args.model_post_train_dataset_name}"
+    )
 
     del trainer
     torch.cuda.empty_cache()

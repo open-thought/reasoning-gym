@@ -1,5 +1,3 @@
-
-
 # borrowed from https://github.com/huggingface/open-r1/blob/main/recipes/DeepSeek-R1-Distill-Qwen-1.5B/grpo/config_demo.yaml
 OPEN_R1_SYSTEM_PROMPT = """
 You are a helpful AI Assistant that provides well-reasoned and detailed responses.
@@ -11,7 +9,7 @@ Respond in the following format: <think>\n...\n</think>\n<answer>\n...\n</answer
 OPEN_RS_SYSTEM_PROMPT = """
 A conversation between User and Assistant. The user asks a question, and the Assistant solves it.
 The assistant first thinks about the reasoning process in the mind and then provides the user with the answer, and put your final answer within \\boxed{{}} .
-The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively, 
+The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively,
 i.e., <think> reasoning process here </think> <answer> answer here </answer>.
 Note that respond by English, NOT use other languages.
 """

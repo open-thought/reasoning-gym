@@ -26,6 +26,7 @@ from accelerate.utils import broadcast_object_list, gather, gather_object, is_pe
 from accelerate.utils.other import is_compiled_module
 from datasets import Dataset, IterableDataset
 from packaging import version
+from tina.post_train_hf.grpo_config import GRPOConfig
 from torch import nn
 from torch.utils.data import Sampler
 from transformers import (
@@ -41,15 +42,11 @@ from transformers import (
 )
 from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.utils import is_peft_available
-
 from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
 from trl.import_utils import is_vllm_available
 from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
 from trl.trainer.callbacks import SyncRefModelCallback
 from trl.trainer.utils import generate_model_card, get_comet_experiment_url, pad, selective_log_softmax
-
-from tina.post_train_hf.grpo_config import GRPOConfig
-
 
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
@@ -703,7 +700,6 @@ class GRPOTrainer(Trainer):
             "prompt_mask": prompt_mask,
             "completion_ids": completion_ids,
             "completion_mask": completion_mask,
-
             "ref_per_token_logps": ref_per_token_logps,
             "advantages": advantages,
         }

@@ -1,7 +1,8 @@
 import argparse
 import os
-from peft import PeftModel
+
 import torch
+from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
@@ -28,9 +29,8 @@ if __name__ == "__main__":
     print("Merged model will be saved to: ", merged_model_name_or_path)
 
     base_model = AutoModelForCausalLM.from_pretrained(
-        base_model_name_or_path,
-        torch_dtype=torch.bfloat16,
-        device_map="auto") # Automatically distributes across available GPUs
+        base_model_name_or_path, torch_dtype=torch.bfloat16, device_map="auto"
+    )  # Automatically distributes across available GPUs
 
     model = PeftModel.from_pretrained(base_model, adapter_model_name_or_path)
     model = model.merge_and_unload()

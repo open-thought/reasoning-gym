@@ -178,11 +178,11 @@ def len_reward(completions: list[Dict[str, str]], solution: list[str], **kwargs)
 
 
 def get_cosine_scaled_reward(
-        min_value_wrong: float = -1.0,
-        max_value_wrong: float = -0.5,
-        min_value_correct: float = 0.5,
-        max_value_correct: float = 1.0,
-        max_len: int = 1000,
+    min_value_wrong: float = -1.0,
+    max_value_wrong: float = -0.5,
+    min_value_correct: float = 0.5,
+    max_value_correct: float = 1.0,
+    max_len: int = 1000,
 ):
     def cosine_scaled_reward(completions, solution, **kwargs):
         """Reward function that scales based on completion length using a cosine schedule.
