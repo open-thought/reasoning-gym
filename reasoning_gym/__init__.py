@@ -3,7 +3,7 @@ Reasoning Gym - A library of procedural dataset generators for training reasonin
 """
 
 from . import algebra, algorithmic, arc, arithmetic, code, cognition, data, games, geometry, graphs, induction, logic
-from .factory import create_dataset, register_dataset
+from .factory import create_dataset, get_score_answer_fn, register_dataset
 
 __version__ = "0.1.19"
 __all__ = [
@@ -21,4 +21,5 @@ __all__ = [
     "induction",
     "create_dataset",
     "register_dataset",
+    "get_score_answer_fn",
 ]

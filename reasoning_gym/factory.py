@@ -1,5 +1,5 @@
 from dataclasses import is_dataclass
-from typing import Optional, Type, TypeVar
+from typing import Callable, Optional, Type, TypeVar
 
 from reasoning_gym.coaching.base_curriculum import BaseCurriculum, ConfigT
 
@@ -96,3 +96,24 @@ def create_curriculum(name: str) -> BaseCurriculum:
 
 def has_curriculum(name: str) -> bool:
     return name in CURRICULA
+
+
+def get_score_answer_fn(name: str) -> Callable[[], float]:
+    """
+    Get the score answer function for the named dataset.
+
+    Args:
+        name: Registered dataset name
+
+    Returns:
+        Score function for the dataset
+
+    Raises:
+        ValueError: If dataset not found
+    """
+    if name not in DATASETS:
+        raise ValueError(f"Dataset '{name}' not registered")
+
+    dataset_cls, config_cls = DATASETS[name]
+
+    return dataset_cls(config=config_cls()).score_answer

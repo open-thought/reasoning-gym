@@ -1,0 +1,71 @@
+# Config used for evaluating inter-domain generalisation experiment models on algorithmic test data
+
+# Models evaluated on this config:
+# Qwen/Qwen2.5-3B-Instruct (original model)
+# inter_algebra_qwen_3b_500 (original + 500 GRPO steps on algebra RG data)
+# inter_logic_qwen_3b_400 (original + 400 GRPO steps on logic RG data)
+
+model_path: ../models/inter_logic_qwen_3b_400  # Change to the model to be evaluated
+
+max_tokens: 2048  # From max_response_length in training config
+top_p: 0.9  # From rollout top_p
+temperature: 0.6  # Lower temperature for more focused responses
+
+developer_prompt: DeepSeekZero
+developer_role: system
+
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+categories:
+  - category: algorithmic
+    datasets:
+      - dataset: ab
+        size: 100
+        seed: 42
+      - dataset: base_conversion
+        size: 100
+        seed: 42
+      - dataset: binary_alternation
+        size: 100
+        seed: 42
+        params:
+          p_solvable: 0.9
+      - dataset: binary_matrix
+        size: 100
+        seed: 42
+        params:
+          min_n: 2
+          max_n: 6
+      - dataset: caesar_cipher
+        size: 100
+        seed: 42
+        params:
+          max_words: 10
+      - dataset: cryptarithm
+        size: 100
+        seed: 42
+      - dataset: isomorphic_strings
+        size: 100
+        seed: 42
+        params:
+          max_string_length: 8
+      - dataset: jugs
+        size: 100
+        seed: 42
+        params:
+          difficulty: 6
+      - dataset: rotate_matrix
+        size: 100
+        seed: 42
+        params:
+          min_n: 2
+          max_n: 6
+      - dataset: string_manipulation
+        size: 100
+        seed: 42
+        params:
+          max_string_length: 15
+          max_num_rules: 6

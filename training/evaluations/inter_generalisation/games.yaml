@@ -1,0 +1,48 @@
+# Config used for evaluating inter-domain generalisation experiment models on games test data
+
+# Models evaluated on this config:
+# Qwen/Qwen2.5-3B-Instruct (original model)
+# inter_algebra_qwen_3b_500 (original + 500 GRPO steps on algebra RG data)
+# inter_logic_qwen_3b_400 (original + 400 GRPO steps on logic RG data)
+
+model_path: ../models/inter_logic_qwen_3b_400  # Change to the model to be evaluated
+
+max_tokens: 2048  # From max_response_length in training config
+top_p: 0.9  # From rollout top_p
+temperature: 0.6  # Lower temperature for more focused responses
+
+developer_prompt: DeepSeekZero
+developer_role: system
+
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+categories:
+  - category: games
+    datasets:
+      - dataset: knight_swap
+        size: 100
+        seed: 42
+      - dataset: mahjong_puzzle
+        size: 100
+        seed: 42
+      - dataset: maze
+        size: 100
+        seed: 42
+      - dataset: mini_sudoku
+        size: 100
+        seed: 42
+      - dataset: n_queens
+        size: 100
+        seed: 42
+      - dataset: rush_hour
+        size: 100
+        seed: 42
+      - dataset: sokoban
+        size: 100
+        seed: 42
+      - dataset: tsumego
+        size: 100
+        seed: 42

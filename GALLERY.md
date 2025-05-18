@@ -27,7 +27,7 @@ Legend: ✅ = Has curriculum, ❌ = No curriculum
 - [composite](#composite) ❌
 - [count_bits](#count_bits) ✅
 - [count_primes](#count_primes) ✅
-- [countdown](#countdown) ❌
+- [countdown](#countdown) ✅
 - [course_schedule](#course_schedule) ✅
 - [cryptarithm](#cryptarithm) ✅
 - [decimal_arithmetic](#decimal_arithmetic) ✅
@@ -37,17 +37,17 @@ Legend: ✅ = Has curriculum, ❌ = No curriculum
 - [family_relationships](#family_relationships) ✅
 - [figlet_font](#figlet_font) ✅
 - [fraction_simplification](#fraction_simplification) ✅
-- [futoshiki](#futoshiki) ❌
+- [futoshiki](#futoshiki) ✅
 - [game_of_life](#game_of_life) ✅
 - [game_of_life_halting](#game_of_life_halting) ✅
-- [gcd](#gcd) ❌
+- [gcd](#gcd) ✅
 - [graph_color](#graph_color) ✅
 - [group_anagrams](#group_anagrams) ✅
 - [gsm_symbolic](#gsm_symbolic) ❌
 - [intermediate_integration](#intermediate_integration) ✅
 - [isomorphic_strings](#isomorphic_strings) ✅
 - [jugs](#jugs) ✅
-- [knight_swap](#knight_swap) ❌
+- [knight_swap](#knight_swap) ✅
 - [knights_knaves](#knights_knaves) ✅
 - [largest_island](#largest_island) ✅
 - [lcm](#lcm) ✅
@@ -75,7 +75,7 @@ Legend: ✅ = Has curriculum, ❌ = No curriculum
 - [prime_factorization](#prime_factorization) ✅
 - [products](#products) ✅
 - [propositional_logic](#propositional_logic) ✅
-- [puzzle24](#puzzle24) ❌
+- [puzzle24](#puzzle24) ✅
 - [quantum_lock](#quantum_lock) ✅
 - [ransom_note](#ransom_note) ✅
 - [rearc](#rearc) ✅
@@ -98,13 +98,13 @@ Legend: ✅ = Has curriculum, ❌ = No curriculum
 - [string_splitting](#string_splitting) ✅
 - [string_synthesis](#string_synthesis) ✅
 - [sudoku](#sudoku) ✅
-- [syllogism](#syllogism) ❌
+- [syllogism](#syllogism) ✅
 - [time_intervals](#time_intervals) ✅
 - [tower_of_hanoi](#tower_of_hanoi) ✅
 - [tsumego](#tsumego) ✅
 - [word_ladder](#word_ladder) ✅
 - [word_sequence_reversal](#word_sequence_reversal) ✅
-- [word_sorting](#word_sorting) ❌
+- [word_sorting](#word_sorting) ✅
 - [zebra_puzzles](#zebra_puzzles) ✅
 
 ## Dataset Examples
@@ -370,17 +370,17 @@ Example tasks:
 Example 1:
 Question: Mary has 2 male friends and she also has 2 female friends. They all are friends with each other and have no other friends aside. How many female friends does William, a male friend of Mary, have?
 Answer: 3
-Metadata: {'source_dataset': 'aiw', 'source_index': 0, 'task_type': 'friends', 'difficulty': {'task_type_weight': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
+Metadata: {'source_dataset': 'aiw', 'source_index': 0, 'task_type': 'friends', 'difficulty': {'task_type_weights': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
 
 Example 2:
 Question: Jennifer has 3 brothers and she also has 6 sisters. How many sisters does Jennifer's brother have?
 Answer: 7
-Metadata: {'source_dataset': 'aiw', 'source_index': 1, 'task_type': 'siblings', 'difficulty': {'task_type_weight': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
+Metadata: {'source_dataset': 'aiw', 'source_index': 1, 'task_type': 'siblings', 'difficulty': {'task_type_weights': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
 
 Example 3:
 Question: Sarah has 2 male friends and she also has 4 female friends. They all are friends with each other and have no other friends aside. How many female friends does John, a male friend of Sarah, have?
 Answer: 5
-Metadata: {'source_dataset': 'aiw', 'source_index': 2, 'task_type': 'friends', 'difficulty': {'task_type_weight': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
+Metadata: {'source_dataset': 'aiw', 'source_index': 2, 'task_type': 'friends', 'difficulty': {'task_type_weights': [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], 'num_entities': 6}}
 
 ````
 
@@ -1407,17 +1407,17 @@ Example tasks:
 Example 1:
 Question: Between Sunday, February 27, 2022 and Wednesday, March 2, 2022 (counting both dates), what's the total count of business days (Monday through Friday)? Give the count numerically.
 Answer: 3
-Metadata: {'task': 'count_business_days', 'start_date': '2022-02-27', 'end_date': '2022-03-02', 'source_dataset': 'calendar_arithmetic', 'source_index': 0, 'difficulty': {'task_complexity': 5, 'date_range': 100}}
+Metadata: {'task': 'count_business_days', 'start_date': '2022-02-27', 'end_date': '2022-03-02', 'source_dataset': 'calendar_arithmetic', 'source_index': 0, 'difficulty': {'tasks': ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_date', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year'], 'offset_upper_bound': 100}}
 
 Example 2:
 Question: Starting from Monday, May 23, 2022, which weekday was it 98 days before? Write out the full weekday name.
 Answer: Monday
-Metadata: {'task': 'weekday_offset', 'start_date': '2022-05-23', 'offset_days': -98, 'target_date': '2022-02-14', 'source_dataset': 'calendar_arithmetic', 'source_index': 1, 'difficulty': {'task_complexity': 0, 'date_range': 100}}
+Metadata: {'task': 'weekday_offset', 'start_date': '2022-05-23', 'offset_days': -98, 'target_date': '2022-02-14', 'source_dataset': 'calendar_arithmetic', 'source_index': 1, 'difficulty': {'tasks': ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_date', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year'], 'offset_upper_bound': 100}}
 
 Example 3:
 Question: If a meeting is scheduled on the last Saturday of September 2022, on which day of the month does it occur? Respond with just the number. Answer with -1 if the ordinal does not exist in the month.
 Answer: 24
-Metadata: {'task': 'recurring_event_day', 'year': 2022, 'month': 9, 'ordinal': 'last', 'weekday': 'Saturday', 'source_dataset': 'calendar_arithmetic', 'source_index': 2, 'difficulty': {'task_complexity': 3, 'date_range': 100}}
+Metadata: {'task': 'recurring_event_day', 'year': 2022, 'month': 9, 'ordinal': 'last', 'weekday': 'Saturday', 'source_dataset': 'calendar_arithmetic', 'source_index': 2, 'difficulty': {'tasks': ['weekday_offset', 'weekday_of_date', 'weekday_of_date_from_first_date', 'recurring_event_day', 'count_days', 'count_business_days', 'is_leap_year'], 'offset_upper_bound': 100}}
 
 ````
 
@@ -1701,7 +1701,7 @@ Output:
 
 Given the following output:
 
-0.0008234909696117495
+0.0005174525697676732
 
 Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
 
@@ -1774,7 +1774,7 @@ def main_solution(n, p, k, iters, epsilon):
     return la.norm(x_star - x_IHT, 2)
 
 Answer: {"n": 123, "p": 456, "k": 9, "iters": 69, "epsilon": 0.00037050729487817825}
-Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0008234909696117495, 'difficulty': {'difficulty': None}}
+Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0005174525697676732, 'difficulty': {'difficulty': None}}
 
 Example 3:
 Question: 
@@ -2034,7 +2034,7 @@ Final answer format instructions:
 5. Do not include any other text or formatting.
 
 Answer: 15 - 4 + 95 + 36 - 32 + 29
-Metadata: {'source_dataset': 'countdown', 'source_index': 0, 'numbers': [36, 29, 95, 32, 4, 15], 'target': 139, 'expression': '15 - 4 + 95 + 36 - 32 + 29'}
+Metadata: {'source_dataset': 'countdown', 'source_index': 0, 'numbers': [36, 29, 95, 32, 4, 15], 'target': 139, 'expression': '15 - 4 + 95 + 36 - 32 + 29', 'difficulty': {'numbers': (4, 6), 'target': (100, 999), 'value': (1, 100)}}
 
 Example 2:
 Question: Using all the numbers 74, 48, 56, 66, create an expression that equals 132.
@@ -2048,7 +2048,7 @@ Final answer format instructions:
 5. Do not include any other text or formatting.
 
 Answer: 66 - 56 + 74 + 48
-Metadata: {'source_dataset': 'countdown', 'source_index': 1, 'numbers': [74, 48, 56, 66], 'target': 132, 'expression': '66 - 56 + 74 + 48'}
+Metadata: {'source_dataset': 'countdown', 'source_index': 1, 'numbers': [74, 48, 56, 66], 'target': 132, 'expression': '66 - 56 + 74 + 48', 'difficulty': {'numbers': (4, 6), 'target': (100, 999), 'value': (1, 100)}}
 
 Example 3:
 Question: Using all the numbers 5, 41, 38, 81, 14, create an expression that equals 450.
@@ -2062,7 +2062,7 @@ Final answer format instructions:
 5. Do not include any other text or formatting.
 
 Answer: 41*14 - 81 - 38 - 5
-Metadata: {'source_dataset': 'countdown', 'source_index': 2, 'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 - 81 - 38 - 5'}
+Metadata: {'source_dataset': 'countdown', 'source_index': 2, 'numbers': [5, 41, 38, 81, 14], 'target': 450, 'expression': '41*14 - 81 - 38 - 5', 'difficulty': {'numbers': (4, 6), 'target': (100, 999), 'value': (1, 100)}}
 
 ````
 
@@ -2451,55 +2451,72 @@ Example tasks:
 Example 1:
 Question: What word does this say?
 
-  ####    ######   ######   ##  ##   ######    ####    #####   
- ##  ##     ##     ##       ### ##     ##     ##  ##   ##  ##  
- ##         ##     ##       ######     ##     ##  ##   ##  ##  
-  ####      ##     ####     ######     ##     ##  ##   #####   
-     ##     ##     ##       ## ###     ##     ##  ##   ####    
- ##  ##     ##     ##       ##  ##     ##     ##  ##   ## ##   
-  ####      ##     ######   ##  ##     ##      ####    ##  ##  
-                                                               
+                                                                       
+                                                                       
+                                                                       
+   ####    ######     #####     ##   ##   ######      ####      #####  
+  ##  ##     ##       ##        ##   ##     ##       ##  ##     ##  ## 
+  ##        ##       ##        ###  ##     ##       ##   ##    ##   ## 
+  ###       ##       #####     #### ##     ##       ##   ##    #####   
+   ###      ##       ##        ## # ##     ##      ##   ##     ##  ##  
+##  ##     ##       ##        ##  ###     ##       ##   ##    ##   ##  
+##  ##     ##       ##        ##   ##     ##       ##  ##     ##  ##   
+ ####      ##       #####     ##   ##     ##        ####      ##  ##   
+                                                                       
+                                                                       
 
 Answer: STENTOR
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'mig_ally', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'xhelvbi', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 2:
 Question: What word does this say?
 
-8888ba.88ba      88888888b    dP           dP    .d88888b     .d88888b  
-88  `8b  `8b     88           88           88    88.    "'    88.    "' 
-88   88   88    a88aaaa       88           88    `Y88888b.    `Y88888b. 
-88   88   88     88           88           88          `8b          `8b 
-88   88   88     88           88           88    d8'   .8P    d8'   .8P 
-dP   dP   dP     88888888P    88888888P    dP     Y88888P      Y88888P  
-                                                                        
-                                                                        
- .d888888  
-d8'    88  
-88aaaaa88a 
-88     88  
-88     88  
-88     88  
-           
-           
+      ___                    ___                            
+     /__/\                  /  /\                           
+    |  |::\                /  /:/_                          
+    |  |:|:\              /  /:/ /\             ___     ___ 
+  __|__|:|\:\            /  /:/ /:/_           /__/\   /  /\
+ /__/::::| \:\          /__/:/ /:/ /\          \  \:\ /  /:/
+ \  \:\~~\__\/          \  \:\/:/ /:/           \  \:\  /:/ 
+  \  \:\                 \  \::/ /:/             \  \:\/:/  
+   \  \:\                 \  \:\/:/               \  \::/   
+    \  \:\                 \  \::/                 \__\/    
+     \__\/                  \__\/                           
+                           ___                    ___     
+    ___                   /  /\                  /  /\    
+   /  /\                 /  /:/_                /  /:/_   
+  /  /:/                /  /:/ /\              /  /:/ /\  
+ /__/::\               /  /:/ /::\            /  /:/ /::\ 
+ \__\/\:\__           /__/:/ /:/\:\          /__/:/ /:/\:\
+    \  \:\/\          \  \:\/:/~/:/          \  \:\/:/~/:/
+     \__\::/           \  \::/ /:/            \  \::/ /:/ 
+     /__/:/             \__\/ /:/              \__\/ /:/  
+     \__\/                /__/:/                 /__/:/   
+                          \__\/                  \__\/    
+      ___     
+     /  /\    
+    /  /::\   
+   /  /:/\:\  
+  /  /:/~/::\ 
+ /__/:/ /:/\:\
+ \  \:\/:/__\/
+  \  \::/     
+   \  \:\     
+    \  \:\    
+     \__\/    
 
 Answer: MELISSA
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'nancyj-improved', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'isometric3', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 3:
 Question: What word does this say?
 
- #####    #####   ###  ##  ##   ##   #####   
- #   ##  ### ###   ### ##  ##   ##  ##   ##  
-##       ##   ##   ######  ##   ##  ##       
-##  ###  ##   ##   ## ###   ######   #####   
-##   ##  ##   ##   ##  ##       ##       ##  
- #   ##  ### ###   ##  ##  ##   ##  ##   ##  
- #####    #####   ###  ##   #####    #####   
-                                             
+ __        ___       _          _         __  
+/ /`_     / / \     | |\ |     \ \_/     ( (` 
+\_\_/     \_\_/     |_| \|      |_|      _)_) 
 
 Answer: GONYS
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'fp2_____', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'broadway_kb', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 ````
 
@@ -2825,17 +2842,17 @@ Example tasks:
 Example 1:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 26, 760. Give only the GCD as your final answer.
 Answer: 2
-Metadata: {'source_dataset': 'gcd', 'source_index': 0, 'numbers': [26, 760], 'result': 2, 'num_terms': 2, 'difficulty': {'num_terms': (2, 2), 'max_value': (1, 1000)}}
+Metadata: {'source_dataset': 'gcd', 'source_index': 0, 'numbers': [26, 760], 'result': 2, 'num_terms': 2, 'difficulty': {'num_terms': (2, 2), 'value': (1, 1000)}}
 
 Example 2:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 688, 716. Give only the GCD as your final answer.
 Answer: 4
-Metadata: {'source_dataset': 'gcd', 'source_index': 1, 'numbers': [688, 716], 'result': 4, 'num_terms': 2, 'difficulty': {'num_terms': (2, 2), 'max_value': (1, 1000)}}
+Metadata: {'source_dataset': 'gcd', 'source_index': 1, 'numbers': [688, 716], 'result': 4, 'num_terms': 2, 'difficulty': {'num_terms': (2, 2), 'value': (1, 1000)}}
 
 Example 3:
 Question: Find the Greatest Common Divisor (GCD) of these numbers: 297, 30. Give only the GCD as your final answer.
 Answer: 3
-Metadata: {'source_dataset': 'gcd', 'source_index': 2, 'numbers': [297, 30], 'result': 3, 'num_terms': 2, 'difficulty': {'num_terms': (2, 2), 'max_value': (1, 1000)}}
+Metadata: {'source_dataset': 'gcd', 'source_index': 2, 'numbers': [297, 30], 'result': 3, 'num_terms': 2, 'difficulty': {'num_terms': (2, 2), 'value': (1, 1000)}}
 
 ````
 
@@ -3056,10 +3073,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-zg bn
+oj sh
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['zg', 'bn'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['oj', 'sh'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3069,10 +3086,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-f n
+f h
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['f', 'n'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['f', 'h'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3082,10 +3099,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-hogtoyty kgqwpfwf
+pejqebqb bnpjmcjc
 
 Answer: False
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['hogtoyty', 'kgqwpfwf'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['pejqebqb', 'bnpjmcjc'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
 
 ````
 
@@ -3226,7 +3243,7 @@ Answer Format:
   Example: ["w,A1,B3"] means white knight moves A1→B3
 
 Answer: No
-Metadata: {'source_dataset': 'knight_swap', 'source_index': 0, 'board': {'C1': ['A2', 'B3', 'D3'], 'A2': ['C1'], 'B3': ['C1'], 'D1': ['B2'], 'B2': ['D1', 'D3'], 'D3': ['B2', 'C1']}, 'pieces': {'C1': 'B', 'A2': 'B', 'B3': None, 'D1': 'w', 'B2': 'w', 'D3': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+Metadata: {'source_dataset': 'knight_swap', 'source_index': 0, 'board': {'C1': ['A2', 'B3', 'D3'], 'A2': ['C1'], 'B3': ['C1'], 'D1': ['B2'], 'B2': ['D1', 'D3'], 'D3': ['B2', 'C1']}, 'pieces': {'C1': 'B', 'A2': 'B', 'B3': None, 'D1': 'w', 'B2': 'w', 'D3': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None, 'difficulty': {'nodes': (6, 9), 'pieces': (2, 2), 'steps': (4, 20)}}
 
 Example 2:
 Question: Knight Swap Challenge:
@@ -3265,7 +3282,7 @@ Answer Format:
   Example: ["w,A1,B3"] means white knight moves A1→B3
 
 Answer: No
-Metadata: {'source_dataset': 'knight_swap', 'source_index': 1, 'board': {'B3': ['C1'], 'D1': ['C3'], 'C3': ['A2', 'D1'], 'C1': ['A2', 'B3'], 'D2': [], 'A2': ['C1', 'C3']}, 'pieces': {'B3': 'w', 'D1': 'B', 'C3': None, 'C1': None, 'D2': 'B', 'A2': 'w'}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+Metadata: {'source_dataset': 'knight_swap', 'source_index': 1, 'board': {'B3': ['C1'], 'D1': ['C3'], 'C3': ['A2', 'D1'], 'C1': ['A2', 'B3'], 'D2': [], 'A2': ['C1', 'C3']}, 'pieces': {'B3': 'w', 'D1': 'B', 'C3': None, 'C1': None, 'D2': 'B', 'A2': 'w'}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None, 'difficulty': {'nodes': (6, 9), 'pieces': (2, 2), 'steps': (4, 20)}}
 
 Example 3:
 Question: Knight Swap Challenge:
@@ -3304,7 +3321,7 @@ Answer Format:
   Example: ["w,A1,B3"] means white knight moves A1→B3
 
 Answer: No
-Metadata: {'source_dataset': 'knight_swap', 'source_index': 2, 'board': {'B1': ['A3'], 'A3': ['B1', 'C2'], 'A2': ['C1', 'C3'], 'C3': ['A2'], 'C1': ['A2'], 'C2': ['A3']}, 'pieces': {'B1': 'w', 'A3': None, 'A2': 'w', 'C3': 'B', 'C1': 'B', 'C2': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None}
+Metadata: {'source_dataset': 'knight_swap', 'source_index': 2, 'board': {'B1': ['A3'], 'A3': ['B1', 'C2'], 'A2': ['C1', 'C3'], 'C3': ['A2'], 'C1': ['A2'], 'C2': ['A3']}, 'pieces': {'B1': 'w', 'A3': None, 'A2': 'w', 'C3': 'B', 'C1': 'B', 'C2': None}, 'start_turn': 'w', 'solution': None, 'is_possible': False, 'num_steps': 0, 'board_states': None, 'difficulty': {'nodes': (6, 9), 'pieces': (2, 2), 'steps': (4, 20)}}
 
 ````
 
@@ -4414,17 +4431,17 @@ Example tasks:
 Example 1:
 Question: 3, 6, 12, 24, 48, 96, 192, 384, ?
 Answer: 768
-Metadata: {'source_dataset': 'number_sequence', 'source_index': 0, 'rule': 'double', 'complexity': 3, 'sequence': [3, 6, 12, 24, 48, 96, 192, 384, 768], 'difficulty': {'max_complexity': 3}}
+Metadata: {'source_dataset': 'number_sequence', 'source_index': 0, 'rule': 'double', 'complexity': 3, 'sequence': [3, 6, 12, 24, 48, 96, 192, 384, 768], 'difficulty': {'max_complexity': 3, 'terms': (4, 8)}}
 
 Example 2:
 Question: 8, 14, 20, 26, 32, 38, 44, ?
 Answer: 50
-Metadata: {'source_dataset': 'number_sequence', 'source_index': 1, 'rule': 'add 6', 'complexity': 1, 'sequence': [8, 14, 20, 26, 32, 38, 44, 50], 'difficulty': {'max_complexity': 3}}
+Metadata: {'source_dataset': 'number_sequence', 'source_index': 1, 'rule': 'add 6', 'complexity': 1, 'sequence': [8, 14, 20, 26, 32, 38, 44, 50], 'difficulty': {'max_complexity': 3, 'terms': (4, 8)}}
 
 Example 3:
 Question: 8, 4, 2, 1, 0, 0, 0, ?
 Answer: 0
-Metadata: {'source_dataset': 'number_sequence', 'source_index': 2, 'rule': 'halve', 'complexity': 2, 'sequence': [8, 4, 2, 1, 0, 0, 0, 0], 'difficulty': {'max_complexity': 3}}
+Metadata: {'source_dataset': 'number_sequence', 'source_index': 2, 'rule': 'halve', 'complexity': 2, 'sequence': [8, 4, 2, 1, 0, 0, 0, 0], 'difficulty': {'max_complexity': 3, 'terms': (4, 8)}}
 
 ````
 
@@ -4684,13 +4701,13 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)
+Question: Calculate the following: (18 - 95*z**3)*(-12*z**2 - 104*z + 78)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'variables': [z], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 1140*z**5 + 9880*z**4 - 7410*z**3 - 216*z**2 - 1872*z + 1404
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(18 - 95*z**3)*(-12*z**2 - 104*z + 78)', 'variables': [z], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
 Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
@@ -4702,13 +4719,13 @@ Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 7463
 Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': [x], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
-Question: Calculate the following: (29*y**2 - 49*y)*(21*y**3 + 49)
+Question: Calculate the following: (-49*y**2 + 29*y)*(21*y**3 + 49)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'variables': [y], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -1029*y**5 + 609*y**4 - 2401*y**2 + 1421*y
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(-49*y**2 + 29*y)*(21*y**3 + 49)', 'variables': [y], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -5001,7 +5018,7 @@ Final answer format instructions:
 4. Use '/' for division.
 
 Answer: 4 + 3 + 9 + 8
-Metadata: {'source_dataset': 'puzzle24', 'source_index': 0, 'numbers': [4, 3, 9, 8], 'expression': x0 + x1 + x2 + x3}
+Metadata: {'source_dataset': 'puzzle24', 'source_index': 0, 'numbers': [4, 3, 9, 8], 'expression': x0 + x1 + x2 + x3, 'difficulty': {'value': (1, 10)}}
 
 Example 2:
 Question: Make 24 using 8, 2, 10, 4. You can only use each number once. You can use the operators +, -, *, /.
@@ -5012,7 +5029,7 @@ Final answer format instructions:
 4. Use '/' for division.
 
 Answer: 8 + 2 + 10 + 4
-Metadata: {'source_dataset': 'puzzle24', 'source_index': 1, 'numbers': [8, 2, 10, 4], 'expression': x0 + x1 + x2 + x3}
+Metadata: {'source_dataset': 'puzzle24', 'source_index': 1, 'numbers': [8, 2, 10, 4], 'expression': x0 + x1 + x2 + x3, 'difficulty': {'value': (1, 10)}}
 
 Example 3:
 Question: Make 24 using 6, 5, 10, 3. You can only use each number once. You can use the operators +, -, *, /.
@@ -5023,7 +5040,7 @@ Final answer format instructions:
 4. Use '/' for division.
 
 Answer: 6 + 5 + 10 + 3
-Metadata: {'source_dataset': 'puzzle24', 'source_index': 2, 'numbers': [6, 5, 10, 3], 'expression': x0 + x1 + x2 + x3}
+Metadata: {'source_dataset': 'puzzle24', 'source_index': 2, 'numbers': [6, 5, 10, 3], 'expression': x0 + x1 + x2 + x3, 'difficulty': {'value': (1, 10)}}
 
 ````
 
@@ -5101,33 +5118,33 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: gg
-Magazine: jg
+Ransom note: jj
+Magazine: rj
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'gg', 'magazine': 'jg', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'jj', 'magazine': 'rj', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: q
-Magazine: ishmdfkzuhv
+Ransom note: h
+Magazine: wlvaxcbkqvf
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'q', 'magazine': 'ishmdfkzuhv', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'h', 'magazine': 'wlvaxcbkqvf', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: otgegyu
-Magazine: ivxiiacuuagotqfppkoggge
+Ransom note: eqjtjba
+Magazine: wfewwziqazjeqpcmmhtnjnt
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'otgegyu', 'magazine': 'ivxiiacuuagotqfppkoggge', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'eqjtjba', 'magazine': 'wfewwziqazjeqpcmmhtnjnt', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 ````
 
@@ -5195,7 +5212,7 @@ Input:
 4 4 4 4 4
 
 Answer: 6 8 6
-Metadata: {'source_dataset': 'rearc', 'source_index': 0, 'input': ((4, 4, 4, 4, 4), (4, 4, 4, 4, 4), (4, 6, 8, 6, 4), (4, 4, 4, 4, 4), (4, 4, 4, 4, 4)), 'output': ((6, 8, 6),), 'task_id': 'a740d043', 'rng': 0.12323282396873297, 'pso': 0.29851851851851846, 'difficulty': {'rng_difficulty': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
+Metadata: {'source_dataset': 'rearc', 'source_index': 0, 'input': ((4, 4, 4, 4, 4), (4, 4, 4, 4, 4), (4, 6, 8, 6, 4), (4, 4, 4, 4, 4), (4, 4, 4, 4, 4)), 'output': ((6, 8, 6),), 'task_id': 'a740d043', 'rng': 0.12323282396873297, 'pso': 0.29851851851851846, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
 
 Example 2:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
@@ -5294,7 +5311,7 @@ Answer: 6 6 6
 6 6 6
 6 6 6
 6 6 6
-Metadata: {'source_dataset': 'rearc', 'source_index': 1, 'input': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'output': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'task_id': 'e26a3af2', 'rng': 0.11027040425316172, 'pso': 0.061111111111111116, 'difficulty': {'rng_difficulty': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
+Metadata: {'source_dataset': 'rearc', 'source_index': 1, 'input': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'output': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'task_id': 'e26a3af2', 'rng': 0.11027040425316172, 'pso': 0.061111111111111116, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
 
 Example 3:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
@@ -5424,7 +5441,7 @@ Answer: 8 8 8 1 1 1 0
 8 8 8 0 8 8 8
 0 8 8 8 8 8 8
 0 8 8 8 0 8 8
-Metadata: {'source_dataset': 'rearc', 'source_index': 2, 'input': ((8, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 0, 0, 8), (0, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'output': ((8, 8, 8, 1, 1, 1, 0), (8, 8, 8, 1, 1, 1, 8), (0, 8, 8, 1, 1, 1, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'task_id': '6cf79266', 'rng': 0.04912998774545625, 'pso': 0.17507936507936508, 'difficulty': {'rng_difficulty': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
+Metadata: {'source_dataset': 'rearc', 'source_index': 2, 'input': ((8, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 0, 0, 8), (0, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'output': ((8, 8, 8, 1, 1, 1, 0), (8, 8, 8, 1, 1, 1, 8), (0, 8, 8, 1, 1, 1, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'task_id': '6cf79266', 'rng': 0.04912998774545625, 'pso': 0.17507936507936508, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
 
 ````
 
@@ -6022,7 +6039,7 @@ H.IJ..
 HEEFFF
 
 Answer: None
-Metadata: {'source_dataset': 'rush_hour', 'source_index': 0, 'board_config': 'oxCCDDooxoMoIoAAMoIoKLFFJoKLooJGGHHH', 'min_moves': 10, 'difficulty': {'min_moves': (1, 50)}}
+Metadata: {'source_dataset': 'rush_hour', 'source_index': 0, 'board_config': 'oxCCDDooxoMoIoAAMoIoKLFFJoKLooJGGHHH', 'min_moves': 10, 'difficulty': {'moves': (1, 50)}}
 
 Example 2:
 Question: Move the red car (AA) to the exit on the right.
@@ -6040,7 +6057,7 @@ F.G...
 ......
 
 Answer: None
-Metadata: {'source_dataset': 'rush_hour', 'source_index': 1, 'board_config': 'FCCDDDFooooIGoxAAIGoHoooooHEEEoooooo', 'min_moves': 6, 'difficulty': {'min_moves': (1, 50)}}
+Metadata: {'source_dataset': 'rush_hour', 'source_index': 1, 'board_config': 'FCCDDDFooooIGoxAAIGoHoooooHEEEoooooo', 'min_moves': 6, 'difficulty': {'moves': (1, 50)}}
 
 Example 3:
 Question: Move the red car (AA) to the exit on the right.
@@ -6058,7 +6075,7 @@ AAHI..
 EEEFF.
 
 Answer: None
-Metadata: {'source_dataset': 'rush_hour', 'source_index': 2, 'board_config': 'HBBJKLHooJKLAAIJooooICCCooxEEoFFFGGo', 'min_moves': 30, 'difficulty': {'min_moves': (1, 50)}}
+Metadata: {'source_dataset': 'rush_hour', 'source_index': 2, 'board_config': 'HBBJKLHooJKLAAIJooooICCCooxEEoFFFGGo', 'min_moves': 30, 'difficulty': {'moves': (1, 50)}}
 
 ````
 
@@ -6407,7 +6424,7 @@ Here is your puzzle:
 
 
 Answer: UURRRULDRDLDLU
-Metadata: {'gamestr': '+ + + + + +  \n+ X X @ - +  \n+ - X - - +  \n+ @ - @ - +  \n+ % @ - - +  \n+ + + + + +  \n\n', 'width': 6, 'height': 6, 'difficulty': {'source_dataset': 'sokoban', 'source_index': 0, 'width': (6, 10), 'height': (6, 10)}}
+Metadata: {'source_dataset': 'sokoban', 'source_index': 0, 'gamestr': '+ + + + + +  \n+ X X @ - +  \n+ - X - - +  \n+ @ - @ - +  \n+ % @ - - +  \n+ + + + + +  \n\n', 'width': 6, 'height': 6, 'difficulty': {'width': (6, 10), 'height': (6, 10)}}
 
 Example 2:
 Question: You are going to solve a 'sokoban' puzzle.
@@ -6434,7 +6451,7 @@ Here is your puzzle:
 
 
 Answer: DDUULDDRDLLULDURRUULDULDRRDDLURUULLDRRURDD
-Metadata: {'gamestr': '+ + + + + +  \n+ - - - * +  \n+ @ @ @ @ +  \n+ X - - - +  \n+ - - - X +  \n+ X - $ X +  \n+ + - - - +  \n+ + + + + +  \n\n', 'width': 6, 'height': 8, 'difficulty': {'source_dataset': 'sokoban', 'source_index': 1, 'width': (6, 10), 'height': (6, 10)}}
+Metadata: {'source_dataset': 'sokoban', 'source_index': 1, 'gamestr': '+ + + + + +  \n+ - - - * +  \n+ @ @ @ @ +  \n+ X - - - +  \n+ - - - X +  \n+ X - $ X +  \n+ + - - - +  \n+ + + + + +  \n\n', 'width': 6, 'height': 8, 'difficulty': {'width': (6, 10), 'height': (6, 10)}}
 
 Example 3:
 Question: You are going to solve a 'sokoban' puzzle.
@@ -6462,7 +6479,7 @@ Here is your puzzle:
 
 
 Answer: ULULULRDRDDLUUUURRRUULLDDUURDLDLDRLDDDLLULLUUDRRDRDRUUURUL
-Metadata: {'gamestr': '+ + + + + + + + + +  \n+ $ + + + X - @ - +  \n+ + + + + X @ @ - +  \n+ X + + X - - X - +  \n+ - + X @ - - X - +  \n+ @ - - X @ - - - +  \n+ - - - @ - @ - - +  \n+ - - - - - - * - +  \n+ + + + + + + + + +  \n\n', 'width': 10, 'height': 9, 'difficulty': {'source_dataset': 'sokoban', 'source_index': 2, 'width': (6, 10), 'height': (6, 10)}}
+Metadata: {'source_dataset': 'sokoban', 'source_index': 2, 'gamestr': '+ + + + + + + + + +  \n+ $ + + + X - @ - +  \n+ + + + + X @ @ - +  \n+ X + + X - - X - +  \n+ - + X @ - - X - +  \n+ @ - - X @ - - - +  \n+ - - - @ - @ - - +  \n+ - - - - - - * - +  \n+ + + + + + + + + +  \n\n', 'width': 10, 'height': 9, 'difficulty': {'width': (6, 10), 'height': (6, 10)}}
 
 ````
 
@@ -7010,7 +7027,7 @@ Does it logically follow that:
 Some children are not doctors?
 (Answer Yes or No)
 Answer: Yes
-Metadata: {'premise1': 'All children are animals', 'premise2': 'Some animals are not doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True, 'type': 'syllogism'}
+Metadata: {'source_dataset': 'syllogism', 'source_index': 1, 'premise1': 'All children are animals', 'premise2': 'Some animals are not doctors', 'conclusion': 'Some children are not doctors', 'is_valid': True, 'type': 'syllogism'}
 
 Example 3:
 Question: Consider these statements:
@@ -7021,7 +7038,7 @@ Does it logically follow that:
 Some butterflies are whales?
 (Answer Yes or No)
 Answer: No
-Metadata: {'premise1': 'Some butterflies are not tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are whales', 'is_valid': False, 'type': 'syllogism'}
+Metadata: {'source_dataset': 'syllogism', 'source_index': 2, 'premise1': 'Some butterflies are not tigers', 'premise2': 'No tigers are whales', 'conclusion': 'Some butterflies are whales', 'is_valid': False, 'type': 'syllogism'}
 
 ````
 
@@ -7051,7 +7068,7 @@ Metadata: {'source_dataset': 'time_intervals', 'source_index': 0, 'task_type': '
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': datetime.datetime(2025, 4, 3, 9, 44), 'end_time': datetime.datetime(2025, 4, 3, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': datetime.datetime(2025, 5, 15, 9, 44), 'end_time': datetime.datetime(2025, 5, 15, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -7098,7 +7115,7 @@ Move disk 3 from Peg 3 to Peg 2
 Move disk 1 from Peg 1 to Peg 3
 Move disk 2 from Peg 1 to Peg 2
 Move disk 1 from Peg 3 to Peg 2
-Metadata: {'source_dataset': 'tower_of_hanoi', 'source_index': 0, 'num_disks': 3, 'num_pegs': 3, 'start_peg': 3, 'target_peg': 2, 'auxiliary_pegs': [1], 'solution_length': 7, 'difficulty': {'num_disks': (3, 7)}}
+Metadata: {'source_dataset': 'tower_of_hanoi', 'source_index': 0, 'num_disks': 3, 'num_pegs': 3, 'start_peg': 3, 'target_peg': 2, 'auxiliary_pegs': [1], 'solution_length': 7, 'difficulty': {'num_disks': (3, 7), 'num_pegs': (3, 4)}}
 
 Example 2:
 Question: Solve the Tower of Hanoi problem with 3 disks and 4 pegs.
@@ -7119,7 +7136,7 @@ Move disk 2 from Peg 2 to Peg 3
 Move disk 3 from Peg 2 to Peg 4
 Move disk 2 from Peg 3 to Peg 4
 Move disk 1 from Peg 1 to Peg 4
-Metadata: {'source_dataset': 'tower_of_hanoi', 'source_index': 1, 'num_disks': 3, 'num_pegs': 4, 'start_peg': 2, 'target_peg': 4, 'auxiliary_pegs': [1, 3], 'solution_length': 5, 'difficulty': {'num_disks': (3, 7)}}
+Metadata: {'source_dataset': 'tower_of_hanoi', 'source_index': 1, 'num_disks': 3, 'num_pegs': 4, 'start_peg': 2, 'target_peg': 4, 'auxiliary_pegs': [1, 3], 'solution_length': 5, 'difficulty': {'num_disks': (3, 7), 'num_pegs': (3, 4)}}
 
 Example 3:
 Question: Solve the Tower of Hanoi problem with 6 disks and 3 pegs.
@@ -7198,7 +7215,7 @@ Move disk 3 from Peg 3 to Peg 2
 Move disk 1 from Peg 1 to Peg 3
 Move disk 2 from Peg 1 to Peg 2
 Move disk 1 from Peg 3 to Peg 2
-Metadata: {'source_dataset': 'tower_of_hanoi', 'source_index': 2, 'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxiliary_pegs': [3], 'solution_length': 63, 'difficulty': {'num_disks': (3, 7)}}
+Metadata: {'source_dataset': 'tower_of_hanoi', 'source_index': 2, 'num_disks': 6, 'num_pegs': 3, 'start_peg': 1, 'target_peg': 2, 'auxiliary_pegs': [3], 'solution_length': 63, 'difficulty': {'num_disks': (3, 7), 'num_pegs': (3, 4)}}
 
 ````
 
@@ -7310,14 +7327,14 @@ Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
+Answer: HAND,RAND,REND,FEND,FEED,FLED,FLEE,GLEE
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 0, 'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8, 'difficulty': {'word_length': (4, 4)}}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
+Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FARM,FORM,DORM
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 1, 'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10, 'difficulty': {'word_length': (4, 4)}}
 
 Example 3:

@@ -49,6 +49,9 @@ cli = [
     "pyyaml>=6.0.1",
     "httpx>=0.27.0",
 ]
+scripts = [
+    "datasets>=3.5.0"
+]
 
 [project.urls]
 "Homepage" = "https://github.com/open-thought/reasoning-gym"
