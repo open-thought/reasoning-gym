@@ -84,3 +84,16 @@ knights_knaves, 0
 propositional_logic, 2
 self_reference, 31
 syllogism, 0
+mahjong_puzzle, 0
+mini_sudoku, 0
+n_queens, 4
+puzzle24, 35
+rush_hour, 0
+sudoku, 0
+tower_of_hanoi, 134
+tsumego, 0
+futoshiki, 0
+knight_swap, 0
+zebra_puzzles, 0
+acre, 0
+boxnet, 0
