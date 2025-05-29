@@ -27,6 +27,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+import matplotlib
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import numpy as np
@@ -40,6 +41,20 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()],
 )
 logger = logging.getLogger("visualize_results")
+
+
+plt.rcParams.update({
+        "text.usetex": True,
+        "font.family": "serif",
+        "font.serif": ["Computer Modern Roman"],
+        "text.latex.preamble": r"\usepackage{amsmath,amssymb,amsfonts,mathrsfs,bm}",
+        "axes.labelsize": 20,
+        "font.size": 20,
+        "legend.fontsize": 14,
+        "xtick.labelsize": 14,
+        "ytick.labelsize": 14,
+        "axes.titlesize": 22
+    })
 
 
 def load_summaries(results_dir: str) -> Dict[str, Dict[str, Any]]:
@@ -639,7 +654,7 @@ def create_comparison_plot(
 
     # colour-bar
     cbar = fig.colorbar(im, ax=ax)
-    cbar.ax.set_ylabel("Δ score (percentage-points)", rotation=-90, va="bottom")
+    cbar.ax.set_ylabel("$\Delta$ score (\%)", rotation=-90, va="bottom", fontweight="bold")
 
     # ticks / labels
     ax.set_xticks(np.arange(len(models)), labels=models, rotation=45, ha="right")
@@ -661,10 +676,10 @@ def create_comparison_plot(
                 ha="center",
                 va="center",
                 color="black" if abs(value) < 50 else "white",
-                fontsize=8,
+                fontsize=12,
             )
 
-    ax.set_title("Per-Category Performance Δ (hard − easy)", fontsize=14)
+    # ax.set_title("Per-Category Performance $\Delta$ (hard − easy)", fontweight="bold")
     plt.tight_layout()
     return fig
 
