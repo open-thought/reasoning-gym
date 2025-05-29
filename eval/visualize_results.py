@@ -43,7 +43,8 @@ logging.basicConfig(
 logger = logging.getLogger("visualize_results")
 
 
-plt.rcParams.update({
+plt.rcParams.update(
+    {
         "text.usetex": True,
         "font.family": "serif",
         "font.serif": ["Computer Modern Roman"],
@@ -53,8 +54,9 @@ plt.rcParams.update({
         "legend.fontsize": 14,
         "xtick.labelsize": 14,
         "ytick.labelsize": 14,
-        "axes.titlesize": 22
-    })
+        "axes.titlesize": 22,
+    }
+)
 
 
 def load_summaries(results_dir: str) -> Dict[str, Dict[str, Any]]:
@@ -624,9 +626,7 @@ def create_comparison_plot(
         return plt.figure()
 
     # sort models by overall performance
-    overall_scores = {
-        m: np.mean(list(s["dataset_best_scores"].values())) for m, s in summaries.items()
-    }
+    overall_scores = {m: np.mean(list(s["dataset_best_scores"].values())) for m, s in summaries.items()}
     models = [m for m, _ in sorted(overall_scores.items(), key=lambda x: x[1], reverse=True) if m in common_models]
     if compare_model_ids:
         models = [m for m in models if m in compare_model_ids]
@@ -646,9 +646,7 @@ def create_comparison_plot(
             diff_matrix[i, j] = 100 * (cur_mean - base_mean)
 
     # ---------------------------------------------------------------- plot
-    fig, ax = plt.subplots(
-        figsize=(max(8, len(models) * 1.2), max(6, len(category_list) * 0.5))
-    )
+    fig, ax = plt.subplots(figsize=(max(8, len(models) * 1.2), max(6, len(category_list) * 0.5)))
 
     im = ax.imshow(diff_matrix, cmap="coolwarm", aspect="auto", vmin=-100, vmax=100)
 
@@ -792,9 +790,7 @@ def main():
                 if not other_summaries:
                     logger.error("No valid summaries found in comparison directory. Exiting.")
                     return 1
-                compare_model_ids = (
-                    args.compare_model_ids.split(",") if args.compare_model_ids else None
-                )
+                compare_model_ids = args.compare_model_ids.split(",") if args.compare_model_ids else None
                 fig = create_comparison_plot(summaries, other_summaries, categories, compare_model_ids)
                 save_figure(fig, args.output_dir, "model_category_delta_heatmap", args.format, args.dpi)
 
