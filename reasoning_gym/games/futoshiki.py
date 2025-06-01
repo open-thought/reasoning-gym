@@ -79,6 +79,8 @@ class FutoshikiDataset(ProceduralDataset):
             f"Remember, in Futoshiki each row and column must contain each number from 1 to {board_size} exactly once."
         )
 
+        constraints_meta = [f"({r1}, {c1}) {sign} ({r2}, {c2})" for ((r1, c1), (r2, c2)), sign in constraints.items()]
+
         return {
             "question": question,
             "answer": solution_str,
@@ -86,7 +88,7 @@ class FutoshikiDataset(ProceduralDataset):
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
                 "puzzle": puzzle,
-                "constraints": constraints,
+                "constraints": constraints_meta,
                 "solution": solution,
                 "board_size": board_size,
                 "difficulty_rating": difficulty,
