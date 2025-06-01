@@ -153,7 +153,7 @@ class AdvancedGeometryDataset(ProceduralDataset):
             "A": (str(A.x), str(A.y)),
             "B": (str(B.x), str(B.y)),
             "C": (str(C.x), str(C.y)),
-            "orthocenter_exact": (str(ortho.x), str(ortho.y)),
+            "ortho": (str(ortho.x), str(ortho.y)),
             "orthocenter_approx": (x_ortho_approx, y_ortho_approx),
         }
         return question, answer_str, metadata
