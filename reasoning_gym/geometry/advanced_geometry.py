@@ -251,8 +251,14 @@ class AdvancedGeometryDataset(ProceduralDataset):
                     x_coord = float(answer.split(",")[0].replace("(", "").strip())
                     y_coord = float(answer.split(",")[1].replace(")", "").strip())
 
-                    expected_x = float(metadata["ortho"][0])
-                    expected_y = float(metadata["ortho"][1])
+                    ortho_0, ortho_1 = metadata["ortho"]
+                    if "/" in ortho_0:
+                        ortho_0 = ortho_0.split("/")[0] / ortho_0.split("/")[1]
+                    if "/" in ortho_1:
+                        ortho_1 = ortho_1.split("/")[0] / ortho_1.split("/")[1]
+
+                    expected_x = float(ortho_0)
+                    expected_y = float(ortho_1)
                     if x_coord == expected_x and y_coord == expected_y:
                         reward = 1.0
                     elif (np.round(x_coord, 3) == np.round(expected_x, 3)) and (
