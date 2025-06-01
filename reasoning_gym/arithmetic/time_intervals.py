@@ -139,8 +139,6 @@ class TimeIntervalsDataset(ProceduralDataset):
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
                 "task_type": task_type,
-                "start_time": start_dt,
-                "end_time": end_dt,
                 "format": format_str,
                 "expected_format": expected_format,
                 "difficulty": {
