@@ -98,6 +98,11 @@ def test_oracle_answer():
 
     for i in range(len(dataset)):
         item = dataset[i]
+
+        metadata = item["metadata"]
+        assert "start_time" in metadata
+        assert "end_time" in metadata
+
         assert dataset.score_answer(item["answer"], item) == 1.0
 
 
