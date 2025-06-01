@@ -107,7 +107,6 @@ class Puzzle24Dataset(ProceduralDataset):
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
                 "numbers": numbers,
-                "expression": expr,
                 "difficulty": {"value": (self.config.min_value, self.config.max_value)},
             },
         }

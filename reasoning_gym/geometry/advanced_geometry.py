@@ -150,10 +150,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
         question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y), a="a", b="b")
         answer_str = f"({x_ortho_approx:.3f}, {y_ortho_approx:.3f})"
         metadata = {
-            "A": (A.x, A.y),
-            "B": (B.x, B.y),
-            "C": (C.x, C.y),
-            "ortho": (ortho.x, ortho.y),
+            "A": (str(A.x), str(A.y)),
+            "B": (str(B.x), str(B.y)),
+            "C": (str(C.x), str(C.y)),
             "orthocenter_exact": (str(ortho.x), str(ortho.y)),
             "orthocenter_approx": (x_ortho_approx, y_ortho_approx),
         }

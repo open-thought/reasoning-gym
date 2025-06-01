@@ -114,7 +114,7 @@ When performing calculations, please follow these guidelines:
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
                 "polynomial_expr": str(polynomial_expr),
-                "variables": list(product.free_symbols),
+                "variables": [str(x) for x in product.free_symbols],
                 "difficulty": {
                     "min_terms": self.config.min_terms,
                     "max_terms": self.config.max_terms,
