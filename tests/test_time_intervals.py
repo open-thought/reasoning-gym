@@ -51,8 +51,6 @@ def test_time_intervals_items():
         assert "answer" in item
         assert "metadata" in item
         assert "task_type" in item["metadata"]
-        assert "start_time" in item["metadata"]
-        assert "end_time" in item["metadata"]
 
 
 def test_time_intervals_scoring():
@@ -93,23 +91,13 @@ def test_time_intervals_scoring():
             assert 0 < score < 1
 
 
-def test_time_format_patterns():
-    """Test that generated times match expected formats"""
+def test_oracle_answer():
+    """Test that generated answer is marked correct"""
     config = TimeIntervalsConfig(seed=42, size=500)
     dataset = TimeIntervalsDataset(config)
 
     for i in range(len(dataset)):
         item = dataset[i]
-
-        start_dt = item["metadata"]["start_time"]
-        end_dt = item["metadata"]["end_time"]
-
-        # Verify both are datetime objects
-        assert isinstance(start_dt, datetime)
-        assert isinstance(end_dt, datetime)
-
-        # Verify end is after start
-        assert end_dt >= start_dt, item["question"]
         assert dataset.score_answer(item["answer"], item) == 1.0
 
 

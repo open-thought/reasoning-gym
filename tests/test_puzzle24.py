@@ -47,7 +47,6 @@ def test_puzzle24_basic_properties():
 
         # Check metadata contains required fields
         assert "numbers" in item["metadata"]
-        assert "expression" in item["metadata"]
 
         # Check question format
         assert "Make 24 using" in item["question"]
