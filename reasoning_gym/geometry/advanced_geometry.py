@@ -253,9 +253,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
 
                     ortho_0, ortho_1 = metadata["ortho"]
                     if "/" in ortho_0:
-                        ortho_0 = ortho_0.split("/")[0] / ortho_0.split("/")[1]
+                        ortho_0 = int(ortho_0.split("/")[0]) / int(ortho_0.split("/")[1])
                     if "/" in ortho_1:
-                        ortho_1 = ortho_1.split("/")[0] / ortho_1.split("/")[1]
+                        ortho_1 = int(ortho_1.split("/")[0]) / int(ortho_1.split("/")[1])
 
                     expected_x = float(ortho_0)
                     expected_y = float(ortho_1)
