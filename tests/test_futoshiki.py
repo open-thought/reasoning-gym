@@ -84,7 +84,7 @@ def test_futoshiki_solution_validity():
                 return False
 
         # Check constraints
-        for r1, c1, r2, c2, rel in constraints.items():
+        for ((r1, c1), (r2, c2)), rel in constraints.items():
             v1, v2 = solution[r1][c1], solution[r2][c2]
             if rel == "<" and not (v1 < v2):
                 return False
@@ -99,7 +99,7 @@ def test_futoshiki_solution_validity():
         solution = metadata["solution"]
         constraints_meta = metadata["constraints"]
 
-        constraints = {((r1, c1), (r2, c2)): rel for r1, c1, r2, c2, rel in constraints_meta}
+        constraints = {((r1, c1), (r2, c2)): rel for (r1, c1, r2, c2, rel) in constraints_meta}
 
         assert is_valid_solution(solution, config.min_board_size, constraints)
 
@@ -115,7 +115,7 @@ def test_futoshiki_puzzle_solvability():
         puzzle = metadata["puzzle"]
         constraints_meta = metadata["constraints"]
 
-        constraints = {((r1, c1), (r2, c2)): rel for r1, c1, r2, c2, rel in constraints_meta}
+        constraints = {((r1, c1), (r2, c2)): rel for (r1, c1, r2, c2, rel) in constraints_meta}
 
         # Verify puzzle has exactly one solution
         assert dataset.count_solutions(puzzle, constraints, limit=2) == 1
