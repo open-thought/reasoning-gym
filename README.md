@@ -80,6 +80,12 @@ If you have ideas for dataset generators please create an issue here or contact 
 [![](https://dcbadge.limes.pink/api/server/gpumode?style=flat)](https://discord.gg/gpumode)
 
 
+## 🚀 Projects Using Reasoning Gym
+
+Following is a list of awesome projects building on top of Reasoning Gym:
+- [Verifiers: Reinforcement Learning with LLMs in Verifiable Environments](https://github.com/willccbb/verifiers)
+- [(NVIDIA) ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models](https://arxiv.org/abs/2505.24864)
+
 ## 📝 Citation
 
 If you use this library in your research, please cite the paper:
