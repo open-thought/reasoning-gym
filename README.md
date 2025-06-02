@@ -1,9 +1,20 @@
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/db19c058-8350-4ac7-b302-19bab2084ce1" width="600px">
-</div>
+<p align="center">
+    <!-- title -->
+    <h1 align="center"><img src="./assets/icon.png" alt="Reasoning Gym Logo" style="vertical-align: bottom; width: 54px; height: 40px;"> Reasoning Gym</h1>
+    <!-- teaser -->
+    <p align="center">
+        <img src="./assets/examples.png" width="600px">
+    </p>
+    <!-- badges -->
+    <p align="center">
+        <a href="https://arxiv.org/abs/2505.24760">
+            <img src="https://img.shields.io/badge/arXiv-2306.00777-b31b1b.svg?style=for-the-badge" alt="Paper PDF">
+        </a>
+    </p>
+</p>
 
 
-# 💪🧠 Reasoning Gym
+## 🧠 About
 
 **Reasoning Gym** is a community-created Python library of procedural dataset generators and algorithmically verifiable reasoning environments for training reasoning models with reinforcement learning (RL). The goal is to generate virtually infinite training data with adjustable complexity.
 
@@ -67,3 +78,20 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md).
 If you have ideas for dataset generators please create an issue here or contact us in the `#reasoning-gym` channel of the [GPU-Mode discord server](https://discord.gg/gpumode).
 
 [![](https://dcbadge.limes.pink/api/server/gpumode?style=flat)](https://discord.gg/gpumode)
+
+
+## 📝 Citation
+
+If you use this library in your research, please cite the paper:
+
+```bibtex
+@misc{stojanovski2025reasoninggymreasoningenvironments,
+      title={REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards}, 
+      author={Zafir Stojanovski and Oliver Stanley and Joe Sharratt and Richard Jones and Abdulhakeem Adefioye and Jean Kaddour and Andreas Köpf},
+      year={2025},
+      eprint={2505.24760},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2505.24760}, 
+}
+```
