@@ -119,6 +119,10 @@ def test_prime_factorization_score_answer():
     answer = None
     assert dataset.score_answer(answer, item) == 0.0
 
+    # Answer is empty string
+    answer = ""
+    assert dataset.score_answer(answer, item) == 0.01
+
 
 def is_prime(n: int) -> bool:
     """Helper function to check if a number is prime"""

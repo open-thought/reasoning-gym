@@ -49,7 +49,10 @@ class PrimeFactorizationDataset(ProceduralDataset):
 
     def _normalize_answer(self, answer: str) -> list[int]:
         """Parse and sort factors from a string"""
-        return sorted([int(factor.strip()) for factor in answer.split("×")])
+        if not answer or answer.strip() == "":
+            return []
+
+        return sorted([int(factor.strip()) for factor in answer.split("×") if factor.strip() != ""])
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         oracle_answer = entry["answer"]
