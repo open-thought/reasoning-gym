@@ -3,7 +3,7 @@
     <h1 align="center"><img src="./assets/icon.png" alt="Reasoning Gym Logo" style="vertical-align: bottom; width: 54px; height: 40px;"> Reasoning Gym</h1>
     <!-- teaser -->
     <p align="center">
-        <img src="./assets/examples.png" width="600px">
+        <img src="./assets/examples.png" width="800px">
     </p>
     <!-- badges -->
     <p align="center">
@@ -86,12 +86,12 @@ If you use this library in your research, please cite the paper:
 
 ```bibtex
 @misc{stojanovski2025reasoninggymreasoningenvironments,
-      title={REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards}, 
+      title={REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards},
       author={Zafir Stojanovski and Oliver Stanley and Joe Sharratt and Richard Jones and Abdulhakeem Adefioye and Jean Kaddour and Andreas Köpf},
       year={2025},
       eprint={2505.24760},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2505.24760}, 
+      url={https://arxiv.org/abs/2505.24760},
 }
 ```
