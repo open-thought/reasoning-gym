@@ -8,7 +8,7 @@
     <!-- badges -->
     <p align="center">
         <a href="https://arxiv.org/abs/2505.24760">
-            <img src="https://img.shields.io/badge/arXiv-2306.00777-b31b1b.svg?style=for-the-badge" alt="Paper PDF">
+            <img src="https://img.shields.io/badge/arXiv-2505.24760-b31b1b.svg?style=for-the-badge" alt="Paper PDF">
         </a>
     </p>
 </p>
