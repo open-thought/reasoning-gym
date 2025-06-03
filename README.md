@@ -71,6 +71,24 @@ Instructions for running the evaluation scripts are provided in [eval/README.md]
 
 Evaluation results of different reasoning models will be tracked in the [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repo.
 
+## 🤓 Training
+
+The `training/` directory has full details of the training runs we carried out with RG for the paper. In our experiments, we utilise custom Dataset code to dynamically create RG samples at runtime, and to access the RG scoring function for use as a training reward.
+
+For a more plug-and-play experience, it may be easier to build a dataset ahead of time. See `scripts/hf_dataset/` for a simple script allowing generation of RG data and conversion to a HuggingFace dataset. To use the script, build your dataset configurations in the YAML. You can find a list of tasks and configurable parameters in [the dataset gallery](GALLERY.md). Then run `save_hf_dataset.py` with desired arguments.
+
+The script will save each dataset entries as a row with `question`, `answer`, and `metadata` columns. The RG scoring functions expect the entry object from each row along with the model response to obtain reward values. Calling the scoring function is therefore simple:
+
+```python
+from reasoning_gym import get_score_answer_fn
+
+for entry in dataset:
+    model_response = generate_response(entry["question"])
+    rg_score_fn = get_score_answer_fn(entry["metadata"]["source_dataset"])
+    score = rg_score_fn(model_response, entry)
+    # do something with the score...
+```
+
 ## 👷 Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md).
