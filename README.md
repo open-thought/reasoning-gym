@@ -28,7 +28,7 @@ In [GALLERY.md](https://github.com/open-thought/reasoning-gym/blob/main/GALLERY.
 
 ## ⬇️ Installation
 
-The `reasoning-gym` package requires Python >= 3.11.
+The `reasoning-gym` package requires Python >= 3.10.
 
 Install the latest published [package from PyPI](https://pypi.org/project/reasoning-gym/) via `pip`:
 
