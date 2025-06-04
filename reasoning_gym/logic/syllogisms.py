@@ -1,12 +1,12 @@
 """Syllogism reasoning task generator"""
 
 from dataclasses import dataclass
-from enum import StrEnum
 from random import Random
 from typing import Optional
 
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 DATASET_NAME = "syllogism"
 

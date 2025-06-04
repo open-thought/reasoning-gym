@@ -1,8 +1,8 @@
 import abc
 from collections.abc import Iterable
-from enum import StrEnum
 from typing import Any, Optional, TypeVar
 
+from ..utils import StrEnum
 from .attributes import AttributeDefinition, RangeAttributeDefinition, ScalarAttributeDefinition
 
 ConfigT = TypeVar("ConfigT")

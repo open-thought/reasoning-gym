@@ -3,11 +3,12 @@ import math
 import random
 from dataclasses import dataclass
 from datetime import date, timedelta
-from enum import Enum, StrEnum, auto
+from enum import Enum, auto
 from typing import Any, Optional
 
 from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 DATASET_NAME = "calendar_arithmetic"
 

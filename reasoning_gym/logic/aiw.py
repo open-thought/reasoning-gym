@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
-from enum import StrEnum
 from random import Random
 from string import Template
 from typing import Optional
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 DATASET_NAME = "aiw"
 
