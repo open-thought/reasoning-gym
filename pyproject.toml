@@ -10,7 +10,7 @@ authors = [
 ]
 description = "A library of procedural dataset generators for training reasoning models"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
   "bfi==1.0.4",
   "cellpylib==2.4.0",
