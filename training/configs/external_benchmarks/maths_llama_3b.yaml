@@ -1,3 +1,11 @@
+hydra:
+  searchpath:
+    - file://verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
 reasoning_gym:
   dataset_size: 40000
   developer_prompt: DeepSeekZero

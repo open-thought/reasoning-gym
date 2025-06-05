@@ -73,7 +73,7 @@ Evaluation results of different reasoning models will be tracked in the [reasoni
 
 ## 🤓 Training
 
-The `training/` directory has full details of the training runs we carried out with RG for the paper. In our experiments, we utilise custom Dataset code to dynamically create RG samples at runtime, and to access the RG scoring function for use as a training reward.
+The `training/` directory has full details of the training runs we carried out with RG for the paper. In our experiments, we utilise custom Dataset code to dynamically create RG samples at runtime, and to access the RG scoring function for use as a training reward. See `training/README.md` to reproduce our runs.
 
 For a more plug-and-play experience, it may be easier to build a dataset ahead of time. See `scripts/hf_dataset/` for a simple script allowing generation of RG data and conversion to a HuggingFace dataset. To use the script, build your dataset configurations in the YAML. You can find a list of tasks and configurable parameters in [the dataset gallery](GALLERY.md). Then run `save_hf_dataset.py` with desired arguments.
 
