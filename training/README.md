@@ -16,18 +16,20 @@ This readme documents:
 We note that we used Python 3.11 and CUDA 11.8 for our experiments. If you are using different versions, you may need to tweak some of the setup.
 
 1. Prepare and activate a Python virtual environment however you prefer.
-2. Install Reasoning Gym:
+2. Clone and install Reasoning Gym:
 
 ```bash
+git clone https://github.com/open-thought/reasoning-gym.git
 cd reasoning-gym/
 pip install -e .
+cd training/
 ```
 
 3. Follow setup steps for verl with vLLM from the verl docs:
 
 We used verl at commit hash `c34206925e2a50fd452e474db857b4d488f8602d` with vLLM 0.7.3: [Instructions to install verl & vLLM 0.7.3](https://verl.readthedocs.io/en/latest/README_vllm0.7.html).
 
-You may alternatively wish to try newer verl versions, which support vLLM 0.8: [Instructions to install verl & vLLM 0.8](https://verl.readthedocs.io/en/latest/README_vllm0.8.html).
+You may alternatively wish to try newer verl versions, which support vLLM 0.8: [Instructions to install verl & vLLM 0.8](https://verl.readthedocs.io/en/latest/README_vllm0.8.html). However, our code does override some verl code, so there may be incompatibilites with newer versions.
 
 4. Ensure RG-specific Python package dependencies are installed:
 
