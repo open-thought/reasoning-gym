@@ -17,9 +17,10 @@ We note that we used Python 3.11 and CUDA 11.8 for our experiments. If you are u
 
 1. Prepare and activate a Python virtual environment however you prefer.
 
-2. Clone and install Reasoning Gym:
+2. Clone and install Reasoning Gym, and RG-specific training dependencies:
 
 ```bash
+pip install wheel fire
 git clone https://github.com/open-thought/reasoning-gym.git
 cd reasoning-gym/
 pip install -e .
@@ -34,15 +35,7 @@ To use the exact same verl version, simply `git checkout c34206925e2a50fd452e474
 
 You may alternatively wish to try newer verl versions, which support vLLM 0.8: [Instructions to install verl & vLLM 0.8](https://verl.readthedocs.io/en/latest/README_vllm0.8.html). However, our code does override some verl code, so there may be incompatibilites with newer versions.
 
-If you encounter an error installing `flash-attn`, ensure you have `wheel` installed.
-
-4. Ensure RG-specific Python package dependencies are installed:
-
-```bash
-pip install fire
-```
-
-5. Log in to HF and W&B:
+4. Log in to HF and W&B:
 
 ```bash
 huggingface-cli login
