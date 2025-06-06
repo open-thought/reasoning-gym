@@ -1,9 +1,9 @@
 <p align="center">
     <!-- title -->
-    <h1 align="center"><img src="https://github.com/open-thought/reasoning-gym/blob/main/assets/icon.png" alt="Reasoning Gym Logo" style="vertical-align: bottom;" width="54px" height="40px"> Reasoning Gym</h1>
+    <h1 align="center"><img src="https://github.com/open-thought/reasoning-gym/raw/main/assets/icon.png" alt="Reasoning Gym Logo" style="vertical-align: bottom;" width="54px" height="40px"> Reasoning Gym</h1>
     <!-- teaser -->
     <p align="center">
-        <img src="https://github.com/open-thought/reasoning-gym/blob/main/assets/examples.png" width="800px">
+        <img src="https://github.com/open-thought/reasoning-gym/raw/main/assets/examples.png" width="800px">
     </p>
     <!-- badges -->
     <p align="center">
