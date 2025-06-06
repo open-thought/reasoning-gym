@@ -42,6 +42,12 @@ class ReArcConfig:
         assert self.min_examples <= self.max_examples, "min_examples must be <= max_examples"
         assert self.diff_lb <= self.diff_ub, "diff_lb must be <= diff_ub."
         assert self.size > 0, "Size of dataset must be positive."
+        assert len(self.rng_difficulty_ranges) == len(
+            self.rng_difficulty_weights
+        ), "rng_difficulty_ranges and rng_difficulty_weights must have the same length."
+        assert len(self.pso_difficulty_ranges) == len(
+            self.pso_difficulty_weights
+        ), "pso_difficulty_ranges and pso_difficulty_weights must have the same length."
 
 
 class ReArcDataset(ProceduralDataset):
@@ -93,6 +99,7 @@ class ReArcDataset(ProceduralDataset):
         Generate a single ReArc task
         """
         rng = Random(self.seed + idx)
+
         pso_difficulty_range = rng.choices(
             self.config.pso_difficulty_ranges, weights=self.config.pso_difficulty_weights, k=1
         )[0]
@@ -124,8 +131,8 @@ class ReArcDataset(ProceduralDataset):
                 "rng": rng_difficulty,
                 "pso": pso_difficulty,
                 "difficulty": {
-                    "rng_difficulty": self.config.rng_difficulty_weights,
-                    "pso_difficulty": self.config.pso_difficulty_weights,
+                    "rng_difficulty_weights": self.config.rng_difficulty_weights,
+                    "pso_difficulty_weights": self.config.pso_difficulty_weights,
                 },
             },
         }
@@ -150,33 +157,31 @@ class ReArcCurriculum(BaseCurriculum):
         super().__init__(ReArcCurriculum.__name__, ReArcConfig)
         self._define_attributes(
             ScalarAttributeDefinition(
-                name="pso_difficulty",
+                name="pso_difficulty_weights",
                 field_name="pso_difficulty_weights",
                 description="The range of PSO difficulty for the Arc problem",
                 levels=[
-                    [1, 0, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs PSO difficulty
-                    [0, 1, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 1, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 1, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 1, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 1, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 1, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 1],
+                    [1, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs PSO difficulty
+                    [0, 1, 0, 0, 0, 0, 0],
+                    [0, 0, 1, 0, 0, 0, 0],
+                    [0, 0, 0, 1, 0, 0, 0],
+                    [0, 0, 0, 0, 1, 0, 0],
+                    [0, 0, 0, 0, 0, 1, 0],
+                    [0, 0, 0, 0, 0, 0, 1],
                 ],  # only sample/generate the hardest tasks PSO difficulty
             ),
             ScalarAttributeDefinition(
-                name="rng_difficulty",
+                name="rng_difficulty_weights",
                 field_name="rng_difficulty_weights",
                 description="The range of RNG difficulty for the Arc problem",
                 levels=[
-                    [1, 0, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs RNG difficulty
-                    [0, 1, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 1, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 1, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 1, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 1, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 1, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 1],
+                    [1, 0, 0, 0, 0, 0, 0],  # only sample/generate the easiest tasks wrs RNG difficulty
+                    [0, 1, 0, 0, 0, 0, 0],
+                    [0, 0, 1, 0, 0, 0, 0],
+                    [0, 0, 0, 1, 0, 0, 0],
+                    [0, 0, 0, 0, 1, 0, 0],
+                    [0, 0, 0, 0, 0, 1, 0],
+                    [0, 0, 0, 0, 0, 0, 1],
                 ],  # only sample/generate the hardest tasks wrs RNG difficulty
             ),
         )

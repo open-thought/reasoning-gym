@@ -2,13 +2,13 @@
 
 import re
 from dataclasses import dataclass
-from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..data import read_data_file
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 
 class TextTransformation(StrEnum):
@@ -125,14 +125,25 @@ class WordSortingDataset(ProceduralDataset):
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         oracle_answer = entry["metadata"]["sorted_words"]
-        if answer is not None and len(answer) > 0:
-            parsed_answer = [word.strip() for word in re.split(r",\s*", answer)]
-            if parsed_answer == oracle_answer:
-                return 1.0
-            elif sorted(parsed_answer) == oracle_answer:
-                return 0.2
 
-        return 0.0
+        if not answer:
+            return 0.0
+
+        parsed_answer = [word.strip() for word in re.split(r",\s*", answer)]
+
+        if parsed_answer == oracle_answer:
+            return 1.0
+
+        correct_positions = sum(
+            1 for i, word in enumerate(parsed_answer) if i < len(oracle_answer) and word == oracle_answer[i]
+        )
+
+        partial_score = correct_positions / len(oracle_answer)
+
+        if sorted(parsed_answer) == sorted(oracle_answer):
+            partial_score = max(partial_score, 0.2)
+
+        return partial_score
 
 
 class WordSortingCurriculum(BaseCurriculum):
@@ -142,19 +153,21 @@ class WordSortingCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_words",
-                levels=[5, 10, 20, 30],
+                levels=[5, 10, 25, 50, 100],
                 description="Number of words to sort",
                 lower_field_name="min_words",
                 upper_field_name="max_words",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="word_length",
-                levels=[3, 6, 9, 12],
+                levels=[3, 5, 10, 15],
                 description="Length of words to sort",
                 lower_field_name="min_word_length",
                 upper_field_name="max_word_length",
+                ensure_interval=True,
             ),
         )
 
 
-register_dataset(DATASET_NAME, WordSortingDataset, WordSortingConfig)
+register_dataset(DATASET_NAME, WordSortingDataset, WordSortingConfig, WordSortingCurriculum)

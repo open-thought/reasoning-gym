@@ -1,6 +1,6 @@
 import pytest
 
-from reasoning_gym.code.codeio import CodeIOConfig, CodeIODataset
+from reasoning_gym.code.codeio import CodeIOConfig, CodeIOCurriculum, CodeIODataset
 
 
 def test_codeio_dataset():
@@ -40,3 +40,24 @@ def test_codeio_config():
 
     CodeIOConfig(size=10, seed=42, input_prediction_probability=0.1).validate()
     CodeIOConfig(size=10, seed=42, input_prediction_probability=0.9).validate()
+
+
+def test_codeio_curriculum():
+    curriculum = CodeIOCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: CodeIOConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.difficulty == 6
+
+    # test incrementing attribute level
+    curriculum.increment_attr_level("difficulty")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.difficulty == 7
+
+    # test decrementing attribute level
+    curriculum.decrement_attr_level("difficulty")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.difficulty == 6

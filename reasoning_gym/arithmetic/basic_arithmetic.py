@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Literal, Optional
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "basic_arithmetic"
@@ -161,10 +161,12 @@ class BasicArithmeticDataset(ProceduralDataset):
                         right_parts.append(")")
 
                     else:
-                        divisor = rng.choice(find_common_divisors(dividend, 0))
+                        if dividend != 0:
+                            divisor = rng.choice(find_common_divisors(dividend, 0))
+                        else:
+                            divisor = rng.randint(1, 10**num_digits - 1)
                         left_parts.append(str(divisor))
                         left_parts.append("+")
-
                     left_parts.extend(right_parts)
                 else:
                     if dividend != 0:
@@ -248,17 +250,19 @@ class BasicArithmeticCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_terms",
-                levels=[2, 5, 10, 20],
+                levels=[2, 3, 4, 5, 6],
                 description="Number of terms in the expression",
                 lower_field_name="min_terms",
                 upper_field_name="max_terms",
+                ensure_interval=False,
             ),
             RangeAttributeDefinition(
                 name="num_digits",
-                levels=[1, 2, 5, 10],
+                levels=[1, 2, 3, 4],
                 description="Number of digits in the numbers",
                 lower_field_name="min_digits",
                 upper_field_name="max_digits",
+                ensure_interval=False,
             ),
         )
 

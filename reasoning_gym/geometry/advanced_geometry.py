@@ -150,11 +150,10 @@ class AdvancedGeometryDataset(ProceduralDataset):
         question = question_template.format(A=(A.x, A.y), B=(B.x, B.y), C=(C.x, C.y), a="a", b="b")
         answer_str = f"({x_ortho_approx:.3f}, {y_ortho_approx:.3f})"
         metadata = {
-            "A": (A.x, A.y),
-            "B": (B.x, B.y),
-            "C": (C.x, C.y),
-            "ortho": (ortho.x, ortho.y),
-            "orthocenter_exact": (str(ortho.x), str(ortho.y)),
+            "A": (str(A.x), str(A.y)),
+            "B": (str(B.x), str(B.y)),
+            "C": (str(C.x), str(C.y)),
+            "ortho": (str(ortho.x), str(ortho.y)),
             "orthocenter_approx": (x_ortho_approx, y_ortho_approx),
         }
         return question, answer_str, metadata
@@ -185,9 +184,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
         answer_str = f"{radius_approx:.3f}"
 
         metadata = {
-            "A": (A.x, A.y),
-            "B": (B.x, B.y),
-            "C": (C.x, C.y),
+            "A": (str(A.x), str(A.y)),
+            "B": (str(B.x), str(B.y)),
+            "C": (str(C.x), str(C.y)),
             "incircle_radius_exact": str(radius),
             "incircle_radius_approx": radius_approx,
         }
@@ -224,9 +223,9 @@ class AdvancedGeometryDataset(ProceduralDataset):
 
         answer_str = f"{angle_deg:.2f}°"
         metadata = {
-            "A": (A.x, A.y),
-            "B": (B.x, B.y),
-            "C": (C.x, C.y),
+            "A": (str(A.x), str(A.y)),
+            "B": (str(B.x), str(B.y)),
+            "C": (str(C.x), str(C.y)),
             "angle_ABC_degrees": angle_deg,
         }
         return question, answer_str, metadata
@@ -252,8 +251,14 @@ class AdvancedGeometryDataset(ProceduralDataset):
                     x_coord = float(answer.split(",")[0].replace("(", "").strip())
                     y_coord = float(answer.split(",")[1].replace(")", "").strip())
 
-                    expected_x = float(metadata["ortho"][0])
-                    expected_y = float(metadata["ortho"][1])
+                    ortho_0, ortho_1 = metadata["ortho"]
+                    if "/" in ortho_0:
+                        ortho_0 = int(ortho_0.split("/")[0]) / int(ortho_0.split("/")[1])
+                    if "/" in ortho_1:
+                        ortho_1 = int(ortho_1.split("/")[0]) / int(ortho_1.split("/")[1])
+
+                    expected_x = float(ortho_0)
+                    expected_y = float(ortho_1)
                     if x_coord == expected_x and y_coord == expected_y:
                         reward = 1.0
                     elif (np.round(x_coord, 3) == np.round(expected_x, 3)) and (

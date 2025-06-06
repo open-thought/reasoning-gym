@@ -57,6 +57,11 @@ def action_from_response(pg_dict_input, original_response_dict_list):
         for key, value in transformed_dict.items():
             current_pos = f"{key[0]}_{key[1]}"
 
+            # Check if current pos is not in the grid, i.e. the LLM hallucinated a non-existent position
+            if current_pos not in pg_dict_current:
+                # For now, we just skip these invalid moves, but it may be desirable to also penalise them somehow
+                continue
+
             # Check if this is a box-target matching move
             if (
                 value[0] in pg_dict_current[current_pos]
@@ -202,7 +207,8 @@ class BoxnetDataset(ProceduralDataset):
             try:
                 answer_dict = json.loads(answer)
             except:
-                return 0.01
+                return 0.00
+
             pg_dict_returned = action_from_response(entry["metadata"]["initial_state"], answer_dict)
 
             initial_boxes = 0

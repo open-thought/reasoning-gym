@@ -412,13 +412,13 @@ class GameOfLifeHaltingCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="grid_size_x",
                 field_name="grid_size_x",
-                levels=[12, 25, 50, 200],
+                levels=[10, 25, 50, 100],
                 description="Grid size in the x direction",
             ),
             ScalarAttributeDefinition(
                 name="grid_size_y",
                 field_name="grid_size_y",
-                levels=[12, 25, 50, 200],
+                levels=[10, 25, 50, 100],
                 description="Grid size in the y direction",
             ),
             ScalarAttributeDefinition(

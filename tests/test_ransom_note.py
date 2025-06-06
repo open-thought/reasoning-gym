@@ -126,18 +126,18 @@ def test_ransom_note_curriculum():
     base_cfg: RansomNoteConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_note_length == 10 and base_cfg.max_note_length == 10
-    assert base_cfg.min_magazine_length == 50 and base_cfg.max_magazine_length == 50
+    assert base_cfg.min_note_length == 10 and base_cfg.max_note_length == 50
+    assert base_cfg.min_magazine_length == 50 and base_cfg.max_magazine_length == 100
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("note_length")
     curriculum.increment_attr_level("magazine_length")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_note_length == 10 and increased_cfg.max_note_length == 50
-    assert increased_cfg.min_magazine_length == 50 and increased_cfg.max_magazine_length == 100
+    assert increased_cfg.min_note_length == 10 and increased_cfg.max_note_length == 100
+    assert increased_cfg.min_magazine_length == 50 and increased_cfg.max_magazine_length == 500
 
     # test decrementing attribute level for note_length again
     curriculum.decrement_attr_level("note_length")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_note_length == 10 and partially_decreased_cfg.max_note_length == 10
-    assert partially_decreased_cfg.min_magazine_length == 50 and partially_decreased_cfg.max_magazine_length == 100
+    assert partially_decreased_cfg.min_note_length == 10 and partially_decreased_cfg.max_note_length == 50
+    assert partially_decreased_cfg.min_magazine_length == 50 and partially_decreased_cfg.max_magazine_length == 500

@@ -28,6 +28,9 @@ def generate_gallery() -> str:
     # Add examples for each dataset
     content.append("## Dataset Examples\n")
     for name in sorted(DATASETS.keys()):
+        if name == "composite":
+            continue
+
         dataset = create_dataset(name, seed=42)
 
         # Add dataset header with anchor

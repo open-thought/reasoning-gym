@@ -84,10 +84,11 @@ class CountPrimesCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="n",
-                levels=[1000, 10_000, 50_000, 100_000],
+                levels=[10, 1000, 10_000, 50_000, 100_000],
                 description="Up to which number to consider the primes",
                 lower_field_name="min_n",
                 upper_field_name="max_n",
+                ensure_interval=True,
             )
         )
 

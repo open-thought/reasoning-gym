@@ -115,23 +115,23 @@ def test_emoji_mystery_curriculum():
     base_cfg: EmojiMysteryConfig = curriculum.generate_configuration(base_value, context=context)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_words_in_sentence == 3
-    assert base_cfg.max_words_in_sentence == 3
+    assert base_cfg.min_words_in_sentence == 5
+    assert base_cfg.max_words_in_sentence == 10
 
     # Test incrementing attribute level
     curriculum.increment_attr_level("num_words_in_sentence")
     increased_cfg = curriculum.generate_configuration(base_value, context=context)
     assert increased_cfg.min_words_in_sentence == 10
-    assert increased_cfg.max_words_in_sentence == 10
+    assert increased_cfg.max_words_in_sentence == 20
 
     # Test incrementing attribute level again
     curriculum.increment_attr_level("num_words_in_sentence")
     double_increased_cfg = curriculum.generate_configuration(base_value, context=context)
     assert double_increased_cfg.min_words_in_sentence == 20
-    assert double_increased_cfg.max_words_in_sentence == 20
+    assert double_increased_cfg.max_words_in_sentence == 30
 
     # Test decrementing attribute level
     curriculum.decrement_attr_level("num_words_in_sentence")
     decreased_cfg = curriculum.generate_configuration(base_value, context=context)
     assert decreased_cfg.min_words_in_sentence == 10
-    assert decreased_cfg.max_words_in_sentence == 10
+    assert decreased_cfg.max_words_in_sentence == 20

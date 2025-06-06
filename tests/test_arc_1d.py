@@ -2,7 +2,7 @@ from random import Random
 
 import pytest
 
-from reasoning_gym.arc import Arc1DConfig, Arc1DDataset
+from reasoning_gym.arc import Arc1DConfig, Arc1DCurriculum, Arc1DDataset
 
 
 def test_arc_1d_config_validation():
@@ -41,6 +41,7 @@ def test_arc_1d_items():
         assert "question" in item
         assert "answer" in item
         assert "metadata" in item
+        assert "difficulty" in item["metadata"]
 
         # Check metadata contents
         metadata = item["metadata"]
@@ -142,3 +143,44 @@ def test_arc_1d_generate_all_tasks():
                     break
             assert i < 20
             print(task_name, j, i, x)
+
+
+def test_arc_1d_curriculum():
+    """Test the curriculum for complex arithmetic."""
+    curriculum = Arc1DCurriculum()
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.min_size == 10
+    assert base_cfg.max_size == 10
+
+    # Test and validate increase in levels
+    curriculum.increment_attr_level("size")
+
+    increased_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert increased_cfg.min_size == 10
+    assert increased_cfg.max_size == 25
+
+    # Test and validate decrease in levels
+    curriculum.decrement_attr_level("size")
+
+    decreased_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert decreased_cfg.min_size == 10
+    assert decreased_cfg.max_size == 10
+
+    # Test upper bound boundary condition
+    for _ in range(10):
+        curriculum.increment_attr_level("size")
+    upper_bound_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert upper_bound_cfg.min_size == 10
+    assert upper_bound_cfg.max_size == 100
+
+    # Test lower bound boundary condition
+    for _ in range(10):
+        curriculum.decrement_attr_level("size")
+    lower_bound_cfg: Arc1DCurriculum = curriculum.generate_configuration(base_value)
+    assert lower_bound_cfg.min_size == 10
+    assert lower_bound_cfg.max_size == 10

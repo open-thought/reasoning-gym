@@ -157,11 +157,12 @@ class CourseScheduleCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_courses",
-                levels=[10, 50, 100, 500],
+                levels=[5, 10, 25, 50, 100],
                 default_level=0,  # Start with 5 courses
                 description="Number of courses in the schedule",
                 lower_field_name="min_num_courses",
                 upper_field_name="max_num_courses",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="num_prerequisites",
@@ -170,6 +171,7 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 description="Number of prerequisites per course",
                 lower_field_name="min_num_prerequisites",
                 upper_field_name="max_num_prerequisites",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="cycle_length",
@@ -178,6 +180,7 @@ class CourseScheduleCurriculum(BaseCurriculum):
                 description="Length of a cycle in the prerequisites",
                 lower_field_name="min_cycle_length",
                 upper_field_name="max_cycle_length",
+                ensure_interval=True,
             ),
         )
 

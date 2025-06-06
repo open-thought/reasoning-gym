@@ -155,7 +155,7 @@ class ABCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="length",
                 field_name="length",
-                levels=[1, 10, 50, 100],
+                levels=[10, 25, 50, 100],
                 description="Length of the A::B program",
             )
         )

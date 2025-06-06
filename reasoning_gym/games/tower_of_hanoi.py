@@ -281,6 +281,7 @@ class HanoiDataset(ProceduralDataset):
                 "solution_length": len(solution),
                 "difficulty": {
                     "num_disks": (self.min_disks, self.max_disks),
+                    "num_pegs": (self.min_pegs, self.max_pegs),
                 },
             },
         }
@@ -342,9 +343,14 @@ class HanoiDataset(ProceduralDataset):
             if len(parts) != 9:
                 # print(f"Unexpected move format: '{move}'")
                 return False
-            disk = int(parts[2])
-            from_peg = int(parts[5])
-            to_peg = int(parts[8])
+
+            try:
+                disk = int(parts[2])
+                from_peg = int(parts[5])
+                to_peg = int(parts[8])
+            except ValueError:
+                # print(f"Invalid move format, or bad disk or peg number in move: '{move}'")
+                return False
 
             # Check if the disk to move is the top disk on the from_peg
             if not pegs_state[from_peg] or pegs_state[from_peg][-1] != disk:
@@ -446,11 +452,17 @@ class HanoiCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_disks",
-                levels=[3, 4, 5, 7],
-                min_disks=3,
+                levels=[3, 5, 10, 15],
                 lower_field_name="min_disks",
                 upper_field_name="max_disks",
                 description="Number of disks in the puzzle",
+            ),
+            RangeAttributeDefinition(
+                name="num_pegs",
+                levels=[3, 4, 5],
+                lower_field_name="min_pegs",
+                upper_field_name="max_pegs",
+                description="Number of pegs in the puzzle",
             ),
         )
 

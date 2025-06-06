@@ -1,11 +1,11 @@
 import random
 from dataclasses import dataclass, field
-from enum import StrEnum
 from itertools import count
 from typing import Any, Optional
 
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 DATASET_NAME = "family_relationships"
 

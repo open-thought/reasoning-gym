@@ -2,12 +2,12 @@
 
 import re
 from dataclasses import dataclass
-from enum import StrEnum
 from random import Random
 from typing import Any, Optional
 
 from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 DATASET_NAME = "propositional_logic"
 

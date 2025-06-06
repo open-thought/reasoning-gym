@@ -164,20 +164,20 @@ def test_word_sorting_curriculum():
     base_cfg: WordSortingConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_words == 5 and base_cfg.max_words == 5
-    assert base_cfg.min_word_length == 3 and base_cfg.max_word_length == 3
+    assert base_cfg.min_words == 5 and base_cfg.max_words == 10
+    assert base_cfg.min_word_length == 3 and base_cfg.max_word_length == 5
     assert base_cfg.transformation == TextTransformation.ORIGINAL
 
     # Test incrementing num_words attribute level
     curriculum.increment_attr_level("num_words")
     words_cfg = curriculum.generate_configuration(base_value)
-    assert words_cfg.min_words == 5 and words_cfg.max_words == 10
+    assert words_cfg.min_words == 5 and words_cfg.max_words == 25
 
     # Test incrementing word_length attribute level
     curriculum.set_attr_level("num_words", 0)  # Reset num_words to default level
     curriculum.increment_attr_level("word_length")
     length_cfg = curriculum.generate_configuration(base_value)
-    assert length_cfg.min_word_length == 3 and length_cfg.max_word_length == 6
+    assert length_cfg.min_word_length == 3 and length_cfg.max_word_length == 10
 
     # Test incrementing both attributes
     curriculum.set_attr_level("num_words", 0)  # Reset to default levels
@@ -185,12 +185,12 @@ def test_word_sorting_curriculum():
     curriculum.increment_attr_level("num_words")
     curriculum.increment_attr_level("word_length")
     combined_cfg = curriculum.generate_configuration(base_value)
-    assert combined_cfg.min_words == 5 and combined_cfg.max_words == 10
-    assert combined_cfg.min_word_length == 3 and combined_cfg.max_word_length == 6
+    assert combined_cfg.min_words == 5 and combined_cfg.max_words == 25
+    assert combined_cfg.min_word_length == 3 and combined_cfg.max_word_length == 10
 
     # Test max level
     curriculum.set_attr_level("num_words", 0)  # Reset to default level
-    for _ in range(5):  # More than the number of levels
+    for _ in range(10):  # More than the number of levels
         curriculum.increment_attr_level("num_words")
     max_level_cfg = curriculum.generate_configuration(base_value)
-    assert max_level_cfg.min_words == 5 and max_level_cfg.max_words == 30  # Should be at the highest level
+    assert max_level_cfg.min_words == 5 and max_level_cfg.max_words == 100  # Should be at the highest level

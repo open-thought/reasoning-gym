@@ -109,19 +109,19 @@ def test_ab_curriculum():
 
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.length == 1
+    assert base_cfg.length == 10
 
     # Test and validate increase in levels
     curriculum.increment_attr_level("length")
     increase_cfg: ABCurriculum = curriculum.generate_configuration(base_value)
 
-    assert increase_cfg.length == 10
+    assert increase_cfg.length == 25
 
     # Test and validate decrease in levels
     curriculum.decrement_attr_level("length")
     decrease_cfg: ABCurriculum = curriculum.generate_configuration(base_value)
 
-    assert decrease_cfg.length == 1
+    assert decrease_cfg.length == 10
 
     # Test upper bound boundary condition
     for _ in range(10):
@@ -133,4 +133,4 @@ def test_ab_curriculum():
     for _ in range(10):
         curriculum.decrement_attr_level("length")
     lower_bound_cfg: ABCurriculum = curriculum.generate_configuration(base_value)
-    assert lower_bound_cfg.length == 1
+    assert lower_bound_cfg.length == 10

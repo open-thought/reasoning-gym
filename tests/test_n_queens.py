@@ -157,17 +157,17 @@ def test_n_queens_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.n == 4
-    assert base_cfg.min_remove == 2 and base_cfg.max_remove == 2
+    assert base_cfg.min_remove == 2 and base_cfg.max_remove == 4
 
     # test incrementing attribute levels for n & num_removed attributes
     curriculum.increment_attr_level("n")
     curriculum.increment_attr_level("num_removed")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.n == 6
-    assert increased_cfg.min_remove == 2 and increased_cfg.max_remove == 4
+    assert increased_cfg.min_remove == 2 and increased_cfg.max_remove == 6
 
     # test decrementing attribute level for n again
     curriculum.decrement_attr_level("n")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.n == 4
-    assert partially_decreased_cfg.min_remove == 2 and partially_decreased_cfg.max_remove == 4
+    assert partially_decreased_cfg.min_remove == 2 and partially_decreased_cfg.max_remove == 6

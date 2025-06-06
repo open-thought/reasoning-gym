@@ -16,6 +16,8 @@ Now, it's your turn. How many rectangles do you see in the grid below?
 """
 
 DATASET_NAME = "rectangle_count"
+CONST_TERM = 0.8
+D = 5
 
 
 def draw_rectangles_with_overlap(n, width, height, rng):
@@ -132,22 +134,29 @@ class RectangleCountDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        """Determine if the solution provided solves the RectangleCount task.
-
-        The function awards 1.0 for a correct answer.
-
-        Args:
-            answer (Optional[str]): The user's answer.
-            entry (dict[str, Any]): The original dataset entry containing the correct answer.
+        """Determine if the solution provided solves the RectangleCount task,
+        awarding partial credit if the guess is close.
 
         Returns:
-            float: The computed score between 0.0 and 1.0.
+            float: A score between 0.0 and 1.0.
         """
+        correct_str = entry["answer"].lower().replace("\n", "")
 
-        if isinstance(answer, str):
-            if answer.lower().replace("\n", "") == entry["answer"].lower().replace("\n", ""):
-                return 1.0  # Yay
-        return 0.0
+        try:
+            correct_val = int(correct_str)
+            user_val = int(answer.strip())
+        except (ValueError, TypeError, AttributeError):
+            return 0.0
+        distance = abs(user_val - correct_val)
+
+        if distance == 0:
+            return 1.0
+        if distance >= D:
+            return 0.0
+
+        score = 1.0 - (distance / float(D))
+        score = CONST_TERM * score
+        return max(0.0, score)
 
 
 class RectangleCountCurriculum(BaseCurriculum):
@@ -158,7 +167,7 @@ class RectangleCountCurriculum(BaseCurriculum):
         self._define_attributes(
             ScalarAttributeDefinition(
                 name="max_rectangles",
-                levels=[1, 3, 5, 10],
+                levels=[5, 10, 15, 20, 25],
                 description="Number of rectangles in the grid",
                 field_name="max_rectangles",
             ),

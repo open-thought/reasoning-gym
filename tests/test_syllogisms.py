@@ -2,7 +2,7 @@
 
 import pytest
 
-from reasoning_gym.logic.syllogisms import Quantifier, SyllogismConfig, SyllogismDataset, Term
+from reasoning_gym.logic.syllogisms import Quantifier, SyllogismConfig, SyllogismCurriculum, SyllogismDataset, Term
 
 
 def test_syllogism_config_validation():
@@ -338,3 +338,36 @@ def test_syllogism_dataset_iteration():
 
     # Test multiple iterations yield same items
     assert items == list(dataset)
+
+
+def test_syllogism_curriculum():
+    curriculum = SyllogismCurriculum()
+
+    base_value = {"size": 150, "seed": 1}
+
+    base_cfg: SyllogismConfig = curriculum.generate_configuration(base_value)
+    assert base_cfg.seed == 1
+    assert base_cfg.size == 150
+    assert base_cfg.allow_all == True
+    assert base_cfg.allow_no == False
+    assert base_cfg.allow_some == False
+    assert base_cfg.allow_some_not == False
+
+    # test incrementing attribute levels
+    curriculum.increment_attr_level("allow_all")
+    curriculum.increment_attr_level("allow_no")
+    curriculum.increment_attr_level("allow_some")
+    curriculum.increment_attr_level("allow_some_not")
+    increased_cfg = curriculum.generate_configuration(base_value)
+    assert increased_cfg.allow_all == True
+    assert increased_cfg.allow_no == True
+    assert increased_cfg.allow_some == False
+    assert increased_cfg.allow_some_not == False
+
+    # test decrementing attribute levels
+    curriculum.decrement_attr_level("allow_no")
+    partially_decreased_cfg = curriculum.generate_configuration(base_value)
+    assert partially_decreased_cfg.allow_all == True
+    assert partially_decreased_cfg.allow_no == False
+    assert partially_decreased_cfg.allow_some == False
+    assert partially_decreased_cfg.allow_some_not == False

@@ -27,6 +27,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+import matplotlib
 import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import numpy as np
@@ -40,6 +41,22 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()],
 )
 logger = logging.getLogger("visualize_results")
+
+
+plt.rcParams.update(
+    {
+        "text.usetex": True,
+        "font.family": "serif",
+        "font.serif": ["Computer Modern Roman"],
+        "text.latex.preamble": r"\usepackage{amsmath,amssymb,amsfonts,mathrsfs,bm}",
+        "axes.labelsize": 20,
+        "font.size": 20,
+        "legend.fontsize": 14,
+        "xtick.labelsize": 14,
+        "ytick.labelsize": 14,
+        "axes.titlesize": 22,
+    }
+)
 
 
 def load_summaries(results_dir: str) -> Dict[str, Dict[str, Any]]:
@@ -366,80 +383,94 @@ def create_performance_distribution_violin(summaries: Dict[str, Dict[str, Any]])
     return fig
 
 
-def create_performance_heatmap(summaries: Dict[str, Dict[str, Any]], categories: Dict[str, List[str]]) -> Figure:
-    """Create a heatmap of model performance across datasets.
+def create_performance_heatmap(
+    summaries: Dict[str, Dict[str, Any]],
+    categories: Dict[str, List[str]],
+) -> Figure:
+    """
+    Heat-map of model performance (0–100 %) across individual datasets.
 
-    Args:
-        summaries: Dictionary of model summaries
-        categories: Dictionary mapping categories to dataset lists
-
-    Returns:
-        Matplotlib figure
+    Rows  : models (sorted by overall mean score, high→low)
+    Cols  : datasets grouped by `categories`
+    Cell  : 100 × raw score (value shown inside each cell)
     """
     if not summaries:
         logger.error("No summaries provided")
         return plt.figure()
 
-    # Get all dataset names
-    all_datasets = []
-    for category, datasets in sorted(categories.items()):
-        all_datasets.extend(sorted(datasets))
+    # ---- gather dataset names in category order
+    all_datasets: List[str] = []
+    for cat, ds in sorted(categories.items()):
+        all_datasets.extend(sorted(ds))
 
-    models = list(summaries.keys())
+    # ---- sort models by overall performance
+    overall = {m: np.mean(list(s["dataset_best_scores"].values())) for m, s in summaries.items()}
+    models = [m for m, _ in sorted(overall.items(), key=lambda x: x[1], reverse=True)]
 
-    # Create score matrix
+    # ---- build score matrix (0–100)
     score_matrix = np.zeros((len(models), len(all_datasets)))
-
     for i, model in enumerate(models):
-        for j, dataset in enumerate(all_datasets):
-            score_matrix[i, j] = summaries[model]["dataset_best_scores"].get(dataset, 0)
+        for j, ds in enumerate(all_datasets):
+            score_matrix[i, j] = 100 * summaries[model]["dataset_best_scores"].get(ds, 0.0)
 
-    # Create heatmap
+    # ---- plot
     fig, ax = plt.subplots(figsize=(max(20, len(all_datasets) * 0.25), max(8, len(models) * 0.5)))
+    im = ax.imshow(score_matrix, cmap="YlOrRd", aspect="auto", vmin=0, vmax=100)
 
-    im = ax.imshow(score_matrix, cmap="viridis", aspect="auto", vmin=0, vmax=1)
+    # colour-bar
+    cbar = fig.colorbar(im, ax=ax)
+    cbar.ax.set_ylabel("Score (\%)", rotation=-90, va="bottom")
 
-    # Add colorbar
-    cbar = ax.figure.colorbar(im, ax=ax)
-    cbar.ax.set_ylabel("Score", rotation=-90, va="bottom")
-
-    # Set ticks and labels
+    # ticks & labels
     ax.set_xticks(np.arange(len(all_datasets)))
+    ax.set_xticklabels(all_datasets, rotation=270, fontsize=8)
     ax.set_yticks(np.arange(len(models)))
-    ax.set_xticklabels(all_datasets, rotation=90, fontsize=8)
     ax.set_yticklabels(models)
 
-    # Add category separators and labels
-    current_idx = 0
-    for category, datasets in sorted(categories.items()):
-        if datasets:
-            # Add vertical line after each category
-            next_idx = current_idx + len(datasets)
-            if next_idx < len(all_datasets):
-                ax.axvline(x=next_idx - 0.5, color="white", linestyle="-", linewidth=2)
+    # category separators & titles
+    current = 0
+    label_offset = -0.25
+    for cat, ds in sorted(categories.items()):
+        if not ds:
+            continue
+        nxt = current + len(ds)
+        if nxt < len(all_datasets):
+            ax.axvline(nxt - 0.5, color="white", linewidth=2)
 
-            # Add category label
-            middle_idx = current_idx + len(datasets) / 2 - 0.5
-            ax.text(
-                middle_idx,
-                -0.5,
-                category,
-                ha="center",
-                va="top",
-                fontsize=10,
-                bbox=dict(facecolor="white", alpha=0.7, edgecolor="none"),
-            )
+        mid = current + len(ds) / 2 - 0.5
+        ax.text(
+            mid,
+            label_offset,
+            cat,
+            ha="center",
+            va="top",
+            fontsize=10,
+            bbox=dict(facecolor="white", alpha=0.7, edgecolor="none"),
+        )
+        current = nxt
 
-            current_idx = next_idx
-
-    # Add grid lines
+    # grid (mirrors comparison-plot style)
     ax.set_xticks(np.arange(-0.5, len(all_datasets), 1), minor=True)
     ax.set_yticks(np.arange(-0.5, len(models), 1), minor=True)
     ax.grid(which="minor", color="w", linestyle="-", linewidth=0.5)
 
-    plt.title("Model Performance Heatmap", size=15)
-    plt.tight_layout()
+    # ---- annotate every cell with its value
+    for i in range(len(models)):
+        for j in range(len(all_datasets)):
+            val = score_matrix[i, j]
+            ax.text(
+                j,
+                i,
+                f"{val:.1f}",
+                ha="center",
+                va="center",
+                fontsize=7,
+                rotation=-90,  # 90° clockwise
+                rotation_mode="anchor",  # keep anchor point fixed
+                color="white" if val >= 50 else "black",
+            )
 
+    plt.tight_layout()
     return fig
 
 
@@ -579,6 +610,92 @@ def create_dashboard(summaries: Dict[str, Dict[str, Any]], categories: Dict[str,
     return fig
 
 
+def create_comparison_plot(
+    summaries: Dict[str, Dict[str, Any]],
+    other_summaries: Dict[str, Dict[str, Any]],
+    categories: Optional[Dict[str, List[str]]] = None,
+    compare_model_ids: Optional[List[str]] = None,
+) -> Figure:
+    """
+    Build a heat-map of per-category score differences (scaled to –100 … 100).
+
+    Rows  : category names (`categories`)
+    Cols  : model IDs present in both `summaries` and `other_summaries`
+    Value : 100 × (mean(score in summaries) − mean(score in other_summaries))
+
+    A numeric annotation (rounded to 2 dp) is rendered in every cell.
+    """
+    if not summaries or not other_summaries:
+        logger.error("No summaries provided for comparison")
+        return plt.figure()
+
+    if categories is None:
+        all_ds = next(iter(summaries.values()))["dataset_best_scores"].keys()
+        categories = {"all": list(all_ds)}
+
+    # models present in both result sets
+    common_models = [m for m in summaries if m in other_summaries]
+    if not common_models:
+        logger.error("No overlapping model IDs between the two result sets.")
+        return plt.figure()
+
+    # sort models by overall performance
+    overall_scores = {m: np.mean(list(s["dataset_best_scores"].values())) for m, s in summaries.items()}
+    models = [m for m, _ in sorted(overall_scores.items(), key=lambda x: x[1], reverse=True) if m in common_models]
+    if compare_model_ids:
+        models = [m for m in models if m in compare_model_ids]
+
+    category_list = sorted(categories.keys())
+    # ---------- note the transposed shape (categories × models)
+    diff_matrix = np.zeros((len(category_list), len(models)))
+
+    # compute 100 × Δ
+    for i, cat in enumerate(category_list):
+        ds = categories[cat]
+        for j, model in enumerate(models):
+            cur_scores = summaries[model]["dataset_best_scores"]
+            base_scores = other_summaries[model]["dataset_best_scores"]
+            cur_mean = np.mean([cur_scores.get(d, 0.0) for d in ds]) if ds else 0.0
+            base_mean = np.mean([base_scores.get(d, 0.0) for d in ds]) if ds else 0.0
+            diff_matrix[i, j] = 100 * (cur_mean - base_mean)
+
+    # ---------------------------------------------------------------- plot
+    fig, ax = plt.subplots(figsize=(max(8, len(models) * 1.2), max(6, len(category_list) * 0.58)))
+
+    im = ax.imshow(diff_matrix, cmap="coolwarm", aspect="auto", vmin=-100, vmax=100)
+
+    # colour-bar
+    cbar = fig.colorbar(im, ax=ax)
+    cbar.ax.set_ylabel("$\Delta$ score (\%)", rotation=-90, va="bottom", fontweight="bold")
+
+    # ticks / labels
+    ax.set_xticks(np.arange(len(models)), labels=models, rotation=45, ha="right")
+    ax.set_yticks(np.arange(len(category_list)), labels=category_list)
+
+    # grid for readability
+    ax.set_xticks(np.arange(-0.5, len(models), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(category_list), 1), minor=True)
+    ax.grid(which="minor", color="w", linestyle="-", linewidth=0.5)
+
+    # annotate each cell
+    for i in range(len(category_list)):
+        for j in range(len(models)):
+            value = diff_matrix[i, j]
+            ax.text(
+                j,
+                i,
+                f"{value:.2f}",
+                ha="center",
+                va="center",
+                color="black" if abs(value) < 50 else "white",
+                fontsize=12,
+            )
+
+    # ax.set_title("Per-Category Performance $\Delta$ (hard − easy)", fontweight="bold")
+    plt.tight_layout()
+    return fig
+
+
 def save_figure(fig: Figure, output_dir: str, name: str, fmt: str = "png", dpi: int = 300) -> str:
     """Save a figure to a file.
 
@@ -592,12 +709,10 @@ def save_figure(fig: Figure, output_dir: str, name: str, fmt: str = "png", dpi: 
     Returns:
         Path to the saved file
     """
-    # Create output directory if it doesn't exist
-    os.makedirs(output_dir, exist_ok=True)
 
     # Create filename
-    filename = f"{name}.{fmt}"
-    filepath = os.path.join(output_dir, filename)
+    filename = f"{name.replace('/', '-')}.{fmt}"
+    filepath = output_dir / filename
 
     # Save figure
     fig.savefig(filepath, dpi=dpi, bbox_inches="tight")
@@ -616,6 +731,8 @@ def main():
     parser.add_argument(
         "--top-mode", default="hardest", choices=["hardest", "easiest", "variable"], help="Mode for top datasets plot"
     )
+    parser.add_argument("--compare-results-dir", help="Directory to compare results with", default=None)
+    parser.add_argument("--compare-model-ids", help="Comma-separated list of model IDs to compare", default=None)
     parser.add_argument("--format", default="png", choices=["png", "pdf", "svg"], help="Output format for plots")
     parser.add_argument("--dpi", type=int, default=300, help="DPI for output images")
     parser.add_argument("--no-show", action="store_true", help="Don't display plots, just save them")
@@ -631,6 +748,11 @@ def main():
     logger.info(f"Loading summaries from {args.results_dir}")
     summaries = load_summaries(args.results_dir)
 
+    args.output_dir = Path(args.output_dir)
+    if not args.output_dir.exists():
+        logger.info(f"Creating output directory {args.output_dir}")
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+
     if not summaries:
         logger.error("No valid summaries found. Exiting.")
         return 1
@@ -643,7 +765,7 @@ def main():
 
     # Determine which plots to generate
     if args.plots.lower() == "all":
-        plots_to_generate = ["radar", "bar", "violin", "heatmap", "dashboard", "top_datasets"]
+        plots_to_generate = ["radar", "bar", "violin", "heatmap", "dashboard", "top_datasets", "compare"]
     else:
         plots_to_generate = [p.strip().lower() for p in args.plots.split(",")]
 
@@ -675,6 +797,16 @@ def main():
             elif plot_type == "top_datasets":
                 fig = create_top_datasets_comparison(summaries, args.top_n, args.top_mode)
                 save_figure(fig, args.output_dir, f"top_{args.top_n}_{args.top_mode}_datasets", args.format, args.dpi)
+
+            elif plot_type == "compare":
+                assert args.compare_results_dir, "Comparison directory is required for compare plot"
+                other_summaries = load_summaries(args.compare_results_dir)
+                if not other_summaries:
+                    logger.error("No valid summaries found in comparison directory. Exiting.")
+                    return 1
+                compare_model_ids = args.compare_model_ids.split(",") if args.compare_model_ids else None
+                fig = create_comparison_plot(summaries, other_summaries, categories, compare_model_ids)
+                save_figure(fig, args.output_dir, "model_category_delta_heatmap", args.format, args.dpi)
 
             else:
                 logger.warning(f"Unknown plot type: {plot_type}")

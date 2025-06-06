@@ -138,8 +138,8 @@ def test_letter_jumble_curriculum():
     base_cfg: LetterJumbleConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_word_len == 5 and base_cfg.max_word_len == 15
-    assert base_cfg.min_words == 10 and base_cfg.max_words == 50
+    assert base_cfg.min_word_len == 5 and base_cfg.max_word_len == 10
+    assert base_cfg.min_words == 5 and base_cfg.max_words == 10
     assert base_cfg.min_corruption_level == 0.1 and base_cfg.max_corruption_level == 0.3
 
     # test incrementing attribute levels
@@ -147,13 +147,13 @@ def test_letter_jumble_curriculum():
     curriculum.increment_attr_level("words")
     curriculum.increment_attr_level("corruption_level")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_word_len == 5 and increased_cfg.max_word_len == 30
-    assert increased_cfg.min_words == 10 and increased_cfg.max_words == 100
+    assert increased_cfg.min_word_len == 5 and increased_cfg.max_word_len == 15
+    assert increased_cfg.min_words == 5 and increased_cfg.max_words == 25
     assert increased_cfg.min_corruption_level == 0.1 and increased_cfg.max_corruption_level == 0.6
 
     # test decrementing attribute level for words again
     curriculum.decrement_attr_level("words")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_word_len == 5 and partially_decreased_cfg.max_word_len == 30
-    assert partially_decreased_cfg.min_words == 10 and partially_decreased_cfg.max_words == 50
+    assert partially_decreased_cfg.min_word_len == 5 and partially_decreased_cfg.max_word_len == 15
+    assert partially_decreased_cfg.min_words == 5 and partially_decreased_cfg.max_words == 10
     assert partially_decreased_cfg.min_corruption_level == 0.1 and partially_decreased_cfg.max_corruption_level == 0.6

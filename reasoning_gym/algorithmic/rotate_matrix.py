@@ -114,10 +114,11 @@ class RotateMatrixCurriculum(BaseCurriculum):
             ),
             RangeAttributeDefinition(
                 name="num_rotations",
-                levels=[4, 8, 12, 16],
+                levels=[1, 5, 10, 15, 20],
                 description="Number of 90-degree rotations",
                 lower_field_name="min_rotations",
                 upper_field_name="max_rotations",
+                ensure_interval=True,
             ),
         )
 

@@ -96,12 +96,13 @@ Here is your puzzle:
             + gamestr,
             "answer": solution,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "gamestr": gamestr,
+                "source_dataset": DATASET_NAME,
                 "width": puzzle_data["width"],
                 "height": puzzle_data["height"],
                 "difficulty": {
-                    "source_dataset": DATASET_NAME,
-                    "source_index": idx,
                     "width": (self.config.min_w, self.config.max_w),
                     "height": (self.config.min_h, self.config.max_h),
                 },
@@ -149,14 +150,14 @@ class SokobanCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="width",
-                levels=list(range(6, 11)),
+                levels=list(range(6, 20)),
                 description="The width of the Sokoban board",
                 lower_field_name="min_w",
                 upper_field_name="max_w",
             ),
             RangeAttributeDefinition(
                 name="height",
-                levels=list(range(6, 11)),
+                levels=list(range(6, 20)),
                 description="The height of the Sokoban board",
                 lower_field_name="min_h",
                 upper_field_name="max_h",

@@ -135,18 +135,18 @@ def test_maze_curriculum():
     base_cfg: MazeConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
-    assert base_cfg.min_dist == 10 and base_cfg.max_dist == 25
+    assert base_cfg.min_dist == 5 and base_cfg.max_dist == 10
     assert base_cfg.min_grid_size == 10 and base_cfg.max_grid_size == 25
 
     # test incrementing attribute levels
     curriculum.increment_attr_level("dist")
     curriculum.increment_attr_level("grid_size")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_dist == 10 and increased_cfg.max_dist == 50
+    assert increased_cfg.min_dist == 5 and increased_cfg.max_dist == 15
     assert increased_cfg.min_grid_size == 10 and increased_cfg.max_grid_size == 50
 
     # test decrementing attribute level for dist again
     curriculum.decrement_attr_level("dist")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
-    assert partially_decreased_cfg.min_dist == 10 and partially_decreased_cfg.max_dist == 25
+    assert partially_decreased_cfg.min_dist == 5 and partially_decreased_cfg.max_dist == 10
     assert partially_decreased_cfg.min_grid_size == 10 and partially_decreased_cfg.max_grid_size == 50

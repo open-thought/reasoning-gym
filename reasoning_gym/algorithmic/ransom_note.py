@@ -129,6 +129,7 @@ class RansomNoteCurriculum(BaseCurriculum):
                 description="Length of the ransom note",
                 lower_field_name="min_note_length",
                 upper_field_name="max_note_length",
+                ensure_interval=True,
             ),
             RangeAttributeDefinition(
                 name="magazine_length",
@@ -136,6 +137,7 @@ class RansomNoteCurriculum(BaseCurriculum):
                 description="Length of the magazine",
                 lower_field_name="min_magazine_length",
                 upper_field_name="max_magazine_length",
+                ensure_interval=True,
             ),
         )
 

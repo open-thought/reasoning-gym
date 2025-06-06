@@ -49,7 +49,10 @@ class PrimeFactorizationDataset(ProceduralDataset):
 
     def _normalize_answer(self, answer: str) -> list[int]:
         """Parse and sort factors from a string"""
-        return sorted([int(factor.strip()) for factor in answer.split("×")])
+        if not answer or answer.strip() == "":
+            return []
+
+        return sorted([int(factor.strip()) for factor in answer.split("×") if factor.strip() != ""])
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         oracle_answer = entry["answer"]
@@ -105,7 +108,7 @@ class PrimeFactorizationCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="value",
-                levels=[10, 1_000, 10_000, 50_000],
+                levels=[10, 1_000, 5_000, 10_000],
                 description="Number to factorize",
                 lower_field_name="min_value",
                 upper_field_name="max_value",

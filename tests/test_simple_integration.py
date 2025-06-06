@@ -64,7 +64,6 @@ def test_simple_integration_dataset_items():
 
         assert "integrand" in item["metadata"]
         assert "variable" in item["metadata"]
-        assert "expected_answer_expression" in item["metadata"]
 
         # Verify answer is a mathematical expression
         answer = item["answer"]

@@ -94,17 +94,17 @@ def test_number_sequence_curriculum():
     base_cfg: NumberSequenceConfig = curriculum.generate_configuration(base_value)
     assert base_cfg.seed == 42
     assert base_cfg.size == 150
-    assert base_cfg.max_complexity == 1  # Default level (0) corresponds to complexity 1
+    assert base_cfg.max_complexity == 2
 
     # Test attribute level increment
     curriculum.increment_attr_level("max_complexity")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.max_complexity == 2  # Level 1 corresponds to complexity 2
+    assert increased_cfg.max_complexity == 3
 
     # Test attribute level increment again
     curriculum.increment_attr_level("max_complexity")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.max_complexity == 3  # Level 2 corresponds to complexity 3
+    assert increased_cfg.max_complexity == 4
 
     # Test that other parameters remain unchanged
     assert increased_cfg.seed == 42
@@ -113,4 +113,4 @@ def test_number_sequence_curriculum():
     # Test attribute level decrement
     curriculum.decrement_attr_level("max_complexity")
     decreased_cfg = curriculum.generate_configuration(base_value)
-    assert decreased_cfg.max_complexity == 2  # Back to level 1, complexity 2
+    assert decreased_cfg.max_complexity == 3

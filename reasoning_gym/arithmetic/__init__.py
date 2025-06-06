@@ -42,6 +42,7 @@ __all__ = [
     "GCDCurriculum",
     "LCMConfig",
     "LCMDataset",
+    "LCMCurriculum",
     "LegCountingConfig",
     "LegCountingDataset",
     "LegCountingCurriculum",

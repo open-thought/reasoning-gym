@@ -1,8 +1,8 @@
 import abc
 from collections.abc import Iterable
-from enum import StrEnum
 from typing import Any, Optional, TypeVar
 
+from ..utils import StrEnum
 from .attributes import AttributeDefinition, RangeAttributeDefinition, ScalarAttributeDefinition
 
 ConfigT = TypeVar("ConfigT")
@@ -239,3 +239,16 @@ class BaseCurriculum:
                     self.set_attr_level(attr_name, target_level)
             return True
         return False
+
+    def get_global_level(self) -> Optional[int]:
+        """Get the global level of the curriculum."""
+        attr_dict = {}
+        if not self._attributes:
+            return 0
+        for attr_name in self._attributes:
+            attr = self.get_attribute(attr_name)
+            if isinstance(attr, RangeAttributeDefinition):
+                attr_dict[attr.upper_field_name] = self.get_attr_value(attr_name)
+            elif isinstance(attr, ScalarAttributeDefinition):
+                attr_dict[attr.field_name] = self.get_attr_value(attr_name)
+        return attr_dict

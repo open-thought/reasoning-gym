@@ -55,9 +55,9 @@ def test_rubikscube_items():
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
         if item["metadata"]["example_correct_answer"] != "R":
-            assert dataset.score_answer(answer="R", entry=item) == 0.05
+            assert dataset.score_answer(answer="R", entry=item) == 0.01
 
-        assert dataset.score_answer(answer="R2 R3 R4 R5 R'2 R'3", entry=item) == 0.05
+        assert dataset.score_answer(answer="R2 R3 R4 R5 R'2 R'3", entry=item) == 0.01
 
         if len(item["metadata"]["example_correct_answer"]) > 0:
             assert dataset.score_answer(answer="", entry=item) == 0.01
@@ -79,10 +79,10 @@ def test_rubiks_cube_curriculum():
     curriculum.increment_attr_level("scramble_steps")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.cube_size == 4
-    assert increased_cfg.min_scramble_steps == 3 and increased_cfg.max_scramble_steps == 50
+    assert increased_cfg.min_scramble_steps == 3 and increased_cfg.max_scramble_steps == 25
 
     # test decrementing attribute level for cube_size again
     curriculum.decrement_attr_level("cube_size")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.cube_size == 3
-    assert partially_decreased_cfg.min_scramble_steps == 3 and partially_decreased_cfg.max_scramble_steps == 50
+    assert partially_decreased_cfg.min_scramble_steps == 3 and partially_decreased_cfg.max_scramble_steps == 25

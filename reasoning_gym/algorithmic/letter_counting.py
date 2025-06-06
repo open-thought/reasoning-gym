@@ -86,7 +86,7 @@ class LetterCountingCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="words",
-                levels=[10, 50, 100, 1000],
+                levels=list(range(5, 20, 2)),
                 description="Number of words in the span",
                 lower_field_name="min_words",
                 upper_field_name="max_words",

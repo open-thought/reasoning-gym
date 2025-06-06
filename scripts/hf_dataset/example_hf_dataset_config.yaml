@@ -1,0 +1,44 @@
+# Example configuration for generating Reasoning Gym datasets for Hugging Face
+# Used with save_hf_dataset.py
+
+reasoning_gym:
+  # Total size of the dataset to generate
+  dataset_size: 20000
+
+  # Datasets to include in the composite dataset
+  datasets:
+    # Example algorithmic tasks
+    spell_backward:
+      # Weight of this dataset in the composite (weights should sum to 1.0)
+      weight: 0.33
+      # Dataset-specific configuration
+      config:
+        min_word_len: 3
+        max_word_len: 10
+
+    letter_jumble:
+      weight: 0.34
+      config:
+        min_word_len: 1  # Minimum word length
+        max_word_len: 50  # Maximum word length
+        min_words: 3  # Minimum words per task
+        max_words: 40
+
+    word_sorting:
+      weight: 0.33
+      config:
+        min_words: 3
+        max_words: 10
+        min_word_length: 3
+        max_word_length: 12
+
+# Hugging Face upload settings
+huggingface:
+  # Repository ID (required when using this config file directly)
+  repo_id: "username/reasoning-gym-dataset"
+
+  # Whether to make the repository private
+  private: false
+
+  # Dataset split name
+  split: "train"

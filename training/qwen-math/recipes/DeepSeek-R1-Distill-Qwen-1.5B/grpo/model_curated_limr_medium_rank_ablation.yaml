@@ -1,0 +1,68 @@
+# check ./tina/utils/constant.py
+model_post_train_dataset_name: curated_limr_medium_rank_ablation
+model_post_train_type: grpo
+rl_post_train_reward_funcs:
+- format
+- accuracy
+rl_post_train_reward_weights:
+- 1.0
+- 2.0
+
+
+# Model configs from trl
+model_name_or_path: DeepSeek-R1-Distill-Qwen-1.5B
+attn_implementation: flash_attention_2
+use_peft: true
+lora_r: 16
+lora_alpha: 64
+lora_dropout: 0.05
+lora_target_modules:
+- q_proj
+- k_proj
+- v_proj
+- o_proj
+- down_proj
+- up_proj
+- gate_proj
+
+
+# GRPO trainer configs from trl
+bf16: true
+use_vllm: true
+vllm_device: cuda:0
+vllm_gpu_memory_utilization: 0.4
+vllm_max_model_len: 4608
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+log_level: info
+logging_first_step: true
+logging_steps: 1
+logging_strategy: steps
+push_to_hub: false
+hub_strategy: every_save
+hub_private_repo: true
+hub_model_id: TODO
+
+learning_rate: 1e-06
+lr_scheduler_type: cosine_with_min_lr
+lr_scheduler_kwargs:
+  min_lr_rate: 0.1
+max_prompt_length: 512
+max_completion_length: 3584
+max_steps: 360 # use 360 for lr scheduler but stop at 180 steps
+num_generations: 4
+num_train_epochs: 1
+overwrite_output_dir: true
+per_device_train_batch_size: 4
+report_to:
+- wandb
+
+save_strategy: steps
+save_steps: 50
+save_total_limit: 100
+
+seed: 42
+temperature: 0.7
+warmup_ratio: 0.1

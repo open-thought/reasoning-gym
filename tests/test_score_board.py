@@ -61,32 +61,32 @@ def test_score_aggregation():
     aggregated = experiment.score_board.aggregate()
 
     # Verify we have scores grouped by difficulty parameters
-    assert len(aggregated.scores) > 0
+    assert len(aggregated["leg_counting"].scores.keys()) > 0
 
     # Each key should be a tuple of tuples containing difficulty parameters
-    for key in aggregated.scores:
+    for key in aggregated["leg_counting"].scores:
         assert isinstance(key, tuple)
         # Each inner tuple should be (param_name, value) or (param_name, (min_value, max_value))
         for param in key:
             assert isinstance(param, tuple)
-            assert param[0] in ("source", "idx", "num_animals", "num_instances")
+            assert param[0] in ("source", "num_animals", "num_instances")
 
     # Test aggregation with last_n
     last_3 = experiment.score_board.aggregate(last_n=3)
-    assert len(last_3.scores) > 0
+    assert len(last_3["leg_counting"].scores) > 0
 
     # Verify total scores count
-    assert last_3.total_scores == 3
+    assert last_3["leg_counting"].total_scores == 3
 
     # Verify conversation tracking
-    assert len(experiment.score_board.conversations) == 5
-    for conv in experiment.score_board.conversations:
+    assert len(experiment.score_board.conversations["leg_counting"]) == 5
+    for conv in experiment.score_board.conversations["leg_counting"]:
         assert len(conv) == 2  # user question and assistant response
         assert conv[0]["role"] == "user"
         assert conv[1]["role"] == "assistant"
 
     # Test stats calculation
-    stats = aggregated.stats()
+    stats = aggregated["leg_counting"].stats()
 
     for key, values in stats.scores.items():
         assert isinstance(values, tuple)
@@ -107,11 +107,11 @@ def test_score_aggregation():
     assert all(math.isnan(v) for v in stats_tuple[1:])  # stats should be NaN
 
     # Test clear functionality
-    experiment.score_board.clear()
-    assert len(experiment.score_board.scores) == 0
-    assert len(experiment.score_board.metadata) == 0
-    assert len(experiment.score_board.conversations) == 0
-    assert len(experiment.score_board.aggregate().scores) == 0
+    experiment.score_board.clear("leg_counting")
+    assert len(experiment.score_board.scores["leg_counting"]) == 0
+    assert len(experiment.score_board.metadata["leg_counting"]) == 0
+    assert len(experiment.score_board.conversations["leg_counting"]) == 0
+    assert len(experiment.score_board.aggregate()["leg_counting"].scores) == 0
 
 
 def test_experiment_with_composite():
@@ -147,15 +147,14 @@ def test_experiment_with_composite():
 
     # Test aggregation
     aggregated = experiment.score_board.aggregate()
-    assert len(aggregated.scores) > 0
+    assert len(aggregated["leg_counting"].scores) > 0
 
     # Verify source dataset info is first in keys
-    for key in aggregated.scores:
+    for key in aggregated["leg_counting"].scores:
         assert key[0][0] == "source"  # First tuple should be ("source", dataset_name)
-        assert key[1][0] == "idx"  # Second tuple should be ("idx", index)
 
     # Test stats
-    stats = aggregated.stats()
+    stats = aggregated["leg_counting"].stats()
     for key, values in stats.scores.items():
         assert isinstance(values, tuple)
         assert len(values) == 5  # (count, mean, std, min, max)

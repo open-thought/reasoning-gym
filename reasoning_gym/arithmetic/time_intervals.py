@@ -139,8 +139,8 @@ class TimeIntervalsDataset(ProceduralDataset):
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
                 "task_type": task_type,
-                "start_time": start_dt,
-                "end_time": end_dt,
+                "start_time": str(start_dt),
+                "end_time": str(end_dt),
                 "format": format_str,
                 "expected_format": expected_format,
                 "difficulty": {
@@ -337,7 +337,7 @@ class TimeIntervalsCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="max_time_difference_seconds",
                 field_name="max_time_difference_seconds",
-                levels=[60, 24 * 60 * 60, 7 * 24 * 60 * 60, 30 * 24 * 60 * 60, 365 * 24 * 60 * 60],
+                levels=[60, 60 * 60, 3 * 60 * 60, 6 * 60 * 60, 9 * 60 * 60, 12 * 60 * 60, 24 * 60 * 60],
                 description="Maximum time difference in seconds",
             ),
             ScalarAttributeDefinition(

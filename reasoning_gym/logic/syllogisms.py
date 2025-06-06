@@ -1,11 +1,12 @@
 """Syllogism reasoning task generator"""
 
 from dataclasses import dataclass
-from enum import StrEnum
 from random import Random
 from typing import Optional
 
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 DATASET_NAME = "syllogism"
 
@@ -430,6 +431,8 @@ class SyllogismDataset(ProceduralDataset):
             "question": question,
             "answer": "Yes" if is_valid else "No",
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_index": idx,
                 "premise1": premise1_text,
                 "premise2": premise2_text,
                 "conclusion": conclusion_text,
@@ -444,4 +447,35 @@ class SyllogismDataset(ProceduralDataset):
         return self._generate_syllogism(rng, idx)
 
 
-register_dataset(DATASET_NAME, SyllogismDataset, SyllogismConfig)
+class SyllogismCurriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(SyllogismCurriculum.__name__, SyllogismConfig)
+        self._define_attributes(
+            ScalarAttributeDefinition(
+                name="allow_all",
+                field_name="allow_all",
+                levels=[True, True, True, True],
+                description="Allow 'All' quantifier",
+            ),
+            ScalarAttributeDefinition(
+                name="allow_no",
+                field_name="allow_no",
+                levels=[False, True, True, True],
+                description="Allow 'No' quantifier",
+            ),
+            ScalarAttributeDefinition(
+                name="allow_some",
+                field_name="allow_some",
+                levels=[False, False, True, True],
+                description="Allow 'Some' quantifier",
+            ),
+            ScalarAttributeDefinition(
+                name="allow_some_not",
+                field_name="allow_some_not",
+                levels=[False, False, False, True],
+                description="Allow 'Some ... are not' quantifier",
+            ),
+        )
+
+
+register_dataset(DATASET_NAME, SyllogismDataset, SyllogismConfig, SyllogismCurriculum)

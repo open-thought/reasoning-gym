@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
-from enum import StrEnum
 from random import Random
 from string import Template
 from typing import Optional
 
-from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
+from ..coaching import BaseCurriculum, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
+from ..utils import StrEnum
 
 DATASET_NAME = "aiw"
 
@@ -200,7 +200,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
                 "source_index": idx,
                 "task_type": task_type.value,
                 "difficulty": {
-                    "task_type_weight": self.config.task_type_weights,
+                    "task_type_weights": self.config.task_type_weights,
                     "num_entities": self.config.max_entities,
                 },
             },
@@ -218,7 +218,7 @@ class AliceInWonderlandCurriculum(BaseCurriculum):
         super().__init__(AliceInWonderlandCurriculum.__name__, AliceInWonderlandConfig)
         self._define_attributes(
             ScalarAttributeDefinition(
-                name="task_type_weight",
+                name="task_type_weights",
                 field_name="task_type_weights",
                 description="The weight of the task type",
                 levels=[

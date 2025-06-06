@@ -56,6 +56,7 @@ def test_number_sorting_dataset_items():
 
         # Verify number count constraints
         numbers = item["metadata"]["original_numbers"]
+        print(numbers)
         assert len(numbers) >= config.min_numbers
         assert len(numbers) <= config.max_numbers
 
@@ -100,23 +101,23 @@ def test_number_sorting_curriculum():
     assert base_cfg.seed == 1
     assert base_cfg.size == 150
     assert base_cfg.min_numbers == 10 and base_cfg.max_numbers == 100
-    assert base_cfg.min_decimals == 0 and base_cfg.max_decimals == 2
-    assert base_cfg.min_value == -10_000 and base_cfg.max_value == 10_000
+    assert base_cfg.min_decimals == 0 and base_cfg.max_decimals == 1
+    assert base_cfg.min_value == -100 and base_cfg.max_value == 100
 
     # test incrementing some attribute levels
     curriculum.increment_attr_level("numbers")
     curriculum.increment_attr_level("decimals")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_numbers == 10 and increased_cfg.max_numbers == 500
-    assert increased_cfg.min_decimals == 0 and increased_cfg.max_decimals == 4
-    assert increased_cfg.min_value == -10_000 and increased_cfg.max_value == 10_000
+    assert increased_cfg.min_decimals == 0 and increased_cfg.max_decimals == 2
+    assert increased_cfg.min_value == -100 and increased_cfg.max_value == 100
 
     # test decrementing attribute level for numbers again
     curriculum.decrement_attr_level("numbers")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_numbers == 10 and partially_decreased_cfg.max_numbers == 100
-    assert partially_decreased_cfg.min_decimals == 0 and partially_decreased_cfg.max_decimals == 4
-    assert partially_decreased_cfg.min_value == -10_000 and partially_decreased_cfg.max_value == 10_000
+    assert partially_decreased_cfg.min_decimals == 0 and partially_decreased_cfg.max_decimals == 2
+    assert partially_decreased_cfg.min_value == -100 and partially_decreased_cfg.max_value == 100
 
 
 def test_number_sorting_score_answer():

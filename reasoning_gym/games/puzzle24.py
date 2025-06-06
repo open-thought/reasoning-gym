@@ -7,6 +7,7 @@ import sympy
 from sympy import Symbol, symbols
 from sympy.parsing.sympy_parser import parse_expr
 
+from ..coaching import BaseCurriculum, RangeAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 QUESTION_TEMPLATE = """Make 24 using {numbers}. You can only use each number once. You can use the operators {operators}.
@@ -106,7 +107,7 @@ class Puzzle24Dataset(ProceduralDataset):
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
                 "numbers": numbers,
-                "expression": expr,
+                "difficulty": {"value": (self.config.min_value, self.config.max_value)},
             },
         }
 
@@ -131,4 +132,21 @@ class Puzzle24Dataset(ProceduralDataset):
         return reward
 
 
-register_dataset(DATASET_NAME, Puzzle24Dataset, Puzzle24Config)
+class Puzzle24Curriculum(BaseCurriculum):
+    def __init__(self):
+        super().__init__(Puzzle24Curriculum.__name__, Puzzle24Config)
+
+        # Define attributes
+        self._define_attributes(
+            RangeAttributeDefinition(
+                name="value",
+                levels=[1, 5, 6, 7, 8, 9, 10],
+                description="Value of the numbers used in the expression",
+                lower_field_name="min_value",
+                upper_field_name="max_value",
+                ensure_interval=True,
+            ),
+        )
+
+
+register_dataset(DATASET_NAME, Puzzle24Dataset, Puzzle24Config, Puzzle24Curriculum)

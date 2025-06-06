@@ -119,6 +119,10 @@ def test_prime_factorization_score_answer():
     answer = None
     assert dataset.score_answer(answer, item) == 0.0
 
+    # Answer is empty string
+    answer = ""
+    assert dataset.score_answer(answer, item) == 0.01
+
 
 def is_prime(n: int) -> bool:
     """Helper function to check if a number is prime"""
@@ -143,7 +147,7 @@ def test_prime_factorization_curriculum():
     # test incrementing attribute levels
     curriculum.increment_attr_level("value")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_value == 10 and increased_cfg.max_value == 10_000
+    assert increased_cfg.min_value == 10 and increased_cfg.max_value == 5_000
 
     # test decrementing attribute level for value again
     curriculum.decrement_attr_level("value")
