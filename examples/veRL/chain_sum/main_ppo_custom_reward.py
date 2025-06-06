@@ -99,7 +99,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         self.dataset_size = dataset_size
 
         developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
-        self.train_dataset = ReasoningGymDataset(
+        train_dataset = ReasoningGymDataset(
             tokenizer=tokenizer,
             dataset_name=self.dataset_name,
             seed=1,
@@ -107,13 +107,16 @@ class RayPPOTrainerCustom(RayPPOTrainer):
             developer_prompt=developer_prompt,
         )
 
-        self.val_dataset = ReasoningGymDataset(
+        val_dataset = ReasoningGymDataset(
             tokenizer=tokenizer,
             dataset_name=self.dataset_name,
             seed=2,
             size=self.dataset_size,
             developer_prompt=developer_prompt,
         )
+
+        self.train_dataset = train_dataset
+        self.val_dataset = val_dataset
 
         train_reward_fn = lambda data: self._score_output(data, num_examine=0)
         val_reward_fn = lambda data: self._score_output(data, num_examine=1)
@@ -126,6 +129,9 @@ class RayPPOTrainerCustom(RayPPOTrainer):
             ray_worker_group_cls,
             train_reward_fn,
             val_reward_fn,
+            train_dataset = train_dataset,
+            val_dataset = val_dataset,
+            train_sampler = None
         )
 
     def _score_output(self, data: DataProto, num_examine: int = 0) -> torch.Tensor:
@@ -170,9 +176,9 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         # print(f"found answer={found_answer}; reward: {reward};")
         return reward
 
-    def _create_dataloader(self):
+    def _create_dataloader(self, train_dataset, val_dataset, collate_fn = collate_fn, sampler = None):
         self.train_dataloader = StatefulDataLoader(
-            dataset=self.train_dataset,
+            dataset=train_dataset,
             batch_size=self.config.data.train_batch_size,
             shuffle=True,
             drop_last=True,
@@ -180,7 +186,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         )
 
         self.val_dataloader = StatefulDataLoader(
-            dataset=self.val_dataset,
+            dataset=val_dataset,
             batch_size=len(self.val_dataset),
             shuffle=True,
             drop_last=True,
@@ -274,7 +280,7 @@ def main_task(config):
     trainer.fit()
 
 
-@hydra.main(config_path="config", config_name="ppo_trainer", version_base=None)
+@hydra.main(config_path="config", config_name="grpo_trainer", version_base=None)
 def main(config):
     if not ray.is_initialized():
         # this is for local ray cluster
