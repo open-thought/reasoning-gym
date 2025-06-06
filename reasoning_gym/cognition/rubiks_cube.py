@@ -198,8 +198,8 @@ class RubiksCubeCurriculum(BaseCurriculum):
             ScalarAttributeDefinition(
                 name="cube_size",
                 field_name="cube_size",
-                levels=[3, 4, 5, 6, 7],
-                description="Board size",
+                levels=[3, 4, 5],
+                description="Cube size",
             ),
             RangeAttributeDefinition(
                 name="scramble_steps",
