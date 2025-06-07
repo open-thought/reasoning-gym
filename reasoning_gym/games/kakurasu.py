@@ -103,6 +103,8 @@ class KakurasuDataset(ProceduralDataset):
                     [" ".join(str(cell) for cell in row) for row in solution_grid],
                 ),
                 "metadata": {
+                    "source_dataset": DATASET_NAME,
+                    "source_idx": idx,
                     "n_rows": n_rows,
                     "n_cols": n_cols,
                     "p_ones": self.config.p_ones,
