@@ -105,13 +105,18 @@ class KakurasuDataset(ProceduralDataset):
                     [" ".join(str(cell) for cell in row) for row in solution_grid],
                 ),
                 "metadata": {
-                    "n_rows": self.n,
-                    "n_cols": self.m,
-                    "p_ones": self.ones_probability,
-                    "grid": empty_grid,
+                    "n_rows": n_rows,
+                    "n_cols": n_cols,
+                    "p_ones": self.config.p_ones,
+                    "puzzle": empty_grid,
                     "row_sums": row_sums,
                     "col_sums": col_sums,
                     "solution": solution_grid,
+                    "difficulty": {
+                        "rows": (self.config.min_rows, self.config.max_rows),
+                        "cols": (self.config.min_cols, self.config.max_cols),
+                        "p_ones": self.config.p_ones,
+                    },
                 },
             }
 
@@ -140,7 +145,7 @@ class KakurasuDataset(ProceduralDataset):
             if all(grid[i][j] == 0 for i in range(n_rows)):
                 grid[rng.randrange(n_rows)][j] = 1
 
-    def _count_solutions(n: int, m: int, row_sums: list[int], col_sums: list[int], limit: int = 2) -> int:
+    def _count_solutions(self, n: int, m: int, row_sums: list[int], col_sums: list[int], limit: int = 2) -> int:
         """Return number of solutions, stopping at `limit`."""
         row_patterns: list[list[list[int]]] = []
         for target in row_sums:
