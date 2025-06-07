@@ -95,10 +95,8 @@ class SurvoDataset(ProceduralDataset):
                 "min_num": self.config.min_num,
                 "max_num": self.config.max_num,
                 "difficulty": {
-                    "min_board_size": self.config.min_board_size,
-                    "max_board_size": self.config.max_board_size,
-                    "min_x": self.config.min_empty,
-                    "max_x": self.config.max_empty,
+                    "board_size": (self.config.min_board_size, self.config.max_board_size),
+                    "empty": (self.config.min_empty, self.config.max_empty),
                 },
             },
         }
