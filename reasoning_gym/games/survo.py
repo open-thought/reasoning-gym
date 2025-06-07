@@ -85,6 +85,8 @@ class SurvoDataset(ProceduralDataset):
             "question": question,
             "answer": solution_str,
             "metadata": {
+                "source_dataset": DATASET_NAME,
+                "source_idx": idx,
                 "puzzle": puzzle.tolist(),
                 "solution": filled_matrix.tolist(),
                 "candidate_numbers": candidate_numbers,
