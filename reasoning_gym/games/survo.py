@@ -16,11 +16,11 @@ from ..factory import ProceduralDataset, register_dataset
 DATASET_NAME = "survo"
 
 PROMPT_TEMPLATES = [
-    "Given a {n}*{n} matrix where the last element of each row and column equals the sum of the other elements in that row or column. The matrix is:\n{matrix}\nwhere some elements are replaced with X. You have a set of numbers {numbers} that can be filled into the X positions to satisfy the rules. Please fill in the matrix. Each number can only be used once.",
-    "You have a {n}*{n} matrix with some positions already filled with numbers and others marked with X. The matrix is:\n{matrix}\nThe last number in each row and column represents the sum of all other numbers in that row or column. You need to fill in the X positions using the numbers {numbers} to satisfy these conditions. Each number can only be used once.",
-    "Complete the following Survo puzzle. In this {n}*{n} matrix:\n{matrix}\nthe cells marked with X need to be filled with numbers. The last number in each row and column equals the sum of all other numbers in that row or column. You can use the following numbers: {numbers}. Each number can only be used once.",
-    "In this {n}*{n} Survo matrix puzzle:\n{matrix}\nthe X cells need to be filled with numbers from the set {numbers}. The last element in each row and column is the sum of all other elements in that row or column. Each number can only be used once. Provide the completed matrix.",
-    "Solve this {n}*{n} matrix puzzle:\n{matrix}\nwhere X represents empty cells that need to be filled. The last number in each row and column equals the sum of all other numbers in that row or column. You have the numbers {numbers} to place in the empty cells. Each number can only be used once.",
+    "Given a {n}*{n} matrix where the last element of each row and column equals the sum of the other elements in that row or column. The matrix is:\n{matrix}\nwhere some elements are replaced with 0. You have a set of numbers {numbers} that can be filled into the 0 positions to satisfy the rules. Please fill in the matrix. Each number can only be used once.",
+    "You have a {n}*{n} matrix with some positions already filled with numbers and others marked with 0. The matrix is:\n{matrix}\nThe last number in each row and column represents the sum of all other numbers in that row or column. You need to fill in the 0 positions using the numbers {numbers} to satisfy these conditions. Each number can only be used once.",
+    "Complete the following Survo puzzle. In this {n}*{n} matrix:\n{matrix}\nthe cells marked with 0 need to be filled with numbers. The last number in each row and column equals the sum of all other numbers in that row or column. You can use the following numbers: {numbers}. Each number can only be used once.",
+    "In this {n}*{n} Survo matrix puzzle:\n{matrix}\nthe 0 cells need to be filled with numbers from the set {numbers}. The last element in each row and column is the sum of all other elements in that row or column. Each number can only be used once. Provide the completed matrix.",
+    "Solve this {n}*{n} matrix puzzle:\n{matrix}\nwhere 0 represents empty cells that need to be filled. The last number in each row and column equals the sum of all other numbers in that row or column. You have the numbers {numbers} to place in the empty cells. Each number can only be used once.",
 ]
 
 
@@ -44,6 +44,7 @@ class SurvoConfig:
             self.min_board_size - 1
         ), f"max_empty must be <= {(self.min_board_size - 1) * (self.min_board_size - 1)}"
         assert self.min_empty <= self.max_empty, "min_empty must be <= max_empty"
+        assert self.min_num > 0, "min_num must be > 0"
         assert self.min_num < self.max_num, "min_num must be less than max_num"
 
 
@@ -68,21 +69,24 @@ class SurvoDataset(ProceduralDataset):
     def __getitem__(self, idx: int) -> dict:
         rng = Random(self.config.seed + idx)
 
-        board_size = rng.randint(self.config.min_board_size, self.config.max_board_size + 1)
-        num_empty = rng.randint(self.config.min_empty, self.config.max_empty + 1)
+        board_size = rng.randint(self.config.min_board_size, self.config.max_board_size)
+        num_empty = rng.randint(self.config.min_empty, self.config.max_empty)
 
-        matrix, original_matrix, candidate_numbers = self._generate_valid_matrix(
+        filled_matrix, puzzle, candidate_numbers = self._generate_valid_matrix(
             rng, board_size, num_empty, self.config.min_num, self.config.max_num
         )
 
-        question = rng.choice(PROMPT_TEMPLATES).format(n=board_size, matrix=original_matrix, numbers=candidate_numbers)
+        puzzle_str = "\n".join(" ".join(str(x) for x in row) for row in puzzle)
+        solution_str = "\n".join(" ".join(str(x) for x in row) for row in filled_matrix)
+
+        question = rng.choice(PROMPT_TEMPLATES).format(n=board_size, matrix=puzzle_str, numbers=candidate_numbers)
 
         return {
             "question": question,
-            "answer": str(matrix.tolist()),
+            "answer": solution_str,
             "metadata": {
-                "original_matrix": original_matrix.tolist(),
-                "filled_matrix": matrix.tolist(),
+                "puzzle": puzzle.tolist(),
+                "solution": filled_matrix.tolist(),
                 "candidate_numbers": candidate_numbers,
                 "board_size": board_size,
                 "num_empty": num_empty,
@@ -131,16 +135,26 @@ class SurvoDataset(ProceduralDataset):
         if not isinstance(answer, str):
             return 0.0
 
-        n = entry["metadata"]["n"]
+        board_size = entry["metadata"]["board_size"]
         grid = self._parse_grid(answer)
-        true_grid = entry["metadata"]["filled_matrix"]
+        true_grid = entry["metadata"]["solution"]
 
-        if len(grid) != n or any(len(row) != n for row in grid):
+        print(board_size)
+        print(len(grid))
+        print(len(grid[0]) if grid else 0)
+        print(len(true_grid))
+        print(len(true_grid[0]) if true_grid else 0)
+
+        if len(grid) != board_size or any(len(row) != board_size for row in grid):
+            print(
+                f"Grid size mismatch: expected {board_size}x{board_size}, got {len(grid)}x{len(grid[0]) if grid else 0}"
+            )
             return 0.0
 
-        for i in range(n):
-            for j in range(n):
+        for i in range(board_size):
+            for j in range(board_size):
                 if grid[i][j] != true_grid[i][j]:
+                    print(f"Mismatch at ({i}, {j}): {grid[i][j]} != {true_grid[i][j]}")
                     return 0.0
 
         return 1.0
@@ -148,11 +162,14 @@ class SurvoDataset(ProceduralDataset):
     def _parse_grid(self, answer: str) -> list[list[str]]:
         grid = []
         for line in answer.strip().split("\n"):
+            row = []
             for c in line.strip().split():
                 try:
-                    grid.append([int(c)])
+                    row.append(int(c))
                 except ValueError:
                     continue  # Ignore non-integer values
+            if row:
+                grid.append(row)
         return grid
 
 
