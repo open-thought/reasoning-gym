@@ -44,14 +44,30 @@ class SurvoDataset(ProceduralDataset):
     def __init__(self, config: SurvoConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
-    def __getitem__(self, idx: int, n: int = 4, x: int = 3, min_num: int = 1, max_num: int = 9):
+    def __len__(self) -> int:
+        return self.config.size
+
+    def __iter__(self):
+        self._current_idx = 0
+        return self
+
+    def __next__(self):
+        if self._current_idx >= self.config.size:
+            raise StopIteration
+        item = self[self._current_idx]
+        self._current_idx += 1
+        return item
+
+    def __getitem__(self, idx: int) -> dict:
         rng = Random(self.config.seed + idx)
 
         matrix, original_matrix, candidate_numbers = self._generate_valid_matrix(
             rng, self.config.n, self.config.x, self.config.min_num, self.config.max_num
         )
 
-        question = rng.choice(PROMPT_TEMPLATES).format(n=n, matrix=original_matrix, numbers=candidate_numbers)
+        question = rng.choice(PROMPT_TEMPLATES).format(
+            n=self.config.n, matrix=original_matrix, numbers=candidate_numbers
+        )
 
         return {
             "question": question,
