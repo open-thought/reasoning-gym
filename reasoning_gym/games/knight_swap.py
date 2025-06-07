@@ -54,10 +54,10 @@ class KnightSwapConfig:
     max_pieces: int = 2  # Maximum number of pieces per color
     min_steps: int = 4  # Minimum solution length
     max_steps: int = 20  # Maximum solution length
-    max_attempts: int = 100  # Maximum attempts for board generation and puzzle creation
+    max_attempts: int = 50  # Maximum attempts for board generation and puzzle creation
     seed: Optional[int] = None
     size: int = 5  # Virtual dataset size
-    impossible_ratio: float = 0.2  # Ratio of puzzles that should be impossible
+    impossible_ratio: float = 0.7  # Ratio of puzzles that should be impossible
 
     def validate(self):
         """Validate configuration parameters"""
