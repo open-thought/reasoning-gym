@@ -2,8 +2,6 @@
 Kakurasu puzzle dataset, adapted for Reasoning Gym from the SynLogic repository: https://github.com/MiniMax-AI/SynLogic/tree/main/games/tasks/kukurasu
 """
 
-# TODO: add unit tests
-
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
