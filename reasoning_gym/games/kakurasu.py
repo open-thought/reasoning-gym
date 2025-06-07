@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
-from ..coaching import BaseCurriculum
+from ..coaching import BaseCurriculum, RangeAttributeDefinition, ScalarAttributeDefinition
 from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "kakurasu"
@@ -29,17 +29,23 @@ PROMPT_TEMPLATES = [
 
 @dataclass
 class KakurasuConfig:
-    n_rows: int = 4
-    n_cols: int = 4
-    p_ones: float = 0.2
+    min_rows: int = 4
+    max_rows: int = 5
+    min_cols: int = 4
+    max_cols: int = 5
+    p_ones: float = 0.3
     seed: Optional[int] = None
     size: int = 500  # Virtual dataset size
     max_retries: int = 1000  # Max retries to find a unique puzzle. If exceeded, a non-unique puzzle may be returned
 
     def validate(self):
         """Validate configuration parameters"""
-        assert 3 <= self.n_rows <= 9, "n_rows must be between 3 and 9"
-        assert 3 <= self.n_cols <= 9, "n_cols must be between 3 and 9"
+        assert 3 <= self.min_rows <= 9, "n_rows must be between 3 and 9"
+        assert 3 <= self.max_rows <= 9, "n_cols must be between 3 and 9"
+        assert 3 <= self.min_rows <= 9, "n_rows must be between 3 and 9"
+        assert 3 <= self.max_cols <= 9, "n_cols must be between 3 and 9"
+        assert self.min_rows <= self.max_rows, "min_rows must be less than or equal to max_rows"
+        assert self.min_cols <= self.max_cols, "min_cols must be less than or equal to max_cols"
         assert 0 <= self.p_ones <= 1, "p_ones must be between 0 and 1"
 
 
@@ -67,22 +73,25 @@ class KakurasuDataset(ProceduralDataset):
         """Generate Kakurasu puzzles that have at least one solution."""
         rng = Random(self.seed + idx)
 
+        n_rows = rng.randint(self.config.min_rows, self.config.max_rows)
+        n_cols = rng.randint(self.config.min_cols, self.config.max_cols)
+
         for retry in range(self.config.max_retries):
             solution_grid = self._generate_random_grid(rng)
             self._repair_grid(rng, solution_grid)
 
             row_sums, col_sums = self._calculate_row_col_sums(solution_grid)
-            empty_grid = [[0 for _ in range(self.config.n_cols)] for _ in range(self.config.n_rows)]
+            empty_grid = [[0 for _ in range(n_cols)] for _ in range(n_rows)]
 
             if retry < self.config.max_retries - 1:
                 if 0 in row_sums or 0 in col_sums or sum(row_sums) != sum(col_sums):
                     continue
-                if self._count_solutions(self.config.n_rows, self.config.n_cols, row_sums, col_sums) != 1:
+                if self._count_solutions(n_rows, n_cols, row_sums, col_sums) != 1:
                     continue
 
             prompt = rng.choice(PROMPT_TEMPLATES).format(
-                n_rows=self.config.n_rows,
-                n_cols=self.config.n_cols,
+                n_rows=n_rows,
+                n_cols=n_cols,
                 row_sums=row_sums,
                 col_sums=col_sums,
                 puzzle="\n".join(
@@ -106,24 +115,22 @@ class KakurasuDataset(ProceduralDataset):
                 },
             }
 
-    def _generate_random_grid(self, rng: Random) -> list[list[int]]:
+    def _generate_random_grid(self, rng: Random, n_rows: int, n_cols: int) -> list[list[int]]:
         """Generate a random valid solution grid."""
-        return [
-            [1 if rng.random() < self.config.p_ones else 0 for _ in range(self.config.n_cols)]
-            for _ in range(self.config.n_rows)
-        ]
+        return [[1 if rng.random() < self.config.p_ones else 0 for _ in range(n_cols)] for _ in range(n_rows)]
 
     def _calculate_row_col_sums(self, grid) -> tuple[list[int], list[int]]:
         """Calculate row and column sums based on the solution grid"""
+        n_rows = len(grid)
+        n_cols = len(grid[0]) if n_rows > 0 else 0
         row_sums = [sum((j + 1) for j, cell in enumerate(row) if cell == 1) for row in grid]
-        col_sums = [
-            sum((i + 1) for i in range(self.config.n_rows) if grid[i][j] == 1) for j in range(self.config.n_cols)
-        ]
+        col_sums = [sum((i + 1) for i in range(n_rows) if grid[i][j] == 1) for j in range(n_cols)]
         return row_sums, col_sums
 
     def _repair_grid(self, rng: Random, grid: list[list[int]]):
         """Ensure every row/col has at least one '1'."""
-        n_rows, n_cols = self.config.n_rows, self.config.n_cols
+        n_rows = len(grid)
+        n_cols = len(grid[0]) if n_rows > 0 else 0
 
         for i, row in enumerate(grid):
             if 1 not in row:
@@ -215,8 +222,26 @@ class KakurasuCurriculum(BaseCurriculum):
         super().__init__(KakurasuCurriculum.__name__, KakurasuConfig)
 
         self._define_attributes(
-            # TODO: define curriculum attributes
-            ...
+            RangeAttributeDefinition(
+                name="rows",
+                levels=[4, 6, 7, 9],
+                description="Row count",
+                lower_field_name="min_rows",
+                upper_field_name="max_rows",
+            ),
+            RangeAttributeDefinition(
+                name="cols",
+                levels=[4, 6, 7, 9],
+                description="Column count",
+                lower_field_name="min_cols",
+                upper_field_name="max_cols",
+            ),
+            ScalarAttributeDefinition(
+                name="p_ones",
+                levels=[0.30, 0.25, 0.20, 0.15],
+                description="Probability of a cell being filled",
+                field_name="p_ones",
+            ),
         )
 
 
