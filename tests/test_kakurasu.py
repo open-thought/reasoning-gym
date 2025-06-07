@@ -139,36 +139,36 @@ def test_futoshiki_curriculum():
     assert base_cfg.size == 150
     assert base_cfg.min_rows == 4 and base_cfg.max_rows == 4
     assert base_cfg.min_cols == 4 and base_cfg.max_cols == 4
-    assert base_cfg.p_ones == 0.30
+    assert base_cfg.p_ones == 0.50
 
     # Test incrementing attribute levels
     curriculum.increment_attr_level("rows")
     curriculum.increment_attr_level("p_ones")
     increased_cfg = curriculum.generate_configuration(base_value, context=context)
     assert increased_cfg.min_rows == 6 and increased_cfg.max_rows == 6
-    assert increased_cfg.p_ones == 0.25
+    assert increased_cfg.p_ones == 0.4
 
     # Test incrementing again
     curriculum.increment_attr_level("cols")
     curriculum.increment_attr_level("p_ones")
     increased_cfg2 = curriculum.generate_configuration(base_value, context=context)
     assert increased_cfg2.min_cols == 6 and increased_cfg2.max_cols == 6
-    assert increased_cfg2.p_ones == 0.2
+    assert increased_cfg2.p_ones == 0.3
 
     # Test incrementing to max level
     curriculum.increment_attr_level("p_ones")
     max_cfg = curriculum.generate_configuration(base_value, context=context)
-    assert max_cfg.p_ones == 0.15
+    assert max_cfg.p_ones == 0.2
 
     # Test that we can't go beyond max level
     curriculum.increment_attr_level("p_ones")
     still_max_cfg = curriculum.generate_configuration(base_value, context=context)
-    assert still_max_cfg.p_ones == 0.15
+    assert still_max_cfg.p_ones == 0.2
 
     # Test decrementing attribute levels
     curriculum.decrement_attr_level("p_ones")
     decreased_cfg = curriculum.generate_configuration(base_value, context=context)
-    assert decreased_cfg.p_ones == 0.2
+    assert decreased_cfg.p_ones == 0.3
 
     # Test global level setting
     curriculum.set_global_level(0)
