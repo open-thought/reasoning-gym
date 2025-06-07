@@ -6,7 +6,7 @@ Kakurasu puzzle dataset, adapted for Reasoning Gym from the SynLogic repository:
 
 from dataclasses import dataclass
 from random import Random
-from typing import Optional
+from typing import Any, Optional
 
 from ..coaching import BaseCurriculum
 from ..factory import ProceduralDataset, register_dataset
@@ -171,6 +171,43 @@ class KakurasuDataset(ProceduralDataset):
 
         dfs(0)
         return solutions
+
+    def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        if not isinstance(answer, str):
+            return 0.0
+
+        metadata = entry["metadata"]
+        row_sums, col_sums = metadata["row_sums"], metadata["col_sums"]
+        n_rows, n_cols = metadata["n_rows"], metadata["n_cols"]
+
+        try:
+            grid = self._parse_grid(answer)
+
+            if len(grid) != n_rows or any(len(row) != n_cols for row in grid):
+                return 0.0
+
+            if any(cell not in ["1", "0"] for row in grid for cell in row):
+                return 0.0
+
+            ans_row_sums = [sum((j + 1) for j, cell in enumerate(row) if cell == "1") for row in grid]
+
+            if ans_row_sums != row_sums:
+                return 0.0
+
+            ans_col_sums = [sum((i + 1) for i in range(n_rows) if grid[i][j] == "1") for j in range(n_cols)]
+
+            if ans_col_sums != col_sums:
+                return 0.0
+
+            return 1.0
+        except Exception:
+            return 0.0
+
+    def _parse_grid(self, answer: str) -> list[list[str]]:
+        grid = []
+        for line in answer.strip().split("\n"):
+            grid.append([int(c) for c in line.strip() if c in "01"])
+        return grid
 
 
 class KakurasuCurriculum(BaseCurriculum):
