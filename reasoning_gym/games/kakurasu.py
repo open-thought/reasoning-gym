@@ -241,7 +241,7 @@ class KakurasuCurriculum(BaseCurriculum):
             ),
             ScalarAttributeDefinition(
                 name="p_ones",
-                levels=[0.30, 0.25, 0.20, 0.15],
+                levels=[0.50, 0.40, 0.30, 0.20],
                 description="Probability of a cell being filled",
                 field_name="p_ones",
             ),
