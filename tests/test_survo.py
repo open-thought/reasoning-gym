@@ -117,7 +117,8 @@ def test_survo_answer_scoring():
         assert ds.score_answer(correct, itm) == 1.0
 
         # Tamper with a single cell
-        wrong = correct.replace("0", "999", 1)
+        candidate_numbers = itm["metadata"]["candidate_numbers"]
+        wrong = correct.replace(str(candidate_numbers[0]), str(max(candidate_numbers) + 1), 1)
         assert ds.score_answer(wrong, itm) < 1.0
 
         # Bad type / empty

@@ -141,22 +141,12 @@ class SurvoDataset(ProceduralDataset):
         grid = self._parse_grid(answer)
         true_grid = entry["metadata"]["solution"]
 
-        print(board_size)
-        print(len(grid))
-        print(len(grid[0]) if grid else 0)
-        print(len(true_grid))
-        print(len(true_grid[0]) if true_grid else 0)
-
         if len(grid) != board_size or any(len(row) != board_size for row in grid):
-            print(
-                f"Grid size mismatch: expected {board_size}x{board_size}, got {len(grid)}x{len(grid[0]) if grid else 0}"
-            )
             return 0.0
 
         for i in range(board_size):
             for j in range(board_size):
                 if grid[i][j] != true_grid[i][j]:
-                    print(f"Mismatch at ({i}, {j}): {grid[i][j]} != {true_grid[i][j]}")
                     return 0.0
 
         return 1.0
