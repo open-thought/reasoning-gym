@@ -19,6 +19,7 @@ from .puzzle24 import Puzzle24Config, Puzzle24Curriculum, Puzzle24Dataset
 from .rush_hour import RushHourConfig, RushHourCurriculum, RushHourDataset
 from .sokoban import SokobanConfig, SokobanCurriculum, SokobanDataset
 from .sudoku import SudokuConfig, SudokuCurriculum, SudokuDataset
+from .survo import SurvoConfig, SurvoCurriculum, SurvoDataset
 from .tower_of_hanoi import HanoiConfig, HanoiCurriculum, HanoiDataset
 from .tsumego import TsumegoConfig, TsumegoCurriculum, TsumegoDataset
 
@@ -41,12 +42,15 @@ __all__ = [
     "Puzzle24Config",
     "Puzzle24Dataset",
     "Puzzle24Curriculum",
-    "SudokuConfig",
-    "SudokuCurriculum",
-    "SudokuDataset",
     "SokobanConfig",
     "SokobanCurriculum",
     "SokobanDataset",
+    "SudokuConfig",
+    "SudokuCurriculum",
+    "SudokuDataset",
+    "SurvoConfig",
+    "SurvoCurriculum",
+    "SurvoDataset",
     "RushHourConfig",
     "RushHourCurriculum",
     "RushHourDataset",
