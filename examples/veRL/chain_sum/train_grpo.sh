@@ -3,12 +3,6 @@ set -x
 
 python3 -u main_ppo_custom_reward.py \
     algorithm.adv_estimator=grpo \
-    data.train_files=$DATA_DIR/train.parquet \
-    data.val_files=$DATA_DIR/test.parquet \
-    data.train_batch_size=1024 \
-    data.val_batch_size=1312 \
-    data.max_prompt_length=512 \
-    data.max_response_length=1024 \
     actor_rollout_ref.model.path=$BASE_MODEL \
     actor_rollout_ref.actor.optim.lr=1e-6 \
     actor_rollout_ref.model.use_remove_padding=True \

@@ -65,24 +65,23 @@ class ReasoningGymDataset(Dataset):
             truncation=self.truncation,
         )
 
+        print('Length of input ids: ', input_ids.shape)
+
         position_ids = compute_position_id_with_mask(attention_mask)
 
         row_dict["data_source"] = "reasoning_gym/" + self.dataset_name
-        row_dict["input_ids"] = input_ids[0]
-        row_dict["attention_mask"] = attention_mask[0]
-        row_dict["position_ids"] = position_ids[0]
-        row_dict["raw_prompt_ids"] = self.tokenizer.encode(prompt, add_special_tokens=False)
-
-        # encode prompts without chat template
-        if self.return_raw_chat:
-            row_dict["raw_prompt"] = chat.tolist()
+        row_dict["input_ids"] = input_ids.squeeze(0)
+        row_dict["attention_mask"] = attention_mask.squeeze(0)
+        row_dict["position_ids"] = position_ids.squeeze(0)
 
         # add index for each prompt
         #  index = row_dict.get("extra_info", {}).get("index", 0)
+        for key in row_dict:
+            if isinstance(row_dict[key], torch.Tensor):
+                print(row_dict.shape)
         row_dict["index"] = index
 
         return row_dict
-
 
 class RayPPOTrainerCustom(RayPPOTrainer):
     def __init__(
@@ -173,7 +172,6 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         found_answer = extract_answer(solution_str, tag_name="answer")
         entry = self.train_dataset.data[index]
         reward = self.train_dataset.data.score_answer(found_answer, entry=entry)
-        # print(f"found answer={found_answer}; reward: {reward};")
         return reward
 
     def _create_dataloader(self, train_dataset, val_dataset, collate_fn = collate_fn, sampler = None):
@@ -187,7 +185,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
 
         self.val_dataloader = StatefulDataLoader(
             dataset=val_dataset,
-            batch_size=len(self.val_dataset),
+            batch_size=1,
             shuffle=True,
             drop_last=True,
             collate_fn=collate_fn,
