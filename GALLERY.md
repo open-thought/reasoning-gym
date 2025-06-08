@@ -1703,7 +1703,7 @@ Output:
 
 Given the following output:
 
-0.0004153825057949355
+0.0009558712529244959
 
 Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
 
@@ -1776,7 +1776,7 @@ def main_solution(n, p, k, iters, epsilon):
     return la.norm(x_star - x_IHT, 2)
 
 Answer: {"n": 123, "p": 456, "k": 9, "iters": 69, "epsilon": 0.00037050729487817825}
-Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0004153825057949355, 'difficulty': {'difficulty': None}}
+Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0009558712529244959, 'difficulty': {'difficulty': None}}
 
 Example 3:
 Question: 
@@ -1866,7 +1866,7 @@ The cube is rotated so that the side which was before at the bottom is now at th
 
 What is now the color of the back side of the cube?
 Provide only the color as your final answer.
-Answer: Color.ORANGE
+Answer: orange
 Metadata: {'source_dataset': 'color_cube_rotation', 'source_index': 0, 'initial_state': {'top': 'pink', 'right': 'gray', 'front': 'orange', 'left': 'purple', 'back': 'indigo', 'bottom': 'cyan'}, 'rotations': ['bottom'], 'target_side': 'back', 'num_rotations': 1, 'difficulty': {'rotations': (1, 3)}}
 
 Example 2:
@@ -1886,7 +1886,7 @@ After that the cube is turned to make the bottom face the top.
 
 What is now the color of the left side of the cube?
 Provide only the color as your final answer.
-Answer: Color.YELLOW
+Answer: yellow
 Metadata: {'source_dataset': 'color_cube_rotation', 'source_index': 1, 'initial_state': {'top': 'gray', 'right': 'brown', 'front': 'silver', 'left': 'red', 'back': 'purple', 'bottom': 'yellow'}, 'rotations': ['left', 'bottom', 'bottom'], 'target_side': 'left', 'num_rotations': 3, 'difficulty': {'rotations': (1, 3)}}
 
 Example 3:
@@ -1906,7 +1906,7 @@ Now the cube is rotated to place its bottom side at the top.
 
 What is now the color of the left side of the cube?
 Provide only the color as your final answer.
-Answer: Color.GOLD
+Answer: gold
 Metadata: {'source_dataset': 'color_cube_rotation', 'source_index': 2, 'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3, 'difficulty': {'rotations': (1, 3)}}
 
 ````
@@ -3075,10 +3075,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-kh oq
+zh vy
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['kh', 'oq'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['zh', 'vy'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3088,10 +3088,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-u q
+m y
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['u', 'q'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['m', 'y'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3101,10 +3101,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-bdhsdoso pgwymlyl
+nehkeyky qbgdjmdm
 
 Answer: False
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['bdhsdoso', 'pgwymlyl'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['nehkeyky', 'qbgdjmdm'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
 
 ````
 
@@ -4781,31 +4781,31 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (18 - 95*z**2)*(-104*z**3 - 12*z + 78)
+Question: Calculate the following: (-95*z**3 + 18*z**2)*(78*z**2 - 12*z - 104)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 9880*z**5 - 732*z**3 - 7410*z**2 - 216*z + 1404
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(18 - 95*z**2)*(-104*z**3 - 12*z + 78)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -7410*z**5 + 2544*z**4 + 9664*z**3 - 1872*z**2
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(-95*z**3 + 18*z**2)*(78*z**2 - 12*z - 104)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
-Question: Simplify this expression: (74*x**2 + 98*x + 16)*(77*x**2 + 8*x - 49)*(-163*x**3 - 49*x + 8)
+Question: Simplify this expression: (-49*x**2 - 163*x + 8)*(74*x**3 + 98*x**2 + 16)*(77*x**3 + 8*x**2 - 49)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -928774*x**7 - 1326494*x**6 - 16772*x**5 + 408684*x**4 + 271786*x**3 + 216146*x**2 + 1024*x - 6272
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(74*x**2 + 98*x + 16)*(77*x**2 + 8*x - 49)*(-163*x**3 - 49*x + 8)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -279202*x**8 - 1327536*x**7 - 1319326*x**6 + 54618*x**5 + 625520*x**4 + 742710*x**3 + 1024*x**2 + 127792*x - 6272
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**2 - 163*x + 8)*(74*x**3 + 98*x**2 + 16)*(77*x**3 + 8*x**2 - 49)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
-Question: Calculate the following: (21*y + 49)*(-49*y**3 + 29*y**2)
+Question: Calculate the following: (29 - 49*y**2)*(21*y**3 + 49*y)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -1029*y**4 - 1792*y**3 + 1421*y**2
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(21*y + 49)*(-49*y**3 + 29*y**2)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -1029*y**5 - 1792*y**3 + 1421*y
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(29 - 49*y**2)*(21*y**3 + 49*y)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -5199,32 +5199,32 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 Each letter in the magazine string can only be used once in your ransom note.
 
 Ransom note: hh
-Magazine: rh
+Magazine: oh
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'hh', 'magazine': 'rh', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'hh', 'magazine': 'oh', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: y
-Magazine: uhbitlpksbn
+Ransom note: u
+Magazine: rxcfpmqakcl
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'y', 'magazine': 'uhbitlpksbn', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'u', 'magazine': 'rxcfpmqakcl', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: dshnhom
-Magazine: uncuuxjsmxhdswlmmpdghgn
+Ransom note: ekhphyr
+Magazine: rlerrntkrnhekgmjjqzbhbp
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'dshnhom', 'magazine': 'uncuuxjsmxhdswlmmpdghgn', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'ekhphyr', 'magazine': 'rlerrntkrnhekgmjjqzbhbp', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 ````
 
@@ -7465,7 +7465,7 @@ Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: HAND,RAND,REND,REED,FEED,FLED,FLEE,GLEE
+Answer: HAND,RAND,REND,FEND,FEED,FLED,FLEE,GLEE
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 0, 'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8, 'difficulty': {'word_length': (4, 4)}}
 
 Example 2:
@@ -7479,7 +7479,7 @@ Example 3:
 Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
+Answer: SNOG,SNAG,SAAG,SANG,SUNG,SUNS,SUQS
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 2, 'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7, 'difficulty': {'word_length': (4, 4)}}
 
 ````
