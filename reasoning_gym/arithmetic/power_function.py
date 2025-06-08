@@ -37,26 +37,35 @@ class PowerFunctionDataset(ProceduralDataset):
     def __init__(self, config: PowerFunctionConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
+    def _format_sig_figs(self, x: Decimal, sig: int) -> str:
+        """Format a Decimal to exactly 'sig' significant figures, keeping trailing zeros."""
+        if x.is_zero():
+            return "0." + "0" * (sig - 1)
+
+        exp = x.adjusted()
+        shift = sig - exp - 1
+        rounded = x.quantize(Decimal("1e{}".format(-shift)))
+
+        format_str = "{0:.%df}" % max(shift, 0)
+        return format_str.format(rounded)
+
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score the answer by checking if it matches the expected answer to 3 significant figures."""
         oracle_answer = entry["answer"]
         if answer is not None:
             try:
-                user_answer = Decimal(answer)
-                oracle_value = Decimal(oracle_answer)
+                user_answer = self._format_sig_figs(Decimal(answer), 3)
+                oracle_answer = self._format_sig_figs(Decimal(oracle_answer), 3)
 
-                if oracle_value == 0:
-                    return 1.0 if user_answer == 0 else 0.01
-
-                user_sig_figs = f"{user_answer:.3g}"
-                oracle_sig_figs = f"{oracle_value:.3g}"
+                print(f"user answer: {user_answer}, oracle answer: {oracle_answer}")
 
                 # Check if they match to 3 significant figures
-                if user_sig_figs == oracle_sig_figs:
+                if user_answer == oracle_answer:
                     return 1.0
                 else:
                     return 0.01
             except Exception as e:
+                print(f"Error formatting answer: {e}")
                 return 0.01
         return 0.0
 
