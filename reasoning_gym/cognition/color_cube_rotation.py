@@ -138,7 +138,7 @@ class ColorCubeRotationDataset(ProceduralDataset):
 
         return {
             "question": story,
-            "answer": cube.colors[target_side],
+            "answer": cube.colors[target_side].value,
             "metadata": {
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
