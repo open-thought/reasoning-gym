@@ -58,7 +58,7 @@ actor_rollout_ref:
       optimizer_offload: False
       fsdp_size: -1
     checkpoint:
-      contents: ['model', 'optimizer', 'extra'] 
+      contents: ['model', 'optimizer', 'extra']
   ref:
     fsdp_config:
       param_offload: False

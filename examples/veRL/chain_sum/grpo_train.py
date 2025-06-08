@@ -3,28 +3,25 @@
 from typing import Optional
 
 import hydra
+import numpy as np
 import ray
 import torch
-import numpy as np
 import verl.utils.torch_functional as verl_F
-from verl.utils.dataset.rl_dataset import collate_fn as verl_collate_fn
 from omegaconf import OmegaConf, open_dict
 from torch.utils.data import Dataset
 from torchdata.stateful_dataloader import StatefulDataLoader
 from transformers import PreTrainedTokenizer
 from verl import DataProto
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
+from verl.utils.dataset.rl_dataset import collate_fn as verl_collate_fn
 from verl.utils.model import compute_position_id_with_mask
 
 import reasoning_gym
 import reasoning_gym.utils
-from reasoning_gym.utils import extract_answer
-
-import reasoning_gym
-import reasoning_gym.utils
-from reasoning_gym.composite import CompositeDataset, DatasetSpec
 from reasoning_gym.coaching.experiment import Experiment
+from reasoning_gym.composite import CompositeDataset, DatasetSpec
 from reasoning_gym.dataset import ProceduralDataset
+from reasoning_gym.utils import extract_answer
 
 
 class ReasoningGymDataset(Dataset):
@@ -78,14 +75,15 @@ class ReasoningGymDataset(Dataset):
 
         item = {}
         item["index"] = index
-    
+
         item["input_ids"] = input_ids[0]
         item["attention_mask"] = attention_mask[0]
         item["position_ids"] = position_ids[0]
 
         item["raw_prompt_ids"] = item["input_ids"].tolist()
-        
+
         return item
+
 
 def make_dataset(
     tokenizer,
@@ -162,20 +160,17 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         self.val_dataset = val_dataset
 
         def make_reward_fn(num_examine: int):
-            def reward_fn(
-                data: DataProto,
-                return_dict: bool = False,
-                **unused_kwargs
-            ):
+            def reward_fn(data: DataProto, return_dict: bool = False, **unused_kwargs):
                 tensor = self._score_output(data, num_examine=num_examine)
                 if return_dict:
                     # wrap it so trainer can pull out extras
                     return {"reward_tensor": tensor, "reward_extra_info": {}}
                 return tensor
+
             return reward_fn
 
         train_reward_fn = make_reward_fn(num_examine=0)
-        val_reward_fn   = make_reward_fn(num_examine=1)
+        val_reward_fn = make_reward_fn(num_examine=1)
 
         super().__init__(
             config,
@@ -185,9 +180,9 @@ class RayPPOTrainerCustom(RayPPOTrainer):
             ray_worker_group_cls,
             train_reward_fn,
             val_reward_fn,
-            train_dataset = train_dataset,
-            val_dataset = val_dataset,
-            train_sampler = None
+            train_dataset=train_dataset,
+            val_dataset=val_dataset,
+            train_sampler=None,
         )
 
     def _score_output(self, data: DataProto, num_examine: int = 0) -> torch.Tensor:
@@ -226,14 +221,13 @@ class RayPPOTrainerCustom(RayPPOTrainer):
 
         return reward_tensor
 
-
     def _compute_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
         entry = self.train_dataset.data[index]
         reward = self.train_dataset.data.score_answer(found_answer, entry=entry)
         return reward
 
-    def _create_dataloader(self, train_dataset, val_dataset, collate_fn = None, sampler = None):
+    def _create_dataloader(self, train_dataset, val_dataset, collate_fn=None, sampler=None):
 
         if collate_fn is None:
             collate_fn = verl_collate_fn
