@@ -1,7 +1,7 @@
 # Reasoning Gym Dataset Gallery
 This gallery shows examples from all available datasets using their default configurations.
 
-## Available Datasets (102)
+## Available Datasets (104)
 Legend: ✅ = Has curriculum, ❌ = No curriculum
 
 - [ab](#ab) ✅
@@ -47,6 +47,7 @@ Legend: ✅ = Has curriculum, ❌ = No curriculum
 - [intermediate_integration](#intermediate_integration) ✅
 - [isomorphic_strings](#isomorphic_strings) ✅
 - [jugs](#jugs) ✅
+- [kakurasu](#kakurasu) ✅
 - [knight_swap](#knight_swap) ✅
 - [knights_knaves](#knights_knaves) ✅
 - [largest_island](#largest_island) ✅
@@ -98,6 +99,7 @@ Legend: ✅ = Has curriculum, ❌ = No curriculum
 - [string_splitting](#string_splitting) ✅
 - [string_synthesis](#string_synthesis) ✅
 - [sudoku](#sudoku) ✅
+- [survo](#survo) ✅
 - [syllogism](#syllogism) ✅
 - [time_intervals](#time_intervals) ✅
 - [tower_of_hanoi](#tower_of_hanoi) ✅
@@ -315,7 +317,7 @@ Question: In triangle ABC with coordinates A=(-7, -10), B=(-2, -3), and C=(-3, -
 4. Return only the angle, coordinates, or radius as your answer.
 
 Answer: 17.10°
-Metadata: {'A': (-7, -10), 'B': (-2, -3), 'C': (-3, -6), 'angle_ABC_degrees': 17.10272896905237, 'source_dataset': 'advanced_geometry', 'source_index': 0, 'task_type': 'angle_measure', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
+Metadata: {'A': ('-7', '-10'), 'B': ('-2', '-3'), 'C': ('-3', '-6'), 'angle_ABC_degrees': 17.10272896905237, 'source_dataset': 'advanced_geometry', 'source_index': 0, 'task_type': 'angle_measure', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
 
 Example 2:
 Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determine the orthocenter (intersection of altitudes). For all geometry problems:
@@ -325,7 +327,7 @@ Question: For triangle with vertices A=(-1, -6), B=(4, 1), and C=(-7, 4), determ
 4. Return only the angle, coordinates, or radius as your answer.
 
 Answer: (0.304, -1.217)
-Metadata: {'A': (-1, -6), 'B': (4, 1), 'C': (-7, 4), 'ortho': (7/23, -28/23), 'orthocenter_exact': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262), 'source_dataset': 'advanced_geometry', 'source_index': 1, 'task_type': 'orthocenter', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
+Metadata: {'A': ('-1', '-6'), 'B': ('4', '1'), 'C': ('-7', '4'), 'ortho': ('7/23', '-28/23'), 'orthocenter_approx': (0.30434782608695654, -1.2173913043478262), 'source_dataset': 'advanced_geometry', 'source_index': 1, 'task_type': 'orthocenter', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
 
 Example 3:
 Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), B=(-7, -5), and C=(2, -3). For all geometry problems:
@@ -335,7 +337,7 @@ Question: Find the incircle radius of triangle ABC whose vertices are A=(6, 7), 
 4. Return only the angle, coordinates, or radius as your answer.
 
 Answer: 2.176
-Metadata: {'A': (6, 7), 'B': (-7, -5), 'C': (2, -3), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009, 'source_dataset': 'advanced_geometry', 'source_index': 2, 'task_type': 'incircle_radius', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
+Metadata: {'A': ('6', '7'), 'B': ('-7', '-5'), 'C': ('2', '-3'), 'incircle_radius_exact': 'sqrt(-sqrt(29) + sqrt(85)/2 + sqrt(313)/2)*sqrt(-sqrt(313)/2 + sqrt(85)/2 + sqrt(29))*sqrt(-sqrt(85)/2 + sqrt(29) + sqrt(313)/2)/sqrt(sqrt(85)/2 + sqrt(29) + sqrt(313)/2)', 'incircle_radius_approx': 2.176123777286009, 'source_dataset': 'advanced_geometry', 'source_index': 2, 'task_type': 'incircle_radius', 'difficulty': {'min_coord': -10, 'max_coord': 10}}
 
 ````
 
@@ -1701,7 +1703,7 @@ Output:
 
 Given the following output:
 
-0.0005174525697676732
+0.0004153825057949355
 
 Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
 
@@ -1774,7 +1776,7 @@ def main_solution(n, p, k, iters, epsilon):
     return la.norm(x_star - x_IHT, 2)
 
 Answer: {"n": 123, "p": 456, "k": 9, "iters": 69, "epsilon": 0.00037050729487817825}
-Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0005174525697676732, 'difficulty': {'difficulty': None}}
+Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0004153825057949355, 'difficulty': {'difficulty': None}}
 
 Example 3:
 Question: 
@@ -1864,7 +1866,7 @@ The cube is rotated so that the side which was before at the bottom is now at th
 
 What is now the color of the back side of the cube?
 Provide only the color as your final answer.
-Answer: orange
+Answer: Color.ORANGE
 Metadata: {'source_dataset': 'color_cube_rotation', 'source_index': 0, 'initial_state': {'top': 'pink', 'right': 'gray', 'front': 'orange', 'left': 'purple', 'back': 'indigo', 'bottom': 'cyan'}, 'rotations': ['bottom'], 'target_side': 'back', 'num_rotations': 1, 'difficulty': {'rotations': (1, 3)}}
 
 Example 2:
@@ -1884,7 +1886,7 @@ After that the cube is turned to make the bottom face the top.
 
 What is now the color of the left side of the cube?
 Provide only the color as your final answer.
-Answer: yellow
+Answer: Color.YELLOW
 Metadata: {'source_dataset': 'color_cube_rotation', 'source_index': 1, 'initial_state': {'top': 'gray', 'right': 'brown', 'front': 'silver', 'left': 'red', 'back': 'purple', 'bottom': 'yellow'}, 'rotations': ['left', 'bottom', 'bottom'], 'target_side': 'left', 'num_rotations': 3, 'difficulty': {'rotations': (1, 3)}}
 
 Example 3:
@@ -1904,7 +1906,7 @@ Now the cube is rotated to place its bottom side at the top.
 
 What is now the color of the left side of the cube?
 Provide only the color as your final answer.
-Answer: gold
+Answer: Color.GOLD
 Metadata: {'source_dataset': 'color_cube_rotation', 'source_index': 2, 'initial_state': {'top': 'orange', 'right': 'cyan', 'front': 'violet', 'left': 'pink', 'back': 'gray', 'bottom': 'gold'}, 'rotations': ['left', 'back', 'bottom'], 'target_side': 'left', 'num_rotations': 3, 'difficulty': {'rotations': (1, 3)}}
 
 ````
@@ -2609,7 +2611,7 @@ Answer: 8   4   3   9   6   7   2   5   1
 6   5   7   1   9   8   4   2   3
                                  
 1   7   9   5   4   3   6   8   2
-Metadata: {'source_dataset': 'futoshiki', 'source_index': 0, 'puzzle': [[8, 4, 0, 9, 0, 0, 2, 5, 0], [0, 0, 5, 3, 2, 0, 0, 1, 0], [3, 0, 0, 8, 0, 0, 0, 0, 0], [0, 0, 6, 4, 3, 2, 0, 0, 5], [0, 0, 2, 7, 0, 1, 9, 6, 4], [7, 9, 0, 0, 1, 4, 5, 0, 0], [0, 0, 0, 6, 0, 5, 3, 9, 8], [0, 0, 0, 0, 0, 0, 4, 2, 0], [0, 7, 9, 0, 0, 0, 0, 8, 2]], 'constraints': {((2, 7), (3, 7)): '<', ((4, 2), (5, 2)): '<', ((4, 3), (5, 3)): '>'}, 'solution': [[8, 4, 3, 9, 6, 7, 2, 5, 1], [4, 6, 5, 3, 2, 9, 8, 1, 7], [3, 2, 1, 8, 5, 6, 7, 4, 9], [9, 8, 6, 4, 3, 2, 1, 7, 5], [5, 3, 2, 7, 8, 1, 9, 6, 4], [7, 9, 8, 2, 1, 4, 5, 3, 6], [2, 1, 4, 6, 7, 5, 3, 9, 8], [6, 5, 7, 1, 9, 8, 4, 2, 3], [1, 7, 9, 5, 4, 3, 6, 8, 2]], 'board_size': 9, 'difficulty_rating': 0, 'difficulty': {'board_size': (4, 9), 'difficulty': (0, 3)}}
+Metadata: {'source_dataset': 'futoshiki', 'source_index': 0, 'puzzle': [[8, 4, 0, 9, 0, 0, 2, 5, 0], [0, 0, 5, 3, 2, 0, 0, 1, 0], [3, 0, 0, 8, 0, 0, 0, 0, 0], [0, 0, 6, 4, 3, 2, 0, 0, 5], [0, 0, 2, 7, 0, 1, 9, 6, 4], [7, 9, 0, 0, 1, 4, 5, 0, 0], [0, 0, 0, 6, 0, 5, 3, 9, 8], [0, 0, 0, 0, 0, 0, 4, 2, 0], [0, 7, 9, 0, 0, 0, 0, 8, 2]], 'constraints': [(2, 7, 3, 7, '<'), (4, 2, 5, 2, '<'), (4, 3, 5, 3, '>')], 'solution': [[8, 4, 3, 9, 6, 7, 2, 5, 1], [4, 6, 5, 3, 2, 9, 8, 1, 7], [3, 2, 1, 8, 5, 6, 7, 4, 9], [9, 8, 6, 4, 3, 2, 1, 7, 5], [5, 3, 2, 7, 8, 1, 9, 6, 4], [7, 9, 8, 2, 1, 4, 5, 3, 6], [2, 1, 4, 6, 7, 5, 3, 9, 8], [6, 5, 7, 1, 9, 8, 4, 2, 3], [1, 7, 9, 5, 4, 3, 6, 8, 2]], 'board_size': 9, 'difficulty_rating': 0, 'difficulty': {'board_size': (4, 9), 'difficulty': (0, 3)}}
 
 Example 2:
 Question: Solve the following 4x4 Futoshiki puzzle:
@@ -2632,7 +2634,7 @@ Answer: 1   3 < 4 > 2
 2   4 > 1 < 3
 ∧            
 3   1   2   4
-Metadata: {'source_dataset': 'futoshiki', 'source_index': 1, 'puzzle': [[0, 3, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]], 'constraints': {((0, 0), (1, 0)): '<', ((0, 1), (0, 2)): '<', ((0, 1), (1, 1)): '>', ((0, 2), (0, 3)): '>', ((0, 2), (1, 2)): '>', ((1, 0), (1, 1)): '>', ((1, 2), (2, 2)): '>', ((2, 0), (3, 0)): '<', ((2, 1), (2, 2)): '>', ((2, 2), (2, 3)): '<'}, 'solution': [[1, 3, 4, 2], [4, 2, 3, 1], [2, 4, 1, 3], [3, 1, 2, 4]], 'board_size': 4, 'difficulty_rating': 2, 'difficulty': {'board_size': (4, 9), 'difficulty': (0, 3)}}
+Metadata: {'source_dataset': 'futoshiki', 'source_index': 1, 'puzzle': [[0, 3, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 1, 0, 0]], 'constraints': [(0, 0, 1, 0, '<'), (0, 1, 0, 2, '<'), (0, 1, 1, 1, '>'), (0, 2, 0, 3, '>'), (0, 2, 1, 2, '>'), (1, 0, 1, 1, '>'), (1, 2, 2, 2, '>'), (2, 0, 3, 0, '<'), (2, 1, 2, 2, '>'), (2, 2, 2, 3, '<')], 'solution': [[1, 3, 4, 2], [4, 2, 3, 1], [2, 4, 1, 3], [3, 1, 2, 4]], 'board_size': 4, 'difficulty_rating': 2, 'difficulty': {'board_size': (4, 9), 'difficulty': (0, 3)}}
 
 Example 3:
 Question: Solve the following 7x7 Futoshiki puzzle:
@@ -2667,7 +2669,7 @@ Answer: 5   6   1   3   7   4   2
 7   1   5   4   2   3   6
                          
 6   5   7   1   3   2   4
-Metadata: {'source_dataset': 'futoshiki', 'source_index': 2, 'puzzle': [[0, 0, 0, 0, 7, 0, 0], [3, 2, 0, 0, 0, 0, 0], [0, 0, 2, 5, 0, 0, 7], [0, 0, 6, 0, 1, 5, 0], [4, 0, 0, 2, 6, 1, 0], [7, 0, 0, 0, 0, 3, 0], [0, 5, 0, 0, 0, 2, 4]], 'constraints': {((1, 6), (2, 6)): '<', ((3, 4), (4, 4)): '<'}, 'solution': [[5, 6, 1, 3, 7, 4, 2], [3, 2, 4, 6, 5, 7, 1], [1, 3, 2, 5, 4, 6, 7], [2, 4, 6, 7, 1, 5, 3], [4, 7, 3, 2, 6, 1, 5], [7, 1, 5, 4, 2, 3, 6], [6, 5, 7, 1, 3, 2, 4]], 'board_size': 7, 'difficulty_rating': 0, 'difficulty': {'board_size': (4, 9), 'difficulty': (0, 3)}}
+Metadata: {'source_dataset': 'futoshiki', 'source_index': 2, 'puzzle': [[0, 0, 0, 0, 7, 0, 0], [3, 2, 0, 0, 0, 0, 0], [0, 0, 2, 5, 0, 0, 7], [0, 0, 6, 0, 1, 5, 0], [4, 0, 0, 2, 6, 1, 0], [7, 0, 0, 0, 0, 3, 0], [0, 5, 0, 0, 0, 2, 4]], 'constraints': [(1, 6, 2, 6, '<'), (3, 4, 4, 4, '<')], 'solution': [[5, 6, 1, 3, 7, 4, 2], [3, 2, 4, 6, 5, 7, 1], [1, 3, 2, 5, 4, 6, 7], [2, 4, 6, 7, 1, 5, 3], [4, 7, 3, 2, 6, 1, 5], [7, 1, 5, 4, 2, 3, 6], [6, 5, 7, 1, 3, 2, 4]], 'board_size': 7, 'difficulty_rating': 0, 'difficulty': {'board_size': (4, 9), 'difficulty': (0, 3)}}
 
 ````
 
@@ -3025,7 +3027,7 @@ Use same variable symbols as given in the question
 3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
 Answer: 2*exp(4*x**2 + 2*x + 10) + C
-Metadata: {'source_dataset': 'intermediate_integration', 'source_index': 0, 'integrand': '(16*x + 4)*exp(4*x**2 + 2*x + 10)', 'problem_type': 'exponential', 'variable': 'x', 'expected_answer_expression': 2*exp(4*x**2 + 2*x + 10), 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
+Metadata: {'source_dataset': 'intermediate_integration', 'source_index': 0, 'integrand': '(16*x + 4)*exp(4*x**2 + 2*x + 10)', 'problem_type': 'exponential', 'variable': 'x', 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
 
 Example 2:
 Question: Evaluate the indefinite integral: ∫ -3*(8*x + 6)**3 dx
@@ -3036,7 +3038,7 @@ Use same variable symbols as given in the question
 3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
 Answer: -384*x**4 - 1152*x**3 - 1296*x**2 - 648*x + C
-Metadata: {'source_dataset': 'intermediate_integration', 'source_index': 1, 'integrand': '-3*(8*x + 6)**3', 'problem_type': 'linear', 'variable': 'x', 'expected_answer_expression': -384*x**4 - 1152*x**3 - 1296*x**2 - 648*x, 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
+Metadata: {'source_dataset': 'intermediate_integration', 'source_index': 1, 'integrand': '-3*(8*x + 6)**3', 'problem_type': 'linear', 'variable': 'x', 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
 
 Example 3:
 Question: Find the indefinite integral: ∫ -4*sin(4*x + 1)**2*cos(4*x + 1) dx
@@ -3047,7 +3049,7 @@ Use same variable symbols as given in the question
 3. Use `exp(x)` or `E**(x)` for the exponential function (i.e. use capital E for Euler's number).
 
 Answer: -sin(4*x + 1)**3/3 + C
-Metadata: {'source_dataset': 'intermediate_integration', 'source_index': 2, 'integrand': '-4*sin(4*x + 1)**2*cos(4*x + 1)', 'problem_type': 'trigonometric', 'variable': 'x', 'expected_answer_expression': -sin(4*x + 1)**3/3, 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
+Metadata: {'source_dataset': 'intermediate_integration', 'source_index': 2, 'integrand': '-4*sin(4*x + 1)**2*cos(4*x + 1)', 'problem_type': 'trigonometric', 'variable': 'x', 'difficulty': {'problem_type_weights': [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]}}
 
 ````
 
@@ -3073,10 +3075,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-oj sh
+kh oq
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['oj', 'sh'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['kh', 'oq'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3086,10 +3088,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-f h
+u q
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['f', 'h'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['u', 'q'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3099,10 +3101,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-pejqebqb bnpjmcjc
+bdhsdoso pgwymlyl
 
 Answer: False
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['pejqebqb', 'bnpjmcjc'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['bdhsdoso', 'pgwymlyl'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
 
 ````
 
@@ -3184,6 +3186,84 @@ Reply as a JSON-parsable list of moves which result in any of the jugs being fil
 
 Answer: ["fill B", "pour B->A", "empty A", "pour B->A", "fill B", "pour B->A", "empty A", "pour B->A", "fill B", "pour B->A", "pour B->C"]
 Metadata: {'source_dataset': 'jugs', 'source_index': 2, 'puzzle': {'jug_capacities': [7, 10, 7], 'target': 2, 'min_moves': 11}, 'difficulty': {'num_jugs': 3, 'difficulty': 10}}
+
+````
+
+### kakurasu
+Generates Kakurasu puzzles with configurable size.
+
+Default configuration:
+```python
+min_rows = 4
+max_rows = 5
+min_cols = 4
+max_cols = 5
+p_ones = 0.3
+seed = 42
+size = 500
+max_retries = 1000
+```
+
+Example tasks:
+````
+Example 1:
+Question: This 4 x 4 grid represents a Kukurasu puzzle. Your task is to place 1s in the grid so that the weighted sums match the constraints. Row sums: [5, 2, 3, 4]. Column sums: [3, 6, 1, 4].
+1. Rules:
+  1. Each cell must contain either a 1 or an 0.
+  2. A 1 in the jth position of a row contributes j points to that row's sum.
+  3. A 1 in the ith position of a column contributes i points to that column's sum.
+  4. The weighted sum of each row must equal its constraint value.
+  5. The weighted sum of each column must equal its constraint value.
+2. Input:
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+Answer: 0 1 1 0
+0 1 0 0
+1 1 0 0
+0 0 0 1
+Metadata: {'source_dataset': 'kakurasu', 'source_idx': 0, 'n_rows': 4, 'n_cols': 4, 'p_ones': 0.3, 'puzzle': [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], 'row_sums': [5, 2, 3, 4], 'col_sums': [3, 6, 1, 4], 'solution': [[0, 1, 1, 0], [0, 1, 0, 0], [1, 1, 0, 0], [0, 0, 0, 1]], 'difficulty': {'rows': (4, 5), 'cols': (4, 5), 'p_ones': 0.3}}
+
+Example 2:
+Question: You're presented with a 4 x 5 Kukurasu puzzle grid. The goal is to place 1s in the grid so that the weighted sums of rows and columns match the given constraints: row sums [5, 2, 2, 10] and column sums [4, 6, 1, 4, 4].
+1. Rules:
+  1. Each cell must be filled with either a 1 or an 0.
+  2. A 1 in column j of any row contributes j points to that row's sum (j ranges from 1 to 5).
+  3. A 1 in row i of any column contributes i points to that column's sum (i ranges from 1 to 4).
+  4. Each row's weighted sum must match its constraint value.
+  5. Each column's weighted sum must match its constraint value.
+2. Input:
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+Answer: 0 1 1 0 0
+0 1 0 0 0
+0 1 0 0 0
+1 0 0 1 1
+Metadata: {'source_dataset': 'kakurasu', 'source_idx': 1, 'n_rows': 4, 'n_cols': 5, 'p_ones': 0.3, 'puzzle': [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]], 'row_sums': [5, 2, 2, 10], 'col_sums': [4, 6, 1, 4, 4], 'solution': [[0, 1, 1, 0, 0], [0, 1, 0, 0, 0], [0, 1, 0, 0, 0], [1, 0, 0, 1, 1]], 'difficulty': {'rows': (4, 5), 'cols': (4, 5), 'p_ones': 0.3}}
+
+Example 3:
+Question: This is a 5 x 4 Kukurasu puzzle grid. Your task is to fill in the grid with 1s and 0s such that the weighted sums match the given constraints. The row sums are [3, 5, 7, 2, 3] and the column sums are [2, 4, 9, 5].
+1. Rules:
+  1. Each cell must contain either a 1 or an 0.
+  2. In each row, a 1 in position j contributes j points to that row's sum (positions are 1-indexed).
+  3. In each column, a 1 in position i contributes i points to that column's sum (positions are 1-indexed).
+  4. The weighted sum of each row must equal its constraint value.
+  5. The weighted sum of each column must equal its constraint value.
+2. Input:
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+Answer: 0 0 1 0
+1 0 0 1
+0 0 1 1
+0 1 0 0
+0 0 1 0
+Metadata: {'source_dataset': 'kakurasu', 'source_idx': 2, 'n_rows': 5, 'n_cols': 4, 'p_ones': 0.3, 'puzzle': [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], 'row_sums': [3, 5, 7, 2, 3], 'col_sums': [2, 4, 9, 5], 'solution': [[0, 0, 1, 0], [1, 0, 0, 1], [0, 0, 1, 1], [0, 1, 0, 0], [0, 0, 1, 0]], 'difficulty': {'rows': (4, 5), 'cols': (4, 5), 'p_ones': 0.3}}
 
 ````
 
@@ -4701,31 +4781,31 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (18 - 95*z**3)*(-12*z**2 - 104*z + 78)
+Question: Calculate the following: (18 - 95*z**2)*(-104*z**3 - 12*z + 78)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 1140*z**5 + 9880*z**4 - 7410*z**3 - 216*z**2 - 1872*z + 1404
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(18 - 95*z**3)*(-12*z**2 - 104*z + 78)', 'variables': [z], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 9880*z**5 - 732*z**3 - 7410*z**2 - 216*z + 1404
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(18 - 95*z**2)*(-104*z**3 - 12*z + 78)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
-Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
+Question: Simplify this expression: (74*x**2 + 98*x + 16)*(77*x**2 + 8*x - 49)*(-163*x**3 - 49*x + 8)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': [x], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -928774*x**7 - 1326494*x**6 - 16772*x**5 + 408684*x**4 + 271786*x**3 + 216146*x**2 + 1024*x - 6272
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(74*x**2 + 98*x + 16)*(77*x**2 + 8*x - 49)*(-163*x**3 - 49*x + 8)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
-Question: Calculate the following: (-49*y**2 + 29*y)*(21*y**3 + 49)
+Question: Calculate the following: (21*y + 49)*(-49*y**3 + 29*y**2)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -1029*y**5 + 609*y**4 - 2401*y**2 + 1421*y
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(-49*y**2 + 29*y)*(21*y**3 + 49)', 'variables': [y], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -1029*y**4 - 1792*y**3 + 1421*y**2
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(21*y + 49)*(-49*y**3 + 29*y**2)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -5018,7 +5098,7 @@ Final answer format instructions:
 4. Use '/' for division.
 
 Answer: 4 + 3 + 9 + 8
-Metadata: {'source_dataset': 'puzzle24', 'source_index': 0, 'numbers': [4, 3, 9, 8], 'expression': x0 + x1 + x2 + x3, 'difficulty': {'value': (1, 10)}}
+Metadata: {'source_dataset': 'puzzle24', 'source_index': 0, 'numbers': [4, 3, 9, 8], 'difficulty': {'value': (1, 10)}}
 
 Example 2:
 Question: Make 24 using 8, 2, 10, 4. You can only use each number once. You can use the operators +, -, *, /.
@@ -5029,7 +5109,7 @@ Final answer format instructions:
 4. Use '/' for division.
 
 Answer: 8 + 2 + 10 + 4
-Metadata: {'source_dataset': 'puzzle24', 'source_index': 1, 'numbers': [8, 2, 10, 4], 'expression': x0 + x1 + x2 + x3, 'difficulty': {'value': (1, 10)}}
+Metadata: {'source_dataset': 'puzzle24', 'source_index': 1, 'numbers': [8, 2, 10, 4], 'difficulty': {'value': (1, 10)}}
 
 Example 3:
 Question: Make 24 using 6, 5, 10, 3. You can only use each number once. You can use the operators +, -, *, /.
@@ -5040,7 +5120,7 @@ Final answer format instructions:
 4. Use '/' for division.
 
 Answer: 6 + 5 + 10 + 3
-Metadata: {'source_dataset': 'puzzle24', 'source_index': 2, 'numbers': [6, 5, 10, 3], 'expression': x0 + x1 + x2 + x3, 'difficulty': {'value': (1, 10)}}
+Metadata: {'source_dataset': 'puzzle24', 'source_index': 2, 'numbers': [6, 5, 10, 3], 'difficulty': {'value': (1, 10)}}
 
 ````
 
@@ -5118,33 +5198,33 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: jj
-Magazine: rj
+Ransom note: hh
+Magazine: rh
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'jj', 'magazine': 'rj', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'hh', 'magazine': 'rh', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: h
-Magazine: wlvaxcbkqvf
+Ransom note: y
+Magazine: uhbitlpksbn
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'h', 'magazine': 'wlvaxcbkqvf', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'y', 'magazine': 'uhbitlpksbn', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: eqjtjba
-Magazine: wfewwziqazjeqpcmmhtnjnt
+Ransom note: dshnhom
+Magazine: uncuuxjsmxhdswlmmpdghgn
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'eqjtjba', 'magazine': 'wfewwziqazjeqpcmmhtnjnt', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'dshnhom', 'magazine': 'uncuuxjsmxhdswlmmpdghgn', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 ````
 
@@ -5955,7 +6035,7 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: You see a size 3 Rubik's cube. It is arranged this:
+Question: You see a size 3 Rubik's cube arranged as follows::
 
           G  Y  W                   
           G  Y  W                   
@@ -5973,7 +6053,7 @@ Answer: None
 Metadata: {'source_dataset': 'rubiks_cube', 'source_index': 0, 'cube_size': 3, 'scramble_steps': 4, 'scramble_moves': "L' R R F", 'example_correct_answer': "U L D F' R' D' D' F' D B U' B' R' U U R U' L' U L U F U' F' U' L' U L U F U' F' U L' U L U F U' F' U F' U F U R U' R' U F R U R' U' R U R' U' F' U U R U R' U R U U R' U' R U R' U R U U R' U' R U' L' U R' U' L U R U' L' U R' U' L U R' D' R D R' D' R D R' D' R D R' D' R D U R' D' R D R' D' R D U U", 'difficulty': {'cube_size': 3, 'scramble_steps': (3, 10)}}
 
 Example 2:
-Question: You see a size 3 Rubik's cube. It is arranged this:
+Question: You see a size 3 Rubik's cube arranged as follows::
 
           Y  Y  Y                   
           Y  Y  Y                   
@@ -5991,7 +6071,7 @@ Answer: None
 Metadata: {'source_dataset': 'rubiks_cube', 'source_index': 1, 'cube_size': 3, 'scramble_steps': 3, 'scramble_moves': "D U' F", 'example_correct_answer': "L D L' D' L D' B D R D R' D' R D' F D B U B' U R U' R' U' B U' B' R' U U R U U L U' L' B' U U B F U' F' L' U' L U F U' F' U' R U' R' U' F' U F U B U' B' U' R' U R U' B' U B U L U' L' U' B' U B U L U' L' U B' U B U L U' L' U F R U R' U' F' U R U R' U R U U R' U' R U R' U R U U R' U' L U' R' U L' U' D' R D R' D' R D R' D' R D R' D' R D U U R' D' R D R' D' R D U U", 'difficulty': {'cube_size': 3, 'scramble_steps': (3, 10)}}
 
 Example 3:
-Question: You see a size 3 Rubik's cube. It is arranged this:
+Question: You see a size 3 Rubik's cube arranged as follows::
 
           Y  R  B                   
           G  Y  W                   
@@ -6361,7 +6441,7 @@ When performing calculations, please follow these guidelines:
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 10*x**7 + 4*x**3/5 + C
-Metadata: {'source_dataset': 'simple_integration', 'source_index': 0, 'integrand': '70*x**6 + 12*x**2/5', 'variable': 'x', 'expected_answer_expression': 10*x**7 + 4*x**3/5, 'num_terms': 2, 'difficulty': {'terms': (2, 5)}}
+Metadata: {'source_dataset': 'simple_integration', 'source_index': 0, 'integrand': '70*x**6 + 12*x**2/5', 'variable': 'x', 'num_terms': 2, 'difficulty': {'terms': (2, 5)}}
 
 Example 2:
 Question: Evaluate the indefinite integral: ∫ 48*X**5 - 10/9 dx
@@ -6370,7 +6450,7 @@ When performing calculations, please follow these guidelines:
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: 8*X**6 - 10*X/9 + C
-Metadata: {'source_dataset': 'simple_integration', 'source_index': 1, 'integrand': '48*X**5 - 10/9', 'variable': 'X', 'expected_answer_expression': 8*X**6 - 10*X/9, 'num_terms': 2, 'difficulty': {'terms': (2, 5)}}
+Metadata: {'source_dataset': 'simple_integration', 'source_index': 1, 'integrand': '48*X**5 - 10/9', 'variable': 'X', 'num_terms': 2, 'difficulty': {'terms': (2, 5)}}
 
 Example 3:
 Question: Evaluate the indefinite integral: ∫ -27*x**8 + 9*x**5/2 - 28*x**3 + 5*x**2 + 8*x dx
@@ -6379,7 +6459,7 @@ When performing calculations, please follow these guidelines:
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
 Answer: -3*x**9 + 3*x**6/4 - 7*x**4 + 5*x**3/3 + 4*x**2 + C
-Metadata: {'source_dataset': 'simple_integration', 'source_index': 2, 'integrand': '-27*x**8 + 9*x**5/2 - 28*x**3 + 5*x**2 + 8*x', 'variable': 'x', 'expected_answer_expression': -3*x**9 + 3*x**6/4 - 7*x**4 + 5*x**3/3 + 4*x**2, 'num_terms': 5, 'difficulty': {'terms': (2, 5)}}
+Metadata: {'source_dataset': 'simple_integration', 'source_index': 2, 'integrand': '-27*x**8 + 9*x**5/2 - 28*x**3 + 5*x**2 + 8*x', 'variable': 'x', 'num_terms': 5, 'difficulty': {'terms': (2, 5)}}
 
 ````
 
@@ -6990,6 +7070,64 @@ Metadata: {'source_dataset': 'sudoku', 'source_index': 2, 'puzzle': [[0, 0, 1, 9
 
 ````
 
+### survo
+Default configuration:
+```python
+min_board_size = 4
+max_board_size = 5
+min_empty = 3
+max_empty = 5
+min_num = 1
+max_num = 9
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: You have a 4*4 matrix with some positions already filled with numbers and others marked with 0. The matrix is:
+0 0 4 13
+3 2 9 14
+2 0 1 10
+10 13 14 37
+The last number in each row and column represents the sum of all other numbers in that row or column. You need to fill in the 0 positions using the numbers [5, 4, 7] to satisfy these conditions. Each number can only be used once.
+Answer: 5 4 4 13
+3 2 9 14
+2 7 1 10
+10 13 14 37
+Metadata: {'source_dataset': 'survo', 'source_idx': 0, 'puzzle': [[0, 0, 4, 13], [3, 2, 9, 14], [2, 0, 1, 10], [10, 13, 14, 37]], 'solution': [[5, 4, 4, 13], [3, 2, 9, 14], [2, 7, 1, 10], [10, 13, 14, 37]], 'candidate_numbers': [5, 4, 7], 'board_size': 4, 'num_empty': 3, 'min_num': 1, 'max_num': 9, 'difficulty': {'board_size': (4, 5), 'empty': (3, 5)}}
+
+Example 2:
+Question: Given a 4*4 matrix where the last element of each row and column equals the sum of the other elements in that row or column. The matrix is:
+3 0 6 17
+0 8 0 18
+0 9 7 17
+6 25 21 52
+where some elements are replaced with 0. You have a set of numbers [8, 1, 2, 8] that can be filled into the 0 positions to satisfy the rules. Please fill in the matrix. Each number can only be used once.
+Answer: 3 8 6 17
+2 8 8 18
+1 9 7 17
+6 25 21 52
+Metadata: {'source_dataset': 'survo', 'source_idx': 1, 'puzzle': [[3, 0, 6, 17], [0, 8, 0, 18], [0, 9, 7, 17], [6, 25, 21, 52]], 'solution': [[3, 8, 6, 17], [2, 8, 8, 18], [1, 9, 7, 17], [6, 25, 21, 52]], 'candidate_numbers': [8, 1, 2, 8], 'board_size': 4, 'num_empty': 4, 'min_num': 1, 'max_num': 9, 'difficulty': {'board_size': (4, 5), 'empty': (3, 5)}}
+
+Example 3:
+Question: Solve this 5*5 matrix puzzle:
+9 0 3 7 21
+0 0 1 4 14
+2 1 0 3 8
+9 5 0 7 28
+24 13 13 21 71
+where 0 represents empty cells that need to be filled. The last number in each row and column equals the sum of all other numbers in that row or column. You have the numbers [2, 5, 2, 7, 4] to place in the empty cells. Each number can only be used once.
+Answer: 9 2 3 7 21
+4 5 1 4 14
+2 1 2 3 8
+9 5 7 7 28
+24 13 13 21 71
+Metadata: {'source_dataset': 'survo', 'source_idx': 2, 'puzzle': [[9, 0, 3, 7, 21], [0, 0, 1, 4, 14], [2, 1, 0, 3, 8], [9, 5, 0, 7, 28], [24, 13, 13, 21, 71]], 'solution': [[9, 2, 3, 7, 21], [4, 5, 1, 4, 14], [2, 1, 2, 3, 8], [9, 5, 7, 7, 28], [24, 13, 13, 21, 71]], 'candidate_numbers': [2, 5, 2, 7, 4], 'board_size': 5, 'num_empty': 5, 'min_num': 1, 'max_num': 9, 'difficulty': {'board_size': (4, 5), 'empty': (3, 5)}}
+
+````
+
 ### syllogism
 Generates syllogism reasoning tasks
 
@@ -7063,17 +7201,17 @@ Example tasks:
 Example 1:
 Question: A system backup started at 2964-06-17 08:15:14 and completed at 2964-07-04 11:59:09. What was the total backup duration? Answer in D days, HH:MM.
 Answer: 17 days, 03:43
-Metadata: {'source_dataset': 'time_intervals', 'source_index': 0, 'task_type': 'datetime_tz', 'start_time': datetime.datetime(2964, 6, 17, 8, 15, 14), 'end_time': datetime.datetime(2964, 7, 4, 11, 59, 9), 'format': '%Y-%m-%d %H:%M:%S', 'expected_format': 'D days, HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'source_dataset': 'time_intervals', 'source_index': 0, 'task_type': 'datetime_tz', 'start_time': '2964-06-17 08:15:14', 'end_time': '2964-07-04 11:59:09', 'format': '%Y-%m-%d %H:%M:%S', 'expected_format': 'D days, HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': datetime.datetime(2025, 5, 15, 9, 44), 'end_time': datetime.datetime(2025, 5, 15, 12, 22), 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': '2025-06-08 09:44:00', 'end_time': '2025-06-08 12:22:00', 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
 Answer: 89 days
-Metadata: {'source_dataset': 'time_intervals', 'source_index': 2, 'task_type': 'date', 'start_time': datetime.datetime(2677, 12, 22, 0, 0), 'end_time': datetime.datetime(2678, 3, 21, 0, 0), 'format': '%a %b %d %Y', 'expected_format': 'D days', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'source_dataset': 'time_intervals', 'source_index': 2, 'task_type': 'date', 'start_time': '2677-12-22 00:00:00', 'end_time': '2678-03-21 00:00:00', 'format': '%a %b %d %Y', 'expected_format': 'D days', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 ````
 
@@ -7327,7 +7465,7 @@ Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: HAND,RAND,REND,FEND,FEED,FLED,FLEE,GLEE
+Answer: HAND,RAND,REND,REED,FEED,FLED,FLEE,GLEE
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 0, 'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8, 'difficulty': {'word_length': (4, 4)}}
 
 Example 2:
@@ -7400,7 +7538,7 @@ min_words = 3
 max_words = 10
 min_word_length = 3
 max_word_length = 12
-transformation = original
+transformation = TextTransformation.ORIGINAL
 seed = 42
 size = 500
 ```
