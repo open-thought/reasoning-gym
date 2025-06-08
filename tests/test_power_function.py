@@ -1,5 +1,7 @@
 """Tests for Power Function questions generation"""
 
+from decimal import Decimal
+
 import pytest
 
 from reasoning_gym.arithmetic import PowerFunctionConfig, PowerFunctionDataset
@@ -82,3 +84,19 @@ def test_power_function_curriculum():
 
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_exponent == 2 and increased_cfg.max_exponent == 4
+
+
+# Test score_answer function with various answers
+def test_power_function_score_answer_for_edge_case():
+    """Test score_answer function for edge cases"""
+    config = PowerFunctionConfig(seed=42)
+    dataset = PowerFunctionDataset(config)
+    item = dataset[0]  # Get the first item for testing
+    assert isinstance(item, dict)
+
+    user_answer = "1.000e+00"
+    # Let's change the oracle answer for edge case testing
+    item["answer"] = "1.0"
+    score = dataset.score_answer(user_answer, item)
+    print(f"Score for edge case answer: {score}")
+    assert score == 1.0, f"Expected score 1.0, got {score}"
