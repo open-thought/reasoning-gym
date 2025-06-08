@@ -120,3 +120,7 @@ If you use this library in your research, please cite the paper:
       url={https://arxiv.org/abs/2505.24760},
 }
 ```
+
+## ⭐️ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=open-thought/reasoning-gym&type=Date)](https://www.star-history.com/#open-thought/reasoning-gym&Date)
