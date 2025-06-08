@@ -2,8 +2,6 @@
 Survo dataset, adapted for Reasoning Gym from SynthRL: https://github.com/MiniMax-AI/SynLogic/tree/main/games/tasks/survo
 """
 
-# TODO: add unit tests
-
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
