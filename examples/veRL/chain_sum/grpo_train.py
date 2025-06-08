@@ -1,71 +1,61 @@
 # This example is an adapted version of Bytedance's code:
 # https://github.com/volcengine/verl/blob/a65c9157bc0b85b64cd753de19f94e80a11bd871/verl/trainer/main_ppo.py
-from io import StringIO
 from typing import Optional
 
 import hydra
 import ray
 import torch
+import numpy as np
 import verl.utils.torch_functional as verl_F
+from verl.utils.dataset.rl_dataset import collate_fn as verl_collate_fn
 from omegaconf import OmegaConf, open_dict
 from torch.utils.data import Dataset
 from torchdata.stateful_dataloader import StatefulDataLoader
 from transformers import PreTrainedTokenizer
 from verl import DataProto
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
-from verl.utils.dataset.rl_dataset import collate_fn
 from verl.utils.model import compute_position_id_with_mask
 
 import reasoning_gym
 import reasoning_gym.utils
-from reasoning_gym.coaching.curriculum_config import CurriculumExperimentConfig
-from reasoning_gym.coaching.experiment import CurriculumExperiment
 from reasoning_gym.utils import extract_answer
 
-curriculum_config_yaml = """
- curricula:
-   leg_counting:
-     attribute_levels:
-       num_animals: 2
-   products:
-     attribute_levels:
-       num_terms: 4
-       num_digits: 4
-   chain_sum:
-     attribute_levels:
-       num_terms: 4
-       num_digits: 4
-     weight: 1.0
- """
+import reasoning_gym
+import reasoning_gym.utils
+from reasoning_gym.composite import CompositeDataset, DatasetSpec
+from reasoning_gym.coaching.experiment import Experiment
+from reasoning_gym.dataset import ProceduralDataset
 
 
 class ReasoningGymDataset(Dataset):
     def __init__(
         self,
         tokenizer: PreTrainedTokenizer,
-        experiment_name: str,
-        seed: int,
-        size: int,
+        procedural_dataset: Optional[ProceduralDataset] = None,
+        experiment: Optional[Experiment] = None,
         developer_prompt: Optional[str] = None,
         developer_role: str = "system",
         max_prompt_length: int = 2048,
         truncation: str = "error",  ##  ['left', 'right', 'error']
-        return_raw_chat: bool = False,
     ):
+        assert procedural_dataset or experiment, "One of `procedural_dataset` or `experiment` must be provided"
+        assert (
+            procedural_dataset is None or experiment is None
+        ), "Only one of `procedural_dataset` or `experiment` may be provided"
+
         self.tokenizer = tokenizer
-        curriculum_config = CurriculumExperimentConfig.from_yaml_stream(StringIO(curriculum_config_yaml))
-        self.experiment = CurriculumExperiment(experiment_name, curriculum_config, size=size, seed=seed)
+        self.data = procedural_dataset or experiment.composite
+        self.experiment = experiment
         self.developer_prompt = developer_prompt
         self.developer_role = developer_role
         self.max_prompt_length = max_prompt_length
         self.truncation = truncation
-        self.return_raw_chat = return_raw_chat
 
     def __len__(self) -> int:
-        return len(self.experiment.composite)
+        return len(self.data)
 
-    def __getitem__(self, index: int):
-        row_dict = self.experiment.get_dataset_entry(index).copy()
+    def __getitem__(self, index):
+        row_dict = self.data[index].copy()
         q = row_dict["question"]
 
         chat = []
@@ -86,16 +76,68 @@ class ReasoningGymDataset(Dataset):
 
         position_ids = compute_position_id_with_mask(attention_mask)
 
-        row_dict["data_source"] = "reasoning_gym/" + self.dataset_name
-        row_dict["input_ids"] = input_ids[0]
-        row_dict["attention_mask"] = attention_mask[0]
-        row_dict["position_ids"] = position_ids[0]
+        item = {}
+        item["index"] = index
+    
+        item["input_ids"] = input_ids[0]
+        item["attention_mask"] = attention_mask[0]
+        item["position_ids"] = position_ids[0]
 
-        # encode prompts without chat template
-        if self.return_raw_chat:
-            row_dict["raw_prompt"] = chat.tolist()
+        item["raw_prompt_ids"] = item["input_ids"].tolist()
+        
+        return item
 
-        return row_dict
+def make_dataset(
+    tokenizer,
+    data_source: Experiment | ProceduralDataset,
+    developer_prompt: str,
+    max_prompt_length: int = 2048,
+) -> ReasoningGymDataset:
+    """
+    Create ReasoningGymDataset object using either a ProceduralDataset or Experiment as the underlying data source.
+    """
+    if isinstance(data_source, Experiment):
+        return ReasoningGymDataset(
+            tokenizer=tokenizer,
+            experiment=data_source,
+            developer_prompt=developer_prompt,
+            developer_role="system",
+            max_prompt_length=max_prompt_length,
+            truncation="error",
+        )
+    else:
+        return ReasoningGymDataset(
+            tokenizer=tokenizer,
+            procedural_dataset=data_source,
+            developer_prompt=developer_prompt,
+            developer_role="system",
+            max_prompt_length=max_prompt_length,
+            truncation="error",
+        )
+
+
+def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
+    """Prepare training and validation datasets."""
+    dataset_size = config.reasoning_gym.dataset_size
+    developer_prompt_setting = config.reasoning_gym.developer_prompt
+    developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS[developer_prompt_setting]
+    dataset_specs = [
+        DatasetSpec(
+            name=name,
+            weight=ds.weight,
+            config=OmegaConf.to_container(ds.config, resolve=True) if "config" in ds else {},
+        )
+        for name, ds in config.reasoning_gym.datasets.items()
+    ]
+    train_data_source = reasoning_gym.create_dataset("composite", seed=1, size=dataset_size, datasets=dataset_specs)
+    val_data_source = reasoning_gym.create_dataset("composite", seed=2, size=dataset_size, datasets=dataset_specs)
+    train_dataset = make_dataset(
+        tokenizer, train_data_source, developer_prompt, max_prompt_length=config.data.max_prompt_length
+    )
+    val_dataset = make_dataset(
+        tokenizer, val_data_source, developer_prompt, max_prompt_length=config.data.max_prompt_length
+    )
+    return train_dataset, val_dataset
 
 
 class RayPPOTrainerCustom(RayPPOTrainer):
@@ -106,30 +148,34 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         role_worker_mapping: dict,
         resource_pool_manager,
         ray_worker_group_cls,
-        experiment_name: str = "basic_curriculum",
+        train_dataset: ReasoningGymDataset,
+        val_dataset: ReasoningGymDataset,
+        dataset_name: str = "chain_sum",
         dataset_size: int = 10000,
     ):
+        self.dataset_name = dataset_name
         self.dataset_size = dataset_size
 
         developer_prompt = reasoning_gym.utils.SYSTEM_PROMPTS["DeepSeekZero"]
-        self.train_dataset = ReasoningGymDataset(
-            tokenizer=tokenizer,
-            experiment_name=experiment_name,
-            seed=1,
-            size=self.dataset_size,
-            developer_prompt=developer_prompt,
-        )
 
-        self.val_dataset = ReasoningGymDataset(
-            tokenizer=tokenizer,
-            experiment_name=experiment_name,
-            seed=2,
-            size=self.dataset_size,
-            developer_prompt=developer_prompt,
-        )
+        self.train_dataset = train_dataset
+        self.val_dataset = val_dataset
 
-        train_reward_fn = lambda data: self._score_output(data, num_examine=0)
-        val_reward_fn = lambda data: self._score_output(data, num_examine=1)
+        def make_reward_fn(num_examine: int):
+            def reward_fn(
+                data: DataProto,
+                return_dict: bool = False,
+                **unused_kwargs
+            ):
+                tensor = self._score_output(data, num_examine=num_examine)
+                if return_dict:
+                    # wrap it so trainer can pull out extras
+                    return {"reward_tensor": tensor, "reward_extra_info": {}}
+                return tensor
+            return reward_fn
+
+        train_reward_fn = make_reward_fn(num_examine=0)
+        val_reward_fn   = make_reward_fn(num_examine=1)
 
         super().__init__(
             config,
@@ -139,6 +185,9 @@ class RayPPOTrainerCustom(RayPPOTrainer):
             ray_worker_group_cls,
             train_reward_fn,
             val_reward_fn,
+            train_dataset = train_dataset,
+            val_dataset = val_dataset,
+            train_sampler = None
         )
 
     def _score_output(self, data: DataProto, num_examine: int = 0) -> torch.Tensor:
@@ -159,15 +208,16 @@ class RayPPOTrainerCustom(RayPPOTrainer):
             valid_response_ids = response_ids[:valid_response_length]
 
             # decode
-            sequences = torch.cat((valid_prompt_ids, valid_response_ids))
-            sequences_str = self.tokenizer.decode(sequences)
+            prompt_str = self.tokenizer.decode(valid_prompt_ids)
+            response_str = self.tokenizer.decode(valid_response_ids)
+            sequences_str = prompt_str + response_str
 
-            entry_id = data_item.non_tensor_batch["metadata"]["entry_id"]
-
+            index = data_item.non_tensor_batch["index"]
             score = self._compute_score(
-                solution_str=sequences_str,
-                entry_id=entry_id,
+                solution_str=response_str,
+                index=index,
             )
+
             reward_tensor[i, valid_response_length - 1] = score
 
             if num_printed < num_examine:
@@ -176,15 +226,20 @@ class RayPPOTrainerCustom(RayPPOTrainer):
 
         return reward_tensor
 
-    def _compute_score(self, solution_str: str, entry_id: str) -> float:
+
+    def _compute_score(self, solution_str: str, index: int) -> float:
         found_answer = extract_answer(solution_str, tag_name="answer")
-        reward = self.train_dataset.experiment.score_answer_with_id(found_answer, entry_id=entry_id)
-        print(f"entry_id: {entry_id}; found answer={found_answer}; reward: {reward};")
+        entry = self.train_dataset.data[index]
+        reward = self.train_dataset.data.score_answer(found_answer, entry=entry)
         return reward
 
-    def _create_dataloader(self):
+    def _create_dataloader(self, train_dataset, val_dataset, collate_fn = None, sampler = None):
+
+        if collate_fn is None:
+            collate_fn = verl_collate_fn
+
         self.train_dataloader = StatefulDataLoader(
-            dataset=self.train_dataset,
+            dataset=train_dataset,
             batch_size=self.config.data.train_batch_size,
             shuffle=True,
             drop_last=True,
@@ -192,8 +247,8 @@ class RayPPOTrainerCustom(RayPPOTrainer):
         )
 
         self.val_dataloader = StatefulDataLoader(
-            dataset=self.val_dataset,
-            batch_size=len(self.val_dataset),
+            dataset=val_dataset,
+            batch_size=1,
             shuffle=True,
             drop_last=True,
             collate_fn=collate_fn,
@@ -236,6 +291,7 @@ def main_task(config):
 
     # instantiate tokenizer
     tokenizer = hf_tokenizer(local_path)
+    train_dataset, val_dataset = prepare_datasets(config, tokenizer)
 
     # define worker classes
     if config.actor_rollout_ref.actor.strategy == "fsdp":
@@ -281,12 +337,14 @@ def main_task(config):
         role_worker_mapping=role_worker_mapping,
         resource_pool_manager=resource_pool_manager,
         ray_worker_group_cls=ray_worker_group_cls,
+        train_dataset=train_dataset,
+        val_dataset=val_dataset,
     )
     trainer.init_workers()
     trainer.fit()
 
 
-@hydra.main(config_path="config", config_name="ppo_trainer", version_base=None)
+@hydra.main(config_path="config", config_name="grpo_trainer", version_base=None)
 def main(config):
     if not ray.is_initialized():
         # this is for local ray cluster
