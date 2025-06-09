@@ -55,15 +55,12 @@ class PowerFunctionDataset(ProceduralDataset):
                 user_answer = self._format_sig_figs(Decimal(answer), 3)
                 oracle_answer = self._format_sig_figs(Decimal(oracle_answer), 3)
 
-                print(f"user answer: {user_answer}, oracle answer: {oracle_answer}")
-
                 # Check if they match to 3 significant figures
                 if user_answer == oracle_answer:
                     return 1.0
                 else:
                     return 0.01
             except Exception as e:
-                print(f"Error formatting answer: {e}")
                 return 0.01
         return 0.0
 

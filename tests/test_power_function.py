@@ -105,7 +105,6 @@ def test_power_function_score_answer_for_edge_cases():
     item["answer"] = str(Decimal("0.9999") ** 1)  # Close to 1.000
     user_answer = "1.00"
     score = dataset.score_answer(user_answer, item)
-    print(f"Score for rounding edge case: {score}")
     assert score == 1.0, f"Expected score 1.0, got {score}"
 
     # Case 3: Negative base, valid exponent
