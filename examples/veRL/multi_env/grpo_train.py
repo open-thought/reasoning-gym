@@ -242,7 +242,7 @@ class RayPPOTrainerCustom(RayPPOTrainer):
 
         self.val_dataloader = StatefulDataLoader(
             dataset=val_dataset,
-            batch_size=1,
+            batch_size=self.config.data.val_batch_size,
             shuffle=True,
             drop_last=True,
             collate_fn=collate_fn,

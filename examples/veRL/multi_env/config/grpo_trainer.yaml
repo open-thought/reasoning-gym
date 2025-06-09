@@ -1,3 +1,7 @@
+defaults:
+  - ppo_trainer
+  - _self_
+
 reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
