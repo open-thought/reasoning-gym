@@ -1,4 +1,4 @@
-"""Computhe the power of a number."""
+"""Compute the power of a number."""
 
 from dataclasses import dataclass
 from decimal import Decimal
