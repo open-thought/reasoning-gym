@@ -87,16 +87,44 @@ def test_power_function_curriculum():
 
 
 # Test score_answer function with various answers
-def test_power_function_score_answer_for_edge_case():
+def test_power_function_score_answer_for_edge_cases():
     """Test score_answer function for edge cases"""
     config = PowerFunctionConfig(seed=42)
     dataset = PowerFunctionDataset(config)
-    item = dataset[0]  # Get the first item for testing
-    assert isinstance(item, dict)
 
+    # Case 1: Match with trailing zeros
+    item = dataset[0].copy()
     user_answer = "1.000e+00"
     # Let's change the oracle answer for edge case testing
     item["answer"] = "1.0"
     score = dataset.score_answer(user_answer, item)
-    print(f"Score for edge case answer: {score}")
     assert score == 1.0, f"Expected score 1.0, got {score}"
+
+    # Case 2: Rounding up at edge of significant figures
+    item = dataset[0].copy()
+    item["answer"] = str(Decimal("0.9999") ** 1)  # Close to 1.000
+    user_answer = "1.00"
+    score = dataset.score_answer(user_answer, item)
+    print(f"Score for rounding edge case: {score}")
+    assert score == 1.0, f"Expected score 1.0, got {score}"
+
+    # Case 3: Negative base, valid exponent
+    item = dataset[0].copy()
+    item["answer"] = str(Decimal("-2.00") ** 3)  # -8.0
+    user_answer = "-8.00"
+    score = dataset.score_answer(user_answer, item)
+    assert score == 1.0, f"Expected score 1.0, got {score}"
+
+    # Case 4: Very small number with exponent notation
+    item = dataset[0].copy()
+    item["answer"] = str(Decimal("1e-6"))  # 1e-6
+    user_answer = "1.00e-6"
+    score = dataset.score_answer(user_answer, item)
+    assert score == 1.0, f"Expected score 1.0, got {score}"
+
+    # Case 5: Incorrect answer should yield low score
+    item = dataset[0].copy()
+    item["answer"] = "1000.0"
+    user_answer = "999.0"
+    score = dataset.score_answer(user_answer, item)
+    assert score == 0.01, f"Expected low score 0.01, got {score}"
