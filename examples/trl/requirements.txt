@@ -1,7 +1,7 @@
 reasoning-gym
 torch
 deepspeed
-flash-attn==2.7.3
+flash-attn
 transformers
 trl
 wandb
