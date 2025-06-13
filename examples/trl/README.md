@@ -8,9 +8,15 @@ Training stack:
 
 ## Setup
 
+This tutorial uses CUDA 11.8, Python 3.10, and PyTorch 2.5.1
+
 1. Install the required packages:
 ```bash
-pip install -r requirements.txt
+# First, give execute permissions to the script
+# chmod +x ./set_env.sh
+
+# Then, run the setup script
+./set_env.sh
 ```
 
 2. (Optional) Log in to Weights & Biases for experiment tracking:
