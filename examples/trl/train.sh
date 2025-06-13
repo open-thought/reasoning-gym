@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export CUDA_VISIBLE_DEVICES=0,1,2
+export CUDA_VISIBLE_DEVICES=0,1
 GPU_COUNT=$(python -c "import torch; print(torch.cuda.device_count())")
 NUM_PROCESSES_TRAINING=$((GPU_COUNT - 1))
 

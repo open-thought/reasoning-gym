@@ -8,13 +8,13 @@ reasoning_gym:
 
 
 # Model configs from trl
-model_name_or_path: Qwen2.5-3B-Instruct
+model_name_or_path: Qwen2.5-1.5B-Instruct
 attn_implementation: flash_attention_2
 
 # GRPO trainer configs from trl
 bf16: true
 use_vllm: true
-vllm_device: cuda:2
+vllm_device: cuda:1
 vllm_gpu_memory_utilization: 0.9
 log_level: info
 gradient_accumulation_steps: 1
