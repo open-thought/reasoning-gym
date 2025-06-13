@@ -1,8 +1,4 @@
-torch==2.1.0 --index-url https://download.pytorch.org/whl/cu118
+"trl[vllm]"
+"flash-attn==2.7.0.post2"
 reasoning-gym
-deepspeed
-flash-attn
-transformers
-trl
 wandb
-vllm
