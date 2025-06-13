@@ -215,9 +215,9 @@ def main():
         eval_dataset=eval_dataset,
     )
 
-    # ---------------
-    # Start training
-    # ---------------
+    # ------------------------------
+    # See if we can resume training
+    # ------------------------------
     logger.info("Starting training...")
     # Check for last checkpoint
     ckpt = None
@@ -230,6 +230,9 @@ def main():
     else:
         logger.info("\nNo checkpoint detected, starting training from scratch.")
 
+    # ---------------
+    # Start training
+    # ---------------
     train_result = trainer.train(resume_from_checkpoint=ckpt)
     train_metrics = train_result.metrics
     trainer.log_metrics("train", train_metrics)
