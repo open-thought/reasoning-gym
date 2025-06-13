@@ -2,9 +2,14 @@
 reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
+  developer_role: system
   datasets:
     ab:
       weight: 1
+    course_schedule:
+      weight: 1
+      config:
+        min_num_courses: 7
 
 
 # Model configs from trl

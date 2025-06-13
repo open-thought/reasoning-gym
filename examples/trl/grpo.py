@@ -1,43 +1,49 @@
+import logging
 import os
-import sys
-from typing import Optional
 import re
-import logging 
-
+import sys
 from dataclasses import dataclass, field
+from typing import Optional
 
 import torch
 import transformers
-from transformers import AutoModelForCausalLM, PreTrainedTokenizer, PreTrainedModel, set_seed, AutoTokenizer
+from torch.utils.data import Dataset
+from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel, PreTrainedTokenizer, set_seed
 from transformers.trainer_utils import get_last_checkpoint
-from torch.utils.data import Dataset 
-from trl import GRPOTrainer, GRPOConfig, TrlParser, ModelConfig
+from trl import GRPOConfig, GRPOTrainer, ModelConfig, TrlParser
 
 import reasoning_gym
-from reasoning_gym.coaching.experiment import Experiment 
+from reasoning_gym.coaching.experiment import Experiment
 from reasoning_gym.composite import DatasetSpec
-from reasoning_gym.dataset import ProceduralDataset 
-from reasoning_gym.utils import extract_answer, SYSTEM_PROMPTS
+from reasoning_gym.dataset import ProceduralDataset
+from reasoning_gym.utils import SYSTEM_PROMPTS, extract_answer
+
+
+@dataclass
+class DatasetConfigItem:
+    weight: float = field(default=1.0)
+    config: dict = field(default_factory=dict)
 
 
 @dataclass
 class DatasetConfig:
     dataset_size: int = field(default=1000)
     developer_prompt: str = field(default="DeepSeekZero")
-    datasets: list = field(default_factory=[])
+    developer_role: str = field(default="system")
+    datasets: dict[str, DatasetConfigItem] = field(default_factory=dict)
 
 
 class ReasoningGymDataset(Dataset):
     def __init__(
-        self, 
+        self,
         tokenizer: PreTrainedTokenizer,
         procedural_dataset: Optional[ProceduralDataset] = None,
         experiment: Optional[Experiment] = None,
-        developer_prompt: Optional[str] = None, 
+        developer_prompt: Optional[str] = None,
         developer_role: Optional[str] = None,
     ):
         self.tokenizer = tokenizer
-        self.data = procedural_dataset or experiment.composite 
+        self.data = procedural_dataset or experiment.composite
         self.experiment = experiment
         self.developer_prompt = developer_prompt
         self.developer_role = developer_role
@@ -54,16 +60,15 @@ class ReasoningGymDataset(Dataset):
             chat.append({"role": self.developer_role, "content": self.developer_prompt})
         chat.append({"role": "user", "content": question})
 
-        prompt = self.tokenizer.apply_chat_template(
-            chat, tokenize=False, add_generation_prompt=True
-        )
+        prompt = self.tokenizer.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
         return {"prompt": prompt, "item": item}
+
 
 class CustomGRPOTrainer(GRPOTrainer):
     def __init__(
-        self, 
+        self,
         model: PreTrainedModel,
-        args: GRPOConfig, 
+        args: GRPOConfig,
         tokenizer: PreTrainedTokenizer,
         train_dataset: ReasoningGymDataset,
         eval_dataset: ReasoningGymDataset,
@@ -82,13 +87,10 @@ class CustomGRPOTrainer(GRPOTrainer):
 
     def _accuracy_reward(self, completions: list[str], items: list[dict], **kwargs) -> list[float]:
         answers = [extract_answer(c) for c in completions]
-        return [
-            self.train_dataset.data.score_answer(answer, item)
-            for answer, item in zip(answers, items)
-        ]
+        return [self.train_dataset.data.score_answer(answer, item) for answer, item in zip(answers, items)]
 
     def _format_reward(self, completions: list[str], **kwargs) -> list[float]:
-        def count_tags(text: str) -> float: 
+        def count_tags(text: str) -> float:
             count = 0.0
             if re.search(r"\s*<think>\s*", text):
                 count += 0.25
@@ -99,14 +101,15 @@ class CustomGRPOTrainer(GRPOTrainer):
             if re.search(r"\s*</answer>\s*", text):
                 count += 0.25
             return count
+
         return [count_tags(c) for c in completions]
 
 
 def make_dataset(
     tokenizer: PreTrainedTokenizer,
-    data_source: Experiment | ProceduralDataset, 
+    data_source: Experiment | ProceduralDataset,
     developer_prompt: str,
-    developer_role: str,
+    developer_role: Optional[str] = None,
 ) -> ReasoningGymDataset:
     """Create a ReasoningGymDataset from an Experiment or ProceduralDataset."""
     if isinstance(data_source, Experiment):
@@ -124,42 +127,47 @@ def make_dataset(
             developer_role=developer_role,
         )
 
-def prepare_datasets(config, tokenizer: PreTrainedTokenizer) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
+
+def prepare_datasets(
+    config: DatasetConfig, tokenizer: PreTrainedTokenizer
+) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare the training and eval datasets."""
-    dataset_size = config.reasoning_gym.dataset_size 
-    developer_prompt = SYSTEM_PROMPTS[config.reasoning_gym.developer_prompt]
+    developer_prompt = SYSTEM_PROMPTS[config.developer_prompt]
     dataset_specs = [
         DatasetSpec(
             name=name,
-            weight=ds.weight,
-            config=ds.config,  # TODO: this will fail
+            weight=ds_config.weight,
+            config=ds_config.config,
         )
-        for name, ds in config.reasoning_gym.datasets.items()
+        for name, ds_config in config.datasets.items()
     ]
-    train_data_source = reasoning_gym.create_dataset("composite", seed=1, size=dataset_size, datasets=dataset_specs)
-    val_data_source = reasoning_gym.create_dataset("composite", seed=2, size=dataset_size, datasets=dataset_specs)
+    train_data_source = reasoning_gym.create_dataset(
+        "composite", seed=1, size=config.dataset_size, datasets=dataset_specs
+    )
+    val_data_source = reasoning_gym.create_dataset(
+        "composite", seed=2, size=config.dataset_size, datasets=dataset_specs
+    )
     train_dataset = make_dataset(
         tokenizer=tokenizer,
         data_source=train_data_source,
         developer_prompt=developer_prompt,
-        developer_role=config.reasoning_gym.developer_role,
+        developer_role=config.developer_role,
     )
-    val_dataset = make_dataset(
+    eval_dataset = make_dataset(
         tokenizer=tokenizer,
         data_source=val_data_source,
         developer_prompt=developer_prompt,
-        developer_role=config.reasoning_gym.developer_role,
+        developer_role=config.developer_role,
     )
-    return train_dataset, val_dataset
-
+    return train_dataset, eval_dataset
 
 
 def main():
     # -----------
     # Parse args
     # -----------
-    parser = TrlParser((GRPOConfig, ModelConfig))
-    training_args, model_args = parser.parse_args_and_config()
+    parser = TrlParser((GRPOConfig, ModelConfig, DatasetConfig))
+    training_args, model_args, reasoning_gym_args = parser.parse_args_and_config()
     set_seed(training_args.seed)
 
     # ---------------
@@ -197,7 +205,8 @@ def main():
     # --------------------
     # Instantiate trainer
     # --------------------
-    train_dataset, eval_dataset = prepare_datasets(training_args, tokenizer)
+    training_args.reasoning_gym = reasoning_gym_args
+    train_dataset, eval_dataset = prepare_datasets(reasoning_gym_args, tokenizer)
     trainer = CustomGRPOTrainer(
         model=model,
         args=training_args,
@@ -216,10 +225,10 @@ def main():
         ckpt = training_args.resume_from_checkpoint
     elif os.path.isdir(training_args.output_dir):
         ckpt = get_last_checkpoint(training_args.output_dir)
-        if ckpt:
-            logger.info(f"\nCheckpoint detected, resuming training at {ckpt=}.")
-        else:
-            logger.info("\nNo checkpoint detected, starting training from scratch.")
+    if ckpt:
+        logger.info(f"\nCheckpoint detected, resuming training at {ckpt=}.")
+    else:
+        logger.info("\nNo checkpoint detected, starting training from scratch.")
 
     train_result = trainer.train(resume_from_checkpoint=ckpt)
     train_metrics = train_result.metrics

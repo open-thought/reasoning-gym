@@ -5,4 +5,4 @@ flash-attn==2.7.3
 transformers
 trl
 wandb
-vllm 
+vllm
