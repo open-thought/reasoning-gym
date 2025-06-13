@@ -1,4 +1,4 @@
 "trl[vllm]"
-"flash-attn==2.7.0.post2"
+flash-attn
 reasoning-gym
 wandb
