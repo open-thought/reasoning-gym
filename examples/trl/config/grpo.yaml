@@ -6,10 +6,11 @@ reasoning_gym:
   datasets:
     ab:
       weight: 1
-    course_schedule:
+    complex_arithmetic:
       weight: 1
       config:
-        min_num_courses: 7
+        min_real: -20
+        max_real: 20
 
 
 # Model configs from trl
@@ -29,7 +30,6 @@ gradient_checkpointing_kwargs:
 logging_first_step: true
 logging_steps: 1
 logging_strategy: steps
-
 learning_rate: 1e-06
 lr_scheduler_type: constant_with_warmup
 lr_scheduler_kwargs:
