@@ -16,21 +16,14 @@ from typing import Optional, Type
 import numpy as np
 import ray
 import torch
-from omegaconf import OmegaConf, open_dict
 from torch.utils.data import Dataset, Sampler
 from torchdata.stateful_dataloader import StatefulDataLoader
 from tqdm import tqdm
 
 import hydra
-import numpy as np
-import ray
-import torch
 import verl.utils.torch_functional as verl_F
 from omegaconf import OmegaConf, open_dict
-from torch.utils.data import Dataset
-from torchdata.stateful_dataloader import StatefulDataLoader
 from transformers import PreTrainedTokenizer
-from verl import DataProto
 from verl.trainer.ppo.ray_trainer import RayPPOTrainer
 from verl.utils.dataset.rl_dataset import collate_fn as verl_collate_fn
 from verl.utils.model import compute_position_id_with_mask
@@ -48,6 +41,7 @@ from verl.trainer.ppo.metric_utils import (
     compute_timing_metrics,
     process_validation_metrics,
 )
+from verl.trainer.ppo.ray_trainer import compute_response_mask, apply_kl_penalty, compute_advantage
 from verl.trainer.ppo.reward import compute_reward, compute_reward_async
 from verl.utils.checkpoint.checkpoint_manager import BaseCheckpointManager, find_latest_ckpt_path
 from verl.utils.debug.performance import _timer
@@ -59,12 +53,13 @@ from verl.utils.torch_functional import masked_mean
 from verl.utils.tracking import ValidationGenerationsLogger
 
 import reasoning_gym
-import reasoning_gym.utils
 from reasoning_gym.coaching.curriculum_config import CurriculumAttributeConfig, CurriculumExperimentConfig
 from reasoning_gym.coaching.experiment import Experiment, CurriculumExperiment
 from reasoning_gym.composite import CompositeDataset, DatasetSpec
 from reasoning_gym.dataset import ProceduralDataset
 from reasoning_gym.utils import extract_answer
+
+from utils import reward_registry
 
 
 class ReasoningGymDataset(Dataset):

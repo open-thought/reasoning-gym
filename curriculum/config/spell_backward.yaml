@@ -10,7 +10,7 @@ reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
-    ab:
+    spell_backward:
       weight: 1
       
 curriculum:
@@ -22,10 +22,9 @@ curriculum:
     success_threshold: 0.70
     failure_threshold: 0.10
     curricula:
-      chain_sum:
+      spell_backward:
         attribute_levels:
-          num_terms: 0
-          num_digits: 0
+          word_len: 0
 
 data:
   tokenizer: null
@@ -34,8 +33,8 @@ data:
   prompt_key: prompt
   max_prompt_length: 512
   max_response_length: 512
-  train_batch_size: 16
-  val_batch_size: 1
+  train_batch_size: 128
+  val_batch_size: 128
 
 actor_rollout_ref:
   hybrid_engine: True
@@ -52,11 +51,11 @@ actor_rollout_ref:
     ppo_micro_batch_size: null # will be deprecated, use ppo_micro_batch_size_per_gpu
     ppo_micro_batch_size_per_gpu: 4
     use_dynamic_bsz: False
-    ppo_max_token_len_per_gpu: 16384 # n * ${data.max_prompt_length} + ${data.max_response_length}
+    ppo_max_token_len_per_gpu: 4096 # n * ${data.max_prompt_length} + ${data.max_response_length}
     grad_clip: 1.0
     clip_ratio: 0.2 # default value if clip_ratio_low and clip_ratio_high are not specified
     clip_ratio_low: 0.2
-    clip_ratio_high: 0.2
+    clip_ratio_high: 0.28
     clip_ratio_c: 3.0 # lower bound of the value for Dual-clip PPO from https://arxiv.org/pdf/1912.09729
     entropy_coeff: 0
     use_kl_loss: False # True for GRPO
@@ -67,11 +66,11 @@ actor_rollout_ref:
     shuffle: False
     ulysses_sequence_parallel_size: 1 # sp size
     optim:
-      lr: 1e-6
+      lr: 3e-5
       lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
       min_lr_ratio: null   # only useful for warmup with cosine
       warmup_style: constant  # select from constant/cosine
-      total_training_steps: -1  # must be override by program
+      total_training_steps: 1000  # must be override by program
     fsdp_config:
       wrap_policy:
         # transformer_layer_cls_to_wrap: None
@@ -108,7 +107,7 @@ actor_rollout_ref:
     enforce_eager: True
     free_cache_engine: True
     load_format: dummy_dtensor
-    tensor_model_parallel_size: 1
+    tensor_model_parallel_size: 4
     max_num_batched_tokens: 8192
     max_num_seqs: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
@@ -121,7 +120,7 @@ actor_rollout_ref:
     do_sample: True
     use_fire_sampling: False
     # number of responses (i.e. num sample times)
-    n: 16 # > 1 for grpo
+    n: 8 # > 1 for grpo
     val_kwargs:
       do_sample: True
     multi_turn:
@@ -202,14 +201,14 @@ algorithm:
 
 trainer:
   balance_batch: True
-  total_epochs: 30
+  total_epochs: -1
   total_training_steps: null
   project_name: verl_examples
-  experiment_name: chain_sum
+  experiment_name: spell_backward_curr
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
-  n_gpus_per_node: 1
+  n_gpus_per_node: 4
   save_freq: -1
   # auto: find the last ckpt to resume. If can't find, start from scratch
   resume_mode: auto # or auto or resume_path if
