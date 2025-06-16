@@ -193,9 +193,11 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
                 for curriculum_name, curriculum_config in curricula.items()
             }
         )
+        
+        context = DefaultCurriculumContext(mode=RangeAttributeMode.UPPER_BOUND)
 
         train_data_source = CurriculumExperiment(
-            name=config.trainer.experiment_name, config=curriculum_config, size=dataset_size, seed=1
+            name=config.trainer.experiment_name, config=curriculum_config, size=dataset_size, seed=1, context = context
         )
         val_data_source = CompositeDataset(config=replace(train_data_source.composite.config, seed=2))
     else:
