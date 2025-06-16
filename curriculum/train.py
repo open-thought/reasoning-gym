@@ -652,6 +652,8 @@ class RayPPOTrainerCustom(RayPPOTrainer):
                     pprint(f"Final validation metrics: {last_val_metrics}")
                     progress_bar.close()
                     return
+                
+                print(self.train_dataset.experiment)
 
 
 @ray.remote

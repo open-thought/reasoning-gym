@@ -39,7 +39,7 @@ data:
 actor_rollout_ref:
   hybrid_engine: True
   model:
-    path: Qwen/Qwen2.5-Math-1.5B
+    path: meta-llama/Llama-3.2-3B-Instruct
     external_lib: null
     override_config: { }
     enable_gradient_checkpointing: True
@@ -70,7 +70,7 @@ actor_rollout_ref:
       lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
       min_lr_ratio: null   # only useful for warmup with cosine
       warmup_style: constant  # select from constant/cosine
-      total_training_steps: 1000  # must be override by program
+      total_training_steps: 500  # must be override by program
     fsdp_config:
       wrap_policy:
         # transformer_layer_cls_to_wrap: None
@@ -202,7 +202,7 @@ algorithm:
 trainer:
   balance_batch: True
   total_epochs: -1
-  total_training_steps: null
+  total_training_steps: 500
   project_name: verl_examples
   experiment_name: spell_backward_curr
   logger: [ 'console', 'wandb' ]
