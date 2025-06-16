@@ -25,6 +25,7 @@ curriculum:
       spell_backward:
         attribute_levels:
           word_len: 0
+    num_difficulty_levels: 3
 
 data:
   tokenizer: null

@@ -19,11 +19,22 @@ class RangeAttributeMode(StrEnum):
 
     UPPER_BOUND = "upper_bound"  # only use the highest range segment
     INCLUSIVE = "inclusive"  # include all previous levels
+    LAST_K = "last_k"  # use only the last *k* difficulty levels
 
 
 class DefaultCurriculumContext(CurriculumContext):
-    def __init__(self, mode: RangeAttributeMode = RangeAttributeMode.INCLUSIVE):
+    def __init__(self, mode: RangeAttributeMode = RangeAttributeMode.INCLUSIVE, k: int | None = None):
+        """Create a CurriculumContext used when turning a curriculum into a concrete configuration.
+
+        Args:
+            mode: Strategy for translating a RangeAttributeDefinition level into a concrete range.
+            k:   When ``mode`` is ``RangeAttributeMode.LAST_K`` this parameter indicates how many of the
+                 most-recent difficulty levels (counting backwards from the current one) should be kept.
+                 If ``k`` is ``None`` the behaviour falls back to ``INCLUSIVE`` (i.e. keep everything).  The
+                 parameter is ignored for other modes.
+        """
         self.mode = mode
+        self.k = k  # window size used for LAST_K mode
 
     def get_range_attr_value(self, curriculum, attr: RangeAttributeDefinition) -> Any:
         level = curriculum.get_attr_level(attr.name)
@@ -39,6 +50,12 @@ class DefaultCurriculumContext(CurriculumContext):
             elif self.mode == RangeAttributeMode.INCLUSIVE:
                 lo_index = 0
                 hi_index = min(level + 1, len(attr.levels) - 1)
+
+            elif self.mode == RangeAttributeMode.LAST_K:
+                hi_index = min(level, len(attr.levels) - 1)
+                window = self.k if self.k is not None else hi_index + 1
+                lo_index = max(0, hi_index - window + 1)
+
         else:
             if self.mode == RangeAttributeMode.UPPER_BOUND:
                 hi_index = min(level, len(attr.levels) - 1)
@@ -47,6 +64,17 @@ class DefaultCurriculumContext(CurriculumContext):
             elif self.mode == RangeAttributeMode.INCLUSIVE:
                 lo_index = 0
                 hi_index = min(level, len(attr.levels) - 1)
+
+            elif self.mode == RangeAttributeMode.LAST_K:
+                hi_index = min(level, len(attr.levels) - 1)
+                window = self.k if self.k is not None else hi_index + 1
+                lo_index = max(0, hi_index - window + 1)
+
+        # Additional handling for LAST_K when ensure_interval is True (above branch)
+        if attr.ensure_interval and self.mode == RangeAttributeMode.LAST_K:
+            # Re-compute indices so that we always return at least a two-value interval
+            if hi_index == lo_index:
+                lo_index = max(0, hi_index - 1)
 
         lo = attr.get_level_value(lo_index)
         hi = attr.get_level_value(hi_index)

@@ -194,7 +194,7 @@ def prepare_datasets(config, tokenizer) -> tuple[ReasoningGymDataset, ReasoningG
             }
         )
         
-        context = DefaultCurriculumContext(mode=RangeAttributeMode.UPPER_BOUND)
+        context = DefaultCurriculumContext(mode=RangeAttributeMode.LAST_K, k=config.curriculum.num_difficulty_levels)
 
         train_data_source = CurriculumExperiment(
             name=config.trainer.experiment_name, config=curriculum_config, size=dataset_size, seed=1, context = context
