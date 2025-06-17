@@ -96,9 +96,12 @@ class CustomGRPOTrainer(GRPOTrainer):
             eval_dataset=eval_dataset,
         )
 
-    def _accuracy_reward(self, completions: list[str], items: list[dict], **kwargs) -> list[float]:
+    def _accuracy_reward(self, completions: list[str], **kwargs) -> list[float]:
+        assert "item" in kwargs, "The 'item' argument must be provided to compute accuracy reward."
+        assert len(kwargs['item']) == len(completions), "Items and completions must have the same length."
+        assert all(isinstance(item, dict) for item in kwargs['item']), "Each item must be a dictionary."
         answers = [extract_answer(c) for c in completions]
-        return [self.train_dataset.data.score_answer(answer, item) for answer, item in zip(answers, items)]
+        return [self.train_dataset.data.score_answer(answer, item) for answer, item in zip(answers, kwargs['item'])]
 
     def _format_reward(self, completions: list[str], **kwargs) -> list[float]:
         def count_tags(text: str) -> float:
