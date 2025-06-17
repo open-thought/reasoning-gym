@@ -1,16 +1,15 @@
 # Reasoning Gym configs
-reasoning_gym:
-  dataset_size: 20000
-  developer_prompt: DeepSeekZero
-  developer_role: system
-  datasets:
-    ab:
-      weight: 1
-    complex_arithmetic:
-      weight: 1
-      config:
-        min_real: -20
-        max_real: 20
+dataset_size: 20000
+developer_prompt: DeepSeekZero
+developer_role: system
+datasets:
+  ab:
+    weight: 1
+  complex_arithmetic:
+    weight: 1
+    config:
+      min_real: -20
+      max_real: 20
 
 
 # Model configs from trl

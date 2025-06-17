@@ -3,7 +3,7 @@ import os
 import re
 import sys
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Union
 
 import torch
 import transformers
@@ -21,8 +21,8 @@ from reasoning_gym.utils import SYSTEM_PROMPTS, extract_answer
 
 @dataclass
 class DatasetConfigItem:
-    weight: float = field(default=1.0)
-    config: dict = field(default_factory=dict)
+    weight: Optional[float] = field(default=1.0)
+    config: Optional[dict] = field(default_factory=dict)
 
 
 @dataclass
@@ -30,7 +30,18 @@ class DatasetConfig:
     dataset_size: int = field(default=1000)
     developer_prompt: str = field(default="DeepSeekZero")
     developer_role: str = field(default="system")
-    datasets: dict[str, DatasetConfigItem] = field(default_factory=dict)
+    datasets: dict[str, DatasetConfigItem] = field(default=None)
+
+    def __post_init__(self):
+        # Convert dictionary items to DatasetConfigItem instances
+        if self.datasets:
+            converted_datasets = {}
+            for name, config_item in self.datasets.items():
+                if isinstance(config_item, dict):
+                    converted_datasets[name] = DatasetConfigItem(**config_item)
+                else:
+                    converted_datasets[name] = config_item
+            self.datasets = converted_datasets
 
 
 class ReasoningGymDataset(Dataset):
@@ -133,6 +144,7 @@ def prepare_datasets(
 ) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare the training and eval datasets."""
     developer_prompt = SYSTEM_PROMPTS[config.developer_prompt]
+
     dataset_specs = [
         DatasetSpec(
             name=name,
@@ -166,8 +178,8 @@ def main():
     # -----------
     # Parse args
     # -----------
-    parser = TrlParser((GRPOConfig, ModelConfig, DatasetConfig))
-    training_args, model_args, reasoning_gym_args = parser.parse_args_and_config()
+    parser = TrlParser((DatasetConfig, GRPOConfig, ModelConfig))
+    reasoning_gym_args, training_args, model_args  = parser.parse_args_and_config()
     set_seed(training_args.seed)
 
     # ---------------
