@@ -21,5 +21,3 @@ pip install "trl==0.15.2"
 pip install "transformers==4.49.0"
 pip install wandb
 pip install reasoning-gym
-
-export WANDB_PROJECT="reasoning-gym-trl"

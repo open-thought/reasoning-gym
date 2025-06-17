@@ -15,6 +15,8 @@ ACCELERATE_DS_CONFIG="./config/ds_zero2.yaml"
 
 echo "START TIME: $(date)"
 
+export WANDB_PROJECT="reasoning-gym-trl"
+
 accelerate launch \
     --config_file "${ACCELERATE_DS_CONFIG}" \
     --main_process_port=29500 \
