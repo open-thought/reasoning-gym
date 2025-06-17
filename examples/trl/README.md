@@ -10,6 +10,13 @@ Training stack:
 
 This tutorial uses CUDA 11.8, Python 3.10, and PyTorch 2.5.1
 
+Moreover, we assume that you have 2 GPUs on your machine, the last of which is used for vLLM rollouts.
+
+If you have more than 2 GPUs, adjust the `./config/grpo.yaml` file so that the `vllm_device` is set to the last index of your GPU. For example, if you have 4 GPUs, set it to 3:
+```yaml
+vllm_device: 3  # If you have 4 GPUs, set this to 3
+```
+
 1. Install the required packages:
 ```bash
 # First, give execute permissions to the script
