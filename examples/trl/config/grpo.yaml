@@ -3,7 +3,7 @@ dataset_size: 20000
 developer_prompt: DeepSeekZero
 developer_role: system
 datasets:
-  ab:
+  simple_equations:
     weight: 1
   complex_arithmetic:
     weight: 1
