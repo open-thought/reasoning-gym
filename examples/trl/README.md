@@ -22,13 +22,10 @@ This tutorial uses CUDA 11.8, Python 3.10, and PyTorch 2.5.1
 2. (Optional) Log in to Weights & Biases for experiment tracking:
 ```bash
 # First, set your WANDB_API_KEY as an environment variable
-# export WANDB_API_KEY=your_wandb_api_key
+export WANDB_API_KEY=your_wandb_api_key
 
 # Set the project name
-# export WANDB_PROJECT=your_wandb_project_name
-
-# Then, log in to Weights & Biases
-wandb login $WANDB_API_KEY
+export WANDB_PROJECT=your_wandb_project_name
 ```
 
 3. Run the training script

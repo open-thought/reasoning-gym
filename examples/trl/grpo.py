@@ -8,7 +8,7 @@ from typing import Optional
 import torch
 import transformers
 from torch.utils.data import Dataset
-from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel, PreTrainedTokenizer, set_seed
+from transformers import AutoModelForCausalLM, AutoTokenizer, set_seed
 from transformers.trainer_utils import get_last_checkpoint
 from trl import GRPOConfig, GRPOTrainer, ModelConfig, TrlParser
 
@@ -36,7 +36,7 @@ class DatasetConfig:
 class ReasoningGymDataset(Dataset):
     def __init__(
         self,
-        tokenizer: PreTrainedTokenizer,
+        tokenizer,
         procedural_dataset: Optional[ProceduralDataset] = None,
         experiment: Optional[Experiment] = None,
         developer_prompt: Optional[str] = None,
@@ -67,9 +67,9 @@ class ReasoningGymDataset(Dataset):
 class CustomGRPOTrainer(GRPOTrainer):
     def __init__(
         self,
-        model: PreTrainedModel,
+        model,
         args: GRPOConfig,
-        tokenizer: PreTrainedTokenizer,
+        tokenizer,
         train_dataset: ReasoningGymDataset,
         eval_dataset: ReasoningGymDataset,
     ):
@@ -106,7 +106,7 @@ class CustomGRPOTrainer(GRPOTrainer):
 
 
 def make_dataset(
-    tokenizer: PreTrainedTokenizer,
+    tokenizer,
     data_source: Experiment | ProceduralDataset,
     developer_prompt: str,
     developer_role: Optional[str] = None,
@@ -129,7 +129,7 @@ def make_dataset(
 
 
 def prepare_datasets(
-    config: DatasetConfig, tokenizer: PreTrainedTokenizer
+    config: DatasetConfig, tokenizer,
 ) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare the training and eval datasets."""
     developer_prompt = SYSTEM_PROMPTS[config.developer_prompt]
