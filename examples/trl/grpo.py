@@ -3,7 +3,7 @@ import os
 import re
 import sys
 from dataclasses import dataclass, field
-from typing import Optional, Union
+from typing import Optional
 
 import torch
 import transformers
