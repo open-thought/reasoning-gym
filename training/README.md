@@ -2,8 +2,6 @@
 
 Training codebase for training LLMs using Reasoning Gym procedural dataset generators.
 
-**Note**: `qwen-math/` directory contains the code from the Tina project, used for the Qwen2.5 3B RG-Math training. This is separate from the rest of our training/evaluation codebase.
-
 This readme documents:
 
 - Training environment setup and usage example
