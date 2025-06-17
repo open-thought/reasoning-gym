@@ -20,3 +20,5 @@ pip install flash-attn==2.7.3 --no-build-isolation
 pip install "trl==0.15.2"
 
 pip install wandb
+
+export WANDB_PROJECT="reasoning-gym-trl"
