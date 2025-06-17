@@ -49,3 +49,4 @@ save_total_limit: 5
 
 seed: 42
 temperature: 0.6
+warmup_ratio: 0.1
