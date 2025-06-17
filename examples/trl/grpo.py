@@ -98,10 +98,10 @@ class CustomGRPOTrainer(GRPOTrainer):
 
     def _accuracy_reward(self, completions: list[str], **kwargs) -> list[float]:
         assert "item" in kwargs, "The 'item' argument must be provided to compute accuracy reward."
-        assert len(kwargs['item']) == len(completions), "Items and completions must have the same length."
-        assert all(isinstance(item, dict) for item in kwargs['item']), "Each item must be a dictionary."
+        assert len(kwargs["item"]) == len(completions), "Items and completions must have the same length."
+        assert all(isinstance(item, dict) for item in kwargs["item"]), "Each item must be a dictionary."
         answers = [extract_answer(c) for c in completions]
-        return [self.train_dataset.data.score_answer(answer, item) for answer, item in zip(answers, kwargs['item'])]
+        return [self.train_dataset.data.score_answer(answer, item) for answer, item in zip(answers, kwargs["item"])]
 
     def _format_reward(self, completions: list[str], **kwargs) -> list[float]:
         def count_tags(text: str) -> float:
@@ -143,7 +143,8 @@ def make_dataset(
 
 
 def prepare_datasets(
-    config: DatasetConfig, tokenizer,
+    config: DatasetConfig,
+    tokenizer,
 ) -> tuple[ReasoningGymDataset, ReasoningGymDataset]:
     """Prepare the training and eval datasets."""
     developer_prompt = SYSTEM_PROMPTS[config.developer_prompt]
@@ -182,7 +183,7 @@ def main():
     # Parse args
     # -----------
     parser = TrlParser((DatasetConfig, GRPOConfig, ModelConfig))
-    reasoning_gym_args, training_args, model_args  = parser.parse_args_and_config()
+    reasoning_gym_args, training_args, model_args = parser.parse_args_and_config()
     set_seed(training_args.seed)
 
     # ---------------

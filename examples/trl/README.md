@@ -3,7 +3,7 @@
 Training stack:
 - TRL for reinforcement learning training
 - Accelerate (with DeepSpeed) for distributed training
-- vLLM for rollouts 
+- vLLM for rollouts
 
 
 ## Setup
@@ -36,4 +36,3 @@ export WANDB_PROJECT=your_wandb_project_name
 # Then, run the training script
 ./train.sh
 ```
-
