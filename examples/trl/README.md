@@ -17,6 +17,17 @@ If you have more than 2 GPUs, adjust the `./config/grpo.yaml` file so that the `
 vllm_device: 3  # If you have 4 GPUs, set this to 3
 ```
 
+Moreover, you would need to update the `CUDA_VISIBLE_DEVICES` environment variable in the `train.sh` script to include all your available GPUs. For example, if you have 4 GPUs, set it to:
+```bash
+# ./train.sh
+
+# ... beginning of the script
+export CUDA_VISIBLE_DEVICES=0,1,2,3
+# ... rest of the script
+```
+
+
+
 1. Install the required packages:
 ```bash
 # First, give execute permissions to the script
