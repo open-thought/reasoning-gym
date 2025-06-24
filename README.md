@@ -38,11 +38,9 @@ pip install reasoning-gym
 
 _Note that this project is currently under active development, and the version published on PyPI may be a few days behind `main`._
 
-## 🛠️ Development
+## ✨ Quickstart
 
-For development setup, see [CONTRIBUTING.md](CONTRIBUTING.md#development-setup).
-
-## ✨ Example Usage
+Starting to generate tasks using Reasoning Gym is straightforward:
 
 ```python
 import reasoning_gym
@@ -64,6 +62,23 @@ metadata: {'animals': {'sheep': 2, 'dog': 2}, 'total_legs': 16}
 2: q="How many legs are there in total if you have 1 crab, 2 lobsters, 1 human, 1 cow, 1 bee?", a="42"
 ...
 ```
+
+Use keyword arguments to pass task-specific configuration values:
+
+```python
+reasoning_gym.create_dataset('leg_counting', size=10, seed=42, max_animals=20)
+```
+
+Create a composite dataset containing multiple task types, with optional task weightings:
+
+```python
+from reasoning_gym.composite import DatasetSpec
+names = ['leg_counting', 'figlet_fonts']
+specs = [DatasetSpec(name=name, weight=1, config={}) for name in names]
+reasoning_gym.create_dataset('composite', size=10, seed=42, datasets=specs)
+```
+
+For the simplest way to get started training models with Reasoning Gym, we recommend using the `verifiers` library, which directly supports RG tasks. See `examples/verifiers` for details. However, RG data can be used with any major RL training framework.
 
 ## 🔍 Evaluation
 
