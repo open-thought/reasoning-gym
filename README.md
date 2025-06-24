@@ -104,7 +104,7 @@ Following is a list of awesome projects building on top of Reasoning Gym:
 - [Verifiers: Reinforcement Learning with LLMs in Verifiable Environments](https://github.com/willccbb/verifiers)
 - [(NVIDIA) ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models](https://arxiv.org/abs/2505.24864)
 - [(Nous Research) Atropos - an LLM RL Gym](https://github.com/NousResearch/atropos)
-- [(PrimeIntellect) SYNTHETIC-2](https://www.primeintellect.ai/blog/synthetic-2#synthetic-2-dataset)
+- [(PrimeIntellect) SYNTHETIC-2](https://www.primeintellect.ai/blog/synthetic-2)
 
 ## 📝 Citation
 
