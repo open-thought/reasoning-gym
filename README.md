@@ -103,7 +103,8 @@ If you have ideas for dataset generators please create an issue here or contact 
 Following is a list of awesome projects building on top of Reasoning Gym:
 - [Verifiers: Reinforcement Learning with LLMs in Verifiable Environments](https://github.com/willccbb/verifiers)
 - [(NVIDIA) ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models](https://arxiv.org/abs/2505.24864)
-- [Atropos - Nous Research's LLM RL Gym](https://github.com/NousResearch/atropos)
+- [(Nous Research) Atropos - an LLM RL Gym](https://github.com/NousResearch/atropos)
+- [(PrimeIntellect) SYNTHETIC-2](https://www.primeintellect.ai/blog/synthetic-2#synthetic-2-dataset)
 
 ## 📝 Citation
 
