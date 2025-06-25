@@ -69,12 +69,15 @@ Use keyword arguments to pass task-specific configuration values:
 reasoning_gym.create_dataset('leg_counting', size=10, seed=42, max_animals=20)
 ```
 
-Create a composite dataset containing multiple task types, with optional task weightings:
+Create a composite dataset containing multiple task types, with optional relative task weightings:
 
 ```python
 from reasoning_gym.composite import DatasetSpec
-names = ['leg_counting', 'figlet_fonts']
-specs = [DatasetSpec(name=name, weight=1, config={}) for name in names]
+specs = [
+    # here, leg_counting tasks will make up two thirds of tasks
+    DatasetSpec(name='leg_counting', weight=2, config={}),  # default config
+    DatasetSpec(name='figlet_font', weight=1, config={"min_word_len": 4, "max_word_len": 6}),  # specify config
+]
 reasoning_gym.create_dataset('composite', size=10, seed=42, datasets=specs)
 ```
 
