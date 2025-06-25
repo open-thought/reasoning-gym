@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
 
+import numpy as np
 import sympy
 from sympy import Symbol, symbols
 from sympy.parsing.sympy_parser import parse_expr
@@ -22,6 +23,16 @@ Final answer format instructions:
 
 
 DATASET_NAME = "countdown"
+
+_num_re = re.compile(r"\b\d+\b")  # pre-compile once, reuse
+
+
+def _extract_ints(expr_str: str) -> list[int]:
+    """
+    Fast path: grab the literal integers that appear in the source text.
+    Handles duplicates correctly (e.g. “1 + 1 + 81” ⇒ [1, 1, 81]).
+    """
+    return [int(m) for m in _num_re.findall(expr_str)]
 
 
 @dataclass
@@ -192,12 +203,14 @@ class CountdownDataset(ProceduralDataset):
             return reward
 
         try:
-            answer = answer.strip()
-            user_answer = int(parse_expr(answer))
-            used_numbers = [int(num) for num in re.findall(r"\b\d+\b", answer)]
-            target_numbers = set(entry["metadata"]["numbers"])
+            user_answer = float(parse_expr(answer))
+            used_numbers = _extract_ints(answer)
+            target_numbers = entry["metadata"]["numbers"]
 
-            if (user_answer == entry["metadata"]["target"]) and (set(used_numbers) == target_numbers):
+            if sorted(used_numbers) != sorted(target_numbers):
+                return 0.05
+
+            if np.isclose(user_answer, entry["metadata"]["target"], atol=1e-6):
                 return 1.0
 
             return 0.05 if answer else 0.01

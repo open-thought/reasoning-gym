@@ -100,6 +100,20 @@ def test_answer_without_all_numbers():
     assert dataset.score_answer(answer=answer, entry=item) == 0.05
 
 
+def test_edge_cases_1():
+    dataset = CountdownDataset(CountdownConfig(size=10, seed=42))
+    answer = "1*81"
+    item = {"metadata": {"numbers": [1, 1, 1, 81], "target": 81}}
+    assert dataset.score_answer(answer=answer, entry=item) != 1.0
+
+
+def test_edge_cases_2():
+    dataset = CountdownDataset(CountdownConfig(size=10, seed=42))
+    answer = "6*34/11-1"
+    item = {"metadata": {"numbers": [6, 34, 1, 11], "target": 17}}
+    assert dataset.score_answer(answer=answer, entry=item) != 1.0
+
+
 def test_countdown_game_randomization():
     """Test number randomization configuration"""
     config = CountdownConfig(min_numbers=4, max_numbers=4, shuffle=False, size=10, seed=42)  # Fixed size for testing
