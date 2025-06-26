@@ -123,6 +123,7 @@ Following is a list of awesome projects building on top of Reasoning Gym:
 - [(NVIDIA) ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models](https://arxiv.org/abs/2505.24864)
 - [(Nous Research) Atropos - an LLM RL Gym](https://github.com/NousResearch/atropos)
 - [(PrimeIntellect) SYNTHETIC-2](https://www.primeintellect.ai/blog/synthetic-2)
+- [(Gensys) RLSwarm's GenRL](https://x.com/gensynai/status/1937917790922649669)
 
 ## 📝 Citation
 
