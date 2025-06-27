@@ -60,6 +60,8 @@ reasoning_gym:
         max_string_length: 8
 ```
 
+**Note**: In `config/grpo_trainer.yaml` we specify default arguments to be read from `file:///workspace/verl/verl/trainer/config`. Modify this accordingly if you have a different local folder setup. 
+
 # Change configuration Set project_name and experiment_name if logging your runs to W&B. T
 This config assumes a single GPU node, but you can configure this too. The following command would be for 2 GPUs, with 1 used for vLLM rollouts:
 
