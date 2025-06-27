@@ -3,10 +3,10 @@ defaults:
   - _self_
 
 reasoning_gym:
-  dataset_size: 20000
+  dataset_size: 10000
   developer_prompt: DeepSeekZero
   datasets:
-    ab:
+    chain_sum:
       weight: 1
 
 data:
@@ -16,7 +16,7 @@ data:
   prompt_key: prompt
   max_prompt_length: 512
   max_response_length: 512
-  train_batch_size: 16
+  train_batch_size: 64
   val_batch_size: 1
 
 actor_rollout_ref:
@@ -32,7 +32,7 @@ actor_rollout_ref:
     strategy: fsdp  # This is for backward-compatibility
     ppo_mini_batch_size: 16
     ppo_micro_batch_size: null # will be deprecated, use ppo_micro_batch_size_per_gpu
-    ppo_micro_batch_size_per_gpu: 4
+    ppo_micro_batch_size_per_gpu: 8
     use_dynamic_bsz: False
     ppo_max_token_len_per_gpu: 16384 # n * ${data.max_prompt_length} + ${data.max_response_length}
     grad_clip: 1.0
@@ -70,7 +70,7 @@ actor_rollout_ref:
         # transformer_layer_cls_to_wrap: None
         min_num_params: 0
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
-    log_prob_micro_batch_size_per_gpu: 4
+    log_prob_micro_batch_size_per_gpu: 8
     log_prob_use_dynamic_bsz: ${actor_rollout_ref.actor.use_dynamic_bsz}
     log_prob_max_token_len_per_gpu: ${actor_rollout_ref.actor.ppo_max_token_len_per_gpu}
     ulysses_sequence_parallel_size: ${actor_rollout_ref.actor.ulysses_sequence_parallel_size} # sp size
@@ -90,7 +90,7 @@ actor_rollout_ref:
     enforce_eager: True
     free_cache_engine: True
     load_format: dummy_dtensor
-    tensor_model_parallel_size: 1
+    tensor_model_parallel_size: 2
     max_num_batched_tokens: 8192
     max_num_seqs: 1024
     log_prob_micro_batch_size: null # will be deprecated, use log_prob_micro_batch_size_per_gpu
@@ -184,14 +184,14 @@ algorithm:
 
 trainer:
   balance_batch: True
-  total_epochs: 30
+  total_epochs: 1
   total_training_steps: null
   project_name: verl_examples
   experiment_name: chain_sum
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
-  n_gpus_per_node: 1
+  n_gpus_per_node: 2
   save_freq: -1
   # auto: find the last ckpt to resume. If can't find, start from scratch
   resume_mode: auto # or auto or resume_path if

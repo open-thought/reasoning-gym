@@ -1,15 +1,10 @@
 # Reasoning Gym configs
-dataset_size: 20000
+dataset_size: 10000
 developer_prompt: DeepSeekZero
 developer_role: system
 datasets:
-  simple_equations:
+  chain_sum:
     weight: 1
-  complex_arithmetic:
-    weight: 1
-    config:
-      min_real: -20
-      max_real: 20
 
 
 # Model configs from trl
@@ -34,9 +29,9 @@ lr_scheduler_type: constant_with_warmup
 lr_scheduler_kwargs:
   num_warmup_steps: 10
 max_prompt_length: 512
-max_completion_length: 2048
+max_completion_length: 512
 max_steps: 100
-num_generations: 8
+num_generations: 16
 num_train_epochs: 1
 overwrite_output_dir: true
 per_device_train_batch_size: 8

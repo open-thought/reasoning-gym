@@ -147,22 +147,24 @@ def main(args):
     training_args = GRPOConfig(
         output_dir="outputs",
         use_vllm=True,
-        learning_rate=5e-6,
+        learning_rate=1e-6,
         adam_beta1=0.9,
         adam_beta2=0.99,
-        weight_decay=0.1,
-        warmup_ratio=0.1,
-        lr_scheduler_type="cosine",
+        weight_decay=0.0,
+        warmup_ratio=0.0,
+        lr_scheduler_type="constant",
         optim="adamw_8bit",
         logging_steps=1,
         bf16=is_bfloat16_supported(),
         fp16=not is_bfloat16_supported(),
         per_device_train_batch_size=args.train_batch_size,
-        gradient_accumulation_steps=1,
+        gradient_accumulation_steps=4,
         num_generations=args.num_generations,
         num_train_epochs=args.train_epochs,
+        max_prompt_length=512,
+        max_completion_length=512,
         save_steps=100,
-        max_grad_norm=0.1,
+        max_grad_norm=1.0,
     )
 
     train(model, tokenizer, dataset, training_args)
@@ -187,17 +189,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--model-id", type=str, default="Qwen/Qwen2.5-1.5B-Instruct")
-    parser.add_argument("--dataset-name", type=str)
+    parser.add_argument("--dataset-name", type=str, default="chain_sum")
 
     parser.add_argument("--max-seq-length", type=int, default=1024)
     parser.add_argument("--lora-rank", type=int, default=64)
     parser.add_argument("--quantize", action="store_true")
-    parser.add_argument("--num-generations", type=int, default=8)
+    parser.add_argument("--num-generations", type=int, default=16)
     parser.add_argument("--train-epochs", type=int, default=1)
-    parser.add_argument("--train-batch-size", type=int, default=8)
+    parser.add_argument("--train-batch-size", type=int, default=16)
 
     parser.add_argument("--dataset-seed", type=int, default=42)
-    parser.add_argument("--dataset-size", type=int, default=1000)
+    parser.add_argument("--dataset-size", type=int, default=10000)
 
     parser.add_argument("--eval-seed", type=int, default=42)
     parser.add_argument("--eval-size", type=int, default=100)
