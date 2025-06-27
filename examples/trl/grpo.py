@@ -27,7 +27,7 @@ class DatasetConfigItem:
 
 @dataclass
 class DatasetConfig:
-    dataset_size: int = field(default=1000)
+    dataset_size: int = field(default=10000)
     developer_prompt: str = field(default="DeepSeekZero")
     developer_role: str = field(default="system")
     datasets: dict[str, DatasetConfigItem] = field(default=None)
