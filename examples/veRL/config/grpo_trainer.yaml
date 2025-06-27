@@ -1,3 +1,6 @@
+hydra:
+  searchpath:
+    - file:///workspace/verl/verl/trainer/config
 defaults:
   - ppo_trainer
   - _self_
