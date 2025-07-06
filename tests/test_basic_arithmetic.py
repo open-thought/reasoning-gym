@@ -1,8 +1,10 @@
+# Prevent import errors from optional algorithmic submodule during arithmetic tests
+import sys
+import types
+
 import pytest
 
-# Prevent import errors from optional algorithmic submodule during arithmetic tests
-import sys, types
-sys.modules['reasoning_gym.algorithmic'] = types.ModuleType('reasoning_gym.algorithmic')
+sys.modules["reasoning_gym.algorithmic"] = types.ModuleType("reasoning_gym.algorithmic")
 
 from reasoning_gym.arithmetic.basic_arithmetic import (
     BasicArithmeticCurriculum,

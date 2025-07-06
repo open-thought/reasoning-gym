@@ -192,8 +192,8 @@ class BasicArithmeticDataset(ProceduralDataset):
                 space_parts.append(p)
             expression = "".join(space_parts).strip()
         # Avoid division-by-zero in final evaluation by converting '/0' patterns to '/1'
-        if '/ 0' in expression:
-            expression = expression.replace('/ 0', '/ 1')
+        if "/ 0" in expression:
+            expression = expression.replace("/ 0", "/ 1")
         result = eval_floordiv(expression)  # Note: eval is safe here as we control the input
 
         return expression, result
