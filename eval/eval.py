@@ -302,38 +302,42 @@ class AsyncModelEvaluator:
         backoff_factor = 2.0
 
         for attempt in range(max_retries):
-            # try:
-            async with self.semaphore:
-                # Prepare API call parameters
-                params = {
-                    "model": self.config.model,
-                    "messages": [
-                        {"role": self.config.system_role, "content": self.config.get_system_prompt()},
-                        {"role": "user", "content": prompt},
-                    ],
-                }
+            try:
+                async with self.semaphore:
+                    # Prepare API call parameters
+                    params = {
+                        "model": self.config.model,
+                        "messages": [
+                            {"role": self.config.system_role, "content": self.config.get_system_prompt()},
+                            {"role": "user", "content": prompt},
+                        ],
+                    }
 
-                # Add sampling parameters if specified
-                if self.config.max_tokens is not None:
-                    params["max_tokens"] = self.config.max_tokens
-                if self.config.temperature is not None:
-                    params["temperature"] = self.config.temperature
-                if self.config.top_p is not None:
-                    params["top_p"] = self.config.top_p
+                    # Add sampling parameters if specified
+                    if self.config.max_tokens is not None:
+                        params["max_tokens"] = self.config.max_tokens
+                    if self.config.temperature is not None:
+                        params["temperature"] = self.config.temperature
+                    if self.config.top_p is not None:
+                        params["top_p"] = self.config.top_p
 
-                completion = await self.client.chat.completions.create(**params)
-                response = completion.choices[0].message.content
+                    # Add provider configuration if specified
+                    if self.config.provider:
+                        params["extra_body"] = {"provider": {"order": [self.config.provider], "allow_fallbacks": False}}
 
-                if self.verbose:
-                    self.logger.info(f"Response: {response}")
+                    completion = await self.client.chat.completions.create(**params)
+                    response = completion.choices[0].message.content
 
-                return response
+                    if self.verbose:
+                        self.logger.info(f"Response: {response}")
 
-            # except Exception as e:
-            #     delay = min(max_delay, base_delay * (backoff_factor**attempt))
-            #     self.logger.warning(f"Attempt {attempt+1}/{max_retries} failed: {str(e)}")
-            #     self.logger.warning(f"Retrying in {delay:.2f} seconds...")
-            #     await asyncio.sleep(delay)
+                    return response
+
+            except Exception as e:
+                delay = min(max_delay, base_delay * (backoff_factor**attempt))
+                self.logger.warning(f"Attempt {attempt+1}/{max_retries} failed: {str(e)}")
+                self.logger.warning(f"Retrying in {delay:.2f} seconds...")
+                await asyncio.sleep(delay)
 
         raise Exception(f"Failed to get model response after {max_retries} attempts")
 
