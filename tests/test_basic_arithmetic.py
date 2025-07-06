@@ -4,8 +4,6 @@ import types
 
 import pytest
 
-sys.modules["reasoning_gym.algorithmic"] = types.ModuleType("reasoning_gym.algorithmic")
-
 from reasoning_gym.arithmetic.basic_arithmetic import (
     BasicArithmeticCurriculum,
     BasicArithmeticDataset,
