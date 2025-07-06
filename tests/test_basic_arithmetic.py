@@ -1,5 +1,9 @@
 import pytest
 
+# Prevent import errors from optional algorithmic submodule during arithmetic tests
+import sys, types
+sys.modules['reasoning_gym.algorithmic'] = types.ModuleType('reasoning_gym.algorithmic')
+
 from reasoning_gym.arithmetic.basic_arithmetic import (
     BasicArithmeticCurriculum,
     BasicArithmeticDataset,
@@ -168,3 +172,19 @@ def test_basic_arithmetic_curriculum_upper_bound():
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.min_terms == 2 and increased_cfg.max_terms == 3
     assert increased_cfg.min_digits == 1 and increased_cfg.max_digits == 2
+
+
+def test_arithmetic_dataset_large_random_generation():
+    """Stress-test generation of many arithmetic questions to catch random errors"""
+    config = BasicArithmeticDatasetConfig(
+        size=100000,
+        seed=123,
+        min_terms=2,
+        max_terms=6,
+        min_digits=1,
+        max_digits=3,
+    )
+    dataset = BasicArithmeticDataset(config)
+    for item in dataset:
+        assert isinstance(item, dict)
+        assert "question" in item and "answer" in item and "metadata" in item
