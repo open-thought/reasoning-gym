@@ -1,7 +1,3 @@
-# Prevent import errors from optional algorithmic submodule during arithmetic tests
-import sys
-import types
-
 import pytest
 
 from reasoning_gym.arithmetic.basic_arithmetic import (
