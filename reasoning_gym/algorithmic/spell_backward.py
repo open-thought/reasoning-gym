@@ -98,7 +98,7 @@ class SpellBackwardCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="word_len",
-                levels=list(range(3, 11, 2)),
+                levels=list(range(3, 13, 2)),
                 description="Word length",
                 lower_field_name="min_word_len",
                 upper_field_name="max_word_len",
