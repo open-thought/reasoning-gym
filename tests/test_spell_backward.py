@@ -76,7 +76,7 @@ def test_spell_backward_curriculum():
     # test incrementing attribute levels
     curriculum.increment_attr_level("word_len")
     increased_cfg = curriculum.generate_configuration(base_value)
-    assert increased_cfg.min_word_len == 3 and increased_cfg.max_word_len == 4
+    assert increased_cfg.min_word_len == 3 and increased_cfg.max_word_len == 5
 
     # test decrementing attribute levels
     curriculum.decrement_attr_level("word_len")
