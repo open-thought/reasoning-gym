@@ -6,12 +6,13 @@ from dataclasses import replace
 import json
 import os
 import uuid
+from contextlib import contextmanager
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass, field
 from enum import Enum
 from pprint import pprint
-from typing import Optional, Type
+from typing import Optional, Type, Dict
 
 import numpy as np
 import ray
@@ -44,7 +45,6 @@ from verl.trainer.ppo.metric_utils import (
 from verl.trainer.ppo.ray_trainer import compute_response_mask, apply_kl_penalty, compute_advantage
 from verl.trainer.ppo.reward import compute_reward, compute_reward_async
 from verl.utils.checkpoint.checkpoint_manager import BaseCheckpointManager, find_latest_ckpt_path
-from verl.utils.debug.performance import _timer
 from verl.utils.metric import (
     reduce_metrics,
 )
@@ -53,6 +53,7 @@ from verl.utils.torch_functional import masked_mean
 from verl.utils.tracking import ValidationGenerationsLogger
 
 import reasoning_gym
+from reasoning_gym.coaching.base_curriculum import DefaultCurriculumContext, RangeAttributeMode
 from reasoning_gym.coaching.curriculum_config import CurriculumAttributeConfig, CurriculumExperimentConfig
 from reasoning_gym.coaching.experiment import Experiment, CurriculumExperiment
 from reasoning_gym.composite import CompositeDataset, DatasetSpec
@@ -60,6 +61,26 @@ from reasoning_gym.dataset import ProceduralDataset
 from reasoning_gym.utils import extract_answer
 
 from utils import reward_registry
+
+@contextmanager
+def _timer(name: str, timing_raw: Dict[str, float]):
+    """Context manager for timing code execution.
+
+    This utility function measures the execution time of code within its context
+    and accumulates the timing information in the provided dictionary.
+
+    Args:
+        name (str): The name/identifier for this timing measurement.
+        timing_raw (Dict[str, float]): Dictionary to store timing information.
+
+    Yields:
+        None: This is a context manager that yields control back to the code block.
+    """
+    with Timer(name=name, logger=None) as timer:
+        yield
+    if name not in timing_raw:
+        timing_raw[name] = 0
+    timing_raw[name] += timer.last
 
 
 class ReasoningGymDataset(Dataset):
