@@ -367,12 +367,11 @@ class RayGRPOTrainer(RayPPOTrainer):
                             if self.global_steps % self.config.curriculum.schedule.update_steps == 0:
                                 self.train_dataset.experiment.update_difficulty(dataset_name, method="increment")
                     else:
-                        print(grouped_scores)
                         for dataset_name in grouped_scores.keys():
                             if (
                                 grouped_scores[dataset_name]["results"] > self.config.curriculum.success_threshold
                             ) and (grouped_scores[dataset_name]["total_samples"] >= self.config.curriculum.last_k):
-                                self.train_dataset.update_experiment_difficulty(dataset_name, method="increment")
+                                self.train_dataset.experiment.update_difficulty(dataset_name, method="increment")
 
                 metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic))
                 metrics.update(compute_timing_metrics(batch=batch, timing_raw=timing_raw))
