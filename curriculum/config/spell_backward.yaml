@@ -18,14 +18,13 @@ curriculum:
     schedule:
       automatic: True
       update_steps: 30 # automatic curriculum updating after 50 steps
-    last_k: 20
+    last_k: 3
     success_threshold: 0.70
     failure_threshold: 0.10
     curricula:
       spell_backward:
         attribute_levels:
           word_len: 0
-    num_difficulty_levels: 3
 
 data:
   tokenizer: null
@@ -204,8 +203,8 @@ trainer:
   balance_batch: True
   total_epochs: -1
   total_training_steps: 500
-  project_name: verl_examples
-  experiment_name: spell_backward_curr
+  project_name: curriculum
+  experiment_name: spell_backward
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
