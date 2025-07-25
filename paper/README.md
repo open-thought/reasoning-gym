@@ -1,6 +1,6 @@
 # Reasoning Gym Model Training
 
-Training codebase for training LLMs using Reasoning Gym procedural dataset generators.
+Codebase for training and evaluating LLMs with Reasoning Gym procedural dataset generators, as outlined in our paper ["REASONING GYM: Reasoning Environments for Reinforcement Learning with Verifiable Rewards"](https://arxiv.org/abs/2505.24760)
 
 This readme documents:
 
