@@ -8,7 +8,7 @@ curriculum:
       automatic: False
       update_steps: 30
     last_k: 20
-    success_threshold: 0.70
+    success_threshold: 0.80
     failure_threshold: 0.10
     curricula:
       knights_knaves:
@@ -20,8 +20,6 @@ curriculum:
 reward:
   use_accuracy: True
   secondary_rewards:
-   - name: cosine
-     scaling_factor: 0.3
    - name: format
      scaling_factor: 0.2
      kwargs:
@@ -67,7 +65,7 @@ actor_rollout_ref:
       lr_warmup_steps_ratio: 0.  # the total steps will be injected during runtime
       min_lr_ratio: null   # only useful for warmup with cosine
       warmup_style: constant  # select from constant/cosine
-      total_training_steps: 400  # must be override by program
+      total_training_steps: 300  # must be override by program
     fsdp_config:
       wrap_policy:
         # transformer_layer_cls_to_wrap: None
@@ -130,7 +128,7 @@ verbose: True
 trainer:
   balance_batch: True
   total_epochs: 1
-  total_training_steps: 400
+  total_training_steps: 300
   project_name: curriculum
   experiment_name: knights_knaves_curriculum
   logger: [ 'console', 'wandb' ]

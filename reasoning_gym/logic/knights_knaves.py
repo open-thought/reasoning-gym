@@ -535,13 +535,13 @@ class KnightsKnavesCurriculum(BaseCurriculum):
             ),
             ScalarAttributeDefinition(
                 name="depth_constraint",
-                levels=[2, 3, 4, 5],
+                levels=[2, 3],
                 description="Depth of the problem",
                 field_name="depth_constraint",
             ),
             ScalarAttributeDefinition(
                 name="width_constraint",
-                levels=[2, 3, 4, 5],
+                levels=[2, 3],
                 description="Width of the problem",
                 field_name="width_constraint",
             ),
