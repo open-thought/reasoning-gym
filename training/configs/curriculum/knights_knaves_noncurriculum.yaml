@@ -2,8 +2,15 @@ reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
+    knights_knaves:
+      weight: 1
+      config:
+        n_people: 5
+        depth_constraint: 3
+        width_constraint: 3
+
 curriculum:
-    enabled: True
+    enabled: False
     schedule:
       automatic: False
       update_steps: 30
