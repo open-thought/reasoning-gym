@@ -15,8 +15,8 @@ curriculum:
       automatic: False
       update_steps: 30
     last_k: 2560 # num_last_training_steps * batch_size * num_completions
-    success_threshold: 0.90
-    failure_threshold: 0.30
+    success_threshold: 0.70
+    failure_threshold: 0.20
     curricula:
       knights_knaves:
         attribute_levels:
