@@ -14,7 +14,7 @@ curriculum:
     schedule:
       automatic: False
       update_steps: 30
-    last_k: 20
+    last_k: 2560 # num_last_training_steps * batch_size * num_completions
     success_threshold: 0.90
     failure_threshold: 0.30
     curricula:
