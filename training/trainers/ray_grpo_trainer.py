@@ -365,13 +365,23 @@ class RayGRPOTrainer(RayPPOTrainer):
                     if self.config.curriculum.schedule.automatic:
                         for dataset_name in grouped_scores.keys():
                             if self.global_steps % self.config.curriculum.schedule.update_steps == 0:
-                                self.train_dataset.experiment.update_difficulty(dataset_name, method="increment")
+                                self.train_dataset.update_experiment_difficulty(dataset_name, method="increment")
                     else:
                         for dataset_name in grouped_scores.keys():
                             if (
                                 grouped_scores[dataset_name]["results"] > self.config.curriculum.success_threshold
                             ) and (grouped_scores[dataset_name]["total_samples"] >= self.config.curriculum.last_k):
-                                self.train_dataset.experiment.update_difficulty(dataset_name, method="increment")
+                                print(
+                                    f"Increasing difficulty for dataset: {dataset_name} (success rate: {grouped_scores[dataset_name]['results']:.2f}, samples: {grouped_scores[dataset_name]['total_samples']})"
+                                )
+                                self.train_dataset.update_experiment_difficulty(dataset_name, method="increment")
+                            elif (
+                                grouped_scores[dataset_name]["results"] < self.config.curriculum.failure_threshold
+                            ) and (grouped_scores[dataset_name]["total_samples"] >= self.config.curriculum.last_k):
+                                print(
+                                    f"Decreasing difficulty for dataset: {dataset_name} (success rate: {grouped_scores[dataset_name]['results']:.2f}, samples: {grouped_scores[dataset_name]['total_samples']})"
+                                )
+                                self.train_dataset.update_experiment_difficulty(dataset_name, method="decrement")
 
                 metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic))
                 metrics.update(compute_timing_metrics(batch=batch, timing_raw=timing_raw))
