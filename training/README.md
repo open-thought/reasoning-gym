@@ -33,7 +33,12 @@ To use the exact same verl version, simply `git checkout c34206925e2a50fd452e474
 
 You may alternatively wish to try newer verl versions, which support vLLM 0.8: [Instructions to install verl & vLLM 0.8](https://verl.readthedocs.io/en/latest/README_vllm0.8.html). However, our code does override some verl code, so there may be incompatibilites with newer versions.
 
-4. Log in to HF and W&B:
+4. Install flash attention. We found the below version working with the setup outlined above:
+```sh
+pip install flash-attn==2.7.3 --no-build-isolation
+```
+
+5. Log in to HF and W&B:
 
 ```bash
 huggingface-cli login
@@ -47,13 +52,13 @@ Activate the virtual environment you prepared.
 Example GRPO training usage, using the config for our inter-domain generalisation experiment trained on Algorithmic problems:
 
 ```bash
-python3 -u train_grpo.py --config-paths configs/inter_generalisation --config-name algorithmic_qwen_3b
+python3 -u train_grpo.py --config-path configs/inter_generalisation --config-name algorithmic_qwen_3b
 ```
 
 Set `project_name` and `experiment_name` if logging your runs to W&B. This config assumes a 4 GPU node, but you can configure this too. The following command would be for 2 GPUs, with 1 used for vLLM rollouts:
 
 ```bash
-python3 -u train_grpo.py --config-paths configs/inter_generalisation --config-name algorithmic_qwen_3b \
+python3 -u train_grpo.py --config-path configs/inter_generalisation --config-name algorithmic_qwen_3b \
     actor_rollout_ref.rollout.tensor_model_parallel_size=1 \
     trainer.n_gpus_per_node=2 \
     trainer.project_name=rg-grpo \
