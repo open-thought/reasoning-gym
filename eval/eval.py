@@ -657,11 +657,11 @@ class AsyncModelEvaluator:
 
         # Process each category sequentially to ensure proper checkpointing
         category_results = []
-        for category in self.config.categories:
-            category_result = await self.evaluate_category(category)
-            category_results.append(category_result)
+        tasks = [asyncio.create_task(self.evaluate_category(category)) for category in self.config.categories]
 
-            # Update partial summary after each category
+        for finished_task in asyncio.as_completed(tasks):
+            result = await finished_task
+            category_results.append(result)
             self._update_partial_summary(category_results)
 
         # Generate results structure
