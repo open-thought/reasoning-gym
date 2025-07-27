@@ -25,11 +25,12 @@ pip install -e .
 cd training/
 ```
 
-3. Follow setup steps for verl with vLLM from the verl docs, ensuring the `verl` repo is directly within this `training/` directory:
+3. Install verl
 
-We used verl at commit hash `c34206925e2a50fd452e474db857b4d488f8602d` with vLLM 0.7.3: [Instructions to install verl & vLLM 0.7.3](https://verl.readthedocs.io/en/latest/README_vllm0.7.html).
-
-To use the exact same verl version, simply `git checkout c34206925e2a50fd452e474db857b4d488f8602d` before installing verl.
+We used verl at commit hash `c34206925e2a50fd452e474db857b4d488f8602d` with vLLM 0.7.3:
+```bash
+pip install git+https://github.com/volcengine/verl.git@c34206925e2a50fd452e474db857b4d488f8602d
+```
 
 You may alternatively wish to try newer verl versions, which support vLLM 0.8: [Instructions to install verl & vLLM 0.8](https://verl.readthedocs.io/en/latest/README_vllm0.8.html). However, our code does override some verl code, so there may be incompatibilites with newer versions.
 
@@ -39,7 +40,6 @@ pip install flash-attn==2.7.3 --no-build-isolation
 ```
 
 5. Log in to HF and W&B:
-
 ```bash
 huggingface-cli login
 wandb login
