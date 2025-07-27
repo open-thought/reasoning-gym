@@ -4,19 +4,14 @@ reasoning_gym:
   datasets:
     course_schedule:
       weight: 1
-      config: # TODO
     family_relationships:
       weight: 1
-      config: # TODO
     largest_island:
       weight: 1
-      config: # TODO
     quantum_lock:
       weight: 1
-      config: # TODO
     shortest_path:
       weight: 1
-      config: # TODO
 curriculum:
     enabled: False
     schedule:
