@@ -24,7 +24,7 @@ curriculum:
       update_steps: 30
     last_k: 2560
     success_threshold: 0.70
-    failure_threshold: 0.10
+    failure_threshold: 0.20
     curricula:
       course_schedule:
         attribute_levels:
