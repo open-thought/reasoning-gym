@@ -137,7 +137,7 @@ trainer:
   total_epochs: 1
   total_training_steps: 300
   project_name: curriculum
-  experiment_name: knights_knaves_curriculum
+  experiment_name: knights_knaves_noncurriculum
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1
