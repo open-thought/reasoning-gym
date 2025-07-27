@@ -170,6 +170,7 @@ class AsyncModelEvaluator:
         base_url: str = "https://openrouter.ai/api/v1",
         verbose: bool = False,
         debug: bool = False,
+        timeout: int = 600,
     ):
         """Initialize the evaluator with configuration.
 
@@ -184,6 +185,7 @@ class AsyncModelEvaluator:
         self.base_url = base_url
         self.verbose = verbose
         self.debug = debug
+        self.timeout = timeout
 
         # Set up logging
         self.logger = logging.getLogger("AsyncModelEvaluator")
@@ -196,7 +198,7 @@ class AsyncModelEvaluator:
             logging.getLogger("httpx").setLevel(logging.WARNING)
 
         # Set up API client
-        self.client = AsyncOpenAI(base_url=self.base_url, api_key=api_key)
+        self.client = AsyncOpenAI(base_url=self.base_url, api_key=api_key, timeout=self.timeout)
 
         # Concurrency control
         self.semaphore = asyncio.Semaphore(config.max_concurrent)
@@ -835,6 +837,7 @@ async def main_async():
     parser.add_argument("--verbose", action="store_true", help="Print detailed model responses")
     parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     parser.add_argument("--resume", help="Resume evaluation from the specified directory")
+    parser.add_argument("--timeout", type=int, default=600, help="Time in seconds for timeout of a single request")
 
     args = parser.parse_args()
 
@@ -885,7 +888,12 @@ async def main_async():
 
     # Create evaluator
     evaluator = AsyncModelEvaluator(
-        config=config, api_key=api_key, base_url=args.base_url, verbose=args.verbose, debug=args.debug
+        config=config,
+        api_key=api_key,
+        base_url=args.base_url,
+        verbose=args.verbose,
+        debug=args.debug,
+        timeout=args.timeout,
     )
 
     # Set resume directory if specified

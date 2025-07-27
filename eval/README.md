@@ -128,6 +128,7 @@ Options:
 - `--seed`: Default dataset seed (default: 42)
 - `--include-params`: Include all configuration parameters (default: False)
 - `--category`: Only include datasets from this category (default: None)
+- `--timeout`: Time in seconds for timeout of a single request (default: 600)
 
 #### Generating Config for a Specific Category
 
