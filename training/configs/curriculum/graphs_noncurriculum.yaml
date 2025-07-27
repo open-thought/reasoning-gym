@@ -2,12 +2,27 @@ reasoning_gym:
   dataset_size: 20000
   developer_prompt: DeepSeekZero
   datasets:
+    course_schedule:
+      weight: 1
+      config: # TODO
+    family_relationships:
+      weight: 1
+      config: # TODO
+    largest_island:
+      weight: 1
+      config: # TODO
+    quantum_lock:
+      weight: 1
+      config: # TODO
+    shortest_path:
+      weight: 1
+      config: # TODO
 curriculum:
-    enabled: True
+    enabled: False
     schedule:
       automatic: False
       update_steps: 30
-    last_k: 20
+    last_k: 2560
     success_threshold: 0.70
     failure_threshold: 0.10
     curricula:
