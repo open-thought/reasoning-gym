@@ -15,7 +15,7 @@ curriculum:
       knights_knaves:
         attribute_levels:
           n_people: 0
-          depth_constraint: 0 
+          depth_constraint: 0
           width_constraint: 0
 
 reward:
