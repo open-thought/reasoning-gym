@@ -1,0 +1,25 @@
+model_path: joesharratt29/mini_sudoku_non_curriculum  # Default model path
+# model_path:  joesharratt29/mini_sudoku_non_curriculum
+# model_path: joesharratt29/mini_sudoku_curriculum
+
+max_tokens: 2048  # From max_response_length in training config
+top_p: 1.0
+temperature: 1.0  #
+
+developer_prompt: DeepSeekZero
+developer_role: system
+
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+categories:
+  - category: algorithmic
+    datasets:
+      - dataset: mini_sudoku
+        size: 100
+        seed: 42
+        params:
+          min_empty: 4
+          max_empty: 12
