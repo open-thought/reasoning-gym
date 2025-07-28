@@ -20,7 +20,7 @@ developer_role: system
 output_dir: results
 save_metadata: true
 save_full_results: true
-eval_repeats: 1
+eval_repeats: 3
 
 categories:
   - category: logic
@@ -29,6 +29,6 @@ categories:
         size: 100
         seed: 42
         params:
-          n_people: 5
+          n_people: 4
           depth_constraint: 3
           width_constraint: 3
