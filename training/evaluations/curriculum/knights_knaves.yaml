@@ -2,14 +2,17 @@
 
 # Models evaluated on this config:
 # Qwen/Qwen2.5-3B-Instruct (original model)
-# noncurriculum_kk_qwen_3b_400 (original + 400 GRPO steps on non-curriculum Knights and Knaves data)
-# curriculum_kk_qwen_3b_400 (original + 400 GRPO steps on curriculum Knights and Knaves data)
+# qwen3b_knights-knaves_noncurriculum (original + 300 GRPO steps on non-curriculum Knights and Knaves data)
+# qwen3b_knights-knaves_curriculum (original + 300 GRPO steps on curriculum Knights and Knaves data)
 
-model_path: ../models/curriculum_kk_qwen_3b_400  # Change to the model to be evaluated
+model_path: Qwen/Qwen2.5-3B-Instruct  # Default model path
+# model_path: /workspace/reasoning-gym/training/qwen3b_knights-knaves_noncurriculum
+# model_path: /workspace/reasoning-gym/training/qwen3b_knights-knaves_curriculum
 
 max_tokens: 2048  # From max_response_length in training config
-top_p: 0.9  # From rollout top_p
-temperature: 0.6  # Lower temperature for more focused responses
+top_p: 1.0
+temperature: 1.0  # Lower temperature for more focused responses
+dtype: bfloat16
 
 developer_prompt: DeepSeekZero
 developer_role: system
@@ -17,7 +20,7 @@ developer_role: system
 output_dir: results
 save_metadata: true
 save_full_results: true
-eval_repeats: 3
+eval_repeats: 1
 
 categories:
   - category: logic
@@ -25,6 +28,7 @@ categories:
       - dataset: knights_knaves
         size: 100
         seed: 42
-        n_people: 5
-        depth_constraint: 5
-        width_constraint: 5
+        params:
+          n_people: 5
+          depth_constraint: 3
+          width_constraint: 3

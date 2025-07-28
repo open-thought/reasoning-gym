@@ -45,6 +45,7 @@ class EvalConfig:
     model_path: str
     max_tokens: int
     temperature: float
+    dtype: str
     top_p: float
     output_dir: str
     save_metadata: bool
@@ -82,7 +83,7 @@ class LocalModelEvaluator:
         self.verbose = verbose
 
         # Load model and tokenizer
-        self.llm = LLM(model=model_path)
+        self.llm = LLM(model=model_path, dtype=config.dtype)
         self.tokenizer = self.llm.get_tokenizer()
         self.sampling_params = SamplingParams(
             temperature=config.temperature,
@@ -132,7 +133,6 @@ class LocalModelEvaluator:
                 raw_response = self.get_model_response(entry["question"])
                 model_answer = extract_answer(raw_response)
                 score = dataset.score_answer(answer=model_answer, entry=entry)
-                score = 0.0 if score < 1 else score
                 all_completions.append(
                     {
                         "model_answer": model_answer,
@@ -214,6 +214,7 @@ class LocalModelEvaluator:
                 "duration_seconds": (datetime.now() - self.start_time).total_seconds(),
                 "max_tokens": self.config.max_tokens,
                 "temperature": self.config.temperature,
+                "dtype": self.config.dtype,
                 "top_p": self.config.top_p,
                 "eval_repeats": self.config.eval_repeats,
             },
