@@ -133,6 +133,7 @@ class LocalModelEvaluator:
                 raw_response = self.get_model_response(entry["question"])
                 model_answer = extract_answer(raw_response)
                 score = dataset.score_answer(answer=model_answer, entry=entry)
+                score = 0.0 if score < 1 else score
                 all_completions.append(
                     {
                         "model_answer": model_answer,
