@@ -18,7 +18,7 @@ developer_role: system
 output_dir: results
 save_metadata: true
 save_full_results: true
-eval_repeats: 1
+eval_repeats: 3
 
 categories:
   - category: graphs
