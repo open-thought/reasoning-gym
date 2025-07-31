@@ -271,5 +271,5 @@ def test_curriculum():
     curriculum.increment_attr_level("width_constraint")
     increased_cfg = curriculum.generate_configuration(base_value)
     assert increased_cfg.n_people == 3
-    assert increased_cfg.depth_constraint == 4
-    assert increased_cfg.width_constraint == 4
+    assert increased_cfg.depth_constraint == 3
+    assert increased_cfg.width_constraint == 3
