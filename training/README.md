@@ -116,7 +116,10 @@ python evaluate_model.py --config eval_algorithmic_composite.yaml
 
 ## External benchmark evaluations
 
-We additionally evaluate some models on external benchmarks using the Language Model Evaluation Harness from Eleuther AI.
+We additionally evaluate some models on external benchmarks using the [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) from Eleuther AI.
+
+
+### Math benchmarks
 
 We utilise the `llama` branch for the Llama 3 MATH and GSM8K evaluation configurations it provides, for the fairest possible comparison against Meta's original Llama 3 model.
 
@@ -127,18 +130,24 @@ git checkout llama
 pip install -e .
 ```
 
-For our Llama 3 3B RG-Math model, we evaluate both the original model and ours by directly using the Llama 3 configs provided by LMEH:
+1. For our **Llama 3 3B RG-Math** model, we evaluate both the original model and ours by directly using the Llama 3 configs provided by LMEH:
+    ```bash
+    # tasks used: llama_math, gsm8k_cot_llama
+    lm_eval --model vllm --model_args pretrained=/path/to/model --tasks llama_math --batch_size auto --output_path results/ --apply_chat_template --fewshot_as_multiturn
+    ```
 
-```bash
-# tasks used: llama_math, gsm8k_cot_llama
-lm_eval --model vllm --model_args pretrained=/path/to/model --tasks llama_math --batch_size auto --output_path results/ --apply_chat_template --fewshot_as_multiturn
-```
-
-For our Qwen2.5 3B RG-Math model, we evaluate using a tweaked version of the same task configs. The system prompt used in RL is also used in evaluation for the RG-Math model. The original Qwen2.5 model was tested with the same system prompt, but performed worse than with the standard CoT prompt, so the final evaluation score utilised the standard prompt.
-
-```bash
-# tasks used: llama_math (edited, see below), gsm8k_cot_rg
-lm_eval --model vllm --model_args pretrained=/path/to/model --tasks llama_math --batch_size auto --output_path results/
-```
+2. For our **Qwen 2.5 3B RG-Math** model, we evaluate using a tweaked version of the same task configs. The system prompt used in RL is also used in evaluation for the RG-Math model. The original Qwen 2.5 model was tested with the same system prompt, but performed worse than with the standard CoT prompt, so the final evaluation score utilised the standard prompt.
+    ```bash
+    # tasks used: llama_math (edited, see below), gsm8k_cot_rg
+    lm_eval --model vllm --model_args pretrained=/path/to/model --tasks llama_math --batch_size auto --output_path results/ --apply_chat_template --fewshot_as_multiturn
+    ```
 
 The RG-specific task configs for LMEH are contained in `training/evaluations/lmeh/` in this repository. To run the `llama_math` eval, replace `llama_math_algebra` in the relevant LMEH tasks directory with the RG one provided.
+
+### MMLU Pro
+
+For MMLU Pro, we use the `mmlu_pro` task from LMEH. To run the evaluation, you can use the following command:
+
+```bash
+lm_eval --model vllm --model_args pretrained=/path/to/model --tasks mmlu_pro --batch_size auto --output_path results/ --apply_chat_template --fewshot_as_multiturn
+```
