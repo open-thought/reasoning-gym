@@ -122,9 +122,9 @@ Following is a list of awesome projects building on top of Reasoning Gym:
 - [Verifiers: Reinforcement Learning with LLMs in Verifiable Environments](https://github.com/willccbb/verifiers)
 - [(NVIDIA) ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models](https://arxiv.org/abs/2505.24864)
 - [(Nous Research) Atropos - an LLM RL Gym](https://github.com/NousResearch/atropos)
-- [(PrimeIntellect) SYNTHETIC-2](https://www.primeintellect.ai/blog/synthetic-2)
-- [(Gensyn) RL Swarm](https://x.com/gensynai/status/1937917790922649669)
-
+- [(PrimeIntellect) SYNTHETIC-2: a massive open-source reasoning dataset](https://www.primeintellect.ai/blog/synthetic-2)
+- [(Gensyn) RL Swarm: a framework for planetary-scale collaborative RL](https://x.com/gensynai/status/1937917790922649669)
+- [(Axon RL) GEM: a comprehensive framework for RL environments](https://github.com/axon-rl/gem)
 ## 📝 Citation
 
 If you use this library in your research, please cite the paper:
