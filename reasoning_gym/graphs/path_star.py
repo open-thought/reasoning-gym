@@ -24,8 +24,8 @@ class PathStarConfig:
     seed: Optional[int] = None
 
     def validate(self) -> None:
-        assert self.degree >= 2 and self.path_length >= 1
-        assert self.node_range > self.degree * self.path_length + 1
+        assert self.degree >= 2 and self.min_path_length >= 1
+        assert self.node_range > self.degree * self.max_path_length + 1
 
 
 class PathStarDataset(ProceduralDataset):
@@ -126,4 +126,4 @@ class PathStarCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(DATASET_NAME.PathStarDataset, PathStarConfig, PathStarCurriculum)
+register_dataset(DATASET_NAME, PathStarDataset, PathStarConfig, PathStarCurriculum)
