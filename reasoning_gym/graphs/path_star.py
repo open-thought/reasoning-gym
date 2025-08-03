@@ -1,4 +1,7 @@
-"""Inspired by https://arxiv.org/pdf/2403.06963"""
+"""
+Pathfinding problems in a path-star graph structure.
+Inspired by https://arxiv.org/pdf/2403.06963
+"""
 
 import random
 from dataclasses import dataclass
@@ -9,6 +12,21 @@ from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "path_star"
 
+PROMPT_TEMPLATE = """
+Find a path from the start node to the goal node in the following path-star graph.
+Respond with only the sequence of node labels in the path, including the start and goal nodes.
+Separate node labels with a single space.
+
+The graph is represented as a list of edges, where each edge is defined by two node labels.
+The edges are separated by a vertical bar '|'. Then, the start and goal nodes are specified after a slash '/'.
+
+Example:
+|1 2|1 3|2 4|3 5/1 5 = 1 3 5
+
+Solve the following task:
+{task}
+"""
+
 
 @dataclass
 class PathStarConfig:
@@ -18,7 +36,6 @@ class PathStarConfig:
     max_path_length: int = 5
 
     reversed: bool = False
-    teacherless: bool = False
 
     size: int = 500  # Virtual dataset size
     seed: Optional[int] = None
@@ -64,7 +81,8 @@ class PathStarDataset(ProceduralDataset):
         rng.shuffle(edges)
 
         edges_str = "".join(f"|{u} {v}" for u, v in edges)
-        prefix = f"{edges_str}/{center} {goal} ="
+        prefix = f"{edges_str}/{center} {goal} = "
+        question = PROMPT_TEMPLATE.format(task=prefix)
 
         # gold path
         gold = [center] + goal_path
@@ -72,13 +90,8 @@ class PathStarDataset(ProceduralDataset):
             gold = list(reversed(gold))
         answer = " ".join(map(str, gold))
 
-        if cfg.teacherless:
-            q = prefix + " $" * len(gold)  # same length dummy token(s)
-        else:
-            q = prefix + " "
-
         return {
-            "question": q,
+            "question": question,
             "answer": answer,
             "metadata": {
                 "center": center,
