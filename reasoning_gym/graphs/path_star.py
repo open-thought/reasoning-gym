@@ -63,12 +63,8 @@ class PathStarDataset(ProceduralDataset):
             edges.extend(zip(p[:-1], p[1:]))
         rng.shuffle(edges)
 
-        # serialise graph
-        lines = [f"e {u} {v}" for u, v in edges]
-        lines.append(f"S {center}")
-        lines.append(f"G {goal}")
-        lines.append("?")
-        prefix = "\n".join(lines)
+        edges_str = "".join(f"|{u} {v}" for u, v in edges)
+        prefix = f"{edges_str}/{center} {goal} ="
 
         # gold path
         gold = [center] + goal_path
@@ -77,9 +73,9 @@ class PathStarDataset(ProceduralDataset):
         answer = " ".join(map(str, gold))
 
         if cfg.teacherless:
-            q = "X" * len(prefix)  # same length dummy token(s)
+            q = prefix + " $" * len(gold)  # same length dummy token(s)
         else:
-            q = prefix
+            q = prefix + " "
 
         return {
             "question": q,
