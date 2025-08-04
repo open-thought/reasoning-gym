@@ -1,18 +1,20 @@
 <p align="center">
-    <!-- title -->
-    <h1 align="center"><img src="https://github.com/open-thought/reasoning-gym/raw/main/assets/icon.png" alt="Reasoning Gym Logo" style="vertical-align: bottom;" width="54px" height="40px"> Reasoning Gym</h1>
-    <!-- teaser -->
-    <p align="center">
-        <img src="https://github.com/open-thought/reasoning-gym/raw/main/assets/examples.png" width="800px">
-    </p>
-    <!-- badges -->
-    <p align="center">
-        <a href="https://arxiv.org/abs/2505.24760">
-            <img src="https://img.shields.io/badge/arXiv-2505.24760-b31b1b.svg?style=for-the-badge" alt="Paper PDF">
-        </a>
-    </p>
+     <!-- title -->
+        <h1 align="center"><img src="https://github.com/open-thought/reasoning-gym/raw/main/assets/icon.png" alt="Reasoning Gym Logo" style="vertical-align: bottom;" width="54px" height="40px"> Reasoning Gym</h1>
+        <!-- teaser -->
+        <p align="center">
+            <img src="https://github.com/open-thought/reasoning-gym/raw/main/assets/examples.png" width="800px">
+        </p>
+        <!-- badges -->
+        <p align="center">
+            <a href="https://arxiv.org/abs/2505.24760" target="_blank" style="margin-right: 10px;">
+                <img src="https://img.shields.io/badge/arXiv-2505.24760-b31b1b.svg?style=for-the-badge" alt="Paper PDF">
+            </a>
+            <a href="https://discord.gg/gpumode" target="_blank">
+                <img src="https://dcbadge.limes.pink/api/server/gpumode?style=for-the-badge" alt="Discord Server">
+            </a>
+        </p>
 </p>
-
 
 ## 🧠 About
 
