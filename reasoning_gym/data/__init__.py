@@ -15,7 +15,7 @@ def get_data_file_path(filename: str) -> Path:
 
     Example:
         >>> path = get_data_file_path("pg19362.txt")
-        >>> with open(path) as f:
+        >>> with open(path, encoding="utf-8") as f:
         ...     content = f.read()
     """
     return resources.files("reasoning_gym.data").joinpath(filename)
@@ -33,7 +33,7 @@ def read_data_file(filename: str) -> str:
     Example:
         >>> content = read_data_file("pg19362.txt")
     """
-    return resources.files("reasoning_gym.data").joinpath(filename).read_text()
+    return resources.files("reasoning_gym.data").joinpath(filename).read_text(encoding="utf-8")
 
 
 __all__ = ["get_data_file_path", "read_data_file"]
