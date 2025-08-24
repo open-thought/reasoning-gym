@@ -127,7 +127,7 @@ Following is a list of awesome projects building on top of Reasoning Gym:
 - [(PrimeIntellect) SYNTHETIC-2: a massive open-source reasoning dataset](https://www.primeintellect.ai/blog/synthetic-2)
 - [(Gensyn) RL Swarm: a framework for planetary-scale collaborative RL](https://x.com/gensynai/status/1937917790922649669)
 - [(Axon RL) GEM: a comprehensive framework for RL environments](https://github.com/axon-rl/gem)
-- [(Facebook) OptimalThinkingBench: Evaluating Over and Underthinking in LLMs](https://github.com/facebookresearch/RAM/tree/main/projects/otb)
+- [(FAIR at Meta) OptimalThinkingBench: Evaluating Over and Underthinking in LLMs](https://github.com/facebookresearch/RAM/tree/main/projects/otb)
 
 ## 📝 Citation
 
