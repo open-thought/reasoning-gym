@@ -123,6 +123,7 @@ If you have ideas for dataset generators please create an issue here or contact 
 Following is a list of awesome projects building on top of Reasoning Gym:
 - [Verifiers: Reinforcement Learning with LLMs in Verifiable Environments](https://github.com/willccbb/verifiers)
 - [(NVIDIA) ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models](https://arxiv.org/abs/2505.24864)
+- [(Meta) OptimalThinkingBench: Evaluating Over and Underthinking in LLMs](https://arxiv.org/abs/2508.13141)
 - [(Nous Research) Atropos - an LLM RL Gym](https://github.com/NousResearch/atropos)
 - [(PrimeIntellect) SYNTHETIC-2: a massive open-source reasoning dataset](https://www.primeintellect.ai/blog/synthetic-2)
 - [(Gensyn) RL Swarm: a framework for planetary-scale collaborative RL](https://x.com/gensynai/status/1937917790922649669)
