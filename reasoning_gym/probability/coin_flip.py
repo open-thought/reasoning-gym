@@ -25,6 +25,7 @@ class CoinFlipConfig:
         assert self.size > 0, "size must be positive"
         assert self.min_trials > 0, "min_trials must be positive"
         assert self.max_trials >= self.min_trials, "max_trials must be >= min_trials"
+        assert self.allow_exact or self.allow_at_least, "At least one of allow_exact or allow_at_least must be True"
 
 
 class CoinFlipDataset(ProceduralDataset):
@@ -55,9 +56,6 @@ class CoinFlipDataset(ProceduralDataset):
             available_types.append("exact")
         if self.config.allow_at_least:
             available_types.append("at_least")
-
-        if not available_types:
-            available_types = ["exact"]
         
         problem_type = rng.choice(available_types)
 
@@ -79,13 +77,16 @@ class CoinFlipDataset(ProceduralDataset):
             "metadata": {
                 "source_dataset": DATASET_NAME,
                 "source_index": idx,
-                "num_tosses": n,
+                "num_trials": n,
                 "k_heads": k,
                 "problem_type": problem_type,
                 "rational": {
                     "numerator": self._rational_numerator(n, k, problem_type),
                     "denominator": 2 ** n,
-                }
+                },
+                "difficulty": {
+                    "num_trials": (self.config.min_trials, self.config.max_trials),
+                },
             }
         }
     

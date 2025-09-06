@@ -1,6 +1,6 @@
 import pytest
 from fractions import Fraction
-from reasoning_gym.probability.coin_flip import CoinFlipDataset, CoinFlipConfig, CoinFlipCurriculum
+from reasoning_gym.probability import CoinFlipDataset, CoinFlipConfig, CoinFlipCurriculum
 
 def test_coin_flip_config_validation():
     """Test that invalid configs raise errors"""
@@ -16,6 +16,9 @@ def test_coin_flip_config_validation():
         config = CoinFlipConfig(min_trials=5, max_trials=3)
         config.validate()
 
+    with pytest.raises(AssertionError):
+        config = CoinFlipConfig(allow_exact=False, allow_at_least=False)
+        config.validate()
 
 def test_coin_flip_deterministic():
     """Dataset generates same items with same seed"""
@@ -41,13 +44,13 @@ def test_coin_flip_items():
 
 
         metadata = item["metadata"]
-        assert "num_tosses" in metadata
+        assert "num_trials" in metadata
         assert "k_heads" in metadata
         assert "problem_type" in metadata
         assert metadata["problem_type"] in ["exact", "at_least"]
 
         rational = metadata["rational"]
-        assert rational["denominator"] == 2 ** metadata["num_tosses"]
+        assert rational["denominator"] == 2 ** metadata["num_trials"]
         assert rational["numerator"] > 0
 
 
