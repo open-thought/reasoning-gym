@@ -1,6 +1,9 @@
-import pytest
 from fractions import Fraction
-from reasoning_gym.probability import CoinFlipDataset, CoinFlipConfig, CoinFlipCurriculum
+
+import pytest
+
+from reasoning_gym.probability import CoinFlipConfig, CoinFlipCurriculum, CoinFlipDataset
+
 
 def test_coin_flip_config_validation():
     """Test that invalid configs raise errors"""
@@ -19,6 +22,7 @@ def test_coin_flip_config_validation():
     with pytest.raises(AssertionError):
         config = CoinFlipConfig(allow_exact=False, allow_at_least=False)
         config.validate()
+
 
 def test_coin_flip_deterministic():
     """Dataset generates same items with same seed"""
@@ -39,9 +43,8 @@ def test_coin_flip_items():
         assert isinstance(item, dict)
         assert "question" in item
         assert "answer" in item
-        assert  0.0 <= float(item["answer"]) <= 1.0
+        assert 0.0 <= float(item["answer"]) <= 1.0
         assert "metadata" in item
-
 
         metadata = item["metadata"]
         assert "num_trials" in metadata
@@ -69,11 +72,12 @@ def test_coin_flip_score_answer():
 
         # Slightly wrong answer -> partial reward
         if float(answer) + 0.01 <= 1.0:
-            slightly_wrong = str(float(answer) + 0.01) 
+            slightly_wrong = str(float(answer) + 0.01)
         else:
             slightly_wrong = str(float(answer) - 0.01)
         reward_partial = dataset.score_answer(slightly_wrong, entry)
         assert 0.0 <= reward_partial <= 1.0
+
 
 def test_coin_flip_curriculum():
     """Test curriculum generates valid configurations and increments attributes"""
@@ -82,7 +86,7 @@ def test_coin_flip_curriculum():
     base_value = {"size": 100, "seed": 32}
 
     cfg = curriculum.generate_configuration(base_value)
-    
+
     assert isinstance(cfg, CoinFlipConfig)
     assert cfg.size == 100
     assert cfg.seed == 32
