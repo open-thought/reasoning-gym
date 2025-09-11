@@ -13,9 +13,6 @@
             <a href="https://discord.gg/gpumode" target="_blank">
                 <img src="https://dcbadge.limes.pink/api/server/gpumode?style=for-the-badge" alt="Discord Server">
             </a>
-            <a href="https://pypi.org/project/reasoning-gym/" target="_blank" style="margin-right: 10px;">
-                <img src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&label=downloads&query=total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2Freasoning-gym" alt="PyPI Total Downloads">
-            </a>
         </p>
 </p>
 
