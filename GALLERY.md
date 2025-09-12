@@ -1,7 +1,7 @@
 # Reasoning Gym Dataset Gallery
 This gallery shows examples from all available datasets using their default configurations.
 
-## Available Datasets (104)
+## Available Datasets (105)
 Legend: ✅ = Has curriculum, ❌ = No curriculum
 
 - [ab](#ab) ✅
@@ -22,6 +22,7 @@ Legend: ✅ = Has curriculum, ❌ = No curriculum
 - [chain_sum](#chain_sum) ✅
 - [circuit_logic](#circuit_logic) ✅
 - [codeio](#codeio) ✅
+- [coin_flip](#coin_flip) ✅
 - [color_cube_rotation](#color_cube_rotation) ✅
 - [complex_arithmetic](#complex_arithmetic) ✅
 - [composite](#composite) ❌
@@ -1703,7 +1704,7 @@ Output:
 
 Given the following output:
 
-0.0009558712529244959
+0.0005546900902104894
 
 Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
 
@@ -1776,7 +1777,7 @@ def main_solution(n, p, k, iters, epsilon):
     return la.norm(x_star - x_IHT, 2)
 
 Answer: {"n": 123, "p": 456, "k": 9, "iters": 69, "epsilon": 0.00037050729487817825}
-Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0009558712529244959, 'difficulty': {'difficulty': None}}
+Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0005546900902104894, 'difficulty': {'difficulty': None}}
 
 Example 3:
 Question: 
@@ -1837,6 +1838,38 @@ def main_solution(security_code, user_input):
 
 Answer: true
 Metadata: {'source_dataset': 'codeio', 'source_index': 2, 'input_data': {'security_code': '923745', 'user_input': '623745'}, 'output_data': True, 'difficulty': {'difficulty': None}}
+
+````
+
+### coin_flip
+Generates coin-flip probability problems (exact k heads / at-least k heads).
+
+Default configuration:
+```python
+min_trials = 3
+max_trials = 15
+allow_exact = True
+allow_at_least = True
+seed = 42
+size = 500
+```
+
+Example tasks:
+````
+Example 1:
+Question: What is the probability of getting exactly 0 heads in 13 fair coin flips?
+Answer: 0.0001220703125
+Metadata: {'source_dataset': 'coin_flip', 'source_index': 0, 'num_trials': 13, 'k_heads': 0, 'problem_type': 'exact', 'rational': {'numerator': 1, 'denominator': 8192}, 'difficulty': {'num_trials': (3, 15)}}
+
+Example 2:
+Question: What is the probability of getting at least 1 heads in 3 fair coin flips?
+Answer: 0.875
+Metadata: {'source_dataset': 'coin_flip', 'source_index': 1, 'num_trials': 3, 'k_heads': 1, 'problem_type': 'at_least', 'rational': {'numerator': 7, 'denominator': 8}, 'difficulty': {'num_trials': (3, 15)}}
+
+Example 3:
+Question: What is the probability of getting exactly 2 heads in 9 fair coin flips?
+Answer: 0.0703125
+Metadata: {'source_dataset': 'coin_flip', 'source_index': 2, 'num_trials': 9, 'k_heads': 2, 'problem_type': 'exact', 'rational': {'numerator': 36, 'denominator': 512}, 'difficulty': {'num_trials': (3, 15)}}
 
 ````
 
@@ -2453,72 +2486,49 @@ Example tasks:
 Example 1:
 Question: What word does this say?
 
-                                                                       
-                                                                       
-                                                                       
-   ####    ######     #####     ##   ##   ######      ####      #####  
-  ##  ##     ##       ##        ##   ##     ##       ##  ##     ##  ## 
-  ##        ##       ##        ###  ##     ##       ##   ##    ##   ## 
-  ###       ##       #####     #### ##     ##       ##   ##    #####   
-   ###      ##       ##        ## # ##     ##      ##   ##     ##  ##  
-##  ##     ##       ##        ##  ###     ##       ##   ##    ##   ##  
-##  ##     ##       ##        ##   ##     ##       ##  ##     ##  ##   
- ####      ##       #####     ##   ##     ##        ####      ##  ##   
-                                                                       
-                                                                       
+            ##                         ##                      
+            ##                         ##                      
+  #####   ######    ####    #####    ######    ####    #####   
+ ##         ##     ##  ##   ##  ##     ##     ##  ##   ##  ##  
+  ####      ##     ######   ##  ##     ##     ##  ##   ##      
+     ##     ##     ##       ##  ##     ##     ##  ##   ##      
+ #####       ###    #####   ##  ##      ###    ####    ##      
+                                                               
 
 Answer: STENTOR
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'xhelvbi', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'com_sen_', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 2:
 Question: What word does this say?
 
-      ___                    ___                            
-     /__/\                  /  /\                           
-    |  |::\                /  /:/_                          
-    |  |:|:\              /  /:/ /\             ___     ___ 
-  __|__|:|\:\            /  /:/ /:/_           /__/\   /  /\
- /__/::::| \:\          /__/:/ /:/ /\          \  \:\ /  /:/
- \  \:\~~\__\/          \  \:\/:/ /:/           \  \:\  /:/ 
-  \  \:\                 \  \::/ /:/             \  \:\/:/  
-   \  \:\                 \  \:\/:/               \  \::/   
-    \  \:\                 \  \::/                 \__\/    
-     \__\/                  \__\/                           
-                           ___                    ___     
-    ___                   /  /\                  /  /\    
-   /  /\                 /  /:/_                /  /:/_   
-  /  /:/                /  /:/ /\              /  /:/ /\  
- /__/::\               /  /:/ /::\            /  /:/ /::\ 
- \__\/\:\__           /__/:/ /:/\:\          /__/:/ /:/\:\
-    \  \:\/\          \  \:\/:/~/:/          \  \:\/:/~/:/
-     \__\::/           \  \::/ /:/            \  \::/ /:/ 
-     /__/:/             \__\/ /:/              \__\/ /:/  
-     \__\/                /__/:/                 /__/:/   
-                          \__\/                  \__\/    
-      ___     
-     /  /\    
-    /  /::\   
-   /  /:/\:\  
-  /  /:/~/::\ 
- /__/:/ /:/\:\
- \  \:\/:/__\/
-  \  \::/     
-   \  \:\     
-    \  \:\    
-     \__\/    
+##   ##   ######  ##        ######   ######   ######      ##   
+### ###  #######  ##        ######  #######  #######    #####  
+#######  ##       ##          ##    ##       ##         ## ##  
+#######  #######  ##          ##     #####    #####    ##  ##  
+## # ##  ##       ##          ##         ##       ##   ######  
+##   ##  #######  #######   ######  #######  #######  ##   ##  
+##   ##   ######   ######   ######  ######   ######   ##   ##  
+                                                               
 
 Answer: MELISSA
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'isometric3', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'stealth_', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 3:
 Question: What word does this say?
 
- __        ___       _          _         __  
-/ /`_     / / \     | |\ |     \ \_/     ( (` 
-\_\_/     \_\_/     |_| \|      |_|      _)_) 
+ .oOOOo.         .oOOOo.        o.     O       o       O       .oOOOo.  
+.O     o        .O     o.       Oo     o       O       o       o     o  
+o               O       o       O O    O       `o     O'       O.       
+O               o       O       O  o   o         O   o          `OOoo.  
+O   .oOOo       O       o       O   o  O          `O'                `O 
+o.      O       o       O       o    O O           o                  o 
+ O.    oO       `o     O'       o     Oo           O           O.    .O 
+  `OooO'         `OoooO'        O     `o           O            `oooO'  
+                                                                        
+                                                                        
 
 Answer: GONYS
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'broadway_kb', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'pebbles', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 ````
 
@@ -3075,10 +3085,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-zh vy
+hz lp
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['zh', 'vy'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['hz', 'lp'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3088,10 +3098,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-m y
+e p
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['m', 'y'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['e', 'p'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3101,10 +3111,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-nehkeyky qbgdjmdm
+ubzjbfjf ykfwvowo
 
 Answer: False
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['nehkeyky', 'qbgdjmdm'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['ubzjbfjf', 'ykfwvowo'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
 
 ````
 
@@ -4781,31 +4791,31 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (-95*z**3 + 18*z**2)*(78*z**2 - 12*z - 104)
+Question: Calculate the following: (18 - 95*z**3)*(-12*z**2 - 104*z + 78)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -7410*z**5 + 2544*z**4 + 9664*z**3 - 1872*z**2
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(-95*z**3 + 18*z**2)*(78*z**2 - 12*z - 104)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 1140*z**5 + 9880*z**4 - 7410*z**3 - 216*z**2 - 1872*z + 1404
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(18 - 95*z**3)*(-12*z**2 - 104*z + 78)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
-Question: Simplify this expression: (-49*x**2 - 163*x + 8)*(74*x**3 + 98*x**2 + 16)*(77*x**3 + 8*x**2 - 49)
+Question: Simplify this expression: (-49*x**2 + 8*x - 163)*(74*x**3 + 98*x**2 + 16*x)*(77*x**3 + 8*x**2 - 49*x)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -279202*x**8 - 1327536*x**7 - 1319326*x**6 + 54618*x**5 + 625520*x**4 + 742710*x**3 + 1024*x**2 + 127792*x - 6272
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**2 - 163*x + 8)*(74*x**3 + 98*x**2 + 16)*(77*x**3 + 8*x**2 - 49)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -279202*x**8 - 353178*x**7 - 784780*x**6 - 1110348*x**5 + 263454*x**4 + 755590*x**3 + 127792*x**2
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**2 + 8*x - 163)*(74*x**3 + 98*x**2 + 16*x)*(77*x**3 + 8*x**2 - 49*x)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
-Question: Calculate the following: (29 - 49*y**2)*(21*y**3 + 49*y)
+Question: Calculate the following: (49*y**2 + 21*y)*(29*y**3 - 49)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -1029*y**5 - 1792*y**3 + 1421*y
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(29 - 49*y**2)*(21*y**3 + 49*y)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 1421*y**5 + 609*y**4 - 2401*y**2 - 1029*y
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(49*y**2 + 21*y)*(29*y**3 - 49)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -5198,33 +5208,33 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: hh
-Magazine: oh
+Ransom note: zz
+Magazine: gz
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'hh', 'magazine': 'oh', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'zz', 'magazine': 'gz', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: u
-Magazine: rxcfpmqakcl
+Ransom note: c
+Magazine: eziuboyhxit
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'u', 'magazine': 'rxcfpmqakcl', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'c', 'magazine': 'eziuboyhxit', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: ekhphyr
-Magazine: rlerrntkrnhekgmjjqzbhbp
+Ransom note: bjztzfn
+Magazine: etjeednxndzbjmovvyckzkt
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'ekhphyr', 'magazine': 'rlerrntkrnhekgmjjqzbhbp', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'bjztzfn', 'magazine': 'etjeednxndzbjmovvyckzkt', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 ````
 
@@ -7206,7 +7216,7 @@ Metadata: {'source_dataset': 'time_intervals', 'source_index': 0, 'task_type': '
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': '2025-06-08 09:44:00', 'end_time': '2025-06-08 12:22:00', 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': '2025-09-12 09:44:00', 'end_time': '2025-09-12 12:22:00', 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.

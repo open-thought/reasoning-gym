@@ -4,7 +4,6 @@
 import textwrap
 from pathlib import Path
 
-import reasoning_gym.code.bf
 from reasoning_gym.factory import DATASETS, create_dataset, has_curriculum
 
 
