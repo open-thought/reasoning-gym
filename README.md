@@ -129,6 +129,9 @@ Following is a list of awesome projects building on top of Reasoning Gym:
 - [(Axon RL) GEM: a comprehensive framework for RL environments](https://github.com/axon-rl/gem)
 - [(FAIR at Meta) OptimalThinkingBench: Evaluating Over and Underthinking in LLMs](https://github.com/facebookresearch/RAM/tree/main/projects/otb)
 - [(Gensyn) Sharing is Caring: Efficient LM Post-Training with Collective RL Experience Sharing](https://arxiv.org/abs/2509.08721v1)
+- [(MILA) Self-Evolving Curriculum for LLM Reasoning](https://arxiv.org/abs/2505.14970)
+- [(MILA) Recursive Self-Aggregation Unlocks Deep Thinking in Large Language Models](https://rsa-llm.github.io)
+
 
 ## 📝 Citation
 
