@@ -1704,7 +1704,7 @@ Output:
 
 Given the following output:
 
-0.0005546900902104894
+0.001077807508543216
 
 Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
 
@@ -1777,7 +1777,7 @@ def main_solution(n, p, k, iters, epsilon):
     return la.norm(x_star - x_IHT, 2)
 
 Answer: {"n": 123, "p": 456, "k": 9, "iters": 69, "epsilon": 0.00037050729487817825}
-Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.0005546900902104894, 'difficulty': {'difficulty': None}}
+Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.001077807508543216, 'difficulty': {'difficulty': None}}
 
 Example 3:
 Question: 
@@ -2486,49 +2486,55 @@ Example tasks:
 Example 1:
 Question: What word does this say?
 
-            ##                         ##                      
-            ##                         ##                      
-  #####   ######    ####    #####    ######    ####    #####   
- ##         ##     ##  ##   ##  ##     ##     ##  ##   ##  ##  
-  ####      ##     ######   ##  ##     ##     ##  ##   ##      
-     ##     ##     ##       ##  ##     ##     ##  ##   ##      
- #####       ###    #####   ##  ##      ###    ####    ##      
+  ####    ######   ######   ##  ##   ######    ####    #####   
+ ##  ##     ##     ##       ### ##     ##     ##  ##   ##  ##  
+ ##         ##     ##       ######     ##     ##  ##   ##  ##  
+  ####      ##     ####     ######     ##     ##  ##   #####   
+     ##     ##     ##       ## ###     ##     ##  ##   ####    
+ ##  ##     ##     ##       ##  ##     ##     ##  ##   ## ##   
+  ####      ##     ######   ##  ##     ##      ####    ##  ##  
                                                                
 
 Answer: STENTOR
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'com_sen_', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'mig_ally', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 2:
 Question: What word does this say?
 
-##   ##   ######  ##        ######   ######   ######      ##   
-### ###  #######  ##        ######  #######  #######    #####  
-#######  ##       ##          ##    ##       ##         ## ##  
-#######  #######  ##          ##     #####    #####    ##  ##  
-## # ##  ##       ##          ##         ##       ##   ######  
-##   ##  #######  #######   ######  #######  #######  ##   ##  
-##   ##   ######   ######   ######  ######   ######   ##   ##  
-                                                               
+8888ba.88ba      88888888b    dP           dP    .d88888b     .d88888b  
+88  `8b  `8b     88           88           88    88.    "'    88.    "' 
+88   88   88    a88aaaa       88           88    `Y88888b.    `Y88888b. 
+88   88   88     88           88           88          `8b          `8b 
+88   88   88     88           88           88    d8'   .8P    d8'   .8P 
+dP   dP   dP     88888888P    88888888P    dP     Y88888P      Y88888P  
+                                                                        
+                                                                        
+ .d888888  
+d8'    88  
+88aaaaa88a 
+88     88  
+88     88  
+88     88  
+           
+           
 
 Answer: MELISSA
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'stealth_', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'nancyj-improved', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 3:
 Question: What word does this say?
 
- .oOOOo.         .oOOOo.        o.     O       o       O       .oOOOo.  
-.O     o        .O     o.       Oo     o       O       o       o     o  
-o               O       o       O O    O       `o     O'       O.       
-O               o       O       O  o   o         O   o          `OOoo.  
-O   .oOOo       O       o       O   o  O          `O'                `O 
-o.      O       o       O       o    O O           o                  o 
- O.    oO       `o     O'       o     Oo           O           O.    .O 
-  `OooO'         `OoooO'        O     `o           O            `oooO'  
-                                                                        
-                                                                        
+ #####    #####   ###  ##  ##   ##   #####   
+ #   ##  ### ###   ### ##  ##   ##  ##   ##  
+##       ##   ##   ######  ##   ##  ##       
+##  ###  ##   ##   ## ###   ######   #####   
+##   ##  ##   ##   ##  ##       ##       ##  
+ #   ##  ### ###   ##  ##  ##   ##  ##   ##  
+ #####    #####   ###  ##   #####    #####   
+                                             
 
 Answer: GONYS
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'pebbles', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'fp2_____', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 ````
 
@@ -3085,10 +3091,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-hz lp
+zg bn
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['hz', 'lp'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['zg', 'bn'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3098,10 +3104,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-e p
+f n
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['e', 'p'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['f', 'n'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3111,10 +3117,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-ubzjbfjf ykfwvowo
+hogtoyty kgqwpfwf
 
 Answer: False
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['ubzjbfjf', 'ykfwvowo'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['hogtoyty', 'kgqwpfwf'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
 
 ````
 
@@ -4791,31 +4797,31 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (18 - 95*z**3)*(-12*z**2 - 104*z + 78)
+Question: Calculate the following: (-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 1140*z**5 + 9880*z**4 - 7410*z**3 - 216*z**2 - 1872*z + 1404
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(18 - 95*z**3)*(-12*z**2 - 104*z + 78)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
-Question: Simplify this expression: (-49*x**2 + 8*x - 163)*(74*x**3 + 98*x**2 + 16*x)*(77*x**3 + 8*x**2 - 49*x)
+Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -279202*x**8 - 353178*x**7 - 784780*x**6 - 1110348*x**5 + 263454*x**4 + 755590*x**3 + 127792*x**2
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**2 + 8*x - 163)*(74*x**3 + 98*x**2 + 16*x)*(77*x**3 + 8*x**2 - 49*x)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
-Question: Calculate the following: (49*y**2 + 21*y)*(29*y**3 - 49)
+Question: Calculate the following: (29*y**2 - 49*y)*(21*y**3 + 49)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 1421*y**5 + 609*y**4 - 2401*y**2 - 1029*y
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(49*y**2 + 21*y)*(29*y**3 - 49)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -5208,33 +5214,33 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: zz
-Magazine: gz
+Ransom note: gg
+Magazine: jg
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'zz', 'magazine': 'gz', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'gg', 'magazine': 'jg', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: c
-Magazine: eziuboyhxit
+Ransom note: q
+Magazine: ishmdfkzuhv
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'c', 'magazine': 'eziuboyhxit', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'q', 'magazine': 'ishmdfkzuhv', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: bjztzfn
-Magazine: etjeednxndzbjmovvyckzkt
+Ransom note: otgegyu
+Magazine: ivxiiacuuagotqfppkoggge
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'bjztzfn', 'magazine': 'etjeednxndzbjmovvyckzkt', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'otgegyu', 'magazine': 'ivxiiacuuagotqfppkoggge', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 ````
 
@@ -7216,7 +7222,7 @@ Metadata: {'source_dataset': 'time_intervals', 'source_index': 0, 'task_type': '
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': '2025-09-12 09:44:00', 'end_time': '2025-09-12 12:22:00', 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': '2025-09-29 09:44:00', 'end_time': '2025-09-29 12:22:00', 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -7475,21 +7481,21 @@ Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: HAND,RAND,REND,FEND,FEED,FLED,FLEE,GLEE
+Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 0, 'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8, 'difficulty': {'word_length': (4, 4)}}
 
 Example 2:
 Question: Transform the word ladder 'JAZZ' to 'DORM' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FARM,FORM,DORM
+Answer: JAZZ,JIZZ,FIZZ,FUZZ,FUZE,FAZE,FARE,FORE,FORM,DORM
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 1, 'start_word': 'JAZZ', 'end_word': 'DORM', 'word_length': 4, 'chain_length': 10, 'difficulty': {'word_length': (4, 4)}}
 
 Example 3:
 Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: SNOG,SNAG,SAAG,SANG,SUNG,SUNS,SUQS
+Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 2, 'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7, 'difficulty': {'word_length': (4, 4)}}
 
 ````

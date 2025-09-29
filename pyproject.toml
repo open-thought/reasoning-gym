@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "reasoning_gym"
-version = "0.1.23"
+version = "0.1.25.dev0"
 authors = [
   { name = "Open-Thought community", email = "andreas.koepf@xamla.com" },
 ]
