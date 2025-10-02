@@ -131,6 +131,7 @@ Following is a list of awesome projects building on top of Reasoning Gym:
 - [(Gensyn) Sharing is Caring: Efficient LM Post-Training with Collective RL Experience Sharing](https://arxiv.org/abs/2509.08721v1)
 - [(MILA) Self-Evolving Curriculum for LLM Reasoning](https://arxiv.org/abs/2505.14970)
 - [(MILA) Recursive Self-Aggregation Unlocks Deep Thinking in Large Language Models](https://rsa-llm.github.io)
+- [(NVIDIA) BroRL: Scaling Reinforcement Learning via Broadened Exploration](https://arxiv.org/abs/2510.01180)
 
 
 ## 📝 Citation
