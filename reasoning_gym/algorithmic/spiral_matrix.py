@@ -14,11 +14,13 @@ from ..factory import ProceduralDataset, register_dataset
 QUESTION_TEMPLATE = """Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
 The spiral order is clockwise, starting from the top-left corner. More precisely:
-- Start from the top-left corner and move right.
-- Move down towards the bottom-right corner.
-- Move left towards the bottom-left corner.
-- Move up towards the top-left corner.
+- Start from the top-left corner and move right along the top row.
+- Move down along the right column.
+- Move left along the bottom row.
+- Move up along the left column.
 - Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Hint: Think of peeling the matrix layer by layer from the outside inward. Each layer forms a rectangular frame, and you traverse each frame clockwise starting from its top-left corner.
 
 Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
