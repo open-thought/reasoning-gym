@@ -1668,7 +1668,7 @@ Given the following input:
 
 {'nums': [-94, 89, -30, -38]}
 
-Can you predict the output without writing any code? Please think and then provide the exact output in the form of a JSON object as your final answer. The keys and values of the object should strictly match the output requirement as specified.
+Can you predict the output without writing any code? Please think and then provide the exact output in the form of a JSON value (object, array, number or string, or one of the following three literal names: false null true) as your final answer. The keys and values of the object should strictly match the output requirement as specified.
 
 Tip: Here is a reference code snippet for this question. You can refer to this code to guide your reasoning but not copy spans of code directly.
 
@@ -1706,7 +1706,7 @@ Given the following output:
 
 0.001077807508543216
 
-Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON object, even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
+Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON value (object, array, number or string, or one of the following three literal names: false null true), even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
 
 Tip: Here is a reference code snippet for this question. You can refer to this code to guide your reasoning but not copy spans of code directly.
 
@@ -1798,7 +1798,7 @@ Given the following input:
 
 {'security_code': '923745', 'user_input': '623745'}
 
-Can you predict the output without writing any code? Please think and then provide the exact output in the form of a JSON object as your final answer. The keys and values of the object should strictly match the output requirement as specified.
+Can you predict the output without writing any code? Please think and then provide the exact output in the form of a JSON value (object, array, number or string, or one of the following three literal names: false null true) as your final answer. The keys and values of the object should strictly match the output requirement as specified.
 
 Tip: Here is a reference code snippet for this question. You can refer to this code to guide your reasoning but not copy spans of code directly.
 
