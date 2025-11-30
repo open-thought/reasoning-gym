@@ -178,7 +178,7 @@ class CountdownDataset(ProceduralDataset):
         for sym_name, num_str in replacements:
             expr_str = expr_str.replace(sym_name, num_str)
 
-        return expr, numbers, syms
+        return expr, numbers, syms, expr_str
 
     def _generate_expression(self, rng: Random) -> tuple[str, list[int], int]:
         """Generate a valid expression and its result
