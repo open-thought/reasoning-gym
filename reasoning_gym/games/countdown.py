@@ -161,7 +161,7 @@ class CountdownDataset(ProceduralDataset):
                 else:
                     # Fallback to addition for zero
                     expr = expr + syms[i]
-                    
+
         # Safely replace symbols with numbers (to avoid name conflicts)
         expr_str = str(expr)
 
