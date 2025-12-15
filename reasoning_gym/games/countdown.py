@@ -127,7 +127,7 @@ class CountdownDataset(ProceduralDataset):
         numbers = [rng.randint(self.config.min_value, self.config.max_value) for _ in range(num_terms)]
 
         # Create symbols for building expression
-        syms = symbols(f"x:{num_terms}")
+        syms = symbols(f"x_{0}:{num_terms}")
 
         # Build random expression
         expr = syms[0]
@@ -162,7 +162,23 @@ class CountdownDataset(ProceduralDataset):
                     # Fallback to addition for zero
                     expr = expr + syms[i]
 
-        return expr, numbers, syms
+        # Safely replace symbols with numbers (to avoid name conflicts)
+        expr_str = str(expr)
+
+        # Create a list of replacements: [(symbol_name, number_string), ...]
+        replacements = []
+        for i, sym in enumerate(syms):
+            sym_name = str(sym)
+            replacements.append((sym_name, str(numbers[i])))
+
+        # Sort by symbol name length in descending order (replace longer names first)
+        replacements.sort(key=lambda x: len(x[0]), reverse=True)
+
+        # Perform the safe replacement
+        for sym_name, num_str in replacements:
+            expr_str = expr_str.replace(sym_name, num_str)
+
+        return expr, numbers, syms, expr_str
 
     def _generate_expression(self, rng: Random) -> tuple[str, list[int], int]:
         """Generate a valid expression and its result
@@ -175,14 +191,13 @@ class CountdownDataset(ProceduralDataset):
         max_attempts = 100
         for attempt in range(max_attempts):
             try:
-                expr, numbers, syms = self._generate_candidate_expression(rng, num_terms)
+                expr, numbers, syms, expr_str = self._generate_candidate_expression(rng, num_terms)
 
                 # Substitute actual numbers to get target
                 subs = {sym: num for sym, num in zip(syms, numbers)}
                 target = int(expr.subs(subs))
 
                 # Convert to string expression
-                expr_str = str(expr)
                 for i, sym in enumerate(syms):
                     expr_str = expr_str.replace(str(sym), str(numbers[i]))
 

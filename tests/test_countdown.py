@@ -114,6 +114,16 @@ def test_edge_cases_2():
     assert dataset.score_answer(answer=answer, entry=item) != 1.0
 
 
+def test_countdown_more_numbers():
+    """Test when min_numbers exceed 10"""
+    dataset = CountdownDataset(
+        CountdownConfig(min_numbers=11, max_numbers=11, shuffle=False, size=5, seed=42)
+    )  # Set 11 engaged numbers for testing
+
+    for item in dataset:
+        assert item["metadata"]["target"] == int(eval(item["metadata"]["expression"]))
+
+
 def test_countdown_game_randomization():
     """Test number randomization configuration"""
     config = CountdownConfig(min_numbers=4, max_numbers=4, shuffle=False, size=10, seed=42)  # Fixed size for testing
