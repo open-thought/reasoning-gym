@@ -1,0 +1,40 @@
+# Config used for evaluating curriculum experiment models on graphs composite data
+
+# Models evaluated on this config:
+# Qwen/Qwen2.5-3B-Instruct (original model)
+# qwen3b_graphs_noncurriculum_300 (original + 300 GRPO steps on non-curriculum graphs data)
+# qwen3b_graphs_curriculum_300 (original + 300 GRPO steps on curriculum graphs data)
+
+model_path: Qwen/Qwen2.5-3B-Instruct  # Default model path
+
+max_tokens: 2048  # From max_response_length in training config
+top_p: 1.0
+temperature: 1.0  # Lower temperature for more focused responses
+dtype: bfloat16
+
+developer_prompt: DeepSeekZero
+developer_role: system
+
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+categories:
+  - category: graphs
+    datasets:
+      - dataset: course_schedule
+        size: 50
+        seed: 42
+      - dataset: family_relationships
+        size: 50
+        seed: 42
+      - dataset: largest_island
+        size: 50
+        seed: 42
+      - dataset: quantum_lock
+        size: 50
+        seed: 42
+      - dataset: shortest_path
+        size: 50
+        seed: 42
