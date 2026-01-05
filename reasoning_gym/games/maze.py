@@ -35,6 +35,7 @@ class MazeConfig:
         assert self.max_dist >= self.min_dist, "max_dist must be >= min_dist"
         assert self.min_grid_size >= 2, "min_grid_size must be >= 2"
         assert self.max_grid_size >= self.min_grid_size, "max_grid_size must be >= min_grid_size"
+        assert self.min_grid_size - 2 >= self.min_dist, "min_grid_size - 2 must be >= min_dist"
 
 
 class MazeDataset(ProceduralDataset):
@@ -152,11 +153,12 @@ class MazeDataset(ProceduralDataset):
     def _random_floor_cell(self, rng: random.Random, grid: list[list[str]]) -> tuple[int, int]:
         """Pick a random path cell inside the maze (not the border)."""
         size = len(grid)
-        while True:
+        for _ in range(self.num_retries):
             r = rng.randint(1, size - 2)
             c = rng.randint(1, size - 2)
             if grid[r][c] == self.path_char:
                 return (r, c)
+        raise RuntimeError(f"Could not find suitable path cell after {self.num_retries} attempts")
 
     def _bfs_shortest_path(
         self, grid: list[list[str]], start_r: int, start_c: int, goal_r: int, goal_c: int
