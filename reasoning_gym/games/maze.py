@@ -152,11 +152,12 @@ class MazeDataset(ProceduralDataset):
     def _random_floor_cell(self, rng: random.Random, grid: list[list[str]]) -> tuple[int, int]:
         """Pick a random path cell inside the maze (not the border)."""
         size = len(grid)
-        while True:
+        for _ in range(self.num_retries):
             r = rng.randint(1, size - 2)
             c = rng.randint(1, size - 2)
             if grid[r][c] == self.path_char:
                 return (r, c)
+        raise RuntimeError(f"Could not find suitable path cell after {self.num_retries} attempts")
 
     def _bfs_shortest_path(
         self, grid: list[list[str]], start_r: int, start_c: int, goal_r: int, goal_c: int
