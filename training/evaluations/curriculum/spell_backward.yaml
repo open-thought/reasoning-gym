@@ -1,0 +1,26 @@
+model_path: Qwen/Qwen2.5-3B-Instruct   # Default model path
+# model_path: joesharratt29/spell_backward_non_curriculum
+# model_path: joesharratt29/spell_backward_curriculum
+
+max_tokens: 2048  # From max_response_length in training config
+top_p: 1.0
+temperature: 1.0  #
+
+developer_prompt: DeepSeekZero
+developer_role: system
+
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+categories:
+  - category: algorithmic
+    datasets:
+      - dataset: spell_backward
+        size: 100
+        seed: 42
+        params:
+          min_word_len: 3  # Minimum word length
+          max_word_len: 10
+          data_file: holdout_words.txt
