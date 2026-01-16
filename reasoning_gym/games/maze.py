@@ -35,9 +35,6 @@ class MazeConfig:
         assert self.max_dist >= self.min_dist, "max_dist must be >= min_dist"
         assert self.min_grid_size >= 2, "min_grid_size must be >= 2"
         assert self.max_grid_size >= self.min_grid_size, "max_grid_size must be >= min_grid_size"
-        assert (
-            2 * (self.min_grid_size - 3) >= self.min_dist
-        ), "2 × (min_grid_size - 3) must be >= min_dist (maximum corner-to-corner distance accounting for walls and steps)"
 
 
 class MazeDataset(ProceduralDataset):
