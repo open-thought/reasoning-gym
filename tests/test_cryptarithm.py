@@ -181,24 +181,12 @@ def test_cryptarithm_verify_solution():
 
     # Test case 1: Valid solution with simple arithmetic
     mapping = {"A": 1, "B": 2}
-    words = ["A", "B"]  # 1 + 2
-    result = "B"  # 2 (wait, that's wrong - 1+2=3, not 2)
-    # Let me fix: 1 + 1 = 2
-    mapping = {"A": 1, "B": 2}
     words = ["A", "A"]  # 1 + 1
     result = "B"  # 2
     is_valid, reason = verify_cryptarithm_solution(mapping, words, result, True)
     assert is_valid, f"Valid solution marked invalid: {reason}"
 
     # Test case 2: Valid solution with multi-digit numbers
-    mapping = {"A": 1, "B": 2, "C": 3, "D": 5}
-    words = ["AB", "CD"]  # 12 + 35
-    result = "DC"  # 53 (wait, 12+35=47, not 53)
-    # Fix: need 12 + 35 = 47
-    mapping = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 7}
-    words = ["AB", "CD"]  # 12 + 34
-    result = "DE"  # 47 (wait, 12+34=46, not 47)
-    # Let me be more careful: 12 + 35 = 47
     mapping = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 7}
     words = ["AB", "CE"]  # 12 + 35
     result = "DF"  # 47
