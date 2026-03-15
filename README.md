@@ -132,6 +132,7 @@ Following is a list of awesome projects building on top of Reasoning Gym:
 - [(MILA) Self-Evolving Curriculum for LLM Reasoning](https://arxiv.org/abs/2505.14970)
 - [(MILA) Recursive Self-Aggregation Unlocks Deep Thinking in Large Language Models](https://rsa-llm.github.io)
 - [(NVIDIA) BroRL: Scaling Reinforcement Learning via Broadened Exploration](https://arxiv.org/abs/2510.01180)
+- [(NVIDIA) Nemotron 3 Super: Open, Efficient Mixture-of-Experts Hybrid Mamba-Transformer Model for Agentic Reasoning](https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3-Super-Technical-Report.pdf)
 
 
 ## 📝 Citation
