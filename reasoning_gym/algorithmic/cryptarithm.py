@@ -95,7 +95,10 @@ def verify_cryptarithm_solution(
         # Check if sum is correct
         computed_sum = sum(word_numbers)
         if computed_sum != result_number:
-            return False, f"Arithmetic equation not satisfied: {word_numbers} sums to {computed_sum}, expected {result_number}"
+            return (
+                False,
+                f"Arithmetic equation not satisfied: {word_numbers} sums to {computed_sum}, expected {result_number}",
+            )
 
     except (KeyError, ValueError) as e:
         return False, f"Error applying mapping: {e}"

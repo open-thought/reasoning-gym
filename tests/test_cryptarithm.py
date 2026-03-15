@@ -125,7 +125,9 @@ def test_cryptarithm_score_answer():
     for pair in correct_answer_str.split(","):
         alpha, num_str = pair.split("=")
         correct_mapping[alpha] = int(num_str)
-    reversed_answer = ",".join(f"{letter}={correct_mapping[letter]}" for letter in reversed(sorted(correct_mapping.keys())))
+    reversed_answer = ",".join(
+        f"{letter}={correct_mapping[letter]}" for letter in reversed(sorted(correct_mapping.keys()))
+    )
     score = dataset.score_answer(answer=reversed_answer, entry=puzzle)
     assert score == 1.0, f"Expected 1.0 for correct answer in different order, got {score}"
 
