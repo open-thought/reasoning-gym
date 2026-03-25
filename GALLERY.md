@@ -1704,7 +1704,7 @@ Output:
 
 Given the following output:
 
-0.001077807508543216
+0.0008530649195584952
 
 Can you predict a feasible input without writing any code? Please reason and put your final answer in the form of a JSON value (object, array, number or string, or one of the following three literal names: false null true), even if the there is only one input variable, with keys strictly matching the input variables' names as specified.
 
@@ -1777,7 +1777,7 @@ def main_solution(n, p, k, iters, epsilon):
     return la.norm(x_star - x_IHT, 2)
 
 Answer: {"n": 123, "p": 456, "k": 9, "iters": 69, "epsilon": 0.00037050729487817825}
-Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': 0.001077807508543216, 'difficulty': {'difficulty': None}}
+Metadata: {'source_dataset': 'codeio', 'source_index': 1, 'input_data': {'n': 123, 'p': 456, 'k': 9, 'iters': 69, 'epsilon': 0.00037050729487817825}, 'output_data': np.float64(0.0008530649195584952), 'difficulty': {'difficulty': None}}
 
 Example 3:
 Question: 
@@ -2186,7 +2186,7 @@ Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
 Answer: F=3,I=4,K=2,L=9,M=1,O=8,P=0,Z=7
-Metadata: {'source_dataset': 'cryptarithm', 'source_index': 0, 'letters': ['L', 'O', 'K', 'I', 'P', 'Z', 'M', 'F'], 'word_values': [381, 42098], 'sum_number': 42479, 'words_letters': ['FOM', 'IKPLO'], 'result_letters': 'IKIZL', 'digit_to_letter': {'9': 'L', '8': 'O', '2': 'K', '4': 'I', '0': 'P', '7': 'Z', '1': 'M', '3': 'F'}, 'letter_to_digit': {'L': 9, 'O': 8, 'K': 2, 'I': 4, 'P': 0, 'Z': 7, 'M': 1, 'F': 3}, 'difficulty': {'words': (2, 3)}}
+Metadata: {'source_dataset': 'cryptarithm', 'source_index': 0, 'allow_leading_zero': False, 'letters': ['L', 'O', 'K', 'I', 'P', 'Z', 'M', 'F'], 'word_values': [381, 42098], 'sum_number': 42479, 'words_letters': ['FOM', 'IKPLO'], 'result_letters': 'IKIZL', 'digit_to_letter': {'9': 'L', '8': 'O', '2': 'K', '4': 'I', '0': 'P', '7': 'Z', '1': 'M', '3': 'F'}, 'letter_to_digit': {'L': 9, 'O': 8, 'K': 2, 'I': 4, 'P': 0, 'Z': 7, 'M': 1, 'F': 3}, 'difficulty': {'words': (2, 3)}}
 
 Example 2:
 Question: Solve this cryptarithm:
@@ -2200,7 +2200,7 @@ Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
 Answer: D=8,E=9,H=3,I=0,J=7,K=2,O=6,P=5
-Metadata: {'source_dataset': 'cryptarithm', 'source_index': 1, 'letters': ['O', 'K', 'H', 'P', 'I', 'D', 'E', 'J'], 'word_values': [3358, 70625], 'sum_number': 73983, 'words_letters': ['HHPD', 'JIOKP'], 'result_letters': 'JHEDH', 'digit_to_letter': {'6': 'O', '2': 'K', '3': 'H', '5': 'P', '0': 'I', '8': 'D', '9': 'E', '7': 'J'}, 'letter_to_digit': {'O': 6, 'K': 2, 'H': 3, 'P': 5, 'I': 0, 'D': 8, 'E': 9, 'J': 7}, 'difficulty': {'words': (2, 3)}}
+Metadata: {'source_dataset': 'cryptarithm', 'source_index': 1, 'allow_leading_zero': False, 'letters': ['O', 'K', 'H', 'P', 'I', 'D', 'E', 'J'], 'word_values': [3358, 70625], 'sum_number': 73983, 'words_letters': ['HHPD', 'JIOKP'], 'result_letters': 'JHEDH', 'digit_to_letter': {'6': 'O', '2': 'K', '3': 'H', '5': 'P', '0': 'I', '8': 'D', '9': 'E', '7': 'J'}, 'letter_to_digit': {'O': 6, 'K': 2, 'H': 3, 'P': 5, 'I': 0, 'D': 8, 'E': 9, 'J': 7}, 'difficulty': {'words': (2, 3)}}
 
 Example 3:
 Question: Solve this cryptarithm:
@@ -2215,7 +2215,7 @@ Each letter stands for a unique digit (0-9). No leading letter can be zero.
 Provide a comma separated mapping from letters to digits that satisfies the equation in your final answer. Output format: "A=1,B=2,C=3" (without quotes)
 
 Answer: A=0,G=7,H=9,N=8,P=3,R=2,X=1,Z=5
-Metadata: {'source_dataset': 'cryptarithm', 'source_index': 2, 'letters': ['Z', 'H', 'N', 'G', 'X', 'A', 'R', 'P'], 'word_values': [25290, 33155, 59750], 'sum_number': 118195, 'words_letters': ['RZRHA', 'PPXZZ', 'ZHGZA'], 'result_letters': 'XXNXHZ', 'digit_to_letter': {'5': 'Z', '9': 'H', '8': 'N', '7': 'G', '1': 'X', '0': 'A', '2': 'R', '3': 'P'}, 'letter_to_digit': {'Z': 5, 'H': 9, 'N': 8, 'G': 7, 'X': 1, 'A': 0, 'R': 2, 'P': 3}, 'difficulty': {'words': (2, 3)}}
+Metadata: {'source_dataset': 'cryptarithm', 'source_index': 2, 'allow_leading_zero': False, 'letters': ['Z', 'H', 'N', 'G', 'X', 'A', 'R', 'P'], 'word_values': [25290, 33155, 59750], 'sum_number': 118195, 'words_letters': ['RZRHA', 'PPXZZ', 'ZHGZA'], 'result_letters': 'XXNXHZ', 'digit_to_letter': {'5': 'Z', '9': 'H', '8': 'N', '7': 'G', '1': 'X', '0': 'A', '2': 'R', '3': 'P'}, 'letter_to_digit': {'Z': 5, 'H': 9, 'N': 8, 'G': 7, 'X': 1, 'A': 0, 'R': 2, 'P': 3}, 'difficulty': {'words': (2, 3)}}
 
 ````
 
@@ -2486,55 +2486,49 @@ Example tasks:
 Example 1:
 Question: What word does this say?
 
-  ####    ######   ######   ##  ##   ######    ####    #####   
- ##  ##     ##     ##       ### ##     ##     ##  ##   ##  ##  
- ##         ##     ##       ######     ##     ##  ##   ##  ##  
-  ####      ##     ####     ######     ##     ##  ##   #####   
-     ##     ##     ##       ## ###     ##     ##  ##   ####    
- ##  ##     ##     ##       ##  ##     ##     ##  ##   ## ##   
-  ####      ##     ######   ##  ##     ##      ####    ##  ##  
+            ##                         ##                      
+            ##                         ##                      
+  #####   ######    ####    #####    ######    ####    #####   
+ ##         ##     ##  ##   ##  ##     ##     ##  ##   ##  ##  
+  ####      ##     ######   ##  ##     ##     ##  ##   ##      
+     ##     ##     ##       ##  ##     ##     ##  ##   ##      
+ #####       ###    #####   ##  ##      ###    ####    ##      
                                                                
 
 Answer: STENTOR
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'mig_ally', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 0, 'font': 'com_sen_', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 2:
 Question: What word does this say?
 
-8888ba.88ba      88888888b    dP           dP    .d88888b     .d88888b  
-88  `8b  `8b     88           88           88    88.    "'    88.    "' 
-88   88   88    a88aaaa       88           88    `Y88888b.    `Y88888b. 
-88   88   88     88           88           88          `8b          `8b 
-88   88   88     88           88           88    d8'   .8P    d8'   .8P 
-dP   dP   dP     88888888P    88888888P    dP     Y88888P      Y88888P  
-                                                                        
-                                                                        
- .d888888  
-d8'    88  
-88aaaaa88a 
-88     88  
-88     88  
-88     88  
-           
-           
+##   ##   ######  ##        ######   ######   ######      ##   
+### ###  #######  ##        ######  #######  #######    #####  
+#######  ##       ##          ##    ##       ##         ## ##  
+#######  #######  ##          ##     #####    #####    ##  ##  
+## # ##  ##       ##          ##         ##       ##   ######  
+##   ##  #######  #######   ######  #######  #######  ##   ##  
+##   ##   ######   ######   ######  ######   ######   ##   ##  
+                                                               
 
 Answer: MELISSA
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'nancyj-improved', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 1, 'font': 'stealth_', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 Example 3:
 Question: What word does this say?
 
- #####    #####   ###  ##  ##   ##   #####   
- #   ##  ### ###   ### ##  ##   ##  ##   ##  
-##       ##   ##   ######  ##   ##  ##       
-##  ###  ##   ##   ## ###   ######   #####   
-##   ##  ##   ##   ##  ##       ##       ##  
- #   ##  ### ###   ##  ##  ##   ##  ##   ##  
- #####    #####   ###  ##   #####    #####   
-                                             
+ .oOOOo.         .oOOOo.        o.     O       o       O       .oOOOo.  
+.O     o        .O     o.       Oo     o       O       o       o     o  
+o               O       o       O O    O       `o     O'       O.       
+O               o       O       O  o   o         O   o          `OOoo.  
+O   .oOOo       O       o       O   o  O          `O'                `O 
+o.      O       o       O       o    O O           o                  o 
+ O.    oO       `o     O'       o     Oo           O           O.    .O 
+  `OooO'         `OoooO'        O     `o           O            `oooO'  
+                                                                        
+                                                                        
 
 Answer: GONYS
-Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'fp2_____', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
+Metadata: {'source_dataset': 'figlet_font', 'source_index': 2, 'font': 'pebbles', 'space_letters': True, 'difficulty': {'word_len': (3, 7)}}
 
 ````
 
@@ -3091,10 +3085,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-zg bn
+lx zn
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['zg', 'bn'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 0, 'words': ['lx', 'zn'], 'solution': True, 'solvable': True, 'string_length': 3, 'difficulty': {'string_length': (2, 10)}}
 
 Example 2:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3104,10 +3098,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-f n
+j n
 
 Answer: True
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['f', 'n'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 1, 'words': ['j', 'n'], 'solution': True, 'solvable': True, 'string_length': 2, 'difficulty': {'string_length': (2, 10)}}
 
 Example 3:
 Question: Two strings are isomorphic if the characters in one string can be replaced to get the second string.
@@ -3117,10 +3111,10 @@ All occurrences of a character must be replaced with another character while pre
 No two characters may map to the same character, but a character may map to itself.
 
 Return True if the following two strings are isomorphic, or False otherwise:
-hogtoyty kgqwpfwf
+dzxpzepe omtqudqd
 
 Answer: False
-Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['hogtoyty', 'kgqwpfwf'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
+Metadata: {'source_dataset': 'isomorphic_strings', 'source_index': 2, 'words': ['dzxpzepe', 'omtqudqd'], 'solution': False, 'solvable': False, 'string_length': 8, 'difficulty': {'string_length': (2, 10)}}
 
 ````
 
@@ -3452,17 +3446,17 @@ Example tasks:
 Example 1:
 Question: A very special island is inhabited only by sages and fools. Sages always tell the truth, and fools always lie. You meet 2 inhabitants: Zoey, and Riley. Zoey commented, "Riley is a fool". In Riley's words: "Zoey is a sage or Riley is a sage". So who is a sage and who is a fool? (Format your answer like: "Zoey is a sage/fool, and Riley is a sage/fool")
 Answer: Zoey is a fool, and Riley is a sage.
-Metadata: {'source_dataset': 'knights_knaves', 'source_index': 0, 'statements': (('lying', 1), ('or', ('telling-truth', 0), ('telling-truth', 1))), 'solution': (False, True), 'names': ['Zoey', 'Riley'], 'knight_knave_terms': {'knight': 'sage', 'knave': 'fool', 'a_knight': 'a sage', 'a_knave': 'a fool', 'Knight': 'Sage', 'Knave': 'Fool'}, 'difficulty': {'n_people': 2, 'depth_constraint': 2, 'width_constraint': 2}}
+Metadata: {'source_dataset': 'knights_knaves', 'source_index': 0, 'statements': (('lying', 1), ('or', ('telling-truth', 0), ('telling-truth', 1))), 'solution': (False, True), 'names': [np.str_('Zoey'), np.str_('Riley')], 'knight_knave_terms': {'knight': 'sage', 'knave': 'fool', 'a_knight': np.str_('a sage'), 'a_knave': np.str_('a fool'), 'Knight': 'Sage', 'Knave': 'Fool'}, 'difficulty': {'n_people': 2, 'depth_constraint': 2, 'width_constraint': 2}}
 
 Example 2:
 Question: A very special island is inhabited only by pioneers and laggards. Pioneers always tell the truth, and laggards always lie. You meet 2 inhabitants: Riley, and Olivia. "if Riley is a pioneer then Olivia is a laggard" - Riley. Olivia stated, "Olivia is a pioneer and Riley is a laggard". So who is a pioneer and who is a laggard? (Format your answer like: "Riley is a pioneer/laggard, and Olivia is a pioneer/laggard")
 Answer: Riley is a pioneer, and Olivia is a laggard.
-Metadata: {'source_dataset': 'knights_knaves', 'source_index': 1, 'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('and', ('telling-truth', 1), ('lying', 0))), 'solution': (True, False), 'names': ['Riley', 'Olivia'], 'knight_knave_terms': {'knight': 'pioneer', 'knave': 'laggard', 'a_knight': 'a pioneer', 'a_knave': 'a laggard', 'Knight': 'Pioneer', 'Knave': 'Laggard'}, 'difficulty': {'n_people': 2, 'depth_constraint': 2, 'width_constraint': 2}}
+Metadata: {'source_dataset': 'knights_knaves', 'source_index': 1, 'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('and', ('telling-truth', 1), ('lying', 0))), 'solution': (True, False), 'names': [np.str_('Riley'), np.str_('Olivia')], 'knight_knave_terms': {'knight': 'pioneer', 'knave': 'laggard', 'a_knight': np.str_('a pioneer'), 'a_knave': np.str_('a laggard'), 'Knight': 'Pioneer', 'Knave': 'Laggard'}, 'difficulty': {'n_people': 2, 'depth_constraint': 2, 'width_constraint': 2}}
 
 Example 3:
 Question: A very special island is inhabited only by saints and sinners. Saints always tell the truth, and sinners always lie. You meet 2 inhabitants: Samuel, and Jacob. Samuel expressed that if Samuel is a saint then Jacob is a sinner. Jacob was heard saying, "if Samuel is a saint then Samuel is a sinner". So who is a saint and who is a sinner? (Format your answer like: "Samuel is a saint/sinner, and Jacob is a saint/sinner")
 Answer: Samuel is a saint, and Jacob is a sinner.
-Metadata: {'source_dataset': 'knights_knaves', 'source_index': 2, 'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('->', ('telling-truth', 0), ('lying', 0))), 'solution': (True, False), 'names': ['Samuel', 'Jacob'], 'knight_knave_terms': {'knight': 'saint', 'knave': 'sinner', 'a_knight': 'a saint', 'a_knave': 'a sinner', 'Knight': 'Saint', 'Knave': 'Sinner'}, 'difficulty': {'n_people': 2, 'depth_constraint': 2, 'width_constraint': 2}}
+Metadata: {'source_dataset': 'knights_knaves', 'source_index': 2, 'statements': (('->', ('telling-truth', 0), ('lying', 1)), ('->', ('telling-truth', 0), ('lying', 0))), 'solution': (True, False), 'names': [np.str_('Samuel'), np.str_('Jacob')], 'knight_knave_terms': {'knight': 'saint', 'knave': 'sinner', 'a_knight': np.str_('a saint'), 'a_knave': np.str_('a sinner'), 'Knight': 'Saint', 'Knave': 'Sinner'}, 'difficulty': {'n_people': 2, 'depth_constraint': 2, 'width_constraint': 2}}
 
 ````
 
@@ -4797,31 +4791,31 @@ size = 500
 Example tasks:
 ````
 Example 1:
-Question: Calculate the following: (-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)
+Question: Calculate the following: (18 - 95*z**2)*(-104*z**3 - 12*z + 78)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 1140*z**5 - 7410*z**4 + 9664*z**3 + 1404*z**2 - 1872*z
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(-95*z**3 + 18*z)*(-12*z**2 + 78*z - 104)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 9880*z**5 - 732*z**3 - 7410*z**2 - 216*z + 1404
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 0, 'polynomial_expr': '(18 - 95*z**2)*(-104*z**3 - 12*z + 78)', 'variables': ['z'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 2:
-Question: Simplify this expression: (-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)
+Question: Simplify this expression: (-49*x**3 + 8*x**2 - 163)*(8*x**3 - 49*x**2 + 77*x)*(98*x**3 + 16*x**2 + 74*x)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: -6272*x**9 + 127792*x**8 - 19152*x**7 + 391246*x**6 + 807446*x**5 - 746364*x**4 - 1091196*x**3 - 406994*x**2 - 398762*x - 38416
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**3 + 77*x + 8)*(8*x**3 - 163*x**2 - 49)*(16*x**3 + 74*x + 98)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: -38416*x**9 + 235298*x**8 - 397738*x**7 + 48346*x**6 + 463508*x**5 - 1153118*x**4 + 390222*x**3 - 928774*x**2
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 1, 'polynomial_expr': '(-49*x**3 + 8*x**2 - 163)*(8*x**3 - 49*x**2 + 77*x)*(98*x**3 + 16*x**2 + 74*x)', 'variables': ['x'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 Example 3:
-Question: Calculate the following: (29*y**2 - 49*y)*(21*y**3 + 49)
+Question: Calculate the following: (29*y - 49)*(49*y**3 + 21*y**2)
 When performing calculations, please follow these guidelines:
 1. Use ** instead of ^ to represent exponents. For example, write 7*X**2 instead of 7*X^2.
 2. Always include the * symbol for all multiplication operations in your reasoning steps. For example, write `-3*X**3*sin(X) - 9*X**2*cos(X) + 18*X*sin(X) + 18*cos(X) + C` instead of `-3x3sin(x) - 9x2cos(x) + 18xsin(x) + 18cos(x) + C`.
 
-Answer: 609*y**5 - 1029*y**4 + 1421*y**2 - 2401*y
-Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(29*y**2 - 49*y)*(21*y**3 + 49)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
+Answer: 1421*y**4 - 1792*y**3 - 1029*y**2
+Metadata: {'source_dataset': 'polynomial_multiplication', 'source_index': 2, 'polynomial_expr': '(29*y - 49)*(49*y**3 + 21*y**2)', 'variables': ['y'], 'difficulty': {'min_terms': 2, 'max_terms': 4, 'min_value': 1, 'max_value': 100, 'min_degree': 0, 'max_degree': 3, 'min_polynomials': 2, 'max_polynomials': 3}}
 
 ````
 
@@ -5214,33 +5208,33 @@ Question: Given two strings representing a ransom note and a magazine, return Tr
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: gg
-Magazine: jg
+Ransom note: xx
+Magazine: jx
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'gg', 'magazine': 'jg', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 0, 'ransom_note': 'xx', 'magazine': 'jx', 'solution': False, 'solvable': False, 'note_length': 2, 'magazine_length': 2, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 2:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: q
-Magazine: ishmdfkzuhv
+Ransom note: b
+Magazine: vwilhdorpiy
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'q', 'magazine': 'ishmdfkzuhv', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 1, 'ransom_note': 'b', 'magazine': 'vwilhdorpiy', 'solution': False, 'solvable': False, 'note_length': 1, 'magazine_length': 11, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 Example 3:
 Question: Given two strings representing a ransom note and a magazine, return True if you can construct the ransom note using the letters in the magazine, and False otherwise.
 
 Each letter in the magazine string can only be used once in your ransom note.
 
-Ransom note: otgegyu
-Magazine: ivxiiacuuagotqfppkoggge
+Ransom note: zpxrxei
+Magazine: vybvvcgpicxzptduuoxmxmr
 
 Answer: False
-Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'otgegyu', 'magazine': 'ivxiiacuuagotqfppkoggge', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
+Metadata: {'source_dataset': 'ransom_note', 'source_index': 2, 'ransom_note': 'zpxrxei', 'magazine': 'vybvvcgpicxzptduuoxmxmr', 'solution': False, 'solvable': False, 'note_length': 7, 'magazine_length': 23, 'difficulty': {'note_length': (1, 10), 'magazine_length': (2, 30)}}
 
 ````
 
@@ -5308,7 +5302,7 @@ Input:
 4 4 4 4 4
 
 Answer: 6 8 6
-Metadata: {'source_dataset': 'rearc', 'source_index': 0, 'input': ((4, 4, 4, 4, 4), (4, 4, 4, 4, 4), (4, 6, 8, 6, 4), (4, 4, 4, 4, 4), (4, 4, 4, 4, 4)), 'output': ((6, 8, 6),), 'task_id': 'a740d043', 'rng': 0.12323282396873297, 'pso': 0.29851851851851846, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
+Metadata: {'source_dataset': 'rearc', 'source_index': 0, 'input': ((4, 4, 4, 4, 4), (4, 4, 4, 4, 4), (4, 6, 8, 6, 4), (4, 4, 4, 4, 4), (4, 4, 4, 4, 4)), 'output': ((6, 8, 6),), 'task_id': 'a740d043', 'rng': 0.12323282396873296, 'pso': 0.29851851851851846, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
 
 Example 2:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
@@ -5407,7 +5401,7 @@ Answer: 6 6 6
 6 6 6
 6 6 6
 6 6 6
-Metadata: {'source_dataset': 'rearc', 'source_index': 1, 'input': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'output': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'task_id': 'e26a3af2', 'rng': 0.11027040425316172, 'pso': 0.061111111111111116, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
+Metadata: {'source_dataset': 'rearc', 'source_index': 1, 'input': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'output': ((6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6), (6, 6, 6)), 'task_id': 'e26a3af2', 'rng': 0.11027040425316166, 'pso': 0.061111111111111116, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
 
 Example 3:
 Question: Find the common rule that maps an input grid to an output grid, given the examples below.
@@ -5537,7 +5531,7 @@ Answer: 8 8 8 1 1 1 0
 8 8 8 0 8 8 8
 0 8 8 8 8 8 8
 0 8 8 8 0 8 8
-Metadata: {'source_dataset': 'rearc', 'source_index': 2, 'input': ((8, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 0, 0, 8), (0, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'output': ((8, 8, 8, 1, 1, 1, 0), (8, 8, 8, 1, 1, 1, 8), (0, 8, 8, 1, 1, 1, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'task_id': '6cf79266', 'rng': 0.04912998774545625, 'pso': 0.17507936507936508, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
+Metadata: {'source_dataset': 'rearc', 'source_index': 2, 'input': ((8, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 0, 0, 8), (0, 8, 8, 0, 0, 0, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'output': ((8, 8, 8, 1, 1, 1, 0), (8, 8, 8, 1, 1, 1, 8), (0, 8, 8, 1, 1, 1, 0), (8, 8, 8, 0, 8, 8, 8), (0, 8, 8, 8, 8, 8, 8), (0, 8, 8, 8, 0, 8, 8)), 'task_id': '6cf79266', 'rng': 0.049129987745456245, 'pso': 0.17507936507936508, 'difficulty': {'rng_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285], 'pso_difficulty_weights': [0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285, 0.14285714285714285]}}
 
 ````
 
@@ -6291,7 +6285,7 @@ If there is no path from * to #, simply write "infeasible" (without quotes).
 
 Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
 
-Now, find the length of the shortest path from * to # in the following grid:
+Now, find the shortest path from * to # in the following grid:
 O X X X O
 O O X X X
 O O # O O
@@ -6318,7 +6312,7 @@ If there is no path from * to #, simply write "infeasible" (without quotes).
 
 Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
 
-Now, find the length of the shortest path from * to # in the following grid:
+Now, find the shortest path from * to # in the following grid:
 # X O O O O O
 X O X O O O O
 X O O X X O O
@@ -6345,7 +6339,7 @@ If there is no path from * to #, simply write "infeasible" (without quotes).
 
 Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
 
-Now, find the length of the shortest path from * to # in the following grid:
+Now, find the shortest path from * to # in the following grid:
 X X X X X
 X O O O X
 O # X X O
@@ -6627,11 +6621,13 @@ Example 1:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
 The spiral order is clockwise, starting from the top-left corner. More precisely:
-- Start from the top-left corner and move right.
-- Move down towards the bottom-right corner.
-- Move left towards the bottom-left corner.
-- Move up towards the top-right corner.
+- Start from the top-left corner and move right along the top row.
+- Move down along the right column.
+- Move left along the bottom row.
+- Move up along the left column.
 - Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Hint: Think of peeling the matrix layer by layer from the outside inward. Each layer forms a rectangular frame, and you traverse each frame clockwise starting from its top-left corner.
 
 Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
@@ -6647,11 +6643,13 @@ Example 2:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
 The spiral order is clockwise, starting from the top-left corner. More precisely:
-- Start from the top-left corner and move right.
-- Move down towards the bottom-right corner.
-- Move left towards the bottom-left corner.
-- Move up towards the top-right corner.
+- Start from the top-left corner and move right along the top row.
+- Move down along the right column.
+- Move left along the bottom row.
+- Move up along the left column.
 - Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Hint: Think of peeling the matrix layer by layer from the outside inward. Each layer forms a rectangular frame, and you traverse each frame clockwise starting from its top-left corner.
 
 Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
@@ -6666,11 +6664,13 @@ Example 3:
 Question: Given a matrix, your job is to generate a list of elements in spiral order, starting from the top-left element.
 
 The spiral order is clockwise, starting from the top-left corner. More precisely:
-- Start from the top-left corner and move right.
-- Move down towards the bottom-right corner.
-- Move left towards the bottom-left corner.
-- Move up towards the top-right corner.
+- Start from the top-left corner and move right along the top row.
+- Move down along the right column.
+- Move left along the bottom row.
+- Move up along the left column.
 - Repeat the steps for the inner elements of the matrix until every entry is visited.
+
+Hint: Think of peeling the matrix layer by layer from the outside inward. Each layer forms a rectangular frame, and you traverse each frame clockwise starting from its top-left corner.
 
 Your output should be a space-separated list of integers, e.g. 1 2 3 4 5 6
 
@@ -7222,7 +7222,7 @@ Metadata: {'source_dataset': 'time_intervals', 'source_index': 0, 'task_type': '
 Example 2:
 Question: A video call started at 09:44 and ended at 12:22. How long was the call? Answer in HH:MM.
 Answer: 02:38
-Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': '2025-09-29 09:44:00', 'end_time': '2025-09-29 12:22:00', 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
+Metadata: {'source_dataset': 'time_intervals', 'source_index': 1, 'task_type': 'time', 'start_time': '2026-03-25 09:44:00', 'end_time': '2026-03-25 12:22:00', 'format': '%H:%M', 'expected_format': 'HH:MM', 'difficulty': {'max_time_difference_seconds': 86400, 'max_date_difference_days': 100}}
 
 Example 3:
 Question: Calculate the time difference between Sat Dec 22 2677 and Thu Mar 21 2678. Express the result in D days.
@@ -7481,7 +7481,7 @@ Example 1:
 Question: Transform the word ladder 'HAND' to 'GLEE' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: HAND,HARD,HERD,HEED,FEED,FLED,FLEE,GLEE
+Answer: HAND,HIND,HIED,HEED,FEED,FLED,FLEE,GLEE
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 0, 'start_word': 'HAND', 'end_word': 'GLEE', 'word_length': 4, 'chain_length': 8, 'difficulty': {'word_length': (4, 4)}}
 
 Example 2:
@@ -7495,7 +7495,7 @@ Example 3:
 Question: Transform the word ladder 'SNOG' to 'SUQS' by changing one letter at a time.
 Provide your answer as a comma-separated sequence of uppercase letters without spaces.
 Each step must be a valid English word.
-Answer: SNOG,SNOW,SHOW,SHEW,SHES,SUES,SUQS
+Answer: SNOG,SNAG,SAAG,SANG,SANS,SUNS,SUQS
 Metadata: {'source_dataset': 'word_ladder', 'source_index': 2, 'start_word': 'SNOG', 'end_word': 'SUQS', 'word_length': 4, 'chain_length': 7, 'difficulty': {'word_length': (4, 4)}}
 
 ````

@@ -50,3 +50,5 @@ htmlcov/
 wandb/
 outputs/
 *.log
+
+uv.lock
