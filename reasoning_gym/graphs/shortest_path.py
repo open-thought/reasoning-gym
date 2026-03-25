@@ -24,7 +24,7 @@ If there is no path from * to #, simply write "infeasible" (without quotes).
 
 Your output should be a sequence of directions that leads from * to #, e.g. right right down down up left
 
-Now, find the length of the shortest path from * to # in the following grid:
+Now, find the shortest path from * to # in the following grid:
 {grid}
 """
 
