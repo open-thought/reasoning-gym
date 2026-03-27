@@ -12,7 +12,7 @@ def test_path_star_config_validation():
         config.validate()
 
     with pytest.raises(AssertionError):
-        config = PathStarConfig(min_path_length=0)  # Must be >= 1
+        config = PathStarConfig(min_path_length=1)  # Must be >= 2
         config.validate()
 
     with pytest.raises(AssertionError):
