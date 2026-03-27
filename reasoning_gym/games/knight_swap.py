@@ -219,6 +219,9 @@ class KnightSwapDataset(ProceduralDataset):
         """Generate a single Knight Swap puzzle."""
         rng = Random(self.seed + idx)
 
+        # Decide if this should be an impossible puzzle (fixed per item, not per attempt)
+        make_impossible = rng.random() < self.config.impossible_ratio
+
         # Keep trying with new boards until we succeed
         board_attempts = 0
         while board_attempts < self.config.max_attempts:
@@ -227,9 +230,6 @@ class KnightSwapDataset(ProceduralDataset):
                 num_nodes = rng.randint(self.config.min_nodes, self.config.max_nodes)
                 board = self.game_logic.generate_board(num_nodes, rng, max_attempts=self.config.max_attempts)
                 positions = list(board.keys())
-
-                # Decide if this should be an impossible puzzle
-                make_impossible = rng.random() < self.config.impossible_ratio
 
                 # Try different piece placements on this board
                 for _ in range(50):  # Reduced attempts per board since we try multiple boards
