@@ -45,7 +45,7 @@ class PathStarConfig:
     def validate(self) -> None:
         """Validate configuration parameters"""
         assert self.degree >= 2, "degree must be at least 2"
-        assert self.min_path_length >= 1, "min_path_length must be at least 1"
+        assert self.min_path_length >= 2, "min_path_length must be at least 2"
         assert self.min_path_length <= self.max_path_length, "min_path_length must be <= max_path_length"
         assert (
             self.node_range > self.degree * self.max_path_length + 1
