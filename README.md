@@ -87,7 +87,7 @@ For the simplest way to get started training models with Reasoning Gym, we recom
 
 ### Scoring Cascade (experimental)
 
-The experimental cascade scorer can be used standalone without a dataset instance (install with `pip install reasoning-gym[scoring]` for symbolic math verification):
+The cascade scorer applies progressively lenient fallback matchers — string, numeric, and symbolic math — to reduce false negatives from formatting differences (LaTeX wrappers, casing, numeric representation). Install with `pip install reasoning-gym[scoring]` for symbolic math verification.
 
 ```python
 from reasoning_gym import cascade_score
