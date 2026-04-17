@@ -87,39 +87,12 @@ For the simplest way to get started training models with Reasoning Gym, we recom
 
 ### Scoring Cascade (experimental)
 
-> **Note:** This feature is experimental and its API may change in future releases.
-
-The built-in `score_answer` uses strict algorithmic verification, which can produce false negatives when the model's response is correct but formatted differently (e.g. wrapped in LaTeX, differing in case, or expressed as an equivalent mathematical expression). The **scoring cascade** adds progressively lenient fallback matchers on top of `score_answer` to recover these cases while never downgrading a passing score:
-
-```python
-import reasoning_gym
-
-ds = reasoning_gym.create_dataset("chain_sum", size=5, seed=42)
-entry = ds[0]
-
-# Strict check — may return 0.0 for correct-but-differently-formatted answers
-strict = ds.score_answer(answer=r"\(42\)", entry=entry)
-
-# Cascade check — tries LaTeX stripping, case-insensitive string matching,
-# numeric comparison (1 % tolerance), and symbolic math verification in turn
-cascade = ds.score_answer_cascade(answer=r"\(42\)", entry=entry)
-
-print(f"Strict: {strict}, Cascade: {cascade}")
-```
-
-The cascade can also be used standalone without a dataset instance:
+The experimental cascade scorer can be used standalone without a dataset instance (install with `pip install reasoning-gym[scoring]` for symbolic math verification):
 
 ```python
 from reasoning_gym import cascade_score
 
-score = cascade_score(answer=r"\text{42}", expected="42")
-print(score)  # 1.0
-```
-
-For symbolic math verification, install the optional dependency:
-
-```
-pip install reasoning-gym[scoring]
+assert cascade_score(answer=r"\text{42}", expected="42") == 1.0
 ```
 
 ## 🔍 Evaluation
