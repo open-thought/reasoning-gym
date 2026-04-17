@@ -71,6 +71,21 @@ class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
                 reward = len(oracle_answer) / len(answer)
         return reward
 
+    def score_answer_cascade(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        """Score with fallback cascade (LaTeX stripping, string, float, math matching).
+
+        Runs this dataset's ``score_answer`` first, then progressively more
+        lenient matchers.  The cascade can only upgrade, never downgrade.
+
+        Requires ``pip install reasoning-gym[scoring]`` for the ``math_match``
+        step (other steps work without extra dependencies).
+        """
+        from .scoring import cascade_score
+
+        if answer is None:
+            return 0.0
+        return cascade_score(answer, entry.get("answer", ""), dataset=self, entry=entry)
+
 
 T = TypeVar("T", bound="ProceduralDataset")
 
@@ -127,3 +142,7 @@ class ReseedingDataset(Iterable[dict[str, Any]]):
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Forward scoring to the wrapped dataset's implementation"""
         return self.dataset.score_answer(answer, entry)
+
+    def score_answer_cascade(self, answer: Optional[str], entry: dict[str, Any]) -> float:
+        """Forward cascade scoring to the wrapped dataset's implementation"""
+        return self.dataset.score_answer_cascade(answer, entry)

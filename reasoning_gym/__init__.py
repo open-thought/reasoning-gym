@@ -18,6 +18,7 @@ from . import (
     probability,
 )
 from .factory import create_dataset, get_score_answer_fn, register_dataset
+from .scoring import cascade_score, float_match, math_match, string_match, strip_latex
 
 __version__ = "0.1.19"
 __all__ = [
@@ -37,4 +38,9 @@ __all__ = [
     "create_dataset",
     "register_dataset",
     "get_score_answer_fn",
+    "cascade_score",
+    "strip_latex",
+    "string_match",
+    "float_match",
+    "math_match",
 ]
