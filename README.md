@@ -85,9 +85,7 @@ reasoning_gym.create_dataset('composite', size=10, seed=42, datasets=specs)
 
 For the simplest way to get started training models with Reasoning Gym, we recommend using the `verifiers` library, which directly supports RG tasks. See `examples/verifiers` for details. However, RG data can be used with any major RL training framework.
 
-### Scoring Cascade (experimental)
-
-The cascade scorer applies progressively lenient fallback matchers — string, numeric, and symbolic math — to reduce false negatives from formatting differences (LaTeX wrappers, casing, numeric representation). Install with `pip install reasoning-gym[scoring]` for symbolic math verification.
+The *cascade scorer* applies progressively lenient fallback matchers — string, numeric, and symbolic math — to reduce false negatives from formatting differences (LaTeX wrappers, casing, numeric representation). Install with `pip install reasoning-gym[scoring]` for symbolic math verification.
 
 ```python
 from reasoning_gym import cascade_score
