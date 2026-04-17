@@ -28,6 +28,7 @@ if TYPE_CHECKING:
 # LaTeX normalisation
 # ---------------------------------------------------------------------------
 
+
 def strip_latex(s: str) -> str:
     """Remove common LaTeX wrappers and normalise whitespace.
 
@@ -46,6 +47,7 @@ def strip_latex(s: str) -> str:
 # ---------------------------------------------------------------------------
 # Individual matchers
 # ---------------------------------------------------------------------------
+
 
 def string_match(predicted: str, expected: str) -> float:
     """Case-insensitive exact string comparison after stripping whitespace."""
@@ -122,6 +124,7 @@ def _mathrm_to_text(s: str) -> str:
 # ---------------------------------------------------------------------------
 # Full cascade
 # ---------------------------------------------------------------------------
+
 
 def cascade_score(
     answer: str,

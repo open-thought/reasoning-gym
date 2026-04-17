@@ -1,19 +1,12 @@
 import pytest
 
 import reasoning_gym
-from reasoning_gym.scoring import (
-    cascade_score,
-    float_match,
-    math_match,
-    string_match,
-    strip_latex,
-    _mathrm_to_text,
-)
-
+from reasoning_gym.scoring import _mathrm_to_text, cascade_score, float_match, math_match, string_match, strip_latex
 
 # ---------------------------------------------------------------------------
 # strip_latex
 # ---------------------------------------------------------------------------
+
 
 class TestStripLatex:
     def test_inline_math_delimiters(self):
@@ -52,6 +45,7 @@ class TestStripLatex:
 # string_match
 # ---------------------------------------------------------------------------
 
+
 class TestStringMatch:
     def test_exact(self):
         assert string_match("42", "42") == 1.0
@@ -76,6 +70,7 @@ class TestStringMatch:
 # ---------------------------------------------------------------------------
 # float_match
 # ---------------------------------------------------------------------------
+
 
 class TestFloatMatch:
     def test_exact(self):
@@ -106,6 +101,7 @@ class TestFloatMatch:
 # ---------------------------------------------------------------------------
 # math_match
 # ---------------------------------------------------------------------------
+
 
 class TestMathMatch:
     def test_returns_zero_without_math_verify(self, monkeypatch):
@@ -138,6 +134,7 @@ class TestMathMatch:
 # _mathrm_to_text helper
 # ---------------------------------------------------------------------------
 
+
 class TestMathrmToText:
     def test_replaces_mathrm(self):
         assert _mathrm_to_text(r"\mathrm{cm}") == r"\text{cm}"
@@ -153,6 +150,7 @@ class TestMathrmToText:
 # ---------------------------------------------------------------------------
 # cascade_score — without dataset
 # ---------------------------------------------------------------------------
+
 
 class TestCascadeScoreStandalone:
     def test_exact_string(self):
@@ -177,6 +175,7 @@ class TestCascadeScoreStandalone:
 # ---------------------------------------------------------------------------
 # cascade_score — with a real dataset
 # ---------------------------------------------------------------------------
+
 
 class TestCascadeScoreWithDataset:
     def test_chain_sum_exact(self):
@@ -204,6 +203,7 @@ class TestCascadeScoreWithDataset:
 # ---------------------------------------------------------------------------
 # ProceduralDataset.score_answer_cascade convenience method
 # ---------------------------------------------------------------------------
+
 
 class TestScoreAnswerCascadeMethod:
     def test_method_exists(self):
@@ -238,11 +238,14 @@ class TestScoreAnswerCascadeMethod:
 # Top-level imports
 # ---------------------------------------------------------------------------
 
+
 class TestTopLevelImports:
     def test_cascade_score_importable(self):
         from reasoning_gym import cascade_score as cs
+
         assert callable(cs)
 
     def test_matchers_importable(self):
-        from reasoning_gym import string_match, float_match, math_match, strip_latex
+        from reasoning_gym import float_match, math_match, string_match, strip_latex
+
         assert all(callable(f) for f in [string_match, float_match, math_match, strip_latex])
