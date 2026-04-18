@@ -8,6 +8,11 @@ from .conditional_probability import (
     ConditionalProbabilityCurriculum,
     ConditionalProbabilityDataset,
 )
+from .probability_problems import (
+    ProbabilityProblemsConfig,
+    ProbabilityProblemsCurriculum,
+    ProbabilityProblemsDataset,
+)
 
 __all__ = [
     "CoinFlipDataset",
@@ -16,4 +21,7 @@ __all__ = [
     "ConditionalProbabilityDataset",
     "ConditionalProbabilityConfig",
     "ConditionalProbabilityCurriculum",
+    "ProbabilityProblemsDataset",
+    "ProbabilityProblemsConfig",
+    "ProbabilityProblemsCurriculum",
 ]
