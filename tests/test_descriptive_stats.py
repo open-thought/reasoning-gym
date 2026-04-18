@@ -67,9 +67,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("mean", "median", "mode", "weighted_mean", "std_dev", "percentile", "z_score"):
-        config = DescriptiveStatsConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = DescriptiveStatsConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = DescriptiveStatsDataset(config)
         for i in range(len(ds)):
             item = ds[i]

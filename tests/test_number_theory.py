@@ -47,9 +47,7 @@ def test_answer_correctness():
 
 
 def test_diophantine_verification():
-    config = NumberTheoryConfig(
-        seed=42, size=20, task_types=("diophantine",), task_weights=[1.0]
-    )
+    config = NumberTheoryConfig(seed=42, size=20, task_types=("diophantine",), task_weights=[1.0])
     ds = NumberTheoryDataset(config)
     for i in range(len(ds)):
         item = ds[i]
@@ -83,9 +81,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("mod_arith", "mod_exp", "totient", "crt", "mod_inverse", "diophantine"):
-        config = NumberTheoryConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = NumberTheoryConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = NumberTheoryDataset(config)
         for i in range(len(ds)):
             item = ds[i]

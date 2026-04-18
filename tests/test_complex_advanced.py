@@ -76,9 +76,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("polar", "euler", "inverse", "sqrt", "quadratic"):
-        config = ComplexAdvancedConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = ComplexAdvancedConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = ComplexAdvancedDataset(config)
         for i in range(len(ds)):
             item = ds[i]

@@ -16,9 +16,7 @@ class CombinatoricsConfig:
     min_n: int = 5
     max_n: int = 15
     task_types: tuple[str, ...] = TASK_TYPES
-    task_weights: list[float] = field(
-        default_factory=lambda: [0.2, 0.15, 0.2, 0.2, 0.15, 0.1]
-    )
+    task_weights: list[float] = field(default_factory=lambda: [0.2, 0.15, 0.2, 0.2, 0.15, 0.1])
     seed: Optional[int] = None
     size: int = 500
 
@@ -40,8 +38,7 @@ class CombinatoricsDataset(ProceduralDataset):
         k = rng.randint(1, n - 1)
         answer = math.comb(n, k)
         question = (
-            f"How many ways can you choose {k} items from a set of {n} items? "
-            f"Give your answer as a single integer."
+            f"How many ways can you choose {k} items from a set of {n} items? " f"Give your answer as a single integer."
         )
         return {"question": question, "answer": str(answer), "task_type": "ncr"}
 

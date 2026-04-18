@@ -7,7 +7,16 @@ from ..factory import ProceduralDataset, register_dataset
 
 DATASET_NAME = "set_operations"
 
-TASK_TYPES = ("union", "intersection", "difference", "symmetric_difference", "cardinality", "power_set_size", "complement", "chained")
+TASK_TYPES = (
+    "union",
+    "intersection",
+    "difference",
+    "symmetric_difference",
+    "cardinality",
+    "power_set_size",
+    "complement",
+    "chained",
+)
 
 
 @dataclass
@@ -80,7 +89,7 @@ class SetOperationsDataset(ProceduralDataset):
 
     def _make_power_set_size(self, rng: random.Random) -> dict:
         n = rng.randint(2, 8)
-        answer = 2 ** n
+        answer = 2**n
         question = f"How many subsets does a set with {n} elements have? Give your answer as a single integer."
         return {"question": question, "answer": str(answer), "task_type": "power_set_size"}
 
@@ -112,8 +121,7 @@ class SetOperationsDataset(ProceduralDataset):
             result = intermediate & c
 
         question = (
-            f"Given A = {_fmt_set(a)}, B = {_fmt_set(b)}, C = {_fmt_set(c)}, "
-            f"find (A {op1_sym} B) {op2_sym} C."
+            f"Given A = {_fmt_set(a)}, B = {_fmt_set(b)}, C = {_fmt_set(c)}, " f"find (A {op1_sym} B) {op2_sym} C."
         )
         return {"question": question, "answer": _fmt_set(result), "task_type": "chained"}
 

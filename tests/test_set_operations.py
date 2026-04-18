@@ -66,10 +66,17 @@ def test_curriculum():
 
 
 def test_task_types():
-    for task_type in ("union", "intersection", "difference", "symmetric_difference", "cardinality", "power_set_size", "complement", "chained"):
-        config = SetOperationsConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+    for task_type in (
+        "union",
+        "intersection",
+        "difference",
+        "symmetric_difference",
+        "cardinality",
+        "power_set_size",
+        "complement",
+        "chained",
+    ):
+        config = SetOperationsConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = SetOperationsDataset(config)
         for i in range(len(ds)):
             item = ds[i]

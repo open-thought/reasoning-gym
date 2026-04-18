@@ -67,9 +67,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("polynomial_cancel", "rational_infinity", "direct_sub", "squeeze"):
-        config = LimitsConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = LimitsConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = LimitsDataset(config)
         for i in range(len(ds)):
             item = ds[i]

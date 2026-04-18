@@ -69,10 +69,7 @@ class LinearAlgebraDataset(ProceduralDataset):
         super().__init__(config=config, seed=config.seed, size=config.size)
 
     def _gen_matrix(self, rng: random.Random, rows: int, cols: int) -> list[list[int]]:
-        return [
-            [rng.randint(self.config.min_value, self.config.max_value) for _ in range(cols)]
-            for _ in range(rows)
-        ]
+        return [[rng.randint(self.config.min_value, self.config.max_value) for _ in range(cols)] for _ in range(rows)]
 
     def _make_matrix_multiply(self, rng: random.Random) -> dict:
         n = rng.randint(self.config.min_dim, self.config.max_dim)
@@ -91,10 +88,7 @@ class LinearAlgebraDataset(ProceduralDataset):
         n = rng.randint(self.config.min_dim, min(self.config.max_dim, 3))
         m = self._gen_matrix(rng, n, n)
         result = _det(m)
-        question = (
-            f"Find the determinant of the matrix {_mat_str(m)}. "
-            f"Give your answer as a single integer."
-        )
+        question = f"Find the determinant of the matrix {_mat_str(m)}. " f"Give your answer as a single integer."
         return {"question": question, "answer": str(result), "task_type": "determinant"}
 
     def _make_inverse(self, rng: random.Random) -> dict:

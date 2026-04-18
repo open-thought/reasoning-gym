@@ -47,9 +47,7 @@ def test_answer_correctness():
 
 
 def test_solve_system_verification():
-    config = LinearAlgebraConfig(
-        seed=42, size=20, task_types=("solve_system",), task_weights=[1.0]
-    )
+    config = LinearAlgebraConfig(seed=42, size=20, task_types=("solve_system",), task_weights=[1.0])
     ds = LinearAlgebraDataset(config)
     for i in range(len(ds)):
         item = ds[i]
@@ -78,9 +76,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("matrix_multiply", "determinant", "inverse", "solve_system", "eigenvalues"):
-        config = LinearAlgebraConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = LinearAlgebraConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = LinearAlgebraDataset(config)
         for i in range(len(ds)):
             item = ds[i]

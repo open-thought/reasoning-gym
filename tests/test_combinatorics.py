@@ -67,9 +67,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("ncr", "npr", "permutations_repetition", "inclusion_exclusion", "stars_and_bars", "pigeonhole"):
-        config = CombinatoricsConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = CombinatoricsConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = CombinatoricsDataset(config)
         for i in range(len(ds)):
             item = ds[i]

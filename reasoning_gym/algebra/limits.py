@@ -121,13 +121,10 @@ class LimitsDataset(ProceduralDataset):
         if coeffs[-1] == 0:
             coeffs[-1] = 1
 
-        val = sum(coeffs[i] * (a ** i) for i in range(len(coeffs)))
+        val = sum(coeffs[i] * (a**i) for i in range(len(coeffs)))
         answer = str(val)
         poly = _poly_str(coeffs)
-        question = (
-            f"Find the limit as x approaches {a} of ({poly}). "
-            f"Give your answer as a single integer."
-        )
+        question = f"Find the limit as x approaches {a} of ({poly}). " f"Give your answer as a single integer."
         return {"question": question, "answer": answer, "task_type": "direct_sub"}
 
     def _make_squeeze(self, rng: random.Random) -> dict:

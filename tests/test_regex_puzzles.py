@@ -66,9 +66,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("string_generation", "extraction", "dfa_state", "dfa_prefix"):
-        config = RegexPuzzlesConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = RegexPuzzlesConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = RegexPuzzlesDataset(config)
         for i in range(len(ds)):
             item = ds[i]

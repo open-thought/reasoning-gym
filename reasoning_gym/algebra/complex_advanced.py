@@ -232,13 +232,17 @@ class ComplexAdvancedDataset(ProceduralDataset):
         o_parts = [s.strip() for s in oracle.split(",")]
         if len(a_parts) < 2 or len(o_parts) < 2:
             return 0.0
-        a_vals = [self._parse_complex(a_parts[0] + ("" if "i" in a_parts[0] else "") ),
-                   self._parse_complex(a_parts[1] + ("" if "i" in a_parts[1] else ""))]
+        a_vals = [
+            self._parse_complex(a_parts[0] + ("" if "i" in a_parts[0] else "")),
+            self._parse_complex(a_parts[1] + ("" if "i" in a_parts[1] else "")),
+        ]
         o_vals = [self._parse_complex(o_parts[0]), self._parse_complex(o_parts[1])]
         if any(v is None for v in a_vals + o_vals):
             return 0.0
-        d1 = min(abs(a_vals[0] - o_vals[0]) + abs(a_vals[1] - o_vals[1]),
-                 abs(a_vals[0] - o_vals[1]) + abs(a_vals[1] - o_vals[0]))
+        d1 = min(
+            abs(a_vals[0] - o_vals[0]) + abs(a_vals[1] - o_vals[1]),
+            abs(a_vals[0] - o_vals[1]) + abs(a_vals[1] - o_vals[0]),
+        )
         return min(1.0, math.exp(-d1))
 
     @staticmethod

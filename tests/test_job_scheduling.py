@@ -47,9 +47,7 @@ def test_answer_correctness():
 
 
 def test_task_ordering_verification():
-    config = JobSchedulingConfig(
-        seed=42, size=20, task_types=("task_ordering",), task_weights=[1.0]
-    )
+    config = JobSchedulingConfig(seed=42, size=20, task_types=("task_ordering",), task_weights=[1.0])
     ds = JobSchedulingDataset(config)
     for i in range(len(ds)):
         item = ds[i]
@@ -81,9 +79,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("critical_path", "interval_scheduling", "task_ordering"):
-        config = JobSchedulingConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = JobSchedulingConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = JobSchedulingDataset(config)
         for i in range(len(ds)):
             item = ds[i]

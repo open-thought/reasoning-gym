@@ -68,9 +68,7 @@ def test_curriculum():
 
 def test_task_types():
     for task_type in ("lcs", "coin_change", "lis", "edit_distance", "staircase"):
-        config = DynamicProgrammingConfig(
-            seed=42, size=10, task_types=(task_type,), task_weights=[1.0]
-        )
+        config = DynamicProgrammingConfig(seed=42, size=10, task_types=(task_type,), task_weights=[1.0])
         ds = DynamicProgrammingDataset(config)
         for i in range(len(ds)):
             item = ds[i]
