@@ -1,4 +1,5 @@
 from .course_schedule import CourseScheduleConfig, CourseScheduleCurriculum, CourseScheduleDataset
+from .job_scheduling import JobSchedulingConfig, JobSchedulingCurriculum, JobSchedulingDataset
 from .family_relationships import FamilyRelationshipsConfig, FamilyRelationshipsCurriculum, FamilyRelationshipsDataset
 from .largest_island import LargestIslandConfig, LargestIslandCurriculum, LargestIslandDataset
 from .path_star import PathStarConfig, PathStarCurriculum, PathStarDataset
@@ -24,4 +25,7 @@ __all__ = [
     "ShortestPathConfig",
     "ShortestPathDataset",
     "ShortestPathCurriculum",
+    "JobSchedulingConfig",
+    "JobSchedulingDataset",
+    "JobSchedulingCurriculum",
 ]

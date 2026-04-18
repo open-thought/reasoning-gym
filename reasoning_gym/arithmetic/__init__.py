@@ -20,6 +20,7 @@ from .gsm_symbolic.gsm_symbolic import GSMSymbolicDataset, GSMSymbolicDatasetCon
 from .lcm import LCMConfig, LCMCurriculum, LCMDataset
 from .leg_counting import LegCountingConfig, LegCountingCurriculum, LegCountingDataset
 from .number_format import NumberFormatConfig, NumberFormatCurriculum, NumberFormatDataset
+from .number_theory import NumberTheoryConfig, NumberTheoryCurriculum, NumberTheoryDataset
 from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerFunctionDataset
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationCurriculum, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
@@ -77,4 +78,7 @@ __all__ = [
     "BitwiseArithmeticConfig",
     "BitwiseArithmeticDataset",
     "BitwiseArithmeticCurriculum",
+    "NumberTheoryConfig",
+    "NumberTheoryDataset",
+    "NumberTheoryCurriculum",
 ]

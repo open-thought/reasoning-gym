@@ -7,6 +7,7 @@ from .circuit_logic import CircuitLogicConfig, CircuitLogicCurriculum, CircuitLo
 from .knights_knaves import KnightsKnavesConfig, KnightsKnavesCurriculum, KnightsKnavesDataset
 from .propositional_logic import PropositionalLogicConfig, PropositionalLogicCurriculum, PropositionalLogicDataset
 from .self_reference import SelfReferenceConfig, SelfReferenceCurriculum, SelfReferenceDataset
+from .set_operations import SetOperationsConfig, SetOperationsCurriculum, SetOperationsDataset
 from .syllogisms import SyllogismConfig, SyllogismCurriculum, SyllogismDataset
 from .zebra_puzzles import ZebraConfig, ZebraCurriculum, ZebraDataset
 
@@ -33,4 +34,7 @@ __all__ = [
     "KnightsKnavesConfig",
     "KnightsKnavesDataset",
     "KnightsKnavesCurriculum",
+    "SetOperationsConfig",
+    "SetOperationsDataset",
+    "SetOperationsCurriculum",
 ]
