@@ -1,10 +1,6 @@
 import pytest
 
-from reasoning_gym.algebra.limits import (
-    LimitsConfig,
-    LimitsCurriculum,
-    LimitsDataset,
-)
+from reasoning_gym.algebra.limits import LimitsConfig, LimitsCurriculum, LimitsDataset
 
 
 def test_config_validation():

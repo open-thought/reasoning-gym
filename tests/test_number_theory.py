@@ -1,10 +1,6 @@
 import pytest
 
-from reasoning_gym.arithmetic.number_theory import (
-    NumberTheoryConfig,
-    NumberTheoryCurriculum,
-    NumberTheoryDataset,
-)
+from reasoning_gym.arithmetic.number_theory import NumberTheoryConfig, NumberTheoryCurriculum, NumberTheoryDataset
 
 
 def test_config_validation():

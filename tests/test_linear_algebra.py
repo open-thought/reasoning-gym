@@ -1,10 +1,6 @@
 import pytest
 
-from reasoning_gym.algebra.linear_algebra import (
-    LinearAlgebraConfig,
-    LinearAlgebraCurriculum,
-    LinearAlgebraDataset,
-)
+from reasoning_gym.algebra.linear_algebra import LinearAlgebraConfig, LinearAlgebraCurriculum, LinearAlgebraDataset
 
 
 def test_config_validation():

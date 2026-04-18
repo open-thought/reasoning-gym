@@ -1,10 +1,6 @@
 import pytest
 
-from reasoning_gym.combinatorics.combinatorics import (
-    CombinatoricsConfig,
-    CombinatoricsCurriculum,
-    CombinatoricsDataset,
-)
+from reasoning_gym.combinatorics.combinatorics import CombinatoricsConfig, CombinatoricsCurriculum, CombinatoricsDataset
 
 
 def test_config_validation():

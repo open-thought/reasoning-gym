@@ -1,10 +1,6 @@
 import pytest
 
-from reasoning_gym.logic.set_operations import (
-    SetOperationsConfig,
-    SetOperationsCurriculum,
-    SetOperationsDataset,
-)
+from reasoning_gym.logic.set_operations import SetOperationsConfig, SetOperationsCurriculum, SetOperationsDataset
 
 
 def test_config_validation():

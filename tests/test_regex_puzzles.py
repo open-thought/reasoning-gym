@@ -1,10 +1,6 @@
 import pytest
 
-from reasoning_gym.languages.regex_puzzles import (
-    RegexPuzzlesConfig,
-    RegexPuzzlesCurriculum,
-    RegexPuzzlesDataset,
-)
+from reasoning_gym.languages.regex_puzzles import RegexPuzzlesConfig, RegexPuzzlesCurriculum, RegexPuzzlesDataset
 
 
 def test_config_validation():

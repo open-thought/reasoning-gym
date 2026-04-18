@@ -1,6 +1,6 @@
 from .course_schedule import CourseScheduleConfig, CourseScheduleCurriculum, CourseScheduleDataset
-from .job_scheduling import JobSchedulingConfig, JobSchedulingCurriculum, JobSchedulingDataset
 from .family_relationships import FamilyRelationshipsConfig, FamilyRelationshipsCurriculum, FamilyRelationshipsDataset
+from .job_scheduling import JobSchedulingConfig, JobSchedulingCurriculum, JobSchedulingDataset
 from .largest_island import LargestIslandConfig, LargestIslandCurriculum, LargestIslandDataset
 from .path_star import PathStarConfig, PathStarCurriculum, PathStarDataset
 from .quantum_lock import QuantumLockConfig, QuantumLockCurriculum, QuantumLockDataset

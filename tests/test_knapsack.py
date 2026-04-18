@@ -1,11 +1,6 @@
 import pytest
 
-from reasoning_gym.optimization.knapsack import (
-    KnapsackConfig,
-    KnapsackCurriculum,
-    KnapsackDataset,
-    _solve_knapsack,
-)
+from reasoning_gym.optimization.knapsack import KnapsackConfig, KnapsackCurriculum, KnapsackDataset, _solve_knapsack
 
 
 def test_config_validation():

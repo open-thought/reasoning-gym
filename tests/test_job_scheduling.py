@@ -1,10 +1,6 @@
 import pytest
 
-from reasoning_gym.graphs.job_scheduling import (
-    JobSchedulingConfig,
-    JobSchedulingCurriculum,
-    JobSchedulingDataset,
-)
+from reasoning_gym.graphs.job_scheduling import JobSchedulingConfig, JobSchedulingCurriculum, JobSchedulingDataset
 
 
 def test_config_validation():
