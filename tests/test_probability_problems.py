@@ -77,9 +77,7 @@ def test_score_wrong_answer():
 
 
 def test_score_equivalent_fraction():
-    config = ProbabilityProblemsConfig(
-        seed=42, size=10, task_types=("independent_events",), task_weights=[1.0]
-    )
+    config = ProbabilityProblemsConfig(seed=42, size=10, task_types=("independent_events",), task_weights=[1.0])
     ds = ProbabilityProblemsDataset(config)
     item = ds[0]
     oracle_frac = Fraction(item["answer"])

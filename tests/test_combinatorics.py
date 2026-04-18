@@ -181,7 +181,9 @@ def test_legendres_formula_known_values():
 
 def test_legendres_formula_manual():
     """Power of 2 in 10! = floor(10/2) + floor(10/4) + floor(10/8) = 5+2+1 = 8."""
-    config = CombinatoricsConfig(seed=0, size=50, task_types=("legendres_formula",), task_weights=[1.0], min_n=10, max_n=10)
+    config = CombinatoricsConfig(
+        seed=0, size=50, task_types=("legendres_formula",), task_weights=[1.0], min_n=10, max_n=10
+    )
     ds = CombinatoricsDataset(config)
     for i in range(len(ds)):
         item = ds[i]
@@ -202,9 +204,16 @@ def test_integral_solutions_known_values():
 def test_all_new_types_score_oracle():
     """Oracle answers should all score 1.0."""
     new_types = (
-        "multinomial", "grid_paths", "constrained_selection", "circular_permutation",
-        "geometric_counting", "dictionary_rank", "derangement", "group_division",
-        "legendres_formula", "integral_solutions",
+        "multinomial",
+        "grid_paths",
+        "constrained_selection",
+        "circular_permutation",
+        "geometric_counting",
+        "dictionary_rank",
+        "derangement",
+        "group_division",
+        "legendres_formula",
+        "integral_solutions",
     )
     for tt in new_types:
         config = CombinatoricsConfig(seed=42, size=10, task_types=(tt,), task_weights=[1.0])

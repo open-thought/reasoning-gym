@@ -29,8 +29,15 @@ class ProbabilityProblemsConfig:
     task_types: tuple[str, ...] = TASK_TYPES
     task_weights: list[float] = field(
         default_factory=lambda: [
-            0.12, 0.11, 0.12, 0.12,
-            0.11, 0.10, 0.11, 0.10, 0.11,
+            0.12,
+            0.11,
+            0.12,
+            0.12,
+            0.11,
+            0.10,
+            0.11,
+            0.10,
+            0.11,
         ]
     )
     seed: Optional[int] = None
@@ -123,10 +130,7 @@ class ProbabilityProblemsDataset(ProceduralDataset):
         for red, blue in bags:
             p_red += p_bag * Fraction(red, red + blue)
 
-        bag_desc = ". ".join(
-            f"Bag {i + 1} contains {r} red and {b} blue balls"
-            for i, (r, b) in enumerate(bags)
-        )
+        bag_desc = ". ".join(f"Bag {i + 1} contains {r} red and {b} blue balls" for i, (r, b) in enumerate(bags))
         question = (
             f"{bag_desc}. "
             f"One bag is chosen uniformly at random and a ball is drawn from it. "
@@ -154,10 +158,7 @@ class ProbabilityProblemsDataset(ProceduralDataset):
         p_red_given_target = Fraction(red_t, red_t + blue_t)
         p_target_given_red = (p_bag * p_red_given_target) / p_red
 
-        bag_desc = ". ".join(
-            f"Bag {i + 1} contains {r} red and {b} blue balls"
-            for i, (r, b) in enumerate(bags)
-        )
+        bag_desc = ". ".join(f"Bag {i + 1} contains {r} red and {b} blue balls" for i, (r, b) in enumerate(bags))
         question = (
             f"{bag_desc}. "
             f"One bag is chosen uniformly at random and a ball is drawn. The ball is red. "
@@ -170,15 +171,19 @@ class ProbabilityProblemsDataset(ProceduralDataset):
 
     def _make_binomial_probability(self, rng: random.Random) -> dict:
         p_choices = [
-            Fraction(1, 6), Fraction(1, 4), Fraction(1, 3),
-            Fraction(1, 2), Fraction(2, 3), Fraction(3, 4),
+            Fraction(1, 6),
+            Fraction(1, 4),
+            Fraction(1, 3),
+            Fraction(1, 2),
+            Fraction(2, 3),
+            Fraction(3, 4),
         ]
         p = rng.choice(p_choices)
         q = 1 - p
         n = rng.randint(self.config.min_n, min(self.config.max_n, 8))
         r = rng.randint(0, n)
 
-        prob = Fraction(math.comb(n, r)) * (p ** r) * (q ** (n - r))
+        prob = Fraction(math.comb(n, r)) * (p**r) * (q ** (n - r))
         question = (
             f"A biased coin has a probability of heads equal to {p}. "
             f"If it is flipped {n} times, what is the probability of getting exactly {r} heads? "
@@ -188,8 +193,12 @@ class ProbabilityProblemsDataset(ProceduralDataset):
 
     def _make_binomial_stats(self, rng: random.Random) -> dict:
         p_choices = [
-            Fraction(1, 6), Fraction(1, 4), Fraction(1, 3),
-            Fraction(1, 2), Fraction(2, 3), Fraction(3, 4),
+            Fraction(1, 6),
+            Fraction(1, 4),
+            Fraction(1, 3),
+            Fraction(1, 2),
+            Fraction(2, 3),
+            Fraction(3, 4),
         ]
         p = rng.choice(p_choices)
         q = 1 - p
@@ -216,8 +225,11 @@ class ProbabilityProblemsDataset(ProceduralDataset):
 
     def _make_geometric_series(self, rng: random.Random) -> dict:
         p_choices = [
-            Fraction(1, 6), Fraction(1, 5), Fraction(1, 4),
-            Fraction(1, 3), Fraction(1, 2),
+            Fraction(1, 6),
+            Fraction(1, 5),
+            Fraction(1, 4),
+            Fraction(1, 3),
+            Fraction(1, 2),
         ]
         p = rng.choice(p_choices)
         q = rng.choice(p_choices)
@@ -354,6 +366,4 @@ class ProbabilityProblemsCurriculum(BaseCurriculum):
         )
 
 
-register_dataset(
-    DATASET_NAME, ProbabilityProblemsDataset, ProbabilityProblemsConfig, ProbabilityProblemsCurriculum
-)
+register_dataset(DATASET_NAME, ProbabilityProblemsDataset, ProbabilityProblemsConfig, ProbabilityProblemsCurriculum)

@@ -36,9 +36,22 @@ class CombinatoricsConfig:
     task_types: tuple[str, ...] = TASK_TYPES
     task_weights: list[float] = field(
         default_factory=lambda: [
-            0.08, 0.06, 0.08, 0.08, 0.06, 0.04,
-            0.07, 0.07, 0.07, 0.07, 0.07, 0.07,
-            0.06, 0.06, 0.06, 0.06,
+            0.08,
+            0.06,
+            0.08,
+            0.08,
+            0.06,
+            0.04,
+            0.07,
+            0.07,
+            0.07,
+            0.07,
+            0.07,
+            0.07,
+            0.06,
+            0.06,
+            0.06,
+            0.06,
         ]
     )
     seed: Optional[int] = None
@@ -241,8 +254,7 @@ class CombinatoricsDataset(ProceduralDataset):
             n = rng.randint(max(4, self.config.min_n), max(5, self.config.max_n))
             answer = n * (n - 3) // 2
             question = (
-                f"How many diagonals does a {n}-sided convex polygon have? "
-                f"Give your answer as a single integer."
+                f"How many diagonals does a {n}-sided convex polygon have? " f"Give your answer as a single integer."
             )
         return {"question": question, "answer": str(answer), "task_type": "geometric_counting"}
 
