@@ -38,11 +38,13 @@ def test_survo_items():
     cfg = SurvoConfig(seed=99, size=20, min_board_size=4, max_board_size=5, min_empty=3, max_empty=5)
     ds = SurvoDataset(cfg)
 
-    for itm in ds:
+    for i, itm in enumerate(ds):
         md = itm["metadata"]
 
         # Basic keys
         assert set(itm.keys()) == {"question", "answer", "metadata"}
+        assert md["source_dataset"] == "survo"
+        assert md["source_index"] == i
         assert "puzzle" in md and "solution" in md and "candidate_numbers" in md
 
         orig = np.array(md["puzzle"])
