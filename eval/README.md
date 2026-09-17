@@ -8,6 +8,12 @@ In order to keep the main repo clean and not clutter it with evaluation traces f
 
 If you run evaluations and want to contribute your results, please create a pull request in the [reasoning-gym-eval](https://github.com/open-thought/reasoning-gym-eval) repository, not in the main reasoning-gym repo.
 
+### Syllogism dataset version 2
+
+Items with `metadata.dataset_version = 2` allow empty categories and evaluate both
+premises together. Labels and seeded samples differ from earlier versions;
+regenerate saved samples and rerun affected baselines before comparing results.
+
 ## Overview
 
 This framework provides tools to evaluate language models on the reasoning_gym datasets. It supports:
