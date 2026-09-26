@@ -55,12 +55,29 @@ ANIMALS = {
     "woodlouse": 14,
 }
 
+IRREGULAR_PLURALS = {
+    "deer": "deer",
+    "sheep": "sheep",
+    "woodlouse": "woodlice",
+}
+
 QUESTION_TEMPLATE = """Your task is to count how many legs there are in total when given a list of animals.
 
 Now, how many legs are there in total if you have {animals}?
 """
 
 DATASET_NAME = "leg_counting"
+
+
+def _pluralize(animal: str) -> str:
+    """Return the plural form of an animal name used by this dataset."""
+    if animal in IRREGULAR_PLURALS:
+        return IRREGULAR_PLURALS[animal]
+    if animal.endswith("y") and animal[-2] not in "aeiou":
+        return f"{animal[:-1]}ies"
+    if animal.endswith(("s", "x", "z", "ch", "sh")):
+        return f"{animal}es"
+    return f"{animal}s"
 
 
 @dataclass
@@ -115,7 +132,8 @@ class LegCountingDataset(ProceduralDataset):
         # Format animal counts for question
         animal_list = []
         for animal, count in animals.items():
-            animal_list.append(f"{count} {animal}{'s' if count > 1 else ''}")
+            animal_name = _pluralize(animal) if count > 1 else animal
+            animal_list.append(f"{count} {animal_name}")
 
         return {
             "question": QUESTION_TEMPLATE.format(animals=", ".join(animal_list)),
@@ -142,7 +160,7 @@ class LegCountingCurriculum(BaseCurriculum):
         self._define_attributes(
             RangeAttributeDefinition(
                 name="num_animals",
-                levels=list(range(1, 37)),
+                levels=list(range(1, len(ANIMALS) + 1)),
                 description="Number of animals in question",
                 lower_field_name="min_animals",
                 upper_field_name="max_animals",

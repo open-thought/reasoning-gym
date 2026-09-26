@@ -61,6 +61,38 @@ def test_leg_counting_dataset_items():
         assert total_legs == item["metadata"]["total_legs"]
 
 
+@pytest.mark.parametrize("count", [1, 2])
+def test_leg_counting_animal_names(count):
+    """Test singular, regular plural, and irregular plural animal names."""
+    config = LegCountingConfig(
+        min_animals=len(ANIMALS),
+        max_animals=len(ANIMALS),
+        min_instances=count,
+        max_instances=count,
+        size=1,
+        seed=42,
+    )
+    question = LegCountingDataset(config)[0]["question"]
+    animal_entries = question.split("if you have ", 1)[1].removesuffix("?\n").split(", ")
+
+    expected_forms = {
+        "dog": "dogs",
+        "jellyfish": "jellyfishes",
+        "starfish": "starfishes",
+        "leech": "leeches",
+        "cockroach": "cockroaches",
+        "butterfly": "butterflies",
+        "firefly": "fireflies",
+        "praying mantis": "praying mantises",
+        "deer": "deer",
+        "sheep": "sheep",
+        "woodlouse": "woodlice",
+    }
+    for singular, plural in expected_forms.items():
+        expected_name = singular if count == 1 else plural
+        assert f"{count} {expected_name}" in animal_entries
+
+
 def test_leg_counting_dataset_iteration():
     """Test that iteration respects dataset size"""
     config = LegCountingConfig(size=5, seed=42)
@@ -109,3 +141,9 @@ def test_leg_counting_curriculum():
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_animals == 1 and partially_decreased_cfg.max_animals == 1
     assert partially_decreased_cfg.min_instances == 2 and partially_decreased_cfg.max_instances == 8
+
+    # test that the highest level can use every available animal
+    num_animals_attr = curriculum.get_attribute("num_animals")
+    curriculum.set_attr_level("num_animals", len(num_animals_attr.levels) - 1)
+    max_animals_cfg = curriculum.generate_configuration(base_value)
+    assert max_animals_cfg.min_animals == 1 and max_animals_cfg.max_animals == len(ANIMALS)
