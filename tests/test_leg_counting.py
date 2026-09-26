@@ -61,35 +61,36 @@ def test_leg_counting_dataset_items():
         assert total_legs == item["metadata"]["total_legs"]
 
 
-def test_leg_counting_pluralizes_animal_names():
-    """Test regular and irregular plural forms used in generated questions."""
+@pytest.mark.parametrize("count", [1, 2])
+def test_leg_counting_animal_names(count):
+    """Test singular, regular plural, and irregular plural animal names."""
     config = LegCountingConfig(
         min_animals=len(ANIMALS),
         max_animals=len(ANIMALS),
-        min_instances=2,
-        max_instances=2,
+        min_instances=count,
+        max_instances=count,
         size=1,
         seed=42,
     )
     question = LegCountingDataset(config)[0]["question"]
+    animal_entries = question.split("if you have ", 1)[1].removesuffix("?\n").split(", ")
 
-    assert "2 jellyfishes" in question
-    assert "2 starfishes" in question
-    assert "2 leeches" in question
-    assert "2 cockroaches" in question
-    assert "2 butterflies" in question
-    assert "2 fireflies" in question
-    assert "2 praying mantises" in question
-    assert "2 deer" in question
-    assert "2 sheep" in question
-    assert "2 woodlice" in question
-
-    assert "2 butterflys" not in question
-    assert "2 fireflys" not in question
-    assert "2 praying mantiss" not in question
-    assert "2 deers" not in question
-    assert "2 sheeps" not in question
-    assert "2 woodlouses" not in question
+    expected_forms = {
+        "dog": "dogs",
+        "jellyfish": "jellyfishes",
+        "starfish": "starfishes",
+        "leech": "leeches",
+        "cockroach": "cockroaches",
+        "butterfly": "butterflies",
+        "firefly": "fireflies",
+        "praying mantis": "praying mantises",
+        "deer": "deer",
+        "sheep": "sheep",
+        "woodlouse": "woodlice",
+    }
+    for singular, plural in expected_forms.items():
+        expected_name = singular if count == 1 else plural
+        assert f"{count} {expected_name}" in animal_entries
 
 
 def test_leg_counting_dataset_iteration():
