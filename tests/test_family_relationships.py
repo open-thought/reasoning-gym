@@ -5,6 +5,8 @@ from reasoning_gym.graphs.family_relationships import (
     FamilyRelationshipsConfig,
     FamilyRelationshipsCurriculum,
     FamilyRelationshipsDataset,
+    Gender,
+    Person,
     Relationship,
 )
 
@@ -49,6 +51,34 @@ def test_family_relationships_config():
 
     with pytest.raises(AssertionError):
         dataset = create_dataset("family_relationships", female_names=[])
+
+
+@pytest.mark.parametrize("parent_gender", [Gender.FEMALE, Gender.MALE])
+@pytest.mark.parametrize("spouse_gender", [Gender.FEMALE, Gender.MALE])
+@pytest.mark.parametrize("parent_first", [False, True])
+def test_in_law_relationship_direction(monkeypatch, parent_gender, spouse_gender, parent_first):
+    dataset = FamilyRelationshipsDataset(FamilyRelationshipsConfig(seed=0, size=1))
+    parent = Person("Elizabeth" if parent_gender == Gender.FEMALE else "Jayden", parent_gender, 0)
+    child = Person("Edward", Gender.MALE, 1)
+    spouse = Person("Sarah" if spouse_gender == Gender.FEMALE else "Sam", spouse_gender, 2)
+    parent.add_child(child)
+    child.add_spouse(spouse)
+    family = {parent, child, spouse}
+    person1, person2 = (parent, spouse) if parent_first else (spouse, parent)
+    expected = (
+        ("mother-in-law" if parent_gender == Gender.FEMALE else "father-in-law")
+        if parent_first
+        else ("daughter-in-law" if spouse_gender == Gender.FEMALE else "son-in-law")
+    )
+
+    monkeypatch.setattr(dataset, "_generate_family", lambda rng, family_size: family)
+    monkeypatch.setattr("random.Random.sample", lambda self, population, k: [person1, person2])
+
+    item = dataset[0]
+    assert item["answer"] == expected
+    assert item["metadata"]["relationship"] == expected
+    assert item["metadata"]["person1"] == person1.name
+    assert item["metadata"]["person2"] == person2.name
 
 
 def test_deterministic_generation():
