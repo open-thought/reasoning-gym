@@ -32,6 +32,8 @@ class Relationship(StrEnum):
     NEPHEW = "nephew"
     MOTHER_IN_LAW = "mother-in-law"
     FATHER_IN_LAW = "father-in-law"
+    DAUGHTER_IN_LAW = "daughter-in-law"
+    SON_IN_LAW = "son-in-law"
 
 
 @dataclass
@@ -326,7 +328,10 @@ class FamilyRelationshipsDataset(ProceduralDataset):
         # Check for in-law relationships through spouse
         elif person1.spouse and person2 in person1.spouse.parents:
             # person2 is person1's spouse's parent
-            relationship = Relationship.MOTHER_IN_LAW if person2.gender == Gender.FEMALE else Relationship.FATHER_IN_LAW
+            relationship = Relationship.DAUGHTER_IN_LAW if person1.gender == Gender.FEMALE else Relationship.SON_IN_LAW
+        elif person2.spouse and person1 in person2.spouse.parents:
+            # person1 is person2's spouse's parent
+            relationship = Relationship.MOTHER_IN_LAW if person1.gender == Gender.FEMALE else Relationship.FATHER_IN_LAW
         else:
             # Try again with different people if no relationship found
             return self._get_relationship_question(rng, family)
