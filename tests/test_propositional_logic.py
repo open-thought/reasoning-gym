@@ -104,6 +104,21 @@ def test_propositional_logic_dataset_score_answer_incorrect():
         assert score == 0.0
 
 
+def test_propositional_logic_dataset_score_answer_contradiction():
+    """A contradiction follows only from contradictory premises, which would give every answer the full score"""
+    configs = [
+        PropositionalLogicConfig(size=100, seed=101),
+        PropositionalLogicConfig(min_statements=8, max_statements=8, max_complexity=4, size=20, seed=101),
+    ]
+    for config in configs:
+        dataset = PropositionalLogicDataset(config)
+        for item in dataset:
+            assert config.min_statements <= len(item["metadata"]["premises"]) <= config.max_statements
+            variable = item["metadata"]["variables"][0]
+            contradiction = f"({variable} {Operator.AND.value} {Operator.NOT.value}{variable})"
+            assert dataset.score_answer(contradiction, item) == 0.05
+
+
 def test_propositional_logic_curriculum():
     curriculum = PropositionalLogicCurriculum()
 
