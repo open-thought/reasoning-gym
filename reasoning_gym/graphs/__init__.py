@@ -4,6 +4,7 @@ from .largest_island import LargestIslandConfig, LargestIslandCurriculum, Larges
 from .path_star import PathStarConfig, PathStarCurriculum, PathStarDataset
 from .quantum_lock import QuantumLockConfig, QuantumLockCurriculum, QuantumLockDataset
 from .shortest_path import ShortestPathConfig, ShortestPathCurriculum, ShortestPathDataset
+from .transit_routing import TransitRoutingTask, TransitRoutingConfig
 
 __all__ = [
     "FamilyRelationshipsConfig",
@@ -24,4 +25,6 @@ __all__ = [
     "ShortestPathConfig",
     "ShortestPathDataset",
     "ShortestPathCurriculum",
+    "TransitRoutingTask",
+    "TransitRoutingConfig",
 ]
