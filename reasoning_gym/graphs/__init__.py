@@ -1,3 +1,4 @@
+from .bipartite_matching import BipartiteMatchingConfig, BipartiteMatchingCurriculum, BipartiteMatchingDataset
 from .course_schedule import CourseScheduleConfig, CourseScheduleCurriculum, CourseScheduleDataset
 from .family_relationships import FamilyRelationshipsConfig, FamilyRelationshipsCurriculum, FamilyRelationshipsDataset
 from .largest_island import LargestIslandConfig, LargestIslandCurriculum, LargestIslandDataset
@@ -6,6 +7,9 @@ from .quantum_lock import QuantumLockConfig, QuantumLockCurriculum, QuantumLockD
 from .shortest_path import ShortestPathConfig, ShortestPathCurriculum, ShortestPathDataset
 
 __all__ = [
+    "BipartiteMatchingConfig",
+    "BipartiteMatchingDataset",
+    "BipartiteMatchingCurriculum",
     "FamilyRelationshipsConfig",
     "FamilyRelationshipsDataset",
     "FamilyRelationshipsCurriculum",
