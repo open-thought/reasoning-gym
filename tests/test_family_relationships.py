@@ -36,6 +36,17 @@ def test_family_relationships_generation():
         assert item["metadata"]["family_size"] >= 4  # Minimum family size
 
 
+def test_reported_family_relationships_item():
+    dataset = FamilyRelationshipsDataset(FamilyRelationshipsConfig(size=100, seed=0))
+
+    item = dataset[1]
+
+    assert item["metadata"]["source_index"] == 1
+    assert item["metadata"]["person1"] == "Sarah"
+    assert item["metadata"]["person2"] == "Elizabeth"
+    assert item["answer"] == Relationship.DAUGHTER_IN_LAW.value
+
+
 def test_family_relationships_config():
     # Test invalid config raises assertion
     with pytest.raises(AssertionError):
@@ -75,6 +86,7 @@ def test_relationship_consistency():
             Relationship.AUNT.value,
             Relationship.NIECE.value,
             Relationship.MOTHER_IN_LAW.value,
+            Relationship.DAUGHTER_IN_LAW.value,
         ]:
             assert "married to" in item["question"] or "child" in item["question"]
         elif relationship in [
@@ -86,6 +98,7 @@ def test_relationship_consistency():
             Relationship.UNCLE.value,
             Relationship.NEPHEW.value,
             Relationship.FATHER_IN_LAW.value,
+            Relationship.SON_IN_LAW.value,
         ]:
             assert "married to" in item["question"] or "child" in item["question"]
 

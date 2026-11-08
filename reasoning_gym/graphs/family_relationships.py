@@ -32,6 +32,8 @@ class Relationship(StrEnum):
     NEPHEW = "nephew"
     MOTHER_IN_LAW = "mother-in-law"
     FATHER_IN_LAW = "father-in-law"
+    DAUGHTER_IN_LAW = "daughter-in-law"
+    SON_IN_LAW = "son-in-law"
 
 
 @dataclass
@@ -324,6 +326,9 @@ class FamilyRelationshipsDataset(ProceduralDataset):
             # person2's parents are person1's grandparents, making person2 a niece/nephew
             relationship = Relationship.NIECE if person2.gender == Gender.FEMALE else Relationship.NEPHEW
         # Check for in-law relationships through spouse
+        elif person1.spouse and person1.spouse in person2.children:
+            # person1 is married to person2's child
+            relationship = Relationship.DAUGHTER_IN_LAW if person1.gender == Gender.FEMALE else Relationship.SON_IN_LAW
         elif person1.spouse and person2 in person1.spouse.parents:
             # person2 is person1's spouse's parent
             relationship = Relationship.MOTHER_IN_LAW if person2.gender == Gender.FEMALE else Relationship.FATHER_IN_LAW
