@@ -396,7 +396,6 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
         """
 
         if answer is not None and answer.strip().lower() == entry["answer"].strip().lower():
-            # python's bool conversion is very tolerant and normally doesn't raise exceptions
             return 1.0
         return 0.0
 
