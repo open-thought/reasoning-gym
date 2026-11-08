@@ -201,8 +201,8 @@ class FigletFontDataset(ProceduralDataset):
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Determine if the solution provided solves the figlet task.
 
-        The function awards 1.0 for a correct answer and 0.1 points for each correct letter in the correct position,
-        with a maximum possible score of 1.0.
+        The function awards 1.0 for a correct answer and proportional partial credit
+        for matching letters in the correct positions, penalizing missing and extra letters.
 
         Args:
             answer (Optional[str]): The user's answer.
@@ -228,7 +228,7 @@ class FigletFontDataset(ProceduralDataset):
         max_length = max(len(correct_word), len(answer))
 
         # Compute a partial score
-        score = min(correct_count * 0.1, 1.0)
+        score = correct_count / max_length
 
         return score
 

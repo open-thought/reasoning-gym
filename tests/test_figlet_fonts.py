@@ -46,7 +46,7 @@ def test_static_figlet():
     # Test partial scoring
     for item in dataset:
         assert dataset.score_answer(answer="TESTY", entry=item) == 1.0
-        assert dataset.score_answer(answer="WESTY", entry=item) == 0.4
+        assert dataset.score_answer(answer="WESTY", entry=item) == 0.8
         assert dataset.score_answer(answer=None, entry=item) == 0
 
 
@@ -69,3 +69,14 @@ def test_figlet_curriculum():
     curriculum.decrement_attr_level("word_len")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_word_len == 3 and partially_decreased_cfg.max_word_len == 5
+
+
+@pytest.mark.parametrize(
+    "answer, expected",
+    [("OVERSHOOTI", 10 / 12), ("OVERSHOOTINA", 11 / 12), ("OVERSHOOTINGX", 12 / 13), ("", 0.0)],
+)
+def test_figlet_long_word_partial_credit(answer, expected):
+    dataset = FigletFontDataset(FigletFontConfig(seed=42))
+    entry = {"answer": "OVERSHOOTING"}
+    assert dataset.score_answer(answer, entry) == pytest.approx(expected)
+    assert dataset.score_answer("o v e r s h o o t i n g", entry) == 1.0
