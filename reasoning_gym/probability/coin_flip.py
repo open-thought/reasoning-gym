@@ -144,7 +144,7 @@ class CoinFlipDataset(ProceduralDataset):
             else:
                 break
 
-        reward = match_len / min(len(oracle_answer_str), len(answer_str))
+        reward = match_len / max(len(oracle_answer_str), len(answer_str))
 
         return reward
 
