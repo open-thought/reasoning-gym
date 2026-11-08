@@ -104,7 +104,7 @@ class KakurasuDataset(ProceduralDataset):
                 ),
                 "metadata": {
                     "source_dataset": DATASET_NAME,
-                    "source_idx": idx,
+                    "source_index": idx,
                     "n_rows": n_rows,
                     "n_cols": n_cols,
                     "p_ones": self.config.p_ones,

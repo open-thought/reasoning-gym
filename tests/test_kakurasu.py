@@ -39,6 +39,8 @@ def test_kakurasu_items():
 
         # Verify key metadata contents
         metadata = item["metadata"]
+        assert metadata["source_dataset"] == "kakurasu"
+        assert metadata["source_index"] == i
         assert "puzzle" in metadata
         assert "solution" in metadata
         assert "row_sums" in metadata
