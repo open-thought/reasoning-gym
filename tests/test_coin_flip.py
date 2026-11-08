@@ -104,3 +104,15 @@ def test_coin_flip_curriculum():
     cfg_dec = curriculum.generate_configuration(base_value)
     assert cfg_dec.min_trials == 3
     assert cfg_dec.max_trials == 3
+
+
+@pytest.mark.parametrize("answer", ["0", "0.8", "0.87", "0.8752", "0.8759"])
+def test_coin_flip_incorrect_prefixes(answer):
+    dataset = CoinFlipDataset(CoinFlipConfig(seed=42))
+    assert 0.0 <= dataset.score_answer(answer, {"answer": "0.875"}) < 1.0
+
+
+@pytest.mark.parametrize("answer", ["0.875", "7/8", "0.87501"])
+def test_coin_flip_equivalent_probabilities(answer):
+    dataset = CoinFlipDataset(CoinFlipConfig(seed=42))
+    assert dataset.score_answer(answer, {"answer": "0.875"}) == 1.0
