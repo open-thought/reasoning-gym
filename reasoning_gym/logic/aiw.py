@@ -181,7 +181,7 @@ class AliceInWonderlandDataset(ProceduralDataset):
             num_male_colleagues_bob_circle = rng.randint(1, self.config.max_entities)
             num_female_colleagues_bob_circle = rng.randint(1, self.config.max_entities)
 
-            answer = num_female_colleagues_alice_circle + 1
+            answer = num_female_colleagues_alice_circle + num_female_colleagues_bob_circle - 1
             template = rng.choice(self.templates[TaskType.COLLEAGUES])
             question = template.substitute(
                 female_name=female_name,
