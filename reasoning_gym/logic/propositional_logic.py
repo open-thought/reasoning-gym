@@ -233,12 +233,20 @@ class PropositionalLogicDataset(ProceduralDataset):
         }
 
     def _generate_premises(self, rng: Random, variables: list[str], num_statements: int) -> list[Expression]:
-        """Generate a list of premise statements"""
+        """Generate a list of premise statements that can all be true at the same time"""
         premises = []
-        for _ in range(num_statements):
+        while len(premises) < num_statements:
             depth = rng.randint(self.config.min_complexity, self.config.max_complexity)
-            premises.append(self._generate_expression(rng, variables, depth))
+            premise = self._generate_expression(rng, variables, depth)
+            # Contradictory premises entail every statement, so any answer would be scored as a valid conclusion
+            if self._is_satisfiable(premises + [premise]):
+                premises.append(premise)
         return premises
+
+    def _is_satisfiable(self, premises: list[Expression]) -> bool:
+        """Check if at least one truth assignment makes all premises true"""
+        assignments = self._generate_assignments(self._collect_variables(premises))
+        return any(all(p.evaluate(assignment) for p in premises) for assignment in assignments)
 
     def _generate_expression(self, rng: Random, variables: list[str], depth: int) -> Expression:
         """Generate a random logical expression"""
