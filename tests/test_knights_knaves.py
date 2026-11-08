@@ -273,3 +273,24 @@ def test_curriculum():
     assert increased_cfg.n_people == 3
     assert increased_cfg.depth_constraint == 3
     assert increased_cfg.width_constraint == 3
+
+
+@pytest.mark.parametrize(
+    "answer",
+    [
+        "Zoey is a sage and Zoey is a fool",
+        "Zoey is a sage and Zoey is a fool and Riley is a fool",
+        "Zoey is a sage and Unknown is a fool",
+        "Zoey is a sage",
+    ],
+)
+def test_score_answer_invalid_assignments(answer):
+    dataset = KnightsKnavesDataset(KnightsKnavesConfig(seed=42))
+    entry = {"answer": "Zoey is a sage and Riley is a fool"}
+    assert dataset.score_answer(answer, entry) == 0.0
+
+
+def test_score_answer_consistent_partial_assignment():
+    dataset = KnightsKnavesDataset(KnightsKnavesConfig(seed=42))
+    entry = {"answer": "Zoey is a sage and Riley is a fool"}
+    assert dataset.score_answer("Zoey is a sage and Riley is a sage", entry) == pytest.approx(0.65)

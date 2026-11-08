@@ -507,6 +507,12 @@ class KnightsKnavesDataset(ProceduralDataset):
             oracle_assignments = self._normalize_answer(entry["answer"])
             answer_assignments = self._normalize_answer(answer)
 
+            # Each expected person must have exactly one role before receiving credit.
+            expected_names = {name for name, _ in oracle_assignments}
+            answer_names = {name for name, _ in answer_assignments}
+            if answer_names != expected_names or len(answer_assignments) != len(answer_names):
+                return 0.0
+
             # Full credit for exact assignments regardless of order
             if oracle_assignments == answer_assignments:
                 return 1.0
