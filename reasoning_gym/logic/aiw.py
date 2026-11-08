@@ -131,7 +131,9 @@ class AliceInWonderlandDataset(ProceduralDataset):
                     "The people in the circle around $male_name do not have "
                     "other colleagues aside - with the only exception of Matilda. "
                     "She is colleague of $male_name and she is also colleague of $female_name, "
-                    "being part of $female_name's circle. How many female colleagues does Matilda have?"
+                    "being part of $female_name's circle. "
+                    "All the mentioned persons have no colleagues beyond the already described group of people. "
+                    "How many female colleagues does Matilda have?"
                 ),
             ],
         }
