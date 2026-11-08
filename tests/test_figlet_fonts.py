@@ -73,7 +73,7 @@ def test_figlet_curriculum():
 
 @pytest.mark.parametrize(
     "answer, expected",
-    [("OVERSHOOTI", 9 / 11), ("OVERSHOOTINA", 10 / 11), ("OVERSHOOTINGX", 11 / 12), ("", 0.0)],
+    [("OVERSHOOTI", 10 / 12), ("OVERSHOOTINA", 11 / 12), ("OVERSHOOTINGX", 12 / 13), ("", 0.0)],
 )
 def test_figlet_long_word_partial_credit(answer, expected):
     dataset = FigletFontDataset(FigletFontConfig(seed=42))
