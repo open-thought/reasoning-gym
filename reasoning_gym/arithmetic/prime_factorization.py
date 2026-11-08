@@ -62,7 +62,11 @@ class PrimeFactorizationDataset(ProceduralDataset):
             answer_parsed = self._normalize_answer(answer)
             if oracle_answer_parsed == answer_parsed:
                 reward = 1.0
-            elif math.prod(oracle_answer_parsed) == math.prod(answer_parsed):
+            elif (
+                len(answer_parsed) >= 2
+                and all(factor > 1 for factor in answer_parsed)
+                and math.prod(oracle_answer_parsed) == math.prod(answer_parsed)
+            ):
                 reward = 0.5
             else:
                 reward = 0.01

@@ -153,3 +153,14 @@ def test_prime_factorization_curriculum():
     curriculum.decrement_attr_level("value")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_value == 10 and partially_decreased_cfg.max_value == 1_000
+
+
+@pytest.mark.parametrize("answer", ["12", "1 × 12", "12 × 1", "1 × 1 × 12", "-2 × -6"])
+def test_prime_factorization_trivial_answers(answer):
+    dataset = PrimeFactorizationDataset(PrimeFactorizationConfig(min_value=12, max_value=12, seed=42))
+    assert dataset.score_answer(answer, dataset[0]) == 0.01
+
+
+def test_prime_factorization_prime_answer():
+    dataset = PrimeFactorizationDataset(PrimeFactorizationConfig(min_value=13, max_value=13, seed=42))
+    assert dataset.score_answer("13", dataset[0]) == 1.0
