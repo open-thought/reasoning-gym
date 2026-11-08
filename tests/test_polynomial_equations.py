@@ -125,7 +125,7 @@ def test_polynomial_solutions_evaluation():
 @pytest.mark.parametrize(
     "oracle_answer, predicted_answer, expected_reward",
     [
-        ("4,-4.12", "4,-4.12", 1.0),  # Exact match
+        ("4,-4.12", "4,-4.12", approx(1.0, rel=1e-3)),  # Exact match
         ("4,-4.12", "4.0001,-4.120001", approx(0.9994, rel=1e-3)),  # Very close match
         ("4,-4.12", "4.1,-4.2", approx(0.4086, rel=1e-3)),
         ("4,8", "4", approx(0.5, rel=1e-3)),  # Missing an oracle solution -> missing solution penalty applies
@@ -141,7 +141,7 @@ def test_polynomial_solutions_score_answer(oracle_answer, predicted_answer, expe
     ds = PolynomialEquationsDataset(cfg)
 
     actual_reward = ds.score_answer(predicted_answer, {"answer": oracle_answer})
-    assert actual_reward == pytest.approx(expected_reward, rel=1e-3)  # Fuzzy comparison for floats
+    assert actual_reward == expected_reward  # Each expected reward already specifies its tolerance
 
 
 def test_polynomial_perfect_score():
