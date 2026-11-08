@@ -22,7 +22,7 @@
 
 It currently provides **more than 100** tasks over many domains, including but not limited to _algebra_, _arithmetic_, _computation_, _cognition_, _geometry_, _graph theory_, _logic_, and many common _games_.
 
-Some tasks have a single correct answer, while others, such as [Rubik‘s Cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube) and [Countdown](<https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round>), have many correct solutions. To support this, we provide a standard interface for procedurally verifying solutions.
+Some tasks have a single correct answer, while others, such as [Rubik's Cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube) and [Countdown](<https://en.wikipedia.org/wiki/Countdown_(game_show)#Numbers_Round>), have many correct solutions. To support this, we provide a standard interface for procedurally verifying solutions.
 
 ## 🖼️ Dataset Gallery
 
