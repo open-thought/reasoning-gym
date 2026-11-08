@@ -81,6 +81,10 @@ def test_complex_arithmetic_scoring():
     assert dataset.score_answer("invalid", entry) == 0.0
     assert dataset.score_answer(None, entry) == 0.0
     assert dataset.score_answer("inf + 2i", entry) == 0.0
+    assert dataset.score_answer("nan", entry) == 0.0
+    assert dataset.score_answer("1+nanj", entry) == 0.0
+    assert dataset.score_answer("nan+2i", entry) == 0.0
+    assert dataset.score_answer("inf", entry) == 0.0
 
 
 def test_complex_arithmetic_division_by_zero():

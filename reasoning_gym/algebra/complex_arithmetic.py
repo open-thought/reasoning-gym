@@ -170,14 +170,18 @@ class ComplexArithmeticDataset(ProceduralDataset):
         if answer is None:
             return 0.0
 
-        metadata = entry["metadata"]
         try:
             student_result = self.parse_string_to_complex(answer)
-            expected_result = complex(*metadata["result"])
-            # Calculate distance-based score using exponential decay
+            if student_result is None:
+                return 0.0
+
+            expected_result = complex(*entry["metadata"]["result"])
             distance = abs(student_result - expected_result)
-            score = min(1.0, math.exp(-distance))  # Add 'import math' at the top
-            return score
+
+            if not math.isfinite(distance):
+                return 0.0
+
+            return math.exp(-distance)
 
         except (ValueError, TypeError):
             return 0.0
