@@ -22,12 +22,19 @@ def test_game_of_life():
         assert "answer" in item
         assert "metadata" in item
 
-        # # Check metadata contains required fields
+        # Check metadata contains required fields
         assert "grid_size_x" in item["metadata"]
         assert "grid_size_y" in item["metadata"]
 
-        # # Test the scoring
-        assert dataset.score_answer(answer=item["answer"], entry=item) == 1.0
+        # Test the scoring
+        correct_answer = item["answer"]
+        wrong_answer = "False" if correct_answer == "True" else "True"
+
+        assert dataset.score_answer(answer=correct_answer, entry=item) == 1.0
+        assert dataset.score_answer(answer=f"  {correct_answer.lower()}  ", entry=item) == 1.0
+        assert dataset.score_answer(answer=wrong_answer, entry=item) == 0.0
+        assert dataset.score_answer(answer="banana", entry=item) == 0.0
+        assert dataset.score_answer(answer="", entry=item) == 0.0
         assert dataset.score_answer(answer=None, entry=item) == 0.0
 
 

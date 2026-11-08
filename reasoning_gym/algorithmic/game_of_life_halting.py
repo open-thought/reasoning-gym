@@ -395,8 +395,7 @@ class GameOfLifeHaltingDataset(ProceduralDataset):
             float: The computed score between 0.0 and 1.0.
         """
 
-        if answer is not None and bool(answer) == bool(entry["answer"]):
-            # python's bool conversion is very tolerant and normally doesn't raise exceptions
+        if answer is not None and answer.strip().lower() == entry["answer"].strip().lower():
             return 1.0
         return 0.0
 
