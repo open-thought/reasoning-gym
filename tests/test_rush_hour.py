@@ -83,6 +83,39 @@ def test_score_answer():
     assert dataset.score_answer("AA+3 ÜÜ-1", puzzle) == 0.01
 
 
+@pytest.mark.parametrize(
+    "answer, expected",
+    [
+        ("C-1 D-1 F+2 A+4", 1.0),
+        ("Solution: C-1 D-1 F+2 A+4", 1.0),
+        ("C-1 D-1 F+9 A+9", 0.01),
+        ("A+4 C-1 D-1 F+2 A+4", 0.01),
+        ("C-1 D-1 F+2 A+4 A+1", 0.01),
+        ("Z+1 C-1 D-1 F+2 A+4", 0.01),
+        ("A+0 C-1 D-1 F+2 A+4", 0.01),
+    ],
+)
+def test_score_answer_requires_legal_moves(answer, expected):
+    dataset = RushHourDataset(RushHourConfig(seed=42))
+    assert dataset.score_answer(answer, dataset[14]) == expected
+
+
+def test_score_answer_rejects_wall_moves():
+    dataset = RushHourDataset(RushHourConfig(seed=42))
+    # B is the wall appended after car A. Ignoring B+1 would allow A+4 to solve.
+    entry = {"metadata": {"board_config": "xoooooooooooAAoooooooooooooooooooooo"}}
+    assert dataset.score_answer("A+4", entry) == 1.0
+    assert dataset.score_answer("B+1 A+4", entry) == 0.01
+
+
+@pytest.mark.parametrize("target", ["@", "B", "Z"])
+def test_move_ignores_out_of_range_targets(target):
+    board = Board("ooooooooooooAAoooooooooooooooooooooo")
+    before = board.board_str()
+    board.move(target, 1)
+    assert board.board_str() == before
+
+
 def test_perform_moves():
     b = Board("GBBoLoGHIoLMGHIAAMCCCKoMooJKDDEEJFFo")
 
