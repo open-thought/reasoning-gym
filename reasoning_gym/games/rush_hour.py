@@ -180,7 +180,8 @@ class RushHourDataset(ProceduralDataset):
             entry: The problem entry containing board configuration
 
         Returns:
-            1.0 if solution reaches goal state, 0.0 otherwise
+            1.0 if all moves are legal and reach the goal, 0.01 for unsuccessful
+            solutions, and 0.0 for malformed input
         """
         if not isinstance(answer, str) or len(answer) == 0:
             return 0.0
@@ -189,8 +190,20 @@ class RushHourDataset(ProceduralDataset):
             # Create board from config
             board = Board(entry["metadata"]["board_config"])
 
-            # Perform the moves
-            board.perform_moves(answer)
+            # Require every parsed move to execute fully, without changing the
+            # permissive behavior of Board.perform_moves.
+            for target, sign, num in re.findall(r"([A-Z])([+-])(\d+)", answer):
+                steps = int(num) if sign == "+" else -int(num)
+                i = ord(target) - ord("A")
+                if i >= len(board._pieces) or steps == 0:
+                    return 0.01
+                piece = board._pieces[i]
+                if piece.fixed:
+                    return 0.01
+                before = piece.position
+                board.move(target, steps)
+                if piece.position - before != steps * piece.stride:
+                    return 0.01
 
             # Check if solved
             return 1.0 if board.solved else 0.01
@@ -279,7 +292,7 @@ class Board:
         boardMask = self.mask()
         # validate input before using index
         i = ord(target) - ord("A")
-        if i < 0 or i > len(self._pieces):
+        if i < 0 or i >= len(self._pieces):
             return
 
         piece = self._pieces[i]
