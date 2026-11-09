@@ -90,11 +90,7 @@ def is_integer(obj: Any) -> bool:
     return False
 
 
-# Match a complete decimal spelling, including properly grouped thousands.
-_DECIMAL_NUMBER = re.compile(
-    r"[+-]?(?:(?:0*[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?"
-)
-# Consume malformed grouping too, so it cannot expose a correct substring.
+# Recognize numeric spellings without interpreting their value or comma grouping.
 _NUMBER_CANDIDATE = re.compile(r"[+-]?(?:[0-9]+(?:,[0-9]+)*(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?")
 
 
@@ -124,7 +120,7 @@ def _extract_numeric_token(answer: str) -> Optional[str]:
         return None
     if re.search(r"\b(?:nan|inf|infinity)\b", before + after, re.IGNORECASE):
         return None
-    return token if _DECIMAL_NUMBER.fullmatch(token) else None
+    return token
 
 
 def compute_string_reward(answer: Optional[str], oracle_answer: str) -> float:
@@ -138,7 +134,7 @@ def compute_string_reward(answer: Optional[str], oracle_answer: str) -> float:
         return 0.0
     if answer == oracle_answer:
         return 1.0
-    if _DECIMAL_NUMBER.fullmatch(oracle_answer):
+    if _NUMBER_CANDIDATE.fullmatch(oracle_answer):
         if _extract_numeric_token(answer) != oracle_answer:
             return 0.0
     elif oracle_answer not in answer:
@@ -147,37 +143,21 @@ def compute_string_reward(answer: Optional[str], oracle_answer: str) -> float:
 
 
 def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
-    """Score one finite decimal answer exactly, with partial credit for prose.
+    """Accept equivalent standalone decimals, otherwise score literal prose.
 
-    Equivalent standalone numbers receive full credit. Prose receives the
-    matched token's length divided by the response length only when it contains
-    exactly one complete, equivalent number. Multiple numbers, fractions,
-    percentages and malformed numeric tokens receive zero. Commas, when enabled,
-    must group thousands. No approximate numeric tolerance is applied.
+    Commas are removed when enabled, preserving the existing helper policy.
+    Prose uses the same guarded substring matching as the default scorer;
+    equivalent numeric spellings inside prose are not normalized.
     """
-    if not isinstance(answer, str) or not answer.strip():
+    if not isinstance(answer, str) or not answer:
         return 0.0
-
-    def parse(value: str) -> Optional[Decimal]:
-        if not _DECIMAL_NUMBER.fullmatch(value) or (not strip_commas and "," in value):
-            return None
-        try:
-            number = Decimal(value.replace(",", ""))
-            return number if number.is_finite() else None
-        except InvalidOperation:
-            return None
-
-    expected = parse(oracle_answer.strip())
-    if expected is None:
-        return 0.0
-    standalone = parse(answer.strip())
-    if standalone is not None:
-        return float(standalone == expected)
-
-    token = _extract_numeric_token(answer)
-    if token is None or parse(token) != expected:
-        return 0.0
-    return len(token) / len(answer)
+    if strip_commas:
+        answer, oracle_answer = answer.replace(",", ""), oracle_answer.replace(",", "")
+    try:
+        actual, expected = Decimal(answer), Decimal(oracle_answer)
+        return float(actual.is_finite() and expected.is_finite() and actual == expected)
+    except InvalidOperation:
+        return compute_string_reward(answer, oracle_answer)
 
 
 class StrEnum(str, Enum):

@@ -40,7 +40,7 @@ When creating new datasets, please follow these guidelines:
    - Return dictionary items with keys: `"question"`, `"answer"`, and `"metadata"`
    - For datasets with multiple correct answers, override the `score_answer()` method (return value range: [0, 1])
    - The default scorer compares literal strings. For numeric-looking oracle strings, partial credit requires exactly one complete numeric token with the same spelling; larger numbers, opposite signs, and lists of guesses receive zero. This applies automatically, including to digit strings and program output, without interpreting them as decimal values.
-   - Override `score_answer()` and use `compute_decimal_reward()` when decimal equivalence is intended (see `chain_sum.py`). It accepts equivalent finite decimal forms, including signs, leading zeros, scientific notation, and correctly grouped thousands. Custom tolerance requires a custom scorer. `score_answer_cascade()` remains a separate, more lenient policy and can upgrade scores rejected by the direct scorer.
+   - Override `score_answer()` and use `compute_decimal_reward()` when decimal equivalence is intended (see `chain_sum.py`). It accepts equivalent standalone finite decimals and optionally strips commas; prose still requires a literal token match. Custom tolerance requires a custom scorer. `score_answer_cascade()` remains a separate, more lenient policy and can upgrade scores rejected by the direct scorer.
 
 3. **Getting Started**:
    - Review an example implementation:
