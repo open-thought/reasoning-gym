@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 from reasoning_gym.logic.aiw import (
@@ -65,6 +67,30 @@ def test_aiw_items():
             assert "friends" in item["question"]
         elif task_type == TaskType.COLLEAGUES:
             assert "colleagues" in item["question"]
+
+
+def test_aiw_colleagues_reported_answer():
+    config = AliceInWonderlandConfig(task_types=[TaskType.COLLEAGUES], task_type_weights=[1.0], size=1, seed=0)
+    item = AliceInWonderlandDataset(config)[0]
+
+    assert re.findall(r"(\d+) female colleagues", item["question"]) == ["5", "4"]
+    assert item["answer"] == "8"
+
+
+@pytest.mark.parametrize("max_entities", [1, 6, 12])
+def test_aiw_colleagues_counts_both_circles(max_entities):
+    config = AliceInWonderlandConfig(
+        task_types=[TaskType.COLLEAGUES],
+        task_type_weights=[1.0],
+        max_entities=max_entities,
+        size=30,
+        seed=42,
+    )
+    for item in AliceInWonderlandDataset(config):
+        first_count, second_count = map(int, re.findall(r"(\d+) female colleagues", item["question"]))
+        # Exclude Matilda from both counts, and include the first circle's female head.
+        expected = (first_count - 1) + (second_count - 1) + 1
+        assert int(item["answer"]) == expected
 
 
 def test_aiw_iteration():
