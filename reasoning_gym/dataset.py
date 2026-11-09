@@ -114,8 +114,8 @@ class ReseedingDataset(Iterable[dict[str, Any]]):
         # Create new config with modified seed
         new_config = deepcopy(self.dataset.config)
         if hasattr(new_config, "seed"):
-            # Derive new seed from chunk number using dataset's seed, wrapping around at 2^32
-            new_config.seed = (self.dataset.seed + chunk_num) % (2**32)
+            # Space chunk seeds by chunk_size so seed + local index ranges do not overlap before wrapping.
+            new_config.seed = (self.dataset.seed + chunk_num * self.chunk_size) % (2**32)
 
         # Create new dataset instance with chunk config
         return self.dataset_cls(new_config)

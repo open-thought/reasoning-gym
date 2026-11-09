@@ -40,6 +40,30 @@ def test_reseeding_dataset_iteration():
     assert infinite_dataset.score_answer(test_item["answer"], test_item) == 1.0
 
 
+@pytest.mark.parametrize("chunk_size", [1, 3, 500])
+def test_reseeding_dataset_does_not_replay_adjacent_chunks(chunk_size):
+    config = BasicArithmeticDatasetConfig(
+        min_terms=3,
+        max_terms=4,
+        min_digits=4,
+        max_digits=5,
+        operators=["+"],
+        allow_parentheses=False,
+        allow_negation=False,
+        seed=42,
+        size=5000,
+    )
+    base_dataset = BasicArithmeticDataset(config)
+    stream = iter(ReseedingDataset(base_dataset, chunk_size=chunk_size))
+
+    # These generators seed each item with seed + index. Chunk boundaries should
+    # continue that sequence rather than replaying the preceding chunk's items.
+    for idx in range(3 * chunk_size):
+        item = next(stream)
+        expected = base_dataset[idx]
+        assert (item["question"], item["answer"]) == (expected["question"], expected["answer"])
+
+
 def test_basic_arithmetic_score_answer():
     config = BasicArithmeticDatasetConfig(
         min_terms=2, max_terms=3, min_digits=1, max_digits=2, operators=["+"], allow_parentheses=False, seed=42, size=10
