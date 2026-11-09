@@ -38,6 +38,8 @@ class SimpleEquationsConfig:
 class SimpleEquationsDataset(ProceduralDataset):
     """Generates simple equations with one variable to solve"""
 
+    numeric_answer = True
+
     def __init__(self, config: SimpleEquationsConfig):
         self._prompt_templates = [
             "Find the value of {variable} in the equation: {equation}",

@@ -34,6 +34,8 @@ class GCDConfig:
 class GCDDataset(ProceduralDataset):
     """Generates Greatest Common Divisor (GCD) tasks"""
 
+    numeric_answer = True
+
     def __init__(self, config: GCDConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

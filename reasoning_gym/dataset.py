@@ -6,9 +6,14 @@ from copy import deepcopy
 from random import Random
 from typing import Any, Iterator, Optional, Type, TypeVar
 
+from .utils import compute_decimal_reward
+
 
 class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
     """Abstract base class for procedural dataset generators"""
+
+    # Opt in only for scalar decimal values, never digit strings or structured answers.
+    numeric_answer: bool = False
 
     def __init__(self, config: Any, seed: Optional[int] = None, size: int = 500):
         """Initialize the dataset with config, optional seed and size"""
@@ -61,8 +66,16 @@ class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
         raise NotImplementedError
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        """Overwrite this method in derived classes if a single oracle answer is not available."""
+        """Score the answer using the dataset's declared answer semantics.
+
+        Set ``numeric_answer = True`` for a single decimal value. The default
+        preserves string matching for text, digit strings and structured output.
+        Override this method for other verification or partial-credit rules.
+        The optional scoring cascade applies its own, more lenient policy.
+        """
         oracle_answer = entry["answer"]
+        if self.numeric_answer:
+            return compute_decimal_reward(answer, oracle_answer)
         reward = 0.0
         if isinstance(answer, str) and len(answer) > 0:
             if answer == oracle_answer:

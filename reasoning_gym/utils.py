@@ -90,34 +90,58 @@ def is_integer(obj: Any) -> bool:
     return False
 
 
+# Match a complete decimal spelling, including properly grouped thousands.
+_DECIMAL_NUMBER = re.compile(
+    r"[+-]?(?:(?:0*[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?"
+)
+# Consume malformed grouping too, so it cannot expose a correct substring.
+_NUMBER_CANDIDATE = re.compile(r"[+-]?(?:[0-9][0-9,]*(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?")
+
+
 def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
-    """Compute the reward for a given answer compared to the oracle answer.
-    Tolerate sign, leading zeros and trailing decimals, optionally strip commas ("+01,000.00" == "1000")
+    """Score one finite decimal answer exactly, with partial credit for prose.
 
-    Args:
-        answer: Answer provided by model
-        oracle_answer: Correct answer to the question
-        strip_commas: Whether to remove commas from answers e.g "1,000" = "1000"
-
-    Returns:
-        Reward value between 0.0 and 1.0
+    Equivalent standalone numbers receive full credit. Prose receives the
+    matched token's length divided by the response length only when it contains
+    exactly one complete, equivalent number. Multiple numbers, fractions,
+    percentages and malformed numeric tokens receive zero. Commas, when enabled,
+    must group thousands. No approximate numeric tolerance is applied.
     """
-    reward = 0.0
-    if answer is not None and len(answer) > 0:
+    if not isinstance(answer, str) or not answer.strip():
+        return 0.0
+
+    def parse(value: str) -> Optional[Decimal]:
+        if not _DECIMAL_NUMBER.fullmatch(value) or (not strip_commas and "," in value):
+            return None
         try:
-            if strip_commas:
-                answer = answer.replace(",", "")
-                oracle_answer = oracle_answer.replace(",", "")
+            number = Decimal(value.replace(",", ""))
+            return number if number.is_finite() else None
+        except InvalidOperation:
+            return None
 
-            if Decimal(answer) == Decimal(oracle_answer):
-                return 1.0
-        except:
-            pass
+    expected = parse(oracle_answer.strip())
+    if expected is None:
+        return 0.0
+    standalone = parse(answer.strip())
+    if standalone is not None:
+        return float(standalone == expected)
 
-        if oracle_answer in answer:
-            reward = len(oracle_answer) / len(answer)
-
-    return reward
+    matches = list(_NUMBER_CANDIDATE.finditer(answer))
+    if len(matches) != 1:
+        return 0.0
+    match = matches[0]
+    before, after = answer[: match.start()], answer[match.end() :]
+    # A numeric fragment inside an identifier or malformed number is not an answer.
+    if (before and (before[-1].isalnum() or before[-1] in "_.,+-−")) or (
+        after and (after[0].isalnum() or after[0] in "_.,+-")
+    ):
+        return 0.0
+    residue = before + after
+    if re.search(r"[0-9/%*^=−-]|\b(?:nan|inf|infinity)\b", residue, re.IGNORECASE):
+        return 0.0
+    if parse(match.group()) != expected:
+        return 0.0
+    return len(match.group()) / len(answer)
 
 
 class StrEnum(str, Enum):

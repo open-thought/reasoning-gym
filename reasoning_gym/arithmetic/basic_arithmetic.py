@@ -65,6 +65,8 @@ def eval_floordiv(exp: str) -> int:
 class BasicArithmeticDataset(ProceduralDataset):
     """Dataset that generates basic arithmetic tasks with configurable complexity"""
 
+    numeric_answer = True
+
     def __init__(self, config: BasicArithmeticDatasetConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

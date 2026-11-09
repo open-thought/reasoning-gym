@@ -36,6 +36,8 @@ class CountPrimesConfig:
 class CountPrimesDataset(ProceduralDataset):
     """Generates Count Primes exercises with configurable difficulty"""
 
+    numeric_answer = True
+
     def __init__(self, config: CountPrimesConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
         self.primes = self._get_primes(config.max_n + 1)

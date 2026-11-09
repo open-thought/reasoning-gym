@@ -44,6 +44,8 @@ class SimpleGeometryDataset(ProceduralDataset):
     sum of known angles from 180*(N-2).
     """
 
+    numeric_answer = True
+
     def __init__(self, config: SimpleGeometryConfig):
         self._prompt_templates = [
             (

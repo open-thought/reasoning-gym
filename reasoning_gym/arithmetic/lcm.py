@@ -34,6 +34,8 @@ class LCMConfig:
 class LCMDataset(ProceduralDataset):
     """Generates Least Common Multiple (LCM) tasks"""
 
+    numeric_answer = True
+
     def __init__(self, config: LCMConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

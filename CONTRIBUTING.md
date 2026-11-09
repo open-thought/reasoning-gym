@@ -39,6 +39,8 @@ When creating new datasets, please follow these guidelines:
    - Include comprehensive unit tests
    - Return dictionary items with keys: `"question"`, `"answer"`, and `"metadata"`
    - For datasets with multiple correct answers, override the `score_answer()` method (return value range: [0, 1])
+   - For a single decimal numeric answer, set `numeric_answer = True` on the dataset class. This uses exact finite decimal equality: equivalent standalone forms receive full credit, and prose containing exactly one complete correct number receives length-based partial credit. Wrong numbers, multiple numeric candidates, fractions, percentages, and malformed numbers receive zero. Commas must group thousands; signs, leading zeros, decimal zeros, and scientific notation are supported.
+   - Keep the default string policy for representations such as binary strings, identifiers, grids, lists, and program output, even when an answer happens to contain only digits. Custom numeric tolerance requires an overridden scorer. `score_answer_cascade()` remains a separate, more lenient policy and can upgrade scores rejected by the direct scorer.
 
 3. **Getting Started**:
    - Review an example implementation:

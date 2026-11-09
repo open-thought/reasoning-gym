@@ -43,6 +43,8 @@ class MazeDataset(ProceduralDataset):
     within [min_dist, max_dist].
     """
 
+    numeric_answer = True
+
     def __init__(
         self,
         config: MazeConfig,
