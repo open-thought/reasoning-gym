@@ -11,6 +11,7 @@ from .countdown import CountdownConfig, CountdownCurriculum, CountdownDataset
 from .emoji_mystery import EmojiMysteryConfig, EmojiMysteryCurriculum, EmojiMysteryDataset
 from .futoshiki import FutoshikiConfig, FutoshikiCurriculum, FutoshikiDataset
 from .kakurasu import KakurasuConfig, KakurasuCurriculum, KakurasuDataset
+from .knight_path import KnightPathConfig, KnightPathCurriculum, KnightPathDataset
 from .knight_swap import KnightSwapConfig, KnightSwapCurriculum, KnightSwapDataset
 from .mahjong import MahjongPuzzleConfig, MahjongPuzzleCurriculum, MahjongPuzzleDataset
 from .maze import MazeConfig, MazeCurriculum, MazeDataset
@@ -70,6 +71,9 @@ __all__ = [
     "TsumegoConfig",
     "TsumegoCurriculum",
     "TsumegoDataset",
+    "KnightPathConfig",
+    "KnightPathDataset",
+    "KnightPathCurriculum",
     "KnightSwapConfig",
     "KnightSwapDataset",
     "KnightSwapCurriculum",
