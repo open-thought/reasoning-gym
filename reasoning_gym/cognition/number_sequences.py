@@ -157,8 +157,6 @@ class PatternGenerator:
 class NumberSequenceDataset(ProceduralDataset):
     """Generates number sequence completion tasks with dynamic pattern generation"""
 
-    numeric_answer = True
-
     def __init__(self, config: NumberSequenceConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

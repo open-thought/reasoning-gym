@@ -96,8 +96,6 @@ class AliceInWonderlandDataset(ProceduralDataset):
 
     """
 
-    numeric_answer = True
-
     def __init__(self, config: AliceInWonderlandConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
         self.templates = {

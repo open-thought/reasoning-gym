@@ -52,8 +52,6 @@ class RottenOrangesConfig:
 class RottenOrangesDataset(ProceduralDataset):
     """Generates Rotten Oranges exercises with configurable difficulty"""
 
-    numeric_answer = True
-
     def __init__(self, config: RottenOrangesConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

@@ -95,7 +95,55 @@ _DECIMAL_NUMBER = re.compile(
     r"[+-]?(?:(?:0*[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?"
 )
 # Consume malformed grouping too, so it cannot expose a correct substring.
-_NUMBER_CANDIDATE = re.compile(r"[+-]?(?:[0-9][0-9,]*(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?")
+_NUMBER_CANDIDATE = re.compile(r"[+-]?(?:[0-9]+(?:,[0-9]+)*(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?")
+
+
+def _extract_numeric_token(answer: str) -> Optional[str]:
+    """Extract one complete numeric token, allowing surrounding prose punctuation.
+
+    This checks spelling and boundaries, not numeric equivalence. A final period
+    is treated as sentence punctuation. Operators immediately around the token
+    (including separated signs) cannot turn a numeric fragment into an answer.
+    """
+    matches = list(_NUMBER_CANDIDATE.finditer(answer))
+    if len(matches) != 1:
+        return None
+    match = matches[0]
+    token = match.group().removesuffix(".")
+    before, after = answer[: match.start()], answer[match.start() + len(token) :]
+    if before and (before[-1].isalnum() or before[-1] in "_.,+-−"):
+        return None
+    if after and (after[0].isalnum() or after[0] in "_+-"):
+        return None
+    # A comma or period is punctuation only at the end or before whitespace.
+    if after[:1] in (".", ",") and len(after) > 1 and not after[1].isspace():
+        return None
+    if before.rstrip().endswith(("+", "-", "−", "/", "*", "^", "=", "%")):
+        return None
+    if after.lstrip().startswith(("-", "−", "/", "*", "^", "=", "%")) or after.strip() == "+":
+        return None
+    if re.search(r"\b(?:nan|inf|infinity)\b", before + after, re.IGNORECASE):
+        return None
+    return token if _DECIMAL_NUMBER.fullmatch(token) else None
+
+
+def compute_string_reward(answer: Optional[str], oracle_answer: str) -> float:
+    """Score literal equality or length-based substring credit.
+
+    For numeric-looking oracles, partial credit requires exactly one complete
+    numeric token with identical spelling. This also protects digit strings and
+    program output without treating them as decimal values.
+    """
+    if not isinstance(answer, str) or not answer:
+        return 0.0
+    if answer == oracle_answer:
+        return 1.0
+    if _DECIMAL_NUMBER.fullmatch(oracle_answer):
+        if _extract_numeric_token(answer) != oracle_answer:
+            return 0.0
+    elif oracle_answer not in answer:
+        return 0.0
+    return len(oracle_answer) / len(answer)
 
 
 def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
@@ -126,22 +174,10 @@ def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_comm
     if standalone is not None:
         return float(standalone == expected)
 
-    matches = list(_NUMBER_CANDIDATE.finditer(answer))
-    if len(matches) != 1:
+    token = _extract_numeric_token(answer)
+    if token is None or parse(token) != expected:
         return 0.0
-    match = matches[0]
-    before, after = answer[: match.start()], answer[match.end() :]
-    # A numeric fragment inside an identifier or malformed number is not an answer.
-    if (before and (before[-1].isalnum() or before[-1] in "_.,+-−")) or (
-        after and (after[0].isalnum() or after[0] in "_.,+-")
-    ):
-        return 0.0
-    residue = before + after
-    if re.search(r"[0-9/%*^=−-]|\b(?:nan|inf|infinity)\b", residue, re.IGNORECASE):
-        return 0.0
-    if parse(match.group()) != expected:
-        return 0.0
-    return len(match.group()) / len(answer)
+    return len(token) / len(answer)
 
 
 class StrEnum(str, Enum):

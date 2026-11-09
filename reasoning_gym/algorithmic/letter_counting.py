@@ -31,8 +31,6 @@ class LetterCountingConfig:
 class LetterCountingDataset(ProceduralDataset):
     """Generates letter counting tasks from text spans"""
 
-    numeric_answer = True
-
     def __init__(self, config: LetterCountingConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

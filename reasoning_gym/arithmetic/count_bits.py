@@ -30,8 +30,6 @@ class CountBitsConfig:
 class CountBitsDataset(ProceduralDataset):
     """Generates Count Bits exercises with configurable difficulty"""
 
-    numeric_answer = True
-
     def __init__(self, config: CountBitsConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

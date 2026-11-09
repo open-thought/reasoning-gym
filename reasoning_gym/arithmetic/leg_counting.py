@@ -103,8 +103,6 @@ class LegCountingConfig:
 class LegCountingDataset(ProceduralDataset):
     """Generates leg counting arithmetic tasks"""
 
-    numeric_answer = True
-
     def __init__(self, config: LegCountingConfig):
         super().__init__(config=config, seed=config.seed, size=config.size)
 

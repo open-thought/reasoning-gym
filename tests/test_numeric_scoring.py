@@ -4,7 +4,7 @@ import pytest
 
 import reasoning_gym
 from reasoning_gym.dataset import ProceduralDataset
-from reasoning_gym.utils import compute_decimal_reward
+from reasoning_gym.utils import compute_decimal_reward, compute_string_reward
 
 
 @pytest.mark.parametrize(
@@ -44,6 +44,11 @@ def test_equivalent_standalone_numbers(answer, oracle):
         "- 5",
         "5+",
         "5-",
+        "5 +",
+        "+ 5",
+        "5..",
+        "5,,",
+        "5, 00",
         "x=5",
         "1,5",
         "5,00",
@@ -59,8 +64,9 @@ def test_equivalent_standalone_numbers(answer, oracle):
         None,
     ],
 )
-def test_invalid_or_wrong_numbers_receive_zero(answer):
-    assert compute_decimal_reward(answer, "5") == 0.0
+@pytest.mark.parametrize("score", [compute_decimal_reward, compute_string_reward])
+def test_invalid_or_wrong_numbers_receive_zero(answer, score):
+    assert score(answer, "5") == 0.0
 
 
 @pytest.mark.parametrize("answer", ["The answer is 5.", "Answer: -5", "Result: 5e0", "5 + x"])
@@ -118,14 +124,57 @@ class TextDataset(ProceduralDataset):
         return {"answer": "001", "metadata": {}, "question": "Return the string"}
 
 
-def test_numeric_policy_is_explicit():
+def test_digit_strings_keep_literal_semantics():
     dataset = TextDataset(config=None, size=1)
     entry = dataset[0]
     assert dataset.score_answer("001", entry) == 1.0
     assert dataset.score_answer("1", entry) == 0.0
-    assert dataset.score_answer("1001", entry) == 0.75
+    assert dataset.score_answer("1001", entry) == 0.0
+    assert dataset.score_answer("1e0", entry) == 0.0
+    assert dataset.score_answer("001.0", entry) == 0.0
+    assert dataset.score_answer("Result: 001", entry) == len("001") / len("Result: 001")
 
 
 @pytest.mark.parametrize("name", ["base_conversion", "bf", "number_filtering", "rotate_matrix", "syllogism"])
 def test_representation_sensitive_datasets_keep_text_policy(name):
-    assert reasoning_gym.create_dataset(name, size=1, seed=42).numeric_answer is False
+    dataset = reasoning_gym.create_dataset(name, size=1, seed=42)
+    entry = dataset[0]
+    oracle = entry["answer"]
+    assert dataset.score_answer(oracle, entry) == 1.0
+    assert dataset.score_answer("Result: " + oracle, entry) == len(oracle) / len("Result: " + oracle)
+
+
+@pytest.mark.parametrize("name", ["base_conversion", "bf"])
+def test_digit_output_does_not_accept_decimal_equivalence(name):
+    dataset = reasoning_gym.create_dataset(name, size=1, seed=42)
+    entry = {"answer": "101"}
+    for answer in ("101.0", "+101", "0101", "1.01e2", "1101", "Answer: 101.0"):
+        assert dataset.score_answer(answer, entry) == 0.0
+
+
+@pytest.mark.parametrize("score", [compute_string_reward, compute_decimal_reward])
+@pytest.mark.parametrize(
+    "answer",
+    ["The answer is 5.", "The answer is 5, obviously.", "My best-guess is 5", "Answer: (5)", "Answer: 5!"],
+)
+def test_prose_punctuation(score, answer):
+    assert score(answer, "5") == 1 / len(answer)
+
+
+@pytest.mark.parametrize("answer,token", [("The answer is 5.0.", "5.0"), ("The answer is 5e0.", "5e0")])
+def test_decimal_prose_punctuation(answer, token):
+    assert compute_decimal_reward(answer, "5") == len(token) / len(answer)
+    assert compute_string_reward(answer, "5") == 0.0
+    assert compute_string_reward(answer, token) == len(token) / len(answer)
+
+
+@pytest.mark.parametrize("answer", ["+5", "005", "5.0", "5e0"])
+def test_default_numeric_datasets_do_not_gain_decimal_equivalence(answer):
+    dataset = reasoning_gym.create_dataset("gcd", size=1, seed=42)
+    assert dataset.score_answer(answer, {"answer": "5"}) == 0.0
+
+
+def test_nonnumeric_substring_policy_is_unchanged():
+    for oracle in ("cat", "[1, 2]", "1 0\n0 1"):
+        answer = "Result: " + oracle
+        assert compute_string_reward(answer, oracle) == len(oracle) / len(answer)
