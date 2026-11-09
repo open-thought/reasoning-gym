@@ -1,7 +1,7 @@
 """Word ladder task generator"""
 
-from collections import deque
 from dataclasses import dataclass
+from functools import partial
 from random import Random
 from typing import Any, Optional
 
@@ -161,29 +161,64 @@ class WordLadderDataset(ProceduralDataset):
         return self.word_graphs[word_length]
 
     def _find_path(self, start: str, end: str, word_set: set[str]) -> Optional[list[str]]:
-        """Simplified path finding using BFS for shortest paths"""
+        """Simplified path finding using BFS from both words for shortest paths"""
+        # Neighbors are symmetric only inside the precomputed graph, so the
+        # search grows from the end word too only when both words are in it
+        graph = self.word_graphs.get(len(start), {})
+        two_way = start in graph and end in graph
+
+        # Every word reached from a graph word is a key of the graph, so a
+        # two-way search reads neighbors from the graph without the fallback
+        neighbors_of = graph.__getitem__ if two_way else partial(self._get_neighbors, word_set=word_set)
+
         # Early exit if words are direct neighbors
-        if end in self._get_neighbors(start, word_set):
+        if end in neighbors_of(start):
             return [start, end]
+        if start == end:
+            return [start] if self.config.is_valid_path_length(1) else None
 
-        # Use basic BFS for shortest path
-        queue = deque([(start, [start])])
-        visited = {start}
+        # Each side maps the words it has reached to the previous word on the way
+        reached, other_reached = {start: None}, {end: None}
+        frontier, other_frontier = [start], [end]
 
-        while queue:
-            current, path = queue.popleft()
-            if current == end:
-                if self.config.is_valid_path_length(len(path)):
-                    return path
-                return None
+        # A meeting in the next level gives a ladder of this many words; stop
+        # when that is already too long for the config
+        length = 2
+        max_length = self.config.max_chain_length
 
-            for neighbor in self._get_neighbors(current, word_set):
-                if neighbor not in visited:
-                    visited.add(neighbor)
-                    new_path = path + [neighbor]
-                    queue.append((neighbor, new_path))
+        while frontier and (max_length == -1 or length <= max_length):
+            length += 1
+            next_frontier = []
+            for word in frontier:
+                for neighbor in neighbors_of(word):
+                    if neighbor in other_reached:
+                        # The sides met: join the two halves of the path, which
+                        # runs from end to start when this side grew from the end word
+                        path = self._trace_back(word, reached)[::-1] + self._trace_back(neighbor, other_reached)
+                        if start in other_reached:
+                            path.reverse()
+                        return path if self.config.is_valid_path_length(len(path)) else None
+
+                    if neighbor not in reached:
+                        reached[neighbor] = word
+                        next_frontier.append(neighbor)
+
+            # Continue from the side with the smaller frontier
+            frontier = next_frontier
+            if two_way and len(other_frontier) < len(frontier):
+                frontier, other_frontier = other_frontier, frontier
+                reached, other_reached = other_reached, reached
 
         return None
+
+    @staticmethod
+    def _trace_back(word: str, previous: dict[str, Optional[str]]) -> list[str]:
+        """List the words from the given word back to the word its search began at"""
+        path = []
+        while word is not None:
+            path.append(word)
+            word = previous[word]
+        return path
 
     def _generate_word_pair(self, rng: Random, length: int) -> tuple[str, str, list[str]]:
         """Simplified word pair generation"""
