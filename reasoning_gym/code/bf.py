@@ -90,9 +90,13 @@ int main() {{
 }}
 """
         elif difficulty == 3:
-            x = rng.randint(1, 7)
-            y = rng.randint(1, 9)
-            target = x * y * rng.randint(1, 9) + rng.randint(1, 9) + 50
+            # cells are 8-bit: acc must not pass 255 or it wraps and the loop may never end
+            while True:
+                x = rng.randint(1, 7)
+                y = rng.randint(1, 9)
+                target = x * y * rng.randint(1, 9) + rng.randint(1, 9) + 50
+                if target + x + y <= 255:
+                    break
             conditional = target - rng.randint(1, 40)
             bfit_template = f"""
 int main() {{
