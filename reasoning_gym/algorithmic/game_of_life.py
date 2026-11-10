@@ -18,10 +18,14 @@ class GameOfLifeConfig:
     grid_size_x: int = 10
     grid_size_y: int = 10
     filled_cells_weights: float = 0.1
-    filled_cells: int = int(filled_cells_weights * grid_size_x * grid_size_y)  # actually a max
+    filled_cells: Optional[int] = None  # max live cells, defaults to filled_cells_weights * x * y
     simulation_steps: int = 1
     seed: Optional[int] = None
     size: int = 500
+
+    def __post_init__(self):
+        if self.filled_cells is None:
+            self.filled_cells = int(self.filled_cells_weights * self.grid_size_x * self.grid_size_y)
 
     def validate(self):
         """Validate configuration parameters"""
@@ -89,6 +93,7 @@ class GameOfLifeDataset(ProceduralDataset):
                 "grid_size_y": self.config.grid_size_y,
                 "filled_cells": self.config.filled_cells,
                 "simulation_steps": self.config.simulation_steps,
+                "board": board[0].tolist(),
                 "difficulty": {
                     "grid_size_x": self.config.grid_size_x,
                     "grid_size_y": self.config.grid_size_y,
@@ -99,9 +104,10 @@ class GameOfLifeDataset(ProceduralDataset):
         }
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        """Determine if the solution provided solves the GoL task.
+        """Score a GoL answer.
 
-        The function awards 1.0 for a correct answer.
+        A correct grid scores 1.0. Otherwise the score is the share of cell errors the answer avoids
+        compared to the best trivial guess (an all-dead grid or the unchanged input board), floored at 0.
 
         Args:
             answer (Optional[str]): The user's answer.
@@ -120,39 +126,30 @@ class GameOfLifeDataset(ProceduralDataset):
         except Exception:
             return 0.0
 
-        total_cells = 0
-        correct_cells = 0
+        errors = _count_errors(ans_arr, correct_arr)
+        if errors == 0:
+            return 1.0
 
-        # Determine if the array is 2D (i.e. a list of lists)
-        is_2d = correct_arr and isinstance(correct_arr[0], list)
-
-        if is_2d:
-            # Iterate over rows and columns of the expected grid.
-            for i, expected_row in enumerate(correct_arr):
-                for j, expected_value in enumerate(expected_row):
-                    total_cells += 1
-                    try:
-                        if ans_arr[i][j] == expected_value:
-                            correct_cells += 1
-                    except (IndexError, TypeError):
-                        # Either the row or the cell is missing, treat as incorrect.
-                        pass
-        else:
-            # 1D array case.
-            for i, expected_value in enumerate(correct_arr):
-                total_cells += 1
-                try:
-                    if ans_arr[i] == expected_value:
-                        correct_cells += 1
-                except IndexError:
-                    pass
-
-        # If for some reason there are no cells, return 0.0.
-        if total_cells == 0:
+        # An all-dead guess is wrong on every live cell.
+        baseline_errors = sum(value != 0 for row in correct_arr for value in row)
+        if "board" in entry["metadata"]:
+            baseline_errors = min(baseline_errors, _count_errors(entry["metadata"]["board"], correct_arr))
+        if baseline_errors == 0:
             return 0.0
 
-        # Each cell contributes equally.
-        return correct_cells / total_cells
+        return max(0.0, 1.0 - errors / baseline_errors)
+
+
+def _count_errors(grid: Any, expected: list[list[int]]) -> int:
+    """Count cells of `expected` that `grid` gets wrong; missing cells count as wrong."""
+    errors = 0
+    for i, row in enumerate(expected):
+        for j, value in enumerate(row):
+            try:
+                errors += grid[i][j] != value
+            except (IndexError, KeyError, TypeError):
+                errors += 1
+    return errors
 
 
 class GameOfLifeCurriculum(BaseCurriculum):

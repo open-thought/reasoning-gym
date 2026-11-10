@@ -55,24 +55,6 @@ def test_game_of_life_basic_properties():
         assert dataset.score_answer(answer=None, entry=item) == 0.0
         assert dataset.score_answer(answer="invalid json", entry=item) == 0.0
 
-    config = GameOfLifeConfig(seed=43, size=1, grid_size_x=3, grid_size_y=3, filled_cells=1, simulation_steps=1)
-    dataset = GameOfLifeDataset(config)
-
-    for item in dataset:
-        assert isinstance(item, dict)
-        assert "question" in item
-        assert "answer" in item
-        assert "metadata" in item
-
-        ja = json.loads(item["answer"])
-        ja[0][0] = 1
-        ja[0][1] = 1
-        ja[0][2] = 1
-        jas = json.dumps(ja)
-
-        # Test the scoring
-        assert 0.1 < dataset.score_answer(answer=jas, entry=item) < 1.0
-
 
 def test_game_of_life_iteration():
     """Test that iteration respects dataset size"""
@@ -160,3 +142,44 @@ def test_game_of_life_curriculum():
     assert lower_bound_cfg.filled_cells_weights == 0.1
     assert lower_bound_cfg.filled_cells <= lower_bound_cfg.grid_size_x * lower_bound_cfg.grid_size_y
     assert lower_bound_cfg.simulation_steps == 1
+
+
+def test_game_of_life_filled_cells_follows_config():
+    assert GameOfLifeConfig().filled_cells == 10
+    assert GameOfLifeConfig(filled_cells_weights=0.8, grid_size_x=50, grid_size_y=50).filled_cells == 2000
+    assert GameOfLifeConfig(grid_size_x=20, grid_size_y=20, filled_cells=200).filled_cells == 200
+
+    curriculum = GameOfLifeCurriculum()
+    curriculum.increment_attr_level("filled_cells_weights")
+    cfg = curriculum.generate_configuration({"size": 1, "seed": 1})
+    assert cfg.filled_cells == 20
+
+
+@pytest.mark.parametrize("weights", [0.1, 0.3, 0.5])
+def test_game_of_life_trivial_answers_score_zero(weights):
+    dataset = GameOfLifeDataset(GameOfLifeConfig(seed=7, size=50, filled_cells_weights=weights))
+    for item in dataset:
+        expected = json.loads(item["answer"])
+        zero = [[0] * len(row) for row in expected]
+        copy = item["metadata"]["board"]
+        assert dataset.score_answer(item["answer"], item) == 1.0
+        # A trivial guess that happens to be right is fine; only count the ones that are wrong.
+        if zero != expected:
+            assert dataset.score_answer(json.dumps(zero), item) == 0.0
+        if copy != expected:
+            assert dataset.score_answer(json.dumps(copy), item) == 0.0
+
+
+def test_game_of_life_near_miss_gets_partial_credit():
+    dataset = GameOfLifeDataset(GameOfLifeConfig(seed=3, size=20, filled_cells_weights=0.4))
+    scored = 0
+    for item in dataset:
+        expected = json.loads(item["answer"])
+        live = [(i, j) for i, row in enumerate(expected) for j, v in enumerate(row) if v == 1]
+        if len(live) < 4:
+            continue
+        i, j = live[0]
+        expected[i][j] = 0
+        assert 0.5 < dataset.score_answer(json.dumps(expected), item) < 1.0
+        scored += 1
+    assert scored > 0
