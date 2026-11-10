@@ -14,6 +14,7 @@ from .kakurasu import KakurasuConfig, KakurasuCurriculum, KakurasuDataset
 from .knight_swap import KnightSwapConfig, KnightSwapCurriculum, KnightSwapDataset
 from .mahjong import MahjongPuzzleConfig, MahjongPuzzleCurriculum, MahjongPuzzleDataset
 from .maze import MazeConfig, MazeCurriculum, MazeDataset
+from .minesweeper import MinesweeperConfig, MinesweeperDataset
 from .mini_sudoku import MiniSudokuConfig, MiniSudokuCurriculum, MiniSudokuDataset
 from .n_queens import NQueensConfig, NQueensCurriculum, NQueensDataset
 from .puzzle24 import Puzzle24Config, Puzzle24Curriculum, Puzzle24Dataset
@@ -76,4 +77,6 @@ __all__ = [
     "MahjongPuzzleConfig",
     "MahjongPuzzleDataset",
     "MahjongPuzzleCurriculum",
+    "MinesweeperConfig",
+    "MinesweeperDataset",
 ]
