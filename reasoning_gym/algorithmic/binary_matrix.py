@@ -4,6 +4,7 @@ A popular Leetcode problem:
 https://leetcode.com/problems/01-matrix/description/
 """
 
+import ast
 from collections import deque
 from dataclasses import dataclass
 from random import Random
@@ -107,8 +108,8 @@ class BinaryMatrixDataset(ProceduralDataset):
                 return 1.0
             else:
                 try:
-                    # check if answer is python list of lists
-                    answer = self._matrix_to_str(eval(answer))
+                    # check if answer is a python list of lists (literal only, no code execution)
+                    answer = self._matrix_to_str(ast.literal_eval(answer))
                     if answer == oracle_answer:
                         return 0.1
                 except Exception:
