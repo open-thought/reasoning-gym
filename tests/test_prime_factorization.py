@@ -124,6 +124,16 @@ def test_prime_factorization_score_answer():
     assert dataset.score_answer(answer, item) == 0.01
 
 
+def test_prime_factorization_score_answer_unparseable():
+    """Answers that are not integers separated by × score like wrong answers instead of raising."""
+    config = PrimeFactorizationConfig(min_value=12, max_value=12, size=1, seed=42)
+    dataset = PrimeFactorizationDataset(config)
+    item = dataset[0]
+
+    for answer in ["2^2 × 3", "2 x 2 x 3", "2 * 2 * 3", "twelve", "1.5 × 8"]:
+        assert dataset.score_answer(answer, item) == 0.01
+
+
 def is_prime(n: int) -> bool:
     """Helper function to check if a number is prime"""
     if n < 2:

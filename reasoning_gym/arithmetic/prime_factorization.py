@@ -59,7 +59,12 @@ class PrimeFactorizationDataset(ProceduralDataset):
         reward = 0.0
         if answer is not None:
             oracle_answer_parsed = self._normalize_answer(oracle_answer)
-            answer_parsed = self._normalize_answer(answer)
+            try:
+                answer_parsed = self._normalize_answer(answer)
+            except ValueError:
+                # Answers that don't parse as integers separated by ×, such as "2^2" or
+                # "2 x 3", are wrong answers rather than errors
+                return 0.01
             if oracle_answer_parsed == answer_parsed:
                 reward = 1.0
             elif (
