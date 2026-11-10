@@ -174,3 +174,23 @@ def test_number_sorting_score_answer():
     }
     descending_match = "['71.08', '61.5', '-16.5', '-83.6', '-92.85', '-95.7', '-97.8']"
     assert dataset.score_answer(descending_match, descending_entry) == 1.0
+
+
+def test_number_sorting_score_answer_rejects_non_finite():
+    """NaN and infinity must not earn credit, even in a list of the right length."""
+    dataset = NumberSortingDataset(NumberSortingConfig(seed=42))
+    entry = dataset[0]
+    n = len(entry["metadata"]["sorted_numbers"])
+
+    assert dataset.score_answer(str(["nan"] * n), entry) == 0.0
+    assert dataset.score_answer(str(["NaN"] * n), entry) == 0.0
+    assert dataset.score_answer(str(["inf"] * n), entry) == 0.0
+    assert dataset.score_answer(str(["-inf"] * n), entry) == 0.0
+
+    # One NaN among correct values must also fail
+    answer = list(entry["metadata"]["sorted_numbers"])
+    answer[0] = "nan"
+    assert dataset.score_answer(str(answer), entry) == 0.0
+
+    # The correct answer still scores 1.0
+    assert dataset.score_answer(entry["answer"], entry) == 1.0

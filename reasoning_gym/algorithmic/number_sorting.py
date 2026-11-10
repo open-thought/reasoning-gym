@@ -1,6 +1,7 @@
 """Number sorting task generator"""
 
 import json
+import math
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
@@ -137,6 +138,11 @@ Please follow the instruction below:
             # Convert both answers to floats for comparison
             user_floats = [float(num) for num in user_answer]
             expected_floats = [float(num) for num in expected_answer]
+
+            # Reject NaN and infinity: NaN compares as already sorted and is never
+            # outside the tolerance, so an all-NaN list would otherwise score 1.0
+            if not all(math.isfinite(num) for num in user_floats):
+                return 0.0
 
             # First, verify the user's answer is properly sorted
             direction = entry["metadata"]["direction"]
