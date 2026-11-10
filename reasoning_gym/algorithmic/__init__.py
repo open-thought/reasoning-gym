@@ -48,6 +48,7 @@ from .word_sequence_reversal import (
     WordSequenceReversalDataset,
 )
 from .word_sorting import TextTransformation, WordSortingConfig, WordSortingCurriculum, WordSortingDataset
+from .lru_cache import LRUCacheConfig, LRUCacheCurriculum, LRUCacheDataset
 
 __all__ = [
     "SpellBackwardConfig",
@@ -152,4 +153,7 @@ __all__ = [
     "BinaryAlternationConfig",
     "BinaryAlternationDataset",
     "BinaryAlternationCurriculum",
+    "LRUCacheConfig",
+    "LRUCacheDataset",
+    "LRUCacheCurriculum",
 ]
