@@ -1,3 +1,6 @@
+import re
+from fractions import Fraction
+
 import pytest
 
 from reasoning_gym.arithmetic.basic_arithmetic import (
@@ -184,3 +187,18 @@ def test_arithmetic_dataset_large_random_generation():
     for item in dataset:
         assert isinstance(item, dict)
         assert "question" in item and "answer" in item and "metadata" in item
+
+
+def _exact_value(expression: str) -> Fraction:
+    """Evaluate an expression with true division, using exact rational arithmetic."""
+    return eval(re.sub(r"(\d+)", r"Fraction(\1)", expression), {"Fraction": Fraction})
+
+
+@pytest.mark.parametrize("negation", [True, False])
+def test_basic_arithmetic_answers_match_true_division(negation):
+    """Questions use "/", so every answer must equal the exact result, not Python floor division."""
+    config = BasicArithmeticDatasetConfig(seed=42, size=2000, allow_negation=negation)
+    dataset = BasicArithmeticDataset(config)
+    for item in dataset:
+        expression = item["metadata"]["expression"]
+        assert _exact_value(expression) == int(item["answer"]), item["question"]

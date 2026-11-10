@@ -62,6 +62,21 @@ def eval_floordiv(exp: str) -> int:
     return eval(exp.replace("/", "//"))
 
 
+def is_single_group(parts: list[str]) -> bool:
+    """Return True if parts is one bracketed group, such as "( 1 + 2 )" or "-( 1 + ( 2 ) )"."""
+    if not parts or parts[0] not in ("(", "-(") or parts[-1] != ")":
+        return False
+    depth = 0
+    for i, part in enumerate(parts):
+        if part in ("(", "-("):
+            depth += 1
+        elif part == ")":
+            depth -= 1
+            if depth == 0:
+                return i == len(parts) - 1
+    return False
+
+
 class BasicArithmeticDataset(ProceduralDataset):
     """Dataset that generates basic arithmetic tasks with configurable complexity"""
 
@@ -146,14 +161,19 @@ class BasicArithmeticDataset(ProceduralDataset):
 
                 if num_right > 1:
                     right_parts = add_terms(num_right - 1)
-                    if right_parts[-1] == ")":
+                    # The correction below only works when the divisor is a single bracketed
+                    # group, e.g. "/ ( 3 + 4 )". Anything else, such as "/ 3 + ( 4 )", takes the
+                    # other branch, which inserts an explicit divisor.
+                    if is_single_group(right_parts):
                         right_value = eval_floordiv("".join(right_parts))
+                        # Inside "-( x )", adding c to x changes the group's value by -c
+                        sign = -1 if right_parts[0] == "-(" else 1
 
                         if right_value == 0:
                             correction = 1
                         else:
                             target = rng.choice(find_common_divisors(dividend, right_value))
-                            correction = target - right_value
+                            correction = sign * (target - right_value)
 
                         right_parts.pop()
                         right_parts.append("+")
