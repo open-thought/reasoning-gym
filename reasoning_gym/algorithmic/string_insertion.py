@@ -3,6 +3,7 @@
 https://github.com/yongchao98/CodeSteer-v1.0/blob/main/create_dataset/create_dataset_string_insertion.py
 """
 
+import ast
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
@@ -85,7 +86,7 @@ class StringInsertionDataset(ProceduralDataset):
             else:
                 try:
                     # check if answer is python list of characters
-                    answer = "".join(eval(answer))
+                    answer = "".join(ast.literal_eval(answer))
                     if answer == oracle_answer:
                         return 0.1
                 except Exception:

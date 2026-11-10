@@ -4,6 +4,7 @@ A generalization of the 8-queens puzzle to any board size.
 https://en.wikipedia.org/wiki/Eight_queens_puzzle
 """
 
+import ast
 from copy import deepcopy
 from dataclasses import dataclass
 from random import Random
@@ -152,7 +153,7 @@ class NQueensDataset(ProceduralDataset):
             if answer in valid_solutions:
                 return 1.0
             try:
-                answer = self._board_to_string(eval(answer))
+                answer = self._board_to_string(ast.literal_eval(answer))
                 if answer in valid_solutions:
                     return 0.5
             except Exception as e:

@@ -4,6 +4,7 @@ A popular Leetcode problem:
 https://leetcode.com/problems/spiral-matrix/description/
 """
 
+import ast
 from dataclasses import dataclass
 from random import Random
 from typing import Any, Optional
@@ -140,7 +141,7 @@ class SpiralMatrixDataset(ProceduralDataset):
 
             # Try to see if the model's answer is a python list
             try:
-                answer = " ".join(str(item) for item in eval(answer))
+                answer = " ".join(str(item) for item in ast.literal_eval(answer))
                 if answer == oracle_answer:
                     return 0.1
             except Exception:
