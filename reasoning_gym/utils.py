@@ -90,34 +90,74 @@ def is_integer(obj: Any) -> bool:
     return False
 
 
-def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
-    """Compute the reward for a given answer compared to the oracle answer.
-    Tolerate sign, leading zeros and trailing decimals, optionally strip commas ("+01,000.00" == "1000")
+# Recognize numeric spellings without interpreting their value or comma grouping.
+_NUMBER_CANDIDATE = re.compile(r"[+-]?(?:[0-9]+(?:,[0-9]+)*(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?")
 
-    Args:
-        answer: Answer provided by model
-        oracle_answer: Correct answer to the question
-        strip_commas: Whether to remove commas from answers e.g "1,000" = "1000"
 
-    Returns:
-        Reward value between 0.0 and 1.0
+def _extract_numeric_token(answer: str) -> Optional[str]:
+    """Extract one complete numeric token, allowing surrounding prose punctuation.
+
+    This checks spelling and boundaries, not numeric equivalence. A final period
+    is treated as sentence punctuation. Operators immediately around the token
+    (including separated signs) cannot turn a numeric fragment into an answer.
     """
-    reward = 0.0
-    if answer is not None and len(answer) > 0:
-        try:
-            if strip_commas:
-                answer = answer.replace(",", "")
-                oracle_answer = oracle_answer.replace(",", "")
+    matches = list(_NUMBER_CANDIDATE.finditer(answer))
+    if len(matches) != 1:
+        return None
+    match = matches[0]
+    token = match.group().removesuffix(".")
+    before, after = answer[: match.start()], answer[match.start() + len(token) :]
+    if before and (before[-1].isalnum() or before[-1] in "_.,+-−"):
+        return None
+    if after and (after[0].isalnum() or after[0] in "_+-"):
+        return None
+    # A comma or period is punctuation only at the end or before whitespace.
+    if after[:1] in (".", ",") and len(after) > 1 and not after[1].isspace():
+        return None
+    if before.rstrip().endswith(("+", "-", "−", "/", "*", "^", "=", "%")):
+        return None
+    if after.lstrip().startswith(("-", "−", "/", "*", "^", "=", "%")) or after.strip() == "+":
+        return None
+    if re.search(r"\b(?:nan|inf|infinity)\b", before + after, re.IGNORECASE):
+        return None
+    return token
 
-            if Decimal(answer) == Decimal(oracle_answer):
-                return 1.0
-        except:
-            pass
 
-        if oracle_answer in answer:
-            reward = len(oracle_answer) / len(answer)
+def compute_string_reward(answer: Optional[str], oracle_answer: str) -> float:
+    """Score literal equality or length-based substring credit.
 
-    return reward
+    For numeric-looking oracles, partial credit requires exactly one complete
+    numeric token with identical spelling. This also protects digit strings and
+    program output without treating them as decimal values.
+    """
+    if not isinstance(answer, str) or not answer:
+        return 0.0
+    if answer == oracle_answer:
+        return 1.0
+    if _NUMBER_CANDIDATE.fullmatch(oracle_answer):
+        if _extract_numeric_token(answer) != oracle_answer:
+            return 0.0
+    elif oracle_answer not in answer:
+        return 0.0
+    return len(oracle_answer) / len(answer)
+
+
+def compute_decimal_reward(answer: Optional[str], oracle_answer: str, strip_commas: bool = True) -> float:
+    """Accept equivalent standalone decimals, otherwise score literal prose.
+
+    Commas are removed when enabled, preserving the existing helper policy.
+    Prose uses the same guarded substring matching as the default scorer;
+    equivalent numeric spellings inside prose are not normalized.
+    """
+    if not isinstance(answer, str) or not answer:
+        return 0.0
+    if strip_commas:
+        answer, oracle_answer = answer.replace(",", ""), oracle_answer.replace(",", "")
+    try:
+        actual, expected = Decimal(answer), Decimal(oracle_answer)
+        return float(actual.is_finite() and expected.is_finite() and actual == expected)
+    except InvalidOperation:
+        return compute_string_reward(answer, oracle_answer)
 
 
 class StrEnum(str, Enum):

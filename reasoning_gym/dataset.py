@@ -6,6 +6,8 @@ from copy import deepcopy
 from random import Random
 from typing import Any, Iterator, Optional, Type, TypeVar
 
+from .utils import compute_string_reward
+
 
 class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
     """Abstract base class for procedural dataset generators"""
@@ -61,15 +63,14 @@ class ProceduralDataset(ABC, Sized, Iterable[dict[str, Any]]):
         raise NotImplementedError
 
     def score_answer(self, answer: Optional[str], entry: dict[str, Any]) -> float:
-        """Overwrite this method in derived classes if a single oracle answer is not available."""
-        oracle_answer = entry["answer"]
-        reward = 0.0
-        if isinstance(answer, str) and len(answer) > 0:
-            if answer == oracle_answer:
-                reward = 1.0
-            elif oracle_answer in answer:
-                reward = len(oracle_answer) / len(answer)
-        return reward
+        """Score literal answers, with conservative partial credit for prose.
+
+        Numeric-looking answers must appear as one complete token with the same
+        spelling. Numeric equivalence is never inferred from the oracle string.
+        Override for other verification rules, such as decimal equivalence.
+        The optional scoring cascade applies its own, more lenient policy.
+        """
+        return compute_string_reward(answer, entry["answer"])
 
     def score_answer_cascade(self, answer: Optional[str], entry: dict[str, Any]) -> float:
         """Score with fallback cascade (LaTeX stripping, string, float, math matching).
