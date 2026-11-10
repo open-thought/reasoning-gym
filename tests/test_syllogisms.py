@@ -1,5 +1,8 @@
 """Tests for syllogism task generation"""
 
+from functools import lru_cache
+from itertools import permutations, product
+
 import pytest
 
 from reasoning_gym.logic.syllogisms import Quantifier, SyllogismConfig, SyllogismCurriculum, SyllogismDataset, Term
@@ -282,8 +285,8 @@ def test_logical_equivalence():
         (Quantifier.NO, B, A),  # No humans are students
     )
 
-    # Test particular inversion of ALL statements
-    assert dataset._check_logical_equivalence(
+    # Universal statements do not establish existence.
+    assert not dataset._check_logical_equivalence(
         (Quantifier.ALL, A, B),  # All students are humans
         (Quantifier.SOME, B, A),  # Some humans are students
     )
@@ -371,3 +374,128 @@ def test_syllogism_curriculum():
     assert partially_decreased_cfg.allow_no == False
     assert partially_decreased_cfg.allow_some == False
     assert partially_decreased_cfg.allow_some_not == False
+
+
+# Three witnesses suffice: one per existential premise and one for the negated
+# conclusion. Restricting to witnesses preserves universal statements.
+_REFERENCE_SUBSETS = tuple(frozenset(i for i in range(3) if mask & (1 << i)) for mask in range(8))
+_REFERENCE_MODELS = tuple(product(_REFERENCE_SUBSETS, repeat=3))
+
+
+def _set_statement_holds(statement, model):
+    quantifier, subject, predicate = statement
+    a, b = model[subject], model[predicate]
+    if quantifier == Quantifier.ALL:
+        return a <= b
+    if quantifier == Quantifier.NO:
+        return a.isdisjoint(b)
+    if quantifier == Quantifier.SOME:
+        return bool(a & b)
+    if quantifier == Quantifier.SOME_NOT:
+        return bool(a - b)
+    raise AssertionError(quantifier)
+
+
+@lru_cache(maxsize=None)
+def _reference_premise_models(premises):
+    return tuple(model for model in _REFERENCE_MODELS if all(_set_statement_holds(p, model) for p in premises))
+
+
+def _reference_entails(premises, conclusion):
+    return all(_set_statement_holds(conclusion, model) for model in _reference_premise_models(premises))
+
+
+def test_all_figures_and_inversions_against_independent_sets():
+    dataset = SyllogismDataset(SyllogismConfig())
+    valid_standard_forms = 0
+    for q1, q2, qc in product(Quantifier, repeat=3):
+        for first, second in product(((0, 1), (1, 0)), ((1, 2), (2, 1))):
+            p1, p2 = (q1, *first), (q2, *second)
+            for subject, predicate in permutations(range(3), 2):
+                conclusion = (qc, subject, predicate)
+                expected = _reference_entails((p1, p2), conclusion)
+                for premises in ((p1, p2), (p2, p1)):
+                    assert dataset._entails(premises, conclusion) == expected, (premises, conclusion)
+                    if {subject, predicate} == {0, 2}:
+                        assert dataset._is_valid_syllogism(*premises, conclusion) == expected
+                if (subject, predicate) == (0, 2):
+                    valid_standard_forms += expected
+    assert valid_standard_forms == 15
+
+
+def test_all_single_premise_inversions_against_independent_sets():
+    dataset = SyllogismDataset(SyllogismConfig())
+    for qp, qc in product(Quantifier, repeat=2):
+        for subject, predicate in ((0, 1), (1, 0)):
+            premise, conclusion = (qp, 0, 1), (qc, subject, predicate)
+            assert dataset._check_logical_equivalence(premise, conclusion) == _reference_entails((premise,), conclusion)
+
+
+def test_reported_fish_countermodel():
+    fish, insects, mortals = 0, 1, 2
+    premises = ((Quantifier.ALL, fish, insects), (Quantifier.SOME, insects, mortals))
+    conclusion = (Quantifier.SOME, fish, mortals)
+    # Invalid even with all categories nonempty.
+    model = ({0}, {0, 1}, {1})
+    assert all(_set_statement_holds(p, model) for p in premises)
+    assert not _set_statement_holds(conclusion, model)
+    assert not SyllogismDataset._is_valid_syllogism(*premises, conclusion)
+
+
+def test_empty_categories_and_combined_premises():
+    dataset = SyllogismDataset(SyllogismConfig())
+    all_a_b = (Quantifier.ALL, 0, 1)
+    some_b_a = (Quantifier.SOME, 1, 0)
+    assert not dataset._entails((all_a_b,), some_b_a)
+    assert dataset._entails((all_a_b, (Quantifier.SOME, 2, 0)), some_b_a)
+    # B is forced empty.
+    assert dataset._entails(((Quantifier.NO, 0, 1), (Quantifier.ALL, 1, 0)), (Quantifier.ALL, 1, 2))
+    # Inverting premise 2 requires premise 1's existence witness.
+    assert dataset._entails(((Quantifier.SOME, 0, 1), (Quantifier.ALL, 1, 2)), (Quantifier.SOME, 2, 1))
+    assert not dataset._is_valid_syllogism(all_a_b, (Quantifier.ALL, 1, 2), (Quantifier.SOME, 0, 2))
+
+
+def _parse_generated_statements(item):
+    statements = []
+    terms = {}
+    for key in ("premise1", "premise2", "conclusion"):
+        text = item["metadata"][key]
+        subject, predicate = text.split(" are ")
+        quantifier, subject = subject.split(" ", 1)
+        if predicate.startswith("not "):
+            assert quantifier == "Some"
+            quantifier, predicate = Quantifier.SOME_NOT, predicate[4:]
+        else:
+            quantifier = Quantifier(quantifier)
+        for term in (subject, predicate):
+            terms.setdefault(term, len(terms))
+        statements.append((quantifier, terms[subject], terms[predicate]))
+    return statements
+
+
+@pytest.mark.parametrize("mask", range(1, 16))
+@pytest.mark.parametrize("inversion", [0.0, 1.0])
+@pytest.mark.parametrize("invalid_ratio", [0.0, 1.0])
+def test_generation_all_quantifier_subsets(mask, inversion, invalid_ratio):
+    config = SyllogismConfig(
+        allow_all=bool(mask & 1),
+        allow_no=bool(mask & 2),
+        allow_some=bool(mask & 4),
+        allow_some_not=bool(mask & 8),
+        inversion_probability=inversion,
+        invalid_ratio=invalid_ratio,
+        seed=42,
+        size=20,
+    )
+    dataset = SyllogismDataset(config)
+    allowed = dataset._get_allowed_quantifiers()
+    for item in dataset:
+        p1, p2, conclusion = _parse_generated_statements(item)
+        expected = _reference_entails((p1, p2), conclusion)
+        assert all(statement[0] in allowed for statement in (p1, p2, conclusion))
+        assert item["answer"] == ("Yes" if expected else "No")
+        assert item["metadata"]["is_valid"] == expected
+        assert item["metadata"]["dataset_version"] == 2
+        assert "Categories may be empty" in item["question"]
+        if mask == 15:
+            assert expected == (invalid_ratio == 0.0)
