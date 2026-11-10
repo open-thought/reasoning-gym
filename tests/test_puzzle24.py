@@ -87,6 +87,31 @@ def test_puzzle24_score_answer_individual():
     assert dataset.score_answer("not a valid expression", entry) == 0.01  # Invalid expression
 
 
+def test_puzzle24_score_answer_requires_item_numbers():
+    config = Puzzle24Config(seed=42, size=50)
+    dataset = Puzzle24Dataset(config)
+    for item in dataset:
+        if sorted(item["metadata"]["numbers"]) != [1, 1, 4, 6]:
+            assert dataset.score_answer("6*4*1*1", item) == 0.01
+
+    entry = {"metadata": {"numbers": [4, 5, 7, 8]}}
+    assert dataset.score_answer("(8 - 7 + 5) * 4", entry) == 1.0
+    assert dataset.score_answer("4*(5+8-7)", entry) == 1.0
+    assert dataset.score_answer("6*4*1*1", entry) == 0.01
+    assert dataset.score_answer("4*(5+8-7)+0", entry) == 0.01  # Extra number
+
+
+def test_puzzle24_score_answer_exact_value():
+    config = Puzzle24Config(seed=42)
+    dataset = Puzzle24Dataset(config)
+    entry = {"metadata": {"numbers": [7, 7, 2, 1]}}
+    assert dataset.score_answer("7*7/2*1", entry) == 0.01  # 24.5, not 24
+
+    entry = {"metadata": {"numbers": [2, 3, 3, 1]}}
+    assert dataset.score_answer("2**3*3*1", entry) == 0.01  # '**' is not an allowed operator
+    assert dataset.score_answer("__import__('os')", entry) == 0.01
+
+
 def test_puzzle24_iteration():
     """Test that iteration respects dataset size"""
     config = Puzzle24Config(size=5, seed=42)  # Small size for testing

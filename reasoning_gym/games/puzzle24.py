@@ -116,18 +116,15 @@ class Puzzle24Dataset(ProceduralDataset):
         if answer is not None:
             try:
                 answer = answer.strip()
-                user_answer = int(parse_expr(answer))
-                solved = user_answer == 24
-                used_numbers = [int(num) for num in re.findall(r"\b\d+\b", answer)]
-                if len(used_numbers) != 4:
-                    reward = 0.01
-                elif any(num > self.config.max_value or num < self.config.min_value for num in used_numbers):
-                    reward = 0.01
-                elif not solved:
-                    reward = 0.01
-                else:
+                # Only plain arithmetic reaches parse_expr, which evals its input.
+                if not re.fullmatch(r"[\d\s()+\-*/]+", answer) or "**" in answer:
+                    return reward
+                used_numbers = sorted(int(num) for num in re.findall(r"\d+", answer))
+                if used_numbers != sorted(entry["metadata"]["numbers"]):
+                    return reward
+                if parse_expr(answer) == 24:
                     reward = 1.0
-            except Exception as e:
+            except Exception:
                 reward = 0.01
         return reward
 
