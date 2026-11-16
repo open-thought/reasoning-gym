@@ -23,6 +23,7 @@ from .sudoku import SudokuConfig, SudokuCurriculum, SudokuDataset
 from .survo import SurvoConfig, SurvoCurriculum, SurvoDataset
 from .tower_of_hanoi import HanoiConfig, HanoiCurriculum, HanoiDataset
 from .tsumego import TsumegoConfig, TsumegoCurriculum, TsumegoDataset
+from .wikirace import WikiraceConfig, WikiraceCurriculum, WikiraceDataset
 
 __all__ = [
     "BoxnetConfig",
@@ -76,4 +77,7 @@ __all__ = [
     "MahjongPuzzleConfig",
     "MahjongPuzzleDataset",
     "MahjongPuzzleCurriculum",
+    "WikiraceConfig",
+    "WikiraceDataset",
+    "WikiraceCurriculum",
 ]
