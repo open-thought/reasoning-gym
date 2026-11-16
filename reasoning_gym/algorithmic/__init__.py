@@ -32,6 +32,7 @@ from .palindrome_partitioning import (
 )
 from .pool_matrix import PoolMatrixConfig, PoolMatrixCurriculum, PoolMatrixDataset
 from .ransom_note import RansomNoteConfig, RansomNoteCurriculum, RansomNoteDataset
+from .regex_construction import RegexConstructionConfig, RegexConstructionCurriculum, RegexConstructionDataset
 from .rotate_matrix import RotateMatrixConfig, RotateMatrixCurriculum, RotateMatrixDataset
 from .rotten_oranges import RottenOrangesConfig, RottenOrangesCurriculum, RottenOrangesDataset
 from .sentence_reordering import SentenceReorderingConfig, SentenceReorderingCurriculum, SentenceReorderingDataset
@@ -152,4 +153,7 @@ __all__ = [
     "BinaryAlternationConfig",
     "BinaryAlternationDataset",
     "BinaryAlternationCurriculum",
+    "RegexConstructionConfig",
+    "RegexConstructionDataset",
+    "RegexConstructionCurriculum",
 ]
