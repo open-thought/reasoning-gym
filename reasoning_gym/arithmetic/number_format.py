@@ -15,6 +15,7 @@ Now, pick the {size} number of the following candidates: {numbers}
 """
 
 DATASET_NAME = "number_format"
+DECIMAL_PLACES = 3
 
 
 @dataclass
@@ -49,10 +50,10 @@ class NumberFormatDataset(ProceduralDataset):
 
     def _get_candidates(self, rng: Random, num_candidates: int) -> list:
         """Generate a list of candidates"""
-        base = round(rng.uniform(self.config.min_n, self.config.max_n), 3)
+        base = round(rng.uniform(self.config.min_n, self.config.max_n), DECIMAL_PLACES)
         candidates = [base]
         for _ in range(num_candidates - 1):
-            delta = round(rng.uniform(-self.config.max_delta, self.config.max_delta), 3)
+            delta = round(rng.uniform(-self.config.max_delta, self.config.max_delta), DECIMAL_PLACES)
             candidates.append(base + delta)
         return candidates
 
@@ -75,7 +76,7 @@ class NumberFormatDataset(ProceduralDataset):
         if isinstance(answer, str) and len(answer) > 0:
             try:
                 answer = float(answer.strip().replace(",", ""))
-                if abs(answer - oracle_answer) < 1e-2:
+                if round(answer, DECIMAL_PLACES) == round(oracle_answer, DECIMAL_PLACES):
                     return 1.0
             except:
                 pass
