@@ -1,0 +1,25 @@
+model_path: Qwen/Qwen2.5-3B-Instruct  # Default model path
+# model_path: joesharratt29/count_prime_curriculum
+# model_path: joesharratt29/count_primes_non_curriculum
+
+max_tokens: 2048  # From max_response_length in training config
+top_p: 1.0
+temperature: 1.0  #
+
+developer_prompt: DeepSeekZero
+developer_role: system
+
+output_dir: results
+save_metadata: true
+save_full_results: true
+eval_repeats: 3
+
+categories:
+  - category: algorithmic
+    datasets:
+      - dataset: count_primes
+        size: 100
+        seed: 42
+        params:
+          min_n: 100
+          max_n: 5000
