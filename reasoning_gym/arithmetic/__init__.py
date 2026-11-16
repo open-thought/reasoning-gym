@@ -24,6 +24,7 @@ from .power_function import PowerFunctionConfig, PowerFunctionCurriculum, PowerF
 from .prime_factorization import PrimeFactorizationConfig, PrimeFactorizationCurriculum, PrimeFactorizationDataset
 from .products import ProductsConfig, ProductsDataset
 from .time_intervals import TimeIntervalsConfig, TimeIntervalsCurriculum, TimeIntervalsDataset
+from .fraction_arithmetic import FractionArithmeticDataset, FractionArithmeticConfig
 
 __all__ = [
     "BasicArithmeticDataset",
@@ -77,4 +78,6 @@ __all__ = [
     "BitwiseArithmeticConfig",
     "BitwiseArithmeticDataset",
     "BitwiseArithmeticCurriculum",
+    "FractionArithmeticDataset",
+    "FractionArithmeticConfig",
 ]
