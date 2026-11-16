@@ -5,6 +5,8 @@ from .path_star import PathStarConfig, PathStarCurriculum, PathStarDataset
 from .quantum_lock import QuantumLockConfig, QuantumLockCurriculum, QuantumLockDataset
 from .shortest_path import ShortestPathConfig, ShortestPathCurriculum, ShortestPathDataset
 
+from .minimum_vertex_cut import MinimumVertexCutConfig, MinimumVertexCutCurriculum, MinimumVertexCutDataset
+
 __all__ = [
     "FamilyRelationshipsConfig",
     "FamilyRelationshipsDataset",
@@ -24,4 +26,7 @@ __all__ = [
     "ShortestPathConfig",
     "ShortestPathDataset",
     "ShortestPathCurriculum",
+    "MinimumVertexCutConfig",
+    "MinimumVertexCutDataset",
+    "MinimumVertexCutCurriculum",
 ]
