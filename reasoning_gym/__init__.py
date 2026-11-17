@@ -16,6 +16,7 @@ from . import (
     induction,
     logic,
     probability,
+    security,
 )
 from .factory import create_dataset, get_score_answer_fn, register_dataset
 from .scoring import cascade_score, float_match, math_match, string_match, strip_latex
@@ -35,6 +36,7 @@ __all__ = [
     "logic",
     "induction",
     "probability",
+    "security",
     "create_dataset",
     "register_dataset",
     "get_score_answer_fn",
