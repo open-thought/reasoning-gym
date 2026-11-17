@@ -144,3 +144,19 @@ def test_family_relationships_curriculum():
     curriculum.decrement_global_level()  # Should go back to level 5
     back_to_five_cfg = curriculum.generate_configuration(base_value)
     assert back_to_five_cfg.min_family_size == 3 and back_to_five_cfg.max_family_size == 8  # Back to level 5
+
+
+def test_niece_nephew_uses_person1_gender():
+    # Regression test for the niece/nephew label bug (follow-up to #542).
+    # The question is "What is {person1} to {person2}?", and in this branch person1 is
+    # the niece/nephew, so the label must follow person1's gender, not person2's.
+    # seed=38, size=20 isolates the mislabelled example from issue reproduction:
+    # "What is Joseph to Grace?" -> generator said "niece", correct is "nephew".
+    male_names = set(FamilyRelationshipsConfig().male_names)
+    dataset = create_dataset("family_relationships", seed=38, size=20, min_family_size=11, max_family_size=12)
+    items = [item for item in dataset if item["answer"] in (Relationship.NIECE.value, Relationship.NEPHEW.value)]
+    assert len(items) > 0
+    for item in items:
+        person1 = item["metadata"]["person1"]
+        expected = Relationship.NEPHEW if person1 in male_names else Relationship.NIECE
+        assert item["answer"] == expected.value, item["question"]
