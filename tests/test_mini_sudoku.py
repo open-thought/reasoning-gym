@@ -141,3 +141,47 @@ def test_mini_sudoku_curriculum():
     curriculum.decrement_attr_level("empty")
     partially_decreased_cfg = curriculum.generate_configuration(base_value)
     assert partially_decreased_cfg.min_empty == 4 and partially_decreased_cfg.max_empty == 6
+
+
+def _rewrite_answer(item, correct_blanks, wrong_givens=0):
+    """Rewrite the gold answer: keep the first `correct_blanks` blanks and change the first `wrong_givens` givens."""
+    puzzle, solution = item["metadata"]["puzzle"], item["metadata"]["solution"]
+    n = len(solution)
+    kept = changed = 0
+    lines, row = [], 0
+    for line in item["answer"].split("\n"):
+        if row < n and sum(ch.isdigit() for ch in line) == n:
+            chars, col = list(line), 0
+            for i, ch in enumerate(chars):
+                if ch.isdigit():
+                    wrong = str(solution[row][col] % n + 1)  # a digit that is wrong for this cell
+                    if puzzle[row][col] == 0:
+                        if kept < correct_blanks:
+                            kept += 1
+                        else:
+                            chars[i] = wrong
+                    elif changed < wrong_givens:
+                        changed += 1
+                        chars[i] = wrong
+                    col += 1
+            line, row = "".join(chars), row + 1
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def test_mini_sudoku_givens_earn_no_partial_credit():
+    """Partial credit comes only from blank cells, and changing a given costs credit."""
+    dataset = MiniSudokuDataset(MiniSudokuConfig(seed=42, size=10))
+    for item in dataset:
+        num_blank = sum(v == 0 for row in item["metadata"]["puzzle"] for v in row)
+        num_given = len(item["metadata"]["solution"]) ** 2 - num_blank
+        # Givens copied, every blank wrong: no credit.
+        assert dataset.score_answer(_rewrite_answer(item, 0), item) == 0.0
+        # Givens copied, all but one blank right.
+        expected = 0.9 * (num_blank - 1) / num_blank
+        assert dataset.score_answer(_rewrite_answer(item, num_blank - 1), item) == pytest.approx(expected)
+        # Every blank right, one given changed.
+        expected = 0.9 * (num_given - 1) / num_given
+        assert dataset.score_answer(_rewrite_answer(item, num_blank, 1), item) == pytest.approx(expected)
+        # Every blank right, every given changed: no credit.
+        assert dataset.score_answer(_rewrite_answer(item, num_blank, num_given), item) == 0.0
