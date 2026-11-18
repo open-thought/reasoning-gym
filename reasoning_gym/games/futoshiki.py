@@ -649,20 +649,30 @@ class FutoshikiDataset(ProceduralDataset):
             reward = 1.0
         else:
             # 2. accept answers with correct numeric sequence (ignoring non-numeric characters)
+            # Partial credit comes from the cells that were blank in the puzzle. The given clues earn
+            # nothing, and an answer that changes a given loses credit in proportion.
+            puzzle: list[list[int]] = metadata["puzzle"]
+            num_blank = sum(v == 0 for puzzle_row in puzzle for v in puzzle_row)
+            num_given = board_size * board_size - num_blank
             row = 0
             num_matching = 0
+            num_given_kept = 0
             for ln in answer.split("\n"):
                 if row >= len(solution):
                     break
                 numbers = [int(c) for c in ln if c in "123456789"]
-                if len(numbers) != len(solution[0]):
+                if len(numbers) != board_size:
                     continue  # ignore lines without numbers
-                for a, b in zip(solution[row], numbers):
-                    if a == b:
-                        num_matching += 1
+                for col, (a, b) in enumerate(zip(solution[row], numbers)):
+                    if puzzle[row][col] == 0:
+                        num_matching += a == b
+                    else:
+                        num_given_kept += a == b
                 row += 1
 
-            reward = num_matching / (board_size * board_size)
+            reward = num_matching / num_blank if num_blank else 1.0
+            if num_given:
+                reward *= num_given_kept / num_given
             reward *= 0.9  # penalty for not using standard format
 
         if len(answer) > len(oracle_answer):
