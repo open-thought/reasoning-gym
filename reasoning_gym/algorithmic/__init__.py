@@ -41,6 +41,11 @@ from .string_insertion import StringInsertionConfig, StringInsertionCurriculum, 
 from .string_manipulation import StringManipulationConfig, StringManipulationDataset
 from .string_splitting import StringSplittingConfig, StringSplittingCurriculum, StringSplittingDataset
 from .string_synthesis import StringSynthesisConfig, StringSynthesisCurriculum, StringSynthesisDataset
+from .weighted_job_scheduling import (
+    WeightedJobSchedulingConfig,
+    WeightedJobSchedulingCurriculum,
+    WeightedJobSchedulingDataset,
+)
 from .word_ladder import WordLadderConfig, WordLadderCurriculum, WordLadderDataset
 from .word_sequence_reversal import (
     WordSequenceReversalConfig,
@@ -85,6 +90,9 @@ __all__ = [
     "WordSequenceReversalConfig",
     "WordSequenceReversalDataset",
     "WordSequenceReversalCurriculum",
+    "WeightedJobSchedulingConfig",
+    "WeightedJobSchedulingDataset",
+    "WeightedJobSchedulingCurriculum",
     "WordSortingCurriculum",
     "WordSortingConfig",
     "WordSortingDataset",
