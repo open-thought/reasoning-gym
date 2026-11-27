@@ -101,3 +101,21 @@ def test_gsm_symbolic_score_answer():
         item = dataset[i]
         score = dataset.score_answer(item["answer"], item)
         assert score == 1.0
+
+
+def test_gsm_symbolic_score_answer_thousands_separator():
+    """Answers written with thousands separators get full credit"""
+    config = GSMSymbolicDatasetConfig(size=100, seed=42)
+    dataset = GSMSymbolicDataset(config)
+
+    checked = 0
+    for item in dataset:
+        value = float(item["answer"])
+        if value >= 1000 and value.is_integer():
+            assert dataset.score_answer(f"{int(value):,}", item) == 1.0
+            assert dataset.score_answer(f"{int(value) + 1:,}", item) == 0.01
+            checked += 1
+    assert checked > 0
+
+    item = dataset[0]
+    assert dataset.score_answer("1,234,567.5", {**item, "answer": "1234567.5"}) == 1.0
