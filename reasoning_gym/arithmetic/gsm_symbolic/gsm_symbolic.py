@@ -163,11 +163,11 @@ class GSMSymbolicDataset(ProceduralDataset):
             return reward
         try:
             # Extract number using regex with search
-            match = re.search(r"\b-?\d+(?:\.\d+)?\b", answer)
+            match = re.search(r"\b-?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\b", answer)
             if not match:
                 return reward
 
-            answer_value = float(match.group(0))
+            answer_value = float(match.group(0).replace(",", ""))
             expected_answer = float(entry["answer"])
             if answer_value == expected_answer:
                 reward = 1.0
